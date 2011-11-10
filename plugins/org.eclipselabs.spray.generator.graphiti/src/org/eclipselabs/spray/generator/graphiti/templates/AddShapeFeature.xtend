@@ -109,82 +109,9 @@ class AddShapeFeature extends FileGenerator  {
                 ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);
                 link(containerShape, addedModelElement);
         
-        «FOR part : container.parts »
-            «IF part instanceof Line»
-                «var line = part as Line»
-                // Part is Line
-                {
-                    // create shape for line
-                    Shape shape = peCreateService.createShape(textContainer, false);
-                    // create and set graphics algorithm
-                    Polyline polyline = gaService.createPolyline(shape, new int[] { 0, 0, 0, 0 });
-                    polyline.setForeground(manageColor(«line.lineColor» ));
-                    polyline.setLineWidth(«line.layout.lineWidth»);
-                «IF line.layout.lineWidth == 0»
-                    polyline.setLineVisible(false);
-                «ENDIF»
-                    gaService.setLocation(polyline, 0, 0);
-                    Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
-                }
-            «ELSEIF part instanceof Text»
-                «var text = part as Text»
-                // Part is Text
-                {
-                    String type = "«text.fullyQualifiedName»";
-                    // create shape for text and set text graphics algorithm
-                    Shape shape = peCreateService.createShape(textContainer, false);
-                    Text text = gaService.createDefaultText(getDiagram(), shape);
-                    text.setFont(gaService.manageFont(getDiagram(), text.getFont().getName(), 12));
-                    text.setForeground(manageColor(«text.lineColor»));
-                    text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-                    text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-                «IF text.layout.bold»
-                    text.getFont().setBold(true);
-                «ENDIF»
-                «IF text.layout.italic»
-                    text.getFont().setItalic(true);
-                «ENDIF»
-                    gaService.setLocationAndSize(text, 0, 0, 0, 0);
-                    Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", type);
-                    Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
-                    // create link and wire it
-                    link(shape, addedModelElement);
-                }
-            «ELSEIF part instanceof MetaReference»
-                «val metaRef = part as MetaReference»
-                «val eReference = metaRef.reference» 
-                // Part is reference list
-                {
-                    // Create a dummy invisible line to have an ancjhor point for adding new elements to the list
-                    Shape dummy = peCreateService.createShape(textContainer, false);
-                    Graphiti.getPeService().setPropertyValue(dummy, "MODEL_TYPE", "«eReference.EReferenceType.name»");
-                    Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
-                    p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
-                    p.setLineWidth(0);
-                    p.setLineVisible(false);
-                    gaService.setLocation(p, 0, 0);
-                    Graphiti.getPeService().setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
-                }
-                for («eReference.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«eReference.name.toFirstUpper»()) {
-                    Shape shape = peCreateService.createContainerShape(textContainer, true);
-                    Graphiti.getPeService().setPropertyValue(shape, "STATIC", "true");
-                    Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", "«eReference.EReferenceType.name»");
-                    Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
-                    // create and set text graphics algorithm
-                    Text text = gaService.createDefaultText(getDiagram(), shape, p.get«metaRef.labelPropertyName.toFirstUpper»());
-                    // TODO should have a text color here, refer to representation of reference type
-                    text.setForeground(manageColor(«container.textColor»)); 
-                    text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
-                    text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
-                    gaService.setLocationAndSize(text, 0, 0, 0, 0);
-                    // create link and wire it
-                    link(shape, p);
-                }
-            «ELSE»
-                // TODO
-                System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
-            «ENDIF»
-        «ENDFOR»
+                «FOR part : container.parts»
+                    «part.createShape»
+                «ENDFOR»
                 
                 // add a chopbox anchor to the shape
                 peCreateService.createChopboxAnchor(containerShape);
@@ -207,5 +134,82 @@ class AddShapeFeature extends FileGenerator  {
             }
             
         }
+        '''
+        
+        def dispatch createShape (EObject part) '''
+                System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
+        '''
+        
+        def dispatch createShape (Line line) '''
+            // Part is Line
+            {
+                // create shape for line
+                Shape shape = peCreateService.createShape(textContainer, false);
+                // create and set graphics algorithm
+                Polyline polyline = gaService.createPolyline(shape, new int[] { 0, 0, 0, 0 });
+                polyline.setForeground(manageColor(«line.lineColor» ));
+                polyline.setLineWidth(«line.layout.lineWidth»);
+            «IF line.layout.lineWidth == 0»
+                polyline.setLineVisible(false);
+            «ENDIF»
+                gaService.setLocation(polyline, 0, 0);
+                Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
+            }
+        '''
+        
+        def dispatch createShape (Text text) '''
+            // Part is Text
+            {
+                String type = "«text.fullyQualifiedName»";
+                // create shape for text and set text graphics algorithm
+                Shape shape = peCreateService.createShape(textContainer, false);
+                Text text = gaService.createDefaultText(getDiagram(), shape);
+                text.setFont(gaService.manageFont(getDiagram(), text.getFont().getName(), 12));
+                text.setForeground(manageColor(«text.lineColor»));
+                text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+                text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+            «IF text.layout.bold»
+                text.getFont().setBold(true);
+            «ENDIF»
+            «IF text.layout.italic»
+                text.getFont().setItalic(true);
+            «ENDIF»
+                gaService.setLocationAndSize(text, 0, 0, 0, 0);
+                Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", type);
+                Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
+                // create link and wire it
+                link(shape, addedModelElement);
+            }
+        '''
+        
+        def dispatch createShape (MetaReference metaRef) '''
+            «val eReference = metaRef.reference» 
+            // Part is reference list
+            {
+                // Create a dummy invisible line to have an ancjhor point for adding new elements to the list
+                Shape dummy = peCreateService.createShape(textContainer, false);
+                Graphiti.getPeService().setPropertyValue(dummy, "MODEL_TYPE", "«eReference.EReferenceType.name»");
+                Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
+                p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
+                p.setLineWidth(0);
+                p.setLineVisible(false);
+                gaService.setLocation(p, 0, 0);
+                Graphiti.getPeService().setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
+            }
+            for («eReference.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«eReference.name.toFirstUpper»()) {
+                Shape shape = peCreateService.createContainerShape(textContainer, true);
+                Graphiti.getPeService().setPropertyValue(shape, "STATIC", "true");
+                Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", "«eReference.EReferenceType.name»");
+                Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
+                // create and set text graphics algorithm
+                Text text = gaService.createDefaultText(getDiagram(), shape, p.get«metaRef.labelPropertyName.toFirstUpper»());
+                // TODO should have a text color here, refer to representation of reference type
+                text.setForeground(manageColor(«metaRef.container.textColor»)); 
+                text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+                text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
+                gaService.setLocationAndSize(text, 0, 0, 0, 0);
+                // create link and wire it
+                link(shape, p);
+            }
         '''
 }
