@@ -34,7 +34,7 @@ public class Plugin extends TemplateUtil {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("        ");
     String _name = diagram.getName();
-    String diagramName = _name;
+    final String diagramName = _name;
     _builder.newLineIfNotEmpty();
     _builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
     _builder.newLine();

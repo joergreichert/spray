@@ -125,6 +125,8 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("import java.util.Map;");
     _builder.newLine();
     _builder.newLine();
+    _builder.append("import org.eclipse.emf.ecore.EObject;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IFeatureProvider;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IReason;");
@@ -132,8 +134,6 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("import org.eclipse.graphiti.features.context.IUpdateContext;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IContext;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.impl.Reason;");
     _builder.newLine();
@@ -151,6 +151,8 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.Graphiti;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFUpdateFeature;");
+    _builder.newLine();
     _builder.append("import ");
     MetaClass _represents_4 = connection.getRepresents();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_represents_4);
@@ -163,7 +165,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("public class ");
     _builder.append(className, "");
-    _builder.append(" extends AbstractUpdateFeature {");
+    _builder.append(" extends AbstractEMFUpdateFeature {");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
@@ -192,7 +194,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("// return true, if linked business object is a EClass");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("Object bo = getBusinessObjectForPictogramElement(context.getPictogramElement());");
+    _builder.append("EObject bo = getBusinessObjectForPictogramElement(context.getPictogramElement());");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("PictogramElement pictogramElement = context.getPictogramElement();");
@@ -216,7 +218,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("PictogramElement pictogramElement = context.getPictogramElement();");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("Object bo = getBusinessObjectForPictogramElement(pictogramElement);");
+    _builder.append("EObject bo = getBusinessObjectForPictogramElement(pictogramElement);");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("if ( ! (bo instanceof ");
@@ -292,7 +294,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("PictogramElement pictogramElement = context.getPictogramElement();");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("Object bo = getBusinessObjectForPictogramElement(pictogramElement);");
+    _builder.append("EObject bo = getBusinessObjectForPictogramElement(pictogramElement);");
     _builder.newLine();
     _builder.append("        ");
     _builder.append(metaClassName, "        ");

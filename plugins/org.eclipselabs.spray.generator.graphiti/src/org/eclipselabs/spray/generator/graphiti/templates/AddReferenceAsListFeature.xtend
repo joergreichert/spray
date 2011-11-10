@@ -43,11 +43,11 @@ class AddReferenceAsListFeature extends FileGenerator  {
         «header(this)»
         package «feature_package()»;
         import java.util.ArrayList;
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.datatypes.IDimension;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -60,16 +60,21 @@ class AddReferenceAsListFeature extends FileGenerator  {
         import «util_package()».ISprayContainer;
         import «util_package()».SprayContainerService;
         import «util_package()».ISprayColorConstants;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFAddShapeFeature;
+        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
+        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_STATIC;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddShapeFeature {
+        public class «className» extends AbstractEMFAddShapeFeature {
             private static final ArrayList<org.eclipse.graphiti.mm.Property> EMPTY_PROPERTIES_LIST = new ArrayList<org.eclipse.graphiti.mm.Property>(0);
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
          
-            /* This method very much depends on the sturtcure of the standard rectangle shape.
+            /**
+             * {@inheritDoc}
+             * This method very much depends on the structure of the standard rectangle shape.
              */
             public PictogramElement add(IAddContext context) {
                 final «target.EReferenceType.javaInterfaceName.shortName» addedModelElement = («target.EReferenceType.name») context.getNewObject();
@@ -85,7 +90,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
                    GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
                     IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
                     gaService.setLocation(graphicsAlgorithm, 0, 0);
-                    String modelType = Graphiti.getPeService().getPropertyValue(shape, "MODEL_TYPE");
+                    String modelType = Graphiti.getPeService().getPropertyValue(shape, PROPERTY_MODEL_TYPE);
                     if( modelType != null && modelType.equals("«target.EReferenceType.name»") ){
                         found = shape; index = i; 
                     }
@@ -94,8 +99,8 @@ class AddReferenceAsListFeature extends FileGenerator  {
         
                 // LIST of PROPERTIES
                 Shape newShape = createShape(textbox, index);
-                Graphiti.getPeService().setPropertyValue(newShape, "STATIC", "true");
-                Graphiti.getPeService().setPropertyValue(newShape, "MODEL_TYPE", "«target.EReferenceType.name»");
+                Graphiti.getPeService().setPropertyValue(newShape, PROPERTY_STATIC, "true");
+                Graphiti.getPeService().setPropertyValue(newShape, PROPERTY_MODEL_TYPE, "«target.EReferenceType.name»");
                 Graphiti.getPeService().setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                 // TODO Name attribute should not be default
                 Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
@@ -120,13 +125,15 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 return newShape;
             }
             
-            
+            /**
+             * {@inheritDoc}
+             */
             public boolean canAdd(IAddContext context) {
                 final Object newObject = context.getNewObject();
                 if (newObject instanceof «target.EReferenceType.name») {
                     // check if user wants to add to a diagram
                     Shape target = context.getTargetContainer();
-                    Object domainObject = getBusinessObjectForPictogramElement(target);
+                    EObject domainObject = getBusinessObjectForPictogramElement(target);
                     if (domainObject instanceof «metaClass.javaInterfaceName.shortName») {
                         return true;
                     }
@@ -134,11 +141,17 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 return false;
             }    
             
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean hasDoneChanges() {
                 return false;
             }
         
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean canUndo(IContext context) {
                 return false;

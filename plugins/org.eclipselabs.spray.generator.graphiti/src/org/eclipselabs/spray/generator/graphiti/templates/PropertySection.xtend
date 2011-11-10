@@ -33,8 +33,6 @@ class PropertySection extends FileGenerator  {
         «extensionHeader(this)»
         package «property_package()»;
         
-        import org.eclipse.graphiti.features.IFeatureProvider;
-        
         public class «className» extends «className»Base {
             
         }
@@ -50,6 +48,7 @@ class PropertySection extends FileGenerator  {
         «header(this)»
         package «property_package()»;
         
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.emf.transaction.RecordingCommand;
         import org.eclipse.emf.transaction.TransactionalEditingDomain;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -124,7 +123,7 @@ class PropertySection extends FileGenerator  {
 
                 PictogramElement pe = getSelectedPictogramElement();
                 if (pe != null) {
-                    Object bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+                    EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
                    // the filter assured, that it is a «eClass.name»
                     if (bo == null)
                         return;
@@ -215,7 +214,7 @@ class PropertySection extends FileGenerator  {
             protected String getFeatureAsText() {
                 PictogramElement pe = getSelectedPictogramElement();
                 if (pe != null) {
-                    Object bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+                    EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
                     // the filter assured, that it is a «eClass.name»
                     if (bo == null) {
                         return "unknown ";

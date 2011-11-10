@@ -14,7 +14,7 @@ class Plugin extends TemplateUtil {
     @Inject extension NamingExtensions
     
     def generate(Diagram diagram) '''
-        «var diagramName = diagram.name»
+        «val diagramName = diagram.name»
 <?xml version="1.0" encoding="UTF-8"?>
         <?eclipse version="3.0"?>
         «pluginHeader(this)»
@@ -126,7 +126,7 @@ class Plugin extends TemplateUtil {
                            class="«diagram.extensionFactoryClassName»:«GeneratorUtil::property_package()».«target.EReferenceType.name»«attribute.name.toFirstUpper»Section"
                            filter="«GeneratorUtil::property_package()».«target.EReferenceType.name»Filter"
                          «IF XtendProperties::getValue("PreviousSection") != null»
-                         afterSection="«XtendProperties::getValue("PreviousSection")»"
+                          afterSection="«XtendProperties::getValue("PreviousSection")»"
                          «ENDIF»
                            «XtendProperties::setValue("PreviousSection", diagramName + ".main.tab." + target.EReferenceType.name + "." + attribute.name)»
                            id="«XtendProperties::getValue("PreviousSection")»">

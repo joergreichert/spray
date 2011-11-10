@@ -52,11 +52,11 @@ class UpdateConnectionFeature extends FileGenerator  {
 
         import java.util.Map;
         
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
@@ -65,10 +65,11 @@ class UpdateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.Graphiti;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFUpdateFeature;
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
-        public class «className» extends AbstractUpdateFeature {
+        public class «className» extends AbstractEMFUpdateFeature {
         
             Map<String, String> values = null;
         
@@ -79,7 +80,7 @@ class UpdateConnectionFeature extends FileGenerator  {
             @Override
             public boolean canUpdate(IUpdateContext context) {
                 // return true, if linked business object is a EClass
-                Object bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
+                EObject bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
                 PictogramElement pictogramElement = context.getPictogramElement();
                 return (bo instanceof «metaClassName») && (!(pictogramElement instanceof Diagram));
             }
@@ -87,7 +88,7 @@ class UpdateConnectionFeature extends FileGenerator  {
             @Override
             public IReason updateNeeded(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
-                Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                 if ( ! (bo instanceof «metaClassName»)) {
                     return Reason.createFalseReason();
                 }
@@ -112,7 +113,7 @@ class UpdateConnectionFeature extends FileGenerator  {
             @Override
             public boolean update(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
-                Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                 «metaClassName» eClass = («metaClassName») bo;
         
                 FreeFormConnection free = (FreeFormConnection) pictogramElement;

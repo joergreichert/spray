@@ -54,9 +54,6 @@ public class PropertySection extends FileGenerator {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.IFeatureProvider;");
-    _builder.newLine();
-    _builder.newLine();
     _builder.append("public class ");
     _builder.append(className, "");
     _builder.append(" extends ");
@@ -99,6 +96,8 @@ public class PropertySection extends FileGenerator {
     _builder.append(_property_package, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("import org.eclipse.emf.ecore.EObject;");
     _builder.newLine();
     _builder.append("import org.eclipse.emf.transaction.RecordingCommand;");
     _builder.newLine();
@@ -319,7 +318,7 @@ public class PropertySection extends FileGenerator {
         _builder.append("if (pe != null) {");
         _builder.newLine();
         _builder.append("        ");
-        _builder.append("Object bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);");
+        _builder.append("EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);");
         _builder.newLine();
         _builder.append("       ");
         _builder.append("// the filter assured, that it is a ");
@@ -645,7 +644,7 @@ public class PropertySection extends FileGenerator {
         _builder.append("if (pe != null) {");
         _builder.newLine();
         _builder.append("            ");
-        _builder.append("Object bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);");
+        _builder.append("EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);");
         _builder.newLine();
         _builder.append("            ");
         _builder.append("// the filter assured, that it is a ");

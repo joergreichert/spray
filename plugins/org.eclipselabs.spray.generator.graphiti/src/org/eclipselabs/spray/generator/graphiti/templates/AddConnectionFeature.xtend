@@ -69,7 +69,7 @@ class AddConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipse.graphiti.services.IPeCreateService;
-        
+        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         // MARKER_IMPORT
         
         public class «className» extends AbstractAddFeature {
@@ -102,7 +102,7 @@ class AddConnectionFeature extends FileGenerator  {
                 int targetHeight = ga.getHeight();
                 Graphiti.getGaLayoutService().setLocation(text, 10, -(targetHeight / 2) - 20);
                 text.setValue(getToLabel(addedDomainObject));
-                Graphiti.getPeService().setPropertyValue(toDecorator, "MODEL_TYPE", "TO_LABEL");
+                Graphiti.getPeService().setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, "TO_LABEL");
                 link(toDecorator, addedDomainObject);
              «ENDIF»
              «IF connection.connectionLabel != null»
@@ -111,7 +111,7 @@ class AddConnectionFeature extends FileGenerator  {
                 sourceText.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 Graphiti.getGaLayoutService().setLocation(sourceText, 10, 0);
                 sourceText.setValue(getConnectionLabel(addedDomainObject));
-                Graphiti.getPeService().setPropertyValue(connectionDecorator, "MODEL_TYPE", "CONNECTION_LABEL");
+                Graphiti.getPeService().setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, "CONNECTION_LABEL");
                 link(connectionDecorator, addedDomainObject);
             «ENDIF»
              «IF connection.fromLabel != null»
@@ -120,36 +120,39 @@ class AddConnectionFeature extends FileGenerator  {
                 fromText.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 Graphiti.getGaLayoutService().setLocation(fromText, 10, 20);
                 fromText.setValue(getFromLabel(addedDomainObject));
-                Graphiti.getPeService().setPropertyValue(fromDecorator, "MODEL_TYPE", "FROM_LABEL");
+                Graphiti.getPeService().setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, "FROM_LABEL");
                 link(fromDecorator, addedDomainObject);
              «ENDIF»
          
                 // create link and wire it
-                Graphiti.getPeService().setPropertyValue(connection, "MODEL_TYPE", "«metaClass.name»");
+                Graphiti.getPeService().setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«metaClass.name»");
                 link(connection, addedDomainObject);
         
                 return connection;
             }
         
             «IF connection.toLabel != null»
-                private String getToLabel («metaClass.name» addedDomainObject) {
+                protected String getToLabel («metaClass.name» addedDomainObject) {
                     «valueGenerator(connection.toLabel, "addedDomainObject")»
                 }
             «ENDIF»
             «IF connection.connectionLabel != null»
-                private String getConnectionLabel («metaClass.name» addedDomainObject) {
+                protected String getConnectionLabel («metaClass.name» addedDomainObject) {
                     «valueGenerator(connection.connectionLabel, "addedDomainObject")»
                 }
             «ENDIF»
             «IF connection.fromLabel != null»
-                private String getFromLabel («metaClass.name» addedDomainObject) {
+                protected String getFromLabel («metaClass.name» addedDomainObject) {
                     «valueGenerator(connection.fromLabel, "addedDomainObject")»
                 }
             «ENDIF»
             
+            /**
+             * {@inheritDoc}
+             * 
+             * @return <code>true</code> if given business object is an {@link «metaClass.name»} and context is of type {@link IAddConnectionContext}
+             */
             public boolean canAdd(IAddContext context) {
-                // return true if given business object is an «metaClass.name»
-                // note, that the context must be an instance of IAddConnectionContext
                 if (context instanceof IAddConnectionContext
                     && context.getNewObject() instanceof «metaClass.name») {
                     return true;
