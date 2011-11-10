@@ -1,0 +1,9 @@
+diagram test
+
+class BusinessDomainDsl.BusinessClass :
+    container  () {
+    }
+
+class BusinessDomainDsl.BusinessClass alias BC1:
+    container  () {
+    }
