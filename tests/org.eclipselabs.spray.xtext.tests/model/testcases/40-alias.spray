@@ -1,3 +1,5 @@
+// ALIASES
+// Aliased MetaClass
 diagram test
 
 class BusinessDomainDsl.BusinessClass :

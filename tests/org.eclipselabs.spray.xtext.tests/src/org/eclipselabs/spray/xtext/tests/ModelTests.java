@@ -56,4 +56,29 @@ public class ModelTests extends XtextTest {
     public void test_40_alias() {
         testFile("testcases/40-alias.spray", "mod4j/BusinessDomainDsl.ecore");
     }
+
+    @Test
+    public void test_41_alias() {
+        testFile("testcases/41-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_42_alias() {
+        testFile("testcases/42-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_43_alias() {
+        testFile("testcases/43-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_44_alias() {
+        testFile("testcases/44-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_45_alias() {
+        testFile("testcases/45-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
 }

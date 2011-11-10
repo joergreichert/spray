@@ -1,0 +1,7 @@
+// ALIASES
+// Aliased Shape of type Text
+diagram test
+
+class BusinessDomainDsl.BusinessClass :
+    text alias shape1 () ""
+    
