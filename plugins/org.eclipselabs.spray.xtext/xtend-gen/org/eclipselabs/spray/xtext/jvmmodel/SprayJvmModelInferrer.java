@@ -73,13 +73,23 @@ public class SprayJvmModelInferrer extends AbstractModelInferrer {
       final String instanceClassName = _javaInterfaceName;
       JvmTypeReference _typeForName = this.typeReferences.getTypeForName(instanceClassName, clazz, null);
       final JvmTypeReference eClassJvmType = _typeForName;
-      EClass _type_4 = clazz.getType();
-      EPackage _ePackage = _type_4.getEPackage();
-      String _name = _ePackage.getName();
-      String _operator_plus = StringExtensions.operator_plus(_name, ".");
+      String _xifexpression = null;
+      String _alias = clazz.getAlias();
+      boolean _operator_equals_1 = ObjectExtensions.operator_equals(_alias, null);
+      if (_operator_equals_1) {
+        EClass _type_4 = clazz.getType();
+        String _name = _type_4.getName();
+        _xifexpression = _name;
+      } else {
+        String _alias_1 = clazz.getAlias();
+        _xifexpression = _alias_1;
+      }
+      final String clazzName = _xifexpression;
       EClass _type_5 = clazz.getType();
-      String _name_1 = _type_5.getName();
-      String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
+      EPackage _ePackage = _type_5.getEPackage();
+      String _name_1 = _ePackage.getName();
+      String _operator_plus = StringExtensions.operator_plus(_name_1, ".");
+      String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, clazzName);
       QualifiedName _qualifiedName = this.converter.toQualifiedName(_operator_plus_1);
       final Procedure1<JvmGenericType> _function = new Procedure1<JvmGenericType>() {
           public void apply(final JvmGenericType it) {

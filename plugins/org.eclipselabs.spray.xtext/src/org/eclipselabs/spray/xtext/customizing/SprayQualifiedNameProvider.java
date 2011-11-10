@@ -25,9 +25,13 @@ public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
     }
 
     public QualifiedName qualifiedName(MetaClass element) {
-        List<INode> nodes = NodeModelUtils.findNodesForFeature(element, SprayPackage.Literals.META_CLASS__TYPE);
-        String eClassName = NodeModelUtils.getTokenText(nodes.get(0));
-        return QualifiedName.create(element.getDiagram().getName(), eClassName);
+        if (element.getAlias() == null) {
+            List<INode> nodes = NodeModelUtils.findNodesForFeature(element, SprayPackage.Literals.META_CLASS__TYPE);
+            String eClassName = NodeModelUtils.getTokenText(nodes.get(0));
+            return QualifiedName.create(element.getDiagram().getName(), eClassName);
+        } else {
+            return QualifiedName.create(element.getDiagram().getName(), element.getAlias());
+        }
     }
 
     /**
