@@ -10,8 +10,8 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
 class Plugin extends TemplateUtil {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
     
     def generate(Diagram diagram) '''
         «var diagramName = diagram.name»
@@ -95,7 +95,7 @@ class Plugin extends TemplateUtil {
               <propertySections contributorId="«diagramName».PropertyContributor">
             «FOR property : cls.type.EAllAttributes»
                   <propertySection tab="«diagramName».main.tab"
-                   class="«diagram.extensionFactoryClassName»:«naming.getPropertySectionClassName(cls.type, property)»"
+                   class="«diagram.extensionFactoryClassName»:«cls.type.getPropertySectionClassName(property)»"
                    filter="«cls.filterClassName»"
                  «IF XtendProperties::getValue("PreviousSection") != null»
                    afterSection="«XtendProperties::getValue("PreviousSection")»"
@@ -114,7 +114,7 @@ class Plugin extends TemplateUtil {
             «IF cls.representedBy instanceof Container»
                 «var container = (cls.representedBy as Container) »
                 «FOR ref :  container.parts.filter(typeof(MetaReference)) »  
-                    «XtendProperties::setValue("refName", ref.getName)» 
+                    «XtendProperties::setValue("refName", ref.name)» 
                     «val references = cls.type.EAllReferences» 
                     «val target = ref.reference»
                       «XtendProperties::setValue("PreviousSection", null)»
@@ -123,7 +123,7 @@ class Plugin extends TemplateUtil {
                       <propertySections contributorId="«diagramName».PropertyContributor">
                     «FOR attribute : target.EReferenceType.EAllAttributes»
                           <propertySection tab="«diagramName».main.tab"           
-                           class="«diagram.extensionFactoryClassName»:«GeneratorUtil::property_package()».«target.EReferenceType.name»«attribute.name.toFirstUpper()»Section"
+                           class="«diagram.extensionFactoryClassName»:«GeneratorUtil::property_package()».«target.EReferenceType.name»«attribute.name.toFirstUpper»Section"
                            filter="«GeneratorUtil::property_package()».«target.EReferenceType.name»Filter"
                          «IF XtendProperties::getValue("PreviousSection") != null»
                          afterSection="«XtendProperties::getValue("PreviousSection")»"

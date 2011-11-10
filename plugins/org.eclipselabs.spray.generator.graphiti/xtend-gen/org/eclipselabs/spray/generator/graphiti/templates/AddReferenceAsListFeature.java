@@ -19,10 +19,10 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class AddReferenceAsListFeature extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -178,7 +178,7 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("final ");
     EClass _eReferenceType = target.getEReferenceType();
-    String _javaInterfaceName = this.naming.getJavaInterfaceName(_eReferenceType);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_eReferenceType);
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(" addedModelElement = (");
@@ -268,7 +268,7 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get");
-    String _labelPropertyName = this.e1.getLabelPropertyName(reference);
+    String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(reference);
     String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName);
     _builder.append(_firstUpper, "        ");
     _builder.append("());");
@@ -359,7 +359,7 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("            ");
     _builder.append("if (domainObject instanceof ");
-    String _javaInterfaceName_1 = this.naming.getJavaInterfaceName(metaClass);
+    String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(metaClass);
     String _shortName_1 = this.shortName(_javaInterfaceName_1);
     _builder.append(_shortName_1, "            ");
     _builder.append(") {");

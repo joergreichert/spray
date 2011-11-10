@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
-import org.eclipselabs.spray.generator.graphiti.util.ImportUtil
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
@@ -13,9 +12,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class UpdateReferenceAsListFeature extends FileGenerator  {
-    @Inject extension ImportUtil importUtil
-    @Inject extension NamingExtensions naming
-    @Inject extension SprayExtensions e1
+    @Inject extension NamingExtensions
+    @Inject extension SprayExtensions
     
     EClass target 
     
@@ -46,7 +44,6 @@ class UpdateReferenceAsListFeature extends FileGenerator  {
     '''
 
     def mainFile(MetaReference reference, String className) '''
-        «importUtil.initImports(feature_package())»
         «header(this)»
         package «feature_package()»;
         «val body = mainFileBody(reference, className)»
@@ -60,9 +57,8 @@ class UpdateReferenceAsListFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        // MARKER_IMPORT
         
-        «importUtil.printImports()»
-
         «body»
     '''
 
@@ -101,7 +97,7 @@ class UpdateReferenceAsListFeature extends FileGenerator  {
                 Object bo = getBusinessObjectForPictogramElement(pictogramElement);
                 if (bo instanceof «target.name») {
                     «target.name» reference = («target.name») bo;
-                    businessName = reference.get«reference.getLabelPropertyName.toFirstUpper()»();
+                    businessName = reference.get«reference.labelPropertyName.toFirstUpper»();
                 }
          
                 // update needed, if names are different
@@ -123,7 +119,7 @@ class UpdateReferenceAsListFeature extends FileGenerator  {
                 Object bo = getBusinessObjectForPictogramElement(pictogramElement);
                 if (bo instanceof «target.name») {
                     «target.name» eClass = («target.name») bo;
-                    businessName = eClass.get«reference.getLabelPropertyName.toFirstUpper()»();
+                    businessName = eClass.get«reference.labelPropertyName.toFirstUpper()»();
                 }
          
                 // Set name in pictogram model

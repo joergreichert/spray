@@ -10,8 +10,8 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class Filter extends FileGenerator  {
-    @Inject extension NamingExtensions e2
+class Filter extends FileGenerator {
+    @Inject extension NamingExtensions
     
     Diagram diagram
     

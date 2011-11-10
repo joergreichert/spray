@@ -12,8 +12,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
 class LayoutFeature extends FileGenerator {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
@@ -23,7 +23,7 @@ class LayoutFeature extends FileGenerator {
         mainExtensionPointFile( modelElement as Container, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Container container, String className) '''    
+    def mainExtensionPointFile(Container container, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         

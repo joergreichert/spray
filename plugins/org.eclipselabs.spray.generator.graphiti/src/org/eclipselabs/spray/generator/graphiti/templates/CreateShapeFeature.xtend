@@ -12,9 +12,9 @@ import static extension org.eclipselabs.spray.generator.graphiti.util.GeneratorU
 
 
 class CreateShapeFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions naming
-    @Inject extension GenModelHelper genModelHelper
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
+    @Inject extension GenModelHelper
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaClass, javaGenFile.baseClassName)
@@ -56,13 +56,13 @@ class CreateShapeFeature extends FileGenerator  {
         
         public class «className» extends AbstractCreateFeature {
         
-            private static final String TITLE = "Create «metaClass.visibleName()»";
-            private static final String USER_QUESTION = "Enter new «metaClass.visibleName()» name";
-            public final static String typeOrAliasName = "«metaClass.visibleName()»";
+            private static final String TITLE = "Create «metaClass.visibleName»";
+            private static final String USER_QUESTION = "Enter new «metaClass.visibleName» name";
+            public final static String typeOrAliasName = "«metaClass.visibleName»";
         
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
-                super(fp, "«metaClass.visibleName()»", "Create «metaClass.visibleName()»");
+                super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
             }
         
             public boolean canCreate(ICreateContext context) {
@@ -72,7 +72,7 @@ class CreateShapeFeature extends FileGenerator  {
             protected «metaClass.name» newClass = null;
         
             public Object[] create(final ICreateContext context) {
-                newClass = create«metaClass.visibleName()»(context);
+                newClass = create«metaClass.visibleName»(context);
             
                 if (newClass == null ) {
                     return EMPTY;
@@ -84,14 +84,14 @@ class CreateShapeFeature extends FileGenerator  {
                 return new Object[] { newClass };
             }
             
-            protected «metaClass.name» create«metaClass.visibleName()»(ICreateContext context) {
+            protected «metaClass.name» create«metaClass.visibleName»(ICreateContext context) {
                 // ask user for «className» name
                 String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
                 if (newName == null || newName.trim().length() == 0) {
                     return null;
                 }
                  // create «metaClass.name»
-                «metaClass.getName» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();    
+                «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();    
                 newClass.setName(newName);     
                 //  default is to add it to a file resource, which is created if it does not exist.
                 try {
@@ -111,7 +111,7 @@ class CreateShapeFeature extends FileGenerator  {
             «IF (metaClass.icon != null)»
                 @Override
                 public String getCreateImageId() {
-                    return «diagram.imageProviderClassName.shortName».«naming.getImageIdentifier(diagram, metaClass.icon)»;
+                    return «diagram.imageProviderClassName.shortName».«diagram.getImageIdentifier(metaClass.icon)»;
                 }
             «ENDIF»
         

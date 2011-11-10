@@ -15,9 +15,9 @@ import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
 class AddConnectionFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension LayoutExtensions e2
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension LayoutExtensions
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaClass, javaGenFile.baseClassName)
@@ -81,7 +81,7 @@ class AddConnectionFeature extends FileGenerator  {
             public PictogramElement add(IAddContext context) {
                 IAddConnectionContext addConContext = (IAddConnectionContext) context;
                 // TODO: Domain object
-                «metaClass.getName» addedDomainObject = («metaClass.getName») context.getNewObject();
+                «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
                 IPeCreateService peCreateService = Graphiti.getPeCreateService();
               
                 // CONNECTION WITH POLYLINE
@@ -125,33 +125,33 @@ class AddConnectionFeature extends FileGenerator  {
              «ENDIF»
          
                 // create link and wire it
-                Graphiti.getPeService().setPropertyValue(connection, "MODEL_TYPE", "«metaClass.getName»");
+                Graphiti.getPeService().setPropertyValue(connection, "MODEL_TYPE", "«metaClass.name»");
                 link(connection, addedDomainObject);
         
                 return connection;
             }
         
             «IF connection.toLabel != null»
-                private String getToLabel («metaClass.getName» addedDomainObject) {
+                private String getToLabel («metaClass.name» addedDomainObject) {
                     «valueGenerator(connection.toLabel, "addedDomainObject")»
                 }
             «ENDIF»
             «IF connection.connectionLabel != null»
-                private String getConnectionLabel («metaClass.getName» addedDomainObject) {
+                private String getConnectionLabel («metaClass.name» addedDomainObject) {
                     «valueGenerator(connection.connectionLabel, "addedDomainObject")»
                 }
             «ENDIF»
             «IF connection.fromLabel != null»
-                private String getFromLabel («metaClass.getName» addedDomainObject) {
+                private String getFromLabel («metaClass.name» addedDomainObject) {
                     «valueGenerator(connection.fromLabel, "addedDomainObject")»
                 }
             «ENDIF»
             
             public boolean canAdd(IAddContext context) {
-                // return true if given business object is an «metaClass.getName»
+                // return true if given business object is an «metaClass.name»
                 // note, that the context must be an instance of IAddConnectionContext
                 if (context instanceof IAddConnectionContext
-                    && context.getNewObject() instanceof «metaClass.getName») {
+                    && context.getNewObject() instanceof «metaClass.name») {
                     return true;
                 }
                 return false;

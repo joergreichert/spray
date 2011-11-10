@@ -19,10 +19,10 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class LayoutFeature extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -198,7 +198,7 @@ public class LayoutFeature extends FileGenerator {
     _builder.append("return (businessObjects.size() == 1) && (businessObjects.get(0) instanceof ");
     MetaClass _represents_3 = container.getRepresents();
     EClass _type_2 = _represents_3.getType();
-    String _javaInterfaceName = this.naming.getJavaInterfaceName(_type_2);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_type_2);
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "       ");
     _builder.append(");");

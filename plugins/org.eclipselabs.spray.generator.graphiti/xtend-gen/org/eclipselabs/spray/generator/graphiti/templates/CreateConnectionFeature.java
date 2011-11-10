@@ -27,13 +27,13 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper;
 @SuppressWarnings("all")
 public class CreateConnectionFeature extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   @Inject
-  private GenModelHelper genModelHelper;
+  private GenModelHelper _genModelHelper;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -112,7 +112,7 @@ public class CreateConnectionFeature extends FileGenerator {
     final EClass to = ((EClass) _eType_1);
     _builder.newLineIfNotEmpty();
     Diagram _diagram = metaClass.getDiagram();
-    final Diagram diagram = _diagram;
+    final Diagram diagram = ((Diagram) _diagram);
     _builder.newLineIfNotEmpty();
     StringConcatenation _header = this.header(this);
     _builder.append(_header, "");
@@ -185,7 +185,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("// and those EClasses are not identical");
     _builder.newLine();
     _builder.append("        ");
-    String _javaInterfaceName = this.genModelHelper.getJavaInterfaceName(from);
+    String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(from);
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(" source = get");
@@ -194,7 +194,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("(context.getSourceAnchor());");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
-    String _javaInterfaceName_1 = this.genModelHelper.getJavaInterfaceName(to);
+    String _javaInterfaceName_1 = this._genModelHelper.getJavaInterfaceName(to);
     String _shortName_1 = this.shortName(_javaInterfaceName_1);
     _builder.append(_shortName_1, "        ");
     _builder.append(" target = get");
@@ -277,11 +277,11 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("// create new business object");
     _builder.newLine();
     _builder.append("            ");
-    String _javaInterfaceName_2 = this.naming.getJavaInterfaceName(metaClass);
+    String _javaInterfaceName_2 = this._namingExtensions.getJavaInterfaceName(metaClass);
     String _shortName_2 = this.shortName(_javaInterfaceName_2);
     _builder.append(_shortName_2, "            ");
     _builder.append(" eReference = create");
-    String _name_7 = this.e1.getName(metaClass);
+    String _name_7 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_7, "            ");
     _builder.append("(source, target);");
     _builder.newLineIfNotEmpty();
@@ -441,10 +441,10 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
-    String _name_20 = this.e1.getName(metaClass);
+    String _name_20 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_20, "    ");
     _builder.append(" create");
-    String _name_21 = this.e1.getName(metaClass);
+    String _name_21 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_21, "    ");
     _builder.append("(");
     String _name_22 = from.getName();
@@ -458,14 +458,14 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("// TODO: Domain Object");
     _builder.newLine();
     _builder.append("        ");
-    String _name_24 = this.e1.getName(metaClass);
+    String _name_24 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_24, "        ");
     _builder.append(" domainObject = ");
-    String _eFactoryInterfaceName = this.naming.getEFactoryInterfaceName(metaClass);
+    String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
     String _shortName_3 = this.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName_3, "        ");
     _builder.append(".eINSTANCE.create");
-    String _name_25 = this.e1.getName(metaClass);
+    String _name_25 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_25, "        ");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
@@ -514,7 +514,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("SampleUtil.saveToModelFile(domainObject, getDiagram(), \"");
     EClass _type_1 = metaClass.getType();
-    String _fileExtension = this.genModelHelper.getFileExtension(_type_1);
+    String _fileExtension = this._genModelHelper.getFileExtension(_type_1);
     _builder.append(_fileExtension, "            ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
@@ -572,14 +572,14 @@ public class CreateConnectionFeature extends FileGenerator {
         _builder.append("    ");
         _builder.append("return ");
         Diagram _diagram_1 = metaClass.getDiagram();
-        String _imageProviderClassName = this.naming.getImageProviderClassName(_diagram_1);
+        String _imageProviderClassName = this._namingExtensions.getImageProviderClassName(_diagram_1);
         String _shortName_4 = this.shortName(_imageProviderClassName);
         _builder.append(_shortName_4, "        ");
         _builder.append(".");
         String _icon_2 = metaClass.getIcon();
-        String _imageIdentifier = this.naming.getImageIdentifier(diagram, _icon_2);
+        String _imageIdentifier = this._namingExtensions.getImageIdentifier(diagram, _icon_2);
         _builder.append(_imageIdentifier, "        ");
-        _builder.append(";");
+        _builder.append("; ");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         _builder.append("}");

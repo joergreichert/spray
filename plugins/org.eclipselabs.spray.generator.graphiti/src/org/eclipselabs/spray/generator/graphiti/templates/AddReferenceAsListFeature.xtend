@@ -12,8 +12,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class AddReferenceAsListFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
@@ -98,7 +98,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 Graphiti.getPeService().setPropertyValue(newShape, "MODEL_TYPE", "«target.EReferenceType.name»");
                 Graphiti.getPeService().setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                 // TODO Name attribute should not be default
-                Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.getLabelPropertyName.toFirstUpper()»());
+                Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
                 // TODO find the right text color
                 text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
                 text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);

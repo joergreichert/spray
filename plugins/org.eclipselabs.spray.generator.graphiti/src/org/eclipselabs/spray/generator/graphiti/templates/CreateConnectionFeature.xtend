@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 import org.eclipselabs.spray.xtext.util.GenModelHelper
@@ -14,9 +15,9 @@ import static extension org.eclipselabs.spray.generator.graphiti.util.GeneratorU
 
 
 class CreateConnectionFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions naming
-    @Inject extension GenModelHelper genModelHelper
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
+    @Inject extension GenModelHelper
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaClass, javaGenFile.baseClassName)
@@ -26,7 +27,7 @@ class CreateConnectionFeature extends FileGenerator  {
         mainExtensionPointFile( modelElement as MetaClass, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(MetaClass metaClass, String className) '''    
+    def mainExtensionPointFile(MetaClass metaClass, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -48,7 +49,7 @@ class CreateConnectionFeature extends FileGenerator  {
         «val connection = metaClass.representedBy as Connection»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
-        «val diagram = metaClass.diagram»
+        «val diagram = metaClass.diagram as Diagram»
         «header(this)»
         package «feature_package()»;
         import java.io.IOException;
@@ -68,7 +69,7 @@ class CreateConnectionFeature extends FileGenerator  {
         
             public «className»(IFeatureProvider fp) {
                 // provide name and description for the UI, e.g. the palette
-                super(fp, "«metaClass.visibleName()»", "Create «metaClass.visibleName()»");
+                super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
             }
         
             public boolean canCreate(ICreateConnectionContext context) {
@@ -99,7 +100,7 @@ class CreateConnectionFeature extends FileGenerator  {
         
                 if (source != null && target != null) {
                     // create new business object
-                    «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.getName»(source, target);
+                    «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
                     // add connection for business object
                     AddConnectionContext addContext = new AddConnectionContext(
                             context.getSourceAnchor(), context.getTargetAnchor());
@@ -140,14 +141,14 @@ class CreateConnectionFeature extends FileGenerator  {
             /**
              * Creates a EReference between two EClasses.
              */
-            protected «metaClass.name» create«metaClass.getName»(«from.name» source, «to.name» target) {
+            protected «metaClass.name» create«metaClass.name»(«from.name» source, «to.name» target) {
                 // TODO: Domain Object
                 «metaClass.name» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
                 «IF metaClass.type.EAttributes.exists(att|att.name == "name") »
-                    domainObject.setName("new «metaClass.visibleName()»");
+                    domainObject.setName("new «metaClass.visibleName»");
                 «ENDIF»
-                domainObject.set«connection.from.name.toFirstUpper()»(source);
-                domainObject.set«connection.to.name.toFirstUpper()»(target);
+                domainObject.set«connection.from.name.toFirstUpper»(source);
+                domainObject.set«connection.to.name.toFirstUpper»(target);
         //        getDiagram().eResource().getContents().add(domainObject);
         
                 try {
@@ -166,7 +167,7 @@ class CreateConnectionFeature extends FileGenerator  {
             «IF (metaClass.icon != null) && ! metaClass.icon.equalsIgnoreCase("")»
                 @Override
                 public String getCreateImageId() {
-                    return «metaClass.diagram.imageProviderClassName.shortName».«naming.getImageIdentifier(diagram, metaClass.icon)»;
+                    return «metaClass.diagram.imageProviderClassName.shortName».«diagram.getImageIdentifier(metaClass.icon)»; 
                 }
             «ENDIF»
             

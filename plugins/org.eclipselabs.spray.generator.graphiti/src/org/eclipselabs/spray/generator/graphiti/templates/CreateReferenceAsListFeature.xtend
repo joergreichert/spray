@@ -13,8 +13,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class CreateReferenceAsListFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
     
     EClass target 
     
@@ -58,7 +58,7 @@ class CreateReferenceAsListFeature extends FileGenerator  {
         public class «className» extends AbstractCreateFeature {
         
             private static final String TITLE = "Create «target.name»";
-            private static final String USER_QUESTION = "Enter new «target.name» «reference.getLabelPropertyName»";
+            private static final String USER_QUESTION = "Enter new «target.name» «reference.labelPropertyName»";
         
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
@@ -84,8 +84,8 @@ class CreateReferenceAsListFeature extends FileGenerator  {
          
                 // create «target.name»
                 «target.javaInterfaceName.shortName» newDomainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«target.name»();
-                newDomainObject.set«reference.getLabelPropertyName.toFirstUpper()»(newName);
-                owner.get«reference.name.toFirstUpper()»().add(newDomainObject);
+                newDomainObject.set«reference.labelPropertyName.toFirstUpper»(newName);
+                owner.get«reference.name.toFirstUpper»().add(newDomainObject);
          
                 // do the add
                 addGraphicalRepresentation(context, newDomainObject);

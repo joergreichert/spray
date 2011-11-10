@@ -1,21 +1,25 @@
 package org.eclipselabs.spray.generator.graphiti.templates
 
-import java.util.*
-import org.eclipselabs.spray.mm.spray.*
-import org.eclipse.emf.ecore.*
-import org.eclipse.xtext.xtend2.lib.*
-import static extension org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import static extension org.eclipselabs.spray.generator.graphiti.util.XtendProperties.*
-import org.eclipselabs.spray.mm.spray.*
 import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.util.ImportUtil
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.mm.spray.Behaviour
+import org.eclipselabs.spray.mm.spray.BehaviourType
+import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.Diagram
+import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
+import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+
+import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+
 class ToolBehaviourProvider extends FileGenerator {
-    @Inject extension NamingExtensions naming
-    @Inject extension SprayExtensions e1
+    @Inject extension NamingExtensions
+    @Inject extension SprayExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)
@@ -86,8 +90,8 @@ class ToolBehaviourProvider extends FileGenerator {
                     «ENDIF»
                     «FOR subclass : target.EReferenceType.getSubclasses() »
                         «IF ! subclass.abstract »
-                            «objectCreationEntry(naming.getCreateReferenceAsListFeatureClassName(reference,subclass).shortName, "Create")»
-//                    , new «naming.getCreateReferenceAsListFeatureClassName(reference,subclass)»«subclass.name»Feature(this)
+                            «objectCreationEntry(reference.getCreateReferenceAsListFeatureClassName(subclass).shortName, "Create")»
+//                    , new «reference.getCreateReferenceAsListFeatureClassName(subclass)»«subclass.name»Feature(this)
                         «ENDIF»
                     «ENDFOR»
                 «ENDFOR»    
@@ -96,9 +100,9 @@ class ToolBehaviourProvider extends FileGenerator {
 
             «FOR container : diagram.metaClasses.filter( m | m.representedBy instanceof Container).map(m | m.representedBy as Container) »
                 «FOR metaRef : container.parts.filter(typeof(MetaReference)) »
-                «val metaRefName = metaRef.getName»
+                «val metaRefName = metaRef.name»
                 «val target = metaRef.reference » 
-                «val createFeatureName = diagram.name + "Create" + container.represents.getName + metaRef.getName + target.EReferenceType.name + "Feature" »
+                «val createFeatureName = diagram.name + "Create" + container.represents.name + metaRef.name + target.EReferenceType.name + "Feature" »
                 // 00000 Embedded list of references «createFeatureName»
 //                {
 //                    ICreateFeature createFeature = new !!!addToImports(feature_package(), createFeatureName)!!!(this.getFeatureProvider());
@@ -133,7 +137,7 @@ class ToolBehaviourProvider extends FileGenerator {
             «FOR metaClass: diagram.metaClasses»
                 «FOR reference : metaClass.references »
                 {
-                    // «reference.getName»
+                    // «reference.name»
                     ICreateConnectionFeature createFeature = new «reference.createReferenceAsConnectionFeatureClassName.shortName»(this.getFeatureProvider());
                     ConnectionCreationToolEntry objectCreationToolEntry = new ConnectionCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId());
                     objectCreationToolEntry.addCreateConnectionFeature(createFeature);

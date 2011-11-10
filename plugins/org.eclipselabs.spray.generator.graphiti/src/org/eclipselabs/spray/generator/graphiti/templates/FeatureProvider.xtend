@@ -19,9 +19,9 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class FeatureProvider extends FileGenerator {
-    @Inject extension SprayExtensions e1
-    @Inject extension NamingExtensions e2
-    @Inject extension GenModelHelper e3
+    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
+    @Inject extension GenModelHelper
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)
@@ -92,7 +92,7 @@ class FeatureProvider extends FileGenerator {
                     if ( reference == null ){
                         return new «cls.addFeatureClassName.shortName»(this);
                         «FOR reference :  cls.references.filter(ref|ref.representedBy != null)  »
-                        } else if( reference.equals("«reference.getName»")){
+                        } else if( reference.equals("«reference.name»")){
                             return new «reference.addReferenceAsConnectionFeatureClassName.shortName»(this);
                         «ENDFOR»
                     }
@@ -215,7 +215,7 @@ class FeatureProvider extends FileGenerator {
                     if( reference == null ){
                         return new DefaultDeleteFeature(this); 
                     «FOR reference : cls.references.filter(ref|ref.representedBy != null)  »
-                    } else if( reference.equals("«reference.getName»")){
+                    } else if( reference.equals("«reference.name»")){
                         return new «reference.deleteReferenceFeatureClassName.shortName»(this);
                     «ENDFOR»    
                     }

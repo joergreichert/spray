@@ -13,7 +13,7 @@ import org.eclipselabs.spray.mm.spray.Diagram;
 @SuppressWarnings("all")
 public class DiagramTypeProvider extends FileGenerator {
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();

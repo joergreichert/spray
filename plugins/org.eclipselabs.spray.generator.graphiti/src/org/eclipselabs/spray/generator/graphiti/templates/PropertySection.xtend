@@ -13,7 +13,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
 class PropertySection extends FileGenerator  {
-    @Inject extension NamingExtensions naming
+    @Inject extension NamingExtensions
     
     Diagram diagram
     
@@ -109,7 +109,7 @@ class PropertySection extends FileGenerator  {
                 data.top = new FormAttachment(0, VSPACE);
                 «propertyName»Widget.setLayoutData(data);
          
-                CLabel valueLabel = factory.createCLabel(composite, "«propertyName.toFirstUpper()»");
+                CLabel valueLabel = factory.createCLabel(composite, "«propertyName.toFirstUpper»");
                 data = new FormData();
                 data.left = new FormAttachment(0, 0);
                 data.right = new FormAttachment(«propertyName»Widget, -HSPACE);
@@ -131,9 +131,9 @@ class PropertySection extends FileGenerator  {
                     bc = («eClass.name»)bo;
                     String value = "";
             «IF eAttribute.EAttributeType.name == "EString"»
-                value = bc.get«propertyName.toFirstUpper()»();
+                value = bc.get«propertyName.toFirstUpper»();
             «ELSEIF eAttribute.EAttributeType.name == "EInt"»
-                value = Integer.toString( bc.get«propertyName.toFirstUpper()»() );
+                value = Integer.toString( bc.get«propertyName.toFirstUpper»() );
             «ELSE»
                 value = "unknown";
             «ENDIF»
@@ -160,18 +160,18 @@ class PropertySection extends FileGenerator  {
                 String newValue = «propertyName»Widget.getText();
             «IF ( ! eAttribute.derived) && (eAttribute.changeable)»
                 «IF eAttribute.EAttributeType.name == "EBoolean"»
-                    String oldValue = ( bc.is«propertyName.toFirstUpper()»() ? "true" : "false" );
+                    String oldValue = ( bc.is«propertyName.toFirstUpper»() ? "true" : "false" );
                     if( ! newValue.equals(oldValue) ) { 
-                        bc.set«propertyName.toFirstUpper()»(! bc.is«propertyName.toFirstUpper()»() );
+                        bc.set«propertyName.toFirstUpper»(! bc.is«propertyName.toFirstUpper»() );
                     }
                 «ELSEIF eAttribute.EAttributeType.name == "EString"»
-                    if( ! newValue.equals(bc.get«propertyName.toFirstUpper()»() ) ) { 
-                        bc.set«propertyName.toFirstUpper()»(newValue);
+                    if( ! newValue.equals(bc.get«propertyName.toFirstUpper»() ) ) { 
+                        bc.set«propertyName.toFirstUpper»(newValue);
                     }
                 «ELSEIF eAttribute.EAttributeType.name == "EInt"»
                     try {
                         int newIntValue = Integer.parseInt(newValue);
-                        bc.set«propertyName.toFirstUpper()»( newIntValue );
+                        bc.set«propertyName.toFirstUpper»( newIntValue );
                     } catch(Exception e) {
                            IStatusLineManager mgr = GraphitiUiInternal.getWorkbenchService().getActiveStatusLineManager();
                         mgr.setErrorMessage(e.getMessage() + " should be a number");
@@ -206,7 +206,7 @@ class PropertySection extends FileGenerator  {
             «ENDIF»    
                 return ret;
             }
-        //        value = ( bc.is«propertyName.toFirstUpper()»() ? "true" : "false" );
+        //        value = ( bc.is«propertyName.toFirstUpper»() ? "true" : "false" );
         
             /**
              * 
@@ -222,12 +222,12 @@ class PropertySection extends FileGenerator  {
                     }
                     bc = («eClass.name») bo;
             «IF isEnum»
-                    if( bc.get«eAttribute.name.toFirstUpper()»() == null ){
+                    if( bc.get«eAttribute.name.toFirstUpper»() == null ){
                         return "Null value for «eAttribute.name»";
                     }
-                    return bc.get«eAttribute.name.toFirstUpper()»().getName();
+                    return bc.get«eAttribute.name.toFirstUpper»().getName();
             «ELSEIF isBoolean»
-                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper()) »
+                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper) »
                     return ( bc.«name»() ? "true" : "false" );
             «ENDIF»
                 }
@@ -253,12 +253,12 @@ class PropertySection extends FileGenerator  {
             «IF ( ! eAttribute.derived) && (eAttribute.changeable)»
                 «IF isEnum»
                     «eAttribute.EAttributeType.name» value = «eAttribute.EAttributeType.name».VALUES.get(index);
-                    bc.set«eAttribute.name.toFirstUpper()»(value);
+                    bc.set«eAttribute.name.toFirstUpper»(value);
                 «ELSEIF isBoolean»
                        boolean newValue = (index == 0 ? false : true);
-                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper()) »
+                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper)»
                     if( newValue != bc.«name»() ) { 
-                        bc.set«eAttribute.name.toFirstUpper()»(newValue );
+                        bc.set«eAttribute.name.toFirstUpper»(newValue );
                     }
                 «ENDIF»
             «ENDIF»

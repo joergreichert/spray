@@ -15,10 +15,10 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
  * Template for generating Graphiti Update feature for a Container representing a MetaClass
  */
 class UpdateShapeFeature extends FileGenerator  {
-    @Inject extension NamingExtensions naming
-    @Inject extension SprayExtensions e1
-    @Inject IQualifiedNameProvider qnProvider
-    
+    @Inject extension NamingExtensions
+    @Inject extension SprayExtensions
+    @Inject extension IQualifiedNameProvider
+
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
     }
@@ -27,7 +27,7 @@ class UpdateShapeFeature extends FileGenerator  {
         mainExtensionPointFile( modelElement as Container, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Container container, String className) '''    
+    def mainExtensionPointFile(Container container, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -135,18 +135,18 @@ class UpdateShapeFeature extends FileGenerator  {
             «FOR part :  container.parts »
                 «IF part instanceof Text»
                     «var text = part as Text»
-                type = "«qnProvider.getFullyQualifiedName(text)»";
+                type = "«text.fullyQualifiedName»";
                 value = getValue(type, eClass);
                 values.put(type, value);
                 «ENDIF»
             «ENDFOR»            
             }
             
-            private String getValue (String type, «container.represents.getName» eClass) {
+            private String getValue (String type, «container.represents.name» eClass) {
             «FOR part :  container.parts »
                 «IF part instanceof Text»
                     «var text = part as Text»
-                    if ("«qnProvider.getFullyQualifiedName(text)»".equals(type)) {
+                    if ("«text.fullyQualifiedName»".equals(type)) {
                         «valueGenerator(text, "eClass")»
                     }
                 «ENDIF»

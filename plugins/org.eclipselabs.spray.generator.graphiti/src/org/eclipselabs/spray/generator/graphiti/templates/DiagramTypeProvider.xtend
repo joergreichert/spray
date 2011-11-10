@@ -10,8 +10,8 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class DiagramTypeProvider extends FileGenerator  {
-    @Inject extension NamingExtensions naming
+class DiagramTypeProvider extends FileGenerator {
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)

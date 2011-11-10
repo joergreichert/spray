@@ -11,8 +11,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class UpdateConnectionFeature extends FileGenerator  {
-    @Inject extension NamingExtensions naming
-    @Inject extension SprayExtensions e1
+    @Inject extension NamingExtensions
+    @Inject extension SprayExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Connection, javaGenFile.baseClassName)
@@ -43,7 +43,7 @@ class UpdateConnectionFeature extends FileGenerator  {
     
     def mainFile(Connection connection, String className) '''
         «val diagramName = connection.represents.diagram.name »
-        «val metaClassName = connection.represents.getName»
+        «val metaClassName = connection.represents.name»
         «val pack = connection.represents.type.EPackage.name »
         «val fullPackage = fullPackageName(connection.represents.type) »
         «val labelName = "name" »
@@ -133,7 +133,7 @@ class UpdateConnectionFeature extends FileGenerator  {
                 return true;
             }
         
-            protected String getValue(String type, «connection.represents.getName» eClass) {
+            protected String getValue(String type, «connection.represents.name» eClass) {
                 String result = "";
                 if( "FROM_LABEL".equals(type) ){
                     «var fromLabel =  connection.fromLabel»

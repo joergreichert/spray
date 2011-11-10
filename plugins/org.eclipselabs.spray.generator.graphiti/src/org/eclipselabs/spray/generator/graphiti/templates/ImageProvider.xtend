@@ -9,7 +9,8 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 class ImageProvider extends FileGenerator {
-    @Inject extension NamingExtensions naming
+    @Inject extension NamingExtensions
+    
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)
     }
@@ -41,14 +42,14 @@ class ImageProvider extends FileGenerator {
         
             «FOR icon : icons»
                 // The image identifier for an EReference.
-                public static final String «naming.getImageIdentifier(diagram, icon)»  = PREFIX + "«icon.imageBaseName»";
+                public static final String «diagram.getImageIdentifier(icon)»  = PREFIX + "«icon.imageBaseName»";
             «ENDFOR»
         
             @Override
             protected void addAvailableImages() {
                 // register the path for each image identifier
             «FOR icon : icons»
-                addImageFilePath(«naming.getImageIdentifier(diagram, icon)», "icons/«icon»");
+                addImageFilePath(«diagram.getImageIdentifier(icon)», "icons/«icon»");
             «ENDFOR»
             }
         }

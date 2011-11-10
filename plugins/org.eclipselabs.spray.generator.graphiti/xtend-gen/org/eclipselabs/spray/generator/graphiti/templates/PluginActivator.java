@@ -14,13 +14,13 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class PluginActivator extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private LayoutExtensions e2;
+  private LayoutExtensions _layoutExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -177,7 +177,7 @@ public class PluginActivator extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return Guice.createInjector(Modules2.mixin(new GraphitiRuntimeModule(), new ");
-    String _guiceModuleClassName = this.naming.getGuiceModuleClassName(diagram);
+    String _guiceModuleClassName = this._namingExtensions.getGuiceModuleClassName(diagram);
     String _shortName = this.shortName(_guiceModuleClassName);
     _builder.append(_shortName, "        ");
     _builder.append("()));");

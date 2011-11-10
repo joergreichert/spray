@@ -12,7 +12,7 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class TemplateUtil {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
   private SprayCompiler compiler;

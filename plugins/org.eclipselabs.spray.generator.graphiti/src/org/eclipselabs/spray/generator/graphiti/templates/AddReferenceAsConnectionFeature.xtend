@@ -12,9 +12,9 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class AddReferenceAsConnectionFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension LayoutExtensions e2
-    @Inject extension GenModelHelper e3
+    @Inject extension SprayExtensions
+    @Inject extension LayoutExtensions
+    @Inject extension GenModelHelper
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
@@ -65,7 +65,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
          
             public PictogramElement add(IAddContext context) {
                 IAddConnectionContext addConContext = (IAddConnectionContext) context;
-                «reference.metaClass.type.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.getName») context.getNewObject();
+                «reference.metaClass.type.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.name») context.getNewObject();
             «IF target.upperBound == 1»
                 removeExisting(context);
             «ENDIF»        
@@ -89,7 +89,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
                 polyline.setForeground(manageColor(«reference.lineColor»));
                  
                 // create link and wire it
-                Graphiti.getPeService().setPropertyValue(connection, "MODEL_TYPE", "«reference.metaClass.getName».«target.name»");
+                Graphiti.getPeService().setPropertyValue(connection, "MODEL_TYPE", "«reference.metaClass.name».«target.name»");
                 Graphiti.getPeService().setPropertyValue(connection, "REFERENCE", (String)context.getProperty("REFERENCE"));
                 Graphiti.getPeService().setPropertyValue(connection, "TARGETOBJECT", (String)context.getProperty("TARGETOBJECT"));
          //       link(connection, addedDomainObject);
@@ -104,10 +104,10 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             }
         
             public boolean canAdd(IAddContext context) {
-                // return true if given business object is an «reference.metaClass.getName»
+                // return true if given business object is an «reference.metaClass.name»
                 // note, that the context must be an instance of IAddConnectionContext
                 if (context instanceof IAddConnectionContext
-                    && context.getNewObject() instanceof «reference.metaClass.getName») {
+                    && context.getNewObject() instanceof «reference.metaClass.name») {
                     return true;
                 }
                 return false;
@@ -115,7 +115,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             
             protected void removeExisting(IAddContext context) {
                 IAddConnectionContext addConContext = (IAddConnectionContext) context;
-                «reference.metaClass.getName» addedDomainObject = («reference.metaClass.getName») context.getNewObject();
+                «reference.metaClass.name» addedDomainObject = («reference.metaClass.name») context.getNewObject();
                 Object[] pictogramElements = Graphiti.getPeService().getLinkedPictogramElements(new EObject[] { addedDomainObject }, getDiagram());
                 for (Object pict : pictogramElements) {
                     if( pict instanceof PictogramElement){

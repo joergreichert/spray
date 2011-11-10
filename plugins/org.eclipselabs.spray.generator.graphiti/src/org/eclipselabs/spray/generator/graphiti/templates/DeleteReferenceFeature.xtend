@@ -10,9 +10,9 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class DeleteReferenceFeature extends FileGenerator  {
-    @Inject extension NamingExtensions naming
-    @Inject extension SprayExtensions e1
+class DeleteReferenceFeature extends FileGenerator {
+    @Inject extension NamingExtensions
+    @Inject extension SprayExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
@@ -22,7 +22,7 @@ class DeleteReferenceFeature extends FileGenerator  {
         mainExtensionPointFile( modelElement as MetaReference, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(MetaReference metaReference, String className) '''    
+    def mainExtensionPointFile(MetaReference metaReference, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -135,17 +135,17 @@ class DeleteReferenceFeature extends FileGenerator  {
                             
                     «IF target.upperBound != 1»
                             «target.EReferenceType.javaInterfaceName.shortName» toBeRemoved = null;
-                            for («target.EReferenceType.name» rule : object.get«target.name.toFirstUpper()»()) {
+                            for («target.EReferenceType.name» rule : object.get«target.name.toFirstUpper»()) {
                                 if( rule.getName().equals(element)){
                                     toBeRemoved = rule;
                                 }
                             }    
                             if( toBeRemoved != null ){
-                                object.get«target.name.toFirstUpper()»().remove(toBeRemoved);
+                                object.get«target.name.toFirstUpper»().remove(toBeRemoved);
                                 // TODO Must remove toBeRemoved if it is a containment reference !
                             }
                     «ELSE»
-                            object.set«reference.name.toFirstUpper()»(null);
+                            object.set«reference.name.toFirstUpper»(null);
                     «ENDIF»
                         } else {
                             System.out.println("DELETE OBJECT " + bo);

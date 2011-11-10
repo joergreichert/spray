@@ -10,7 +10,7 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 class TemplateUtil extends Object {
-    @Inject extension SprayExtensions e1
+    @Inject extension SprayExtensions
     @Inject SprayCompiler compiler
     
     def header(Object templateClass) '''

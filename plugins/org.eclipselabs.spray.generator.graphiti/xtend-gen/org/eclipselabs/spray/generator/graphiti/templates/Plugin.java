@@ -25,10 +25,10 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class Plugin extends TemplateUtil {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generate(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
@@ -62,10 +62,10 @@ public class Plugin extends TemplateUtil {
     _builder.newLine();
     _builder.append("                  ");
     _builder.append("class=\"");
-    String _extensionFactoryClassName = this.naming.getExtensionFactoryClassName(diagram);
+    String _extensionFactoryClassName = this._namingExtensions.getExtensionFactoryClassName(diagram);
     _builder.append(_extensionFactoryClassName, "                  ");
     _builder.append(":");
-    String _diagramEditorClassName = this.naming.getDiagramEditorClassName(diagram);
+    String _diagramEditorClassName = this._namingExtensions.getDiagramEditorClassName(diagram);
     _builder.append(_diagramEditorClassName, "                  ");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
@@ -83,7 +83,7 @@ public class Plugin extends TemplateUtil {
     _builder.newLine();
     _builder.append("                  ");
     _builder.append("id=\"");
-    String _diagramEditorClassName_1 = this.naming.getDiagramEditorClassName(diagram);
+    String _diagramEditorClassName_1 = this._namingExtensions.getDiagramEditorClassName(diagram);
     _builder.append(_diagramEditorClassName_1, "                  ");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
@@ -165,10 +165,10 @@ public class Plugin extends TemplateUtil {
     _builder.newLine();
     _builder.append("              ");
     _builder.append("class=\"");
-    String _extensionFactoryClassName_1 = this.naming.getExtensionFactoryClassName(diagram);
+    String _extensionFactoryClassName_1 = this._namingExtensions.getExtensionFactoryClassName(diagram);
     _builder.append(_extensionFactoryClassName_1, "              ");
     _builder.append(":");
-    String _diagramTypeProviderClassName = this.naming.getDiagramTypeProviderClassName(diagram);
+    String _diagramTypeProviderClassName = this._namingExtensions.getDiagramTypeProviderClassName(diagram);
     _builder.append(_diagramTypeProviderClassName, "              ");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
@@ -179,7 +179,7 @@ public class Plugin extends TemplateUtil {
     _builder.newLineIfNotEmpty();
     _builder.append("              ");
     _builder.append("id=\"");
-    String _diagramTypeProviderClassName_1 = this.naming.getDiagramTypeProviderClassName(diagram);
+    String _diagramTypeProviderClassName_1 = this._namingExtensions.getDiagramTypeProviderClassName(diagram);
     _builder.append(_diagramTypeProviderClassName_1, "              ");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
@@ -208,7 +208,7 @@ public class Plugin extends TemplateUtil {
     _builder.newLine();
     _builder.append("                       ");
     _builder.append("id=\"");
-    String _imageProviderClassName = this.naming.getImageProviderClassName(diagram);
+    String _imageProviderClassName = this._namingExtensions.getImageProviderClassName(diagram);
     _builder.append(_imageProviderClassName, "                       ");
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
@@ -234,16 +234,16 @@ public class Plugin extends TemplateUtil {
     _builder.newLine();
     _builder.append("                    ");
     _builder.append("class=\"");
-    String _extensionFactoryClassName_2 = this.naming.getExtensionFactoryClassName(diagram);
+    String _extensionFactoryClassName_2 = this._namingExtensions.getExtensionFactoryClassName(diagram);
     _builder.append(_extensionFactoryClassName_2, "                    ");
     _builder.append(":");
-    String _imageProviderClassName_1 = this.naming.getImageProviderClassName(diagram);
+    String _imageProviderClassName_1 = this._namingExtensions.getImageProviderClassName(diagram);
     _builder.append(_imageProviderClassName_1, "                    ");
     _builder.append("\"");
     _builder.newLineIfNotEmpty();
     _builder.append("                       ");
     _builder.append("id=\"");
-    String _imageProviderClassName_2 = this.naming.getImageProviderClassName(diagram);
+    String _imageProviderClassName_2 = this._namingExtensions.getImageProviderClassName(diagram);
     _builder.append(_imageProviderClassName_2, "                       ");
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
@@ -345,11 +345,11 @@ public class Plugin extends TemplateUtil {
             _builder.append("  ");
             _builder.append(" ");
             _builder.append("class=\"");
-            String _extensionFactoryClassName_3 = this.naming.getExtensionFactoryClassName(diagram);
+            String _extensionFactoryClassName_3 = this._namingExtensions.getExtensionFactoryClassName(diagram);
             _builder.append(_extensionFactoryClassName_3, "           ");
             _builder.append(":");
             EClass _type_1 = cls.getType();
-            String _propertySectionClassName = this.naming.getPropertySectionClassName(_type_1, property);
+            String _propertySectionClassName = this._namingExtensions.getPropertySectionClassName(_type_1, property);
             _builder.append(_propertySectionClassName, "           ");
             _builder.append("\"");
             _builder.newLineIfNotEmpty();
@@ -357,7 +357,7 @@ public class Plugin extends TemplateUtil {
             _builder.append("  ");
             _builder.append(" ");
             _builder.append("filter=\"");
-            String _filterClassName = this.naming.getFilterClassName(cls);
+            String _filterClassName = this._namingExtensions.getFilterClassName(cls);
             _builder.append(_filterClassName, "           ");
             _builder.append("\"");
             _builder.newLineIfNotEmpty();
@@ -377,7 +377,7 @@ public class Plugin extends TemplateUtil {
             _builder.append("  ");
             _builder.append(" ");
             String _operator_plus = StringExtensions.operator_plus(diagramName, ".main.tab.");
-            String _name_1 = this.e1.getName(cls);
+            String _name_1 = this._sprayExtensions.getName(cls);
             String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
             String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, ".");
             String _name_2 = property.getName();
@@ -430,7 +430,7 @@ public class Plugin extends TemplateUtil {
               for(final MetaReference ref : _filter) {
                 _builder.append("        ");
                 _builder.append("  ");
-                String _name_3 = this.e1.getName(ref);
+                String _name_3 = this._sprayExtensions.getName(ref);
                 XtendProperties.setValue("refName", _name_3);
                 _builder.append(" ");
                 _builder.newLineIfNotEmpty();
@@ -478,7 +478,7 @@ public class Plugin extends TemplateUtil {
                     _builder.append("  ");
                     _builder.append(" ");
                     _builder.append("class=\"");
-                    String _extensionFactoryClassName_4 = this.naming.getExtensionFactoryClassName(diagram);
+                    String _extensionFactoryClassName_4 = this._namingExtensions.getExtensionFactoryClassName(diagram);
                     _builder.append(_extensionFactoryClassName_4, "           ");
                     _builder.append(":");
                     String _property_package = GeneratorUtil.property_package();

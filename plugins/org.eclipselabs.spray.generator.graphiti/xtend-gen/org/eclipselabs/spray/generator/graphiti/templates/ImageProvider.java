@@ -18,7 +18,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 @SuppressWarnings("all")
 public class ImageProvider extends FileGenerator {
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -117,10 +117,10 @@ public class ImageProvider extends FileGenerator {
         _builder.newLine();
         _builder.append("    ");
         _builder.append("public static final String ");
-        String _imageIdentifier = this.naming.getImageIdentifier(diagram, icon);
+        String _imageIdentifier = this._namingExtensions.getImageIdentifier(diagram, icon);
         _builder.append(_imageIdentifier, "    ");
         _builder.append("  = PREFIX + \"");
-        String _imageBaseName = this.naming.getImageBaseName(icon);
+        String _imageBaseName = this._namingExtensions.getImageBaseName(icon);
         _builder.append(_imageBaseName, "    ");
         _builder.append("\";");
         _builder.newLineIfNotEmpty();
@@ -140,7 +140,7 @@ public class ImageProvider extends FileGenerator {
       for(final String icon_1 : icons) {
         _builder.append("    ");
         _builder.append("addImageFilePath(");
-        String _imageIdentifier_1 = this.naming.getImageIdentifier(diagram, icon_1);
+        String _imageIdentifier_1 = this._namingExtensions.getImageIdentifier(diagram, icon_1);
         _builder.append(_imageIdentifier_1, "    ");
         _builder.append(", \"icons/");
         _builder.append(icon_1, "    ");

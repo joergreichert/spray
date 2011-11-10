@@ -17,13 +17,13 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper;
 @SuppressWarnings("all")
 public class CreateShapeFeature extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   @Inject
-  private GenModelHelper genModelHelper;
+  private GenModelHelper _genModelHelper;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -110,7 +110,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(".SampleUtil;");
     _builder.newLineIfNotEmpty();
     _builder.append("import ");
-    String _javaInterfaceName = this.naming.getJavaInterfaceName(metaClass);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(metaClass);
     _builder.append(_javaInterfaceName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
@@ -174,7 +174,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
-    String _name = this.e1.getName(metaClass);
+    String _name = this._sprayExtensions.getName(metaClass);
     _builder.append(_name, "    ");
     _builder.append(" newClass = null;");
     _builder.newLineIfNotEmpty();
@@ -220,7 +220,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
-    String _name_1 = this.e1.getName(metaClass);
+    String _name_1 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_1, "    ");
     _builder.append(" create");
     String _visibleName_6 = GeneratorUtil.visibleName(metaClass);
@@ -246,18 +246,18 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("         ");
     _builder.append("// create ");
-    String _name_2 = this.e1.getName(metaClass);
+    String _name_2 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_2, "         ");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
-    String _name_3 = this.e1.getName(metaClass);
+    String _name_3 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_3, "        ");
     _builder.append(" newClass = ");
-    String _eFactoryInterfaceName = this.naming.getEFactoryInterfaceName(metaClass);
+    String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
     String _shortName = this.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(".eINSTANCE.create");
-    String _name_4 = this.e1.getName(metaClass);
+    String _name_4 = this._sprayExtensions.getName(metaClass);
     _builder.append(_name_4, "        ");
     _builder.append("();    ");
     _builder.newLineIfNotEmpty();
@@ -273,7 +273,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("SampleUtil.saveToModelFile(newClass, getDiagram(), \"");
     EClass _type = metaClass.getType();
-    String _fileExtension = this.genModelHelper.getFileExtension(_type);
+    String _fileExtension = this._genModelHelper.getFileExtension(_type);
     _builder.append(_fileExtension, "            ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
@@ -323,12 +323,12 @@ public class CreateShapeFeature extends FileGenerator {
         _builder.append("    ");
         _builder.append("    ");
         _builder.append("return ");
-        String _imageProviderClassName = this.naming.getImageProviderClassName(diagram);
+        String _imageProviderClassName = this._namingExtensions.getImageProviderClassName(diagram);
         String _shortName_1 = this.shortName(_imageProviderClassName);
         _builder.append(_shortName_1, "        ");
         _builder.append(".");
         String _icon_1 = metaClass.getIcon();
-        String _imageIdentifier = this.naming.getImageIdentifier(diagram, _icon_1);
+        String _imageIdentifier = this._namingExtensions.getImageIdentifier(diagram, _icon_1);
         _builder.append(_imageIdentifier, "        ");
         _builder.append(";");
         _builder.newLineIfNotEmpty();

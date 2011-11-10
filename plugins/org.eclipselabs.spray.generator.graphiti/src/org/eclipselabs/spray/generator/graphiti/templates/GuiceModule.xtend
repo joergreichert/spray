@@ -7,13 +7,12 @@ import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
-import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil
 
 
-class GuiceModule extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension LayoutExtensions e2
-    @Inject extension NamingExtensions naming
+class GuiceModule extends FileGenerator {
+    @Inject extension SprayExtensions
+    @Inject extension LayoutExtensions
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)

@@ -26,16 +26,16 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class AddShapeFeature extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private LayoutExtensions e2;
+  private LayoutExtensions _layoutExtensions;
   
   @Inject
-  private IQualifiedNameProvider e3;
+  private IQualifiedNameProvider _iQualifiedNameProvider;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -103,7 +103,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import ");
     MetaClass _represents = container.getRepresents();
-    String _javaInterfaceName = this.naming.getJavaInterfaceName(_represents);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_represents);
     _builder.append(_javaInterfaceName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
@@ -213,7 +213,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("if (newObject instanceof ");
     MetaClass _represents_2 = container.getRepresents();
-    String _name = this.e1.getName(_represents_2);
+    String _name = this._sprayExtensions.getName(_represents_2);
     _builder.append(_name, "        ");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
@@ -244,11 +244,11 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     MetaClass _represents_3 = container.getRepresents();
-    String _name_1 = this.e1.getName(_represents_3);
+    String _name_1 = this._sprayExtensions.getName(_represents_3);
     _builder.append(_name_1, "        ");
     _builder.append(" addedModelElement = (");
     MetaClass _represents_4 = container.getRepresents();
-    String _name_2 = this.e1.getName(_represents_4);
+    String _name_2 = this._sprayExtensions.getName(_represents_4);
     _builder.append(_name_2, "        ");
     _builder.append(") context.getNewObject();");
     _builder.newLineIfNotEmpty();
@@ -263,14 +263,14 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("ContainerShape containerShape = container.createContainer(context, addedModelElement);");
     _builder.newLine();
     {
-      boolean _hasFillColor = this.e2.hasFillColor(container);
+      boolean _hasFillColor = this._layoutExtensions.hasFillColor(container);
       if (_hasFillColor) {
         _builder.append("    ");
         _builder.append("GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();");
         _builder.newLine();
         _builder.append("    ");
         _builder.append("containerGa.setBackground(manageColor(");
-        String _fillColor = this.e2.fillColor(container);
+        String _fillColor = this._layoutExtensions.fillColor(container);
         _builder.append(_fillColor, "    ");
         _builder.append("));");
         _builder.newLineIfNotEmpty();
@@ -308,7 +308,7 @@ public class AddShapeFeature extends FileGenerator {
             _builder.newLine();
             _builder.append("    ");
             _builder.append("polyline.setForeground(manageColor(");
-            String _lineColor = this.e2.lineColor(line);
+            String _lineColor = this._layoutExtensions.lineColor(line);
             _builder.append(_lineColor, "    ");
             _builder.append(" ));");
             _builder.newLineIfNotEmpty();
@@ -346,7 +346,7 @@ public class AddShapeFeature extends FileGenerator {
               _builder.newLine();
               _builder.append("    ");
               _builder.append("String type = \"");
-              QualifiedName _fullyQualifiedName = this.e3.getFullyQualifiedName(text);
+              QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(text);
               _builder.append(_fullyQualifiedName, "    ");
               _builder.append("\";");
               _builder.newLineIfNotEmpty();
@@ -364,7 +364,7 @@ public class AddShapeFeature extends FileGenerator {
               _builder.newLine();
               _builder.append("    ");
               _builder.append("text.setForeground(manageColor(");
-              String _lineColor_1 = this.e2.lineColor(text);
+              String _lineColor_1 = this._layoutExtensions.lineColor(text);
               _builder.append(_lineColor_1, "    ");
               _builder.append("));");
               _builder.newLineIfNotEmpty();
@@ -457,7 +457,7 @@ public class AddShapeFeature extends FileGenerator {
                 _builder.newLine();
                 _builder.append("for (");
                 EClass _eReferenceType_1 = eReference.getEReferenceType();
-                String _javaInterfaceName_1 = this.naming.getJavaInterfaceName(_eReferenceType_1);
+                String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(_eReferenceType_1);
                 String _shortName_1 = this.shortName(_javaInterfaceName_1);
                 _builder.append(_shortName_1, "");
                 _builder.append(" p : addedModelElement.get");
@@ -487,7 +487,7 @@ public class AddShapeFeature extends FileGenerator {
                 _builder.newLine();
                 _builder.append("    ");
                 _builder.append("Text text = gaService.createDefaultText(getDiagram(), shape, p.get");
-                String _labelPropertyName = this.e1.getLabelPropertyName(metaRef);
+                String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(metaRef);
                 String _firstUpper_1 = StringExtensions.toFirstUpper(_labelPropertyName);
                 _builder.append(_firstUpper_1, "    ");
                 _builder.append("());");
@@ -497,7 +497,7 @@ public class AddShapeFeature extends FileGenerator {
                 _builder.newLine();
                 _builder.append("    ");
                 _builder.append("text.setForeground(manageColor(");
-                String _textColor = this.e2.textColor(container);
+                String _textColor = this._layoutExtensions.textColor(container);
                 _builder.append(_textColor, "    ");
                 _builder.append(")); ");
                 _builder.newLineIfNotEmpty();

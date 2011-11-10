@@ -12,9 +12,9 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class CreateReferenceAsConnectionFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension ImportUtil importUtil
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension ImportUtil
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
@@ -68,7 +68,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
                 // return true if both anchors belong to an EClass
                 // and those EClasses are not identical
                 «reference.metaClass.javaInterfaceName.shortName» source = get«reference.metaClass.name»(context.getSourceAnchor());
-                «target.EReferenceType.javaInterfaceName.shortName» target = get«target.name.toFirstUpper()»(context.getTargetAnchor());
+                «target.EReferenceType.javaInterfaceName.shortName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
                 if ( (source != null) && (target != null) && (source != target) ) {
                     return true;
                 }
@@ -88,7 +88,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         
                 // get EClasses which should be connected
                 «reference.metaClass.name» source = get«reference.metaClass.name»(context.getSourceAnchor());
-                «target.EReferenceType.name» target = get«target.name.toFirstUpper()»(context.getTargetAnchor());
+                «target.EReferenceType.name» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
         
                 if (source != null && target != null) {
                     // create new business object
@@ -121,7 +121,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
             /**
              * Returns the «target.name» belonging to the anchor, or null if not available.
              */
-            protected «target.EReferenceType.name» get«target.name.toFirstUpper()»(Anchor anchor) {
+            protected «target.EReferenceType.name» get«target.name.toFirstUpper»(Anchor anchor) {
                 if (anchor != null) {
                     Object object = getBusinessObjectForPictogramElement(anchor.getParent());
                     if (object instanceof «target.EReferenceType.name») {
@@ -135,12 +135,12 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
             /**
              * Creates a «target.name» .
              */
-            protected void set«target.name.toFirstUpper()»(«reference.metaClass.getName» source, «target.EReferenceType.name» target) {
+            protected void set«target.name.toFirstUpper»(«reference.metaClass.name» source, «target.EReferenceType.name» target) {
                 // TODO Check multiplcity, if > 1, use addTo instead of set
                 «IF target.upperBound == 1» 
-                    source.set«target.name.toFirstUpper()»(target);
+                    source.set«target.name.toFirstUpper»(target);
                 «ELSE»
-                    source.get«target.name.toFirstUpper()»().add(target);
+                    source.get«target.name.toFirstUpper»().add(target);
                 «ENDIF»
             }
             

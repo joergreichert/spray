@@ -12,9 +12,9 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class PluginActivator extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension LayoutExtensions e2
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension LayoutExtensions
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.className)

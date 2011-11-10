@@ -13,7 +13,7 @@ import org.eclipselabs.spray.mm.spray.Diagram;
 @SuppressWarnings("all")
 public class Filter extends FileGenerator {
   @Inject
-  private NamingExtensions e2;
+  private NamingExtensions _namingExtensions;
   
   private Diagram diagram;
   
@@ -83,7 +83,7 @@ public class Filter extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("import ");
-    String _javaInterfaceName = this.e2.getJavaInterfaceName(eClass);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(eClass);
     _builder.append(_javaInterfaceName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();

@@ -14,13 +14,13 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class ExecutableExtensionFactory extends FileGenerator {
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   @Inject
-  private LayoutExtensions e2;
+  private LayoutExtensions _layoutExtensions;
   
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -65,7 +65,7 @@ public class ExecutableExtensionFactory extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return ");
-    String _activatorSimpleClassName = this.naming.getActivatorSimpleClassName(diagram);
+    String _activatorSimpleClassName = this._namingExtensions.getActivatorSimpleClassName(diagram);
     _builder.append(_activatorSimpleClassName, "        ");
     _builder.append(".getDefault().getBundle();");
     _builder.newLineIfNotEmpty();
@@ -81,7 +81,7 @@ public class ExecutableExtensionFactory extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return ");
-    String _activatorSimpleClassName_1 = this.naming.getActivatorSimpleClassName(diagram);
+    String _activatorSimpleClassName_1 = this._namingExtensions.getActivatorSimpleClassName(diagram);
     _builder.append(_activatorSimpleClassName_1, "        ");
     _builder.append(".getDefault().getInjector();");
     _builder.newLineIfNotEmpty();

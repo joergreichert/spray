@@ -18,10 +18,10 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class DeleteReferenceFeature extends FileGenerator {
   @Inject
-  private NamingExtensions naming;
+  private NamingExtensions _namingExtensions;
   
   @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -330,18 +330,18 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.append("                ");
     _builder.append("if( bo instanceof ");
     MetaClass _metaClass = reference.getMetaClass();
-    String _javaInterfaceName = this.naming.getJavaInterfaceName(_metaClass);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_metaClass);
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "                ");
     _builder.append(" ){");
     _builder.newLineIfNotEmpty();
     _builder.append("                    ");
     MetaClass _metaClass_1 = reference.getMetaClass();
-    String _name = this.e1.getName(_metaClass_1);
+    String _name = this._sprayExtensions.getName(_metaClass_1);
     _builder.append(_name, "                    ");
     _builder.append(" object = (");
     MetaClass _metaClass_2 = reference.getMetaClass();
-    String _name_1 = this.e1.getName(_metaClass_2);
+    String _name_1 = this._sprayExtensions.getName(_metaClass_2);
     _builder.append(_name_1, "                    ");
     _builder.append(" ) bo;");
     _builder.newLineIfNotEmpty();
@@ -353,7 +353,7 @@ public class DeleteReferenceFeature extends FileGenerator {
       if (_operator_notEquals) {
         _builder.append("            ");
         EClass _eReferenceType = target.getEReferenceType();
-        String _javaInterfaceName_1 = this.naming.getJavaInterfaceName(_eReferenceType);
+        String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(_eReferenceType);
         String _shortName_1 = this.shortName(_javaInterfaceName_1);
         _builder.append(_shortName_1, "            ");
         _builder.append(" toBeRemoved = null;");
@@ -405,7 +405,7 @@ public class DeleteReferenceFeature extends FileGenerator {
       } else {
         _builder.append("            ");
         _builder.append("object.set");
-        String _name_5 = this.e1.getName(reference);
+        String _name_5 = this._sprayExtensions.getName(reference);
         String _firstUpper_2 = StringExtensions.toFirstUpper(_name_5);
         _builder.append(_firstUpper_2, "            ");
         _builder.append("(null);");

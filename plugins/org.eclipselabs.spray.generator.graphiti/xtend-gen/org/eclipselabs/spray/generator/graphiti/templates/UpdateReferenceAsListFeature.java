@@ -8,7 +8,6 @@ import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
-import org.eclipselabs.spray.generator.graphiti.util.ImportUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
@@ -16,13 +15,10 @@ import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 @SuppressWarnings("all")
 public class UpdateReferenceAsListFeature extends FileGenerator {
   @Inject
-  private ImportUtil importUtil;
+  private NamingExtensions _namingExtensions;
   
   @Inject
-  private NamingExtensions naming;
-  
-  @Inject
-  private SprayExtensions e1;
+  private SprayExtensions _sprayExtensions;
   
   private EClass target;
   
@@ -84,15 +80,12 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
   
   public StringConcatenation mainFile(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    String _feature_package = GeneratorUtil.feature_package();
-    this.importUtil.initImports(_feature_package);
-    _builder.newLineIfNotEmpty();
     StringConcatenation _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
-    String _feature_package_1 = GeneratorUtil.feature_package();
-    _builder.append(_feature_package_1, "");
+    String _feature_package = GeneratorUtil.feature_package();
+    _builder.append(_feature_package, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     StringConcatenation _mainFileBody = this.mainFileBody(reference, className);
@@ -117,10 +110,8 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Shape;");
     _builder.newLine();
+    _builder.append("// MARKER_IMPORT");
     _builder.newLine();
-    String _printImports = this.importUtil.printImports();
-    _builder.append(_printImports, "");
-    _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append(body, "");
     _builder.newLineIfNotEmpty();
@@ -161,7 +152,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return (bo instanceof ");
-    String _javaInterfaceName = this.naming.getJavaInterfaceName(this.target);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(this.target);
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(");");
@@ -241,7 +232,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("            ");
     _builder.append("businessName = reference.get");
-    String _labelPropertyName = this.e1.getLabelPropertyName(reference);
+    String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(reference);
     String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName);
     _builder.append(_firstUpper, "            ");
     _builder.append("();");
@@ -316,7 +307,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("            ");
     _builder.append("businessName = eClass.get");
-    String _labelPropertyName_1 = this.e1.getLabelPropertyName(reference);
+    String _labelPropertyName_1 = this._sprayExtensions.getLabelPropertyName(reference);
     String _firstUpper_1 = StringExtensions.toFirstUpper(_labelPropertyName_1);
     _builder.append(_firstUpper_1, "            ");
     _builder.append("();");

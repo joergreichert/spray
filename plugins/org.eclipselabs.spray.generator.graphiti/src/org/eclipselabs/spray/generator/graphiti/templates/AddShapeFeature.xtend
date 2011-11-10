@@ -17,10 +17,10 @@ import static extension org.eclipselabs.spray.generator.graphiti.util.GeneratorU
 
 
 class AddShapeFeature extends FileGenerator  {
-    @Inject extension SprayExtensions e1
-    @Inject extension LayoutExtensions e2
-    @Inject extension IQualifiedNameProvider e3
-    @Inject extension NamingExtensions naming
+    @Inject extension SprayExtensions
+    @Inject extension LayoutExtensions
+    @Inject extension IQualifiedNameProvider
+    @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
@@ -71,7 +71,7 @@ class AddShapeFeature extends FileGenerator  {
 
         public class «className» extends AbstractAddShapeFeature {
         
-            protected final static String typeOrAliasName = "«container.represents.visibleName()»";
+            protected final static String typeOrAliasName = "«container.represents.visibleName»";
         
             protected Diagram targetDiagram = null;
         
@@ -87,7 +87,7 @@ class AddShapeFeature extends FileGenerator  {
         
             public boolean canAdd(IAddContext context) {
                 final Object newObject = context.getNewObject();
-                if (newObject instanceof «container.represents.getName») {
+                if (newObject instanceof «container.represents.name») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
                         return true;
@@ -97,7 +97,7 @@ class AddShapeFeature extends FileGenerator  {
             }
 
             public PictogramElement add(IAddContext context) {
-                «container.represents.getName» addedModelElement = («container.represents.getName») context.getNewObject();
+                «container.represents.name» addedModelElement = («container.represents.name») context.getNewObject();
                 targetDiagram = Graphiti.getPeService().getDiagramForShape(context.getTargetContainer());
                 IPeCreateService peCreateService = Graphiti.getPeCreateService();
         
@@ -165,13 +165,13 @@ class AddShapeFeature extends FileGenerator  {
                     gaService.setLocation(p, 0, 0);
                     Graphiti.getPeService().setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
                 }
-                for («eReference.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«eReference.name.toFirstUpper()»()) {
+                for («eReference.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«eReference.name.toFirstUpper»()) {
                     Shape shape = peCreateService.createContainerShape(textContainer, true);
                     Graphiti.getPeService().setPropertyValue(shape, "STATIC", "true");
                     Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", "«eReference.EReferenceType.name»");
                     Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                     // create and set text graphics algorithm
-                    Text text = gaService.createDefaultText(getDiagram(), shape, p.get«metaRef.getLabelPropertyName.toFirstUpper()»());
+                    Text text = gaService.createDefaultText(getDiagram(), shape, p.get«metaRef.labelPropertyName.toFirstUpper»());
                     // TODO should have a text color here, refer to representation of reference type
                     text.setForeground(manageColor(«container.textColor»)); 
                     text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
