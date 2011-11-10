@@ -9,7 +9,6 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipselabs.spray.mm.spray.MetaAttribute;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.Shape;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
@@ -32,13 +31,6 @@ public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
         } else {
             return QualifiedName.create(element.getDiagram().getName(), element.getAlias());
         }
-    }
-
-    /**
-     * MetaAttribute has a name property, but we do not want to get it scoped
-     */
-    public QualifiedName qualifiedName(MetaAttribute element) {
-        return null;
     }
 
     public QualifiedName qualifiedName(Shape element) {

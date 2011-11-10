@@ -20,6 +20,10 @@ Diagram :
 Import:
 	'import' importedNamespace=QualifiedNameWithWildCard;
 
+QualifiedNameWithWildCard returns ecore::EString :
+    QualifiedName  ('.' '*')?;
+    
+
 SprayElement :
     Shape | MetaReferenceAsShape;
 
@@ -90,19 +94,15 @@ Layout :
 
 ;
 
-EString returns ecore::EString:
-	STRING | ID;
-
-
 Rectangle returns Rectangle:
 	{Rectangle}
-    "rectangle"
+    "rectangle" ('alias' alias=ID)?
 	layout = Layout // 	name=EString
 ;
 
 Connection returns Connection :
 	{Connection}
-	'connection' layout = Layout
+	'connection' ('alias' alias=ID)? layout = Layout
 	(
 	    '{'
 		'from' from=[ecore::EReference] ";"
@@ -129,25 +129,19 @@ RGBColor:
 
 Text returns Text:
 	{Text}
-	'text' layout = Layout
+	'text' ('alias' alias=ID) layout = Layout
 	value = XExpression
 	;
 
-QualifiedNameWithWildCard returns ecore::EString :
-	QualifiedName  ('.' '*')?;
-	
 Line returns Line :
 	{Line}
-	'line' layout = Layout
+	'line' ('alias' alias=ID)? layout = Layout
 ;
 
 Container returns Container:
     { Container }
-	'container' layout = Layout
+	'container' ('alias' alias=ID)? layout = Layout
 	'{'
 		(parts+=SprayElement  ";" )* 
     '}';
 
-StaticFieldQualifier:
-	QualifiedName '::' ValidID
-;

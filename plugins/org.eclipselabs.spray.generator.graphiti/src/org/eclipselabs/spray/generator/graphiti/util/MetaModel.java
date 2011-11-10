@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.spray.mm.spray.Diagram;
-import org.eclipselabs.spray.mm.spray.MetaAttribute;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 
@@ -100,13 +99,6 @@ public class MetaModel {
         if (ref.getMetaClass() != null) {
             return ref.getMetaClass();
         } else if (ref.getContainer() != null) {
-            return ref.getContainer().getRepresents();
-        }
-        return null;
-    }
-
-    static public MetaClass findMetaClass(MetaAttribute ref) {
-        if (ref.getContainer() != null) {
             return ref.getContainer().getRepresents();
         }
         return null;

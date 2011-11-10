@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -34,7 +33,6 @@ import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.Connection;
-import org.eclipselabs.spray.mm.spray.MetaAttribute;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
@@ -48,14 +46,10 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTAN
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_ATTRIBUTE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_ATTRIBUTE__ATTRIBUTE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_ATTRIBUTE__PATHSEGMENTS;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.TEXT;
 
 /**
  * This class contains custom scoping description.
@@ -115,44 +109,6 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             }
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaRef.getReference().getEReferenceType().getEAllAttributes()));
             return result;
-        } else if (context.eClass() == META_ATTRIBUTE && reference == META_ATTRIBUTE__PATHSEGMENTS) {
-            MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            MetaAttribute attr = (MetaAttribute) context;
-            EClass currentClass = metaClass.getType();
-            for (EReference ref : attr.getPathsegments()) {
-                if (ref.eIsProxy()) {
-                    IScope scope = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(currentClass.getEAllReferences()));
-                    return scope;
-                }
-                currentClass = ref.getEReferenceType();
-            }
-
-            IScope scope = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(currentClass.getEAllReferences()));
-            return scope;
-        } else if (context.eClass() == META_ATTRIBUTE && reference == META_ATTRIBUTE__ATTRIBUTE) {
-            MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            EClass currentClass = metaClass.getType();
-            MetaAttribute metaAttr = (MetaAttribute) context;
-            for (EReference ref : metaAttr.getPathsegments()) {
-                if (ref.eIsProxy()) {
-                    ref = (EReference) EcoreUtil.resolve(ref, currentClass);
-                    if (ref.eIsProxy()) {
-                        // still a proxy?
-                        return IScope.NULLSCOPE;
-                    }
-                }
-                currentClass = ref.getEReferenceType();
-            }
-            final IScope scope = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(currentClass.getEAllAttributes()));
-            return scope;
-        } else if (context.eClass() == TEXT && reference == META_ATTRIBUTE__PATHSEGMENTS) {
-            MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            IScope scope = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
-            return scope;
-        } else if (context.eClass() == TEXT && reference == META_ATTRIBUTE__ATTRIBUTE) {
-            MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            IScope scope = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllAttributes()));
-            return scope;
         } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
             ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);
             if (colorConstant != null) {

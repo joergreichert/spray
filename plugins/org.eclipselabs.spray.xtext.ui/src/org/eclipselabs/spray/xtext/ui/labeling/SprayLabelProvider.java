@@ -10,7 +10,6 @@ import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.Line;
-import org.eclipselabs.spray.mm.spray.MetaAttribute;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.StandardBehaviour;
@@ -63,10 +62,6 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         return "Line.png";
     }
 
-    public String image(MetaAttribute element) {
-        return "EAttribute.gif";
-    }
-
     public String text(MetaClass element) {
         if (element.getAlias() != null) {
             return String.format("%s (%s)", element.getType().getName(), element.getAlias());
@@ -109,7 +104,7 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         StringBuilder b = new StringBuilder();
         ICompositeNode node = NodeModelUtils.getNode(element);
         for (INode child : node.getChildren()) {
-            if (child.getGrammarElement() == grammar.getTextAccess().getValueXExpressionParserRuleCall_3_0()) {
+            if (child.getGrammarElement() == grammar.getTextAccess().getValueXExpressionParserRuleCall_4_0()) {
                 b.append(child.getText());
             }
         }

@@ -11,7 +11,6 @@ import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.Line;
-import org.eclipselabs.spray.mm.spray.MetaAttribute;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.Text;
@@ -58,10 +57,6 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
     }
 
     protected boolean _isLeaf(Line element) {
-        return true;
-    }
-
-    protected boolean _isLeaf(MetaAttribute element) {
         return true;
     }
 

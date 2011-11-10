@@ -7,9 +7,7 @@ import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Connection
-import org.eclipselabs.spray.mm.spray.MetaAttribute
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.mm.spray.StringLiteral
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -103,11 +101,6 @@ class AddConnectionFeature extends FileGenerator  {
                 GraphicsAlgorithm ga = addConContext.getTargetAnchor().getParent().getGraphicsAlgorithm();
                 int targetHeight = ga.getHeight();
                 Graphiti.getGaLayoutService().setLocation(text, 10, -(targetHeight / 2) - 20);
-                «IF connection.toLabel instanceof StringLiteral»
-//                text.setValue("«(connection.toLabel as StringLiteral ).name»");
-                «ELSEIF connection.toLabel instanceof MetaAttribute»
-//                text.setValue(addedDomainObject.get«(connection.toLabel as MetaAttribute).attribute.name.toFirstUpper()»().toString());
-                 «ENDIF»
                 text.setValue(getToLabel(addedDomainObject));
                 Graphiti.getPeService().setPropertyValue(toDecorator, "MODEL_TYPE", "TO_LABEL");
                 link(toDecorator, addedDomainObject);

@@ -1,12 +1,10 @@
 package org.eclipselabs.spray.generator.graphiti.templates;
 
 import com.google.inject.Inject;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
@@ -17,10 +15,8 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Layout;
-import org.eclipselabs.spray.mm.spray.MetaAttribute;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.Shape;
-import org.eclipselabs.spray.mm.spray.StringLiteral;
 import org.eclipselabs.spray.mm.spray.Text;
 import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
@@ -264,29 +260,6 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("     ");
         _builder.append("Graphiti.getGaLayoutService().setLocation(text, 10, -(targetHeight / 2) - 20);");
         _builder.newLine();
-        {
-          Text _label_1 = connection.getToLabel();
-          if ((_label_1 instanceof StringLiteral)) {
-            _builder.append("//                text.setValue(\"");
-            Text _label_2 = connection.getToLabel();
-            String _name_4 = ((StringLiteral) _label_2).getName();
-            _builder.append(_name_4, "");
-            _builder.append("\");");
-            _builder.newLineIfNotEmpty();
-          } else {
-            Text _label_3 = connection.getToLabel();
-            if ((_label_3 instanceof MetaAttribute)) {
-              _builder.append("//                text.setValue(addedDomainObject.get");
-              Text _label_4 = connection.getToLabel();
-              EAttribute _attribute = ((MetaAttribute) _label_4).getAttribute();
-              String _name_5 = _attribute.getName();
-              String _firstUpper = StringExtensions.toFirstUpper(_name_5);
-              _builder.append(_firstUpper, "");
-              _builder.append("().toString());");
-              _builder.newLineIfNotEmpty();
-            }
-          }
-        }
         _builder.append("     ");
         _builder.append("text.setValue(getToLabel(addedDomainObject));");
         _builder.newLine();
@@ -365,8 +338,8 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("Graphiti.getPeService().setPropertyValue(connection, \"MODEL_TYPE\", \"");
-    String _name_6 = this.e1.getName(metaClass);
-    _builder.append(_name_6, "        ");
+    String _name_4 = this.e1.getName(metaClass);
+    _builder.append(_name_4, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
@@ -381,19 +354,19 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     {
-      Text _label_5 = connection.getToLabel();
-      boolean _operator_notEquals_3 = ObjectExtensions.operator_notEquals(_label_5, null);
+      Text _label_1 = connection.getToLabel();
+      boolean _operator_notEquals_3 = ObjectExtensions.operator_notEquals(_label_1, null);
       if (_operator_notEquals_3) {
         _builder.append("    ");
         _builder.append("private String getToLabel (");
-        String _name_7 = this.e1.getName(metaClass);
-        _builder.append(_name_7, "    ");
+        String _name_5 = this.e1.getName(metaClass);
+        _builder.append(_name_5, "    ");
         _builder.append(" addedDomainObject) {");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         _builder.append("    ");
-        Text _label_6 = connection.getToLabel();
-        StringConcatenation _valueGenerator = this.valueGenerator(_label_6, "addedDomainObject");
+        Text _label_2 = connection.getToLabel();
+        StringConcatenation _valueGenerator = this.valueGenerator(_label_2, "addedDomainObject");
         _builder.append(_valueGenerator, "        ");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
@@ -407,8 +380,8 @@ public class AddConnectionFeature extends FileGenerator {
       if (_operator_notEquals_4) {
         _builder.append("    ");
         _builder.append("private String getConnectionLabel (");
-        String _name_8 = this.e1.getName(metaClass);
-        _builder.append(_name_8, "    ");
+        String _name_6 = this.e1.getName(metaClass);
+        _builder.append(_name_6, "    ");
         _builder.append(" addedDomainObject) {");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
@@ -428,8 +401,8 @@ public class AddConnectionFeature extends FileGenerator {
       if (_operator_notEquals_5) {
         _builder.append("    ");
         _builder.append("private String getFromLabel (");
-        String _name_9 = this.e1.getName(metaClass);
-        _builder.append(_name_9, "    ");
+        String _name_7 = this.e1.getName(metaClass);
+        _builder.append(_name_7, "    ");
         _builder.append(" addedDomainObject) {");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
@@ -450,8 +423,8 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("// return true if given business object is an ");
-    String _name_10 = this.e1.getName(metaClass);
-    _builder.append(_name_10, "        ");
+    String _name_8 = this.e1.getName(metaClass);
+    _builder.append(_name_8, "        ");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("// note, that the context must be an instance of IAddConnectionContext");
@@ -461,8 +434,8 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("            ");
     _builder.append("&& context.getNewObject() instanceof ");
-    String _name_11 = this.e1.getName(metaClass);
-    _builder.append(_name_11, "            ");
+    String _name_9 = this.e1.getName(metaClass);
+    _builder.append(_name_9, "            ");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
     _builder.append("            ");

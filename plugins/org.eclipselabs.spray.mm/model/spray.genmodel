@@ -15,7 +15,6 @@
       <genEnumLiterals ecoreEnumLiteral="spray.ecore#//BehaviourType/CREATE_BEHAVIOUR"/>
       <genEnumLiterals ecoreEnumLiteral="spray.ecore#//BehaviourType/CUSTOM_BEHAVIOUR"/>
     </genEnums>
-    <genDataTypes ecoreDataType="spray.ecore#//QualifiedName"/>
     <genClasses ecoreClass="spray.ecore#//Diagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/metaClasses"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/behaviourGroups"/>
@@ -60,7 +59,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/representedBy"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/references"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//MetaClass/alias"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//MetaClass/icon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviours"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviourGroups"/>
@@ -73,14 +71,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/reference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/labelProperty"/>
     </genClasses>
-    <genClasses ecoreClass="spray.ecore#//MetaAttribute">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaAttribute/attribute"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaAttribute/pathsegments"/>
-    </genClasses>
     <genClasses ecoreClass="spray.ecore#//Line"/>
-    <genClasses ecoreClass="spray.ecore#//VisibleElement"/>
-    <genClasses ecoreClass="spray.ecore#//StringLiteral"/>
-    <genClasses image="false" ecoreClass="spray.ecore#//SprayString"/>
     <genClasses image="false" ecoreClass="spray.ecore#//Behaviour">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behaviour/name"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Behaviour/metaClass"/>
@@ -99,15 +90,18 @@
     <genClasses image="false" ecoreClass="spray.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//NamedElement/name"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="spray.ecore#//Color"/>
     <genClasses ecoreClass="spray.ecore#//ColorConstantRef">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ColorConstantRef/type"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ColorConstantRef/field"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="spray.ecore#//Color"/>
     <genClasses ecoreClass="spray.ecore#//RGBColor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//RGBColor/red"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//RGBColor/green"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//RGBColor/blue"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="spray.ecore#//AliasableElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//AliasableElement/alias"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
