@@ -4,7 +4,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -12,6 +11,8 @@ import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import BusinessDomainDsl.BusinessDomainDslPackage;
 
 import com.google.inject.Inject;
 
@@ -31,28 +32,28 @@ public class GenModelHelperTest {
         StandaloneSetup setup = new StandaloneSetup();
         setup.setPlatformUri("."); // current project is enough here
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        setup.addRegisterGenModelFile("platform:/resource/org.eclipselabs.spray.xtext.tests/model/Ecore.genmodel");
+        setup.addRegisterGenModelFile("platform:/resource/org.eclipselabs.spray.xtext.tests/model/mod4j/BusinessDomainDsl.genmodel");
     }
 
     @Test
     public void test_getGenModel() {
-        GenModel genModel = fixture.getGenModel(EcorePackage.Literals.ECLASSIFIER);
+        GenModel genModel = fixture.getGenModel(BusinessDomainDslPackage.Literals.BUSINESS_CLASS);
         assertNotNull(genModel);
     }
 
     @Test
     public void test_getFileExtension() {
-        assertEquals("ecore", fixture.getFileExtension(EcorePackage.Literals.ECLASSIFIER));
+        assertEquals("businessdomaindsl", fixture.getFileExtension(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getEPackageClassName() {
-        assertEquals("org.eclipse.emf.ecore.EcorePackage", fixture.getEPackageClassName(EcorePackage.Literals.ECLASSIFIER));
+        assertEquals("BusinessDomainDsl.BusinessDomainDslPackage", fixture.getEPackageClassName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getEFactoryInterfaceName() {
-        assertEquals("org.eclipse.emf.ecore.EcoreFactory", fixture.getEFactoryInterfaceName(EcorePackage.Literals.ECLASSIFIER));
+        assertEquals("BusinessDomainDsl.BusinessDomainDslFactory", fixture.getEFactoryInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     /**
@@ -60,11 +61,11 @@ public class GenModelHelperTest {
      */
     @Test
     public void test_getJavaInterfaceName() {
-        assertEquals("org.eclipse.emf.ecore.EClassifier", fixture.getJavaInterfaceName(EcorePackage.Literals.ECLASSIFIER));
+        assertEquals("BusinessDomainDsl.BusinessClass", fixture.getJavaInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getLiteralConstant() {
-        assertEquals("ECLASSIFIER", fixture.getLiteralConstant(EcorePackage.Literals.ECLASSIFIER));
+        assertEquals("BUSINESS_CLASS", fixture.getLiteralConstant(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 }

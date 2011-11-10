@@ -91,9 +91,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaAttribute" eSuperTypes="#//SprayElement #//SprayString">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
+        eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pathsegments" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
+        eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Line" eSuperTypes="#//Shape"/>
   <eClassifiers xsi:type="ecore:EClass" name="VisibleElement"/>

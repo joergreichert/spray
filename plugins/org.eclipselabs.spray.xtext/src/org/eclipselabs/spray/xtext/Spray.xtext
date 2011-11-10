@@ -29,7 +29,7 @@ MetaClass :
     (
     "references" "{"
         (references += MetaReference2  ";")*
-	"}"    
+	"}"
     )?
     (
 	"behavior" "{"
@@ -39,7 +39,7 @@ MetaClass :
            )*
     "}"
     )?
-    ; 
+    ;
 
 MetaReference2 returns MetaReference:  
 	reference=[ecore::EReference]

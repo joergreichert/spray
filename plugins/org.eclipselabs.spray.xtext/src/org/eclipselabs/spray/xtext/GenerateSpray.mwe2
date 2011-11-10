@@ -15,11 +15,11 @@ Workflow {
         scanClassPath = true
         uriMap = {
             from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
-            to = "platform:/resource/org.eclipselabs.spray.mm/model/Ecore.ecore"
+            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
         }
         uriMap = {
             from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
-            to = "platform:/resource/org.eclipselabs.spray.mm/model/Ecore.genmodel"
+            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
         }
         uriMap = {
             from = "platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore"
