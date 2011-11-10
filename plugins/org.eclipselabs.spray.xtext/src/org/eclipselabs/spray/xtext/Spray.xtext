@@ -129,7 +129,7 @@ RGBColor:
 
 Text returns Text:
 	{Text}
-	'text' ('alias' alias=ID) layout = Layout
+	'text' ('alias' alias=ID)? layout = Layout
 	value = XExpression
 	;
 
