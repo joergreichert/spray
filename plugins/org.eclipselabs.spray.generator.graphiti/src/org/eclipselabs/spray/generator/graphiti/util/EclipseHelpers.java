@@ -196,8 +196,6 @@ public class EclipseHelpers {
         return properties;
     }
 
-    static private boolean log = true;
-
     /**
      * Creates a directory in the specified project
      * 
