@@ -133,6 +133,8 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IPeCreateService;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.services.IPeService;");
+    _builder.newLine();
     _builder.append("import ");
     String _util_package = GeneratorUtil.util_package();
     _builder.append(_util_package, "");
@@ -177,7 +179,13 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("protected IGaService gaService = null;");
+    _builder.append("protected IGaService              gaService;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("protected IPeCreateService        peCreateService;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("protected IPeService              peService;");
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
@@ -195,6 +203,12 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("gaService = Graphiti.getGaService();");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("peCreateService = Graphiti.getPeCreateService();");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("peService = Graphiti.getPeService();");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("}");
@@ -249,10 +263,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append(") context.getNewObject();");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
-    _builder.append("targetDiagram = Graphiti.getPeService().getDiagramForShape(context.getTargetContainer());");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("IPeCreateService peCreateService = Graphiti.getPeCreateService();");
+    _builder.append("targetDiagram = peService.getDiagramForShape(context.getTargetContainer());");
     _builder.newLine();
     _builder.newLine();
     _builder.append("        ");
@@ -261,13 +272,13 @@ public class AddShapeFeature extends FileGenerator {
     {
       boolean _hasFillColor = this._layoutExtensions.hasFillColor(container);
       if (_hasFillColor) {
-        _builder.append("    ");
+        _builder.append("        ");
         _builder.append("GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();");
         _builder.newLine();
-        _builder.append("    ");
+        _builder.append("        ");
         _builder.append("containerGa.setBackground(manageColor(");
         String _fillColor = this._layoutExtensions.fillColor(container);
-        _builder.append(_fillColor, "    ");
+        _builder.append(_fillColor, "        ");
         _builder.append("));");
         _builder.newLineIfNotEmpty();
       }
@@ -316,7 +327,17 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
-    _builder.append("        ");
+    {
+      SprayElement[] _parts_1 = container.getParts();
+      for(final SprayElement part_1 : _parts_1) {
+        _builder.append("    ");
+        _builder.append("    ");
+        _builder.newLine();
+      }
+    }
+    _builder.append("    ");
+    _builder.newLine();
+    _builder.append("    ");
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("    ");
@@ -466,10 +487,10 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("gaService.setLocationAndSize(text, 0, 0, 0, 0);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(shape, \"MODEL_TYPE\", type);");
+    _builder.append("peService.setPropertyValue(shape, \"MODEL_TYPE\", type);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);");
+    _builder.append("peService.setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("// create link and wire it");
@@ -499,7 +520,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("Shape dummy = peCreateService.createShape(textContainer, false);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(dummy, \"MODEL_TYPE\", \"");
+    _builder.append("peService.setPropertyValue(dummy, \"MODEL_TYPE\", \"");
     EClass _eReferenceType = target.getEReferenceType();
     String _name = _eReferenceType.getName();
     _builder.append(_name, "    ");
@@ -524,7 +545,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("gaService.setLocation(p, 0, 0);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);");
+    _builder.append("peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -543,17 +564,17 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("Shape shape = peCreateService.createContainerShape(textContainer, true);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(shape, \"STATIC\", \"true\");");
+    _builder.append("peService.setPropertyValue(shape, \"STATIC\", \"true\");");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(shape, \"MODEL_TYPE\", \"");
+    _builder.append("peService.setPropertyValue(shape, \"MODEL_TYPE\", \"");
     EClass _eReferenceType_2 = target.getEReferenceType();
     String _name_2 = _eReferenceType_2.getName();
     _builder.append(_name_2, "    ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);");
+    _builder.append("peService.setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("// create and set text graphics algorithm");

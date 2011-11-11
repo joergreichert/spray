@@ -63,6 +63,7 @@ class AddShapeFeature extends FileGenerator  {
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipse.graphiti.services.IPeCreateService;
+        import org.eclipse.graphiti.services.IPeService;
         import «util_package()».ISprayContainer;
         import «util_package()».«containerType»;
         import «util_package()».SprayContainerService;
@@ -76,12 +77,16 @@ class AddShapeFeature extends FileGenerator  {
         
             protected «containerType» container = null;
         
-            protected IGaService gaService = null;
+            protected IGaService              gaService;
+            protected IPeCreateService        peCreateService;
+            protected IPeService              peService;
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
                 container = new «containerType»();
                 gaService = Graphiti.getGaService();
+                peCreateService = Graphiti.getPeCreateService();
+                peService = Graphiti.getPeService();
             }
         
             public boolean canAdd(IAddContext context) {
@@ -97,14 +102,13 @@ class AddShapeFeature extends FileGenerator  {
 
             public PictogramElement add(IAddContext context) {
                 «container.represents.name» addedModelElement = («container.represents.name») context.getNewObject();
-                targetDiagram = Graphiti.getPeService().getDiagramForShape(context.getTargetContainer());
-                IPeCreateService peCreateService = Graphiti.getPeCreateService();
+                targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
         
                 ContainerShape containerShape = container.createContainer(context, addedModelElement);
-            «IF container.hasFillColor»
-                GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
-                containerGa.setBackground(manageColor(«container.fillColor»));
-            «ENDIF»    
+                «IF container.hasFillColor»
+                    GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
+                    containerGa.setBackground(manageColor(«container.fillColor»));
+                «ENDIF»    
                 ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);
                 link(containerShape, addedModelElement);
         
@@ -122,7 +126,11 @@ class AddShapeFeature extends FileGenerator  {
                 return containerShape;
             }
             
-                @Override
+            «FOR part : container.parts»
+                
+            «ENDFOR»
+            
+            @Override
             public boolean hasDoneChanges() {
                 return false;
             }
@@ -174,8 +182,8 @@ class AddShapeFeature extends FileGenerator  {
                 text.getFont().setItalic(true);
             «ENDIF»
                 gaService.setLocationAndSize(text, 0, 0, 0, 0);
-                Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", type);
-                Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
+                peService.setPropertyValue(shape, "MODEL_TYPE", type);
+                peService.setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                 // create link and wire it
                 link(shape, addedModelElement);
             }
@@ -187,19 +195,19 @@ class AddShapeFeature extends FileGenerator  {
             {
                 // Create a dummy invisible line to have an ancjhor point for adding new elements to the list
                 Shape dummy = peCreateService.createShape(textContainer, false);
-                Graphiti.getPeService().setPropertyValue(dummy, "MODEL_TYPE", "«target.EReferenceType.name»");
+                peService.setPropertyValue(dummy, "MODEL_TYPE", "«target.EReferenceType.name»");
                 Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
                 p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 p.setLineWidth(0);
                 p.setLineVisible(false);
                 gaService.setLocation(p, 0, 0);
-                Graphiti.getPeService().setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
+                peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
             }
             for («target.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«target.name.toFirstUpper»()) {
                 Shape shape = peCreateService.createContainerShape(textContainer, true);
-                Graphiti.getPeService().setPropertyValue(shape, "STATIC", "true");
-                Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", "«target.EReferenceType.name»");
-                Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
+                peService.setPropertyValue(shape, "STATIC", "true");
+                peService.setPropertyValue(shape, "MODEL_TYPE", "«target.EReferenceType.name»");
+                peService.setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                 // create and set text graphics algorithm
                 Text text = gaService.createDefaultText(getDiagram(), shape, p.get«metaRef.labelPropertyName.toFirstUpper»());
                 // TODO should have a text color here, refer to representation of reference type
