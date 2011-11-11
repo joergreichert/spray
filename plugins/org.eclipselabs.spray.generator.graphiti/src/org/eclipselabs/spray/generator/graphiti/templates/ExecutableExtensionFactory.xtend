@@ -6,13 +6,11 @@ import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class ExecutableExtensionFactory extends FileGenerator  {
-    @Inject extension SprayExtensions
     @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     

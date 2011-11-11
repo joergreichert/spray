@@ -15,13 +15,9 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class CreateReferenceAsConnectionFeature extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private ImportUtil _importUtil;
   
@@ -144,10 +140,10 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("super(fp, \"");
-    String _name_1 = this._sprayExtensions.getName(reference);
+    String _name_1 = this._namingExtensions.getName(reference);
     _builder.append(_name_1, "        ");
     _builder.append("\", \"Create ");
-    String _name_2 = this._sprayExtensions.getName(reference);
+    String _name_2 = this._namingExtensions.getName(reference);
     _builder.append(_name_2, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
@@ -171,7 +167,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(_shortName, "        ");
     _builder.append(" source = get");
     MetaClass _metaClass_2 = reference.getMetaClass();
-    String _name_3 = this._sprayExtensions.getName(_metaClass_2);
+    String _name_3 = this._namingExtensions.getName(_metaClass_2);
     _builder.append(_name_3, "        ");
     _builder.append("(context.getSourceAnchor());");
     _builder.newLineIfNotEmpty();
@@ -211,7 +207,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("if (get");
     MetaClass _metaClass_3 = reference.getMetaClass();
-    String _name_5 = this._sprayExtensions.getName(_metaClass_3);
+    String _name_5 = this._namingExtensions.getName(_metaClass_3);
     _builder.append(_name_5, "        ");
     _builder.append("(context.getSourceAnchor()) != null) {");
     _builder.newLineIfNotEmpty();
@@ -240,11 +236,11 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     MetaClass _metaClass_4 = reference.getMetaClass();
-    String _name_6 = this._sprayExtensions.getName(_metaClass_4);
+    String _name_6 = this._namingExtensions.getName(_metaClass_4);
     _builder.append(_name_6, "        ");
     _builder.append(" source = get");
     MetaClass _metaClass_5 = reference.getMetaClass();
-    String _name_7 = this._sprayExtensions.getName(_metaClass_5);
+    String _name_7 = this._namingExtensions.getName(_metaClass_5);
     _builder.append(_name_7, "        ");
     _builder.append("(context.getSourceAnchor());");
     _builder.newLineIfNotEmpty();
@@ -283,7 +279,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("            ");
     _builder.append("addContext.putProperty(\"REFERENCE\", \"");
-    String _name_11 = this._sprayExtensions.getName(reference);
+    String _name_11 = this._namingExtensions.getName(reference);
     _builder.append(_name_11, "            ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
@@ -313,7 +309,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("     ");
     _builder.append("* Returns the ");
     MetaClass _metaClass_6 = reference.getMetaClass();
-    String _name_12 = this._sprayExtensions.getName(_metaClass_6);
+    String _name_12 = this._namingExtensions.getName(_metaClass_6);
     _builder.append(_name_12, "     ");
     _builder.append(" belonging to the anchor, or null if not available.");
     _builder.newLineIfNotEmpty();
@@ -323,11 +319,11 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("protected ");
     MetaClass _metaClass_7 = reference.getMetaClass();
-    String _name_13 = this._sprayExtensions.getName(_metaClass_7);
+    String _name_13 = this._namingExtensions.getName(_metaClass_7);
     _builder.append(_name_13, "    ");
     _builder.append(" get");
     MetaClass _metaClass_8 = reference.getMetaClass();
-    String _name_14 = this._sprayExtensions.getName(_metaClass_8);
+    String _name_14 = this._namingExtensions.getName(_metaClass_8);
     _builder.append(_name_14, "    ");
     _builder.append("(Anchor anchor) {");
     _builder.newLineIfNotEmpty();
@@ -340,14 +336,14 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("if (object instanceof ");
     MetaClass _metaClass_9 = reference.getMetaClass();
-    String _name_15 = this._sprayExtensions.getName(_metaClass_9);
+    String _name_15 = this._namingExtensions.getName(_metaClass_9);
     _builder.append(_name_15, "            ");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
     _builder.append("                ");
     _builder.append("return (");
     MetaClass _metaClass_10 = reference.getMetaClass();
-    String _name_16 = this._sprayExtensions.getName(_metaClass_10);
+    String _name_16 = this._namingExtensions.getName(_metaClass_10);
     _builder.append(_name_16, "                ");
     _builder.append(") object;");
     _builder.newLineIfNotEmpty();
@@ -365,7 +361,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     {
       MetaClass _metaClass_11 = reference.getMetaClass();
-      String _name_17 = this._sprayExtensions.getName(_metaClass_11);
+      String _name_17 = this._namingExtensions.getName(_metaClass_11);
       String _name_18 = target.getName();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_name_17, _name_18);
       if (_operator_notEquals) {
@@ -455,7 +451,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(_firstUpper_4, "    ");
     _builder.append("(");
     MetaClass _metaClass_12 = reference.getMetaClass();
-    String _name_26 = this._sprayExtensions.getName(_metaClass_12);
+    String _name_26 = this._namingExtensions.getName(_metaClass_12);
     _builder.append(_name_26, "    ");
     _builder.append(" source, ");
     EClass _eReferenceType_5 = target.getEReferenceType();

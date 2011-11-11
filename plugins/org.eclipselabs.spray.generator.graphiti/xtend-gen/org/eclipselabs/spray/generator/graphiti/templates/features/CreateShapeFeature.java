@@ -11,14 +11,10 @@ import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 @SuppressWarnings("all")
 public class CreateShapeFeature extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -124,19 +120,19 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("private static final String TITLE = \"Create ");
-    String _visibleName = GeneratorUtil.visibleName(metaClass);
+    String _visibleName = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("private static final String USER_QUESTION = \"Enter new ");
-    String _visibleName_1 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_1 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_1, "    ");
     _builder.append(" name\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("public final static String typeOrAliasName = \"");
-    String _visibleName_2 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_2 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_2, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
@@ -151,10 +147,10 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("super(fp, \"");
-    String _visibleName_3 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_3 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_3, "        ");
     _builder.append("\", \"Create ");
-    String _visibleName_4 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_4 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_4, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
@@ -174,7 +170,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
-    String _name = this._sprayExtensions.getName(metaClass);
+    String _name = this._namingExtensions.getName(metaClass);
     _builder.append(_name, "    ");
     _builder.append(" newClass = null;");
     _builder.newLineIfNotEmpty();
@@ -184,7 +180,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("newClass = create");
-    String _visibleName_5 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_5 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_5, "        ");
     _builder.append("(context);");
     _builder.newLineIfNotEmpty();
@@ -220,10 +216,10 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
-    String _name_1 = this._sprayExtensions.getName(metaClass);
+    String _name_1 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_1, "    ");
     _builder.append(" create");
-    String _visibleName_6 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_6 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_6, "    ");
     _builder.append("(ICreateContext context) {");
     _builder.newLineIfNotEmpty();
@@ -246,18 +242,18 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("         ");
     _builder.append("// create ");
-    String _name_2 = this._sprayExtensions.getName(metaClass);
+    String _name_2 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_2, "         ");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
-    String _name_3 = this._sprayExtensions.getName(metaClass);
+    String _name_3 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_3, "        ");
     _builder.append(" newClass = ");
     String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
     String _shortName = this.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(".eINSTANCE.create");
-    String _name_4 = this._sprayExtensions.getName(metaClass);
+    String _name_4 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_4, "        ");
     _builder.append("();    ");
     _builder.newLineIfNotEmpty();

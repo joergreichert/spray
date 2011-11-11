@@ -3,17 +3,17 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
-import org.eclipselabs.spray.mm.spray.MetaReference
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
-import org.eclipselabs.spray.xtext.util.GenModelHelper
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
+import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class AddReferenceAsConnectionFeature extends FileGenerator  {
-    @Inject extension SprayExtensions
+    @Inject extension NamingExtensions
     @Inject extension LayoutExtensions
     @Inject extension GenModelHelper
     

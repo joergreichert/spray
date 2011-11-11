@@ -21,13 +21,9 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayElement;
 import org.eclipselabs.spray.mm.spray.Text;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class AddShapeFeature extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private LayoutExtensions _layoutExtensions;
   
@@ -165,7 +161,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("protected final static String typeOrAliasName = \"");
     MetaClass _represents_1 = container.getRepresents();
-    String _visibleName = GeneratorUtil.visibleName(_represents_1);
+    String _visibleName = this._namingExtensions.getVisibleName(_represents_1);
     _builder.append(_visibleName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
@@ -213,7 +209,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("if (newObject instanceof ");
     MetaClass _represents_2 = container.getRepresents();
-    String _name = this._sprayExtensions.getName(_represents_2);
+    String _name = this._namingExtensions.getName(_represents_2);
     _builder.append(_name, "        ");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
@@ -244,11 +240,11 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     MetaClass _represents_3 = container.getRepresents();
-    String _name_1 = this._sprayExtensions.getName(_represents_3);
+    String _name_1 = this._namingExtensions.getName(_represents_3);
     _builder.append(_name_1, "        ");
     _builder.append(" addedModelElement = (");
     MetaClass _represents_4 = container.getRepresents();
-    String _name_2 = this._sprayExtensions.getName(_represents_4);
+    String _name_2 = this._namingExtensions.getName(_represents_4);
     _builder.append(_name_2, "        ");
     _builder.append(") context.getNewObject();");
     _builder.newLineIfNotEmpty();
@@ -564,7 +560,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("Text text = gaService.createDefaultText(getDiagram(), shape, p.get");
-    String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(metaRef);
+    String _labelPropertyName = this._namingExtensions.getLabelPropertyName(metaRef);
     String _firstUpper_1 = StringExtensions.toFirstUpper(_labelPropertyName);
     _builder.append(_firstUpper_1, "    ");
     _builder.append("());");

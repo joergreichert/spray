@@ -26,14 +26,10 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.Shape;
 import org.eclipselabs.spray.mm.spray.SprayElement;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 @SuppressWarnings("all")
 public class FeatureProvider extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -234,7 +230,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("        ");
             _builder.append("        ");
             _builder.append("} else if( reference.equals(\"");
-            String _name = this._sprayExtensions.getName(reference);
+            String _name = this._namingExtensions.getName(reference);
             _builder.append(_name, "                ");
             _builder.append("\")){");
             _builder.newLineIfNotEmpty();
@@ -762,7 +758,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("        ");
             _builder.append("    ");
             _builder.append("} else if( reference.equals(\"");
-            String _name_1 = this._sprayExtensions.getName(reference_5);
+            String _name_1 = this._namingExtensions.getName(reference_5);
             _builder.append(_name_1, "            ");
             _builder.append("\")){");
             _builder.newLineIfNotEmpty();

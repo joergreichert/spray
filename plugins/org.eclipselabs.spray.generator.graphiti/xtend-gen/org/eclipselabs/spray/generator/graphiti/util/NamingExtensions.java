@@ -7,15 +7,18 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.common.types.JvmTypeReference;
+import org.eclipse.xtext.util.SimpleAttributeResolver;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.FeatureType;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
+import org.eclipselabs.spray.mm.spray.AliasableElement;
 import org.eclipselabs.spray.mm.spray.Behaviour;
+import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 /**
@@ -25,10 +28,56 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper;
 @SuppressWarnings("all")
 public class NamingExtensions {
   @Inject
-  private SprayExtensions e1;
-  
-  @Inject
   private GenModelHelper genModelHelper;
+  
+  protected String _getName(final EObject obj) {
+    String _apply = SimpleAttributeResolver.NAME_RESOLVER.apply(obj);
+    return _apply;
+  }
+  
+  protected String _getName(final MetaClass metaClass) {
+    EClass _type = metaClass.getType();
+    String _name = _type.getName();
+    return _name;
+  }
+  
+  protected String _getName(final MetaReference ref) {
+    EReference _reference = ref.getReference();
+    String _name = _reference.getName();
+    return _name;
+  }
+  
+  public String getVisibleName(final AliasableElement elem) {
+    String _alias = elem.getAlias();
+    boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_alias, null);
+    if (_operator_notEquals) {
+      String _alias_1 = elem.getAlias();
+      return _alias_1;
+    } else {
+      String _name = this.getName(elem);
+      return _name;
+    }
+  }
+  
+  public String getLabelPropertyName(final MetaReference ref) {
+    String _xifexpression = null;
+    EAttribute _labelProperty = ref.getLabelProperty();
+    boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_labelProperty, null);
+    if (_operator_notEquals) {
+      EAttribute _labelProperty_1 = ref.getLabelProperty();
+      String _name = _labelProperty_1.getName();
+      _xifexpression = _name;
+    } else {
+      _xifexpression = "name";
+    }
+    return _xifexpression;
+  }
+  
+  public String shortName(final ColorConstantRef colorConstant) {
+    JvmTypeReference _type = colorConstant.getType();
+    String _name = this.getName(_type);
+    return _name;
+  }
   
   public String getDiagramTypeProviderClassName(final Diagram diagram) {
     String _diagram_package = GeneratorUtil.diagram_package();
@@ -178,7 +227,7 @@ public class NamingExtensions {
     String _name = _diagram.getName();
     String _firstUpper = StringExtensions.toFirstUpper(_name);
     String _operator_plus = StringExtensions.operator_plus(_firstUpper, featureType);
-    String _visibleName = GeneratorUtil.visibleName(clazz);
+    String _visibleName = this.getVisibleName(clazz);
     String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _visibleName);
     String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, "Feature");
     return _operator_plus_2;
@@ -193,7 +242,7 @@ public class NamingExtensions {
   }
   
   protected String _getFilterSimpleClassName(final MetaClass clazz) {
-    String _name = this.e1.getName(clazz);
+    String _name = this.getName(clazz);
     String _operator_plus = StringExtensions.operator_plus(_name, "Filter");
     return _operator_plus;
   }
@@ -225,9 +274,9 @@ public class NamingExtensions {
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _firstUpper);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, featureType);
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_4 = StringExtensions.operator_plus(_operator_plus_3, _firstUpper_1);
       EReference _reference = reference.getReference();
@@ -257,9 +306,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "AddReference");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, "Feature");
@@ -285,9 +334,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "Create");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       EReference _reference = reference.getReference();
@@ -317,9 +366,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "Update");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, "Feature");
@@ -345,9 +394,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "Create");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       String _name_3 = subClass.getName();
@@ -375,9 +424,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "Add");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, "ListFeature");
@@ -403,9 +452,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "Create");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, "Feature");
@@ -431,9 +480,9 @@ public class NamingExtensions {
       String _name = _diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "DeleteReference");
-      String _name_1 = this.e1.getName(cls);
+      String _name_1 = this.getName(cls);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
-      String _name_2 = this.e1.getName(reference);
+      String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, "Feature");
@@ -616,6 +665,16 @@ public class NamingExtensions {
       String _replaceAll = _substring.replaceAll("\\W", "_");
       String _lowerCase = _replaceAll.toLowerCase();
       return _lowerCase;
+  }
+  
+  public String getName(final EObject metaClass) {
+    if (metaClass instanceof MetaClass) {
+      return _getName((MetaClass)metaClass);
+    } else if (metaClass instanceof MetaReference) {
+      return _getName((MetaReference)metaClass);
+    } else {
+      return _getName(metaClass);
+    }
   }
   
   public String getFilterClassName(final EObject clazz) {

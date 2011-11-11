@@ -3,6 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.templates.diagram
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
+import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Behaviour
 import org.eclipselabs.spray.mm.spray.BehaviourType
@@ -11,8 +12,6 @@ import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
@@ -20,7 +19,6 @@ import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.
 
 class ToolBehaviourProvider extends FileGenerator {
     @Inject extension NamingExtensions
-    @Inject extension SprayExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)

@@ -7,6 +7,13 @@ import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
+import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory
+import org.eclipselabs.spray.generator.graphiti.templates.Filter
+import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule
+import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile
+import org.eclipselabs.spray.generator.graphiti.templates.Plugin
+import org.eclipselabs.spray.generator.graphiti.templates.PluginActivator
+import org.eclipselabs.spray.generator.graphiti.templates.PropertySection
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.DiagramTypeProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.FeatureProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ImageProvider
@@ -25,13 +32,6 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFeature
-import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory
-import org.eclipselabs.spray.generator.graphiti.templates.Filter
-import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile
-import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule
-import org.eclipselabs.spray.generator.graphiti.templates.Plugin
-import org.eclipselabs.spray.generator.graphiti.templates.PluginActivator
-import org.eclipselabs.spray.generator.graphiti.templates.PropertySection
 import org.eclipselabs.spray.generator.graphiti.util.EclipseHelpers
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
@@ -40,12 +40,10 @@ import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class SprayGraphitiGenerator implements IGenerator {
-	@Inject extension SprayExtensions e1
 	@Inject extension NamingExtensions naming
 	
 	@Inject PluginActivator pluginActivator

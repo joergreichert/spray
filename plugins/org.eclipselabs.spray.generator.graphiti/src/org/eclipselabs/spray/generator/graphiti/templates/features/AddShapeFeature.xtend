@@ -5,20 +5,18 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.graphiti.util.IColorConstant
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
+import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Line
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.Text
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 
-import static extension org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class AddShapeFeature extends FileGenerator  {
-    @Inject extension SprayExtensions
     @Inject extension LayoutExtensions
     @Inject extension IQualifiedNameProvider
     @Inject extension NamingExtensions

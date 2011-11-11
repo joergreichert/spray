@@ -4,11 +4,10 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
+import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Text
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
@@ -17,7 +16,6 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
  */
 class UpdateShapeFeature extends FileGenerator  {
     @Inject extension NamingExtensions
-    @Inject extension SprayExtensions
     @Inject extension IQualifiedNameProvider
 
     override StringConcatenation generateBaseFile(EObject modelElement) {

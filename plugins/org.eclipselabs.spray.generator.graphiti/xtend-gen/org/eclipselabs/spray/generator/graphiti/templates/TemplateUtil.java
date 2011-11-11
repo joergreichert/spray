@@ -7,13 +7,9 @@ import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler;
 import org.eclipselabs.spray.mm.spray.Text;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class TemplateUtil {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private SprayCompiler compiler;
   

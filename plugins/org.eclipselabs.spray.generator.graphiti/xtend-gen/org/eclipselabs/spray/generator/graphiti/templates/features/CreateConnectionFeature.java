@@ -21,14 +21,10 @@ import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.Shape;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 @SuppressWarnings("all")
 public class CreateConnectionFeature extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -164,10 +160,10 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("super(fp, \"");
-    String _visibleName = GeneratorUtil.visibleName(metaClass);
+    String _visibleName = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName, "        ");
     _builder.append("\", \"Create ");
-    String _visibleName_1 = GeneratorUtil.visibleName(metaClass);
+    String _visibleName_1 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_1, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
@@ -281,7 +277,7 @@ public class CreateConnectionFeature extends FileGenerator {
     String _shortName_2 = this.shortName(_javaInterfaceName_2);
     _builder.append(_shortName_2, "            ");
     _builder.append(" eReference = create");
-    String _name_7 = this._sprayExtensions.getName(metaClass);
+    String _name_7 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_7, "            ");
     _builder.append("(source, target);");
     _builder.newLineIfNotEmpty();
@@ -441,10 +437,10 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
-    String _name_20 = this._sprayExtensions.getName(metaClass);
+    String _name_20 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_20, "    ");
     _builder.append(" create");
-    String _name_21 = this._sprayExtensions.getName(metaClass);
+    String _name_21 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_21, "    ");
     _builder.append("(");
     String _name_22 = from.getName();
@@ -458,14 +454,14 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("// TODO: Domain Object");
     _builder.newLine();
     _builder.append("        ");
-    String _name_24 = this._sprayExtensions.getName(metaClass);
+    String _name_24 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_24, "        ");
     _builder.append(" domainObject = ");
     String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
     String _shortName_3 = this.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName_3, "        ");
     _builder.append(".eINSTANCE.create");
-    String _name_25 = this._sprayExtensions.getName(metaClass);
+    String _name_25 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_25, "        ");
     _builder.append("();");
     _builder.newLineIfNotEmpty();
@@ -483,7 +479,7 @@ public class CreateConnectionFeature extends FileGenerator {
       if (_exists) {
         _builder.append("        ");
         _builder.append("domainObject.setName(\"new ");
-        String _visibleName_2 = GeneratorUtil.visibleName(metaClass);
+        String _visibleName_2 = this._namingExtensions.getVisibleName(metaClass);
         _builder.append(_visibleName_2, "        ");
         _builder.append("\");");
         _builder.newLineIfNotEmpty();

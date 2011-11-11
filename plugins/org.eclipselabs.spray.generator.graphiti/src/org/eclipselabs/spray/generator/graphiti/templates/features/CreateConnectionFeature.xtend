@@ -4,19 +4,17 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
+import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 import org.eclipselabs.spray.xtext.util.GenModelHelper
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 
-import static extension org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class CreateConnectionFeature extends FileGenerator  {
-    @Inject extension SprayExtensions
     @Inject extension NamingExtensions
     @Inject extension GenModelHelper
     

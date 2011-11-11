@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Date;
 
 import org.eclipselabs.spray.mm.spray.Container;
-import org.eclipselabs.spray.mm.spray.MetaClass;
 
 public class GeneratorUtil {
 
@@ -45,10 +44,6 @@ public class GeneratorUtil {
 
     public static String util_package() {
         return ProjectProperties.getUtilPackage();
-    }
-
-    public static String visibleName(MetaClass cls) {
-        return (cls.getAlias() == null ? cls.getType().getName() : cls.getAlias());
     }
 
     public static String base(String name) {

@@ -7,10 +7,8 @@ import org.eclipselabs.spray.generator.graphiti.util.XtendProperties
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
 class Plugin extends TemplateUtil {
-    @Inject extension SprayExtensions
     @Inject extension NamingExtensions
     
     def generate(Diagram diagram) '''

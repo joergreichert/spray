@@ -10,15 +10,11 @@ import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class UpdateReferenceAsListFeature extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
-  
-  @Inject
-  private SprayExtensions _sprayExtensions;
   
   private EClass target;
   
@@ -232,7 +228,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("            ");
     _builder.append("businessName = reference.get");
-    String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(reference);
+    String _labelPropertyName = this._namingExtensions.getLabelPropertyName(reference);
     String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName);
     _builder.append(_firstUpper, "            ");
     _builder.append("();");
@@ -307,7 +303,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("            ");
     _builder.append("businessName = eClass.get");
-    String _labelPropertyName_1 = this._sprayExtensions.getLabelPropertyName(reference);
+    String _labelPropertyName_1 = this._namingExtensions.getLabelPropertyName(reference);
     String _firstUpper_1 = StringExtensions.toFirstUpper(_labelPropertyName_1);
     _builder.append(_firstUpper_1, "            ");
     _builder.append("();");

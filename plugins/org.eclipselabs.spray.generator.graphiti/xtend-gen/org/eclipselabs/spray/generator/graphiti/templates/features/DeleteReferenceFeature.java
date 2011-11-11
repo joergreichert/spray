@@ -13,15 +13,11 @@ import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class DeleteReferenceFeature extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
-  
-  @Inject
-  private SprayExtensions _sprayExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -334,11 +330,11 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("                ");
     MetaClass _metaClass_1 = reference.getMetaClass();
-    String _name = this._sprayExtensions.getName(_metaClass_1);
+    String _name = this._namingExtensions.getName(_metaClass_1);
     _builder.append(_name, "                ");
     _builder.append(" object = (");
     MetaClass _metaClass_2 = reference.getMetaClass();
-    String _name_1 = this._sprayExtensions.getName(_metaClass_2);
+    String _name_1 = this._namingExtensions.getName(_metaClass_2);
     _builder.append(_name_1, "                ");
     _builder.append(" ) bo;");
     _builder.newLineIfNotEmpty();
@@ -402,7 +398,7 @@ public class DeleteReferenceFeature extends FileGenerator {
       } else {
         _builder.append("        ");
         _builder.append("object.set");
-        String _name_5 = this._sprayExtensions.getName(reference);
+        String _name_5 = this._namingExtensions.getName(reference);
         String _firstUpper_2 = StringExtensions.toFirstUpper(_name_5);
         _builder.append(_firstUpper_2, "        ");
         _builder.append("(null);");

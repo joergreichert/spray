@@ -5,6 +5,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.Diagram;
@@ -14,7 +15,6 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.StandardBehaviour;
 import org.eclipselabs.spray.mm.spray.Text;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 
 import com.google.inject.Inject;
@@ -25,7 +25,7 @@ import com.google.inject.Inject;
  */
 public class SprayLabelProvider extends DefaultEObjectLabelProvider {
     @Inject
-    private SprayExtensions    sprayExtensions;
+    private NamingExtensions   sprayExtensions;
     @Inject
     private SprayGrammarAccess grammar;
 

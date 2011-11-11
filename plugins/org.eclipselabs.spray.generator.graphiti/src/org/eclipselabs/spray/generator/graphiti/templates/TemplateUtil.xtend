@@ -5,12 +5,10 @@ import org.eclipse.xtext.xbase.compiler.ImportManager
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.Text
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 class TemplateUtil extends Object {
-    @Inject extension SprayExtensions
     @Inject SprayCompiler compiler
     
     def header(Object templateClass) '''

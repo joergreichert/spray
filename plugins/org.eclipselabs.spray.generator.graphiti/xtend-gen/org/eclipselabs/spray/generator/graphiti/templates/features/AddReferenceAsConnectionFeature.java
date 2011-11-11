@@ -10,17 +10,17 @@ import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions;
+import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Layout;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 @SuppressWarnings("all")
 public class AddReferenceAsConnectionFeature extends FileGenerator {
   @Inject
-  private SprayExtensions _sprayExtensions;
+  private NamingExtensions _namingExtensions;
   
   @Inject
   private LayoutExtensions _layoutExtensions;
@@ -155,7 +155,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(_shortName, "        ");
     _builder.append(" addedDomainObject = (");
     MetaClass _metaClass_1 = reference.getMetaClass();
-    String _name = this._sprayExtensions.getName(_metaClass_1);
+    String _name = this._namingExtensions.getName(_metaClass_1);
     _builder.append(_name, "        ");
     _builder.append(") context.getNewObject();");
     _builder.newLineIfNotEmpty();
@@ -234,7 +234,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("Graphiti.getPeService().setPropertyValue(connection, \"MODEL_TYPE\", \"");
     MetaClass _metaClass_2 = reference.getMetaClass();
-    String _name_1 = this._sprayExtensions.getName(_metaClass_2);
+    String _name_1 = this._namingExtensions.getName(_metaClass_2);
     _builder.append(_name_1, "        ");
     _builder.append(".");
     String _name_2 = target.getName();
@@ -278,7 +278,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("// return true if given business object is an ");
     MetaClass _metaClass_3 = reference.getMetaClass();
-    String _name_3 = this._sprayExtensions.getName(_metaClass_3);
+    String _name_3 = this._namingExtensions.getName(_metaClass_3);
     _builder.append(_name_3, "        ");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
@@ -290,7 +290,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("&& context.getNewObject() instanceof ");
     MetaClass _metaClass_4 = reference.getMetaClass();
-    String _name_4 = this._sprayExtensions.getName(_metaClass_4);
+    String _name_4 = this._namingExtensions.getName(_metaClass_4);
     _builder.append(_name_4, "            ");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
@@ -316,11 +316,11 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     MetaClass _metaClass_5 = reference.getMetaClass();
-    String _name_5 = this._sprayExtensions.getName(_metaClass_5);
+    String _name_5 = this._namingExtensions.getName(_metaClass_5);
     _builder.append(_name_5, "        ");
     _builder.append(" addedDomainObject = (");
     MetaClass _metaClass_6 = reference.getMetaClass();
-    String _name_6 = this._sprayExtensions.getName(_metaClass_6);
+    String _name_6 = this._namingExtensions.getName(_metaClass_6);
     _builder.append(_name_6, "        ");
     _builder.append(") context.getNewObject();");
     _builder.newLineIfNotEmpty();
@@ -341,7 +341,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("                ");
     _builder.append("if( \"");
-    String _name_7 = this._sprayExtensions.getName(reference);
+    String _name_7 = this._namingExtensions.getName(reference);
     _builder.append(_name_7, "                ");
     _builder.append("\".equals(reference)){");
     _builder.newLineIfNotEmpty();

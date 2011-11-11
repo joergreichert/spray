@@ -15,15 +15,11 @@ import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.Text;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class UpdateConnectionFeature extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
-  
-  @Inject
-  private SprayExtensions _sprayExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -97,7 +93,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     final String diagramName = _name;
     _builder.newLineIfNotEmpty();
     MetaClass _represents_1 = connection.getRepresents();
-    String _name_1 = this._sprayExtensions.getName(_represents_1);
+    String _name_1 = this._namingExtensions.getName(_represents_1);
     final String metaClassName = _name_1;
     _builder.newLineIfNotEmpty();
     MetaClass _represents_2 = connection.getRepresents();
@@ -358,7 +354,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("protected String getValue(String type, ");
     MetaClass _represents_5 = connection.getRepresents();
-    String _name_3 = this._sprayExtensions.getName(_represents_5);
+    String _name_3 = this._namingExtensions.getName(_represents_5);
     _builder.append(_name_3, "    ");
     _builder.append(" eClass) {");
     _builder.newLineIfNotEmpty();

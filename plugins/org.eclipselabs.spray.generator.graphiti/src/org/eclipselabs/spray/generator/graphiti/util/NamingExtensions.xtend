@@ -1,26 +1,55 @@
 package org.eclipselabs.spray.generator.graphiti.util
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EObject
+import org.eclipselabs.spray.mm.spray.AliasableElement
+import org.eclipselabs.spray.mm.spray.Behaviour
+import org.eclipselabs.spray.mm.spray.ColorConstantRef
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions
-
+import org.eclipselabs.spray.xtext.util.GenModelHelper
+import org.eclipse.xtext.util.SimpleAttributeResolver
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipse.emf.ecore.EAttribute
-import org.eclipselabs.spray.mm.spray.Behaviour
-import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 /**
  * Computation of class names, file names etc.
  * @author Karsten Thoms
  */
 class NamingExtensions {
-	@Inject extension SprayExtensions e1
 	@Inject GenModelHelper genModelHelper
+
+    def dispatch String getName (EObject obj) {
+        SimpleAttributeResolver::NAME_RESOLVER.apply(obj)
+    }
+
+    def dispatch String getName (MetaClass metaClass) {
+        metaClass.type.name
+    }
+    def dispatch String getName (MetaReference ref) {
+        ref.reference.name
+    }
+    
+	def String getVisibleName (AliasableElement elem) {
+	    if (elem.alias != null)
+	       return elem.alias
+	    else
+	       return elem.name
+	}
 	
+	def String getLabelPropertyName (MetaReference ref) {
+	    if (ref.labelProperty != null)
+	       ref.labelProperty.name
+	    else
+	       "name" 
+	}
+	
+	def String shortName (ColorConstantRef colorConstant) {
+	    colorConstant.type.name
+	}
 	//---------------------------------------------------------------------------------------------
 	// Class names for Diagram
 	//---------------------------------------------------------------------------------------------
@@ -98,7 +127,7 @@ class NamingExtensions {
 	}
 
 	def getFeatureSimpleClassName (MetaClass clazz, FeatureType featureType) {
-		clazz.diagram.name.toFirstUpper + featureType + visibleName(clazz) + "Feature"
+		clazz.diagram.name.toFirstUpper + featureType + clazz.visibleName + "Feature"
 	}
 	def dispatch getFilterClassName (MetaClass clazz) {
 		property_package() + "." + clazz.getFilterSimpleClassName

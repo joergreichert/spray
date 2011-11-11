@@ -12,13 +12,9 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class CreateReferenceAsListFeature extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -127,7 +123,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     String _name_1 = this.target.getName();
     _builder.append(_name_1, "    ");
     _builder.append(" ");
-    String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(reference);
+    String _labelPropertyName = this._namingExtensions.getLabelPropertyName(reference);
     _builder.append(_labelPropertyName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
@@ -165,7 +161,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return domainObject instanceof ");
-    String _name_4 = this._sprayExtensions.getName(metaClass);
+    String _name_4 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_4, "        ");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
@@ -208,7 +204,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(" owner = (");
-    String _name_6 = this._sprayExtensions.getName(metaClass);
+    String _name_6 = this._namingExtensions.getName(metaClass);
     _builder.append(_name_6, "        ");
     _builder.append(")domainObject;");
     _builder.newLineIfNotEmpty();
@@ -234,14 +230,14 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("newDomainObject.set");
-    String _labelPropertyName_1 = this._sprayExtensions.getLabelPropertyName(reference);
+    String _labelPropertyName_1 = this._namingExtensions.getLabelPropertyName(reference);
     String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName_1);
     _builder.append(_firstUpper, "        ");
     _builder.append("(newName);");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("owner.get");
-    String _name_9 = this._sprayExtensions.getName(reference);
+    String _name_9 = this._namingExtensions.getName(reference);
     String _firstUpper_1 = StringExtensions.toFirstUpper(_name_9);
     _builder.append(_firstUpper_1, "        ");
     _builder.append("().add(newDomainObject);");

@@ -20,13 +20,9 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.Shape;
 import org.eclipselabs.spray.mm.spray.SprayElement;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class Plugin extends TemplateUtil {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -377,7 +373,7 @@ public class Plugin extends TemplateUtil {
             _builder.append("  ");
             _builder.append(" ");
             String _operator_plus = StringExtensions.operator_plus(diagramName, ".main.tab.");
-            String _name_1 = this._sprayExtensions.getName(cls);
+            String _name_1 = this._namingExtensions.getName(cls);
             String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_1);
             String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, ".");
             String _name_2 = property.getName();
@@ -430,7 +426,7 @@ public class Plugin extends TemplateUtil {
               for(final MetaReference ref : _filter) {
                 _builder.append("        ");
                 _builder.append("  ");
-                String _name_3 = this._sprayExtensions.getName(ref);
+                String _name_3 = this._namingExtensions.getName(ref);
                 XtendProperties.setValue("refName", _name_3);
                 _builder.append(" ");
                 _builder.newLineIfNotEmpty();

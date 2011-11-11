@@ -61,13 +61,9 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.Shape;
 import org.eclipselabs.spray.mm.spray.SprayElement;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class SprayGraphitiGenerator implements IGenerator {
-  @Inject
-  private SprayExtensions e1;
-  
   @Inject
   private NamingExtensions naming;
   
@@ -339,7 +335,7 @@ public class SprayGraphitiGenerator implements IGenerator {
       Iterable<MetaReference> _flatten = IterableExtensions.<MetaReference>flatten(_map_1);
       for (final MetaReference reference_1 : _flatten) {
         {
-          String _name = this.e1.getName(reference_1);
+          String _name = this.naming.getName(reference_1);
           final String referenceName = _name;
           EObject _eContainer = reference_1.eContainer();
           MetaClass _represents = ((Container) _eContainer).getRepresents();
@@ -460,7 +456,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               Iterable<MetaReference> _map_2 = IterableExtensions.<SprayElement, MetaReference>map(_filter_7, _function_9);
               for (final MetaReference reference_3 : _map_2) {
                 {
-                  String _name_5 = this.e1.getName(reference_3);
+                  String _name_5 = this.naming.getName(reference_3);
                   final String referenceName_1 = _name_5;
                   EClass _type_1 = metaClass_7.getType();
                   EList<EReference> _eAllReferences_1 = _type_1.getEAllReferences();
@@ -535,7 +531,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               Iterable<MetaReference> _map_3 = IterableExtensions.<SprayElement, MetaReference>map(_filter_8, _function_12);
               for (final MetaReference reference_5 : _map_3) {
                 {
-                  String _name_6 = this.e1.getName(reference_5);
+                  String _name_6 = this.naming.getName(reference_5);
                   final String referenceName_2 = _name_6;
                   EClass _type_3 = metaClass_9.getType();
                   EList<EReference> _eAllReferences_2 = _type_3.getEAllReferences();
@@ -592,7 +588,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               Iterable<MetaReference> _map_4 = IterableExtensions.<SprayElement, MetaReference>map(_filter_9, _function_15);
               for (final MetaReference reference_6 : _map_4) {
                 {
-                  String _name_7 = this.e1.getName(reference_6);
+                  String _name_7 = this.naming.getName(reference_6);
                   final String referenceName_3 = _name_7;
                   EClass _type_5 = metaClass_10.getType();
                   EList<EReference> _eAllReferences_3 = _type_5.getEAllReferences();

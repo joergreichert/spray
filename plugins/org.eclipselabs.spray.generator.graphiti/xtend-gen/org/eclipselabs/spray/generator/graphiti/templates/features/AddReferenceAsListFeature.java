@@ -14,13 +14,9 @@ import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.extensions.SprayExtensions;
 
 @SuppressWarnings("all")
 public class AddReferenceAsListFeature extends FileGenerator {
-  @Inject
-  private SprayExtensions _sprayExtensions;
-  
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -280,7 +276,7 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get");
-    String _labelPropertyName = this._sprayExtensions.getLabelPropertyName(reference);
+    String _labelPropertyName = this._namingExtensions.getLabelPropertyName(reference);
     String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName);
     _builder.append(_firstUpper, "        ");
     _builder.append("());");
