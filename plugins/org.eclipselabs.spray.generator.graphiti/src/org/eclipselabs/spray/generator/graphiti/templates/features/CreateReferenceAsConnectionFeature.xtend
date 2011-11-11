@@ -42,7 +42,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
     '''
 
     def mainFile(MetaReference reference, String className) '''
-        «val target = reference.reference» 
+        «val target = reference.target» 
         «val diagramName = reference.metaClass.diagram.name »
         «header(this)»
         package «feature_package()»;

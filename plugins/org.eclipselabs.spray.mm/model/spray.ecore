@@ -84,7 +84,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaClass" eType="#//MetaClass"
         eOpposite="#//MetaClass/references"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//Text"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelProperty" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
   </eClassifiers>

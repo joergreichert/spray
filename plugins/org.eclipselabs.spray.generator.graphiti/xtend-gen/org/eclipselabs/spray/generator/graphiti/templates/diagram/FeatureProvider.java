@@ -267,8 +267,8 @@ public class FeatureProvider extends FileGenerator {
                 _builder.append("        ");
                 _builder.append("    ");
                 _builder.append("if( object instanceof ");
-                EReference _reference = reference_1.getReference();
-                EClass _eReferenceType = _reference.getEReferenceType();
+                EReference _target = reference_1.getTarget();
+                EClass _eReferenceType = _target.getEReferenceType();
                 String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(_eReferenceType);
                 String _shortName_3 = this.shortName(_javaInterfaceName);
                 _builder.append(_shortName_3, "            ");
@@ -346,8 +346,8 @@ public class FeatureProvider extends FileGenerator {
               Iterable<MetaReference> _filter_3 = IterableExtensions.<MetaReference>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_parts_1)), org.eclipselabs.spray.mm.spray.MetaReference.class);
               for(final MetaReference reference_2 : _filter_3) {
                 _builder.append("        ");
-                EReference _reference_1 = reference_2.getReference();
-                final EReference target = _reference_1;
+                EReference _target_1 = reference_2.getTarget();
+                final EReference target = _target_1;
                 _builder.append("  ");
                 _builder.newLineIfNotEmpty();
                 {
@@ -458,8 +458,8 @@ public class FeatureProvider extends FileGenerator {
               Iterable<MetaReference> _filter_4 = IterableExtensions.<MetaReference>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_parts_2)), org.eclipselabs.spray.mm.spray.MetaReference.class);
               for(final MetaReference reference_3 : _filter_4) {
                 _builder.append("        ");
-                EReference _reference_2 = reference_3.getReference();
-                EClass _eReferenceType_3 = _reference_2.getEReferenceType();
+                EReference _target_2 = reference_3.getTarget();
+                EClass _eReferenceType_3 = _target_2.getEReferenceType();
                 EClass eClass = _eReferenceType_3;
                 _builder.append(" ");
                 _builder.newLineIfNotEmpty();
@@ -795,8 +795,8 @@ public class FeatureProvider extends FileGenerator {
                 _builder.append("        ");
                 _builder.append("    ");
                 _builder.append("    ");
-                EReference _reference_3 = reference_6.getReference();
-                final EReference target_1 = _reference_3;
+                EReference _target_3 = reference_6.getTarget();
+                final EReference target_1 = _target_3;
                 _builder.append(" ");
                 _builder.newLineIfNotEmpty();
                 _builder.append("        ");

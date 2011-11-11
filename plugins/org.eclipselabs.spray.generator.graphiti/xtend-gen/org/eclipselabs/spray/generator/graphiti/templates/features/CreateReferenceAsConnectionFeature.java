@@ -90,8 +90,8 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
   
   public StringConcatenation mainFile(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    EReference _reference = reference.getReference();
-    final EReference target = _reference;
+    EReference _target = reference.getTarget();
+    final EReference target = _target;
     _builder.append(" ");
     _builder.newLineIfNotEmpty();
     MetaClass _metaClass = reference.getMetaClass();

@@ -42,8 +42,8 @@ public class NamingExtensions {
   }
   
   protected String _getName(final MetaReference ref) {
-    EReference _reference = ref.getReference();
-    String _name = _reference.getName();
+    EReference _target = ref.getTarget();
+    String _name = _target.getName();
     return _name;
   }
   
@@ -279,8 +279,8 @@ public class NamingExtensions {
       String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_4 = StringExtensions.operator_plus(_operator_plus_3, _firstUpper_1);
-      EReference _reference = reference.getReference();
-      EClass _eReferenceType = _reference.getEReferenceType();
+      EReference _target = reference.getTarget();
+      EClass _eReferenceType = _target.getEReferenceType();
       String _name_3 = _eReferenceType.getName();
       String _operator_plus_5 = StringExtensions.operator_plus(_operator_plus_4, _name_3);
       String _operator_plus_6 = StringExtensions.operator_plus(_operator_plus_5, "Feature");
@@ -339,8 +339,8 @@ public class NamingExtensions {
       String _name_2 = this.getName(reference);
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_2);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _firstUpper_1);
-      EReference _reference = reference.getReference();
-      EClass _eReferenceType = _reference.getEReferenceType();
+      EReference _target = reference.getTarget();
+      EClass _eReferenceType = _target.getEReferenceType();
       String _name_3 = _eReferenceType.getName();
       String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, _name_3);
       String _operator_plus_4 = StringExtensions.operator_plus(_operator_plus_3, "Feature");

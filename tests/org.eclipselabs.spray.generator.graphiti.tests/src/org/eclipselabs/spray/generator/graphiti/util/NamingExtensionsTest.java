@@ -61,11 +61,11 @@ public class NamingExtensionsTest {
         diagram.getMetaClassesList().add(clsEClassAliased);
 
         reference = SprayFactory.eINSTANCE.createMetaReference();
-        reference.setReference(EcorePackage.Literals.ECLASS__EALL_OPERATIONS);
+        reference.setTarget(EcorePackage.Literals.ECLASS__EALL_OPERATIONS);
         clsEClass.getReferencesList().add(reference);
 
         reference2 = SprayFactory.eINSTANCE.createMetaReference();
-        reference2.setReference(EcorePackage.Literals.ECLASSIFIER__EPACKAGE);
+        reference2.setTarget(EcorePackage.Literals.ECLASSIFIER__EPACKAGE);
         clsEClassifier.getReferencesList().add(reference2);
 
         behaviour = SprayFactory.eINSTANCE.createCustomBehaviour();

@@ -37,7 +37,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
 
     def mainFile(MetaReference reference, String className) '''
         «val metaClass = (reference.eContainer as Container).represents»
-        «val target = reference.reference» 
+        «val target = reference.target» 
         «val diagramName = metaClass.diagram.name »  
         «header(this)»
         package «feature_package()»;

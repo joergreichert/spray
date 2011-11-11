@@ -114,7 +114,7 @@ class Plugin extends TemplateUtil {
                 «FOR ref :  container.parts.filter(typeof(MetaReference)) »  
                     «XtendProperties::setValue("refName", ref.name)» 
                     «val references = cls.type.EAllReferences» 
-                    «val target = ref.reference»
+                    «val target = ref.target»
                       «XtendProperties::setValue("PreviousSection", null)»
                     <extension
                       point="org.eclipse.ui.views.properties.tabbed.propertySections">

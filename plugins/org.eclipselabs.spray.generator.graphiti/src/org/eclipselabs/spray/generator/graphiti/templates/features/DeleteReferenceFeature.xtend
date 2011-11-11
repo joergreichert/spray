@@ -36,7 +36,7 @@ class DeleteReferenceFeature extends FileGenerator {
     '''
 
     def mainFile(MetaReference reference, String className) '''
-        «val target = reference.reference» 
+        «val target = reference.target» 
         «header(this)»
         package «feature_package()»;
 

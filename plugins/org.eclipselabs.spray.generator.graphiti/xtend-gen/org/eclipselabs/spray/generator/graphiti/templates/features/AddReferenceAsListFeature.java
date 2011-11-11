@@ -76,8 +76,8 @@ public class AddReferenceAsListFeature extends FileGenerator {
     MetaClass _represents = ((Container) _eContainer).getRepresents();
     final MetaClass metaClass = _represents;
     _builder.newLineIfNotEmpty();
-    EReference _reference = reference.getReference();
-    final EReference target = _reference;
+    EReference _target = reference.getTarget();
+    final EReference target = _target;
     _builder.append(" ");
     _builder.newLineIfNotEmpty();
     Diagram _diagram = metaClass.getDiagram();

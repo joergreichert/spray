@@ -182,12 +182,12 @@ class AddShapeFeature extends FileGenerator  {
         '''
         
         def dispatch createShape (MetaReference metaRef) '''
-            «val eReference = metaRef.reference» 
+            «val target = metaRef.target» 
             // Part is reference list
             {
                 // Create a dummy invisible line to have an ancjhor point for adding new elements to the list
                 Shape dummy = peCreateService.createShape(textContainer, false);
-                Graphiti.getPeService().setPropertyValue(dummy, "MODEL_TYPE", "«eReference.EReferenceType.name»");
+                Graphiti.getPeService().setPropertyValue(dummy, "MODEL_TYPE", "«target.EReferenceType.name»");
                 Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
                 p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 p.setLineWidth(0);
@@ -195,10 +195,10 @@ class AddShapeFeature extends FileGenerator  {
                 gaService.setLocation(p, 0, 0);
                 Graphiti.getPeService().setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
             }
-            for («eReference.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«eReference.name.toFirstUpper»()) {
+            for («target.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«target.name.toFirstUpper»()) {
                 Shape shape = peCreateService.createContainerShape(textContainer, true);
                 Graphiti.getPeService().setPropertyValue(shape, "STATIC", "true");
-                Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", "«eReference.EReferenceType.name»");
+                Graphiti.getPeService().setPropertyValue(shape, "MODEL_TYPE", "«target.EReferenceType.name»");
                 Graphiti.getPeService().setPropertyValue(shape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                 // create and set text graphics algorithm
                 Text text = gaService.createDefaultText(getDiagram(), shape, p.get«metaRef.labelPropertyName.toFirstUpper»());

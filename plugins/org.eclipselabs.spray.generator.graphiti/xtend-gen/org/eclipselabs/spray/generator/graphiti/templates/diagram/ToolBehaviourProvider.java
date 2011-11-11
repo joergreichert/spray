@@ -214,8 +214,8 @@ public class ToolBehaviourProvider extends FileGenerator {
               SprayElement[] _parts = container.getParts();
               Iterable<MetaReference> _filter_2 = IterableExtensions.<MetaReference>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_parts)), org.eclipselabs.spray.mm.spray.MetaReference.class);
               for(final MetaReference reference : _filter_2) {
-                EReference _reference = reference.getReference();
-                final EReference target = _reference;
+                EReference _target = reference.getTarget();
+                final EReference target = _target;
                 _builder.append("  ");
                 _builder.newLineIfNotEmpty();
                 {
@@ -294,8 +294,8 @@ public class ToolBehaviourProvider extends FileGenerator {
             final String metaRefName = _name_1;
             _builder.newLineIfNotEmpty();
             _builder.append("                ");
-            EReference _reference_1 = metaRef.getReference();
-            final EReference target_1 = _reference_1;
+            EReference _target_1 = metaRef.getTarget();
+            final EReference target_1 = _target_1;
             _builder.append(" ");
             _builder.newLineIfNotEmpty();
             _builder.append("                ");

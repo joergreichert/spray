@@ -484,8 +484,8 @@ public class AddShapeFeature extends FileGenerator {
   
   protected StringConcatenation _createShape(final MetaReference metaRef) {
     StringConcatenation _builder = new StringConcatenation();
-    EReference _reference = metaRef.getReference();
-    final EReference eReference = _reference;
+    EReference _target = metaRef.getTarget();
+    final EReference target = _target;
     _builder.append(" ");
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is reference list");
@@ -500,7 +500,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("Graphiti.getPeService().setPropertyValue(dummy, \"MODEL_TYPE\", \"");
-    EClass _eReferenceType = eReference.getEReferenceType();
+    EClass _eReferenceType = target.getEReferenceType();
     String _name = _eReferenceType.getName();
     _builder.append(_name, "    ");
     _builder.append("\");");
@@ -529,12 +529,12 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.append("for (");
-    EClass _eReferenceType_1 = eReference.getEReferenceType();
+    EClass _eReferenceType_1 = target.getEReferenceType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_eReferenceType_1);
     String _shortName_1 = this.shortName(_javaInterfaceName);
     _builder.append(_shortName_1, "");
     _builder.append(" p : addedModelElement.get");
-    String _name_1 = eReference.getName();
+    String _name_1 = target.getName();
     String _firstUpper = StringExtensions.toFirstUpper(_name_1);
     _builder.append(_firstUpper, "");
     _builder.append("()) {");
@@ -547,7 +547,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("Graphiti.getPeService().setPropertyValue(shape, \"MODEL_TYPE\", \"");
-    EClass _eReferenceType_2 = eReference.getEReferenceType();
+    EClass _eReferenceType_2 = target.getEReferenceType();
     String _name_2 = _eReferenceType_2.getName();
     _builder.append(_name_2, "    ");
     _builder.append("\");");

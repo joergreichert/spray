@@ -99,7 +99,7 @@ class FeatureProvider extends FileGenerator {
                     «IF cls.representedBy instanceof Container»
                         «val container = cls.representedBy as Container»
                         «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                            if( object instanceof «reference.reference.EReferenceType.javaInterfaceName.shortName» ){
+                            if( object instanceof «reference.target.EReferenceType.javaInterfaceName.shortName» ){
                                 return new «reference.addReferenceAsListFeatureClassName.shortName»(this);
                             }
                         «ENDFOR»    
@@ -116,7 +116,7 @@ class FeatureProvider extends FileGenerator {
                     «IF cls.representedBy instanceof Container»
                         «val container = cls.representedBy as Container»
                         «FOR reference : container.parts.filter(typeof(MetaReference))»
-                            «val target = reference.reference»  
+                            «val target = reference.target»  
                             «IF ! target.EReferenceType.abstract»
                             , new «reference.createFeatureClassName.shortName»(this)
                             «ENDIF»
@@ -146,7 +146,7 @@ class FeatureProvider extends FileGenerator {
                     «IF cls.representedBy instanceof Container»
                         «val container = cls.representedBy as Container»
                         «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                            «var eClass = reference.reference.EReferenceType » 
+                            «var eClass = reference.target.EReferenceType » 
                             «IF  eClass.abstract»
                                 if (bo instanceof «eClass.javaInterfaceName.shortName») { // 22
                                     return new «reference.updateReferenceAsListFeatureClassName.shortName»(this); 
@@ -222,7 +222,7 @@ class FeatureProvider extends FileGenerator {
                     «IF cls.representedBy instanceof Container»
                         «val container = cls.representedBy as Container»
                         «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                            «val target = reference.reference» 
+                            «val target = reference.target» 
                         if( bo instanceof «target.EReferenceType.name» ){
                             return new OwnerPropertyDeleteFeature(this);
                         }

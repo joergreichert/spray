@@ -439,8 +439,8 @@ public class Plugin extends TemplateUtil {
                 _builder.newLineIfNotEmpty();
                 _builder.append("        ");
                 _builder.append("  ");
-                EReference _reference = ref.getReference();
-                final EReference target = _reference;
+                EReference _target = ref.getTarget();
+                final EReference target = _target;
                 _builder.newLineIfNotEmpty();
                 _builder.append("        ");
                 _builder.append("    ");

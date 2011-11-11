@@ -49,7 +49,7 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__T
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
 
 /**
  * This class contains custom scoping description.
@@ -93,13 +93,13 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             });
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
             return result;
-        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__REFERENCE) {
+        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__TARGET) {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
             return result;
         } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__LABEL_PROPERTY) {
             MetaReference metaRef = (MetaReference) context;
-            EReference ref = metaRef.getReference();
+            EReference ref = metaRef.getTarget();
             if (ref.eIsProxy()) {
                 ref = (EReference) EcoreUtil.resolve(ref, context);
                 if (ref.eIsProxy()) {
@@ -107,7 +107,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                     return IScope.NULLSCOPE;
                 }
             }
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaRef.getReference().getEReferenceType().getEAllAttributes()));
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaRef.getTarget().getEReferenceType().getEAllAttributes()));
             return result;
         } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
             ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);

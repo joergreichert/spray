@@ -30,7 +30,7 @@ class NamingExtensions {
         metaClass.type.name
     }
     def dispatch String getName (MetaReference ref) {
-        ref.reference.name
+        ref.target.name
     }
     
 	def String getVisibleName (AliasableElement elem) {
@@ -150,7 +150,7 @@ class NamingExtensions {
 	}
 	def getFeatureClassName (MetaReference reference, FeatureType featureType) {
 		val cls = getContainerOfType(reference, typeof(MetaClass))
-		feature_package() + "." + cls.diagram.name.toFirstUpper + featureType + cls.name + reference.name.toFirstUpper + reference.reference.EReferenceType.name + "Feature"
+		feature_package() + "." + cls.diagram.name.toFirstUpper + featureType + cls.name + reference.name.toFirstUpper + reference.target.EReferenceType.name + "Feature"
 	}	
 	def getAddReferenceAsConnectionFeatureClassName (MetaReference reference) {
 		feature_package() + "." + reference.getAddReferenceAsConnectionFeatureSimpleClassName 
@@ -164,7 +164,7 @@ class NamingExtensions {
 	}
 	def getCreateReferenceAsListFeatureSimpleClassName (MetaReference reference) {
 		val cls = getContainerOfType(reference, typeof(MetaClass))
-		cls.diagram.name.toFirstUpper + "Create" + cls.name + reference.name.toFirstUpper + reference.reference.EReferenceType.name + "Feature"
+		cls.diagram.name.toFirstUpper + "Create" + cls.name + reference.name.toFirstUpper + reference.target.EReferenceType.name + "Feature"
 	}
 	def getUpdateReferenceAsListFeatureClassName (MetaReference reference) {
 		feature_package() + "." + reference.getUpdateReferenceAsListFeatureSimpleClassName

@@ -82,7 +82,7 @@ class ToolBehaviourProvider extends FileGenerator {
                 
                 «var container = metaClass.representedBy as Container»
                 «FOR reference : container.parts.filter(typeof(MetaReference))»
-                    «val target = reference.reference »  
+                    «val target = reference.target »  
                     «IF ! target.EReferenceType.abstract»
                     «objectCreationEntry(reference.createFeatureClassName.shortName, "Create")»
 //                    , new «reference.createFeatureClassName»(this)
@@ -100,7 +100,7 @@ class ToolBehaviourProvider extends FileGenerator {
             «FOR container : diagram.metaClasses.filter( m | m.representedBy instanceof Container).map(m | m.representedBy as Container) »
                 «FOR metaRef : container.parts.filter(typeof(MetaReference)) »
                 «val metaRefName = metaRef.name»
-                «val target = metaRef.reference » 
+                «val target = metaRef.target » 
                 «val createFeatureName = diagram.name + "Create" + container.represents.name + metaRef.name + target.EReferenceType.name + "Feature" »
                 // 00000 Embedded list of references «createFeatureName»
 //                {
