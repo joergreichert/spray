@@ -84,4 +84,14 @@ h3. Build
 * Open @releng/org.eclipselabs.spray.distribution/pom.xml@ and add the plugin as additional module
 
 
+h2. Dependency Management
 
+h3. Imported Packages
+
+Require Bundle is sometimes a too tight dependency binding. It does not allow to exchange the implementing bundle, which sometimes might be desired. The following packages should imported instead of adding its bundles to the Required Bundles:
+
+* org.eclipse.xtext.xbase.lib
+* org.eclipse.xtext.xtend2.lib
+* org.apache.log4j
+* org.apache.commons.logging
+* com.ibm.icu
