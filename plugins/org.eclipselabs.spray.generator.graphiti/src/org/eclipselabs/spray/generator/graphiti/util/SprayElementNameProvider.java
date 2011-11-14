@@ -3,7 +3,10 @@ package org.eclipselabs.spray.generator.graphiti.util;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.Shape;
+import org.eclipselabs.spray.mm.spray.SprayElement;
 
 public class SprayElementNameProvider {
     class ShapeQNProvider extends DefaultDeclarativeQualifiedNameProvider {
@@ -21,12 +24,16 @@ public class SprayElementNameProvider {
                 }
             }
         }
+
+        QualifiedName qualifiedName(MetaReference ref) {
+            return QualifiedName.create(ref.getTarget().getName());
+        }
     }
 
     private IQualifiedNameProvider qnProvider = new ShapeQNProvider();
 
-    public String getShapeName(Shape shape) {
+    public String getShapeName(SprayElement shape) {
         QualifiedName qn = qnProvider.getFullyQualifiedName(shape);
-        return qn.toString().replace(".", "_");
+        return StringExtensions.toFirstUpper(qn.toString().replace(".", "_"));
     }
 }

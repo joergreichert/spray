@@ -1,15 +1,21 @@
 package org.eclipselabs.spray.xtext.validation;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
+import org.eclipselabs.spray.mm.spray.AliasableElement;
+import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 @SuppressWarnings("restriction")
@@ -41,4 +47,31 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
         }
     }
 
+    @Check
+    public void checkDuplicateAliasName(final AliasableElement element) {
+        if (element.getAlias() == null)
+            return;
+
+        final Predicate<AliasableElement> filter = new Predicate<AliasableElement>() {
+            @Override
+            public boolean apply(AliasableElement input) {
+                return element.getAlias().equals(input.getAlias());
+            }
+        };
+
+        if (element instanceof MetaClass) {
+            Diagram diagram = (Diagram) element.eContainer();
+            if (element != Iterables.find(diagram.getMetaClassesList(), filter)) {
+                error("Duplicate alias name " + element.getAlias(), element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
+            }
+        } else {
+            MetaClass clazz = EcoreUtil2.getContainerOfType(element, MetaClass.class);
+            List<AliasableElement> elements = EcoreUtil2.eAllOfType(clazz, AliasableElement.class);
+            elements.remove(clazz);
+            // ignore the first element with the alias, but raise errors for all following
+            if (element != Iterables.find(elements, filter)) {
+                error("Duplicate alias name " + element.getAlias(), element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
+            }
+        }
+    }
 }

@@ -298,8 +298,14 @@ public class AddShapeFeature extends FileGenerator {
       SprayElement[] _parts = container.getParts();
       for(final SprayElement part : _parts) {
         _builder.append("        ");
-        StringConcatenation _createShape = this.createShape(part);
-        _builder.append(_createShape, "        ");
+        _builder.append("create");
+        EClass _eClass = part.eClass();
+        String _name_3 = _eClass.getName();
+        _builder.append(_name_3, "        ");
+        String _shapeName = this._sprayElementNameProvider.getShapeName(part);
+        String _firstUpper = StringExtensions.toFirstUpper(_shapeName);
+        _builder.append(_firstUpper, "        ");
+        _builder.append("(addedModelElement, textContainer);");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -335,8 +341,10 @@ public class AddShapeFeature extends FileGenerator {
       SprayElement[] _parts_1 = container.getParts();
       for(final SprayElement part_1 : _parts_1) {
         _builder.append("    ");
-        _builder.append("    ");
-        _builder.newLine();
+        MetaClass _represents_5 = container.getRepresents();
+        StringConcatenation _createShape = this.createShape(part_1, _represents_5);
+        _builder.append(_createShape, "    ");
+        _builder.newLineIfNotEmpty();
       }
     }
     _builder.append("    ");
@@ -373,18 +381,29 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final EObject part) {
+  protected StringConcatenation _createShape(final SprayElement part, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("protected void createShape");
+    String _shapeName = this._sprayElementNameProvider.getShapeName(part);
+    _builder.append(_shapeName, "");
+    _builder.append(" (");
+    String _name = this._namingExtensions.getName(cls);
+    _builder.append(_name, "");
+    _builder.append(" addedModelElement, ContainerShape containerShape) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
     _builder.append("System.out.println(\"Spray: unhandled Container child [");
     Class<? extends Object> _class = part.getClass();
-    String _name = _class.getName();
-    _builder.append(_name, "");
+    String _name_1 = _class.getName();
+    _builder.append(_name_1, "    ");
     _builder.append("]\");");
     _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final Line line) {
+  protected StringConcatenation _createShape(final Line line, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     String _shapeName = this._sprayElementNameProvider.getShapeName(line);
     String _firstLower = StringExtensions.toFirstLower(_shapeName);
@@ -392,15 +411,21 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is Line");
     _builder.newLine();
-    _builder.append("{");
-    _builder.newLine();
+    _builder.append("protected void createShape");
+    String _shapeName_1 = this._sprayElementNameProvider.getShapeName(line);
+    _builder.append(_shapeName_1, "");
+    _builder.append(" (");
+    String _name = this._namingExtensions.getName(cls);
+    _builder.append(_name, "");
+    _builder.append(" addedModelElement, ContainerShape containerShape) {");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("// create shape for line");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("Shape ");
     _builder.append(varname, "    ");
-    _builder.append(" = peCreateService.createShape(textContainer, false);");
+    _builder.append(" = peCreateService.createShape(containerShape, false);");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("// create and set graphics algorithm");
@@ -445,7 +470,7 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final Text text) {
+  protected StringConcatenation _createShape(final Text text, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     String _shapeName = this._sprayElementNameProvider.getShapeName(text);
     String _firstLower = StringExtensions.toFirstLower(_shapeName);
@@ -453,8 +478,14 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is Text");
     _builder.newLine();
-    _builder.append("{");
-    _builder.newLine();
+    _builder.append("protected void createShape");
+    String _shapeName_1 = this._sprayElementNameProvider.getShapeName(text);
+    _builder.append(_shapeName_1, "");
+    _builder.append(" (");
+    String _name = this._namingExtensions.getName(cls);
+    _builder.append(_name, "");
+    _builder.append(" addedModelElement, ContainerShape containerShape) {");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("String type = \"");
     QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(text);
@@ -467,7 +498,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("Shape ");
     _builder.append(varname, "    ");
-    _builder.append(" = peCreateService.createShape(textContainer, false);");
+    _builder.append(" = peCreateService.createShape(containerShape, false);");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("Text text = gaService.createDefaultText(getDiagram(), ");
@@ -531,7 +562,7 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final MetaReference metaRef) {
+  protected StringConcatenation _createShape(final MetaReference metaRef, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     String _name = this._namingExtensions.getName(metaRef);
     String _firstLower = StringExtensions.toFirstLower(_name);
@@ -543,19 +574,25 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is reference list");
     _builder.newLine();
-    _builder.append("{");
-    _builder.newLine();
+    _builder.append("protected void createShape");
+    String _shapeName = this._sprayElementNameProvider.getShapeName(metaRef);
+    _builder.append(_shapeName, "");
+    _builder.append(" (");
+    String _name_1 = this._namingExtensions.getName(cls);
+    _builder.append(_name_1, "");
+    _builder.append(" addedModelElement, ContainerShape containerShape) {");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("// Create a dummy invisible line to have an anchor point for adding new elements to the list");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Shape dummy = peCreateService.createShape(textContainer, false);");
+    _builder.append("Shape dummy = peCreateService.createShape(containerShape, false);");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("peService.setPropertyValue(dummy, \"MODEL_TYPE\", \"");
     EClass _eReferenceType = target.getEReferenceType();
-    String _name_1 = _eReferenceType.getName();
-    _builder.append(_name_1, "    ");
+    String _name_2 = _eReferenceType.getName();
+    _builder.append(_name_2, "    ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -579,96 +616,98 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);");
     _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
+    _builder.append("    ");
     _builder.append("for (");
     EClass _eReferenceType_1 = target.getEReferenceType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_eReferenceType_1);
     String _shortName_1 = this.shortName(_javaInterfaceName);
-    _builder.append(_shortName_1, "");
-    _builder.append(" p : addedModelElement.get");
-    String _name_2 = target.getName();
-    String _firstUpper = StringExtensions.toFirstUpper(_name_2);
-    _builder.append(_firstUpper, "");
+    _builder.append(_shortName_1, "    ");
+    _builder.append(" prop : addedModelElement.get");
+    String _name_3 = target.getName();
+    String _firstUpper = StringExtensions.toFirstUpper(_name_3);
+    _builder.append(_firstUpper, "    ");
     _builder.append("()) {");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("Shape ");
-    _builder.append(varname, "    ");
-    _builder.append(" = peCreateService.createContainerShape(textContainer, true);");
+    _builder.append(varname, "        ");
+    _builder.append(" = peCreateService.createContainerShape(containerShape, true);");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("peService.setPropertyValue(");
-    _builder.append(varname, "    ");
+    _builder.append(varname, "        ");
     _builder.append(", \"STATIC\", \"true\");");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("peService.setPropertyValue(");
-    _builder.append(varname, "    ");
+    _builder.append(varname, "        ");
     _builder.append(", \"MODEL_TYPE\", \"");
     EClass _eReferenceType_2 = target.getEReferenceType();
-    String _name_3 = _eReferenceType_2.getName();
-    _builder.append(_name_3, "    ");
+    String _name_4 = _eReferenceType_2.getName();
+    _builder.append(_name_4, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("peService.setPropertyValue(");
-    _builder.append(varname, "    ");
+    _builder.append(varname, "        ");
     _builder.append(", ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("// create and set text graphics algorithm");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("Text text = gaService.createDefaultText(getDiagram(), ");
-    _builder.append(varname, "    ");
-    _builder.append(", p.get");
+    _builder.append(varname, "        ");
+    _builder.append(", prop.get");
     String _labelPropertyName = this._namingExtensions.getLabelPropertyName(metaRef);
     String _firstUpper_1 = StringExtensions.toFirstUpper(_labelPropertyName);
-    _builder.append(_firstUpper_1, "    ");
+    _builder.append(_firstUpper_1, "        ");
     _builder.append("());");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("// TODO should have a text color here, refer to representation of reference type");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("text.setForeground(manageColor(");
     Container _container = metaRef.getContainer();
     String _textColor = this._layoutExtensions.textColor(_container);
-    _builder.append(_textColor, "    ");
+    _builder.append(_textColor, "        ");
     _builder.append(")); ");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("gaService.setLocationAndSize(text, 0, 0, 0, 0);");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("// create link and wire it");
     _builder.newLine();
-    _builder.append("    ");
+    _builder.append("        ");
     _builder.append("link(");
-    _builder.append(varname, "    ");
-    _builder.append(", p);");
+    _builder.append(varname, "        ");
+    _builder.append(", prop);");
     _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
   }
   
-  public StringConcatenation createShape(final EObject line) {
+  public StringConcatenation createShape(final SprayElement line, final MetaClass cls) {
     if (line instanceof Line) {
-      return _createShape((Line)line);
+      return _createShape((Line)line, cls);
     } else if (line instanceof Text) {
-      return _createShape((Text)line);
+      return _createShape((Text)line, cls);
     } else if (line instanceof MetaReference) {
-      return _createShape((MetaReference)line);
+      return _createShape((MetaReference)line, cls);
     } else {
-      return _createShape(line);
+      return _createShape(line, cls);
     }
   }
 }

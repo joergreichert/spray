@@ -11,7 +11,9 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.SprayElementNameProvider
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Line
+import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.mm.spray.SprayElement
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -114,7 +116,7 @@ class AddShapeFeature extends FileGenerator  {
                 link(containerShape, addedModelElement);
         
                 «FOR part : container.parts»
-                    «part.createShape»
+                    create«part.eClass.name»«part.shapeName.toFirstUpper»(addedModelElement, textContainer);
                 «ENDFOR»
                 
                 // add a chopbox anchor to the shape
@@ -128,7 +130,7 @@ class AddShapeFeature extends FileGenerator  {
             }
             
             «FOR part : container.parts»
-                
+               «part.createShape(container.represents)»
             «ENDFOR»
             
             @Override
@@ -144,16 +146,18 @@ class AddShapeFeature extends FileGenerator  {
         }
         '''
         
-        def dispatch createShape (EObject part) '''
+        def dispatch createShape (SprayElement part, MetaClass cls) '''
+            protected void createShape«part.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
+            }
         '''
         
-        def dispatch createShape (Line line) '''
+        def dispatch createShape (Line line, MetaClass cls) '''
             «val varname = line.shapeName.toFirstLower»
             // Part is Line
-            {
+            protected void createShape«line.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 // create shape for line
-                Shape «varname» = peCreateService.createShape(textContainer, false);
+                Shape «varname» = peCreateService.createShape(containerShape, false);
                 // create and set graphics algorithm
                 Polyline polyline = gaService.createPolyline(«varname», new int[] { 0, 0, 0, 0 });
                 polyline.setForeground(manageColor(«line.lineColor» ));
@@ -166,13 +170,13 @@ class AddShapeFeature extends FileGenerator  {
             }
         '''
         
-        def dispatch createShape (Text text) '''
+        def dispatch createShape (Text text, MetaClass cls) '''
             «val varname = text.shapeName.toFirstLower»
             // Part is Text
-            {
+            protected void createShape«text.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 String type = "«text.fullyQualifiedName»";
                 // create shape for text and set text graphics algorithm
-                Shape «varname» = peCreateService.createShape(textContainer, false);
+                Shape «varname» = peCreateService.createShape(containerShape, false);
                 Text text = gaService.createDefaultText(getDiagram(), «varname»);
                 text.setFont(gaService.manageFont(getDiagram(), text.getFont().getName(), 12));
                 text.setForeground(manageColor(«text.lineColor»));
@@ -192,13 +196,13 @@ class AddShapeFeature extends FileGenerator  {
             }
         '''
         
-        def dispatch createShape (MetaReference metaRef) '''
+        def dispatch createShape (MetaReference metaRef, MetaClass cls) '''
             «val varname = metaRef.name.toFirstLower»
             «val target = metaRef.target» 
             // Part is reference list
-            {
+            protected void createShape«metaRef.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
-                Shape dummy = peCreateService.createShape(textContainer, false);
+                Shape dummy = peCreateService.createShape(containerShape, false);
                 peService.setPropertyValue(dummy, "MODEL_TYPE", "«target.EReferenceType.name»");
                 Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
                 p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
@@ -206,21 +210,21 @@ class AddShapeFeature extends FileGenerator  {
                 p.setLineVisible(false);
                 gaService.setLocation(p, 0, 0);
                 peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
-            }
-            for («target.EReferenceType.javaInterfaceName.shortName» p : addedModelElement.get«target.name.toFirstUpper»()) {
-                Shape «varname» = peCreateService.createContainerShape(textContainer, true);
-                peService.setPropertyValue(«varname», "STATIC", "true");
-                peService.setPropertyValue(«varname», "MODEL_TYPE", "«target.EReferenceType.name»");
-                peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
-                // create and set text graphics algorithm
-                Text text = gaService.createDefaultText(getDiagram(), «varname», p.get«metaRef.labelPropertyName.toFirstUpper»());
-                // TODO should have a text color here, refer to representation of reference type
-                text.setForeground(manageColor(«metaRef.container.textColor»)); 
-                text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
-                text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
-                gaService.setLocationAndSize(text, 0, 0, 0, 0);
-                // create link and wire it
-                link(«varname», p);
+                for («target.EReferenceType.javaInterfaceName.shortName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
+                    Shape «varname» = peCreateService.createContainerShape(containerShape, true);
+                    peService.setPropertyValue(«varname», "STATIC", "true");
+                    peService.setPropertyValue(«varname», "MODEL_TYPE", "«target.EReferenceType.name»");
+                    peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
+                    // create and set text graphics algorithm
+                    Text text = gaService.createDefaultText(getDiagram(), «varname», prop.get«metaRef.labelPropertyName.toFirstUpper»());
+                    // TODO should have a text color here, refer to representation of reference type
+                    text.setForeground(manageColor(«metaRef.container.textColor»)); 
+                    text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+                    text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
+                    gaService.setLocationAndSize(text, 0, 0, 0, 0);
+                    // create link and wire it
+                    link(«varname», prop);
+                }
             }
         '''
 }
