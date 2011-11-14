@@ -147,7 +147,7 @@ class AddShapeFeature extends FileGenerator  {
         '''
         
         def dispatch createShape (SprayElement part, MetaClass cls) '''
-            protected void createShape«part.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void create«part.eClass.name»«part.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
             }
         '''
@@ -155,7 +155,7 @@ class AddShapeFeature extends FileGenerator  {
         def dispatch createShape (Line line, MetaClass cls) '''
             «val varname = line.shapeName.toFirstLower»
             // Part is Line
-            protected void createShape«line.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createLine«line.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 // create shape for line
                 Shape «varname» = peCreateService.createShape(containerShape, false);
                 // create and set graphics algorithm
@@ -173,7 +173,7 @@ class AddShapeFeature extends FileGenerator  {
         def dispatch createShape (Text text, MetaClass cls) '''
             «val varname = text.shapeName.toFirstLower»
             // Part is Text
-            protected void createShape«text.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createText«text.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 String type = "«text.fullyQualifiedName»";
                 // create shape for text and set text graphics algorithm
                 Shape «varname» = peCreateService.createShape(containerShape, false);
@@ -200,7 +200,7 @@ class AddShapeFeature extends FileGenerator  {
             «val varname = metaRef.name.toFirstLower»
             «val target = metaRef.target» 
             // Part is reference list
-            protected void createShape«metaRef.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createMetaReference«metaRef.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
                 Shape dummy = peCreateService.createShape(containerShape, false);
                 peService.setPropertyValue(dummy, "MODEL_TYPE", "«target.EReferenceType.name»");

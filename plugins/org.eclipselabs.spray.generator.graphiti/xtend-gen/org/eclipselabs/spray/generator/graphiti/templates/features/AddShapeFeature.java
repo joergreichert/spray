@@ -383,19 +383,22 @@ public class AddShapeFeature extends FileGenerator {
   
   protected StringConcatenation _createShape(final SprayElement part, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("protected void createShape");
+    _builder.append("protected void create");
+    EClass _eClass = part.eClass();
+    String _name = _eClass.getName();
+    _builder.append(_name, "");
     String _shapeName = this._sprayElementNameProvider.getShapeName(part);
     _builder.append(_shapeName, "");
     _builder.append(" (");
-    String _name = this._namingExtensions.getName(cls);
-    _builder.append(_name, "");
+    String _name_1 = this._namingExtensions.getName(cls);
+    _builder.append(_name_1, "");
     _builder.append(" addedModelElement, ContainerShape containerShape) {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("System.out.println(\"Spray: unhandled Container child [");
     Class<? extends Object> _class = part.getClass();
-    String _name_1 = _class.getName();
-    _builder.append(_name_1, "    ");
+    String _name_2 = _class.getName();
+    _builder.append(_name_2, "    ");
     _builder.append("]\");");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -411,7 +414,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is Line");
     _builder.newLine();
-    _builder.append("protected void createShape");
+    _builder.append("protected void createLine");
     String _shapeName_1 = this._sprayElementNameProvider.getShapeName(line);
     _builder.append(_shapeName_1, "");
     _builder.append(" (");
@@ -478,7 +481,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is Text");
     _builder.newLine();
-    _builder.append("protected void createShape");
+    _builder.append("protected void createText");
     String _shapeName_1 = this._sprayElementNameProvider.getShapeName(text);
     _builder.append(_shapeName_1, "");
     _builder.append(" (");
@@ -574,7 +577,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// Part is reference list");
     _builder.newLine();
-    _builder.append("protected void createShape");
+    _builder.append("protected void createMetaReference");
     String _shapeName = this._sprayElementNameProvider.getShapeName(metaRef);
     _builder.append(_shapeName, "");
     _builder.append(" (");
