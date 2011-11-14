@@ -1,6 +1,5 @@
 package org.eclipselabs.spray.xtext.ui.internal;
 
-import java.io.IOException;
 import java.util.Collections;
 
 import org.apache.commons.logging.Log;
@@ -107,7 +106,7 @@ class RegisterPlatformGenmodelListener implements IResourceChangeListener {
             emfResource.load(Collections.EMPTY_MAP);
             genModelHelper.registerGenModel(emfResource.getResourceSet(), emfResource.getURI());
             emfResource.unload();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -119,7 +118,7 @@ class RegisterPlatformGenmodelListener implements IResourceChangeListener {
             emfResource.load(Collections.EMPTY_MAP);
             genModelHelper.unregisterGenModel(emfResource.getResourceSet(), emfResource.getURI());
             emfResource.unload();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -136,7 +135,7 @@ class RegisterPlatformGenmodelListener implements IResourceChangeListener {
                 }
             }
             emfResource.unload();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -154,7 +153,7 @@ class RegisterPlatformGenmodelListener implements IResourceChangeListener {
                 }
             }
             emfResource.unload();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
