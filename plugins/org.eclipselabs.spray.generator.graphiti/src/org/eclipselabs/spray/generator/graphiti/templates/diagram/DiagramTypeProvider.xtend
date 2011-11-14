@@ -42,7 +42,7 @@ class DiagramTypeProvider extends FileGenerator {
             public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
                 if (toolBehaviorProviders == null) {
                     toolBehaviorProviders =
-                        new IToolBehaviorProvider[] { new «diagram.name.toFirstUpper»ToolBehaviourProvider(
+                        new IToolBehaviorProvider[] { new «diagram.name.toFirstUpper»ToolBehaviorProvider(
                             this) };
                 }
                 return toolBehaviorProviders;

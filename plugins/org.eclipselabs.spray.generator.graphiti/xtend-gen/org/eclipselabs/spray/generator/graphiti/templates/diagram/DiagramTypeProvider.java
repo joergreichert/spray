@@ -91,7 +91,7 @@ public class DiagramTypeProvider extends FileGenerator {
     String _name_1 = diagram.getName();
     String _firstUpper_1 = StringExtensions.toFirstUpper(_name_1);
     _builder.append(_firstUpper_1, "                ");
-    _builder.append("ToolBehaviourProvider(");
+    _builder.append("ToolBehaviorProvider(");
     _builder.newLineIfNotEmpty();
     _builder.append("                    ");
     _builder.append("this) };");

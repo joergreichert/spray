@@ -17,10 +17,10 @@ import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.MetaModel;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
-import org.eclipselabs.spray.mm.spray.Behaviour;
-import org.eclipselabs.spray.mm.spray.BehaviourType;
+import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -881,8 +881,8 @@ public class FeatureProvider extends FileGenerator {
       MetaClass[] _metaClasses_9 = diagram.getMetaClasses();
       for(final MetaClass metaClass_1 : _metaClasses_9) {
         {
-          Behaviour[] _behaviours = metaClass_1.getBehaviours();
-          boolean _isEmpty_2 = ((List<Behaviour>)Conversions.doWrapArray(_behaviours)).isEmpty();
+          Behavior[] _behaviors = metaClass_1.getBehaviors();
+          boolean _isEmpty_2 = ((List<Behavior>)Conversions.doWrapArray(_behaviors)).isEmpty();
           boolean _operator_not_6 = BooleanExtensions.operator_not(_isEmpty_2);
           if (_operator_not_6) {
             _builder.append("        ");
@@ -905,34 +905,27 @@ public class FeatureProvider extends FileGenerator {
             final List<String> allnames2 = _arrayList;
             _builder.newLineIfNotEmpty();
             {
-              Behaviour[] _behaviours_1 = metaClass_1.getBehaviours();
-              final Function1<Behaviour,Boolean> _function_7 = new Function1<Behaviour,Boolean>() {
-                  public Boolean apply(final Behaviour b) {
-                    BehaviourType _type = b.getType();
-                    boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_type, BehaviourType.CREATE_BEHAVIOUR);
-                    return ((Boolean)_operator_notEquals);
-                  }
-                };
-              Iterable<Behaviour> _filter_11 = IterableExtensions.<Behaviour>filter(((Iterable<Behaviour>)Conversions.doWrapArray(_behaviours_1)), _function_7);
+              Behavior[] _behaviors_1 = metaClass_1.getBehaviors();
+              Iterable<CustomBehavior> _filter_11 = IterableExtensions.<CustomBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors_1)), org.eclipselabs.spray.mm.spray.CustomBehavior.class);
               boolean hasAnyElements_3 = false;
-              for(final Behaviour behaviour : _filter_11) {
+              for(final CustomBehavior behavior : _filter_11) {
                 if (!hasAnyElements_3) {
                   hasAnyElements_3 = true;
                 } else {
                   _builder.appendImmediate(",", "        ");
                 }
                 {
-                  String _name_3 = behaviour.getName();
+                  String _name_3 = behavior.getName();
                   boolean _contains = allnames2.contains(_name_3);
                   boolean _operator_not_7 = BooleanExtensions.operator_not(_contains);
                   if (_operator_not_7) {
                     _builder.append("        ");
                     _builder.append("new ");
-                    String _customFeatureClassName = this._namingExtensions.getCustomFeatureClassName(behaviour);
+                    String _customFeatureClassName = this._namingExtensions.getCustomFeatureClassName(behavior);
                     String _shortName_21 = this.shortName(_customFeatureClassName);
                     _builder.append(_shortName_21, "        ");
                     _builder.append("(this) /*");
-                    String _name_4 = behaviour.getName();
+                    String _name_4 = behavior.getName();
                     boolean _add = allnames2.add(_name_4);
                     _builder.append(_add, "        ");
                     _builder.append("*/");

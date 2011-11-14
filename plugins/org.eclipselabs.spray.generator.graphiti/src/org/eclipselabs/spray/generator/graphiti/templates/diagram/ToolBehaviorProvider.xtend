@@ -5,10 +5,10 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Behaviour
-import org.eclipselabs.spray.mm.spray.BehaviourType
+import org.eclipselabs.spray.mm.spray.Behavior
 import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
@@ -17,7 +17,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
-class ToolBehaviourProvider extends FileGenerator {
+class ToolBehaviorProvider extends FileGenerator {
     @Inject extension NamingExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
@@ -68,15 +68,15 @@ class ToolBehaviourProvider extends FileGenerator {
                 Map<String, PaletteCompartmentEntry> compartments = new HashMap<String, PaletteCompartmentEntry>();
         
         «FOR metaClass : diagram.metaClasses.filter(m|m.representedBy instanceof Container)»
-                «FOR behaviour : metaClass.behaviours.filter(e|e.type == BehaviourType::CREATE_BEHAVIOUR) »
+                «FOR behavior : metaClass.behaviors.filter(typeof(CreateBehavior)) »
                 {
                     ICreateFeature createFeature = new «metaClass.createFeatureClassName.shortName»(this.getFeatureProvider());
                     ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
-                    PaletteCompartmentEntry compartment = compartments.get("«behaviour.paletteCompartment»");
+                    PaletteCompartmentEntry compartment = compartments.get("«behavior.paletteCompartment»");
                     if( compartment == null ){
-                        compartment = new PaletteCompartmentEntry("«behaviour.paletteCompartment»", null);
+                        compartment = new PaletteCompartmentEntry("«behavior.paletteCompartment»", null);
                     }
-                    compartments.put("«behaviour.paletteCompartment»", compartment);
+                    compartments.put("«behavior.paletteCompartment»", compartment);
                     compartment.addToolEntry(objectCreationToolEntry);
                 }
                 
@@ -118,16 +118,16 @@ class ToolBehaviourProvider extends FileGenerator {
         
             // do the same for connection creators
             «FOR MetaClass mc : diagram.metaClasses.filter(m|m.representedBy instanceof Connection)»
-            «FOR Behaviour behaviour: mc.behaviours.filter(e|e.type == BehaviourType::CREATE_BEHAVIOUR)»
+            «FOR Behavior behavior: mc.behaviors.filter(typeof(CreateBehavior))»
                 {
                     ICreateConnectionFeature createFeature = new «mc.createFeatureClassName.shortName»(this.getFeatureProvider());
                     ConnectionCreationToolEntry objectCreationToolEntry = new ConnectionCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId());
                     objectCreationToolEntry.addCreateConnectionFeature(createFeature);
-                    PaletteCompartmentEntry compartment = compartments.get("«behaviour.paletteCompartment»");
+                    PaletteCompartmentEntry compartment = compartments.get("«behavior.paletteCompartment»");
                     if( compartment == null ){
-                        compartment = new PaletteCompartmentEntry("«behaviour.paletteCompartment»", null);
+                        compartment = new PaletteCompartmentEntry("«behavior.paletteCompartment»", null);
                     }
-                    compartments.put("«behaviour.paletteCompartment»", compartment);
+                    compartments.put("«behavior.paletteCompartment»", compartment);
                     compartment.addToolEntry(objectCreationToolEntry);
                 }
             «ENDFOR»

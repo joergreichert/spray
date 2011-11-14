@@ -2,7 +2,7 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
-import org.eclipselabs.spray.mm.spray.Behaviour
+import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -11,14 +11,14 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 class CustomFeature extends FileGenerator  {
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as Behaviour, javaGenFile.baseClassName)
+        mainFile( modelElement as CustomBehavior, javaGenFile.baseClassName)
     }
 
     override StringConcatenation generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as Behaviour, javaGenFile.className)
+        mainExtensionPointFile( modelElement as CustomBehavior, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Behaviour metaClass, String className) '''    
+    def mainExtensionPointFile(CustomBehavior metaClass, String className) '''    
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -39,8 +39,8 @@ class CustomFeature extends FileGenerator  {
         }
     '''
 
-    def mainFile(Behaviour behaviour, String className) '''
-        «var diagramName = behaviour.metaClass.diagram.name »
+    def mainFile(CustomBehavior behavior, String className) '''
+        «var diagramName = behavior.metaClass.diagram.name »
         «header(this)»
         package «feature_package()»;
         
@@ -59,12 +59,12 @@ class CustomFeature extends FileGenerator  {
         
             @Override
             public String getName() {
-                return "«behaviour.label»"; //$NON-NLS-1$
+                return "«behavior.label»"; //$NON-NLS-1$
             }
         
             @Override
             public String getDescription() {
-                return "«behaviour.label» description"; //$NON-NLS-1$
+                return "«behavior.label» description"; //$NON-NLS-1$
             }
         
             @Override
