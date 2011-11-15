@@ -27,7 +27,6 @@ public class SprayTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 
     @Override
     protected String calculateId(String tokenName, int tokenType) {
-        System.out.println(tokenName);
         if (layoutKeywords.contains(tokenName)) {
             return SprayHighlightingConfiguration.LAYOUT_ID;
         }
