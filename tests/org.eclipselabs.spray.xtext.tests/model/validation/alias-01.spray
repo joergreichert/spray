@@ -1,6 +1,6 @@
 // ALIASES
 // Two shapes with same alias name not allowed
-diagram test
+diagram test for BusinessDomainDsl.BusinessDomainModel
 
 class BusinessDomainDsl.BusinessClass :
     container () {
