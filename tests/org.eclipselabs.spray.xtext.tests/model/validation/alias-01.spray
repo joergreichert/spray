@@ -1,0 +1,9 @@
+// ALIASES
+// Two shapes with same alias name not allowed
+diagram test
+
+class BusinessDomainDsl.BusinessClass :
+    container () {
+        line alias line1 ();
+        line alias line1 ();
+    }

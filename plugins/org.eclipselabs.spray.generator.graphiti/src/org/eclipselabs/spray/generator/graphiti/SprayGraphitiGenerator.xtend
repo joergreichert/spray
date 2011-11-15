@@ -17,7 +17,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.PropertySection
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.DiagramTypeProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.FeatureProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ImageProvider
-import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviourProvider
+import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviorProvider
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsListFeature
@@ -38,6 +38,7 @@ import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipselabs.spray.generator.graphiti.util.StringHelpers
 import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
 
@@ -66,7 +67,7 @@ class SprayGraphitiGenerator implements IGenerator {
 	@Inject UpdateReferenceAsListFeature updateReferenceAsListFeature
 	@Inject DeleteReferenceFeature deleteReferenceFeature
 	@Inject ImageProvider imageProvider
-	@Inject ToolBehaviourProvider toolBehaviourProvider
+	@Inject ToolBehaviorProvider toolBehaviourProvider
 	@Inject PropertySection propertySection
 	@Inject Filter filter
 	@Inject Filter filter2
@@ -247,7 +248,7 @@ class SprayGraphitiGenerator implements IGenerator {
 		java.setPackageAndClass(diagram.imageProviderClassName)
 		imageProvider.generate(diagram, java)
 
-		java.setPackageAndClass(diagram.toolBehaviourProviderClassName)
+		java.setPackageAndClass(diagram.toolBehaviorProviderClassName)
 		toolBehaviourProvider.generate(diagram, java)
 		
 		// PropertySections Java code
@@ -290,9 +291,9 @@ class SprayGraphitiGenerator implements IGenerator {
 		}
 
 		for( metaClass : diagram.metaClasses) {
-			for( behaviour : metaClass.behaviours){
-				java.setPackageAndClass(behaviour.customFeatureClassName)
-				customFeature.generate(behaviour, java)
+			for(CustomBehavior behavior : metaClass.behaviors.filter(typeof(CustomBehavior))) {
+				java.setPackageAndClass(behavior.customFeatureClassName)
+				customFeature.generate(behavior, java)
 			}
 		}
 	}

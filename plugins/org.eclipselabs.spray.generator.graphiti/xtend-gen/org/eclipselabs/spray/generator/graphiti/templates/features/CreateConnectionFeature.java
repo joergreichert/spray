@@ -510,9 +510,9 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("SampleUtil.saveToModelFile(domainObject, getDiagram(), \"");
     EClass _type_1 = metaClass.getType();
-    String _fileExtension = this._genModelHelper.getFileExtension(_type_1);
-    _builder.append(_fileExtension, "            ");
-    _builder.append("\");");
+    String _modelFileExtension = this._namingExtensions.getModelFileExtension(_type_1);
+    _builder.append(_modelFileExtension, "            ");
+    _builder.append("\"); ");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("} catch (CoreException e) {");

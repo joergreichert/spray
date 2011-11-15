@@ -5,12 +5,13 @@ import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.mm.spray.AliasableElement
-import org.eclipselabs.spray.mm.spray.Behaviour
+import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.ColorConstantRef
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -71,11 +72,11 @@ class NamingExtensions {
 	def getImageProviderSimpleClassName (Diagram diagram) {
 		diagram.name.toFirstUpper + "ImageProvider"
 	}
-	def getToolBehaviourProviderClassName (Diagram diagram) {
-		diagram_package() + "." + diagram.getToolBehaviourProviderSimpleClassName
+	def getToolBehaviorProviderClassName (Diagram diagram) {
+		diagram_package() + "." + diagram.getToolBehaviorProviderSimpleClassName
 	}
-	def getToolBehaviourProviderSimpleClassName (Diagram diagram) {
-		diagram.name.toFirstUpper + "ToolBehaviourProvider"
+	def getToolBehaviorProviderSimpleClassName (Diagram diagram) {
+		diagram.name.toFirstUpper + "ToolBehaviorProvider"
 	}
     def getDiagramEditorClassName (Diagram diagram) {
         diagram_package() + "." + diagram.getDiagramEditorSimpleClassName
@@ -204,12 +205,12 @@ class NamingExtensions {
 	//---------------------------------------------------------------------------------------------
 	// Class names for Behaviour
 	//---------------------------------------------------------------------------------------------
-	def getCustomFeatureClassName (Behaviour behaviour) {
-		feature_package() + "." + behaviour.getCustomFeatureSimpleClassName
+	def getCustomFeatureClassName (CustomBehavior behavior) {
+		feature_package() + "." + behavior.getCustomFeatureSimpleClassName
 	}
-	def getCustomFeatureSimpleClassName (Behaviour behaviour) {
-		val diagram = getContainerOfType(behaviour, typeof(Diagram))
-		diagram.name.toFirstUpper + "Custom" + behaviour.name.toFirstUpper  + "Feature"
+	def getCustomFeatureSimpleClassName (CustomBehavior behavior) {
+		val diagram = getContainerOfType(behavior, typeof(Diagram))
+		diagram.name.toFirstUpper + "Custom" + behavior.name.toFirstUpper  + "Feature"
 	}
 	
 	//---------------------------------------------------------------------------------------------
@@ -294,5 +295,9 @@ class NamingExtensions {
 		// strip file extension and replace all non-word characters by underscore
 		return imagePath.substring(0, imagePath.lastIndexOf('.')).replaceAll("\\W","_").toLowerCase
 	}
+	
+    def String getModelFileExtension (EObject ctx) {
+        return ProjectProperties::getModelFileExtension();
+    }
 }
 

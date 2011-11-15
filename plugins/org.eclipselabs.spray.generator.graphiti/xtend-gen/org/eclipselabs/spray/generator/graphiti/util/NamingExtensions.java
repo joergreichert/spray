@@ -13,9 +13,10 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.FeatureType;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
-import org.eclipselabs.spray.mm.spray.Behaviour;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
+import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -124,18 +125,18 @@ public class NamingExtensions {
     return _operator_plus;
   }
   
-  public String getToolBehaviourProviderClassName(final Diagram diagram) {
+  public String getToolBehaviorProviderClassName(final Diagram diagram) {
     String _diagram_package = GeneratorUtil.diagram_package();
     String _operator_plus = StringExtensions.operator_plus(_diagram_package, ".");
-    String _olBehaviourProviderSimpleClassName = this.getToolBehaviourProviderSimpleClassName(diagram);
-    String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _olBehaviourProviderSimpleClassName);
+    String _olBehaviorProviderSimpleClassName = this.getToolBehaviorProviderSimpleClassName(diagram);
+    String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _olBehaviorProviderSimpleClassName);
     return _operator_plus_1;
   }
   
-  public String getToolBehaviourProviderSimpleClassName(final Diagram diagram) {
+  public String getToolBehaviorProviderSimpleClassName(final Diagram diagram) {
     String _name = diagram.getName();
     String _firstUpper = StringExtensions.toFirstUpper(_name);
-    String _operator_plus = StringExtensions.operator_plus(_firstUpper, "ToolBehaviourProvider");
+    String _operator_plus = StringExtensions.operator_plus(_firstUpper, "ToolBehaviorProvider");
     return _operator_plus;
   }
   
@@ -491,23 +492,23 @@ public class NamingExtensions {
     return _xblockexpression;
   }
   
-  public String getCustomFeatureClassName(final Behaviour behaviour) {
+  public String getCustomFeatureClassName(final CustomBehavior behavior) {
     String _feature_package = GeneratorUtil.feature_package();
     String _operator_plus = StringExtensions.operator_plus(_feature_package, ".");
-    String _customFeatureSimpleClassName = this.getCustomFeatureSimpleClassName(behaviour);
+    String _customFeatureSimpleClassName = this.getCustomFeatureSimpleClassName(behavior);
     String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _customFeatureSimpleClassName);
     return _operator_plus_1;
   }
   
-  public String getCustomFeatureSimpleClassName(final Behaviour behaviour) {
+  public String getCustomFeatureSimpleClassName(final CustomBehavior behavior) {
     String _xblockexpression = null;
     {
-      Diagram _containerOfType = EcoreUtil2.<Diagram>getContainerOfType(behaviour, org.eclipselabs.spray.mm.spray.Diagram.class);
+      Diagram _containerOfType = EcoreUtil2.<Diagram>getContainerOfType(behavior, org.eclipselabs.spray.mm.spray.Diagram.class);
       final Diagram diagram = _containerOfType;
       String _name = diagram.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name);
       String _operator_plus = StringExtensions.operator_plus(_firstUpper, "Custom");
-      String _name_1 = behaviour.getName();
+      String _name_1 = behavior.getName();
       String _firstUpper_1 = StringExtensions.toFirstUpper(_name_1);
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _firstUpper_1);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, "Feature");
@@ -665,6 +666,11 @@ public class NamingExtensions {
       String _replaceAll = _substring.replaceAll("\\W", "_");
       String _lowerCase = _replaceAll.toLowerCase();
       return _lowerCase;
+  }
+  
+  public String getModelFileExtension(final EObject ctx) {
+    String _modelFileExtension = ProjectProperties.getModelFileExtension();
+    return _modelFileExtension;
   }
   
   public String getName(final EObject metaClass) {

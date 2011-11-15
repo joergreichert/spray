@@ -6,6 +6,7 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
+import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.Diagram;
@@ -13,7 +14,6 @@ import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.Line;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.StandardBehaviour;
 import org.eclipselabs.spray.mm.spray.Text;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 
@@ -82,7 +82,7 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         return "EReference.gif";
     }
 
-    public String text(StandardBehaviour element) {
+    public String text(Behavior element) {
         if (element.getPaletteCompartment() != null) {
             return element.getPaletteCompartment();
         } else if (element.getLabel() != null) {
@@ -92,7 +92,7 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         }
     }
 
-    public String image(StandardBehaviour element) {
+    public String image(Behavior element) {
         if (element.getPaletteCompartment() != null) {
             return "Palette.gif";
         } else {

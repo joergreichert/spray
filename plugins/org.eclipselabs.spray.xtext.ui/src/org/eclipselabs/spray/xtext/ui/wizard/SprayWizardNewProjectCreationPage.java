@@ -64,6 +64,9 @@ public class SprayWizardNewProjectCreationPage extends WizardNewProjectCreationP
         setDeriveDiagramTypeFromProjectName(true);
         m_bindingContext = initDataBindings();
 
+        setPageComplete(false);
+
+        addPageCompleteListeners();
     }
 
     private void createSprayGroup(Composite parent) {
@@ -169,5 +172,18 @@ public class SprayWizardNewProjectCreationPage extends WizardNewProjectCreationP
         bindingContext.bindValue(diagramTypeNameFieldObserveTextObserveWidget, projectInfoDiagramTypeNameObserveValue, null, null);
         //
         return bindingContext;
+    }
+
+    private void addPageCompleteListeners() {
+        ModifyListener listener = new ModifyListener() {
+            @Override
+            public void modifyText(ModifyEvent e) {
+                setPageComplete(metamodelSelectionComposite.isComplete());
+            }
+        };
+        metamodelSelectionComposite.getTxtUri().addModifyListener(listener);
+        metamodelSelectionComposite.getTxtGenmodelUri().addModifyListener(listener);
+        metamodelSelectionComposite.getTxtModelType().addModifyListener(listener);
+        metamodelSelectionComposite.getTxtFileExtension().addModifyListener(listener);
     }
 }

@@ -91,6 +91,7 @@ public class ProjectProperties {
         resourceManPath = properties.getProperty("resourceManPath", resourceManPath);
         projectPath = properties.getProperty("projectPath", projectPath);
         headerTimestamp = Boolean.valueOf(properties.getProperty("headerTimestamp", "true"));
+        fileExtension = properties.getProperty("modelFileExtension");
 
         //        applicationName = properties.getProperty("applicationName");
         //        applicationVersion = properties.getProperty("applicationVersion");
@@ -151,6 +152,8 @@ public class ProjectProperties {
     private static String       workDir                       = "/";
 
     private static boolean      headerTimestamp               = true;
+
+    private static String       fileExtension;
 
     public static void setWorkDir(String dir) {
         workDir = dir;
@@ -282,6 +285,10 @@ public class ProjectProperties {
 
     public static boolean getHeaderTimestamp() {
         return headerTimestamp;
+    }
+
+    public static String getModelFileExtension() {
+        return fileExtension;
     }
 
     private static String project = "/";

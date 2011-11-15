@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -33,6 +34,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
@@ -50,8 +53,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 public class MetamodelSelectionComposite extends Composite {
@@ -61,6 +66,10 @@ public class MetamodelSelectionComposite extends Composite {
     private SprayProjectInfo   projectInfo;
     @Inject
     private GenModelHelper     genmodelHelper;
+    private Text               txtModelType;
+    @Inject
+    private ILabelProvider     labelProvider;
+    private Text               txtFileExtension;
 
     /**
      * Create the composite.
@@ -125,8 +134,40 @@ public class MetamodelSelectionComposite extends Composite {
         Button btnBrowseWorkspace_1 = new Button(composite_1, SWT.NONE);
         btnBrowseWorkspace_1.setText("Browse Workspace...");
         btnBrowseWorkspace_1.addSelectionListener(new BrowseResourceSelectionAdapter(txtGenmodelUri, "genmodel"));
+
+        Label lblModelEclass = new Label(grpMetamodel, SWT.NONE);
+        lblModelEclass.setText("Model EClass");
+
+        txtModelType = new Text(grpMetamodel, SWT.BORDER);
+        txtModelType.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+
+        Button btnNewButton_1 = new Button(grpMetamodel, SWT.NONE);
+        btnNewButton_1.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                ResourceSet rs = new ResourceSetImpl();
+                Resource res = rs.getResource(URI.createURI(txtUri.getText()), true);
+
+                EPackage pck = (EPackage) res.getContents().get(0);
+                ElementListSelectionDialog dlg = new ElementListSelectionDialog(getShell(), labelProvider);
+                dlg.setElements(Iterables.toArray(Iterables.filter(pck.getEClassifiers(), EClass.class), Object.class));
+                if (dlg.open() == Dialog.OK) {
+                    EClass cls = (EClass) dlg.getFirstResult();
+                    txtModelType.setText(genmodelHelper.getJavaInterfaceName(cls));
+                    txtFileExtension.setText(genmodelHelper.getFileExtension(cls));
+                }
+            }
+        });
+        btnNewButton_1.setText("Select Type");
         new Label(grpMetamodel, SWT.NONE);
-        new Label(grpMetamodel, SWT.NONE);
+
+        Label lblFileExtension = new Label(grpMetamodel, SWT.NONE);
+        lblFileExtension.setText("File Extension");
+
+        txtFileExtension = new Text(grpMetamodel, SWT.BORDER);
+        GridData gd_txtFileExtension = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
+        gd_txtFileExtension.widthHint = 130;
+        txtFileExtension.setLayoutData(gd_txtFileExtension);
 
         m_bindingContext = initDataBindings();
 
@@ -160,6 +201,7 @@ public class MetamodelSelectionComposite extends Composite {
                         }
                     }
                 }
+
             }
         });
     }
@@ -235,20 +277,6 @@ public class MetamodelSelectionComposite extends Composite {
         this.projectInfo = projectInfo;
     }
 
-    protected DataBindingContext initDataBindings() {
-        DataBindingContext bindingContext = new DataBindingContext();
-        //
-        IObservableValue txtUriObserveTextObserveWidget = SWTObservables.observeText(txtUri, SWT.Modify);
-        IObservableValue projectInfoEpackageURIObserveValue = PojoObservables.observeValue(projectInfo, "epackageURI");
-        bindingContext.bindValue(txtUriObserveTextObserveWidget, projectInfoEpackageURIObserveValue, null, null);
-        //
-        IObservableValue txtGenmodelUriObserveTextObserveWidget = SWTObservables.observeText(txtGenmodelUri, SWT.Modify);
-        IObservableValue projectInfoGenmodelURIObserveValue = PojoObservables.observeValue(projectInfo, "genmodelURI");
-        bindingContext.bindValue(txtGenmodelUriObserveTextObserveWidget, projectInfoGenmodelURIObserveValue, null, null);
-        //
-        return bindingContext;
-    }
-
     class BrowseResourceSelectionAdapter extends SelectionAdapter {
         Text   targetTextField;
         String fileExtensionFilter;
@@ -306,5 +334,55 @@ public class MetamodelSelectionComposite extends Composite {
                 targetTextField.setText(uri.toString());
             }
         }
+    }
+
+    protected DataBindingContext initDataBindings() {
+        DataBindingContext bindingContext = new DataBindingContext();
+        //
+        IObservableValue txtUriObserveTextObserveWidget = SWTObservables.observeText(txtUri, SWT.Modify);
+        IObservableValue projectInfoEpackageURIObserveValue = PojoObservables.observeValue(projectInfo, "epackageURI");
+        bindingContext.bindValue(txtUriObserveTextObserveWidget, projectInfoEpackageURIObserveValue, null, null);
+        //
+        IObservableValue txtGenmodelUriObserveTextObserveWidget = SWTObservables.observeText(txtGenmodelUri, SWT.Modify);
+        IObservableValue projectInfoGenmodelURIObserveValue = PojoObservables.observeValue(projectInfo, "genmodelURI");
+        bindingContext.bindValue(txtGenmodelUriObserveTextObserveWidget, projectInfoGenmodelURIObserveValue, null, null);
+        //
+        IObservableValue txtModelTypeObserveTextObserveWidget = SWTObservables.observeText(txtModelType, SWT.Modify);
+        IObservableValue projectInfoModelTypeNameObserveValue = PojoObservables.observeValue(projectInfo, "modelTypeName");
+        bindingContext.bindValue(txtModelTypeObserveTextObserveWidget, projectInfoModelTypeNameObserveValue, null, null);
+        //
+        IObservableValue txtFileExtensionObserveTextObserveWidget = SWTObservables.observeText(txtFileExtension, SWT.Modify);
+        IObservableValue projectInfoModelFileExtensionObserveValue = PojoObservables.observeValue(projectInfo, "modelFileExtension");
+        bindingContext.bindValue(txtFileExtensionObserveTextObserveWidget, projectInfoModelFileExtensionObserveValue, null, null);
+        //
+        return bindingContext;
+    }
+
+    public boolean isComplete() {
+        if (txtUri.getText().isEmpty())
+            return false;
+        if (txtGenmodelUri.getText().isEmpty())
+            return false;
+        if (txtModelType.getText().isEmpty())
+            return false;
+        if (txtFileExtension.getText().isEmpty())
+            return false;
+        return true;
+    }
+
+    public Text getTxtUri() {
+        return txtUri;
+    }
+
+    public Text getTxtGenmodelUri() {
+        return txtGenmodelUri;
+    }
+
+    public Text getTxtModelType() {
+        return txtModelType;
+    }
+
+    public Text getTxtFileExtension() {
+        return txtFileExtension;
     }
 }

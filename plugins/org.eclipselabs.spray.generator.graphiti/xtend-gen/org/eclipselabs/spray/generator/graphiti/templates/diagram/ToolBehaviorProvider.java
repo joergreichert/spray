@@ -9,7 +9,6 @@ import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
@@ -17,10 +16,10 @@ import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.MetaModel;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
-import org.eclipselabs.spray.mm.spray.Behaviour;
-import org.eclipselabs.spray.mm.spray.BehaviourType;
+import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -28,7 +27,7 @@ import org.eclipselabs.spray.mm.spray.Shape;
 import org.eclipselabs.spray.mm.spray.SprayElement;
 
 @SuppressWarnings("all")
-public class ToolBehaviourProvider extends FileGenerator {
+public class ToolBehaviorProvider extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
   
@@ -155,16 +154,9 @@ public class ToolBehaviourProvider extends FileGenerator {
       Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
       for(final MetaClass metaClass : _filter) {
         {
-          Behaviour[] _behaviours = metaClass.getBehaviours();
-          final Function1<Behaviour,Boolean> _function_1 = new Function1<Behaviour,Boolean>() {
-              public Boolean apply(final Behaviour e) {
-                BehaviourType _type = e.getType();
-                boolean _operator_equals = ObjectExtensions.operator_equals(_type, BehaviourType.CREATE_BEHAVIOUR);
-                return ((Boolean)_operator_equals);
-              }
-            };
-          Iterable<Behaviour> _filter_1 = IterableExtensions.<Behaviour>filter(((Iterable<Behaviour>)Conversions.doWrapArray(_behaviours)), _function_1);
-          for(final Behaviour behaviour : _filter_1) {
+          Behavior[] _behaviors = metaClass.getBehaviors();
+          Iterable<CreateBehavior> _filter_1 = IterableExtensions.<CreateBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors)), org.eclipselabs.spray.mm.spray.CreateBehavior.class);
+          for(final CreateBehavior behavior : _filter_1) {
             _builder.append("{");
             _builder.newLine();
             _builder.append("    ");
@@ -179,7 +171,7 @@ public class ToolBehaviourProvider extends FileGenerator {
             _builder.newLine();
             _builder.append("    ");
             _builder.append("PaletteCompartmentEntry compartment = compartments.get(\"");
-            String _paletteCompartment = behaviour.getPaletteCompartment();
+            String _paletteCompartment = behavior.getPaletteCompartment();
             _builder.append(_paletteCompartment, "    ");
             _builder.append("\");");
             _builder.newLineIfNotEmpty();
@@ -188,7 +180,7 @@ public class ToolBehaviourProvider extends FileGenerator {
             _builder.newLine();
             _builder.append("        ");
             _builder.append("compartment = new PaletteCompartmentEntry(\"");
-            String _paletteCompartment_1 = behaviour.getPaletteCompartment();
+            String _paletteCompartment_1 = behavior.getPaletteCompartment();
             _builder.append(_paletteCompartment_1, "        ");
             _builder.append("\", null);");
             _builder.newLineIfNotEmpty();
@@ -197,7 +189,7 @@ public class ToolBehaviourProvider extends FileGenerator {
             _builder.newLine();
             _builder.append("    ");
             _builder.append("compartments.put(\"");
-            String _paletteCompartment_2 = behaviour.getPaletteCompartment();
+            String _paletteCompartment_2 = behavior.getPaletteCompartment();
             _builder.append(_paletteCompartment_2, "    ");
             _builder.append("\", compartment);");
             _builder.newLineIfNotEmpty();
@@ -270,20 +262,20 @@ public class ToolBehaviourProvider extends FileGenerator {
     _builder.newLine();
     {
       MetaClass[] _metaClasses_1 = diagram.getMetaClasses();
-      final Function1<MetaClass,Boolean> _function_2 = new Function1<MetaClass,Boolean>() {
+      final Function1<MetaClass,Boolean> _function_1 = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
             return ((Boolean)(_representedBy instanceof Container));
           }
         };
-      Iterable<MetaClass> _filter_3 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_1)), _function_2);
-      final Function1<MetaClass,Container> _function_3 = new Function1<MetaClass,Container>() {
+      Iterable<MetaClass> _filter_3 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_1)), _function_1);
+      final Function1<MetaClass,Container> _function_2 = new Function1<MetaClass,Container>() {
           public Container apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
             return ((Container) _representedBy);
           }
         };
-      Iterable<Container> _map = IterableExtensions.<MetaClass, Container>map(_filter_3, _function_3);
+      Iterable<Container> _map = IterableExtensions.<MetaClass, Container>map(_filter_3, _function_2);
       for(final Container container_1 : _map) {
         {
           SprayElement[] _parts_1 = container_1.getParts();
@@ -346,25 +338,18 @@ public class ToolBehaviourProvider extends FileGenerator {
     _builder.newLine();
     {
       MetaClass[] _metaClasses_2 = diagram.getMetaClasses();
-      final Function1<MetaClass,Boolean> _function_4 = new Function1<MetaClass,Boolean>() {
+      final Function1<MetaClass,Boolean> _function_3 = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
             return ((Boolean)(_representedBy instanceof Connection));
           }
         };
-      Iterable<MetaClass> _filter_5 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_2)), _function_4);
+      Iterable<MetaClass> _filter_5 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_2)), _function_3);
       for(final MetaClass mc : _filter_5) {
         {
-          Behaviour[] _behaviours_1 = mc.getBehaviours();
-          final Function1<Behaviour,Boolean> _function_5 = new Function1<Behaviour,Boolean>() {
-              public Boolean apply(final Behaviour e) {
-                BehaviourType _type = e.getType();
-                boolean _operator_equals = ObjectExtensions.operator_equals(_type, BehaviourType.CREATE_BEHAVIOUR);
-                return ((Boolean)_operator_equals);
-              }
-            };
-          Iterable<Behaviour> _filter_6 = IterableExtensions.<Behaviour>filter(((Iterable<Behaviour>)Conversions.doWrapArray(_behaviours_1)), _function_5);
-          for(final Behaviour behaviour_1 : _filter_6) {
+          Behavior[] _behaviors_1 = mc.getBehaviors();
+          Iterable<CreateBehavior> _filter_6 = IterableExtensions.<CreateBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors_1)), org.eclipselabs.spray.mm.spray.CreateBehavior.class);
+          for(final Behavior behavior_1 : _filter_6) {
             _builder.append("    ");
             _builder.append("{");
             _builder.newLine();
@@ -387,7 +372,7 @@ public class ToolBehaviourProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("    ");
             _builder.append("PaletteCompartmentEntry compartment = compartments.get(\"");
-            String _paletteCompartment_3 = behaviour_1.getPaletteCompartment();
+            String _paletteCompartment_3 = behavior_1.getPaletteCompartment();
             _builder.append(_paletteCompartment_3, "        ");
             _builder.append("\");");
             _builder.newLineIfNotEmpty();
@@ -398,7 +383,7 @@ public class ToolBehaviourProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("        ");
             _builder.append("compartment = new PaletteCompartmentEntry(\"");
-            String _paletteCompartment_4 = behaviour_1.getPaletteCompartment();
+            String _paletteCompartment_4 = behavior_1.getPaletteCompartment();
             _builder.append(_paletteCompartment_4, "            ");
             _builder.append("\", null);");
             _builder.newLineIfNotEmpty();
@@ -409,7 +394,7 @@ public class ToolBehaviourProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("    ");
             _builder.append("compartments.put(\"");
-            String _paletteCompartment_5 = behaviour_1.getPaletteCompartment();
+            String _paletteCompartment_5 = behavior_1.getPaletteCompartment();
             _builder.append(_paletteCompartment_5, "        ");
             _builder.append("\", compartment);");
             _builder.newLineIfNotEmpty();

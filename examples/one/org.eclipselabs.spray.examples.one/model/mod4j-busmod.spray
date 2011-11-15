@@ -1,7 +1,8 @@
-diagram mod4j
-
 import BusinessDomainDsl.*
 import org.eclipse.graphiti.util.IColorConstant
+
+diagram mod4j for BusinessDomainModel
+
 behaviour samen {
 	doit "Do it" ;
 }
@@ -24,7 +25,7 @@ class BusinessClass:
 	     superclass : connection(); 
 	}
     behavior {
-        create  palette "Shapes" ;
+        create into types palette "Shapes" ;
         doWithBusinessClass "Do It With";  
         group samen ;
     }
@@ -40,7 +41,7 @@ class Association icon "connection16.gif":
         toText text() name;
     } 
     behavior {
-        create  palette "Connections" ;
+        create into associations palette "Connections";
         group samen;
     }
 

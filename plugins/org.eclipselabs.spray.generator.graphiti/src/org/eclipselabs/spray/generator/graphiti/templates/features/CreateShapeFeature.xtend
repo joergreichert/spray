@@ -55,8 +55,8 @@ class CreateShapeFeature extends FileGenerator  {
         
         public class «className» extends AbstractCreateFeature {
         
-            private static final String TITLE = "Create «metaClass.visibleName»";
-            private static final String USER_QUESTION = "Enter new «metaClass.visibleName» name";
+            protected static String TITLE = "Create «metaClass.visibleName»";
+            protected static String USER_QUESTION = "Enter new «metaClass.visibleName» name";
             public final static String typeOrAliasName = "«metaClass.visibleName»";
         
             public «className»(IFeatureProvider fp) {
@@ -94,7 +94,7 @@ class CreateShapeFeature extends FileGenerator  {
                 newClass.setName(newName);     
                 //  default is to add it to a file resource, which is created if it does not exist.
                 try {
-                    SampleUtil.saveToModelFile(newClass, getDiagram(), "«metaClass.type.fileExtension»");
+                    SampleUtil.saveToModelFile(newClass, getDiagram(), "«metaClass.type.modelFileExtension»");
                 } catch (CoreException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

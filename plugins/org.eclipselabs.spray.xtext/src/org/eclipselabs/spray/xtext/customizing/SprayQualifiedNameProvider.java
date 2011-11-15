@@ -40,7 +40,7 @@ public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
             parentObject = parentObject.eContainer();
             parent = parentObject != null ? getFullyQualifiedName(parentObject) : null;
         }
-        String name = element.eClass().getName() + element.eContainer().eContents().indexOf(element);
+        String name = element.getAlias() != null ? element.getAlias() : element.eClass().getName() + element.eContainer().eContents().indexOf(element);
         return parent.append(name);
     }
 }

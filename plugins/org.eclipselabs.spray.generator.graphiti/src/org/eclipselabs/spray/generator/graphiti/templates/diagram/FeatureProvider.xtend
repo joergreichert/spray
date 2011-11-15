@@ -7,9 +7,9 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.BehaviourType
 import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
@@ -250,13 +250,13 @@ class FeatureProvider extends FileGenerator {
                 EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
                 if (bo == null) return new ICustomFeature[0];
                 «FOR metaClass : diagram.metaClasses »
-                    «IF !metaClass.behaviours.isEmpty»
+                    «IF !metaClass.behaviors.isEmpty»
                         if( bo.eClass()==«metaClass.type.EPackageClassName.shortName».Literals.«metaClass.type.literalConstant» ){
                         return new ICustomFeature[]{ 
                         «val List<String> allnames2 = new ArrayList<String>()»
-                        «FOR behaviour : metaClass.behaviours.filter(b|b.type != BehaviourType::CREATE_BEHAVIOUR)  SEPARATOR  ","»
-                            «IF ! allnames2.contains(behaviour.name)»
-                                new «behaviour.customFeatureClassName.shortName»(this) /*«allnames2.add(behaviour.name)»*/
+                        «FOR behavior : metaClass.behaviors.filter(typeof(CustomBehavior))  SEPARATOR  ","»
+                            «IF ! allnames2.contains(behavior.name)»
+                                new «behavior.customFeatureClassName.shortName»(this) /*«allnames2.add(behavior.name)»*/
                             «ENDIF»
                         «ENDFOR»
                         };

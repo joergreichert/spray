@@ -3,7 +3,8 @@ package org.eclipselabs.spray.generator.graphiti.util;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
-import org.eclipselabs.spray.mm.spray.Behaviour;
+import org.eclipselabs.spray.mm.spray.Behavior;
+import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -34,7 +35,7 @@ public class NamingExtensionsTest {
     private MetaClass        clsEClassifier;
     private MetaReference    reference;
     private MetaReference    reference2;
-    private Behaviour        behaviour;
+    private Behavior         behavior;
 
     @Before
     public void init() {
@@ -68,9 +69,9 @@ public class NamingExtensionsTest {
         reference2.setTarget(EcorePackage.Literals.ECLASSIFIER__EPACKAGE);
         clsEClassifier.getReferencesList().add(reference2);
 
-        behaviour = SprayFactory.eINSTANCE.createCustomBehaviour();
-        behaviour.setName("sampleBehaviour");
-        clsEClass.getBehavioursList().add(behaviour);
+        behavior = SprayFactory.eINSTANCE.createCustomBehavior();
+        behavior.setName("sampleBehaviour");
+        clsEClass.getBehaviorsList().add(behavior);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -108,12 +109,12 @@ public class NamingExtensionsTest {
 
     @Test
     public void test_getToolBehaviourProviderClassName() {
-        assertEquals("diagrams.EdiagToolBehaviourProvider", fixture.getToolBehaviourProviderClassName(diagram));
+        assertEquals("diagrams.EdiagToolBehaviourProvider", fixture.getToolBehaviorProviderClassName(diagram));
     }
 
     @Test
     public void test_getToolBehaviourProviderSimpleClassName() {
-        assertEquals("EdiagToolBehaviourProvider", fixture.getToolBehaviourProviderSimpleClassName(diagram));
+        assertEquals("EdiagToolBehaviourProvider", fixture.getToolBehaviorProviderSimpleClassName(diagram));
     }
 
     @Test
@@ -270,12 +271,12 @@ public class NamingExtensionsTest {
     //---------------------------------------------------------------------------------------------
     @Test
     public void test_getCustomFeatureClassName() {
-        assertEquals("features.EdiagCustomSampleBehaviourFeature", fixture.getCustomFeatureClassName(behaviour));
+        assertEquals("features.EdiagCustomSampleBehaviourFeature", fixture.getCustomFeatureClassName((CustomBehavior) behavior));
     }
 
     @Test
     public void test_getCustomFeatureSimpleClassName() {
-        assertEquals("EdiagCustomSampleBehaviourFeature", fixture.getCustomFeatureSimpleClassName(behaviour));
+        assertEquals("EdiagCustomSampleBehaviourFeature", fixture.getCustomFeatureSimpleClassName((CustomBehavior) behavior));
     }
 
     //---------------------------------------------------------------------------------------------

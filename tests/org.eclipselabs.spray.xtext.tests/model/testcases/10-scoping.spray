@@ -1,0 +1,4 @@
+// Import
+import BusinessDomainDsl.*
+
+diagram test for BusinessDomainModel

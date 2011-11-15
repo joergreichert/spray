@@ -20,10 +20,11 @@ class SprayModelGenerator {
          *
          * See also «info.getDiagramTypeName».properties to configure generator properties.
          *************************************************************************************/
-        diagram   «info.getDiagramTypeName»
-        
         // Add import statements here, e.g.
-        // import BusinessDomainDsl.*
+        import «info.modelTypeName.substring(0, info.modelTypeName.lastIndexOf('.'))».*
+        
+        diagram «info.getDiagramTypeName» for «info.modelTypeName.substring(info.modelTypeName.lastIndexOf('.')+1)»
+        
         
         // Add class mappings here. Refer to EClasses here. Don't forget to configure a
         // dependency to the plugin defining the EMF metamodel in META-INF/MANIFEST.MF.
@@ -38,12 +39,13 @@ class SprayModelGenerator {
         //     }
         //     behavior {
         //       // Enable create feature for this class and add it to the palette "Shapes"
-        //       create palette "Shapes";
+        //       create into types palette "Shapes";
         //     }
         
     '''
     
     def generateProperties (SprayProjectInfo info) '''
+        modelFileExtension = «info.modelFileExtension»
         pluginId        = «info.projectName»
         mainPackage     = «info.getBasePackage»
         diagramPackage  = «info.getBasePackage».«info.diagramPackage»

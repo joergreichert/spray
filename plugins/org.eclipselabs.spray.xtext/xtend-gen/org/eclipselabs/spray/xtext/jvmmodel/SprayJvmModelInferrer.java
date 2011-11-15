@@ -73,6 +73,10 @@ public class SprayJvmModelInferrer extends AbstractModelInferrer {
       final String instanceClassName = _javaInterfaceName;
       JvmTypeReference _typeForName = this.typeReferences.getTypeForName(instanceClassName, clazz, null);
       final JvmTypeReference eClassJvmType = _typeForName;
+      boolean _eIsProxy_1 = eClassJvmType.eIsProxy();
+      if (_eIsProxy_1) {
+        return;
+      }
       String _xifexpression = null;
       String _alias = clazz.getAlias();
       boolean _operator_equals_1 = ObjectExtensions.operator_equals(_alias, null);

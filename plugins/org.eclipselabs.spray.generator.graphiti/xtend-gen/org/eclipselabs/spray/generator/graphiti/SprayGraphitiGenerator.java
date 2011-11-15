@@ -33,7 +33,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.PropertySection;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.DiagramTypeProvider;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.FeatureProvider;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ImageProvider;
-import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviourProvider;
+import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviorProvider;
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFeature;
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature;
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsListFeature;
@@ -53,9 +53,10 @@ import org.eclipselabs.spray.generator.graphiti.util.MetaModel;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties;
 import org.eclipselabs.spray.generator.graphiti.util.StringHelpers;
-import org.eclipselabs.spray.mm.spray.Behaviour;
+import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -128,7 +129,7 @@ public class SprayGraphitiGenerator implements IGenerator {
   private ImageProvider imageProvider;
   
   @Inject
-  private ToolBehaviourProvider toolBehaviourProvider;
+  private ToolBehaviorProvider toolBehaviourProvider;
   
   @Inject
   private PropertySection propertySection;
@@ -494,8 +495,8 @@ public class SprayGraphitiGenerator implements IGenerator {
       String _imageProviderClassName = this.naming.getImageProviderClassName(diagram);
       java.setPackageAndClass(_imageProviderClassName);
       this.imageProvider.generate(diagram, java);
-      String _olBehaviourProviderClassName = this.naming.getToolBehaviourProviderClassName(diagram);
-      java.setPackageAndClass(_olBehaviourProviderClassName);
+      String _olBehaviorProviderClassName = this.naming.getToolBehaviorProviderClassName(diagram);
+      java.setPackageAndClass(_olBehaviorProviderClassName);
       this.toolBehaviourProvider.generate(diagram, java);
       MetaClass[] _metaClasses_9 = diagram.getMetaClasses();
       for (final MetaClass metaClass_9 : _metaClasses_9) {
@@ -614,12 +615,13 @@ public class SprayGraphitiGenerator implements IGenerator {
       }
       MetaClass[] _metaClasses_11 = diagram.getMetaClasses();
       for (final MetaClass metaClass_11 : _metaClasses_11) {
-        Behaviour[] _behaviours = metaClass_11.getBehaviours();
-        for (final Behaviour behaviour : _behaviours) {
+        Behavior[] _behaviors = metaClass_11.getBehaviors();
+        Iterable<CustomBehavior> _filter_10 = IterableExtensions.<CustomBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors)), org.eclipselabs.spray.mm.spray.CustomBehavior.class);
+        for (final CustomBehavior behavior : _filter_10) {
           {
-            String _customFeatureClassName = this.naming.getCustomFeatureClassName(behaviour);
+            String _customFeatureClassName = this.naming.getCustomFeatureClassName(behavior);
             java.setPackageAndClass(_customFeatureClassName);
-            this.customFeature.generate(behaviour, java);
+            this.customFeature.generate(behavior, java);
           }
         }
       }

@@ -5,7 +5,7 @@ import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
-import org.eclipselabs.spray.mm.spray.Behaviour;
+import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 
@@ -14,18 +14,18 @@ public class CustomFeature extends FileGenerator {
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Behaviour) modelElement), _baseClassName);
+    StringConcatenation _mainFile = this.mainFile(((CustomBehavior) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public StringConcatenation generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Behaviour) modelElement), _className);
+    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((CustomBehavior) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Behaviour metaClass, final String className) {
+  public StringConcatenation mainExtensionPointFile(final CustomBehavior metaClass, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     StringConcatenation _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
@@ -79,9 +79,9 @@ public class CustomFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Behaviour behaviour, final String className) {
+  public StringConcatenation mainFile(final CustomBehavior behavior, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    MetaClass _metaClass = behaviour.getMetaClass();
+    MetaClass _metaClass = behavior.getMetaClass();
     Diagram _diagram = _metaClass.getDiagram();
     String _name = _diagram.getName();
     String diagramName = _name;
@@ -133,7 +133,7 @@ public class CustomFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return \"");
-    String _label = behaviour.getLabel();
+    String _label = behavior.getLabel();
     _builder.append(_label, "        ");
     _builder.append("\"; //$NON-NLS-1$");
     _builder.newLineIfNotEmpty();
@@ -149,7 +149,7 @@ public class CustomFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return \"");
-    String _label_1 = behaviour.getLabel();
+    String _label_1 = behavior.getLabel();
     _builder.append(_label_1, "        ");
     _builder.append(" description\"; //$NON-NLS-1$");
     _builder.newLineIfNotEmpty();

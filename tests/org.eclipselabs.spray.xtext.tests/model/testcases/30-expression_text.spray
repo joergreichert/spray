@@ -1,4 +1,4 @@
-diagram test
+diagram test for BusinessDomainDsl.BusinessDomainModel
 
 class BusinessDomainDsl.BusinessClass :
     container  () {

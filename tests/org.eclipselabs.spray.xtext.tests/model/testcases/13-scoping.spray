@@ -1,0 +1,8 @@
+// BoolProperty should not be in scope, since it is not
+// the type of any containment reference of BusinessDomainModel
+import BusinessDomainDsl.*
+
+diagram test for BusinessDomainModel
+
+class BoolProperty : 
+    container () {}

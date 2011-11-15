@@ -119,13 +119,13 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("private static final String TITLE = \"Create ");
+    _builder.append("protected static String TITLE = \"Create ");
     String _visibleName = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("private static final String USER_QUESTION = \"Enter new ");
+    _builder.append("protected static String USER_QUESTION = \"Enter new ");
     String _visibleName_1 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_1, "    ");
     _builder.append(" name\";");
@@ -269,8 +269,8 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("SampleUtil.saveToModelFile(newClass, getDiagram(), \"");
     EClass _type = metaClass.getType();
-    String _fileExtension = this._genModelHelper.getFileExtension(_type);
-    _builder.append(_fileExtension, "            ");
+    String _modelFileExtension = this._namingExtensions.getModelFileExtension(_type);
+    _builder.append(_modelFileExtension, "            ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");

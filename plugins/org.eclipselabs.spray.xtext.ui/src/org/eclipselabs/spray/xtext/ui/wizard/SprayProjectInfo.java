@@ -18,6 +18,8 @@ public class SprayProjectInfo extends DefaultProjectInfo {
     private boolean createTimestamp = true;
     private String  epackageURI;
     private String  genmodelURI;
+    private String  modelTypeName;
+    private String  modelFileExtension;
 
     public void setDiagramTypeName(String diagramTypeName) {
         this.diagramTypeName = diagramTypeName;
@@ -148,5 +150,21 @@ public class SprayProjectInfo extends DefaultProjectInfo {
 
     public void setGenmodelURI(String genmodelURI) {
         this.genmodelURI = genmodelURI;
+    }
+
+    public String getModelTypeName() {
+        return modelTypeName;
+    }
+
+    public void setModelTypeName(String modelTypeName) {
+        this.modelTypeName = modelTypeName;
+    }
+
+    public String getModelFileExtension() {
+        return modelFileExtension;
+    }
+
+    public void setModelFileExtension(String modelFileExtension) {
+        this.modelFileExtension = modelFileExtension;
     }
 }

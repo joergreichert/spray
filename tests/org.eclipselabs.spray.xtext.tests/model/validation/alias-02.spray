@@ -1,0 +1,11 @@
+// ALIASES
+// Two classes with same alias name not allowed
+diagram test
+
+class BusinessDomainDsl.BusinessClass alias BC1 :
+    container () {
+    }
+
+class BusinessDomainDsl.BusinessClass alias BC1 :
+    container () {
+    }
