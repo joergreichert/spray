@@ -9,6 +9,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 
 class CreateShapeFeature extends FileGenerator  {
@@ -38,30 +39,35 @@ class CreateShapeFeature extends FileGenerator  {
 
     def mainFile (MetaClass metaClass, String className) '''
         «val diagram = metaClass.diagram»
+        «val modelClassName = diagram.modelType.javaInterfaceName.shortName»
+        «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
         «header(this)»
         package «feature_package()»;
 
-        import java.io.IOException;
-        
         import org.eclipse.graphiti.features.IFeatureProvider;
-        import org.eclipse.graphiti.features.context.ICreateContext;
         import org.eclipse.graphiti.features.context.IContext;
+        import org.eclipse.graphiti.features.context.ICreateContext;
         import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
-        import org.eclipse.core.runtime.CoreException;
-        import «util_package()».SampleUtil;
+        import org.eclipse.graphiti.services.Graphiti;
+        import org.eclipse.graphiti.services.IPeService;
+        import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
         import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
         
         public class «className» extends AbstractCreateFeature {
-        
+            public final static String typeOrAliasName = "«metaClass.visibleName»";
             protected static String TITLE = "Create «metaClass.visibleName»";
             protected static String USER_QUESTION = "Enter new «metaClass.visibleName» name";
-            public final static String typeOrAliasName = "«metaClass.visibleName»";
+            protected IPeService peService;
+            protected boolean dirty;
+            protected «diagram.modelServiceClassName.shortName» modelService;
         
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
                 super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
+                peService = Graphiti.getPeService();
+                modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
             }
         
             public boolean canCreate(ICreateContext context) {
@@ -91,18 +97,17 @@ class CreateShapeFeature extends FileGenerator  {
                 }
                  // create «metaClass.name»
                 «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();    
-                newClass.setName(newName);     
-                //  default is to add it to a file resource, which is created if it does not exist.
-                try {
-                    SampleUtil.saveToModelFile(newClass, getDiagram(), "«metaClass.type.modelFileExtension»");
-                } catch (CoreException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-         
+                newClass.setName(newName);
+                
+                // add the element to containment reference
+                «modelClassName» model = modelService.getModel();
+                «IF containmentRef.many»
+                    model.get«containmentRef.name.toFirstUpper»().add(newClass);
+                «ELSE»
+                    model.set«containmentRef.name.toFirstUpper»(newClass);
+                «ENDIF»
+                
+                dirty = true;
                 return newClass;
             }
             
@@ -116,7 +121,7 @@ class CreateShapeFeature extends FileGenerator  {
         
             @Override
             public boolean hasDoneChanges() {
-                return false;
+                return dirty;
             }
         
             @Override

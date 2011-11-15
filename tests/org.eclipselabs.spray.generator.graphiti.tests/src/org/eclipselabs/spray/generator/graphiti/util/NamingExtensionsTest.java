@@ -137,6 +137,16 @@ public class NamingExtensionsTest {
         assertEquals("EdiagModule", fixture.getGuiceModuleSimpleClassName(diagram));
     }
 
+    @Test
+    public void test_getModelServiceClassName() {
+        assertEquals("diagrams.EdiagModelService", fixture.getModelServiceClassName(diagram));
+    }
+
+    @Test
+    public void test_getModelServiceSimpleClassName() {
+        assertEquals("EdiagModelService", fixture.getModelServiceSimpleClassName(diagram));
+    }
+
     //---------------------------------------------------------------------------------------------
     // Class names for MetaClass
     //---------------------------------------------------------------------------------------------

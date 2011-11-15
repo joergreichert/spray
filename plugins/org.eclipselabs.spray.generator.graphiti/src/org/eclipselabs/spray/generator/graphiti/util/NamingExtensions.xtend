@@ -90,7 +90,12 @@ class NamingExtensions {
     def getGuiceModuleSimpleClassName (Diagram diagram) {
         diagram.name.toFirstUpper+"Module"
     }
-
+    def getModelServiceClassName (Diagram diagram) {
+        diagram_package + "." + diagram.getModelServiceSimpleClassName
+    }
+    def getModelServiceSimpleClassName (Diagram diagram) {
+        diagram.name.toFirstUpper() + "ModelService"
+    }
 	//---------------------------------------------------------------------------------------------
 	// Class names for MetaClass
 	//---------------------------------------------------------------------------------------------

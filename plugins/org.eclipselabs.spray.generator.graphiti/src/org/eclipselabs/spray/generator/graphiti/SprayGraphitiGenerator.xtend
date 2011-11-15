@@ -43,6 +43,7 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.templates.diagram.ModelService
 
 class SprayGraphitiGenerator implements IGenerator {
 	@Inject extension NamingExtensions naming
@@ -72,7 +73,7 @@ class SprayGraphitiGenerator implements IGenerator {
 	@Inject Filter filter
 	@Inject Filter filter2
 	@Inject CustomFeature customFeature
-	
+	@Inject ModelService modelService
 	/**
 	 * This method is a long sequence of calling all templates for the code generation
 	 */
@@ -116,6 +117,9 @@ class SprayGraphitiGenerator implements IGenerator {
         // Generate ExectuableExtensionFactory
         java.setPackageAndClass(diagram.extensionFactoryClassName)
         executableExtensionFactory.generate(diagram, java)
+        // Generate ModelService
+        java.setPackageAndClass(diagram.modelServiceClassName)
+        modelService.generate(diagram, java)
         
         java.hasExtensionPoint = true
         // Generate Guice Module

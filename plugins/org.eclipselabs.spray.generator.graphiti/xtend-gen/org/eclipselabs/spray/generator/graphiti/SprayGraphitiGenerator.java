@@ -33,6 +33,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.PropertySection;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.DiagramTypeProvider;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.FeatureProvider;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ImageProvider;
+import org.eclipselabs.spray.generator.graphiti.templates.diagram.ModelService;
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviorProvider;
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFeature;
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature;
@@ -143,6 +144,9 @@ public class SprayGraphitiGenerator implements IGenerator {
   @Inject
   private CustomFeature customFeature;
   
+  @Inject
+  private ModelService modelService;
+  
   /**
    * This method is a long sequence of calling all templates for the code generation
    */
@@ -209,6 +213,9 @@ public class SprayGraphitiGenerator implements IGenerator {
       String _extensionFactoryClassName = this.naming.getExtensionFactoryClassName(diagram);
       java.setPackageAndClass(_extensionFactoryClassName);
       this.executableExtensionFactory.generate(diagram, java);
+      String _modelServiceClassName = this.naming.getModelServiceClassName(diagram);
+      java.setPackageAndClass(_modelServiceClassName);
+      this.modelService.generate(diagram, java);
       java.hasExtensionPoint = true;
       String _guiceModuleClassName = this.naming.getGuiceModuleClassName(diagram);
       java.setPackageAndClass(_guiceModuleClassName);

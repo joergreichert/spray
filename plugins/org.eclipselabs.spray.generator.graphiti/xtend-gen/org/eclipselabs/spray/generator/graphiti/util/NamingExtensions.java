@@ -170,6 +170,21 @@ public class NamingExtensions {
     return _operator_plus;
   }
   
+  public String getModelServiceClassName(final Diagram diagram) {
+    String _diagram_package = GeneratorUtil.diagram_package();
+    String _operator_plus = StringExtensions.operator_plus(_diagram_package, ".");
+    String _modelServiceSimpleClassName = this.getModelServiceSimpleClassName(diagram);
+    String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _modelServiceSimpleClassName);
+    return _operator_plus_1;
+  }
+  
+  public String getModelServiceSimpleClassName(final Diagram diagram) {
+    String _name = diagram.getName();
+    String _firstUpper = StringExtensions.toFirstUpper(_name);
+    String _operator_plus = StringExtensions.operator_plus(_firstUpper, "ModelService");
+    return _operator_plus;
+  }
+  
   public String getCreateFeatureClassName(final MetaClass clazz) {
     String _featureClassName = this.getFeatureClassName(clazz, FeatureType.Create);
     return _featureClassName;
