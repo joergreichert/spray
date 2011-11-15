@@ -70,7 +70,7 @@ public class NamingExtensionsTest {
         clsEClassifier.getReferencesList().add(reference2);
 
         behavior = SprayFactory.eINSTANCE.createCustomBehavior();
-        behavior.setName("sampleBehaviour");
+        behavior.setName("sampleBehavior");
         clsEClass.getBehaviorsList().add(behavior);
     }
 
@@ -108,12 +108,12 @@ public class NamingExtensionsTest {
     }
 
     @Test
-    public void test_getToolBehaviourProviderClassName() {
+    public void test_getToolBehaviorProviderClassName() {
         assertEquals("diagrams.EdiagToolBehaviorProvider", fixture.getToolBehaviorProviderClassName(diagram));
     }
 
     @Test
-    public void test_getToolBehaviourProviderSimpleClassName() {
+    public void test_getToolBehaviorProviderSimpleClassName() {
         assertEquals("EdiagToolBehaviorProvider", fixture.getToolBehaviorProviderSimpleClassName(diagram));
     }
 
@@ -267,16 +267,16 @@ public class NamingExtensionsTest {
     }
 
     //---------------------------------------------------------------------------------------------
-    // Class names for Behaviour
+    // Class names for Behavior
     //---------------------------------------------------------------------------------------------
     @Test
     public void test_getCustomFeatureClassName() {
-        assertEquals("features.EdiagCustomSampleBehaviourFeature", fixture.getCustomFeatureClassName((CustomBehavior) behavior));
+        assertEquals("features.EdiagCustomSampleBehaviorFeature", fixture.getCustomFeatureClassName((CustomBehavior) behavior));
     }
 
     @Test
     public void test_getCustomFeatureSimpleClassName() {
-        assertEquals("EdiagCustomSampleBehaviourFeature", fixture.getCustomFeatureSimpleClassName((CustomBehavior) behavior));
+        assertEquals("EdiagCustomSampleBehaviorFeature", fixture.getCustomFeatureSimpleClassName((CustomBehavior) behavior));
     }
 
     //---------------------------------------------------------------------------------------------

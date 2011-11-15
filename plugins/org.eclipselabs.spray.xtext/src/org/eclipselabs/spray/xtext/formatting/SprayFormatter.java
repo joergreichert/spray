@@ -24,8 +24,8 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
     protected void configureFormatting(FormattingConfig c) {
         SprayGrammarAccess f = (SprayGrammarAccess) getGrammarAccess();
 
-        handleDiagram(c, f);
         handleImport(c, f);
+        handleDiagram(c, f);
         handlBehavior(c, f);
         handleMetaclass(c, f);
         handleRGBColor(c, f);
@@ -40,6 +40,7 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
     }
 
     private void handleDiagram(FormattingConfig c, SprayGrammarAccess f) {
+        c.setLinewrap(2).before(f.getDiagramRule());
         c.setLinewrap(2).after(f.getDiagramRule());
     }
 
@@ -48,7 +49,7 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
     }
 
     private void handlBehavior(FormattingConfig c, SprayGrammarAccess f) {
-        c.setLinewrap(2).before(f.getBehaviorGroupAccess().getBehaviourKeyword_0());
+        c.setLinewrap(2).before(f.getBehaviorGroupAccess().getBehaviorKeyword_0());
     }
 
     private void handleMetaclass(FormattingConfig c, SprayGrammarAccess f) {

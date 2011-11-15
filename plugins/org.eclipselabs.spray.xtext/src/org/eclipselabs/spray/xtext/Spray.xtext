@@ -57,7 +57,7 @@ MetaReferenceAsShape returns MetaReference :
     
 
 BehaviorGroup:
-    "behaviour" name=ID "{"
+    "behavior" name=ID "{"
           (behaviors += Behavior ";")+ 
     "}"
 ;
