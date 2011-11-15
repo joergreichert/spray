@@ -109,12 +109,12 @@ public class NamingExtensionsTest {
 
     @Test
     public void test_getToolBehaviourProviderClassName() {
-        assertEquals("diagrams.EdiagToolBehaviourProvider", fixture.getToolBehaviorProviderClassName(diagram));
+        assertEquals("diagrams.EdiagToolBehaviorProvider", fixture.getToolBehaviorProviderClassName(diagram));
     }
 
     @Test
     public void test_getToolBehaviourProviderSimpleClassName() {
-        assertEquals("EdiagToolBehaviourProvider", fixture.getToolBehaviorProviderSimpleClassName(diagram));
+        assertEquals("EdiagToolBehaviorProvider", fixture.getToolBehaviorProviderSimpleClassName(diagram));
     }
 
     @Test
