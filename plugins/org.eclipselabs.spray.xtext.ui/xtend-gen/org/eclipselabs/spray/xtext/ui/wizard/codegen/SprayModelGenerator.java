@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.xtext.ui.wizard.codegen;
 
 import org.eclipse.xtext.generator.IFileSystemAccess;
+import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo;
@@ -59,14 +60,28 @@ public class SprayModelGenerator {
     _builder.append(" ");
     _builder.append("*************************************************************************************/");
     _builder.newLine();
-    _builder.append("diagram   ");
-    String _diagramTypeName_1 = info.getDiagramTypeName();
-    _builder.append(_diagramTypeName_1, "");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
     _builder.append("// Add import statements here, e.g.");
     _builder.newLine();
-    _builder.append("// import BusinessDomainDsl.*");
+    _builder.append("import ");
+    String _modelTypeName = info.getModelTypeName();
+    String _modelTypeName_1 = info.getModelTypeName();
+    int _lastIndexOf = _modelTypeName_1.lastIndexOf(".");
+    String _substring = _modelTypeName.substring(0, _lastIndexOf);
+    _builder.append(_substring, "");
+    _builder.append(".*");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("diagram ");
+    String _diagramTypeName_1 = info.getDiagramTypeName();
+    _builder.append(_diagramTypeName_1, "");
+    _builder.append(" for ");
+    String _modelTypeName_2 = info.getModelTypeName();
+    String _modelTypeName_3 = info.getModelTypeName();
+    int _lastIndexOf_1 = _modelTypeName_3.lastIndexOf(".");
+    int _operator_plus = IntegerExtensions.operator_plus(((Integer)_lastIndexOf_1), ((Integer)1));
+    String _substring_1 = _modelTypeName_2.substring(_operator_plus);
+    _builder.append(_substring_1, "");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.newLine();
     _builder.append("// Add class mappings here. Refer to EClasses here. Don\'t forget to configure a");
@@ -95,7 +110,7 @@ public class SprayModelGenerator {
     _builder.newLine();
     _builder.append("//       // Enable create feature for this class and add it to the palette \"Shapes\"");
     _builder.newLine();
-    _builder.append("//       create palette \"Shapes\";");
+    _builder.append("//       create into types palette \"Shapes\";");
     _builder.newLine();
     _builder.append("//     }");
     _builder.newLine();
@@ -105,6 +120,10 @@ public class SprayModelGenerator {
   
   public StringConcatenation generateProperties(final SprayProjectInfo info) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("modelFileExtension = ");
+    String _modelFileExtension = info.getModelFileExtension();
+    _builder.append(_modelFileExtension, "");
+    _builder.newLineIfNotEmpty();
     _builder.append("pluginId        = ");
     String _projectName = info.getProjectName();
     _builder.append(_projectName, "");

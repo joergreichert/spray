@@ -269,8 +269,8 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("            ");
     _builder.append("SampleUtil.saveToModelFile(newClass, getDiagram(), \"");
     EClass _type = metaClass.getType();
-    String _fileExtension = this._genModelHelper.getFileExtension(_type);
-    _builder.append(_fileExtension, "            ");
+    String _modelFileExtension = this._namingExtensions.getModelFileExtension(_type);
+    _builder.append(_modelFileExtension, "            ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");

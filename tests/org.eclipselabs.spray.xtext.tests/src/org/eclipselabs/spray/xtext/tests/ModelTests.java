@@ -19,7 +19,27 @@ public class ModelTests extends XtextTest {
 
     @Test
     public void test_01_minimal() {
-        testFile("testcases/01-minimal.spray");
+        testFile("testcases/01-minimal.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_10_scoping() {
+        testFile("testcases/10-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_11_scoping() {
+        testFile("testcases/11-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_12_scoping() {
+        testFile("testcases/12-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
+
+    @Test
+    public void test_13_scoping() {
+        testFile("testcases/13-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
     }
 
     @Test

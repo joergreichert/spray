@@ -1,6 +1,6 @@
 // ALIASES
 // Aliased Shape of type Connection
-diagram test
+diagram test for BusinessDomainDsl.BusinessDomainModel
 
 class BusinessDomainDsl.BusinessClass :
     connection alias shape1 ()

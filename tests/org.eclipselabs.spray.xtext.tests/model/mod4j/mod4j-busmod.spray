@@ -1,4 +1,4 @@
-diagram mod4j
+diagram mod4j for BusinessDomainDsl.BusinessDomainModel
 
 import BusinessDomainDsl.*
 import org.eclipse.graphiti.util.IColorConstant

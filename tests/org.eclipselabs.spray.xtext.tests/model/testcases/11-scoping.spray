@@ -1,0 +1,7 @@
+// Import
+import BusinessDomainDsl.*
+
+diagram test for BusinessDomainModel
+
+class BusinessClass : 
+    container () {}

@@ -5,12 +5,12 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 Diagram :
-    'diagram'  name = ID
-    
     imports+=Import*
+    'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName]
+    
     
     (
-        behaviourGroups += BehaviourGroup
+        behaviourGroups += BehaviorGroup
     )*
     (
         metaClasses += MetaClass
@@ -38,8 +38,8 @@ MetaClass :
     (
 	"behavior" "{"
 	       ( 
-	           ("group" behaviourGroups += [BehaviourGroup] ";"  ) |
-               (behaviours += Behaviour ";" )
+	           ("group" behaviorGroups += [BehaviorGroup] ";"  ) |
+               (behaviors += Behavior ";" )
            )*
     "}"
     )?
@@ -56,25 +56,21 @@ MetaReferenceAsShape returns MetaReference :
     ("attribute" labelProperty = [ecore::EAttribute])? ;
     
 
-BehaviourGroup: 
+BehaviorGroup:
     "behaviour" name=ID "{"
-          (behaviours += Behaviour ";")+ 
+          (behaviors += Behavior ";")+ 
     "}"
 ;
 
-Behaviour :
-    StandardBehaviour | CustomBehaviour;
+Behavior :
+    CreateBehavior | CustomBehavior;
 
-StandardBehaviour :
-    type=BehaviourType  (label = STRING)? ('palette' paletteCompartment = STRING)?;
+CreateBehavior :
+    'create' 'into' containmentReference=[ecore::EReference] (label = STRING)? ('palette' paletteCompartment = STRING)?;
 
-CustomBehaviour :
+CustomBehavior :
     name = ID (label = STRING);
-    
-enum BehaviourType :
-    CREATE_BEHAVIOUR = 'create' 
-    ;
-    
+
 Shape :
     (Rectangle | Text | Container | Connection | Line) 
 ;

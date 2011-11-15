@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -33,6 +34,7 @@ import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.Connection;
+import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
@@ -46,6 +48,8 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTAN
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
@@ -67,16 +71,12 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
     @Override
     public IScope getScope(EObject context, EReference reference) {
-        if (reference == META_CLASS__TYPE) {
-            // filter out types with URL schema qualified names
-            final IScope scope = delegateGetScope(context, reference);
-            final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
-                @Override
-                public boolean apply(IEObjectDescription input) {
-                    return !input.getQualifiedName().toString().startsWith("http://");
-                }
-            };
-            return new FilteringScope(scope, filter);
+        if (reference == DIAGRAM__MODEL_TYPE) {
+            return scope_Diagram_ModelType(context, reference);
+        } else if (reference == META_CLASS__TYPE) {
+            return scope_MetaClass_Type(context, reference);
+        } else if (reference == CREATE_BEHAVIOR__CONTAINMENT_REFERENCE) {
+            return scope_CreateBehavior_ContainmentReference(context, reference);
         } else if (context.eClass() == CONNECTION && reference == CONNECTION__FROM) {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
@@ -118,6 +118,56 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return getColorConstantFieldScope(context);
         }
         return super.getScope(context, reference);
+    }
+
+    protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {
+        final MetaClass mc = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        Diagram diagram = mc.getDiagram();
+        final EClass containerType = diagram.getModelType();
+        Predicate<EReference> filter = new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                return input.getEReferenceType().isSuperTypeOf(mc.getType());
+            }
+        };
+        return Scopes.scopeFor(Iterables.filter(containerType.getEAllContainments(), filter));
+    }
+
+    protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
+        // TODO Restrict to containment types
+        return scope_Diagram_ModelType(context, reference);
+        //        Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
+        //        final EClass diagramModelType = diagram.getModelType();
+        //
+        //        Function<EReference, EClass> referenceToEClass = new Function<EReference, EClass>() {
+        //            @Override
+        //            public EClass apply(EReference from) {
+        //                return from.getEReferenceType();
+        //            }
+        //        };
+        //        Iterable<EClass> containmentTypes = Iterables.transform(diagramModelType.getEAllContainments(), referenceToEClass);
+        //        IScope parent = Scopes.scopeFor(containmentTypes);
+        //
+        //        final IScope scope = delegateGetScope(context, reference);
+        //        final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
+        //            @Override
+        //            public boolean apply(IEObjectDescription input) {
+        //                return !input.getQualifiedName().toString().startsWith("http://");
+        //            }
+        //        };
+        //        IScope subtypeScope = new FilteringScope(scope, filter);
+    }
+
+    protected IScope scope_Diagram_ModelType(EObject context, EReference reference) {
+        // filter out types with URL schema qualified names
+        final IScope scope = delegateGetScope(context, reference);
+        final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
+            @Override
+            public boolean apply(IEObjectDescription input) {
+                return !input.getQualifiedName().toString().startsWith("http://");
+            }
+        };
+        return new FilteringScope(scope, filter);
     }
 
     protected IScope getColorConstantTypeScope(ColorConstantRef colorConstantRef) {

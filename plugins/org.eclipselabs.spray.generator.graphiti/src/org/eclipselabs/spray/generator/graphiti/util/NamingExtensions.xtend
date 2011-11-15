@@ -11,6 +11,7 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -294,5 +295,9 @@ class NamingExtensions {
 		// strip file extension and replace all non-word characters by underscore
 		return imagePath.substring(0, imagePath.lastIndexOf('.')).replaceAll("\\W","_").toLowerCase
 	}
+	
+    def String getModelFileExtension (EObject ctx) {
+        return ProjectProperties::getModelFileExtension();
+    }
 }
 

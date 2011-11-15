@@ -13,6 +13,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.FeatureType;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
@@ -665,6 +666,11 @@ public class NamingExtensions {
       String _replaceAll = _substring.replaceAll("\\W", "_");
       String _lowerCase = _replaceAll.toLowerCase();
       return _lowerCase;
+  }
+  
+  public String getModelFileExtension(final EObject ctx) {
+    String _modelFileExtension = ProjectProperties.getModelFileExtension();
+    return _modelFileExtension;
   }
   
   public String getName(final EObject metaClass) {

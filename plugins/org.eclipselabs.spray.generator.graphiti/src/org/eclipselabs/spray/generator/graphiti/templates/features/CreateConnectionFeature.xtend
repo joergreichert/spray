@@ -151,7 +151,7 @@ class CreateConnectionFeature extends FileGenerator  {
         //        getDiagram().eResource().getContents().add(domainObject);
         
                 try {
-                    SampleUtil.saveToModelFile(domainObject, getDiagram(), "«metaClass.type.fileExtension»");
+                    SampleUtil.saveToModelFile(domainObject, getDiagram(), "«metaClass.type.modelFileExtension»"); 
                 } catch (CoreException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

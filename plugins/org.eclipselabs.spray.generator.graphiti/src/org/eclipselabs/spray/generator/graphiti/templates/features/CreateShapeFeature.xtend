@@ -94,7 +94,7 @@ class CreateShapeFeature extends FileGenerator  {
                 newClass.setName(newName);     
                 //  default is to add it to a file resource, which is created if it does not exist.
                 try {
-                    SampleUtil.saveToModelFile(newClass, getDiagram(), "«metaClass.type.fileExtension»");
+                    SampleUtil.saveToModelFile(newClass, getDiagram(), "«metaClass.type.modelFileExtension»");
                 } catch (CoreException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
