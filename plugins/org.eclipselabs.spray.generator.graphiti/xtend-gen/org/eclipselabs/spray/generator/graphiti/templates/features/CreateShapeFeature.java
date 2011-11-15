@@ -119,13 +119,13 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("private static final String TITLE = \"Create ");
+    _builder.append("protected static String TITLE = \"Create ");
     String _visibleName = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("private static final String USER_QUESTION = \"Enter new ");
+    _builder.append("protected static String USER_QUESTION = \"Enter new ");
     String _visibleName_1 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_1, "    ");
     _builder.append(" name\";");

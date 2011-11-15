@@ -55,8 +55,8 @@ class CreateShapeFeature extends FileGenerator  {
         
         public class «className» extends AbstractCreateFeature {
         
-            private static final String TITLE = "Create «metaClass.visibleName»";
-            private static final String USER_QUESTION = "Enter new «metaClass.visibleName» name";
+            protected static String TITLE = "Create «metaClass.visibleName»";
+            protected static String USER_QUESTION = "Enter new «metaClass.visibleName» name";
             public final static String typeOrAliasName = "«metaClass.visibleName»";
         
             public «className»(IFeatureProvider fp) {
