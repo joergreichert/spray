@@ -20,7 +20,7 @@ public class ValidationRulesTest extends XtextTest {
     @Test
     public void test_alias_01() {
         testFile("validation/alias-01.spray", "mod4j/BusinessDomainDsl.ecore");
-        assertConstraints(issues.theOneAndOnlyContains("Duplicate alias name line1"));
+        assertConstraints(issues.oneOfThemContains("Duplicate alias name line1"));
     }
 
     @Test
