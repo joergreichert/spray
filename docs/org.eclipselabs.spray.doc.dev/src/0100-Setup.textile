@@ -26,13 +26,14 @@ Choose now _Help -> Install New Software_. Choose the following features:
 * Xtext Antlr 2.0.0
 * SWT Bot
 * xtext-utils unittesting
-* Xtext SDK 2.1.0
+* Xtext SDK 2.1.1
 * EclEmma Java Code Coverage
 
 h3. Troubleshooting
 
 If you have already installed one of the above mentioned features you might experience problems installing the newer features. In this case uninstall the features in question before (Eclipse / About Eclipse / Installation Details / Installed Software -> Uninstall).
 
+For example, if you need to upgrade Xtext, uninstall *all* Xtext features, and the install Xtext SDK again with Install New Software.
 
 h2. Target Platform
  
