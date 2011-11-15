@@ -164,16 +164,6 @@ public class SprayWizardNewProjectCreationPage extends WizardNewProjectCreationP
         }
     }
 
-    protected DataBindingContext initDataBindings() {
-        DataBindingContext bindingContext = new DataBindingContext();
-        //
-        IObservableValue diagramTypeNameFieldObserveTextObserveWidget = SWTObservables.observeText(diagramTypeNameField, SWT.Modify);
-        IObservableValue projectInfoDiagramTypeNameObserveValue = PojoObservables.observeValue(projectInfo, "diagramTypeName");
-        bindingContext.bindValue(diagramTypeNameFieldObserveTextObserveWidget, projectInfoDiagramTypeNameObserveValue, null, null);
-        //
-        return bindingContext;
-    }
-
     private void addPageCompleteListeners() {
         ModifyListener listener = new ModifyListener() {
             @Override
@@ -185,5 +175,19 @@ public class SprayWizardNewProjectCreationPage extends WizardNewProjectCreationP
         metamodelSelectionComposite.getTxtGenmodelUri().addModifyListener(listener);
         metamodelSelectionComposite.getTxtModelType().addModifyListener(listener);
         metamodelSelectionComposite.getTxtFileExtension().addModifyListener(listener);
+    }
+
+    protected DataBindingContext initDataBindings() {
+        DataBindingContext bindingContext = new DataBindingContext();
+        //
+        IObservableValue diagramTypeNameFieldObserveTextObserveWidget = SWTObservables.observeText(diagramTypeNameField, SWT.Modify);
+        IObservableValue projectInfoDiagramTypeNameObserveValue = PojoObservables.observeValue(projectInfo, "diagramTypeName");
+        bindingContext.bindValue(diagramTypeNameFieldObserveTextObserveWidget, projectInfoDiagramTypeNameObserveValue, null, null);
+        //
+        IObservableValue projectNameFieldTextObserveValue = PojoObservables.observeValue(projectNameField, "text");
+        IObservableValue projectInfoProjectNameObserveValue = PojoObservables.observeValue(projectInfo, "projectName");
+        bindingContext.bindValue(projectNameFieldTextObserveValue, projectInfoProjectNameObserveValue, null, null);
+        //
+        return bindingContext;
     }
 }

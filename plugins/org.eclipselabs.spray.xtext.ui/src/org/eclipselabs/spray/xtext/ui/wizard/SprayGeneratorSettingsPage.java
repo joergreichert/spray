@@ -19,7 +19,7 @@ import org.eclipse.wb.swt.ResourceManager;
 
 public class SprayGeneratorSettingsPage extends WizardPage {
     private DataBindingContext m_bindingContext;
-    private Text               textBasePackage;
+    private Text               txtBasePackage;
     private Text               txtDiagramPackage;
     private Text               txtFeaturesPackage;
     private Text               txtPropertyPackage;
@@ -144,9 +144,9 @@ public class SprayGeneratorSettingsPage extends WizardPage {
         lblNewLabel_1 = new Label(grpPackageNames, SWT.NONE);
         lblNewLabel_1.setText("Base backage");
 
-        textBasePackage = new Text(grpPackageNames, SWT.BORDER);
-        textBasePackage.setEnabled(false);
-        textBasePackage.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        txtBasePackage = new Text(grpPackageNames, SWT.BORDER);
+        txtBasePackage.setEnabled(false);
+        txtBasePackage.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
         lblNewLabel = new Label(grpPackageNames, SWT.NONE);
         lblNewLabel.setToolTipText("Diagram Type Provider, Feature Provider, Tool Behavior Provider, Image Provider");
@@ -184,16 +184,16 @@ public class SprayGeneratorSettingsPage extends WizardPage {
     }
 
     protected void setNamingScheme(boolean useDefault) {
-        textBasePackage.setEnabled(!useDefault);
+        txtBasePackage.setEnabled(!useDefault);
         txtDiagramPackage.setEnabled(!useDefault);
         txtFeaturesPackage.setEnabled(!useDefault);
         txtPropertyPackage.setEnabled(!useDefault);
 
         if (useDefault) {
             if (projectInfo.getProjectName().endsWith("." + projectInfo.getDiagramTypeName())) {
-                textBasePackage.setText(projectInfo.getProjectName().toLowerCase());
+                txtBasePackage.setText(projectInfo.getProjectName().toLowerCase());
             } else {
-                textBasePackage.setText(projectInfo.getProjectName().toLowerCase() + "." + projectInfo.getDiagramTypeName().toLowerCase());
+                txtBasePackage.setText(projectInfo.getProjectName().toLowerCase() + "." + projectInfo.getDiagramTypeName().toLowerCase());
             }
             txtDiagramPackage.setText("diagram");
             txtFeaturesPackage.setText("features");
@@ -239,7 +239,7 @@ public class SprayGeneratorSettingsPage extends WizardPage {
         IObservableValue projectInfoSprayModelDirObserveValue = PojoObservables.observeValue(projectInfo, "sprayModelDir");
         bindingContext.bindValue(txtModelObserveTextObserveWidget, projectInfoSprayModelDirObserveValue, null, null);
         //
-        IObservableValue textBasePackageObserveTextObserveWidget = SWTObservables.observeText(textBasePackage, SWT.Modify);
+        IObservableValue textBasePackageObserveTextObserveWidget = SWTObservables.observeText(txtBasePackage, SWT.Modify);
         IObservableValue projectInfoBasePackageObserveValue = PojoObservables.observeValue(projectInfo, "basePackage");
         bindingContext.bindValue(textBasePackageObserveTextObserveWidget, projectInfoBasePackageObserveValue, null, null);
         //
@@ -268,5 +268,13 @@ public class SprayGeneratorSettingsPage extends WizardPage {
         bindingContext.bindValue(btnGenerateTimestampObserveSelectionObserveWidget, projectInfoCreateTimestampObserveValue, null, null);
         //
         return bindingContext;
+    }
+
+    public Button getBtnCheckDefaultNaming() {
+        return btnCheckDefaultNaming;
+    }
+
+    public Text getTxtBasePackage() {
+        return txtBasePackage;
     }
 }

@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.xtext.ui.wizard;
 
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.xtext.ui.wizard.IProjectCreator;
 import org.eclipse.xtext.ui.wizard.IProjectInfo;
@@ -73,4 +74,15 @@ public class SprayNewProjectWizard extends XtextNewProjectWizard {
         return projectInfo;
     }
 
+    @Override
+    public IWizardPage getNextPage(IWizardPage page) {
+        IWizardPage nextPage = super.getNextPage(page);
+
+        if (nextPage == generatorSettingsPage) {
+            if (generatorSettingsPage.getBtnCheckDefaultNaming().getSelection()) {
+                generatorSettingsPage.getTxtDiagramPackage().setText(mainPage.getProjectName().toLowerCase());
+            }
+        }
+        return nextPage;
+    }
 }
