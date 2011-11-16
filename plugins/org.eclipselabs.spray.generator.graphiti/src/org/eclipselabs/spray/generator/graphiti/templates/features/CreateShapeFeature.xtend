@@ -39,8 +39,6 @@ class CreateShapeFeature extends FileGenerator  {
 
     def mainFile (MetaClass metaClass, String className) '''
         «val diagram = metaClass.diagram»
-        «val modelClassName = diagram.modelType.javaInterfaceName.shortName»
-        «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
         «header(this)»
         package «feature_package()»;
 
@@ -62,6 +60,8 @@ class CreateShapeFeature extends FileGenerator  {
             protected IPeService peService;
             protected boolean dirty;
             protected «diagram.modelServiceClassName.shortName» modelService;
+            protected «metaClass.name» newClass = null;
+        
         
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
@@ -70,65 +70,105 @@ class CreateShapeFeature extends FileGenerator  {
                 modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
             }
         
-            public boolean canCreate(ICreateContext context) {
-                return context.getTargetContainer() instanceof Diagram;
-            }
+            «generate_canCreate(metaClass)»
+            «generate_create(metaClass)»
+            «generate_createModelElement(metaClass)»
+            «generate_getCreateImageId(metaClass)»
+            «generate_hasDoneChanges(metaClass)»
+            «generate_canUndo(metaClass)»
+        }
+    '''
+    
+    def generate_canCreate (MetaClass metaClass) '''
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean canCreate(ICreateContext context) {
+            // TODO: Respect the cardinality of the containment reference
+            return context.getTargetContainer() instanceof Diagram;
+        }
+    '''
+    
+    def generate_create (MetaClass metaClass) '''
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Object[] create(final ICreateContext context) {
+            newClass = create«metaClass.visibleName»(context);
         
-            protected «metaClass.name» newClass = null;
-        
-            public Object[] create(final ICreateContext context) {
-                newClass = create«metaClass.visibleName»(context);
-            
-                if (newClass == null ) {
-                    return EMPTY;
-                }
-         
-                // do the add
-                addGraphicalRepresentation(context, newClass);
-                // return newly created business object(s)
-                return new Object[] { newClass };
+            if (newClass == null ) {
+                return EMPTY;
             }
-            
-            protected «metaClass.name» create«metaClass.visibleName»(ICreateContext context) {
-                // ask user for «className» name
-                String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
-                if (newName == null || newName.trim().length() == 0) {
-                    return null;
-                }
-                 // create «metaClass.name»
-                «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();    
-                newClass.setName(newName);
-                
-                // add the element to containment reference
-                «modelClassName» model = modelService.getModel();
-                «IF containmentRef.many»
-                    model.get«containmentRef.name.toFirstUpper»().add(newClass);
-                «ELSE»
-                    model.set«containmentRef.name.toFirstUpper»(newClass);
-                «ENDIF»
-                
-                dirty = true;
-                return newClass;
+
+            // do the add
+            addGraphicalRepresentation(context, newClass);
+            // return newly created business object(s)
+            return new Object[] { newClass };
+        }
+    '''
+    
+    def generate_createModelElement (MetaClass metaClass) '''
+        «val diagram = metaClass.diagram»
+        «val modelClassName = diagram.modelType.javaInterfaceName.shortName»
+        «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
+        /**
+         * Creates a new {@link «metaClass.name»} instance and adds it to the containing type.
+         */
+        protected «metaClass.name» create«metaClass.visibleName»(ICreateContext context) {
+            // ask user for «metaClass.visibleName» name
+            String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
+            if (newName == null || newName.trim().length() == 0) {
+                return null;
             }
+             // create «metaClass.name» instance
+            «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();    
+            newClass.setName(newName);
             
-            
-            «IF (metaClass.icon != null)»
-                @Override
-                public String getCreateImageId() {
-                    return «diagram.imageProviderClassName.shortName».«diagram.getImageIdentifier(metaClass.icon)»;
-                }
+            // add the element to containment reference
+            «modelClassName» model = modelService.getModel();
+            «IF containmentRef.many»
+                model.get«containmentRef.name.toFirstUpper»().add(newClass);
+            «ELSE»
+                model.set«containmentRef.name.toFirstUpper»(newClass);
             «ENDIF»
-        
-            @Override
-            public boolean hasDoneChanges() {
-                return dirty;
-            }
-        
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
-            }
             
+            dirty = true;
+            return newClass;
+        }
+    '''
+    
+    def generate_getCreateImageId (MetaClass metaClass) '''
+        «val diagram = metaClass.diagram»
+        «IF (metaClass.icon != null)»
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public String getCreateImageId() {
+                return «diagram.imageProviderClassName.shortName».«diagram.getImageIdentifier(metaClass.icon)»;
+            }
+        «ENDIF»
+    '''
+    
+    def generate_hasDoneChanges (MetaClass metaClass) '''
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean hasDoneChanges() {
+            return dirty;
+        }
+    '''
+    
+    def generate_canUndo (MetaClass metaClass) '''
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean canUndo(IContext context) {
+            return false;
         }
     '''
 }

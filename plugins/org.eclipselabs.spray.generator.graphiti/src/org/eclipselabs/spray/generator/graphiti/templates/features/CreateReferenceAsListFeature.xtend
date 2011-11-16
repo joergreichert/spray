@@ -6,10 +6,10 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.Container
 
 
 class CreateReferenceAsListFeature extends FileGenerator  {
@@ -43,7 +43,6 @@ class CreateReferenceAsListFeature extends FileGenerator  {
     '''
 
     def mainFile (MetaReference reference, String className) '''
-        «val metaClass = (reference.eContainer as Container).represents»
         «header(this)»
         package «feature_package()»;
         import org.eclipse.graphiti.features.IFeatureProvider;
@@ -56,52 +55,79 @@ class CreateReferenceAsListFeature extends FileGenerator  {
         
         public class «className» extends AbstractCreateFeature {
         
-            private static final String TITLE = "Create «target.name»";
-            private static final String USER_QUESTION = "Enter new «target.name» «reference.labelPropertyName»";
+            protected static String TITLE = "Create «target.name»";
+            protected static String USER_QUESTION = "Enter new «target.name» «reference.labelPropertyName»";
+            
+            private boolean doneChanges;
         
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
                 super(fp, "«target.name»", "Create «target.name»");
             }
             
-            public boolean canCreate(ICreateContext context) {
-                Shape target = context.getTargetContainer();
-                Object domainObject = getBusinessObjectForPictogramElement(target);
-                return domainObject instanceof «metaClass.name»;
-            }
-            
-            public Object[] create(ICreateContext context) {
-                // ask user for «target.name» name
-                String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
-                if (newName == null || newName.trim().length() == 0) {
-                    return EMPTY;
-                }
-         
-                 Shape target = context.getTargetContainer();
-                Object domainObject = getBusinessObjectForPictogramElement(target);
-                «metaClass.javaInterfaceName.shortName» owner = («metaClass.name»)domainObject;
-         
-                // create «target.name»
-                «target.javaInterfaceName.shortName» newDomainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«target.name»();
-                newDomainObject.set«reference.labelPropertyName.toFirstUpper»(newName);
-                owner.get«reference.name.toFirstUpper»().add(newDomainObject);
-         
-                // do the add
-                addGraphicalRepresentation(context, newDomainObject);
-                // return newly created business object(s)
-                return new Object[] { newDomainObject };
-            }
+            «generate_canCreate(reference)»
+            «generate_create(reference)»
         
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean hasDoneChanges() {
-                return false;
+                return doneChanges;
             }
         
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean canUndo(IContext context) {
                 return false;
             }
         
+        }
+    '''
+    
+    def generate_canCreate (MetaReference ref) '''
+        «val metaClass = (ref.eContainer as Container).represents»
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean canCreate(ICreateContext context) {
+            Shape target = context.getTargetContainer();
+            Object domainObject = getBusinessObjectForPictogramElement(target);
+            return domainObject instanceof «metaClass.name»;
+        }
+    '''
+    
+    def generate_create (MetaReference ref) '''
+        «val metaClass = (ref.eContainer as Container).represents»
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Object[] create(ICreateContext context) {
+            // ask user for «target.name» name
+            String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
+            if (newName == null || newName.trim().length() == 0) {
+                return EMPTY;
+            }
+
+            Shape target = context.getTargetContainer();
+            Object domainObject = getBusinessObjectForPictogramElement(target);
+            «metaClass.javaInterfaceName.shortName» owner = («metaClass.name») getBusinessObjectForPictogramElement(target);
+
+            // create «target.name»
+            «target.javaInterfaceName.shortName» newDomainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«target.name»();
+            newDomainObject.set«ref.labelPropertyName.toFirstUpper»(newName);
+            owner.get«ref.name.toFirstUpper»().add(newDomainObject);
+
+            // do the add
+            addGraphicalRepresentation(context, newDomainObject);
+            // return newly created business object(s)
+            
+            doneChanges = true;
+            return new Object[] { newDomainObject };
         }
     '''
 }
