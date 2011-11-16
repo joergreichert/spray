@@ -80,7 +80,7 @@ public class SprayNewProjectWizard extends XtextNewProjectWizard {
 
         if (nextPage == generatorSettingsPage) {
             if (generatorSettingsPage.getBtnCheckDefaultNaming().getSelection()) {
-                generatorSettingsPage.getTxtDiagramPackage().setText(mainPage.getProjectName().toLowerCase());
+                generatorSettingsPage.getTxtBasePackage().setText(mainPage.getProjectName().toLowerCase());
             }
         }
         return nextPage;
