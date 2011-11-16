@@ -104,6 +104,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 // TODO Name attribute should not be default
                 Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
                 // TODO find the right text color
+                text.setFont(gaService.manageFont(getDiagram(), "Verdana", 12));
                 text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
                 text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
                 text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);

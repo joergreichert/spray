@@ -285,6 +285,9 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("// TODO find the right text color");
     _builder.newLine();
     _builder.append("        ");
+    _builder.append("text.setFont(gaService.manageFont(getDiagram(), \"Verdana\", 12));");
+    _builder.newLine();
+    _builder.append("        ");
     _builder.append("text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));");
     _builder.newLine();
     _builder.append("        ");
