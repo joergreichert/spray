@@ -63,6 +63,7 @@ class UpdateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFUpdateFeature;
         import «connection.represents.javaInterfaceName»;
@@ -70,12 +71,22 @@ class UpdateConnectionFeature extends FileGenerator  {
                 
         public class «className» extends AbstractEMFUpdateFeature {
         
-            Map<String, String> values = null;
-        
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
         
+            «generate_canUpdate(connection)»
+            «generate_updateNeeded(connection)»
+            «generate_update(connection)»
+            «generate_getValue(connection)»
+            «generate_hasDoneChanges(connection)»
+            «generate_canUndo(connection)»
+        
+        }
+        '''
+
+        def generate_canUpdate (Connection connection) '''
+            «val metaClassName = connection.represents.name»
             @Override
             public boolean canUpdate(IUpdateContext context) {
                 // return true, if linked business object is a EClass
@@ -83,7 +94,10 @@ class UpdateConnectionFeature extends FileGenerator  {
                 PictogramElement pictogramElement = context.getPictogramElement();
                 return (bo instanceof «metaClassName») && (!(pictogramElement instanceof Diagram));
             }
-        
+        '''
+
+        def generate_updateNeeded (Connection connection) '''
+            «val metaClassName = connection.represents.name»
             @Override
             public IReason updateNeeded(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
@@ -92,12 +106,13 @@ class UpdateConnectionFeature extends FileGenerator  {
                     return Reason.createFalseReason();
                 }
                 «metaClassName» eClass = («metaClassName») bo;
-        
+
                 if (pictogramElement instanceof FreeFormConnection) {
                     FreeFormConnection free = (FreeFormConnection) pictogramElement;
                     for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
                         String type = Graphiti.getPeService().getPropertyValue(decorator, "MODEL_TYPE");
                         String value = getValue(type, eClass);
+                        if (value == null) value = "";
                         GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();
                         Text text = (Text) ga;
                         String current = text.getValue();
@@ -108,31 +123,34 @@ class UpdateConnectionFeature extends FileGenerator  {
                 }
                 return Reason.createFalseReason();
             }
-        
+        '''
+
+        def generate_update (Connection connection) '''
+            «val metaClassName = connection.represents.name»
             @Override
             public boolean update(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
                 EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                 «metaClassName» eClass = («metaClassName») bo;
-        
+
                 FreeFormConnection free = (FreeFormConnection) pictogramElement;
                 for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                    String type = Graphiti.getPeService().getPropertyValue(decorator, "MODEL_TYPE");
+                    String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                     String value = getValue(type, eClass);
+                    if (value == null) value = "";
                     GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();
                     Text text = (Text) ga;
                     String current = text.getValue();
-                    if (! current.equals(value) ) {
+                    if (!value.equals(current) ) {
                         text.setValue(value);
                     }
                 }
-                //
-                // return SprayContainerService.update(pictogramElement,
-                // getValues(eClass));
-                //
+                // return SprayContainerService.update(pictogramElement, getValues(eClass));
                 return true;
             }
+        '''
         
+        def generate_getValue (Connection connection) '''
             protected String getValue(String type, «connection.represents.name» eClass) {
                 String result = "";
                 if( "FROM_LABEL".equals(type) ){
@@ -153,18 +171,19 @@ class UpdateConnectionFeature extends FileGenerator  {
                 }
                 return result;
             }
+        '''
         
-            @Override
+        def generate_hasDoneChanges (Connection connection) '''
+             @Override
             public boolean hasDoneChanges() {
                 return false;
             }
-        
+       '''
+       
+       def generate_canUndo (Connection connection) '''
             @Override
             public boolean canUndo(IContext context) {
                 return false;
             }
-        
-        }
-        '''
-        
+       '''
 }
