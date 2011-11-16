@@ -80,10 +80,7 @@ class CreateShapeFeature extends FileGenerator  {
     '''
     
     def generate_canCreate (MetaClass metaClass) '''
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader()»
         public boolean canCreate(ICreateContext context) {
             // TODO: Respect the cardinality of the containment reference
             return context.getTargetContainer() instanceof Diagram;
@@ -91,10 +88,7 @@ class CreateShapeFeature extends FileGenerator  {
     '''
     
     def generate_create (MetaClass metaClass) '''
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader()»
         public Object[] create(final ICreateContext context) {
             newClass = create«metaClass.visibleName»(context);
         
@@ -142,10 +136,7 @@ class CreateShapeFeature extends FileGenerator  {
     def generate_getCreateImageId (MetaClass metaClass) '''
         «val diagram = metaClass.diagram»
         «IF (metaClass.icon != null)»
-            /**
-             * {@inheritDoc}
-             */
-            @Override
+            «overrideHeader()»
             public String getCreateImageId() {
                 return «diagram.imageProviderClassName.shortName».«diagram.getImageIdentifier(metaClass.icon)»;
             }
@@ -153,20 +144,14 @@ class CreateShapeFeature extends FileGenerator  {
     '''
     
     def generate_hasDoneChanges (MetaClass metaClass) '''
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader()»
         public boolean hasDoneChanges() {
             return dirty;
         }
     '''
     
     def generate_canUndo (MetaClass metaClass) '''
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader()»
         public boolean canUndo(IContext context) {
             return false;
         }

@@ -220,16 +220,9 @@ public class CreateShapeFeature extends FileGenerator {
   
   public StringConcatenation generate_canCreate(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("/**");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* {@inheritDoc}");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
-    _builder.newLine();
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
+    _builder.newLineIfNotEmpty();
     _builder.append("public boolean canCreate(ICreateContext context) {");
     _builder.newLine();
     _builder.append("    ");
@@ -245,16 +238,9 @@ public class CreateShapeFeature extends FileGenerator {
   
   public StringConcatenation generate_create(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("/**");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* {@inheritDoc}");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
-    _builder.newLine();
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
+    _builder.newLineIfNotEmpty();
     _builder.append("public Object[] create(final ICreateContext context) {");
     _builder.newLine();
     _builder.append("    ");
@@ -416,16 +402,9 @@ public class CreateShapeFeature extends FileGenerator {
       String _icon = metaClass.getIcon();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_icon, null);
       if (_operator_notEquals) {
-        _builder.append("/**");
-        _builder.newLine();
-        _builder.append(" ");
-        _builder.append("* {@inheritDoc}");
-        _builder.newLine();
-        _builder.append(" ");
-        _builder.append("*/");
-        _builder.newLine();
-        _builder.append("@Override");
-        _builder.newLine();
+        StringConcatenation _overrideHeader = this.overrideHeader();
+        _builder.append(_overrideHeader, "");
+        _builder.newLineIfNotEmpty();
         _builder.append("public String getCreateImageId() {");
         _builder.newLine();
         _builder.append("    ");
@@ -448,16 +427,9 @@ public class CreateShapeFeature extends FileGenerator {
   
   public StringConcatenation generate_hasDoneChanges(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("/**");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* {@inheritDoc}");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
-    _builder.newLine();
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
+    _builder.newLineIfNotEmpty();
     _builder.append("public boolean hasDoneChanges() {");
     _builder.newLine();
     _builder.append("    ");
@@ -470,16 +442,9 @@ public class CreateShapeFeature extends FileGenerator {
   
   public StringConcatenation generate_canUndo(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("/**");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* {@inheritDoc}");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
-    _builder.newLine();
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
+    _builder.newLineIfNotEmpty();
     _builder.append("public boolean canUndo(IContext context) {");
     _builder.newLine();
     _builder.append("    ");

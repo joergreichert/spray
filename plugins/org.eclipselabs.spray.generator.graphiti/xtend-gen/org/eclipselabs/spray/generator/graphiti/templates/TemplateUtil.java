@@ -135,4 +135,22 @@ public class TemplateUtil {
     String _string = _value.toString();
     return _string;
   }
+  
+  /**
+   * Generate an Override annotation and Javadoc inheritance
+   */
+  public StringConcatenation overrideHeader() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* {@inheritDoc}");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
+    _builder.append("@Override");
+    _builder.newLine();
+    return _builder;
+  }
 }

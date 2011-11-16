@@ -7,6 +7,7 @@ import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipse.emf.ecore.EObject
 
 class TemplateUtil extends Object {
     @Inject SprayCompiler compiler
@@ -62,4 +63,14 @@ class TemplateUtil extends Object {
     def keyGenerator(Text text) {
         return text.value.toString
     }
+    
+    /**
+     * Generate an Override annotation and Javadoc inheritance 
+     */
+    def overrideHeader () '''
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+    '''
 }
