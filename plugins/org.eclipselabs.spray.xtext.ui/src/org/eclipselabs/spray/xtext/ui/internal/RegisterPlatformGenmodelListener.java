@@ -83,14 +83,14 @@ class RegisterPlatformGenmodelListener implements IResourceChangeListener {
 
     protected void handleResource(IResource resource, int deltaKind) {
         IFile file = (IFile) resource.getAdapter(IFile.class);
-        if (file != null && file.getFileExtension().equals("genmodel") && !file.getProjectRelativePath().toPortableString().contains("target")) {
+        if (file != null && "genmodel".equals(file.getFileExtension()) && !file.getProjectRelativePath().toPortableString().contains("target")) {
             if (deltaKind == IResourceDelta.ADDED) {
                 registerGenmodel(file);
             } else if (deltaKind == IResourceDelta.REMOVED) {
                 unregisterGenmodel(file);
             }
         }
-        if (file != null && file.getFileExtension().equals("ecore") && !file.getProjectRelativePath().toPortableString().contains("target")) {
+        if (file != null && "ecore".equals(file.getFileExtension()) && !file.getProjectRelativePath().toPortableString().contains("target")) {
             if (deltaKind == IResourceDelta.ADDED) {
                 registerEPackage(file);
             } else if (deltaKind == IResourceDelta.REMOVED) {
