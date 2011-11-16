@@ -70,7 +70,11 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             
             public «className»(IFeatureProvider fp) {
                 super(fp);
+<<<<<<< HEAD
                 gaService = Graphiti.getGaService();
+=======
+                gaService = Graphiti.getGaService()
+>>>>>>> 7068c433308bf8a85405653cb44003f2740dedb3
                 peCreateService = Graphiti.getPeCreateService();
                 peService = Graphiti.getPeService();
                 gaCreateService = Graphiti.getGaCreateService();
