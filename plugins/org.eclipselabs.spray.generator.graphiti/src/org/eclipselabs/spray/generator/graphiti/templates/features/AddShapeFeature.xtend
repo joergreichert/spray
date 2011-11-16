@@ -92,6 +92,7 @@ class AddShapeFeature extends FileGenerator  {
                 peService = Graphiti.getPeService();
             }
         
+            «overrideHeader()»
             public boolean canAdd(IAddContext context) {
                 final Object newObject = context.getNewObject();
                 if (newObject instanceof «container.represents.name») {
@@ -133,12 +134,12 @@ class AddShapeFeature extends FileGenerator  {
                «part.createShape(container.represents)»
             «ENDFOR»
             
-            @Override
+            «overrideHeader()»
             public boolean hasDoneChanges() {
                 return false;
             }
         
-            @Override
+            «overrideHeader()»
             public boolean canUndo(IContext context) {
                 return false;
             }

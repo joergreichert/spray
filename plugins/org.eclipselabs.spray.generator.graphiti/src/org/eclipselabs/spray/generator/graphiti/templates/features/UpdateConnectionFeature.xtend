@@ -80,64 +80,31 @@ class UpdateConnectionFeature extends FileGenerator  {
             «generate_canUndo(connection)»
         
         }
-        '''
+    '''
 
-        def generate_canUpdate (Connection connection) '''
-            «val metaClassName = connection.represents.name»
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean canUpdate(IUpdateContext context) {
-                // return true, if linked business object is a EClass
-                EObject bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
-                PictogramElement pictogramElement = context.getPictogramElement();
-                return (bo instanceof «metaClassName») && (!(pictogramElement instanceof Diagram));
-            }
-        '''
+    def generate_canUpdate (Connection connection) '''
+        «val metaClassName = connection.represents.name»
+        «overrideHeader()»
+        public boolean canUpdate(IUpdateContext context) {
+            // return true, if linked business object is a EClass
+            EObject bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
+            PictogramElement pictogramElement = context.getPictogramElement();
+            return (bo instanceof «metaClassName») && (!(pictogramElement instanceof Diagram));
+        }
+    '''
 
-        def generate_updateNeeded (Connection connection) '''
-            «val metaClassName = connection.represents.name»
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public IReason updateNeeded(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof «metaClassName»)) {
-                    return Reason.createFalseReason();
-                }
-                «metaClassName» eClass = («metaClassName») bo;
-
-                if (pictogramElement instanceof FreeFormConnection) {
-                    FreeFormConnection free = (FreeFormConnection) pictogramElement;
-                    for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                        String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
-                        String value = getValue(type, eClass);
-                        if (value == null) value = "";
-                        Text text = (Text) decorator.getGraphicsAlgorithm();
-                        String current = text.getValue();
-                        if (! value.equals(current) ) {
-                            return Reason.createTrueReason(type + " is changed");
-                        }
-                    }
-                }
+    def generate_updateNeeded (Connection connection) '''
+        «val metaClassName = connection.represents.name»
+        «overrideHeader()»
+        public IReason updateNeeded(IUpdateContext context) {
+            PictogramElement pictogramElement = context.getPictogramElement();
+            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+            if ( ! (bo instanceof «metaClassName»)) {
                 return Reason.createFalseReason();
             }
-        '''
+            «metaClassName» eClass = («metaClassName») bo;
 
-        def generate_update (Connection connection) '''
-            «val metaClassName = connection.represents.name»
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean update(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                «metaClassName» eClass = («metaClassName») bo;
-
+            if (pictogramElement instanceof FreeFormConnection) {
                 FreeFormConnection free = (FreeFormConnection) pictogramElement;
                 for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
                     String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
@@ -145,55 +112,73 @@ class UpdateConnectionFeature extends FileGenerator  {
                     if (value == null) value = "";
                     Text text = (Text) decorator.getGraphicsAlgorithm();
                     String current = text.getValue();
-                    if (!value.equals(current) ) {
-                        text.setValue(value);
+                    if (! value.equals(current) ) {
+                        return Reason.createTrueReason(type + " is changed");
                     }
                 }
-                // return SprayContainerService.update(pictogramElement, getValues(eClass));
-                return true;
             }
-        '''
-        
-        def generate_getValue (Connection connection) '''
-            protected String getValue(String type, «connection.represents.name» eClass) {
-                String result = "";
-                if( "FROM_LABEL".equals(type) ){
-                    «var fromLabel =  connection.fromLabel»
-                    «IF fromLabel != null»
-                    «valueGenerator(connection.fromLabel, "eClass")»
-                    «ENDIF»
+            return Reason.createFalseReason();
+        }
+    '''
+
+    def generate_update (Connection connection) '''
+        «val metaClassName = connection.represents.name»
+        «overrideHeader()»
+        public boolean update(IUpdateContext context) {
+            PictogramElement pictogramElement = context.getPictogramElement();
+            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+            «metaClassName» eClass = («metaClassName») bo;
+
+            FreeFormConnection free = (FreeFormConnection) pictogramElement;
+            for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
+                String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
+                String value = getValue(type, eClass);
+                if (value == null) value = "";
+                Text text = (Text) decorator.getGraphicsAlgorithm();
+                String current = text.getValue();
+                if (!value.equals(current) ) {
+                    text.setValue(value);
                 }
-                if( "TO_LABEL".equals(type) ){
-                    «IF connection.toLabel!=null»
-                    «valueGenerator(connection.toLabel, "eClass")»
-                    «ENDIF»
-                }
-                if( "CONNECTION_LABEL".equals(type) ){
-                    «IF connection.connectionLabel!=null»
-                    «valueGenerator(connection.connectionLabel, "eClass")»
-                    «ENDIF»
-                }
-                return result;
             }
-        '''
-        
-        def generate_hasDoneChanges (Connection connection) '''
-            /**
-             * {@inheritDoc}
-             */
-             @Override
-            public boolean hasDoneChanges() {
-                return false;
+            // return SprayContainerService.update(pictogramElement, getValues(eClass));
+            return true;
+        }
+    '''
+    
+    def generate_getValue (Connection connection) '''
+        protected String getValue(String type, «connection.represents.name» eClass) {
+            String result = "";
+            if( "FROM_LABEL".equals(type) ){
+                «var fromLabel =  connection.fromLabel»
+                «IF fromLabel != null»
+                «valueGenerator(connection.fromLabel, "eClass")»
+                «ENDIF»
             }
-       '''
-       
-       def generate_canUndo (Connection connection) '''
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
+            if( "TO_LABEL".equals(type) ){
+                «IF connection.toLabel!=null»
+                «valueGenerator(connection.toLabel, "eClass")»
+                «ENDIF»
             }
-       '''
+            if( "CONNECTION_LABEL".equals(type) ){
+                «IF connection.connectionLabel!=null»
+                «valueGenerator(connection.connectionLabel, "eClass")»
+                «ENDIF»
+            }
+            return result;
+        }
+    '''
+    
+    def generate_hasDoneChanges (Connection connection) '''
+        «overrideHeader()»
+        public boolean hasDoneChanges() {
+            return false;
+        }
+   '''
+   
+   def generate_canUndo (Connection connection) '''
+        «overrideHeader()»
+        public boolean canUndo(IContext context) {
+            return false;
+        }
+   '''
 }

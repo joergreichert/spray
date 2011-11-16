@@ -219,6 +219,10 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
     _builder.append("public boolean canAdd(IAddContext context) {");
     _builder.newLine();
     _builder.append("        ");
@@ -350,8 +354,9 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _overrideHeader_1 = this.overrideHeader();
+    _builder.append(_overrideHeader_1, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("public boolean hasDoneChanges() {");
     _builder.newLine();
@@ -363,8 +368,9 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _overrideHeader_2 = this.overrideHeader();
+    _builder.append(_overrideHeader_2, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("public boolean canUndo(IContext context) {");
     _builder.newLine();
