@@ -50,6 +50,7 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__F
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
@@ -94,9 +95,22 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
             return result;
         } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__TARGET) {
-            final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
-            return result;
+            if (context.eContainer().eClass() == META_CLASS) {
+                // non-containment references
+                final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+                Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                    @Override
+                    public boolean apply(EReference input) {
+                        return !input.isContainment();
+                    }
+                });
+                final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(nonContainmentReferences));
+                return result;
+            } else {
+                final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+                final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
+                return result;
+            }
         } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__LABEL_PROPERTY) {
             MetaReference metaRef = (MetaReference) context;
             EReference ref = metaRef.getTarget();
