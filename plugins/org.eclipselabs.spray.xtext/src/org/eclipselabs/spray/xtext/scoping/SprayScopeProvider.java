@@ -136,6 +136,9 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
     protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {
         final MetaClass mc = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        if (mc == null) {
+            return IScope.NULLSCOPE;
+        }
         Diagram diagram = mc.getDiagram();
         final EClass containerType = diagram.getModelType();
         Predicate<EReference> filter = new Predicate<EReference>() {
