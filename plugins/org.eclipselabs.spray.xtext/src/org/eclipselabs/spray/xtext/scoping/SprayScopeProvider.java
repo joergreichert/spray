@@ -3,17 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
-
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -55,6 +44,17 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+
 /**
  * This class contains custom scoping description.
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
@@ -95,7 +95,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return result;
         } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__TARGET) {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
             return result;
         } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__LABEL_PROPERTY) {
             MetaReference metaRef = (MetaReference) context;
