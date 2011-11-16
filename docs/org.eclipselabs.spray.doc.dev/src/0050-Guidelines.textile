@@ -27,11 +27,16 @@ The DSLs developed in Spray should follow best practices in Language Design.
  
 h2. Code Generation
  
-* Code generator is designed to enable mixing generated code with handwritten code without losing the possibility for code generation.
-* Code generator uses the generation gap pattern to give maximum flexibility to mix handwritten code with generated code.
- 
+* Code Generator is designed to enable mixing generated code with handwritten code without losing the possibility for code generation.
+* Code Generator uses the generation gap pattern to give maximum flexibility to mix handwritten code with generated code.
+* The Code Generator must be executable standalone (Maven, Ant, Commandline) without an Eclipse installation
+* The Code Generator should be extensible by the user without the need to change the original plugin sources
+
 h2. Testing
  
 All features of the DSLs will be covered by models that will be tested by unit tests.
 
+h2. User Interface
+
+* The UI should help the user to do common actions
 
