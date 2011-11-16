@@ -14,6 +14,8 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -107,7 +109,7 @@ class RegisterPlatformGenmodelListener implements IResourceChangeListener {
             genModelHelper.registerGenModel(emfResource.getResourceSet(), emfResource.getURI());
             emfResource.unload();
         } catch (Exception e) {
-            e.printStackTrace();
+            SprayActivatorExt.getInstance().getLog().log(new Status(IStatus.WARNING, "org.eclipselabs.spray.xtext.ui", "Error loading genmodel " + emfResource.getURI().toString(), e));
         }
     }
 
