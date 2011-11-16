@@ -22,7 +22,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
         mainExtensionPointFile( modelElement as MetaReference, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(MetaReference metaReference, String className) '''    
+    def mainExtensionPointFile(MetaReference metaReference, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -46,7 +46,6 @@ class AddReferenceAsListFeature extends FileGenerator  {
         import org.eclipse.graphiti.datatypes.IDimension;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddContext;
-        import org.eclipse.graphiti.features.context.IContext;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -54,68 +53,24 @@ class AddReferenceAsListFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.services.IGaService;
         import «util_package()».ISprayContainer;
         import «util_package()».SprayContainerService;
         import «util_package()».ISprayColorConstants;
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFAddShapeFeature;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_STATIC;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractEMFAddShapeFeature {
+        public class «className» extends AbstractAddFeature {
             private static final ArrayList<org.eclipse.graphiti.mm.Property> EMPTY_PROPERTIES_LIST = new ArrayList<org.eclipse.graphiti.mm.Property>(0);
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
-         
-            /**
-             * {@inheritDoc}
-             * This method very much depends on the structure of the standard rectangle shape.
-             */
-            public PictogramElement add(IAddContext context) {
-                final «target.EReferenceType.javaInterfaceName.shortName» addedModelElement = («target.EReferenceType.name») context.getNewObject();
-                final ContainerShape containerShape= (ContainerShape) context.getTargetContainer();
-        
-                // CONTAINER SHAPE WITH ROUNDED RECTANGLE
-                IGaService gaService = Graphiti.getGaService();
-                Shape found = null;
-                int index = 0; 
-                int i = 0;
-                ContainerShape textbox = SprayContainerService.findTextShape(containerShape);
-                for (Shape shape : textbox.getChildren()) {
-                   GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                    IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
-                    gaService.setLocation(graphicsAlgorithm, 0, 0);
-                    String modelType = Graphiti.getPeService().getPropertyValue(shape, PROPERTY_MODEL_TYPE);
-                    if( modelType != null && modelType.equals("«target.EReferenceType.name»") ){
-                        found = shape; index = i; 
-                    }
-                    i++;
-                }
-        
-                // LIST of PROPERTIES
-                Shape newShape = createShape(textbox, index);
-                Graphiti.getPeService().setPropertyValue(newShape, PROPERTY_STATIC, "true");
-                Graphiti.getPeService().setPropertyValue(newShape, PROPERTY_MODEL_TYPE, "«target.EReferenceType.name»");
-                Graphiti.getPeService().setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
-                // TODO Name attribute should not be default
-                Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
-                // TODO find the right text color
-                text.setFont(gaService.manageFont(getDiagram(), "Verdana", 12));
-                text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
-                text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
-                text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
-                gaService.setLocationAndSize(text, 0, 0, 0, 0);
-                // create link and wire it
-                link(newShape, addedModelElement);
-                layoutPictogramElement(containerShape);
-                
-                return containerShape;
-            }
-            
+
+            «generate_canAdd(reference)»
+            «generate_add(reference)»
+
             protected Shape createShape(final ContainerShape containerShape, int index) {
                 Shape newShape  = PictogramsFactory.eINSTANCE.createShape();
                 newShape.getProperties().addAll(EMPTY_PROPERTIES_LIST);
@@ -125,38 +80,78 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 return newShape;
             }
             
-            /**
-             * {@inheritDoc}
-             */
-            public boolean canAdd(IAddContext context) {
-                final Object newObject = context.getNewObject();
-                if (newObject instanceof «target.EReferenceType.name») {
-                    // check if user wants to add to a diagram
-                    Shape target = context.getTargetContainer();
-                    EObject domainObject = getBusinessObjectForPictogramElement(target);
-                    if (domainObject instanceof «metaClass.javaInterfaceName.shortName») {
-                        return true;
-                    }
+            
+        }
+    '''
+    
+    def generate_canAdd (MetaReference reference) '''
+        «val target = reference.target» 
+        «val metaClass = (reference.eContainer as Container).represents»
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean canAdd(IAddContext context) {
+            final Object newObject = context.getNewObject();
+            if (newObject instanceof «target.EReferenceType.name») {
+                // check if user wants to add to a diagram
+                Shape target = context.getTargetContainer();
+                EObject domainObject = getBusinessObjectForPictogramElement(target);
+                if (domainObject instanceof «metaClass.javaInterfaceName.shortName») {
+                    return true;
                 }
-                return false;
-            }    
-            
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
             }
-        
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
+            return false;
+        }    
+    '''
+
+    def generate_add (MetaReference reference) '''
+        «val target = reference.target» 
+        /**
+         * {@inheritDoc}
+         * This method very much depends on the structure of the standard rectangle shape.
+         */
+         @Override
+        public PictogramElement add(IAddContext context) {
+            final «target.EReferenceType.javaInterfaceName.shortName» addedModelElement = («target.EReferenceType.name») context.getNewObject();
+            final ContainerShape containerShape= (ContainerShape) context.getTargetContainer();
+
+            // CONTAINER SHAPE WITH ROUNDED RECTANGLE
+            Shape found = null;
+            int index = 0; 
+            int i = 0;
+            ContainerShape textbox = SprayContainerService.findTextShape(containerShape);
+            for (Shape shape : textbox.getChildren()) {
+               GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
+                IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
+                gaService.setLocation(graphicsAlgorithm, 0, 0);
+                String modelType = peService.getPropertyValue(shape, PROPERTY_MODEL_TYPE);
+                if( modelType != null && modelType.equals("«target.EReferenceType.name»") ){
+                    found = shape; index = i; 
+                }
+                i++;
             }
+
+            // LIST of PROPERTIES
+            Shape newShape = createShape(textbox, index);
+            peService.setPropertyValue(newShape, PROPERTY_STATIC, "true");
+            peService.setPropertyValue(newShape, PROPERTY_MODEL_TYPE, "«target.EReferenceType.name»");
+            peService.setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
+            // TODO Name attribute should not be default
+            Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
+            // TODO find the right text color
+            text.setFont(gaService.manageFont(getDiagram(), "Verdana", 12));
+            text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
+            text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+            text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
+            gaService.setLocationAndSize(text, 0, 0, 0, 0);
+            // create link and wire it
+            link(newShape, addedModelElement);
+            layoutPictogramElement(containerShape);
             
+            changesDone = true;
+            
+            return containerShape;
         }
     '''
 }

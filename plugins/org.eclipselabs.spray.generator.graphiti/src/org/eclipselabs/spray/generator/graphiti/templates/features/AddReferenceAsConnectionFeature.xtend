@@ -46,42 +46,23 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
         import org.eclipse.graphiti.features.context.IAddContext;
-        import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractAddFeature;
-        import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
         import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
-        import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
-        import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.services.IGaCreateService;
-        import org.eclipse.graphiti.services.IGaService;
-        import org.eclipse.graphiti.services.IPeCreateService;
-        import org.eclipse.graphiti.services.IPeService;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         // MARKER_IMPORT
         
         public class «className» extends AbstractAddFeature {
-            protected boolean doneChanges;
-            protected IGaService gaService;
-            protected IPeCreateService peCreateService;
-            protected IPeService peService;
-            protected IGaCreateService gaCreateService;
             
             public «className»(IFeatureProvider fp) {
                 super(fp);
-                gaService = Graphiti.getGaService();
-                peCreateService = Graphiti.getPeCreateService();
-                peService = Graphiti.getPeService();
-                gaCreateService = Graphiti.getGaCreateService();
             }
 
             «generate_canAdd(reference)»
             «generate_add(reference)»
             «generate_removeExisting(reference)»
-            «generate_hasDoneChanges(reference)»
-            «generate_canUndo(reference)»
-            
+            «generate_decorateConnection(reference)»
         }
     '''
     
@@ -118,11 +99,11 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
      //       link(connection, addedDomainObject);
     
             // add static graphical decorator
-            ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-    //      No arrows
-    //        createArrow(cd);
-    
-            doneChanges = true;
+            // ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
+            //      No arrows
+            //        createArrow(cd);
+            decorateConnection (addConContext, connection);
+            changesDone = true;
             return connection;
         }
     '''
@@ -151,7 +132,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
                     String reference = peService.getPropertyValue(p, "REFERENCE");
                     if( "«reference.name»".equals(reference)){
                         peService.deletePictogramElement(p) ;
-                        doneChanges = true;
+                        changesDone = true;
                     }
                 }
             }
@@ -168,17 +149,10 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
         }
     '''
     
-    def generate_hasDoneChanges (MetaReference reference) '''
-        «overrideHeader()»
-        public boolean hasDoneChanges() {
-            return doneChanges;
-        }
-    '''
-    
-    def generate_canUndo (MetaReference reference) '''
-        «overrideHeader()»
-        public boolean canUndo(IContext context) {
-            return false;
-        }
+    def generate_decorateConnection (MetaReference reference) '''
+        /**
+         * Override this method to decorate the created connection
+         */
+        protected void decorateConnection (IAddConnectionContext context, Connection connection) {}
     '''
 }

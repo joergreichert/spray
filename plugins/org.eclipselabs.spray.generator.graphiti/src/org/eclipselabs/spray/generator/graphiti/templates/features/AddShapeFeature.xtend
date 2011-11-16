@@ -51,10 +51,9 @@ class AddShapeFeature extends FileGenerator  {
         package «feature_package()»;
         
         import «container.represents.javaInterfaceName»;
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddContext;
-        import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -63,16 +62,13 @@ class AddShapeFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
-        import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.services.IGaService;
-        import org.eclipse.graphiti.services.IPeCreateService;
-        import org.eclipse.graphiti.services.IPeService;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         import «util_package()».ISprayContainer;
         import «util_package()».«containerType»;
         import «util_package()».SprayContainerService;
         // MARKER_IMPORT
 
-        public class «className» extends AbstractAddShapeFeature {
+        public class «className» extends AbstractAddFeature {
         
             protected final static String typeOrAliasName = "«container.represents.visibleName»";
         
@@ -80,21 +76,14 @@ class AddShapeFeature extends FileGenerator  {
         
             protected «containerType» container = null;
         
-            protected IGaService              gaService;
-            protected IPeCreateService        peCreateService;
-            protected IPeService              peService;
-        
             public «className»(IFeatureProvider fp) {
                 super(fp);
                 container = new «containerType»();
-                gaService = Graphiti.getGaService();
-                peCreateService = Graphiti.getPeCreateService();
-                peService = Graphiti.getPeService();
             }
         
             «overrideHeader()»
             public boolean canAdd(IAddContext context) {
-                final Object newObject = context.getNewObject();
+                final EObject newObject = (EObject) context.getNewObject();
                 if (newObject instanceof «container.represents.name») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
@@ -104,6 +93,7 @@ class AddShapeFeature extends FileGenerator  {
                 return false;
             }
 
+            «overrideHeader»
             public PictogramElement add(IAddContext context) {
                 «container.represents.name» addedModelElement = («container.represents.name») context.getNewObject();
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
@@ -127,22 +117,14 @@ class AddShapeFeature extends FileGenerator  {
                 updatePictogramElement(containerShape);
                 layoutPictogramElement(containerShape);
                 
+                changesDone = true;
+                
                 return containerShape;
             }
             
             «FOR part : container.parts»
                «part.createShape(container.represents)»
             «ENDFOR»
-            
-            «overrideHeader()»
-            public boolean hasDoneChanges() {
-                return false;
-            }
-        
-            «overrideHeader()»
-            public boolean canUndo(IContext context) {
-                return false;
-            }
             
         }
         '''
@@ -167,7 +149,7 @@ class AddShapeFeature extends FileGenerator  {
                 polyline.setLineVisible(false);
             «ENDIF»
                 gaService.setLocation(polyline, 0, 0);
-                Graphiti.getPeService().setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
+                peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
             }
         '''
         

@@ -12,6 +12,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 
 class CreateConnectionFeature extends FileGenerator  {
@@ -51,17 +52,12 @@ class CreateConnectionFeature extends FileGenerator  {
         «val diagram = metaClass.diagram as Diagram»
         «header(this)»
         package «feature_package()»;
-        import java.io.IOException;
-        
-        import org.eclipse.core.runtime.CoreException;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateConnectionContext;
-        import org.eclipse.graphiti.features.context.IContext;
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-        import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
-        import «util_package()».SampleUtil;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
         public class «className» extends AbstractCreateConnectionFeature {
@@ -91,6 +87,8 @@ class CreateConnectionFeature extends FileGenerator  {
             }
         
             public Connection create(ICreateConnectionContext context) {
+                «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
+                «val modelClassName = containmentRef.EContainingClass.javaInterfaceName.shortName»
                 Connection newConnection = null;
         
                 // get EClasses which should be connected
@@ -100,6 +98,14 @@ class CreateConnectionFeature extends FileGenerator  {
                 if (source != null && target != null) {
                     // create new business object
                     «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
+                    «diagram.modelServiceClassName.shortName» modelService = new «diagram.modelServiceClassName.shortName»(getFeatureProvider().getDiagramTypeProvider());
+                    // add the element to containment reference
+                    «modelClassName» model = modelService.getModel();
+                    «IF containmentRef.many»
+                        model.get«containmentRef.name.toFirstUpper»().add(eReference);
+                    «ELSE»
+                        model.set«containmentRef.name.toFirstUpper»(eReference);
+                    «ENDIF»
                     // add connection for business object
                     AddConnectionContext addContext = new AddConnectionContext(
                             context.getSourceAnchor(), context.getTargetAnchor());
@@ -148,18 +154,8 @@ class CreateConnectionFeature extends FileGenerator  {
                 «ENDIF»
                 domainObject.set«connection.from.name.toFirstUpper»(source);
                 domainObject.set«connection.to.name.toFirstUpper»(target);
-        //        getDiagram().eResource().getContents().add(domainObject);
-        
-                try {
-                    SampleUtil.saveToModelFile(domainObject, getDiagram(), "«metaClass.type.modelFileExtension»"); 
-                } catch (CoreException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                
+
+                changesDone = true;
                 return domainObject;
             }
             
@@ -169,16 +165,6 @@ class CreateConnectionFeature extends FileGenerator  {
                     return «metaClass.diagram.imageProviderClassName.shortName».«diagram.getImageIdentifier(metaClass.icon)»; 
                 }
             «ENDIF»
-            
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
-            }
-        
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
-            }
             
         }
     '''

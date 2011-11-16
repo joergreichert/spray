@@ -99,15 +99,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IAddContext;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.context.IContext;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.impl.AbstractAddFeature;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;");
-    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.AnchorContainer;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Connection;");
     _builder.newLine();
@@ -115,15 +107,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.algorithms.Polyline;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.Graphiti;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IGaCreateService;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IGaService;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IPeCreateService;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IPeService;");
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
     _builder.newLine();
@@ -133,21 +117,6 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(" extends AbstractAddFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("protected boolean doneChanges;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("protected IGaService gaService;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("protected IPeCreateService peCreateService;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("protected IPeService peService;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("protected IGaCreateService gaCreateService;");
-    _builder.newLine();
-    _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("public ");
@@ -156,18 +125,6 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("super(fp);");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("gaService = Graphiti.getGaService();");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("peCreateService = Graphiti.getPeCreateService();");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("peService = Graphiti.getPeService();");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("gaCreateService = Graphiti.getGaCreateService();");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("}");
@@ -186,15 +143,9 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(_generate_removeExisting, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_hasDoneChanges = this.generate_hasDoneChanges(reference);
-    _builder.append(_generate_hasDoneChanges, "    ");
+    StringConcatenation _generate_decorateConnection = this.generate_decorateConnection(reference);
+    _builder.append(_generate_decorateConnection, "    ");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    StringConcatenation _generate_canUndo = this.generate_canUndo(reference);
-    _builder.append(_generate_canUndo, "    ");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -318,15 +269,19 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("// add static graphical decorator");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);");
-    _builder.newLine();
-    _builder.append("//      No arrows");
-    _builder.newLine();
-    _builder.append("//        createArrow(cd);");
-    _builder.newLine();
+    _builder.append("// ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("doneChanges = true;");
+    _builder.append("//      No arrows");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("//        createArrow(cd);");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("decorateConnection (addConContext, connection);");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("changesDone = true;");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return connection;");
@@ -419,7 +374,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("peService.deletePictogramElement(p) ;");
     _builder.newLine();
     _builder.append("                ");
-    _builder.append("doneChanges = true;");
+    _builder.append("changesDone = true;");
     _builder.newLine();
     _builder.append("            ");
     _builder.append("}");
@@ -468,32 +423,17 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_hasDoneChanges(final MetaReference reference) {
+  public StringConcatenation generate_decorateConnection(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "");
-    _builder.newLineIfNotEmpty();
-    _builder.append("public boolean hasDoneChanges() {");
+    _builder.append("/**");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("return doneChanges;");
+    _builder.append(" ");
+    _builder.append("* Override this method to decorate the created connection");
     _builder.newLine();
-    _builder.append("}");
+    _builder.append(" ");
+    _builder.append("*/");
     _builder.newLine();
-    return _builder;
-  }
-  
-  public StringConcatenation generate_canUndo(final MetaReference reference) {
-    StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "");
-    _builder.newLineIfNotEmpty();
-    _builder.append("public boolean canUndo(IContext context) {");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("return false;");
-    _builder.newLine();
-    _builder.append("}");
+    _builder.append("protected void decorateConnection (IAddConnectionContext context, Connection connection) {}");
     _builder.newLine();
     return _builder;
   }
