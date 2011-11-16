@@ -49,15 +49,12 @@ class UpdateConnectionFeature extends FileGenerator  {
         «header(this)»
         package «feature_package()»;
 
-        import java.util.Map;
-        
         import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.context.IContext;
         import org.eclipse.graphiti.features.impl.Reason;
-        import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -87,6 +84,9 @@ class UpdateConnectionFeature extends FileGenerator  {
 
         def generate_canUpdate (Connection connection) '''
             «val metaClassName = connection.represents.name»
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean canUpdate(IUpdateContext context) {
                 // return true, if linked business object is a EClass
@@ -98,6 +98,9 @@ class UpdateConnectionFeature extends FileGenerator  {
 
         def generate_updateNeeded (Connection connection) '''
             «val metaClassName = connection.represents.name»
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public IReason updateNeeded(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
@@ -110,11 +113,10 @@ class UpdateConnectionFeature extends FileGenerator  {
                 if (pictogramElement instanceof FreeFormConnection) {
                     FreeFormConnection free = (FreeFormConnection) pictogramElement;
                     for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                        String type = Graphiti.getPeService().getPropertyValue(decorator, "MODEL_TYPE");
+                        String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                         String value = getValue(type, eClass);
                         if (value == null) value = "";
-                        GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();
-                        Text text = (Text) ga;
+                        Text text = (Text) decorator.getGraphicsAlgorithm();
                         String current = text.getValue();
                         if (! value.equals(current) ) {
                             return Reason.createTrueReason(type + " is changed");
@@ -127,6 +129,9 @@ class UpdateConnectionFeature extends FileGenerator  {
 
         def generate_update (Connection connection) '''
             «val metaClassName = connection.represents.name»
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean update(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
@@ -138,8 +143,7 @@ class UpdateConnectionFeature extends FileGenerator  {
                     String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                     String value = getValue(type, eClass);
                     if (value == null) value = "";
-                    GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();
-                    Text text = (Text) ga;
+                    Text text = (Text) decorator.getGraphicsAlgorithm();
                     String current = text.getValue();
                     if (!value.equals(current) ) {
                         text.setValue(value);
@@ -174,6 +178,9 @@ class UpdateConnectionFeature extends FileGenerator  {
         '''
         
         def generate_hasDoneChanges (Connection connection) '''
+            /**
+             * {@inheritDoc}
+             */
              @Override
             public boolean hasDoneChanges() {
                 return false;
@@ -181,6 +188,9 @@ class UpdateConnectionFeature extends FileGenerator  {
        '''
        
        def generate_canUndo (Connection connection) '''
+            /**
+             * {@inheritDoc}
+             */
             @Override
             public boolean canUndo(IContext context) {
                 return false;

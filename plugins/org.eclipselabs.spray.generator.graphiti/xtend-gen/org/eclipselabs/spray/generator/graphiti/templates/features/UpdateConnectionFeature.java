@@ -118,9 +118,6 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    _builder.append("import java.util.Map;");
-    _builder.newLine();
-    _builder.newLine();
     _builder.append("import org.eclipse.emf.ecore.EObject;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IFeatureProvider;");
@@ -132,8 +129,6 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("import org.eclipse.graphiti.features.context.IContext;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.impl.Reason;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.algorithms.Text;");
     _builder.newLine();
@@ -214,6 +209,14 @@ public class UpdateConnectionFeature extends FileGenerator {
     String _name = this._namingExtensions.getName(_represents);
     final String metaClassName = _name;
     _builder.newLineIfNotEmpty();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* {@inheritDoc}");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("public boolean canUpdate(IUpdateContext context) {");
@@ -243,6 +246,14 @@ public class UpdateConnectionFeature extends FileGenerator {
     String _name = this._namingExtensions.getName(_represents);
     final String metaClassName = _name;
     _builder.newLineIfNotEmpty();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* {@inheritDoc}");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("public IReason updateNeeded(IUpdateContext context) {");
@@ -281,7 +292,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("for (ConnectionDecorator decorator : free.getConnectionDecorators()) {");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("String type = Graphiti.getPeService().getPropertyValue(decorator, \"MODEL_TYPE\");");
+    _builder.append("String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);");
     _builder.newLine();
     _builder.append("            ");
     _builder.append("String value = getValue(type, eClass);");
@@ -290,10 +301,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("if (value == null) value = \"\";");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();");
-    _builder.newLine();
-    _builder.append("            ");
-    _builder.append("Text text = (Text) ga;");
+    _builder.append("Text text = (Text) decorator.getGraphicsAlgorithm();");
     _builder.newLine();
     _builder.append("            ");
     _builder.append("String current = text.getValue();");
@@ -327,6 +335,14 @@ public class UpdateConnectionFeature extends FileGenerator {
     String _name = this._namingExtensions.getName(_represents);
     final String metaClassName = _name;
     _builder.newLineIfNotEmpty();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* {@inheritDoc}");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("public boolean update(IUpdateContext context) {");
@@ -360,10 +376,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("if (value == null) value = \"\";");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("Text text = (Text) ga;");
+    _builder.append("Text text = (Text) decorator.getGraphicsAlgorithm();");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("String current = text.getValue();");
@@ -466,6 +479,14 @@ public class UpdateConnectionFeature extends FileGenerator {
   
   public StringConcatenation generate_hasDoneChanges(final Connection connection) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* {@inheritDoc}");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
     _builder.append(" ");
     _builder.append("@Override");
     _builder.newLine();
@@ -481,6 +502,14 @@ public class UpdateConnectionFeature extends FileGenerator {
   
   public StringConcatenation generate_canUndo(final Connection connection) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* {@inheritDoc}");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("public boolean canUndo(IContext context) {");
