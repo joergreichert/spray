@@ -101,7 +101,7 @@ class UpdateConnectionFeature extends FileGenerator  {
                         GraphicsAlgorithm ga = decorator.getGraphicsAlgorithm();
                         Text text = (Text) ga;
                         String current = text.getValue();
-                        if (! current.equals(value) ) {
+                        if (! value.equals(current) ) {
                             return Reason.createTrueReason(type + " is changed");
                         }
                     }

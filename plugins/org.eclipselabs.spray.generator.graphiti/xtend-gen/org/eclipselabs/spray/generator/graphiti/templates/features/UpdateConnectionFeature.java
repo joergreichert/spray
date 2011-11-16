@@ -259,7 +259,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("String current = text.getValue();");
     _builder.newLine();
     _builder.append("                ");
-    _builder.append("if (! current.equals(value) ) {");
+    _builder.append("if (! value.equals(current) ) {");
     _builder.newLine();
     _builder.append("                    ");
     _builder.append("return Reason.createTrueReason(type + \" is changed\");");
