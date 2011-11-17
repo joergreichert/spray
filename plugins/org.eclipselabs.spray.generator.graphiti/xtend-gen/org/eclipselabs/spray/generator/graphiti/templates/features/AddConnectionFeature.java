@@ -109,6 +109,8 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append(_javaInterfaceName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
+    _builder.append("import org.eclipse.emf.ecore.util.EcoreUtil;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IFeatureProvider;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IAddConnectionContext;");
@@ -128,6 +130,8 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append("import org.eclipse.graphiti.mm.algorithms.Polyline;");
     _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;");
+    _builder.newLine();
+    _builder.append("import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_URI;");
     _builder.newLine();
     _builder.append("import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;");
     _builder.newLine();

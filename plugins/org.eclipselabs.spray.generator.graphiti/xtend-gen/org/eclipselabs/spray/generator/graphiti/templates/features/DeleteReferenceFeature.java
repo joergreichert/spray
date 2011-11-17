@@ -167,7 +167,7 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("EObject[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);");
+    _builder.append("Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("if (businessObjectsForPictogramElement != null && businessObjectsForPictogramElement.length > 0) {");
@@ -267,16 +267,16 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.append(" ");
     _builder.append("*/");
     _builder.newLine();
-    _builder.append("protected void deleteReferences(EObject[] businessObjects, String reference, String element) {");
+    _builder.append("protected void deleteReferences(Object[] businessObjects, String reference, String element) {");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("if (businessObjects != null) {");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("for (EObject bo : businessObjects) {");
+    _builder.append("for (Object bo : businessObjects) {");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("deleteReference(bo, reference, element);");
+    _builder.append("deleteReference((EObject)bo, reference, element);");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("}");

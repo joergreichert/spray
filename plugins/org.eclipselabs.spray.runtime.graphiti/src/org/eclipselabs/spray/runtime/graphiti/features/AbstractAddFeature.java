@@ -44,14 +44,6 @@ public abstract class AbstractAddFeature extends org.eclipse.graphiti.features.i
      * {@inheritDoc}
      */
     @Override
-    protected EObject[] getAllBusinessObjectsForPictogramElement(PictogramElement pe) {
-        return (EObject[]) super.getAllBusinessObjectsForPictogramElement(pe);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean hasDoneChanges() {
         return doneChanges;
     }
@@ -59,4 +51,5 @@ public abstract class AbstractAddFeature extends org.eclipse.graphiti.features.i
     protected final void setDoneChanges(boolean doneChanges) {
         this.doneChanges = doneChanges;
     }
+
 }

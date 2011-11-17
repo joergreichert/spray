@@ -222,7 +222,7 @@ public class ToolBehaviorProvider extends FileGenerator {
                     _builder.append("                    ");
                     String _createFeatureClassName_1 = this._namingExtensions.getCreateFeatureClassName(reference);
                     String _shortName_1 = this.shortName(_createFeatureClassName_1);
-                    StringConcatenation _objectCreationEntry = this.objectCreationEntry(_shortName_1, "Create");
+                    StringConcatenation _objectCreationEntry = this.objectCreationEntry(_shortName_1, "Other");
                     _builder.append(_objectCreationEntry, "                    ");
                     _builder.newLineIfNotEmpty();
                     _builder.append("//                    , new ");
@@ -243,7 +243,7 @@ public class ToolBehaviorProvider extends FileGenerator {
                         _builder.append("                            ");
                         String _createReferenceAsListFeatureClassName = this._namingExtensions.getCreateReferenceAsListFeatureClassName(reference, subclass);
                         String _shortName_2 = this.shortName(_createReferenceAsListFeatureClassName);
-                        StringConcatenation _objectCreationEntry_1 = this.objectCreationEntry(_shortName_2, "Create");
+                        StringConcatenation _objectCreationEntry_1 = this.objectCreationEntry(_shortName_2, "Other");
                         _builder.append(_objectCreationEntry_1, "                            ");
                         _builder.newLineIfNotEmpty();
                         _builder.append("//                    , new ");

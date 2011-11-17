@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.runtime.graphiti.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaCreateService;
 import org.eclipse.graphiti.services.IGaLayoutService;
@@ -41,10 +40,5 @@ public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphi
 
     protected final void setDoneChanges(boolean doneChanges) {
         this.doneChanges = doneChanges;
-    }
-
-    @Override
-    public boolean canUndo(IContext context) {
-        return false;
     }
 }

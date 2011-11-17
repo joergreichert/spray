@@ -27,11 +27,4 @@ public class DefaultDeleteFeature extends org.eclipse.graphiti.ui.features.Defau
         return (EObject) super.getBusinessObjectForPictogramElement(pe);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected EObject[] getAllBusinessObjectsForPictogramElement(PictogramElement pe) {
-        return (EObject[]) super.getAllBusinessObjectsForPictogramElement(pe);
-    }
 }

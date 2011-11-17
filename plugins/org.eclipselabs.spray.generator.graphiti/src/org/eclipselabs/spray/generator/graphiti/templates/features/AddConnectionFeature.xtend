@@ -48,6 +48,7 @@ class AddConnectionFeature extends FileGenerator {
         package «feature_package()»;
         
         import «metaClass.javaInterfaceName»;
+        import org.eclipse.emf.ecore.util.EcoreUtil;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
         import org.eclipse.graphiti.features.context.IAddContext;
@@ -58,6 +59,7 @@ class AddConnectionFeature extends FileGenerator {
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
+        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_URI;
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         // MARKER_IMPORT
         

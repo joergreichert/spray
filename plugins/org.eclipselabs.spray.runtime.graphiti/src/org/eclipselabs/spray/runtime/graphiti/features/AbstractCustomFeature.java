@@ -29,14 +29,6 @@ public abstract class AbstractCustomFeature extends org.eclipse.graphiti.feature
      * {@inheritDoc}
      */
     @Override
-    protected EObject[] getAllBusinessObjectsForPictogramElement(PictogramElement pe) {
-        return (EObject[]) super.getAllBusinessObjectsForPictogramElement(pe);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean hasDoneChanges() {
         return doneChanges;
     }

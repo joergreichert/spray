@@ -99,7 +99,7 @@ class UpdateConnectionFeature extends FileGenerator  {
             if (pictogramElement instanceof FreeFormConnection) {
                 FreeFormConnection free = (FreeFormConnection) pictogramElement;
                 for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                    String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
+                    String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                     String value = getValue(type, eClass);
                     if (value == null) value = "";
                     Text text = (Text) decorator.getGraphicsAlgorithm();

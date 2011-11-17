@@ -73,7 +73,7 @@ class DeleteReferenceFeature extends FileGenerator {
             String reference = peService.getPropertyValue(pe, "REFERENCE");
             String element   = peService.getPropertyValue(pe, "TARGETOBJECT");
 
-            EObject[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
+            Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
             if (businessObjectsForPictogramElement != null && businessObjectsForPictogramElement.length > 0) {
                 if (!getUserDecision()) {
                     return;
@@ -112,10 +112,10 @@ class DeleteReferenceFeature extends FileGenerator {
          * @param businessObjects
          *            the business objects
          */
-        protected void deleteReferences(EObject[] businessObjects, String reference, String element) {
+        protected void deleteReferences(Object[] businessObjects, String reference, String element) {
             if (businessObjects != null) {
-                for (EObject bo : businessObjects) {
-                    deleteReference(bo, reference, element);
+                for (Object bo : businessObjects) {
+                    deleteReference((EObject)bo, reference, element);
                 }
             }
         }

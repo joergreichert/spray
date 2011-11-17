@@ -13,11 +13,11 @@ import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions;
 import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
-import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 @SuppressWarnings("all")
 public class CreateShapeFeature extends FileGenerator {
@@ -25,7 +25,7 @@ public class CreateShapeFeature extends FileGenerator {
   private NamingExtensions _namingExtensions;
   
   @Inject
-  private GenModelHelper _genModelHelper;
+  private MetaClassExtensions _metaClassExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -114,21 +114,15 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(" extends AbstractCreateFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("public final static String typeOrAliasName = \"");
+    _builder.append("protected static String TITLE = \"Create ");
     String _visibleName = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("protected static String TITLE = \"Create ");
+    _builder.append("protected static String USER_QUESTION = \"Enter new ");
     String _visibleName_1 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_1, "    ");
-    _builder.append("\";");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("protected static String USER_QUESTION = \"Enter new ");
-    String _visibleName_2 = this._namingExtensions.getVisibleName(metaClass);
-    _builder.append(_visibleName_2, "    ");
     _builder.append(" name\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -153,18 +147,18 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("public ");
     _builder.append(className, "    ");
-    _builder.append("(IFeatureProvider fp) {");
+    _builder.append(" (IFeatureProvider fp) {");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("// set name and description of the creation feature");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("super(fp, \"");
-    String _visibleName_3 = this._namingExtensions.getVisibleName(metaClass);
-    _builder.append(_visibleName_3, "        ");
-    _builder.append("\", \"Create ");
-    String _visibleName_4 = this._namingExtensions.getVisibleName(metaClass);
-    _builder.append(_visibleName_4, "        ");
+    String _createFeatureLabel = this._metaClassExtensions.getCreateFeatureLabel(metaClass);
+    _builder.append(_createFeatureLabel, "        ");
+    _builder.append("\", \"");
+    String _createFeatureDescription = this._metaClassExtensions.getCreateFeatureDescription(metaClass);
+    _builder.append(_createFeatureDescription, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
@@ -268,7 +262,7 @@ public class CreateShapeFeature extends FileGenerator {
     final Diagram diagram = _diagram;
     _builder.newLineIfNotEmpty();
     EClass _modelType = diagram.getModelType();
-    String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(_modelType);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_modelType);
     String _shortName = this.shortName(_javaInterfaceName);
     final String modelClassName = _shortName;
     _builder.newLineIfNotEmpty();

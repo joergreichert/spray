@@ -5,16 +5,16 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 
-class CreateShapeFeature extends FileGenerator  {
+class CreateShapeFeature extends FileGenerator {
     @Inject extension NamingExtensions
-    @Inject extension GenModelHelper
+    @Inject extension MetaClassExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaClass, javaGenFile.baseClassName)
@@ -51,7 +51,6 @@ class CreateShapeFeature extends FileGenerator  {
         // MARKER_IMPORT
         
         public class «className» extends AbstractCreateFeature {
-            public final static String typeOrAliasName = "«metaClass.visibleName»";
             protected static String TITLE = "Create «metaClass.visibleName»";
             protected static String USER_QUESTION = "Enter new «metaClass.visibleName» name";
             protected «diagram.modelServiceClassName.shortName» modelService;
@@ -59,9 +58,9 @@ class CreateShapeFeature extends FileGenerator  {
             «generate_additionalFields(metaClass)»
         
         
-            public «className»(IFeatureProvider fp) {
+            public «className» (IFeatureProvider fp) {
                 // set name and description of the creation feature
-                super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
+                super(fp, "«metaClass.createFeatureLabel»", "«metaClass.createFeatureDescription»");
                 modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
             }
         

@@ -261,7 +261,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("for (ConnectionDecorator decorator : free.getConnectionDecorators()) {");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);");
+    _builder.append("String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);");
     _builder.newLine();
     _builder.append("            ");
     _builder.append("String value = getValue(type, eClass);");

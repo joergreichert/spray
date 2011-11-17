@@ -8,4 +8,5 @@ public interface ISprayConstants {
      * Property stores an URI string
      */
     String PROPERTY_URI        = "URI";
+    String PROPERTY_CAN_MOVE   = "CAN_MOVE";
 }
