@@ -146,6 +146,20 @@ public class FileGenerator extends TemplateUtil {
     return _xblockexpression;
   }
   
+  /**
+   * Call this template as a hook in a (Java) class body were additional fields or constants can be generated.
+   */
+  public StringConcatenation generate_additionalFields(final EObject context) {
+    return null;
+  }
+  
+  /**
+   * Call this template as a hook in a (Java) class body were additional methods can be generated.
+   */
+  public StringConcatenation generate_additionalMethods(final EObject context) {
+    return null;
+  }
+  
   public String shortName(final JvmTypeReference typeRef) {
     String _shortName = this.importUtil.shortName(typeRef);
     return _shortName;

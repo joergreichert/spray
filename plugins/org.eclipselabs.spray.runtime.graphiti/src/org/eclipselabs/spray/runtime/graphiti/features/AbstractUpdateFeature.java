@@ -1,7 +1,8 @@
 package org.eclipselabs.spray.runtime.graphiti.features;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaCreateService;
 import org.eclipse.graphiti.services.IGaLayoutService;
@@ -14,7 +15,7 @@ import org.eclipse.graphiti.services.IPeService;
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature {
+public abstract class AbstractUpdateFeature extends org.eclipse.graphiti.features.impl.AbstractUpdateFeature {
     protected final IGaCreateService gaCreateService;
     protected final IGaLayoutService gaLayoutService;
     protected final IGaService       gaService;
@@ -22,13 +23,29 @@ public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphi
     protected final IPeService       peService;
     private boolean                  doneChanges;
 
-    public AbstractCreateConnectionFeature(IFeatureProvider fp, String name, String description) {
-        super(fp, name, description);
+    public AbstractUpdateFeature(IFeatureProvider fp) {
+        super(fp);
         gaCreateService = Graphiti.getGaCreateService();
         gaLayoutService = Graphiti.getGaLayoutService();
         gaService = Graphiti.getGaService();
         peCreateService = Graphiti.getPeCreateService();
         peService = Graphiti.getPeService();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected EObject getBusinessObjectForPictogramElement(PictogramElement pe) {
+        return (EObject) super.getBusinessObjectForPictogramElement(pe);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected EObject[] getAllBusinessObjectsForPictogramElement(PictogramElement pe) {
+        return (EObject[]) super.getAllBusinessObjectsForPictogramElement(pe);
     }
 
     /**
@@ -41,10 +58,5 @@ public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphi
 
     protected final void setDoneChanges(boolean doneChanges) {
         this.doneChanges = doneChanges;
-    }
-
-    @Override
-    public boolean canUndo(IContext context) {
-        return false;
     }
 }

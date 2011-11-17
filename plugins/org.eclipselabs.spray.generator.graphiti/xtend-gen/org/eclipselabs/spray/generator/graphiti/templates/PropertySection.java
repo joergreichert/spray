@@ -204,6 +204,10 @@ public class PropertySection extends FileGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(this.diagram);
+    _builder.append(_generate_additionalFields, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append(" ");
     _builder.newLine();
     _builder.append("    ");
@@ -851,7 +855,11 @@ public class PropertySection extends FileGenerator {
         _builder.newLine();
       }
     }
-    _builder.append("}    ");
+    _builder.append("}");
+    _builder.newLine();
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(eAttribute);
+    _builder.append(_generate_additionalFields_1, "");
+    _builder.newLineIfNotEmpty();
     return _builder;
   }
 }

@@ -148,6 +148,10 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("private static final ArrayList<org.eclipse.graphiti.mm.Property> EMPTY_PROPERTIES_LIST = new ArrayList<org.eclipse.graphiti.mm.Property>(0);");
     _builder.newLine();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    _builder.append(_generate_additionalFields, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
     _builder.append("public ");
@@ -197,7 +201,9 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    _builder.newLine();
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
+    _builder.append(_generate_additionalFields_1, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -415,7 +421,7 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("changesDone = true;");
+    _builder.append("setDoneChanges(true);");
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();

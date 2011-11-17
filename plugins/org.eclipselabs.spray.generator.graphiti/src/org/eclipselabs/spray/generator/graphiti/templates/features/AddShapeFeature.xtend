@@ -69,12 +69,10 @@ class AddShapeFeature extends FileGenerator  {
         // MARKER_IMPORT
 
         public class «className» extends AbstractAddFeature {
-        
             protected final static String typeOrAliasName = "«container.represents.visibleName»";
-        
             protected Diagram targetDiagram = null;
-        
             protected «containerType» container = null;
+            «generate_additionalFields(container)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -117,7 +115,7 @@ class AddShapeFeature extends FileGenerator  {
                 updatePictogramElement(containerShape);
                 layoutPictogramElement(containerShape);
                 
-                changesDone = true;
+                setDoneChanges(true);
                 
                 return containerShape;
             }
@@ -126,6 +124,7 @@ class AddShapeFeature extends FileGenerator  {
                «part.createShape(container.represents)»
             «ENDFOR»
             
+            «generate_additionalFields(container)»
         }
         '''
         

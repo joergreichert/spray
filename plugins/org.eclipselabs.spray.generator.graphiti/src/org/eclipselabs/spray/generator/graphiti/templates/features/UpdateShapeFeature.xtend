@@ -47,47 +47,55 @@ class UpdateShapeFeature extends FileGenerator  {
         import java.util.HashMap;
         import java.util.Map;
         
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
-        import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
-        import org.eclipse.graphiti.services.Graphiti;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «util_package()».SprayContainerService;
         import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
         
         public class «className» extends AbstractUpdateFeature {
-        
-            Map<String, String> values = null; 
-        
-            public  «className»(IFeatureProvider fp) {
+            «generate_additionalFields(container)»
+            public «className»(IFeatureProvider fp) {
                 super(fp);
             }
          
-            @Override
+            «generate_canUpdate(container)»
+            «generate_updateNeeded(container)»
+            «generate_update(container)»
+            «generate_valueMapping(container)»
+            «generate_additionalFields(container)»
+        }
+        '''
+        
+        def generate_canUpdate (Container container) '''
+            «overrideHeader»
             public boolean canUpdate(IUpdateContext context) {
                 // return true, if linked business object is a EClass
-                Object bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
+                EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
                 PictogramElement pictogramElement = context.getPictogramElement();
                 return (bo instanceof «container.represents.name»)&& (!(pictogramElement instanceof Diagram));
             }
+        '''
         
-            @Override
+        def generate_updateNeeded (Container container) '''
+            «overrideHeader»
             public IReason updateNeeded(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
-                Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                 if ( ! (bo instanceof «container.represents.name»)) {
                     return Reason.createFalseReason(); 
                 }
                    «container.represents.name» eClass = («container.represents.name») bo;
-        
+
                 // retrieve name from pictogram model
                 if (pictogramElement instanceof ContainerShape) {
                     ContainerShape cs = (ContainerShape) pictogramElement;
@@ -95,11 +103,11 @@ class UpdateShapeFeature extends FileGenerator  {
                     for (Shape shape : textBox.getChildren()) {
                         if (shape.getGraphicsAlgorithm() instanceof Text) {
                             Text text = (Text) shape.getGraphicsAlgorithm();
-                            String type = Graphiti.getPeService().getPropertyValue(shape, "MODEL_TYPE");
+                            String type = peService.getPropertyValue(shape, "MODEL_TYPE");
                             String value = getValues(eClass).get(type);
                             if( value != null){
                                    String pictogramName = text.getValue();
-              
+
                                  // update needed, if names are different
                                 boolean updateNameNeeded =((pictogramName == null && value != null) || (pictogramName != null && !pictogramName.equals(value)));
                                 if (updateNameNeeded) {
@@ -111,16 +119,21 @@ class UpdateShapeFeature extends FileGenerator  {
                 }
                 return Reason.createFalseReason();
              }
+        '''
         
-            @Override
+        def generate_update (Container container) '''
+            «overrideHeader»
             public boolean update(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
-                Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                   «container.represents.name» eClass = («container.represents.name») bo;
                 return SprayContainerService.update(pictogramElement, getValues(eClass));
                 
             }
+        '''
         
+        def generate_valueMapping (Container container) '''
+            Map<String, String> values = null; 
             protected Map<String, String> getValues(«container.represents.name» eClass) {
                 if (values == null) {
                     values = new HashMap<String, String>();
@@ -128,7 +141,7 @@ class UpdateShapeFeature extends FileGenerator  {
                 }
                 return values;
             }
-        
+
             protected void fillValues(«container.represents.name» eClass) {
                 String type, value;
             «FOR part :  container.parts »
@@ -141,7 +154,7 @@ class UpdateShapeFeature extends FileGenerator  {
             «ENDFOR»            
             }
             
-            private String getValue (String type, «container.represents.name» eClass) {
+            protected String getValue (String type, «container.represents.name» eClass) {
             «FOR part :  container.parts »
                 «IF part instanceof Text»
                     «var text = part as Text»
@@ -152,17 +165,5 @@ class UpdateShapeFeature extends FileGenerator  {
             «ENDFOR»            
                 throw new IllegalArgumentException(type);
             }
-        
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
-            }
-        
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
-            }
-        
-        }
         '''
 }

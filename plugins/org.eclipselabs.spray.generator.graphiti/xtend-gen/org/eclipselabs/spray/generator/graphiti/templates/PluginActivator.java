@@ -89,6 +89,10 @@ public class PluginActivator extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    _builder.append(_generate_additionalFields, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
     _builder.append("/*");
     _builder.newLine();
     _builder.append("     ");
@@ -201,6 +205,10 @@ public class PluginActivator extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
+    _builder.append(_generate_additionalFields_1, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

@@ -99,7 +99,6 @@ public class ImageProvider extends FileGenerator {
     _builder.append(className, "");
     _builder.append(" extends AbstractImageProvider {");
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     _builder.append("    ");
     _builder.append("// The prefix for all identifiers of this image provider");
     _builder.newLine();
@@ -108,6 +107,10 @@ public class ImageProvider extends FileGenerator {
     String _diagram_package_1 = GeneratorUtil.diagram_package();
     _builder.append(_diagram_package_1, "    ");
     _builder.append(".\";");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     {
@@ -151,6 +154,10 @@ public class ImageProvider extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
+    _builder.append(_generate_additionalFields_1, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

@@ -117,6 +117,10 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(" extends AbstractAddFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    _builder.append(_generate_additionalFields, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("public ");
@@ -145,6 +149,10 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     StringConcatenation _generate_decorateConnection = this.generate_decorateConnection(reference);
     _builder.append(_generate_decorateConnection, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
+    _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
@@ -281,7 +289,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("decorateConnection (addConContext, connection);");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("changesDone = true;");
+    _builder.append("setDoneChanges(true);");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return connection;");
@@ -374,7 +382,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("peService.deletePictogramElement(p) ;");
     _builder.newLine();
     _builder.append("                ");
-    _builder.append("changesDone = true;");
+    _builder.append("setDoneChanges(true);");
     _builder.newLine();
     _builder.append("            ");
     _builder.append("}");

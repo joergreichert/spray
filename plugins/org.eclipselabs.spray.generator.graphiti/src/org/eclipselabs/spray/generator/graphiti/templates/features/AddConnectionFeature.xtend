@@ -62,6 +62,7 @@ class AddConnectionFeature extends FileGenerator {
         // MARKER_IMPORT
         
         public class «className» extends AbstractAddFeature {
+            «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -71,28 +72,10 @@ class AddConnectionFeature extends FileGenerator {
             «generate_add(metaClass)»
             «generate_connectionLine(metaClass)»
             
-            «IF connection.toLabel != null»
-                «generate_connectionToLabel(metaClass)»
-                
-                protected String getToLabel («metaClass.name» addedDomainObject) {
-                    «valueGenerator(connection.toLabel, "addedDomainObject")»
-                }
-            «ENDIF»
-            «IF connection.connectionLabel != null»
-                «generate_connectionLabel(metaClass)»
-                
-                protected String getConnectionLabel («metaClass.name» addedDomainObject) {
-                    «valueGenerator(connection.connectionLabel, "addedDomainObject")»
-                }
-            «ENDIF»
-            «IF connection.fromLabel != null»
-                «generate_connectionFromLabel(metaClass)»
-                
-                protected String getFromLabel («metaClass.name» addedDomainObject) {
-                    «valueGenerator(connection.fromLabel, "addedDomainObject")»
-                }
-            «ENDIF»
-            
+            «generate_connectionToLabel(metaClass)»
+            «generate_connectionLabel(metaClass)»
+            «generate_connectionFromLabel(metaClass)»
+            «generate_additionalFields(metaClass)»
         }
     '''
     
@@ -135,7 +118,7 @@ class AddConnectionFeature extends FileGenerator {
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«metaClass.name»");
             link(connection, addedDomainObject);
 
-            changesDone = true;
+            setDoneChanges(true);
             return connection;
         }
     '''
@@ -155,6 +138,8 @@ class AddConnectionFeature extends FileGenerator {
     '''
 
     def generate_connectionFromLabel (MetaClass metaClass) '''
+        «val connection = metaClass.representedBy as Connection»
+        «IF connection.fromLabel != null»
         protected void createConnectionFromLabel (IAddConnectionContext context, Connection connection) {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
             ConnectionDecorator fromDecorator = peCreateService.createConnectionDecorator(connection, true, 0.0, true);
@@ -165,9 +150,15 @@ class AddConnectionFeature extends FileGenerator {
             peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, "FROM_LABEL");
             link(fromDecorator, addedDomainObject);
         }
+        protected String getFromLabel («metaClass.name» addedDomainObject) {
+            «valueGenerator(connection.fromLabel, "addedDomainObject")»
+        }
+        «ENDIF»
     '''
 
     def generate_connectionToLabel (MetaClass metaClass) '''
+        «val connection = metaClass.representedBy as Connection»
+        «IF connection.toLabel != null»
         protected void createConnectionToLabel (IAddConnectionContext context, Connection connection) {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
             ConnectionDecorator toDecorator = peCreateService.createConnectionDecorator(connection, true, 1.0, true);
@@ -181,9 +172,16 @@ class AddConnectionFeature extends FileGenerator {
             peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, "TO_LABEL");
             link(toDecorator, addedDomainObject);
         }
+
+        protected String getToLabel («metaClass.name» addedDomainObject) {
+            «valueGenerator(connection.toLabel, "addedDomainObject")»
+        }
+        «ENDIF»
     '''
 
     def generate_connectionLabel (MetaClass metaClass) '''
+        «val connection = metaClass.representedBy as Connection»
+        «IF connection.connectionLabel != null»
         protected void createConnectionLabel (IAddConnectionContext context, Connection connection) {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
             ConnectionDecorator connectionDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
@@ -194,6 +192,11 @@ class AddConnectionFeature extends FileGenerator {
             peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, "CONNECTION_LABEL");
             link(connectionDecorator, addedDomainObject);
         }
+
+        protected String getConnectionLabel («metaClass.name» addedDomainObject) {
+            «valueGenerator(connection.connectionLabel, "addedDomainObject")»
+        }
+        «ENDIF»
     '''
 
 }

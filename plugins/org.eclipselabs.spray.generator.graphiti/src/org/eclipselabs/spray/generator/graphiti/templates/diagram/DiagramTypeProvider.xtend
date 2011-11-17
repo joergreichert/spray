@@ -32,6 +32,7 @@ class DiagramTypeProvider extends FileGenerator {
         
         public class «className» extends AbstractDiagramTypeProvider {
             private IToolBehaviorProvider[] toolBehaviorProviders;
+            «generate_additionalFields(diagram)»
         
             public «className»() {
                 super();
@@ -47,6 +48,8 @@ class DiagramTypeProvider extends FileGenerator {
                 }
                 return toolBehaviorProviders;
             }
+            
+            «generate_additionalFields(diagram)»
         }
     '''
 

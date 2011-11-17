@@ -93,19 +93,13 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IFeatureProvider;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.context.IContext;");
-    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.ICreateContext;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.impl.AbstractCreateFeature;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Diagram;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.Graphiti;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IPeService;");
-    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;");
+    _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;");
     _builder.newLine();
     _builder.append("import ");
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(metaClass);
@@ -138,12 +132,6 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(" name\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("protected IPeService peService;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("protected boolean dirty;");
-    _builder.newLine();
-    _builder.append("    ");
     _builder.append("protected ");
     String _modelServiceClassName = this._namingExtensions.getModelServiceClassName(diagram);
     String _shortName = this.shortName(_modelServiceClassName);
@@ -155,6 +143,10 @@ public class CreateShapeFeature extends FileGenerator {
     String _name = this._namingExtensions.getName(metaClass);
     _builder.append(_name, "    ");
     _builder.append(" newClass = null;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(metaClass);
+    _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.newLine();
@@ -175,9 +167,6 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(_visibleName_4, "        ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
-    _builder.append("        ");
-    _builder.append("peService = Graphiti.getPeService();");
-    _builder.newLine();
     _builder.append("        ");
     _builder.append("modelService = new ");
     String _modelServiceClassName_1 = this._namingExtensions.getModelServiceClassName(diagram);
@@ -206,12 +195,8 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(_generate_getCreateImageId, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_hasDoneChanges = this.generate_hasDoneChanges(metaClass);
-    _builder.append(_generate_hasDoneChanges, "    ");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    StringConcatenation _generate_canUndo = this.generate_canUndo(metaClass);
-    _builder.append(_generate_canUndo, "    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(metaClass);
+    _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
@@ -383,7 +368,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("dirty = true;");
+    _builder.append("setDoneChanges(true);");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("return newClass;");
@@ -422,36 +407,6 @@ public class CreateShapeFeature extends FileGenerator {
         _builder.newLine();
       }
     }
-    return _builder;
-  }
-  
-  public StringConcatenation generate_hasDoneChanges(final MetaClass metaClass) {
-    StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "");
-    _builder.newLineIfNotEmpty();
-    _builder.append("public boolean hasDoneChanges() {");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("return dirty;");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  public StringConcatenation generate_canUndo(final MetaClass metaClass) {
-    StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "");
-    _builder.newLineIfNotEmpty();
-    _builder.append("public boolean canUndo(IContext context) {");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("return false;");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
     return _builder;
   }
 }

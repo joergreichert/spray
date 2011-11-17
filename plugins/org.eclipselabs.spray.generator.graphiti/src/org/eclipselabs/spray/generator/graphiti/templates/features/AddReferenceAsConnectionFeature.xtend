@@ -54,6 +54,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
         // MARKER_IMPORT
         
         public class «className» extends AbstractAddFeature {
+            «generate_additionalFields(reference)»
             
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -63,6 +64,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             «generate_add(reference)»
             «generate_removeExisting(reference)»
             «generate_decorateConnection(reference)»
+            «generate_additionalFields(reference)»
         }
     '''
     
@@ -103,7 +105,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             //      No arrows
             //        createArrow(cd);
             decorateConnection (addConContext, connection);
-            changesDone = true;
+            setDoneChanges(true);
             return connection;
         }
     '''
@@ -132,7 +134,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
                     String reference = peService.getPropertyValue(p, "REFERENCE");
                     if( "«reference.name»".equals(reference)){
                         peService.deletePictogramElement(p) ;
-                        changesDone = true;
+                        setDoneChanges(true);
                     }
                 }
             }

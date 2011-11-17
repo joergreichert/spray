@@ -31,12 +31,6 @@ class UpdateConnectionFeature extends FileGenerator  {
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
-        
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
-            }
-        
         }
     '''
     
@@ -45,7 +39,7 @@ class UpdateConnectionFeature extends FileGenerator  {
         «val metaClassName = connection.represents.name»
         «val pack = connection.represents.type.EPackage.name »
         «val fullPackage = fullPackageName(connection.represents.type) »
-        «val labelName = "name" »
+        «val labelName = "name"»
         «header(this)»
         package «feature_package()»;
 
@@ -53,7 +47,6 @@ class UpdateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
-        import org.eclipse.graphiti.features.context.IContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -62,11 +55,12 @@ class UpdateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFUpdateFeature;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
-        public class «className» extends AbstractEMFUpdateFeature {
+        public class «className» extends AbstractUpdateFeature {
+            «generate_additionalFields(connection)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -76,9 +70,7 @@ class UpdateConnectionFeature extends FileGenerator  {
             «generate_updateNeeded(connection)»
             «generate_update(connection)»
             «generate_getValue(connection)»
-            «generate_hasDoneChanges(connection)»
-            «generate_canUndo(connection)»
-        
+            «generate_additionalFields(connection)»
         }
     '''
 
@@ -126,8 +118,7 @@ class UpdateConnectionFeature extends FileGenerator  {
         «overrideHeader()»
         public boolean update(IUpdateContext context) {
             PictogramElement pictogramElement = context.getPictogramElement();
-            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-            «metaClassName» eClass = («metaClassName») bo;
+            «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
 
             FreeFormConnection free = (FreeFormConnection) pictogramElement;
             for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
@@ -168,17 +159,4 @@ class UpdateConnectionFeature extends FileGenerator  {
         }
     '''
     
-    def generate_hasDoneChanges (Connection connection) '''
-        «overrideHeader()»
-        public boolean hasDoneChanges() {
-            return false;
-        }
-   '''
-   
-   def generate_canUndo (Connection connection) '''
-        «overrideHeader()»
-        public boolean canUndo(IContext context) {
-            return false;
-        }
-   '''
 }

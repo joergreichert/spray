@@ -155,7 +155,6 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append(className, "");
     _builder.append(" extends AbstractAddFeature {");
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     _builder.append("    ");
     _builder.append("protected final static String typeOrAliasName = \"");
     MetaClass _represents_1 = container.getRepresents();
@@ -163,15 +162,17 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append(_visibleName, "    ");
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     _builder.append("    ");
     _builder.append("protected Diagram targetDiagram = null;");
-    _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
     _builder.append("protected ");
     _builder.append(containerType, "    ");
     _builder.append(" container = null;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(container);
+    _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
@@ -311,7 +312,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("changesDone = true;");
+    _builder.append("setDoneChanges(true);");
     _builder.newLine();
     _builder.append("        ");
     _builder.newLine();
@@ -335,6 +336,10 @@ public class AddShapeFeature extends FileGenerator {
     }
     _builder.append("    ");
     _builder.newLine();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(container);
+    _builder.append(_generate_additionalFields_1, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

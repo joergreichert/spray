@@ -64,6 +64,15 @@ class FileGenerator extends TemplateUtil {
         }
     }
     
+    /**
+     * Call this template as a hook in a (Java) class body were additional fields or constants can be generated.
+     */
+    def StringConcatenation generate_additionalFields (EObject context) {} 
+    /**
+     * Call this template as a hook in a (Java) class body were additional methods can be generated.
+     */
+    def StringConcatenation generate_additionalMethods (EObject context) {} 
+    
     //---------------------------------------------------------------------------------------------
     // delegate methods from ImportUtil
     //---------------------------------------------------------------------------------------------

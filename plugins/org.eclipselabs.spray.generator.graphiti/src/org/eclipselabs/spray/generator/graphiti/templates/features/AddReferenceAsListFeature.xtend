@@ -63,6 +63,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
         
         public class «className» extends AbstractAddFeature {
             private static final ArrayList<org.eclipse.graphiti.mm.Property> EMPTY_PROPERTIES_LIST = new ArrayList<org.eclipse.graphiti.mm.Property>(0);
+            «generate_additionalFields(reference)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -80,7 +81,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 return newShape;
             }
             
-            
+            «generate_additionalFields(reference)»
         }
     '''
     
@@ -149,7 +150,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
             link(newShape, addedModelElement);
             layoutPictogramElement(containerShape);
             
-            changesDone = true;
+            setDoneChanges(true);
             
             return containerShape;
         }

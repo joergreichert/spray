@@ -44,6 +44,7 @@ class PluginActivator extends FileGenerator  {
             // The shared instance
             private static «className» plugin;
 
+            «generate_additionalFields(diagram)»
             /*
              * (non-Javadoc)
              * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
@@ -83,6 +84,7 @@ class PluginActivator extends FileGenerator  {
             public static final <T> T get(Class<T> type) {
                 return getDefault().getInjector().getInstance(type);
             }
+            «generate_additionalFields(diagram)»
         }
    '''
 }

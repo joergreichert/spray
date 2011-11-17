@@ -66,20 +66,6 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("public boolean hasDoneChanges() {");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("return false;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -126,8 +112,6 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IUpdateContext;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.context.IContext;");
-    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.impl.Reason;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.algorithms.Text;");
@@ -144,7 +128,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.Graphiti;");
     _builder.newLine();
-    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractEMFUpdateFeature;");
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;");
     _builder.newLine();
     _builder.append("import ");
     MetaClass _represents_4 = connection.getRepresents();
@@ -158,7 +142,11 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("public class ");
     _builder.append(className, "");
-    _builder.append(" extends AbstractEMFUpdateFeature {");
+    _builder.append(" extends AbstractUpdateFeature {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(connection);
+    _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
@@ -190,14 +178,9 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append(_generate_getValue, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_hasDoneChanges = this.generate_hasDoneChanges(connection);
-    _builder.append(_generate_hasDoneChanges, "    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(connection);
+    _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    StringConcatenation _generate_canUndo = this.generate_canUndo(connection);
-    _builder.append(_generate_canUndo, "    ");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -330,13 +313,10 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("PictogramElement pictogramElement = context.getPictogramElement();");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("EObject bo = getBusinessObjectForPictogramElement(pictogramElement);");
-    _builder.newLine();
-    _builder.append("    ");
     _builder.append(metaClassName, "    ");
     _builder.append(" eClass = (");
     _builder.append(metaClassName, "    ");
-    _builder.append(") bo;");
+    _builder.append(") getBusinessObjectForPictogramElement(pictogramElement);");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
@@ -450,36 +430,6 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("return result;");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  public StringConcatenation generate_hasDoneChanges(final Connection connection) {
-    StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "");
-    _builder.newLineIfNotEmpty();
-    _builder.append("public boolean hasDoneChanges() {");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("return false;");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  public StringConcatenation generate_canUndo(final Connection connection) {
-    StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "");
-    _builder.newLineIfNotEmpty();
-    _builder.append("public boolean canUndo(IContext context) {");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("return false;");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();

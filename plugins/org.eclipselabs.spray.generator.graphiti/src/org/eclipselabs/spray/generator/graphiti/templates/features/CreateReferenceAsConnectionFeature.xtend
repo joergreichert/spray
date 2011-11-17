@@ -57,6 +57,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         // MARKER_IMPORT
         
         public class «className» extends AbstractCreateConnectionFeature {
+            «generate_additionalFields(reference)»
         
             public «className»(IFeatureProvider fp) {
                 // provide name and description for the UI, e.g. the palette
@@ -152,6 +153,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
             public boolean canUndo(IContext context) {
                 return false;
             }
+            «generate_additionalFields(reference)»
         
         }
     '''

@@ -37,9 +37,9 @@ class ImageProvider extends FileGenerator {
         import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
         
         public class «className» extends AbstractImageProvider {
-        
             // The prefix for all identifiers of this image provider
             public static final String PREFIX = "«diagram_package()».";
+            «generate_additionalFields(diagram)»
         
             «FOR icon : icons»
                 // The image identifier for an EReference.
@@ -53,6 +53,7 @@ class ImageProvider extends FileGenerator {
                 addImageFilePath(«diagram.getImageIdentifier(icon)», "icons/«icon»");
             «ENDFOR»
             }
+            «generate_additionalFields(diagram)»
         }
     '''
     

@@ -43,13 +43,10 @@ class CreateShapeFeature extends FileGenerator  {
         package «feature_package()»;
 
         import org.eclipse.graphiti.features.IFeatureProvider;
-        import org.eclipse.graphiti.features.context.IContext;
         import org.eclipse.graphiti.features.context.ICreateContext;
-        import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
-        import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
         
@@ -57,16 +54,14 @@ class CreateShapeFeature extends FileGenerator  {
             public final static String typeOrAliasName = "«metaClass.visibleName»";
             protected static String TITLE = "Create «metaClass.visibleName»";
             protected static String USER_QUESTION = "Enter new «metaClass.visibleName» name";
-            protected IPeService peService;
-            protected boolean dirty;
             protected «diagram.modelServiceClassName.shortName» modelService;
             protected «metaClass.name» newClass = null;
+            «generate_additionalFields(metaClass)»
         
         
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
                 super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
-                peService = Graphiti.getPeService();
                 modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
             }
         
@@ -74,8 +69,7 @@ class CreateShapeFeature extends FileGenerator  {
             «generate_create(metaClass)»
             «generate_createModelElement(metaClass)»
             «generate_getCreateImageId(metaClass)»
-            «generate_hasDoneChanges(metaClass)»
-            «generate_canUndo(metaClass)»
+            «generate_additionalFields(metaClass)»
         }
     '''
     
@@ -128,7 +122,7 @@ class CreateShapeFeature extends FileGenerator  {
                 model.set«containmentRef.name.toFirstUpper»(newClass);
             «ENDIF»
             
-            dirty = true;
+            setDoneChanges(true);
             return newClass;
         }
     '''
@@ -143,17 +137,4 @@ class CreateShapeFeature extends FileGenerator  {
         «ENDIF»
     '''
     
-    def generate_hasDoneChanges (MetaClass metaClass) '''
-        «overrideHeader()»
-        public boolean hasDoneChanges() {
-            return dirty;
-        }
-    '''
-    
-    def generate_canUndo (MetaClass metaClass) '''
-        «overrideHeader()»
-        public boolean canUndo(IContext context) {
-            return false;
-        }
-    '''
 }

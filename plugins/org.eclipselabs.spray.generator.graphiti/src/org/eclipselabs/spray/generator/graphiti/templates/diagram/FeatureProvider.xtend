@@ -76,6 +76,7 @@ class FeatureProvider extends FileGenerator {
         // MARKER_IMPORT
         
         public class «className» extends DefaultFeatureProvider {
+            «generate_additionalFields(diagram)»
             public «className»(IDiagramTypeProvider dtp) {
                 super(dtp);
             }
@@ -266,6 +267,7 @@ class FeatureProvider extends FileGenerator {
                 return new ICustomFeature[0];
             }
         }
+        «generate_additionalFields(diagram)»
     '''
 
 }

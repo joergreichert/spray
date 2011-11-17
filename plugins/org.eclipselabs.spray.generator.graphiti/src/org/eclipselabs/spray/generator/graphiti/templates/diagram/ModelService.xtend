@@ -47,6 +47,7 @@ class ModelService extends FileGenerator {
             public static final String FILE_EXTENSION = "«diagram.modelFileExtension»";
             protected IPeService peService;
             protected IDiagramTypeProvider dtp;
+            «generate_additionalFields(diagram)»
             
             public «className» (IDiagramTypeProvider dtp) {
                 this.dtp = dtp;
@@ -101,6 +102,7 @@ class ModelService extends FileGenerator {
                     resource.getContents().add(model);
                 }
             }
+            «generate_additionalFields(diagram)»
         }
     '''
 }

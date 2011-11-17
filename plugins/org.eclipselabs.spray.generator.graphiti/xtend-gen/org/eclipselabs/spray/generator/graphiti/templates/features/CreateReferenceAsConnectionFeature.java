@@ -129,6 +129,10 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(className, "");
     _builder.append(" extends AbstractCreateConnectionFeature {");
     _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    _builder.append(_generate_additionalFields, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
     _builder.append("public ");
@@ -513,6 +517,10 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("    ");
+    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
+    _builder.append(_generate_additionalFields_1, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();

@@ -59,4 +59,116 @@ bc..
 p. 
 
 
+h2. Modularity
 
+h3. Template Methods
+
+The templates should be organized into reasonable small template definition methods. Usually a good separation is to provide a template for each generated method, which are called when generating a class body.
+
+bc.. 
+    def mainFile (MetaClass metaClass, String className) '''
+        ...
+        public class «className» extends AbstractCreateFeature {
+            ...
+            «generate_canCreate(metaClass)»
+            «generate_create(metaClass)»
+            «generate_createModelElement(metaClass)»
+            «generate_getCreateImageId(metaClass)»
+            «generate_hasDoneChanges(metaClass)»
+            «generate_canUndo(metaClass)»
+        }
+    '''
+    
+    def generate_canCreate (MetaClass metaClass) '''
+        «overrideHeader()»
+        public boolean canCreate(ICreateContext context) {
+            ...
+        }
+    '''
+    
+p. 
+
+When the implementation of a template method grows too large, or is separatable into a sequence of logical parts, the template should delegate to subtemplate methods again.
+
+This makes the template code more maintainable, and allows users later to override smaller parts of the generator if customization is needed.
+
+h3. Hook Templates
+
+To allow insertion of additional fields, constants, methods etc. in (Java) class bodies by subclassed templates, the base class @FileGenerator@ offers the hook template methods @generate_additionalFields()@ and @generate_additionalMethods()@. These methods should be called in a class body template. The user then can override these methods to insert additional code without the need to override the class template itself.
+
+bc.. 
+    def mainFile(MetaReference reference, String className) '''
+        ...
+        public abstract class «className» extends AbstractUpdateFeature {
+            «generate_additionalFields(reference)» // call hook template
+            public «className»(IFeatureProvider fp) {
+                super(fp);
+            }
+            
+            «generate_canUpdate(reference)»
+            ...
+            «generate_additionalMethods(reference)» // call hook template
+        }
+    '''
+
+h3. Generated Code
+
+Also generated methods should not grow too large. The user should be able to override smaller methods in the extensions files. To be able to do this, the generated methods in base classes should mostly be public or protected, and not static nor final.
+
+When appropriate, callback methods should be generated where it is likely for the user to make changes without the need to override a complete method. For example, when creating a connection, the user might want to decorate it.
+
+Example (AddReferenceAsConnection.xtend):
+
+bc.. 
+    def mainFile(MetaReference reference, String className) '''
+        ...
+        public class «className» extends AbstractAddFeature {
+            ...
+            «generate_add(reference)»
+            // generate callback method
+            «generate_decorateConnection(reference)»
+        }
+    '''
+            
+    def generate_add (MetaReference reference) '''
+        ...
+        public PictogramElement add(IAddContext context) {
+            ...
+            // call callback method in generated code
+            decorateConnection (addConContext, connection);
+        }
+    '''
+
+    // template for callback method
+    def generate_decorateConnection (MetaReference reference) '''
+        /**
+         * Override this method to decorate the created connection
+         */
+        protected void decorateConnection (IAddConnectionContext context, Connection connection) {}
+    '''
+p. 
+
+h2. Code Documentation
+
+h3. Overridden Methods
+
+If a method from a base class is overridden by generated code, the method should declare the @\@Override@ annotation and the @{@inheritDoc}@ Javadoc annotation. To shorten this, «overrideHeader» generates the necessary code.
+
+*Xtend Template:*
+
+bc. 
+    «overrideHeader» 
+    public void myMethod (...)
+
+p. 
+*Generated code:*
+
+bc. 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void myMethod (...)
+
+p. 
+ 

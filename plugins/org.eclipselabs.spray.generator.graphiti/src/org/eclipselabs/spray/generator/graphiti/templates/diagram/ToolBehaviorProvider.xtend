@@ -57,7 +57,8 @@ class ToolBehaviorProvider extends FileGenerator {
         import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
         import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
         // MARKER_IMPORT
-        public class «className»  extends DefaultToolBehaviorProvider   {
+        public class «className» extends DefaultToolBehaviorProvider {
+            «generate_additionalFields(diagram)»
             public «className»(IDiagramTypeProvider dtp) {
                 super(dtp);
             }
@@ -152,6 +153,7 @@ class ToolBehaviorProvider extends FileGenerator {
                 IPaletteCompartmentEntry[] res = compartments.values().toArray(new IPaletteCompartmentEntry[compartments.size()]);
                 return res;
             }
+            «generate_additionalFields(diagram)»
         }
     '''
     

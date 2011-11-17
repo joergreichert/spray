@@ -2,7 +2,6 @@ package org.eclipselabs.spray.runtime.graphiti.features;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaCreateService;
@@ -22,7 +21,7 @@ public abstract class AbstractAddFeature extends org.eclipse.graphiti.features.i
     protected final IGaService       gaService;
     protected final IPeCreateService peCreateService;
     protected final IPeService       peService;
-    protected boolean                changesDone;
+    private boolean                  doneChanges;
 
     public AbstractAddFeature(IFeatureProvider fp) {
         super(fp);
@@ -54,11 +53,10 @@ public abstract class AbstractAddFeature extends org.eclipse.graphiti.features.i
      */
     @Override
     public boolean hasDoneChanges() {
-        return changesDone;
+        return doneChanges;
     }
 
-    @Override
-    public boolean canUndo(IContext context) {
-        return false;
+    protected final void setDoneChanges(boolean doneChanges) {
+        this.doneChanges = doneChanges;
     }
 }

@@ -48,18 +48,17 @@ class LayoutFeature extends FileGenerator {
         import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ILayoutContext;
-        import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
         import «util_package()».«containerType»;
         // MARKER_IMPORT
         
-        public class «className» extends  AbstractLayoutFeature {
-        
-            private static final int MIN_HEIGHT = 30;
-            private static final int MIN_WIDTH = 50;
+        public class «className» extends AbstractLayoutFeature {
+            protected static final int MIN_HEIGHT = 30;
+            protected static final int MIN_WIDTH = 50;
             protected «containerType» container = null;
+            «generate_additionalFields(container)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -69,6 +68,14 @@ class LayoutFeature extends FileGenerator {
             «ENDIF»
             }
          
+            «generate_canLayout(container)»
+            «generate_layout(container)»
+            «generate_additionalFields(container)»
+        }
+        '''
+        
+        def generate_canLayout (Container container) '''
+            «overrideHeader»
             public boolean canLayout(ILayoutContext context) {
                PictogramElement pe = context.getPictogramElement();
                if (!(pe instanceof ContainerShape)) {
@@ -77,21 +84,12 @@ class LayoutFeature extends FileGenerator {
                EList<EObject> businessObjects = pe.getLink().getBusinessObjects();
                return (businessObjects.size() == 1) && (businessObjects.get(0) instanceof «container.represents.type.javaInterfaceName.shortName»);
             }
-         
+        '''
+        
+        def generate_layout (Container container) '''
+            «overrideHeader»
             public boolean layout(ILayoutContext context) {
                 return container.layoutContainer(context);
             }
-        
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
-            }
-        
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
-            }
-        
-        }
         '''
 }

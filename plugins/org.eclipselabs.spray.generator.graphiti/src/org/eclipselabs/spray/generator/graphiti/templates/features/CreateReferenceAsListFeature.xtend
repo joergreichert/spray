@@ -45,21 +45,19 @@ class CreateReferenceAsListFeature extends FileGenerator  {
     def mainFile (MetaReference reference, String className) '''
         «header(this)»
         package «feature_package()»;
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateContext;
-        import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «util_package()».SampleUtil;
         // MARKER_IMPORT
         
         public class «className» extends AbstractCreateFeature {
-        
             protected static String TITLE = "Create «target.name»";
             protected static String USER_QUESTION = "Enter new «target.name» «reference.labelPropertyName»";
+            «generate_additionalFields(reference)»
             
-            private boolean doneChanges;
-        
             public «className»(IFeatureProvider fp) {
                 // set name and description of the creation feature
                 super(fp, "«target.name»", "Create «target.name»");
@@ -67,23 +65,7 @@ class CreateReferenceAsListFeature extends FileGenerator  {
             
             «generate_canCreate(reference)»
             «generate_create(reference)»
-        
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean hasDoneChanges() {
-                return doneChanges;
-            }
-        
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
-            }
-        
+            «generate_additionalFields(reference)»
         }
     '''
     
@@ -95,7 +77,7 @@ class CreateReferenceAsListFeature extends FileGenerator  {
         @Override
         public boolean canCreate(ICreateContext context) {
             Shape target = context.getTargetContainer();
-            Object domainObject = getBusinessObjectForPictogramElement(target);
+            EObject domainObject = getBusinessObjectForPictogramElement(target);
             return domainObject instanceof «metaClass.name»;
         }
     '''
@@ -114,7 +96,6 @@ class CreateReferenceAsListFeature extends FileGenerator  {
             }
 
             Shape target = context.getTargetContainer();
-            Object domainObject = getBusinessObjectForPictogramElement(target);
             «metaClass.javaInterfaceName.shortName» owner = («metaClass.name») getBusinessObjectForPictogramElement(target);
 
             // create «target.name»
@@ -126,7 +107,7 @@ class CreateReferenceAsListFeature extends FileGenerator  {
             addGraphicalRepresentation(context, newDomainObject);
             // return newly created business object(s)
             
-            doneChanges = true;
+            setDoneChanges(true);
             return new Object[] { newDomainObject };
         }
     '''

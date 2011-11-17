@@ -47,11 +47,11 @@ class CustomFeature extends FileGenerator  {
         import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICustomContext;
-        import org.eclipse.graphiti.features.context.IContext;
-        import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractCustomFeature;
         
-        public abstract class «className» extends  AbstractCustomFeature {
+        public abstract class «className» extends AbstractCustomFeature {
+            «generate_additionalFields(behavior)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
@@ -67,44 +67,41 @@ class CustomFeature extends FileGenerator  {
                 return "«behavior.label» description"; //$NON-NLS-1$
             }
         
-            @Override
-            public boolean canExecute(ICustomContext context) {
-                // allow rename if exactly one pictogram element
-                // representing an EClass is selected
-                boolean ret = true;
-                PictogramElement[] pes = context.getPictogramElements();
-                if (pes != null && pes.length == 1) {
-                    EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
-                    ret = canExecute (context, bo);
-                }
-                return ret;
-            } 
-        
-            protected boolean canExecute(ICustomContext context, EObject bo) {
-                return true;
-            }
-        
-            @Override
-            public void execute(ICustomContext context) {
-                PictogramElement[] pes = context.getPictogramElements();
-                if (pes != null && pes.length == 1) {
-                    EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
-                    execute(context, bo);
-                }
-            }
-            
-            public abstract void execute(ICustomContext context, EObject object);
-            
-            @Override
-            public boolean canUndo(IContext context) {
-                return false;
-            }
-        
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
-            }
-         
+            «generate_canExecute(behavior)»
+            «generate_execute(behavior)»
+            «generate_additionalFields(behavior)»
         }
+    '''
+    
+    def generate_canExecute (CustomBehavior behavior) '''
+        «overrideHeader»
+        public boolean canExecute(ICustomContext context) {
+            // allow rename if exactly one pictogram element
+            // representing an EClass is selected
+            boolean ret = true;
+            PictogramElement[] pes = context.getPictogramElements();
+            if (pes != null && pes.length == 1) {
+                EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
+                ret = canExecute (context, bo);
+            }
+            return ret;
+        } 
+
+        protected boolean canExecute(ICustomContext context, EObject bo) {
+            return true;
+        }
+    '''
+    
+    def generate_execute (CustomBehavior behavior) '''
+        «overrideHeader»
+        public void execute(ICustomContext context) {
+            PictogramElement[] pes = context.getPictogramElements();
+            if (pes != null && pes.length == 1) {
+                EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
+                execute(context, bo);
+            }
+        }
+        
+        public abstract void execute(ICustomContext context, EObject object);
     '''
 }

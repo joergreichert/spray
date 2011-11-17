@@ -88,6 +88,7 @@ class PropertySection extends FileGenerator  {
             «ELSE»
             protected Text «propertyName»Widget;
             «ENDIF»
+            «generate_additionalFields(diagram)»
          
             @Override
             public void createControls(Composite parent, TabbedPropertySheetPage tabbedPropertySheetPage) {
@@ -263,5 +264,7 @@ class PropertySection extends FileGenerator  {
             «ENDIF»
             }
             «ENDIF»
-        }    '''
+        }
+        «generate_additionalFields(eAttribute)»
+    '''
 }
