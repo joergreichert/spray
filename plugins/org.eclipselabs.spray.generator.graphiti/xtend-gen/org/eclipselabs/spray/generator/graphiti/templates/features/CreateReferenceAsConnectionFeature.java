@@ -95,7 +95,6 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("//    }");
     _builder.newLine();
-    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -129,8 +128,6 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Anchor;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Connection;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;");
     _builder.newLine();
@@ -217,14 +214,6 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("super(fp, name, description);");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("gaService = ");
-    Diagram _diagram = this._metaReferenceExtensions.getDiagram(reference);
-    String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
-    String _shortName = this.shortName(_activatorClassName);
-    _builder.append(_shortName, "    ");
-    _builder.append(".get(IGaService.class);");
-    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

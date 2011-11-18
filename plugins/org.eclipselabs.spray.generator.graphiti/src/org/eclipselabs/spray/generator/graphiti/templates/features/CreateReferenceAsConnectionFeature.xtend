@@ -40,7 +40,6 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         //    public String getCreateImageId() {
         //        return «metaReference.diagram.imageProviderSimpleClassName».«metaReference.diagram.name.toUpperCase»__MYIMAGEID;
         //    }
-
         }
     '''
 
@@ -55,7 +54,6 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
-        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
@@ -83,7 +81,6 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         protected «className»(IFeatureProvider fp, String name, String description) {
             // provide name and description for the UI, e.g. the palette
             super(fp, name, description);
-            gaService = «reference.diagram.activatorClassName.shortName».get(IGaService.class);
         }
     '''
 
