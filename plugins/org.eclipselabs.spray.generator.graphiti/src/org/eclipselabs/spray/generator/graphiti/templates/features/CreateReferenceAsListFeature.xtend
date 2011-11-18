@@ -10,10 +10,12 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 
 
 class CreateReferenceAsListFeature extends FileGenerator  {
     @Inject extension NamingExtensions
+    @Inject extension MetaReferenceExtensions
     
     EClass target 
     
@@ -39,6 +41,13 @@ class CreateReferenceAsListFeature extends FileGenerator  {
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
+        //    /**
+        //     * {@inheritDoc}
+        //     */
+        //    @Override
+        //    public String getCreateImageId() {
+        //        return «metaReference.diagram.imageProviderSimpleClassName».«metaReference.diagram.name.toUpperCase»__MYIMAGEID;
+        //    }
         }
     '''
 
@@ -49,6 +58,7 @@ class CreateReferenceAsListFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateContext;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «util_package()».SampleUtil;
         // MARKER_IMPORT
@@ -58,14 +68,21 @@ class CreateReferenceAsListFeature extends FileGenerator  {
             protected static String USER_QUESTION = "Enter new «target.name» «reference.labelPropertyName»";
             «generate_additionalFields(reference)»
             
-            public «className»(IFeatureProvider fp) {
-                // set name and description of the creation feature
-                super(fp, "«target.name»", "Create «target.name»");
-            }
-            
+            «generate_constructor(reference, className)»
             «generate_canCreate(reference)»
             «generate_create(reference)»
             «generate_additionalFields(reference)»
+        }
+    '''
+    
+    def generate_constructor (MetaReference reference, String className) '''
+        public «className»(IFeatureProvider fp) {
+            // set name and description of the creation feature
+            this(fp, "«target.name»", "Create «target.name»");
+        }
+        protected «className»(IFeatureProvider fp, String name, String description) {
+            // provide name and description for the UI, e.g. the palette
+            super(fp, name, description);
         }
     '''
     

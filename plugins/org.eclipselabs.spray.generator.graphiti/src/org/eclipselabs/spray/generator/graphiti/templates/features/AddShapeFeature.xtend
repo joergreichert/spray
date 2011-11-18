@@ -17,13 +17,16 @@ import org.eclipselabs.spray.mm.spray.SprayElement
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 
 class AddShapeFeature extends FileGenerator  {
     @Inject extension LayoutExtensions
     @Inject extension IQualifiedNameProvider
     @Inject extension NamingExtensions
-    @Inject extension SprayElementNameProvider  
+    @Inject extension SprayElementNameProvider
+    @Inject extension DiagramExtensions
+    
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
     }
@@ -62,6 +65,7 @@ class AddShapeFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         import «util_package()».ISprayContainer;
         import «util_package()».«containerType»;
@@ -77,6 +81,7 @@ class AddShapeFeature extends FileGenerator  {
             public «className»(IFeatureProvider fp) {
                 super(fp);
                 container = new «containerType»();
+                gaService = «container.diagram.activatorClassName.shortName».get(IGaService.class);
             }
         
             «overrideHeader()»

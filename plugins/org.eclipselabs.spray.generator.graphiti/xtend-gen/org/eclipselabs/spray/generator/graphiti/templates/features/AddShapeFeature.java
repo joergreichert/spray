@@ -15,7 +15,9 @@ import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.SprayElementNameProvider;
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions;
 import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Layout;
 import org.eclipselabs.spray.mm.spray.Line;
 import org.eclipselabs.spray.mm.spray.MetaClass;
@@ -36,6 +38,9 @@ public class AddShapeFeature extends FileGenerator {
   
   @Inject
   private SprayElementNameProvider _sprayElementNameProvider;
+  
+  @Inject
+  private DiagramExtensions _diagramExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -129,6 +134,8 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Shape;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.services.IGaService;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;");
     _builder.newLine();
     _builder.append("import ");
@@ -187,6 +194,14 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("container = new ");
     _builder.append(containerType, "        ");
     _builder.append("();");
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("gaService = ");
+    Diagram _diagram = this._diagramExtensions.getDiagram(container);
+    String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
+    String _shortName = this.shortName(_activatorClassName);
+    _builder.append(_shortName, "        ");
+    _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("}");

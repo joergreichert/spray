@@ -15,9 +15,11 @@ import org.eclipse.graphiti.services.IPeLayoutService;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.xtext.service.AbstractGenericModule;
+import org.eclipselabs.spray.runtime.graphiti.services.SprayGaService;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
 import com.google.inject.Binder;
+import com.google.inject.Scopes;
 
 public class GraphitiRuntimeModule extends AbstractGenericModule {
     @Override
@@ -51,7 +53,7 @@ public class GraphitiRuntimeModule extends AbstractGenericModule {
     }
 
     public void configureIGaService(Binder binder) {
-        binder.bind(IGaService.class).toInstance(Graphiti.getGaService());
+        binder.bind(IGaService.class).to(SprayGaService.class).in(Scopes.SINGLETON);
     }
 
     public void configureIGaLayoutService(Binder binder) {

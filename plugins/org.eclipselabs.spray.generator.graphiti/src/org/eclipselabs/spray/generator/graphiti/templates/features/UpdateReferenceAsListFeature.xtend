@@ -9,10 +9,12 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 
 
 class UpdateReferenceAsListFeature extends FileGenerator {
     @Inject extension NamingExtensions
+    @Inject extension MetaReferenceExtensions
     
     EClass target 
     
@@ -54,6 +56,7 @@ class UpdateReferenceAsListFeature extends FileGenerator {
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         // MARKER_IMPORT
         
@@ -61,6 +64,7 @@ class UpdateReferenceAsListFeature extends FileGenerator {
             «generate_additionalFields(reference)»
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                gaService = «reference.diagram.activatorClassName.shortName».get(IGaService.class);
             }
             
             «generate_canUpdate(reference)»

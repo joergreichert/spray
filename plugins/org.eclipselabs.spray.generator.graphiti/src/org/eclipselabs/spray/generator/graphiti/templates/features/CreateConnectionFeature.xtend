@@ -57,6 +57,7 @@ class CreateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
@@ -66,6 +67,7 @@ class CreateConnectionFeature extends FileGenerator  {
             public «className»(IFeatureProvider fp) {
                 // provide name and description for the UI, e.g. the palette
                 super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
+                gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }
         
             «generate_canCreate(metaClass)»

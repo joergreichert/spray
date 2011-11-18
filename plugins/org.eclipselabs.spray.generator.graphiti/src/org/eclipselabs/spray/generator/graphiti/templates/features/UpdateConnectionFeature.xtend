@@ -9,9 +9,11 @@ import org.eclipselabs.spray.mm.spray.Connection
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 class UpdateConnectionFeature extends FileGenerator  {
     @Inject extension NamingExtensions
+    @Inject extension DiagramExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Connection, javaGenFile.baseClassName)
@@ -54,7 +56,7 @@ class UpdateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
-        import org.eclipse.graphiti.services.Graphiti;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -64,6 +66,7 @@ class UpdateConnectionFeature extends FileGenerator  {
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                gaService = «connection.diagram.activatorClassName.shortName».get(IGaService.class);
             }
         
             «generate_canUpdate(connection)»
@@ -122,7 +125,7 @@ class UpdateConnectionFeature extends FileGenerator  {
 
             FreeFormConnection free = (FreeFormConnection) pictogramElement;
             for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                String type = Graphiti.getPeService().getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
+                String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                 String value = getValue(type, eClass);
                 if (value == null) value = "";
                 Text text = (Text) decorator.getGraphicsAlgorithm();

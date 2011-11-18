@@ -16,12 +16,12 @@ import org.eclipse.graphiti.services.IPeService;
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public abstract class AbstractUpdateFeature extends org.eclipse.graphiti.features.impl.AbstractUpdateFeature {
-    protected final IGaCreateService gaCreateService;
-    protected final IGaLayoutService gaLayoutService;
-    protected final IGaService       gaService;
-    protected final IPeCreateService peCreateService;
-    protected final IPeService       peService;
-    private boolean                  doneChanges;
+    protected IGaCreateService gaCreateService;
+    protected IGaLayoutService gaLayoutService;
+    protected IGaService       gaService;
+    protected IPeCreateService peCreateService;
+    protected IPeService       peService;
+    private boolean            doneChanges;
 
     public AbstractUpdateFeature(IFeatureProvider fp) {
         super(fp);

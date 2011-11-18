@@ -293,7 +293,7 @@ class NamingExtensions {
 	def String getImageIdentifier (Diagram diagram, String imagePath) {
 		if (imagePath==null) return null
 		// strip file extension and replace all non-word characters by underscore
-		return diagram.name.toUpperCase+"_"+imagePath.substring(0, imagePath.lastIndexOf('.')).replaceAll("\\W","_").toUpperCase
+		return diagram.name.toUpperCase+"__"+imagePath.substring(0, imagePath.lastIndexOf('.')).replaceAll("\\W","_").toUpperCase
 	}
 	def String getImageBaseName (String imagePath) {
 		if (imagePath==null) return null

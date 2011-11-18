@@ -22,17 +22,30 @@ class ImageProvider extends FileGenerator {
     
     def mainExtensionPointFile(Diagram diagram, String className) '''
         «extensionHeader(this)»
-         package «diagram_package()»;
-         
-         public class «className» extends «className»Base {
-         
-         }
+        package «diagram_package()»;
+        
+        public class «className» extends «className»Base {
+        //    /**
+        //     * The image identifier for ...
+        //     */
+        //    public static final String «diagram.name.toUpperCase»__MYIMAGEID     = PREFIX + "MYIMAGEID";
+        //
+        //    /**
+        //     * {@inheritDoc}
+        //     */
+        //    @Override
+        //    protected void addAvailableImages() {
+        //        super.addAvailableImages();
+        //        // register the path for each image identifier
+        //       addImageFilePath(«diagram.name.toUpperCase»__MYIMAGEID, "icons/...");
+        //    }
+        }
     '''
     
     def mainFile(Diagram diagram, String className) '''
         «val icons = diagram.metaClasses.filter(m | m.icon!=null).map(m | m.icon).toSet()»
         «header(this)»
-        package  «diagram_package()»;
+        package «diagram_package()»;
         
         import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
         

@@ -14,12 +14,12 @@ import org.eclipse.graphiti.services.IPeService;
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature {
-    protected final IGaCreateService gaCreateService;
-    protected final IGaLayoutService gaLayoutService;
-    protected final IGaService       gaService;
-    protected final IPeCreateService peCreateService;
-    protected final IPeService       peService;
-    private boolean                  doneChanges;
+    protected IGaCreateService gaCreateService;
+    protected IGaLayoutService gaLayoutService;
+    protected IGaService       gaService;
+    protected IPeCreateService peCreateService;
+    protected IPeService       peService;
+    private boolean            doneChanges;
 
     public AbstractCreateConnectionFeature(IFeatureProvider fp, String name, String description) {
         super(fp, name, description);
@@ -41,4 +41,5 @@ public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphi
     protected final void setDoneChanges(boolean doneChanges) {
         this.doneChanges = doneChanges;
     }
+
 }

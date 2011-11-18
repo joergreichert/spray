@@ -130,6 +130,8 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Connection;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.services.IGaService;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
@@ -160,6 +162,14 @@ public class CreateConnectionFeature extends FileGenerator {
     String _visibleName_1 = this._namingExtensions.getVisibleName(metaClass);
     _builder.append(_visibleName_1, "        ");
     _builder.append("\");");
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("gaService = ");
+    Diagram _diagram_1 = metaClass.getDiagram();
+    String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram_1);
+    String _shortName = this.shortName(_activatorClassName);
+    _builder.append(_shortName, "        ");
+    _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("}");

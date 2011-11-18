@@ -53,6 +53,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+        import org.eclipse.graphiti.services.IGaService;
         import «util_package()».ISprayContainer;
         import «util_package()».SprayContainerService;
         import «util_package()».ISprayColorConstants;
@@ -67,20 +68,12 @@ class AddReferenceAsListFeature extends FileGenerator  {
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }
 
             «generate_canAdd(reference)»
             «generate_add(reference)»
-
-            protected Shape createShape(final ContainerShape containerShape, int index) {
-                Shape newShape  = PictogramsFactory.eINSTANCE.createShape();
-                newShape.getProperties().addAll(EMPTY_PROPERTIES_LIST);
-                newShape.setVisible(true);
-                newShape.setActive(true);
-                containerShape.getChildren().add(index, newShape);
-                return newShape;
-            }
-            
+            «generate_createShape(reference)»
             «generate_additionalFields(reference)»
         }
     '''
@@ -153,6 +146,17 @@ class AddReferenceAsListFeature extends FileGenerator  {
             setDoneChanges(true);
             
             return containerShape;
+        }
+    '''
+    
+    def generate_createShape (MetaReference reference) '''
+        protected Shape createShape(final ContainerShape containerShape, int index) {
+            Shape newShape  = PictogramsFactory.eINSTANCE.createShape();
+            newShape.getProperties().addAll(EMPTY_PROPERTIES_LIST);
+            newShape.setVisible(true);
+            newShape.setActive(true);
+            containerShape.getChildren().add(index, newShape);
+            return newShape;
         }
     '''
 }

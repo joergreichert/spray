@@ -56,12 +56,10 @@ class ModelService extends FileGenerator {
             
             public «modelClassName» getModel () {
                 final Diagram diagram = dtp.getDiagram();
-                if (peService.getProperty(dtp.getDiagram(), ISprayConstants.PROPERTY_URI)==null) {
-                    return createModel();
+                «modelClassName» model = («modelClassName») dtp.getFeatureProvider().getBusinessObjectForPictogramElement(diagram);
+                if (model == null) {
+                    model = createModel();
                 }
-                    
-                URI uri = URI.createURI(peService.getProperty(diagram, ISprayConstants.PROPERTY_URI).getValue());
-                «modelClassName» model = («modelClassName») diagram.eResource().getResourceSet().getEObject(uri, true);
                 return model;
             }
             
@@ -74,6 +72,8 @@ class ModelService extends FileGenerator {
                     «modelClassName» model = «diagram.modelType.EFactoryInterfaceName.shortName».eINSTANCE.create«modelClassName»();
                     createModelResourceAndAddModel (model);
                     peService.setPropertyValue(diagram, ISprayConstants.PROPERTY_URI, EcoreUtil.getURI(model).toString());
+                    // link the diagram with the model element
+                    dtp.getFeatureProvider().link(diagram, model);
                     return model;
                 } catch (CoreException e) {
                     e.printStackTrace();

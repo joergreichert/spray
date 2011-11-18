@@ -10,12 +10,13 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 
 
 class AddReferenceAsConnectionFeature extends FileGenerator  {
     @Inject extension NamingExtensions
     @Inject extension LayoutExtensions
-    @Inject extension GenModelHelper
+    @Inject extension MetaReferenceExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
@@ -35,6 +36,44 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
+        //  /**
+        //   * {@inheritDoc}
+        //   */
+        //  @Override
+        //  protected GraphicsAlgorithm createConnectionStartDecorator (IAddConnectionContext context,
+        //          Connection connection) {
+        //      ConnectionDecorator cd = peCreateService.createConnectionDecorator(
+        //              connection, /* active */false, /* location */0.0, /* isRelative */
+        //              true);
+        //      Polyline polyline = gaService.createPolyline(cd, new int[] {
+        //              -15, 10, 0, 0, -15, -10 });
+        //
+        //      polyline.setForeground(manageColor(IColorConstant.BLACK));
+        //      polyline.setLineWidth(1);
+        //      
+        //      return polyline;
+        //      return null;
+        //  }
+        
+        //  /**
+        //   * {@inheritDoc}
+        //   */
+        //  @Override
+        //  protected GraphicsAlgorithm createConnectionEndDecorator (IAddConnectionContext context,
+        //          Connection connection) {
+        //      ConnectionDecorator cd = peCreateService.createConnectionDecorator(
+        //              connection, /* active */false, /* location */1.0, /* isRelative */
+        //              true);
+        //      Polygon polygon = gaService.createPolygon(cd, new int[] {
+        //              -12, 8, 0, 0, -12, -8, -12, 8 });
+        //
+        //      polygon.setForeground(manageColor(IColorConstant.BLACK));
+        //      polygon.setBackground(manageColor(IColorConstant.WHITE));
+        //      polygon.setFilled(Boolean.TRUE);
+        //      polygon.setLineWidth(1);
+        //      
+        //      return polygon;
+        //  }
         }
     '''
     
@@ -50,20 +89,21 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
+        import org.eclipse.graphiti.services.IGaService;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddFeature {
+        public class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(reference)»
             
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                gaService = «reference.diagram.activatorClassName.shortName».get(IGaService.class);
             }
 
             «generate_canAdd(reference)»
             «generate_add(reference)»
             «generate_removeExisting(reference)»
-            «generate_decorateConnection(reference)»
             «generate_additionalFields(reference)»
         }
     '''
@@ -151,10 +191,4 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
         }
     '''
     
-    def generate_decorateConnection (MetaReference reference) '''
-        /**
-         * Override this method to decorate the created connection
-         */
-        protected void decorateConnection (IAddConnectionContext context, Connection connection) {}
-    '''
 }

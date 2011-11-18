@@ -72,6 +72,81 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("//  /**");
+    _builder.newLine();
+    _builder.append("//   * {@inheritDoc}");
+    _builder.newLine();
+    _builder.append("//   */");
+    _builder.newLine();
+    _builder.append("//  @Override");
+    _builder.newLine();
+    _builder.append("//  protected GraphicsAlgorithm createConnectionStartDecorator (IAddConnectionContext context,");
+    _builder.newLine();
+    _builder.append("//          Connection connection) {");
+    _builder.newLine();
+    _builder.append("//      ConnectionDecorator cd = peCreateService.createConnectionDecorator(");
+    _builder.newLine();
+    _builder.append("//              connection, /* active */false, /* location */0.0, /* isRelative */");
+    _builder.newLine();
+    _builder.append("//              true);");
+    _builder.newLine();
+    _builder.append("//      Polyline polyline = gaService.createPolyline(cd, new int[] {");
+    _builder.newLine();
+    _builder.append("//              -15, 10, 0, 0, -15, -10 });");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("//      polyline.setForeground(manageColor(IColorConstant.BLACK));");
+    _builder.newLine();
+    _builder.append("//      polyline.setLineWidth(1);");
+    _builder.newLine();
+    _builder.append("//      ");
+    _builder.newLine();
+    _builder.append("//      return polyline;");
+    _builder.newLine();
+    _builder.append("//      return null;");
+    _builder.newLine();
+    _builder.append("//  }");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("//  /**");
+    _builder.newLine();
+    _builder.append("//   * {@inheritDoc}");
+    _builder.newLine();
+    _builder.append("//   */");
+    _builder.newLine();
+    _builder.append("//  @Override");
+    _builder.newLine();
+    _builder.append("//  protected GraphicsAlgorithm createConnectionEndDecorator (IAddConnectionContext context,");
+    _builder.newLine();
+    _builder.append("//          Connection connection) {");
+    _builder.newLine();
+    _builder.append("//      ConnectionDecorator cd = peCreateService.createConnectionDecorator(");
+    _builder.newLine();
+    _builder.append("//              connection, /* active */false, /* location */1.0, /* isRelative */");
+    _builder.newLine();
+    _builder.append("//              true);");
+    _builder.newLine();
+    _builder.append("//      Polygon polygon = gaService.createPolygon(cd, new int[] {");
+    _builder.newLine();
+    _builder.append("//              -12, 8, 0, 0, -12, -8, -12, 8 });");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("//      polygon.setForeground(manageColor(IColorConstant.BLACK));");
+    _builder.newLine();
+    _builder.append("//      polygon.setBackground(manageColor(IColorConstant.WHITE));");
+    _builder.newLine();
+    _builder.append("//      polygon.setFilled(Boolean.TRUE);");
+    _builder.newLine();
+    _builder.append("//      polygon.setLineWidth(1);");
+    _builder.newLine();
+    _builder.append("//      ");
+    _builder.newLine();
+    _builder.append("//      return polygon;");
+    _builder.newLine();
+    _builder.append("//  }");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -109,8 +184,6 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append(_javaInterfaceName, "");
     _builder.append(";");
     _builder.newLineIfNotEmpty();
-    _builder.append("import org.eclipse.emf.ecore.util.EcoreUtil;");
-    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IFeatureProvider;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IAddConnectionContext;");
@@ -129,9 +202,9 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.algorithms.Polyline;");
     _builder.newLine();
-    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;");
+    _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
-    _builder.append("import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_URI;");
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;");
     _builder.newLine();
     _builder.append("import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;");
     _builder.newLine();
@@ -140,7 +213,7 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("public class ");
     _builder.append(className, "");
-    _builder.append(" extends AbstractAddFeature {");
+    _builder.append(" extends AbstractAddConnectionFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     StringConcatenation _generate_additionalFields = this.generate_additionalFields(metaClass);
@@ -155,6 +228,14 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("super(fp);");
     _builder.newLine();
+    _builder.append("        ");
+    _builder.append("gaService = ");
+    Diagram _diagram_1 = metaClass.getDiagram();
+    String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram_1);
+    String _shortName = this.shortName(_activatorClassName);
+    _builder.append(_shortName, "        ");
+    _builder.append(".get(IGaService.class);");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
@@ -239,83 +320,55 @@ public class AddConnectionFeature extends FileGenerator {
   
   public StringConcatenation generate_add(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("   ");
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
     _builder.newLineIfNotEmpty();
-    _builder.append("   ");
     StringConcatenation _overrideHeader = this.overrideHeader();
-    _builder.append(_overrideHeader, "   ");
+    _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
-    _builder.append("   ");
     _builder.append("public PictogramElement add(IAddContext context) {");
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("IAddConnectionContext addConContext = (IAddConnectionContext) context;");
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("// TODO: Domain object");
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     String _name = this._namingExtensions.getName(metaClass);
-    _builder.append(_name, "       ");
+    _builder.append(_name, "    ");
     _builder.append(" addedDomainObject = (");
     String _name_1 = this._namingExtensions.getName(metaClass);
-    _builder.append(_name_1, "       ");
+    _builder.append(_name_1, "    ");
     _builder.append(") context.getNewObject();");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("Connection connection = createConnectionLine (addConContext);");
     _builder.newLine();
-    {
-      Text _label = connection.getToLabel();
-      boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_label, null);
-      if (_operator_notEquals) {
-        _builder.append("       ");
-        _builder.append("createConnectionToLabel (addConContext, connection);");
-        _builder.newLine();
-      }
-    }
-    {
-      Text _connectionLabel = connection.getConnectionLabel();
-      boolean _operator_notEquals_1 = ObjectExtensions.operator_notEquals(_connectionLabel, null);
-      if (_operator_notEquals_1) {
-        _builder.append("       ");
-        _builder.append("createConnectionLabel (addConContext, connection);");
-        _builder.newLine();
-      }
-    }
-    {
-      Text _fromLabel = connection.getFromLabel();
-      boolean _operator_notEquals_2 = ObjectExtensions.operator_notEquals(_fromLabel, null);
-      if (_operator_notEquals_2) {
-        _builder.append("       ");
-        _builder.append("createConnectionToLabel (addConContext, connection);");
-        _builder.newLine();
-      }
-    }
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("// create link and wire it");
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, \"");
     String _name_2 = this._namingExtensions.getName(metaClass);
-    _builder.append(_name_2, "       ");
+    _builder.append(_name_2, "    ");
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
-    _builder.append("       ");
+    _builder.append("    ");
+    _builder.append("decorateConnection (addConContext, connection);");
+    _builder.newLine();
+    _builder.append("    ");
     _builder.append("link(connection, addedDomainObject);");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("setDoneChanges(true);");
     _builder.newLine();
-    _builder.append("       ");
+    _builder.append("    ");
     _builder.append("return connection;");
     _builder.newLine();
-    _builder.append("   ");
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -323,6 +376,10 @@ public class AddConnectionFeature extends FileGenerator {
   
   public StringConcatenation generate_connectionLine(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("   ");
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "   ");
+    _builder.newLineIfNotEmpty();
     _builder.append("   ");
     _builder.append("protected Connection createConnectionLine (IAddConnectionContext context) {");
     _builder.newLine();
@@ -374,7 +431,10 @@ public class AddConnectionFeature extends FileGenerator {
       Text _fromLabel = connection.getFromLabel();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_fromLabel, null);
       if (_operator_notEquals) {
-        _builder.append("protected void createConnectionFromLabel (IAddConnectionContext context, Connection connection) {");
+        StringConcatenation _overrideHeader = this.overrideHeader();
+        _builder.append(_overrideHeader, "");
+        _builder.newLineIfNotEmpty();
+        _builder.append("protected GraphicsAlgorithm createConnectionFromLabel (IAddConnectionContext context, Connection connection) {");
         _builder.newLine();
         _builder.append("    ");
         String _name = this._namingExtensions.getName(metaClass);
@@ -391,12 +451,6 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);");
         _builder.newLine();
         _builder.append("    ");
-        _builder.append("fromText.setForeground(manageColor(");
-        String _shortName = this.shortName(org.eclipse.graphiti.util.IColorConstant.class);
-        _builder.append(_shortName, "    ");
-        _builder.append(".BLACK));");
-        _builder.newLineIfNotEmpty();
-        _builder.append("    ");
         _builder.append("gaLayoutService.setLocation(fromText, 10, 20);");
         _builder.newLine();
         _builder.append("    ");
@@ -407,6 +461,9 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.newLine();
         _builder.append("    ");
         _builder.append("link(fromDecorator, addedDomainObject);");
+        _builder.newLine();
+        _builder.append("    ");
+        _builder.append("return fromText;");
         _builder.newLine();
         _builder.append("}");
         _builder.newLine();
@@ -436,7 +493,10 @@ public class AddConnectionFeature extends FileGenerator {
       Text _label = connection.getToLabel();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_label, null);
       if (_operator_notEquals) {
-        _builder.append("protected void createConnectionToLabel (IAddConnectionContext context, Connection connection) {");
+        StringConcatenation _overrideHeader = this.overrideHeader();
+        _builder.append(_overrideHeader, "");
+        _builder.newLineIfNotEmpty();
+        _builder.append("protected GraphicsAlgorithm createConnectionToLabel (IAddConnectionContext context, Connection connection) {");
         _builder.newLine();
         _builder.append("    ");
         String _name = this._namingExtensions.getName(metaClass);
@@ -452,12 +512,6 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("    ");
         _builder.append("Text text = gaService.createDefaultText(getDiagram(), toDecorator);");
         _builder.newLine();
-        _builder.append("    ");
-        _builder.append("text.setForeground(manageColor(");
-        String _shortName = this.shortName(org.eclipse.graphiti.util.IColorConstant.class);
-        _builder.append(_shortName, "    ");
-        _builder.append(".BLACK));");
-        _builder.newLineIfNotEmpty();
         _builder.append("    ");
         _builder.newLine();
         _builder.append("    ");
@@ -477,6 +531,9 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.newLine();
         _builder.append("    ");
         _builder.append("link(toDecorator, addedDomainObject);");
+        _builder.newLine();
+        _builder.append("    ");
+        _builder.append("return text;");
         _builder.newLine();
         _builder.append("}");
         _builder.newLine();
@@ -507,7 +564,10 @@ public class AddConnectionFeature extends FileGenerator {
       Text _connectionLabel = connection.getConnectionLabel();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_connectionLabel, null);
       if (_operator_notEquals) {
-        _builder.append("protected void createConnectionLabel (IAddConnectionContext context, Connection connection) {");
+        StringConcatenation _overrideHeader = this.overrideHeader();
+        _builder.append(_overrideHeader, "");
+        _builder.newLineIfNotEmpty();
+        _builder.append("protected GraphicsAlgorithm createConnectionLabel (IAddConnectionContext context, Connection connection) {");
         _builder.newLine();
         _builder.append("    ");
         String _name = this._namingExtensions.getName(metaClass);
@@ -524,12 +584,6 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);");
         _builder.newLine();
         _builder.append("    ");
-        _builder.append("sourceText.setForeground(manageColor(");
-        String _shortName = this.shortName(org.eclipse.graphiti.util.IColorConstant.class);
-        _builder.append(_shortName, "    ");
-        _builder.append(".BLACK));");
-        _builder.newLineIfNotEmpty();
-        _builder.append("    ");
         _builder.append("gaLayoutService.setLocation(sourceText, 10, 0);");
         _builder.newLine();
         _builder.append("    ");
@@ -540,6 +594,9 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.newLine();
         _builder.append("    ");
         _builder.append("link(connectionDecorator, addedDomainObject);");
+        _builder.newLine();
+        _builder.append("    ");
+        _builder.append("return sourceText;");
         _builder.newLine();
         _builder.append("}");
         _builder.newLine();

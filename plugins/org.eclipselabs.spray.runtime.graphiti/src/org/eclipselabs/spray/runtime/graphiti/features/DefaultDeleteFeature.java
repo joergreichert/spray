@@ -12,7 +12,7 @@ import org.eclipse.graphiti.services.IPeService;
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public class DefaultDeleteFeature extends org.eclipse.graphiti.ui.features.DefaultDeleteFeature {
-    protected final IPeService peService;
+    protected IPeService peService;
 
     public DefaultDeleteFeature(IFeatureProvider fp) {
         super(fp);

@@ -343,7 +343,7 @@ public class NamingExtensionsTest {
 
     @Test
     public void test_getImageIdentifier() {
-        assertEquals("EDIAG_ECORE_ECLASS", fixture.getImageIdentifier(diagram, clsEClass.getIcon()));
+        assertEquals("EDIAG__ECORE_ECLASS", fixture.getImageIdentifier(diagram, clsEClass.getIcon()));
     }
 
 }

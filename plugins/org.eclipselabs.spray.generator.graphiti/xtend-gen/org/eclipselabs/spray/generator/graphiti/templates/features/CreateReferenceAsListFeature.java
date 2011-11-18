@@ -9,7 +9,9 @@ import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions;
 import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 
@@ -17,6 +19,9 @@ import org.eclipselabs.spray.mm.spray.MetaReference;
 public class CreateReferenceAsListFeature extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
+  
+  @Inject
+  private MetaReferenceExtensions _metaReferenceExtensions;
   
   private EClass target;
   
@@ -70,6 +75,29 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("//    /**");
+    _builder.newLine();
+    _builder.append("//     * {@inheritDoc}");
+    _builder.newLine();
+    _builder.append("//     */");
+    _builder.newLine();
+    _builder.append("//    @Override");
+    _builder.newLine();
+    _builder.append("//    public String getCreateImageId() {");
+    _builder.newLine();
+    _builder.append("//        return ");
+    Diagram _diagram = this._metaReferenceExtensions.getDiagram(metaReference);
+    String _imageProviderSimpleClassName = this._namingExtensions.getImageProviderSimpleClassName(_diagram);
+    _builder.append(_imageProviderSimpleClassName, "");
+    _builder.append(".");
+    Diagram _diagram_1 = this._metaReferenceExtensions.getDiagram(metaReference);
+    String _name = _diagram_1.getName();
+    String _upperCase = _name.toUpperCase();
+    _builder.append(_upperCase, "");
+    _builder.append("__MYIMAGEID;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("//    }");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -92,6 +120,8 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.append("import org.eclipse.graphiti.features.context.ICreateContext;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Shape;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;");
     _builder.newLine();
@@ -129,27 +159,9 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("public ");
-    _builder.append(className, "    ");
-    _builder.append("(IFeatureProvider fp) {");
+    StringConcatenation _generate_constructor = this.generate_constructor(reference, className);
+    _builder.append(_generate_constructor, "    ");
     _builder.newLineIfNotEmpty();
-    _builder.append("        ");
-    _builder.append("// set name and description of the creation feature");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("super(fp, \"");
-    String _name_2 = this.target.getName();
-    _builder.append(_name_2, "        ");
-    _builder.append("\", \"Create ");
-    String _name_3 = this.target.getName();
-    _builder.append(_name_3, "        ");
-    _builder.append("\");");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.newLine();
     _builder.append("    ");
     StringConcatenation _generate_canCreate = this.generate_canCreate(reference);
     _builder.append(_generate_canCreate, "    ");
@@ -162,6 +174,41 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public StringConcatenation generate_constructor(final MetaReference reference, final String className) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("public ");
+    _builder.append(className, "");
+    _builder.append("(IFeatureProvider fp) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("// set name and description of the creation feature");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("this(fp, \"");
+    String _name = this.target.getName();
+    _builder.append(_name, "    ");
+    _builder.append("\", \"Create ");
+    String _name_1 = this.target.getName();
+    _builder.append(_name_1, "    ");
+    _builder.append("\");");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("protected ");
+    _builder.append(className, "");
+    _builder.append("(IFeatureProvider fp, String name, String description) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("// provide name and description for the UI, e.g. the palette");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("super(fp, name, description);");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;

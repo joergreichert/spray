@@ -11,11 +11,12 @@ import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions;
 import org.eclipselabs.spray.mm.spray.Connection;
+import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Layout;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 @SuppressWarnings("all")
 public class AddReferenceAsConnectionFeature extends FileGenerator {
@@ -26,7 +27,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
   private LayoutExtensions _layoutExtensions;
   
   @Inject
-  private GenModelHelper _genModelHelper;
+  private MetaReferenceExtensions _metaReferenceExtensions;
   
   public StringConcatenation generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
@@ -73,6 +74,81 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("//  /**");
+    _builder.newLine();
+    _builder.append("//   * {@inheritDoc}");
+    _builder.newLine();
+    _builder.append("//   */");
+    _builder.newLine();
+    _builder.append("//  @Override");
+    _builder.newLine();
+    _builder.append("//  protected GraphicsAlgorithm createConnectionStartDecorator (IAddConnectionContext context,");
+    _builder.newLine();
+    _builder.append("//          Connection connection) {");
+    _builder.newLine();
+    _builder.append("//      ConnectionDecorator cd = peCreateService.createConnectionDecorator(");
+    _builder.newLine();
+    _builder.append("//              connection, /* active */false, /* location */0.0, /* isRelative */");
+    _builder.newLine();
+    _builder.append("//              true);");
+    _builder.newLine();
+    _builder.append("//      Polyline polyline = gaService.createPolyline(cd, new int[] {");
+    _builder.newLine();
+    _builder.append("//              -15, 10, 0, 0, -15, -10 });");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("//      polyline.setForeground(manageColor(IColorConstant.BLACK));");
+    _builder.newLine();
+    _builder.append("//      polyline.setLineWidth(1);");
+    _builder.newLine();
+    _builder.append("//      ");
+    _builder.newLine();
+    _builder.append("//      return polyline;");
+    _builder.newLine();
+    _builder.append("//      return null;");
+    _builder.newLine();
+    _builder.append("//  }");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("//  /**");
+    _builder.newLine();
+    _builder.append("//   * {@inheritDoc}");
+    _builder.newLine();
+    _builder.append("//   */");
+    _builder.newLine();
+    _builder.append("//  @Override");
+    _builder.newLine();
+    _builder.append("//  protected GraphicsAlgorithm createConnectionEndDecorator (IAddConnectionContext context,");
+    _builder.newLine();
+    _builder.append("//          Connection connection) {");
+    _builder.newLine();
+    _builder.append("//      ConnectionDecorator cd = peCreateService.createConnectionDecorator(");
+    _builder.newLine();
+    _builder.append("//              connection, /* active */false, /* location */1.0, /* isRelative */");
+    _builder.newLine();
+    _builder.append("//              true);");
+    _builder.newLine();
+    _builder.append("//      Polygon polygon = gaService.createPolygon(cd, new int[] {");
+    _builder.newLine();
+    _builder.append("//              -12, 8, 0, 0, -12, -8, -12, 8 });");
+    _builder.newLine();
+    _builder.append("//");
+    _builder.newLine();
+    _builder.append("//      polygon.setForeground(manageColor(IColorConstant.BLACK));");
+    _builder.newLine();
+    _builder.append("//      polygon.setBackground(manageColor(IColorConstant.WHITE));");
+    _builder.newLine();
+    _builder.append("//      polygon.setFilled(Boolean.TRUE);");
+    _builder.newLine();
+    _builder.append("//      polygon.setLineWidth(1);");
+    _builder.newLine();
+    _builder.append("//      ");
+    _builder.newLine();
+    _builder.append("//      return polygon;");
+    _builder.newLine();
+    _builder.append("//  }");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -107,14 +183,16 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.algorithms.Polyline;");
     _builder.newLine();
-    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;");
+    _builder.append("import org.eclipse.graphiti.services.IGaService;");
+    _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
     _builder.newLine();
     _builder.newLine();
     _builder.append("public class ");
     _builder.append(className, "");
-    _builder.append(" extends AbstractAddFeature {");
+    _builder.append(" extends AbstractAddConnectionFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
@@ -130,6 +208,14 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("super(fp);");
     _builder.newLine();
+    _builder.append("        ");
+    _builder.append("gaService = ");
+    Diagram _diagram = this._metaReferenceExtensions.getDiagram(reference);
+    String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
+    String _shortName = this.shortName(_activatorClassName);
+    _builder.append(_shortName, "        ");
+    _builder.append(".get(IGaService.class);");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("}");
     _builder.newLine();
@@ -145,10 +231,6 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     StringConcatenation _generate_removeExisting = this.generate_removeExisting(reference);
     _builder.append(_generate_removeExisting, "    ");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    StringConcatenation _generate_decorateConnection = this.generate_decorateConnection(reference);
-    _builder.append(_generate_decorateConnection, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
@@ -178,7 +260,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("        ");
     MetaClass _metaClass = reference.getMetaClass();
     EClass _type = _metaClass.getType();
-    String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(_type);
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_type);
     String _shortName = this.shortName(_javaInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(" addedDomainObject = (");
@@ -427,21 +509,6 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  public StringConcatenation generate_decorateConnection(final MetaReference reference) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("/**");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("* Override this method to decorate the created connection");
-    _builder.newLine();
-    _builder.append(" ");
-    _builder.append("*/");
-    _builder.newLine();
-    _builder.append("protected void decorateConnection (IAddConnectionContext context, Connection connection) {}");
     _builder.newLine();
     return _builder;
   }

@@ -10,6 +10,7 @@ import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 /*
  * Template for generating Graphiti Update feature for a Container representing a MetaClass
@@ -17,6 +18,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 class UpdateShapeFeature extends FileGenerator  {
     @Inject extension NamingExtensions
     @Inject extension IQualifiedNameProvider
+    @Inject extension DiagramExtensions
 
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
@@ -57,6 +59,7 @@ class UpdateShapeFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «util_package()».SprayContainerService;
         import «container.represents.javaInterfaceName»;
@@ -66,6 +69,7 @@ class UpdateShapeFeature extends FileGenerator  {
             «generate_additionalFields(container)»
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                gaService = «container.diagram.activatorClassName.shortName».get(IGaService.class);
             }
          
             «generate_canUpdate(container)»

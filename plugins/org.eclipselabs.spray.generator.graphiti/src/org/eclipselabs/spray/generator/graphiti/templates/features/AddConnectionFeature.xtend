@@ -36,6 +36,44 @@ class AddConnectionFeature extends FileGenerator {
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
+        //  /**
+        //   * {@inheritDoc}
+        //   */
+        //  @Override
+        //  protected GraphicsAlgorithm createConnectionStartDecorator (IAddConnectionContext context,
+        //          Connection connection) {
+        //      ConnectionDecorator cd = peCreateService.createConnectionDecorator(
+        //              connection, /* active */false, /* location */0.0, /* isRelative */
+        //              true);
+        //      Polyline polyline = gaService.createPolyline(cd, new int[] {
+        //              -15, 10, 0, 0, -15, -10 });
+        //
+        //      polyline.setForeground(manageColor(IColorConstant.BLACK));
+        //      polyline.setLineWidth(1);
+        //      
+        //      return polyline;
+        //      return null;
+        //  }
+        
+        //  /**
+        //   * {@inheritDoc}
+        //   */
+        //  @Override
+        //  protected GraphicsAlgorithm createConnectionEndDecorator (IAddConnectionContext context,
+        //          Connection connection) {
+        //      ConnectionDecorator cd = peCreateService.createConnectionDecorator(
+        //              connection, /* active */false, /* location */1.0, /* isRelative */
+        //              true);
+        //      Polygon polygon = gaService.createPolygon(cd, new int[] {
+        //              -12, 8, 0, 0, -12, -8, -12, 8 });
+        //
+        //      polygon.setForeground(manageColor(IColorConstant.BLACK));
+        //      polygon.setBackground(manageColor(IColorConstant.WHITE));
+        //      polygon.setFilled(Boolean.TRUE);
+        //      polygon.setLineWidth(1);
+        //      
+        //      return polygon;
+        //  }
         }
     '''
     
@@ -48,7 +86,6 @@ class AddConnectionFeature extends FileGenerator {
         package «feature_package()»;
         
         import «metaClass.javaInterfaceName»;
-        import org.eclipse.emf.ecore.util.EcoreUtil;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
         import org.eclipse.graphiti.features.context.IAddContext;
@@ -58,16 +95,17 @@ class AddConnectionFeature extends FileGenerator {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_URI;
+        import org.eclipse.graphiti.services.IGaService;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddFeature {
+        public class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }
 
             «generate_canAdd(metaClass)»
@@ -106,18 +144,10 @@ class AddConnectionFeature extends FileGenerator {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
 
             Connection connection = createConnectionLine (addConContext);
-            «IF connection.toLabel != null»
-                createConnectionToLabel (addConContext, connection);
-            «ENDIF»
-            «IF connection.connectionLabel != null»
-                createConnectionLabel (addConContext, connection);
-            «ENDIF»
-            «IF connection.fromLabel != null»
-                createConnectionToLabel (addConContext, connection);
-            «ENDIF»
-     
+
             // create link and wire it
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«metaClass.name»");
+            decorateConnection (addConContext, connection);
             link(connection, addedDomainObject);
 
             setDoneChanges(true);
@@ -126,6 +156,7 @@ class AddConnectionFeature extends FileGenerator {
     '''
     
     def generate_connectionLine (MetaClass metaClass) '''
+        «overrideHeader»
         protected Connection createConnectionLine (IAddConnectionContext context) {
             // CONNECTION WITH POLYLINE
             Connection connection = peCreateService.createFreeFormConnection(getDiagram());
@@ -142,15 +173,16 @@ class AddConnectionFeature extends FileGenerator {
     def generate_connectionFromLabel (MetaClass metaClass) '''
         «val connection = metaClass.representedBy as Connection»
         «IF connection.fromLabel != null»
-        protected void createConnectionFromLabel (IAddConnectionContext context, Connection connection) {
+        «overrideHeader»
+        protected GraphicsAlgorithm createConnectionFromLabel (IAddConnectionContext context, Connection connection) {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
             ConnectionDecorator fromDecorator = peCreateService.createConnectionDecorator(connection, true, 0.0, true);
             Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);
-            fromText.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
             gaLayoutService.setLocation(fromText, 10, 20);
             fromText.setValue(getFromLabel(addedDomainObject));
             peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, "FROM_LABEL");
             link(fromDecorator, addedDomainObject);
+            return fromText;
         }
         protected String getFromLabel («metaClass.name» addedDomainObject) {
             «valueGenerator(connection.fromLabel, "addedDomainObject")»
@@ -161,11 +193,11 @@ class AddConnectionFeature extends FileGenerator {
     def generate_connectionToLabel (MetaClass metaClass) '''
         «val connection = metaClass.representedBy as Connection»
         «IF connection.toLabel != null»
-        protected void createConnectionToLabel (IAddConnectionContext context, Connection connection) {
+        «overrideHeader»
+        protected GraphicsAlgorithm createConnectionToLabel (IAddConnectionContext context, Connection connection) {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
             ConnectionDecorator toDecorator = peCreateService.createConnectionDecorator(connection, true, 1.0, true);
             Text text = gaService.createDefaultText(getDiagram(), toDecorator);
-            text.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
             
             GraphicsAlgorithm ga = context.getTargetAnchor().getParent().getGraphicsAlgorithm();
             int targetHeight = ga.getHeight();
@@ -173,6 +205,7 @@ class AddConnectionFeature extends FileGenerator {
             text.setValue(getToLabel(addedDomainObject));
             peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, "TO_LABEL");
             link(toDecorator, addedDomainObject);
+            return text;
         }
 
         protected String getToLabel («metaClass.name» addedDomainObject) {
@@ -184,15 +217,16 @@ class AddConnectionFeature extends FileGenerator {
     def generate_connectionLabel (MetaClass metaClass) '''
         «val connection = metaClass.representedBy as Connection»
         «IF connection.connectionLabel != null»
-        protected void createConnectionLabel (IAddConnectionContext context, Connection connection) {
+        «overrideHeader»
+        protected GraphicsAlgorithm createConnectionLabel (IAddConnectionContext context, Connection connection) {
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
             ConnectionDecorator connectionDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
             Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);
-            sourceText.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
             gaLayoutService.setLocation(sourceText, 10, 0);
             sourceText.setValue(getConnectionLabel(addedDomainObject));
             peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, "CONNECTION_LABEL");
             link(connectionDecorator, addedDomainObject);
+            return sourceText;
         }
 
         protected String getConnectionLabel («metaClass.name» addedDomainObject) {
