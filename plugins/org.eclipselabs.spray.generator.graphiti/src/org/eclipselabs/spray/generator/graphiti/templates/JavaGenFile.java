@@ -1,5 +1,8 @@
 package org.eclipselabs.spray.generator.graphiti.templates;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
@@ -94,7 +97,12 @@ public class JavaGenFile extends GenFile {
         if (javaFsa != null) {
             return GeneratorUtil.fileExist(manOutputPath + "/" + getPathName());
         } else {
-            return EclipseHelpers.getIFile(new Path(manOutputPath + "/" + getPathName())).exists();
+            IPath path = new Path(manOutputPath + "/" + getPathName());
+            if (fsaEclipse instanceof IAdaptable) {
+                IProject project = (IProject) ((IAdaptable) fsaEclipse).getAdapter(IProject.class);
+                path = project.getFullPath().append(path);
+            }
+            return EclipseHelpers.getIFile(path).exists();
         }
     }
 
