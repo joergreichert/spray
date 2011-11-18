@@ -662,7 +662,7 @@ public class NamingExtensions {
       }
       String _name = diagram.getName();
       String _upperCase = _name.toUpperCase();
-      String _operator_plus = StringExtensions.operator_plus(_upperCase, "_");
+      String _operator_plus = StringExtensions.operator_plus(_upperCase, "__");
       int _lastIndexOf = imagePath.lastIndexOf(".");
       String _substring = imagePath.substring(0, _lastIndexOf);
       String _replaceAll = _substring.replaceAll("\\W", "_");
