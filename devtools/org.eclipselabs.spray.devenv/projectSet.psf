@@ -64,4 +64,10 @@
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.repository" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.targetplatform" type="4"/>
 </workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219591752_7" label="Spray Runtime" name="Spray Runtime">
+<item elementID="=org.eclipselabs.spray.generator.graphiti" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=org.eclipselabs.spray.generator.graphiti.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=org.eclipselabs.spray.runtime.graphiti" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=org.eclipselabs.spray.generator.graphiti.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
 </psf>

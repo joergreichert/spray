@@ -12,11 +12,17 @@ h2. Developer IDE
 
 h3. IDE
 
-Download latest Eclipse Indigo Classic appropriate for your platform:
-
-bc. http://www.eclipse.org/downloads/packages/eclipse-classic-371/indigosr1
+Download latest Eclipse Indigo Classic appropriate for your platform: "http://www.eclipse.org/downloads/packages/eclipse-classic-371/indigosr1":http://www.eclipse.org/downloads/packages/eclipse-classic-371/indigosr1
 
 h3. Update Sites
+
+h4. Variant 1: Use update site directly
+
+Use archived update site containing the features for the development IDE: _Help -> Install New Software_ -> _Add_
+* Name: Spray Development Environment
+* Location: https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.updatesite/target/org.eclipselabs.spray.dev.updatesite-0.4.0-SNAPSHOT-updatesite.zip
+
+h4. Variant 2: Import update sites locally
 
 The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 3.7 distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. Then choose the file
 
@@ -28,7 +34,7 @@ bc. https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifa
 
 h3. Features to Install
 
-Choose now _Help -> Install New Software_. Choose the following feature: Spray Development Environment, this will install
+Choose now _Help -> Install New Software_. Choose the following update site in "Work with": Spray Development Environment, this will install
 
 * MWE SDK 1.2.0
 * MWE 2 language SDK 2.1.0

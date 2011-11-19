@@ -11,5 +11,7 @@
 	</parent>
 
 	<artifactId>org.eclipselabs.spray.dev.feature</artifactId>
-	<packaging>eclipse-feature</packaging>
+	<!-- only pom as feature contains unresolvable dependencies (at least in the build) --> 
+	<!--packaging>eclipse-feature</packaging-->
+	<packaging>pom</packaging>
 </project>

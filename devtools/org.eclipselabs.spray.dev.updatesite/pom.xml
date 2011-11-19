@@ -11,5 +11,26 @@
 	</parent>
 
 	<artifactId>org.eclipselabs.spray.dev.updatesite</artifactId>
-	<packaging>eclipse-updatesite</packaging>
+	<packaging>pom</packaging>
+	<build>
+		<plugins>
+           <plugin>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <version>2.2.1</version>
+              <configuration>
+                 <descriptors>
+                    <descriptor>assembly.xml</descriptor>
+                 </descriptors>
+              </configuration>
+              <executions>
+                 <execution>
+                    <phase>package</phase>
+                    <goals>
+                       <goal>single</goal>
+                    </goals>
+                 </execution>
+              </executions>
+           </plugin>		
+		</plugins>
+	</build>
 </project>
