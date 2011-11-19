@@ -16,6 +16,8 @@
 	<modules>
 		<module>../../releng/org.eclipselabs.spray.targetplatform</module>
 		<module>../../releng/org.eclipselabs.spray.parent</module>
+		<module>../../devtools/org.eclipselabs.spray.dev.feature</module>
+		<module>../../devtools/org.eclipselabs.spray.dev.updatesite</module>
 		<module>../../docs/org.eclipselabs.spray.doc.common</module>
 		<module>../../docs/org.eclipselabs.spray.doc.dev</module>
 		<module>../../docs/org.eclipselabs.spray.doc.user</module>

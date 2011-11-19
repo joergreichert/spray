@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site
+      associateSitesURL="http://download.eclipse.org/releases/indigo, http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository, http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site, http://download.eclipse.org/eclipse/updates/3.7, http://update.eclemma.org/, http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/, http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x, http://download.itemis.com/updates/releases/2.0.0/, http://knittig.de/googlecode-mylyn-connector/update/">
+   <category-def name="Spray_Development_Environment" label="Spray Development Environment">
+      <description>
+         Features for the development of Spray:
+    * MWE SDK 1.2.0
+    * MWE 2 language SDK 2.1.0
+    * MWE 2 runtime SDK 2.1.0
+    * EMF – Eclipse Modeling Framework SDK 2.7.0
+    * Graphiti SDK 0.8.1
+    * Xtext Antlr 2.0.0
+    * SWT Bot
+    * xtext-utils unittesting
+    * Xtext SDK 2.1.1
+    * EclEmma Java Code Coverage
+    * Mylyn
+    * EGit
+      </description>
+   </category-def>
+</site>
