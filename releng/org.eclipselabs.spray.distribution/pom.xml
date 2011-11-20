@@ -29,6 +29,7 @@
 		<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 		<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 		<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+		<module>../../tests/org.eclipselabs.spray.testhelper</module>
 		<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 		<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 		<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>
