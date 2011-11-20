@@ -2,8 +2,11 @@ package org.eclipselabs.spray.xtext.ui.wizard.codegen
 
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo
 import org.eclipse.xtext.generator.IFileSystemAccess
+import com.google.inject.Inject
 
 class SprayModelGenerator {
+	@Inject extension PackageHelper
+	
     def doGenerate (SprayProjectInfo info, IFileSystemAccess fsa) {
         val project = info.projectName
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".spray", info.projectName, generateModel(info))
@@ -21,7 +24,8 @@ class SprayModelGenerator {
          * See also «info.getDiagramTypeName».properties to configure generator properties.
          *************************************************************************************/
         // Add import statements here, e.g.
-        import «info.modelTypeName.substring(0, info.modelTypeName.lastIndexOf('.'))».*
+        // import «info.modelTypeName.substring(0, info.modelTypeName.lastIndexOf('.'))».*
+        import «getPackage(info.epackageURI, info.modelTypeName)».*
         
         diagram «info.getDiagramTypeName» for «info.modelTypeName.substring(info.modelTypeName.lastIndexOf('.')+1)»
         

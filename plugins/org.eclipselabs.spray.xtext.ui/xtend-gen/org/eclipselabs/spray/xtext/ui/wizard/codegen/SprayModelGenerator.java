@@ -1,13 +1,18 @@
 package org.eclipselabs.spray.xtext.ui.wizard.codegen;
 
+import com.google.inject.Inject;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo;
+import org.eclipselabs.spray.xtext.ui.wizard.codegen.PackageHelper;
 
 @SuppressWarnings("all")
 public class SprayModelGenerator {
+  @Inject
+  private PackageHelper _packageHelper;
+  
   public void doGenerate(final SprayProjectInfo info, final IFileSystemAccess fsa) {
       String _projectName = info.getProjectName();
       final String project = _projectName;
@@ -62,7 +67,7 @@ public class SprayModelGenerator {
     _builder.newLine();
     _builder.append("// Add import statements here, e.g.");
     _builder.newLine();
-    _builder.append("import ");
+    _builder.append("// import ");
     String _modelTypeName = info.getModelTypeName();
     String _modelTypeName_1 = info.getModelTypeName();
     int _lastIndexOf = _modelTypeName_1.lastIndexOf(".");
@@ -70,16 +75,23 @@ public class SprayModelGenerator {
     _builder.append(_substring, "");
     _builder.append(".*");
     _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    String _epackageURI = info.getEpackageURI();
+    String _modelTypeName_2 = info.getModelTypeName();
+    String _package = this._packageHelper.getPackage(_epackageURI, _modelTypeName_2);
+    _builder.append(_package, "");
+    _builder.append(".*");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("diagram ");
     String _diagramTypeName_1 = info.getDiagramTypeName();
     _builder.append(_diagramTypeName_1, "");
     _builder.append(" for ");
-    String _modelTypeName_2 = info.getModelTypeName();
     String _modelTypeName_3 = info.getModelTypeName();
-    int _lastIndexOf_1 = _modelTypeName_3.lastIndexOf(".");
+    String _modelTypeName_4 = info.getModelTypeName();
+    int _lastIndexOf_1 = _modelTypeName_4.lastIndexOf(".");
     int _operator_plus = IntegerExtensions.operator_plus(((Integer)_lastIndexOf_1), ((Integer)1));
-    String _substring_1 = _modelTypeName_2.substring(_operator_plus);
+    String _substring_1 = _modelTypeName_3.substring(_operator_plus);
     _builder.append(_substring_1, "");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
