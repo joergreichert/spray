@@ -27,13 +27,13 @@
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/one/org.mod4j.dsl.businessdomain.mm"/>
 </provider>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321714057986_24" label="Spray Dev" name="Spray Dev">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.feature" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.updatesite" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.devenv" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.feature" type="4"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321710453624_22" label="Spray Docs" name="Spray Docs">
-<item elementID="=org.eclipselabs.spray.doc.common" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.doc.dev" type="4"/>
+<item elementID="=org.eclipselabs.spray.doc.common" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.doc.user" type="4"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219471821_5" label="Spray Example One" name="Spray Example One">
@@ -43,8 +43,8 @@
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219759934_10" label="Spray Features" name="Spray Features">
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature.sdk" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature.source" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature" type="4"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315921343894_9" label="Spray FowlerDSL Example" name="Spray FowlerDSL Example">
 <item elementID="=FowlerDslTest" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
@@ -59,15 +59,15 @@
 <item elementID="=org.eclipselabs.spray.xtext.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321710445531_21" label="Spray Releng" name="Spray Releng">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.distribution" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.parent" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.repository" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.targetplatform" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.repository" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.distribution" type="4"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219591752_7" label="Spray Runtime" name="Spray Runtime">
 <item elementID="=org.eclipselabs.spray.generator.graphiti" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=org.eclipselabs.spray.generator.graphiti.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=org.eclipselabs.spray.generator.graphiti.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=org.eclipselabs.spray.runtime.graphiti" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=org.eclipselabs.spray.generator.graphiti.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 </psf>
