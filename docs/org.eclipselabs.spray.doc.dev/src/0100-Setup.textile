@@ -16,21 +16,15 @@ Download latest Eclipse Indigo Classic appropriate for your platform: "http://ww
 
 h3. Update Sites
 
-h4. Variant 1: Use update site directly
-
-Use archived update site containing the features for the development IDE: _Help -> Install New Software_ -> _Add_
-* Name: Spray Development Environment
-* Location: https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.updatesite/target/org.eclipselabs.spray.dev.updatesite-0.4.0-SNAPSHOT-updatesite.zip
-
-h4. Variant 2: Import update sites locally
-
-The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 3.7 distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. Then choose the file
+The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 3.7 distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. When you already cloned the Spray repository, then choose the file
 
 bc. <path to your locally cloned Spray Git repository>/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
 
-or 
+otherwise import the file from the CI server: 
 
 bc. https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
+
+This xml file will add all required update sites to visit later when installing the plug-ins for the development environment. 
 
 h3. Features to Install
 
@@ -57,21 +51,24 @@ For example, if you need to upgrade Xtext, uninstall *all* Xtext features, and t
 
 h3. Add Spray Git repository to Eclipse 
 
-* File > Git/Projects from Git
-** if you had already cloned Spray
-*** Add
-*** <Path to your locally cloned Git repository>, Next
-*** Search, OK
-** else
-*** Clone
-*** Paste https://code.google.com/a/eclipselabs.org/p/spray/ in the URI field and add your Google Account user name and your GoogleCode.com password (if your are logged in at the Spray Google Code site, click the Profiles link in the upper right corner and then go to the Settings tab) , Next
-*** select all branches, Next
-*** select your local path to store the Git repository clone, Finish
-
-h3. Apply Working sets
-
+You can use our predefined team project set file to get the Spray projects into your workspace:
 * File > Import... > Team/Team Project Set, Next
 * File: <path to your locally cloned Spray Git repository>/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
+
+This will clone the Spray repository into your Eclipse workspace folder, create a number of working sets and add the projects to the working sets. To see the working sets go to the "View menu" icon of the Package Explorer and select Working Sets as Top Level Elements.
+
+If you want to specify the location where to clone the Spray repository locally do the following:   
+* File > Git/Projects from Git
+* Add
+* <Path to your locally cloned Git repository>, Next
+* Search, OK
+
+If you had cloned the Spray repository locally and want to use that repository:   
+* File > Git/Projects from Git
+* Clone
+* Paste https://code.google.com/a/eclipselabs.org/p/spray/ in the URI field and add your Google Account user name and your GoogleCode.com password (if your are logged in at the Spray Google Code site, click the Profiles link in the upper right corner and then go to the Settings tab) , Next
+* select all branches, Next
+* select your local path to store the Git repository clone, Finish
 
 h3. Add Spray task repository to Eclipse 
 
