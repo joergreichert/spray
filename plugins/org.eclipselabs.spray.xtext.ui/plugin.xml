@@ -305,6 +305,23 @@
       </command>
    </extension>
    <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipselabs.spray.xtext.ui.commands.CompilationUnitTester"
+            id="org.eclipselabs.spray.xtext.ui.ICompilationUnitTester"
+            namespace="spray"
+            properties="generatedExtensionClass"
+            type="org.eclipse.jdt.core.ICompilationUnit">
+      </propertyTester>
+   </extension>   
+   <extension point="org.eclipse.core.expressions.definitions">
+      <definition id="org.eclipselabs.spray.xtext.ui.ICompilationUnitExpression">
+         <adapt type="org.eclipse.jdt.core.ICompilationUnit">
+            <test property="spray.generatedExtensionClass" />
+         </adapt>
+      </definition>
+   </extension>   
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
@@ -319,7 +336,7 @@
                   style="push">
                <visibleWhen>
                   <with variable="selection">
-                     <iterate ifEmtpy="false">
+                     <iterate ifEmpty="false">
                         <reference 
                              definitionId="org.eclipselabs.spray.xtext.ui.ICompilationUnitExpression"/>
                      </iterate>
@@ -328,23 +345,6 @@
             </command>
          </menu>
       </menuContribution>
-   </extension>
-   <extension point="org.eclipse.core.expressions.definitions">
-      <definition id="org.eclipselabs.spray.xtext.ui.ICompilationUnitExpression">
-         <adapt type="org.eclipse.jdt.core.ICompilationUnit">
-            <test property="spray.generatedExtensionClass" />
-         </adapt>
-      </definition>
-   </extension>   
-   <extension
-         point="org.eclipse.core.expressions.propertyTesters">
-      <propertyTester
-            class="org.eclipselabs.spray.xtext.ui.commands.CompilationUnitTester"
-            id="org.eclipselabs.spray.xtext.ui.ICompilationUnitTester"
-            namespace="spray"
-            properties="generatedExtensionClass"
-            type="org.eclipse.jdt.core.ICompilationUnit">
-      </propertyTester>
    </extension>
 
 <!--
