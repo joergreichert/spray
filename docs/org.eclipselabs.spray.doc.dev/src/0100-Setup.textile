@@ -70,6 +70,8 @@ If you had cloned the Spray repository locally and want to use that repository:
 * select all branches, Next
 * select your local path to store the Git repository clone, Finish
 
+If you want to apply the Spray workset configuration without being forced to clone the Spray repository again, you can copy devtools/org.eclipselabs.spray.devenv/workingsets.xml to </path/to/workspace/.metadata>/.plugins/org.eclipse.ui.workbench/workingsets.xml
+
 h3. Add Spray task repository to Eclipse 
 
 * Window > Show View > Other... > Mylyn/Task Repositories

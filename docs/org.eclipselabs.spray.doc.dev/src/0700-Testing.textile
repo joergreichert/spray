@@ -109,7 +109,7 @@ h3. JUnit plug-in tests
 
 h3. UI tests
 
-* as extension of JUnit plug-in tests UI tests executes operations a user would do usually manually, e.g. open menus, clicking on buttons
+* as extension of JUnit plug-in tests UI tests executes operations a user would do usually manually, e.g. open menus, clicking on buttons, but also dragging elements in the Graphiti editor, do resize and so on
 * we currently use SWT Bot, to define those tests, in contrast to a tool like WindowTester it is not able to record interactions with the UI, so you have to program those interactions by your own
 * UI tests tend to be brittle and are hard to read and maintain, so they should be use when the functionality to test cannot be coverage by other test means
 ** depend on the performance of the Computer where they are executed (reactions too slow or too fast, have to work with sleeps and cope with threading issues)
