@@ -57,6 +57,7 @@ class UpdateConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.services.IGaService;
+        import org.eclipse.xtext.xbase.lib.ObjectExtensions;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -104,10 +105,9 @@ class UpdateConnectionFeature extends FileGenerator  {
                 for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
                     String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                     String value = getValue(type, eClass);
-                    if (value == null) value = "";
                     Text text = (Text) decorator.getGraphicsAlgorithm();
                     String current = text.getValue();
-                    if (! value.equals(current) ) {
+                    if (ObjectExtensions.operator_notEquals(current, value)) {
                         return Reason.createTrueReason(type + " is changed");
                     }
                 }
@@ -127,14 +127,9 @@ class UpdateConnectionFeature extends FileGenerator  {
             for (ConnectionDecorator decorator : free.getConnectionDecorators()) {
                 String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
                 String value = getValue(type, eClass);
-                if (value == null) value = "";
                 Text text = (Text) decorator.getGraphicsAlgorithm();
-                String current = text.getValue();
-                if (!value.equals(current) ) {
-                    text.setValue(value);
-                }
+                text.setValue(value);
             }
-            // return SprayContainerService.update(pictogramElement, getValues(eClass));
             return true;
         }
     '''
