@@ -61,13 +61,13 @@ public class SprayRectangleContainer implements ISprayContainer {
         return mainShape;
     }
 
-    protected int cornerWidth  = 0;
-    protected int cornerHeight = 0;
+    private int cornerWidth  = 0;
+    private int cornerHeight = 0;
 
     private ContainerShape createContainerShape(Object addedModelElement, ContainerShape parentShape, int x, int y, int width, int height, boolean active, SprayLayout layout) {
         ContainerShape c = peCreateService.createContainerShape(parentShape, active);
         {
-            RoundedRectangle rectangle = gaService.createRoundedRectangle(c, cornerWidth, cornerHeight);
+            RoundedRectangle rectangle = gaService.createRoundedRectangle(c, getCornerWidth(), getCornerHeight());
             if (layout == null) {
                 rectangle.setTransparency(100.00);
                 rectangle.setLineVisible(false);
@@ -164,6 +164,22 @@ public class SprayRectangleContainer implements ISprayContainer {
         IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
         containerGa.setHeight(y);
         return anythingChanged;
+    }
+
+    public int getCornerWidth() {
+        return cornerWidth;
+    }
+
+    public void setCornerWidth(int cornerWidth) {
+        this.cornerWidth = cornerWidth;
+    }
+
+    public int getCornerHeight() {
+        return cornerHeight;
+    }
+
+    public void setCornerHeight(int cornerHeight) {
+        this.cornerHeight = cornerHeight;
     }
 
 }
