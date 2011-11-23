@@ -191,7 +191,7 @@ class AddShapeFeature extends FileGenerator  {
             protected void createMetaReference«metaRef.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
                 Shape dummy = peCreateService.createShape(containerShape, false);
-                peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, "«target.EReferenceType.name»");
+                peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
                 Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
                 p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 p.setLineWidth(0);
@@ -201,7 +201,7 @@ class AddShapeFeature extends FileGenerator  {
                 for («target.EReferenceType.javaInterfaceName.shortName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
                     Shape «varname» = peCreateService.createContainerShape(containerShape, true);
                     peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_STATIC, Boolean.TRUE.toString());
-                    peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_MODEL_TYPE, "«target.EReferenceType.name»");
+                    peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
                     peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                     // create and set text graphics algorithm
                     Text text = gaService.createDefaultText(getDiagram(), «varname», prop.get«metaRef.labelPropertyName.toFirstUpper»());

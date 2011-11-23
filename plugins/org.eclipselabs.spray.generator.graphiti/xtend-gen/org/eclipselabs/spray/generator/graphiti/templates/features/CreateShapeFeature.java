@@ -97,8 +97,6 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Diagram;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IGaService;");
-    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;");
     _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;");

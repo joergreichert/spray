@@ -58,7 +58,6 @@ class CreateReferenceAsListFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateContext;
         import org.eclipse.graphiti.mm.pictograms.Shape;
-        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «util_package()».SampleUtil;
         // MARKER_IMPORT

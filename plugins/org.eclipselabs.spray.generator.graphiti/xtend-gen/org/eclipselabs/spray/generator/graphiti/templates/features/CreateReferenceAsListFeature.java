@@ -121,8 +121,6 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Shape;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.services.IGaService;");
-    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;");
     _builder.newLine();
     _builder.append("import ");

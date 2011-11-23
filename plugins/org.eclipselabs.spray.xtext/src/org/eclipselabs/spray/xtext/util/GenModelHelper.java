@@ -1,11 +1,13 @@
 package org.eclipselabs.spray.xtext.util;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -49,6 +51,16 @@ public class GenModelHelper {
         }
     }
 
+    public String getLiteralConstant(EStructuralFeature feature) {
+        // TODO
+        GenFeature genClass = getGenFeature(feature);
+        if (genClass == null) {
+            return null;
+        } else {
+            return null;
+        }
+    }
+
     public String getFileExtension(EClass eClass) {
         GenPackage pck = getGenPackage(eClass);
         return pck.getFileExtension();
@@ -66,6 +78,16 @@ public class GenModelHelper {
                 if (qualifiedNameProvider.getFullyQualifiedName(eClass).equals(qualifiedNameProvider.getFullyQualifiedName(c))) {
                     return genClass;
                 }
+            }
+        }
+        return null;
+    }
+
+    protected GenFeature getGenFeature(EStructuralFeature feature) {
+        GenClass genClass = getGenClass(feature.getEContainingClass());
+        for (GenFeature f : genClass.getAllGenFeatures()) {
+            if (f.getEcoreFeature().equals(feature)) {
+                return f;
             }
         }
         return null;

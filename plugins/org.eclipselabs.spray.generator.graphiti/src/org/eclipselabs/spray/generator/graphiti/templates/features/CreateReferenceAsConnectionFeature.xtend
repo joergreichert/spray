@@ -54,6 +54,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
@@ -135,7 +136,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
                 // add connection for business object
                 AddConnectionContext addContext = new AddConnectionContext( context.getSourceAnchor(), context.getTargetAnchor());
                 addContext.setNewObject(source);
-                addContext.putProperty("REFERENCE", "«reference.name»");
+                addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, "«reference.name»");
                 // TODO: assume that the target object has a Name property
         //        addContext.putProperty("TARGETOBJECT", target.getName());
                 newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
@@ -147,7 +148,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
  
     def generate_getMetaClassForReference (MetaReference reference) '''
         /**
-         * Returns the «reference.metaClass.name» belonging to the anchor, or null if not available.
+         * Returns the «reference.metaClass.name» belonging to the anchor, or <code>null</code> if not available.
          */
         protected «reference.metaClass.name» get«reference.metaClass.name»(Anchor anchor) {
             if (anchor != null) {
@@ -164,7 +165,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
         «val target = reference.target»
         «IF reference.metaClass.name != target.name»
         /**
-         * Returns the «target.name» belonging to the anchor, or null if not available.
+         * Returns the «target.name» belonging to the anchor, or <code>null</code> if not available.
          */
         protected «target.EReferenceType.name» get«target.name.toFirstUpper»(Anchor anchor) {
             if (anchor != null) {
@@ -184,8 +185,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
          * Creates a «target.name» .
          */
         protected void set«target.name.toFirstUpper»(«reference.metaClass.name» source, «target.EReferenceType.name» target) {
-            // TODO Check multiplcity, if > 1, use addTo instead of set
-            «IF target.upperBound == 1» 
+            «IF !target.many» 
                 source.set«target.name.toFirstUpper»(target);
             «ELSE»
                 source.get«target.name.toFirstUpper»().add(target);

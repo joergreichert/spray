@@ -129,6 +129,8 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Connection;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
@@ -443,7 +445,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("addContext.setNewObject(source);");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("addContext.putProperty(\"REFERENCE\", \"");
+    _builder.append("addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, \"");
     String _name_5 = this._namingExtensions.getName(reference);
     _builder.append(_name_5, "            ");
     _builder.append("\");");
@@ -479,7 +481,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     MetaClass _metaClass = reference.getMetaClass();
     String _name = this._namingExtensions.getName(_metaClass);
     _builder.append(_name, " ");
-    _builder.append(" belonging to the anchor, or null if not available.");
+    _builder.append(" belonging to the anchor, or <code>null</code> if not available.");
     _builder.newLineIfNotEmpty();
     _builder.append(" ");
     _builder.append("*/");
@@ -545,7 +547,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
         _builder.append("* Returns the ");
         String _name_2 = target.getName();
         _builder.append(_name_2, " ");
-        _builder.append(" belonging to the anchor, or null if not available.");
+        _builder.append(" belonging to the anchor, or <code>null</code> if not available.");
         _builder.newLineIfNotEmpty();
         _builder.append(" ");
         _builder.append("*/");
@@ -626,13 +628,10 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(_name_3, "");
     _builder.append(" target) {");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("// TODO Check multiplcity, if > 1, use addTo instead of set");
-    _builder.newLine();
     {
-      int _upperBound = target.getUpperBound();
-      boolean _operator_equals = ObjectExtensions.operator_equals(((Integer)_upperBound), ((Integer)1));
-      if (_operator_equals) {
+      boolean _isMany = target.isMany();
+      boolean _operator_not = BooleanExtensions.operator_not(_isMany);
+      if (_operator_not) {
         _builder.append("    ");
         _builder.append("source.set");
         String _name_4 = target.getName();
