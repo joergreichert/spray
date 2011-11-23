@@ -36,5 +36,4 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipselabs.spray.generator.graphiti,
  org.eclipselabs.spray.generator.graphiti.formatting,
  org.eclipselabs.spray.generator.graphiti.templates,
- org.eclipselabs.spray.generator.graphiti.util,
- org.eclipselabs.spray.generator.graphiti.util.mm
+ org.eclipselabs.spray.generator.graphiti.util
