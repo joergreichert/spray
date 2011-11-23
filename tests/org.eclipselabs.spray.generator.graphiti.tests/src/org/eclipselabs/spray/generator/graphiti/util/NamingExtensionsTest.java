@@ -1,6 +1,13 @@
 package org.eclipselabs.spray.generator.graphiti.util;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipselabs.spray.mm.spray.Behavior;
@@ -11,6 +18,7 @@ import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayFactory;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -28,6 +36,8 @@ import static org.junit.Assert.assertEquals;
 public class NamingExtensionsTest {
     @Inject
     private NamingExtensions fixture;
+    @Inject
+    private ImportUtil       importUtil;
 
     private Diagram          diagram;
     private MetaClass        clsEClass;
@@ -37,11 +47,22 @@ public class NamingExtensionsTest {
     private MetaReference    reference2;
     private Behavior         behavior;
 
+    @BeforeClass
+    public static void static_init() {
+        StandaloneSetup setup = new StandaloneSetup();
+        setup.setPlatformUri(".");
+        setup.setScanClassPath(true);
+        EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(EcorePackage.eNS_URI, URI.createURI("platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"));
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("genmodel", new XMIResourceFactoryImpl());
+    }
+
     @Before
     public void init() {
         assertEquals("diagrams", ProjectProperties.getDiagramPackage());
         assertEquals("features", ProjectProperties.getFeaturePackage());
         assertEquals("property", ProjectProperties.getPropertyPackage());
+        importUtil.initImports("");
 
         diagram = SprayFactory.eINSTANCE.createDiagram();
         diagram.setName("ediag");
@@ -326,6 +347,29 @@ public class NamingExtensionsTest {
     @Test
     public void test_getImageBaseName() {
         assertEquals("ecore_eclass", fixture.getImageBaseName(clsEClass.getIcon()));
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Names from GenModel
+    //---------------------------------------------------------------------------------------------
+    @Test
+    public void test_getJavaInterfaceName() {
+        assertEquals("org.eclipse.emf.ecore.EClass", fixture.getJavaInterfaceName(clsEClass.getType()));
+    }
+
+    @Test
+    public void test_getEPackageClassName() {
+        assertEquals("org.eclipse.emf.ecore.EcorePackage", fixture.getEPackageClassName(clsEClass.getType()));
+    }
+
+    @Test
+    public void test_getEFactoryInterfaceName() {
+        assertEquals("org.eclipse.emf.ecore.EcoreFactory", fixture.getEFactoryInterfaceName(clsEClass.getType()));
+    }
+
+    @Test
+    public void test_getLiteralConstant() {
+        assertEquals("EcorePackage.Literals.ECLASS", fixture.getLiteralConstant(clsEClass.getType()));
     }
 
     //---------------------------------------------------------------------------------------------

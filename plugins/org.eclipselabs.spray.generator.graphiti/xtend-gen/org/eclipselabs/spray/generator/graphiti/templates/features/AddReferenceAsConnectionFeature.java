@@ -185,6 +185,8 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
@@ -212,7 +214,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram = this._metaReferenceExtensions.getDiagram(reference);
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
@@ -261,7 +263,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     MetaClass _metaClass = reference.getMetaClass();
     EClass _type = _metaClass.getType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_type);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName, "        ");
     _builder.append(" addedDomainObject = (");
     MetaClass _metaClass_1 = reference.getMetaClass();
@@ -336,7 +338,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("// create link and wire it");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("peService.setPropertyValue(connection, \"MODEL_TYPE\", \"");
+    _builder.append("peService.setPropertyValue(connection, ISprayConstants.PROPERTY_MODEL_TYPE, \"");
     MetaClass _metaClass_2 = reference.getMetaClass();
     String _name_1 = this._namingExtensions.getName(_metaClass_2);
     _builder.append(_name_1, "        ");
@@ -346,10 +348,10 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
-    _builder.append("peService.setPropertyValue(connection, \"REFERENCE\", (String)context.getProperty(\"REFERENCE\"));");
+    _builder.append("peService.setPropertyValue(connection, ISprayConstants.PROPERTY_REFERENCE, (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE));");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("peService.setPropertyValue(connection, \"TARGETOBJECT\", (String)context.getProperty(\"TARGETOBJECT\"));");
+    _builder.append("peService.setPropertyValue(connection, ISprayConstants.PROPERTY_TARGETOBJECT, (String)context.getProperty(ISprayConstants.PROPERTY_TARGETOBJECT));");
     _builder.newLine();
     _builder.append(" ");
     _builder.append("//       link(connection, addedDomainObject);");
@@ -452,7 +454,7 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("PictogramElement p = (PictogramElement)pict;");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("String reference = peService.getPropertyValue(p, \"REFERENCE\");");
+    _builder.append("String reference = peService.getPropertyValue(p, ISprayConstants.PROPERTY_REFERENCE);");
     _builder.newLine();
     _builder.append("            ");
     _builder.append("if( \"");

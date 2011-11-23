@@ -120,7 +120,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
                 IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
                 gaService.setLocation(graphicsAlgorithm, 0, 0);
                 String modelType = peService.getPropertyValue(shape, PROPERTY_MODEL_TYPE);
-                if( modelType != null && modelType.equals("«target.EReferenceType.name»") ){
+                if( modelType != null && modelType.equals(«target.EReferenceType.literalConstant».getName()) ){
                     found = shape; index = i; 
                 }
                 i++;
@@ -128,13 +128,12 @@ class AddReferenceAsListFeature extends FileGenerator  {
 
             // LIST of PROPERTIES
             Shape newShape = createShape(textbox, index);
-            peService.setPropertyValue(newShape, PROPERTY_STATIC, "true");
-            peService.setPropertyValue(newShape, PROPERTY_MODEL_TYPE, "«target.EReferenceType.name»");
+            peService.setPropertyValue(newShape, PROPERTY_STATIC, Boolean.TRUE.toString());
+            peService.setPropertyValue(newShape, PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
             peService.setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
             // TODO Name attribute should not be default
             Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
             // TODO find the right text color
-            text.setFont(gaService.manageFont(getDiagram(), "Verdana", 12));
             text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
             text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
             text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);

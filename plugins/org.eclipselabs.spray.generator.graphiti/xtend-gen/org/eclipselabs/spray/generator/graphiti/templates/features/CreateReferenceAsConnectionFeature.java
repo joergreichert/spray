@@ -238,7 +238,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     MetaClass _metaClass = reference.getMetaClass();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_metaClass);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName, "    ");
     _builder.append(" source = get");
     MetaClass _metaClass_1 = reference.getMetaClass();
@@ -249,7 +249,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("    ");
     EClass _eReferenceType = target.getEReferenceType();
     String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(_eReferenceType);
-    String _shortName_1 = this.shortName(_javaInterfaceName_1);
+    String _shortName_1 = this._namingExtensions.shortName(_javaInterfaceName_1);
     _builder.append(_shortName_1, "    ");
     _builder.append(" target = get");
     String _name_1 = target.getName();

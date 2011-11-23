@@ -167,7 +167,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram_1 = this._diagramExtensions.getDiagram(connection);
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram_1);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();

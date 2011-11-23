@@ -119,6 +119,8 @@ public class UpdateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;");
     _builder.newLine();
     _builder.append("import ");
@@ -155,7 +157,7 @@ public class UpdateShapeFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram = this._diagramExtensions.getDiagram(container);
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
@@ -276,7 +278,7 @@ public class UpdateShapeFeature extends FileGenerator {
     _builder.append("Text text = (Text) shape.getGraphicsAlgorithm();");
     _builder.newLine();
     _builder.append("                ");
-    _builder.append("String type = peService.getPropertyValue(shape, \"MODEL_TYPE\");");
+    _builder.append("String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);");
     _builder.newLine();
     _builder.append("                ");
     _builder.append("String value = getValues(eClass).get(type);");

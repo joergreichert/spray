@@ -19,9 +19,11 @@ public class GraphitiGeneratorModule extends AbstractGenericModule {
         super.configure(binder);
         binder.bind(ImportUtil.class).in(Scopes.SINGLETON);
     }
+
     public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
         return SprayGenerator.class;
     }
+
     public Class<? extends JavaIoFileSystemAccess> bindJavaIoFileSystemAccess() {
         return JavaIoFileSystemAccessExt.class;
     }

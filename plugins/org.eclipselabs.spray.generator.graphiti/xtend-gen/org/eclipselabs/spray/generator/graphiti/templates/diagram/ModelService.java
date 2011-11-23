@@ -29,7 +29,7 @@ public class ModelService extends FileGenerator {
     _builder.newLineIfNotEmpty();
     EClass _modelType = diagram.getModelType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_modelType);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     final String modelClassName = _shortName;
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -178,7 +178,7 @@ public class ModelService extends FileGenerator {
     _builder.append(" model = ");
     EClass _modelType_1 = diagram.getModelType();
     String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(_modelType_1);
-    String _shortName_1 = this.shortName(_eFactoryInterfaceName);
+    String _shortName_1 = this._namingExtensions.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName_1, "            ");
     _builder.append(".eINSTANCE.create");
     _builder.append(modelClassName, "            ");

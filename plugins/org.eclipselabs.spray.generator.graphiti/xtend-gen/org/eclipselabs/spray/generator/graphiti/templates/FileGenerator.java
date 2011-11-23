@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates;
 
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -17,12 +16,12 @@ import org.eclipselabs.spray.generator.graphiti.util.ImportUtil;
 
 @SuppressWarnings("all")
 public class FileGenerator extends TemplateUtil {
+  @Inject
+  private ImportUtil importUtil;
+  
   private GenFile genFile;
   
   private JavaGenFile javaGenFile;
-  
-  @Inject
-  private ImportUtil importUtil;
   
   public JavaGenFile getJavaGenFile() {
     return this.javaGenFile;
@@ -158,20 +157,5 @@ public class FileGenerator extends TemplateUtil {
    */
   public StringConcatenation generate_additionalMethods(final EObject context) {
     return null;
-  }
-  
-  public String shortName(final JvmTypeReference typeRef) {
-    String _shortName = this.importUtil.shortName(typeRef);
-    return _shortName;
-  }
-  
-  public String shortName(final String qualifiedName) {
-    String _shortName = this.importUtil.shortName(qualifiedName);
-    return _shortName;
-  }
-  
-  public String shortName(final Class<?> clazz) {
-    String _shortName = this.importUtil.shortName(clazz);
-    return _shortName;
   }
 }

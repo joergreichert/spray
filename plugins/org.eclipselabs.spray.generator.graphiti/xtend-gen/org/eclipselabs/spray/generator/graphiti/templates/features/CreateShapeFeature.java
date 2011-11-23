@@ -130,7 +130,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("protected ");
     String _modelServiceClassName = this._namingExtensions.getModelServiceClassName(diagram);
-    String _shortName = this.shortName(_modelServiceClassName);
+    String _shortName = this._namingExtensions.shortName(_modelServiceClassName);
     _builder.append(_shortName, "    ");
     _builder.append(" modelService;");
     _builder.newLineIfNotEmpty();
@@ -166,7 +166,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("modelService = new ");
     String _modelServiceClassName_1 = this._namingExtensions.getModelServiceClassName(diagram);
-    String _shortName_1 = this.shortName(_modelServiceClassName_1);
+    String _shortName_1 = this._namingExtensions.shortName(_modelServiceClassName_1);
     _builder.append(_shortName_1, "        ");
     _builder.append("(fp.getDiagramTypeProvider());");
     _builder.newLineIfNotEmpty();
@@ -265,7 +265,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     EClass _modelType = diagram.getModelType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_modelType);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     final String modelClassName = _shortName;
     _builder.newLineIfNotEmpty();
     EList<Behavior> _behaviorsList = metaClass.getBehaviorsList();
@@ -322,7 +322,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(_name_3, "    ");
     _builder.append(" newClass = ");
     String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
-    String _shortName_1 = this.shortName(_eFactoryInterfaceName);
+    String _shortName_1 = this._namingExtensions.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName_1, "    ");
     _builder.append(".eINSTANCE.create");
     String _name_4 = this._namingExtensions.getName(metaClass);
@@ -391,7 +391,7 @@ public class CreateShapeFeature extends FileGenerator {
         _builder.append("    ");
         _builder.append("return ");
         String _imageProviderClassName = this._namingExtensions.getImageProviderClassName(diagram);
-        String _shortName = this.shortName(_imageProviderClassName);
+        String _shortName = this._namingExtensions.shortName(_imageProviderClassName);
         _builder.append(_shortName, "    ");
         _builder.append(".");
         String _icon_1 = metaClass.getIcon();

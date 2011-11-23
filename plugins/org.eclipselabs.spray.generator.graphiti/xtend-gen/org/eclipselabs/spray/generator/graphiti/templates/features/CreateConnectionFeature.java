@@ -167,7 +167,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram_1 = metaClass.getDiagram();
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram_1);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
@@ -238,7 +238,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(from);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName, "    ");
     _builder.append(" source = get");
     String _name = from.getName();
@@ -247,7 +247,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     String _javaInterfaceName_1 = this._genModelHelper.getJavaInterfaceName(to);
-    String _shortName_1 = this.shortName(_javaInterfaceName_1);
+    String _shortName_1 = this._namingExtensions.shortName(_javaInterfaceName_1);
     _builder.append(_shortName_1, "    ");
     _builder.append(" target = get");
     String _name_1 = to.getName();
@@ -345,7 +345,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append("        ");
     EClass _eContainingClass = containmentRef.getEContainingClass();
     String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(_eContainingClass);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     final String modelClassName = _shortName;
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
@@ -380,7 +380,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("            ");
     String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(metaClass);
-    String _shortName_1 = this.shortName(_javaInterfaceName_1);
+    String _shortName_1 = this._namingExtensions.shortName(_javaInterfaceName_1);
     _builder.append(_shortName_1, "            ");
     _builder.append(" eReference = create");
     String _name_4 = this._namingExtensions.getName(metaClass);
@@ -389,11 +389,11 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("            ");
     String _modelServiceClassName = this._namingExtensions.getModelServiceClassName(diagram);
-    String _shortName_2 = this.shortName(_modelServiceClassName);
+    String _shortName_2 = this._namingExtensions.shortName(_modelServiceClassName);
     _builder.append(_shortName_2, "            ");
     _builder.append(" modelService = new ");
     String _modelServiceClassName_1 = this._namingExtensions.getModelServiceClassName(diagram);
-    String _shortName_3 = this.shortName(_modelServiceClassName_1);
+    String _shortName_3 = this._namingExtensions.shortName(_modelServiceClassName_1);
     _builder.append(_shortName_3, "            ");
     _builder.append("(getFeatureProvider().getDiagramTypeProvider());");
     _builder.newLineIfNotEmpty();
@@ -626,7 +626,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append(_name_4, "    ");
     _builder.append(" domainObject = ");
     String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
-    String _shortName = this.shortName(_eFactoryInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName, "    ");
     _builder.append(".eINSTANCE.create");
     String _name_5 = this._namingExtensions.getName(metaClass);
@@ -704,7 +704,7 @@ public class CreateConnectionFeature extends FileGenerator {
         _builder.append("return ");
         Diagram _diagram = metaClass.getDiagram();
         String _imageProviderClassName = this._namingExtensions.getImageProviderClassName(_diagram);
-        String _shortName = this.shortName(_imageProviderClassName);
+        String _shortName = this._namingExtensions.shortName(_imageProviderClassName);
         _builder.append(_shortName, "    ");
         _builder.append(".");
         Diagram _diagram_1 = metaClass.getDiagram();

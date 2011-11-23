@@ -13,6 +13,7 @@ import org.eclipse.graphiti.services.IPeService;
  */
 public class DefaultDeleteFeature extends org.eclipse.graphiti.ui.features.DefaultDeleteFeature {
     protected IPeService peService;
+    private boolean      doneChanges = false;
 
     public DefaultDeleteFeature(IFeatureProvider fp) {
         super(fp);
@@ -25,6 +26,15 @@ public class DefaultDeleteFeature extends org.eclipse.graphiti.ui.features.Defau
     @Override
     protected EObject getBusinessObjectForPictogramElement(PictogramElement pe) {
         return (EObject) super.getBusinessObjectForPictogramElement(pe);
+    }
+
+    protected void setDoneChanges(boolean doneChanges) {
+        this.doneChanges = doneChanges;
+    }
+
+    @Override
+    public boolean hasDoneChanges() {
+        return super.hasDoneChanges() || doneChanges;
     }
 
 }

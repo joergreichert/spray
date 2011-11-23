@@ -178,7 +178,7 @@ public class PluginActivator extends FileGenerator {
     _builder.append("        ");
     _builder.append("return Guice.createInjector(Modules2.mixin(new GraphitiRuntimeModule(), new ");
     String _guiceModuleClassName = this._namingExtensions.getGuiceModuleClassName(diagram);
-    String _shortName = this.shortName(_guiceModuleClassName);
+    String _shortName = this._namingExtensions.shortName(_guiceModuleClassName);
     _builder.append(_shortName, "        ");
     _builder.append("()));");
     _builder.newLineIfNotEmpty();

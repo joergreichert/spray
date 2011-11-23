@@ -291,7 +291,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(metaClass);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName, "    ");
     _builder.append(" owner = (");
     String _name_1 = this._namingExtensions.getName(metaClass);
@@ -306,11 +306,11 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(this.target);
-    String _shortName_1 = this.shortName(_javaInterfaceName_1);
+    String _shortName_1 = this._namingExtensions.shortName(_javaInterfaceName_1);
     _builder.append(_shortName_1, "    ");
     _builder.append(" newDomainObject = ");
     String _eFactoryInterfaceName = this._namingExtensions.getEFactoryInterfaceName(metaClass);
-    String _shortName_2 = this.shortName(_eFactoryInterfaceName);
+    String _shortName_2 = this._namingExtensions.shortName(_eFactoryInterfaceName);
     _builder.append(_shortName_2, "    ");
     _builder.append(".eINSTANCE.create");
     String _name_3 = this.target.getName();

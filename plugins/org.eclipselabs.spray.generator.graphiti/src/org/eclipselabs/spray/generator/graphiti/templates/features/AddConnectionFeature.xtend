@@ -96,6 +96,7 @@ class AddConnectionFeature extends FileGenerator {
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
         import org.eclipse.graphiti.services.IGaService;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         // MARKER_IMPORT
@@ -146,7 +147,7 @@ class AddConnectionFeature extends FileGenerator {
             Connection connection = createConnectionLine (addConContext);
 
             // create link and wire it
-            peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«metaClass.name»");
+            peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
             decorateConnection (addConContext, connection);
             link(connection, addedDomainObject);
 
@@ -180,7 +181,7 @@ class AddConnectionFeature extends FileGenerator {
             Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);
             gaLayoutService.setLocation(fromText, 10, 20);
             fromText.setValue(getFromLabel(addedDomainObject));
-            peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, "FROM_LABEL");
+            peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL);
             link(fromDecorator, addedDomainObject);
             return fromText;
         }
@@ -203,7 +204,7 @@ class AddConnectionFeature extends FileGenerator {
             int targetHeight = ga.getHeight();
             gaLayoutService.setLocation(text, 10, -(targetHeight / 2) - 20);
             text.setValue(getToLabel(addedDomainObject));
-            peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, "TO_LABEL");
+            peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL);
             link(toDecorator, addedDomainObject);
             return text;
         }
@@ -224,7 +225,7 @@ class AddConnectionFeature extends FileGenerator {
             Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);
             gaLayoutService.setLocation(sourceText, 10, 0);
             sourceText.setValue(getConnectionLabel(addedDomainObject));
-            peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, "CONNECTION_LABEL");
+            peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_LABEL);
             link(connectionDecorator, addedDomainObject);
             return sourceText;
         }

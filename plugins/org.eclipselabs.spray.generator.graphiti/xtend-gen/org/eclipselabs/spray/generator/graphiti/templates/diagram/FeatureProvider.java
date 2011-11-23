@@ -117,6 +117,8 @@ public class FeatureProvider extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.IDeleteFeature;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.features.IRemoveFeature;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IAddContext;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.ICustomContext;");
@@ -129,6 +131,8 @@ public class FeatureProvider extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IUpdateContext;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.features.context.IRemoveContext;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.custom.ICustomFeature;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.PictogramElement;");
@@ -140,6 +144,8 @@ public class FeatureProvider extends FileGenerator {
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;");
     _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;");
+    _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.DefaultRemoveFeature;");
     _builder.newLine();
     _builder.append("import ");
     String _util_package = GeneratorUtil.util_package();
@@ -197,6 +203,10 @@ public class FeatureProvider extends FileGenerator {
     _builder.append(_generate_getLayoutFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
+    StringConcatenation _generate_getRemoveFeature = this.generate_getRemoveFeature(diagram);
+    _builder.append(_generate_getRemoveFeature, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
     StringConcatenation _generate_getDeleteFeature = this.generate_getDeleteFeature(diagram);
     _builder.append(_generate_getDeleteFeature, "    ");
     _builder.newLineIfNotEmpty();
@@ -238,7 +248,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("if ( object.eClass() == ");
         EClass _type = cls.getType();
         String _ePackageClassName = this._genModelHelper.getEPackageClassName(_type);
-        String _shortName = this.shortName(_ePackageClassName);
+        String _shortName = this._namingExtensions.shortName(_ePackageClassName);
         _builder.append(_shortName, "    ");
         _builder.append(".Literals.");
         EClass _type_1 = cls.getType();
@@ -254,7 +264,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("        ");
         _builder.append("return new ");
         String _addFeatureClassName = this._namingExtensions.getAddFeatureClassName(cls);
-        String _shortName_1 = this.shortName(_addFeatureClassName);
+        String _shortName_1 = this._namingExtensions.shortName(_addFeatureClassName);
         _builder.append(_shortName_1, "            ");
         _builder.append("(this);");
         _builder.newLineIfNotEmpty();
@@ -281,7 +291,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("return new ");
             String _addReferenceAsConnectionFeatureClassName = this._namingExtensions.getAddReferenceAsConnectionFeatureClassName(reference);
-            String _shortName_2 = this.shortName(_addReferenceAsConnectionFeatureClassName);
+            String _shortName_2 = this._namingExtensions.shortName(_addReferenceAsConnectionFeatureClassName);
             _builder.append(_shortName_2, "                ");
             _builder.append("(this);");
             _builder.newLineIfNotEmpty();
@@ -310,7 +320,7 @@ public class FeatureProvider extends FileGenerator {
                 EReference _target = reference_1.getTarget();
                 EClass _eReferenceType = _target.getEReferenceType();
                 String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(_eReferenceType);
-                String _shortName_3 = this.shortName(_javaInterfaceName);
+                String _shortName_3 = this._namingExtensions.shortName(_javaInterfaceName);
                 _builder.append(_shortName_3, "    ");
                 _builder.append(" ){");
                 _builder.newLineIfNotEmpty();
@@ -318,7 +328,7 @@ public class FeatureProvider extends FileGenerator {
                 _builder.append("    ");
                 _builder.append("return new ");
                 String _addReferenceAsListFeatureClassName = this._namingExtensions.getAddReferenceAsListFeatureClassName(reference_1);
-                String _shortName_4 = this.shortName(_addReferenceAsListFeatureClassName);
+                String _shortName_4 = this._namingExtensions.shortName(_addReferenceAsListFeatureClassName);
                 _builder.append(_shortName_4, "        ");
                 _builder.append("(this);");
                 _builder.newLineIfNotEmpty();
@@ -369,7 +379,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("    ");
         _builder.append("new ");
         String _createFeatureClassName = this._namingExtensions.getCreateFeatureClassName(cls);
-        String _shortName = this.shortName(_createFeatureClassName);
+        String _shortName = this._namingExtensions.shortName(_createFeatureClassName);
         _builder.append(_shortName, "    ");
         _builder.append("(this) ");
         _builder.newLineIfNotEmpty();
@@ -397,7 +407,7 @@ public class FeatureProvider extends FileGenerator {
                     _builder.append("    ");
                     _builder.append(", new ");
                     String _createFeatureClassName_1 = this._namingExtensions.getCreateFeatureClassName(reference);
-                    String _shortName_1 = this.shortName(_createFeatureClassName_1);
+                    String _shortName_1 = this._namingExtensions.shortName(_createFeatureClassName_1);
                     _builder.append(_shortName_1, "    ");
                     _builder.append("(this)");
                     _builder.newLineIfNotEmpty();
@@ -414,7 +424,7 @@ public class FeatureProvider extends FileGenerator {
                         _builder.append("    ");
                         _builder.append(", new ");
                         String _createReferenceAsListFeatureClassName = this._namingExtensions.getCreateReferenceAsListFeatureClassName(reference, subclass);
-                        String _shortName_2 = this.shortName(_createReferenceAsListFeatureClassName);
+                        String _shortName_2 = this._namingExtensions.shortName(_createReferenceAsListFeatureClassName);
                         _builder.append(_shortName_2, "    ");
                         _builder.append("(this)");
                         _builder.newLineIfNotEmpty();
@@ -468,7 +478,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("if ( bo.eClass() == ");
             EClass _type = cls.getType();
             String _ePackageClassName = this._genModelHelper.getEPackageClassName(_type);
-            String _shortName = this.shortName(_ePackageClassName);
+            String _shortName = this._namingExtensions.shortName(_ePackageClassName);
             _builder.append(_shortName, "        ");
             _builder.append(".Literals.");
             EClass _type_1 = cls.getType();
@@ -480,7 +490,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("return new ");
             String _updateFeatureClassName = this._namingExtensions.getUpdateFeatureClassName(cls);
-            String _shortName_1 = this.shortName(_updateFeatureClassName);
+            String _shortName_1 = this._namingExtensions.shortName(_updateFeatureClassName);
             _builder.append(_shortName_1, "            ");
             _builder.append("(this); ");
             _builder.newLineIfNotEmpty();
@@ -512,7 +522,7 @@ public class FeatureProvider extends FileGenerator {
                     _builder.append("        ");
                     _builder.append("if (bo instanceof ");
                     String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(eClass);
-                    String _shortName_2 = this.shortName(_javaInterfaceName);
+                    String _shortName_2 = this._namingExtensions.shortName(_javaInterfaceName);
                     _builder.append(_shortName_2, "        ");
                     _builder.append(") { // 22");
                     _builder.newLineIfNotEmpty();
@@ -520,7 +530,7 @@ public class FeatureProvider extends FileGenerator {
                     _builder.append("    ");
                     _builder.append("return new ");
                     String _updateReferenceAsListFeatureClassName = this._namingExtensions.getUpdateReferenceAsListFeatureClassName(reference);
-                    String _shortName_3 = this.shortName(_updateReferenceAsListFeatureClassName);
+                    String _shortName_3 = this._namingExtensions.shortName(_updateReferenceAsListFeatureClassName);
                     _builder.append(_shortName_3, "            ");
                     _builder.append("(this); ");
                     _builder.newLineIfNotEmpty();
@@ -547,7 +557,7 @@ public class FeatureProvider extends FileGenerator {
                   _builder.append("    ");
                   _builder.append("if (bo instanceof ");
                   String _javaInterfaceName_1 = this._namingExtensions.getJavaInterfaceName(cls);
-                  String _shortName_4 = this.shortName(_javaInterfaceName_1);
+                  String _shortName_4 = this._namingExtensions.shortName(_javaInterfaceName_1);
                   _builder.append(_shortName_4, "            ");
                   _builder.append(") { // 33");
                   _builder.newLineIfNotEmpty();
@@ -556,7 +566,7 @@ public class FeatureProvider extends FileGenerator {
                   _builder.append("    ");
                   _builder.append("return new ");
                   String _updateFeatureClassName_1 = this._namingExtensions.getUpdateFeatureClassName(cls);
-                  String _shortName_5 = this.shortName(_updateFeatureClassName_1);
+                  String _shortName_5 = this._namingExtensions.shortName(_updateFeatureClassName_1);
                   _builder.append(_shortName_5, "                ");
                   _builder.append("(this); ");
                   _builder.newLineIfNotEmpty();
@@ -613,7 +623,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("if ( bo.eClass()==");
         EClass _type = cls.getType();
         String _ePackageClassName = this._genModelHelper.getEPackageClassName(_type);
-        String _shortName = this.shortName(_ePackageClassName);
+        String _shortName = this._namingExtensions.shortName(_ePackageClassName);
         _builder.append(_shortName, "    ");
         _builder.append(".Literals.");
         EClass _type_1 = cls.getType();
@@ -625,7 +635,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("    ");
         _builder.append("return new ");
         String _layoutFeatureClassName = this._namingExtensions.getLayoutFeatureClassName(cls);
-        String _shortName_1 = this.shortName(_layoutFeatureClassName);
+        String _shortName_1 = this._namingExtensions.shortName(_layoutFeatureClassName);
         _builder.append(_shortName_1, "        ");
         _builder.append("(this);");
         _builder.newLineIfNotEmpty();
@@ -671,7 +681,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("    ");
         _builder.append("new ");
         String _createFeatureClassName = this._namingExtensions.getCreateFeatureClassName(cls);
-        String _shortName = this.shortName(_createFeatureClassName);
+        String _shortName = this._namingExtensions.shortName(_createFeatureClassName);
         _builder.append(_shortName, "    ");
         _builder.append("(this) ");
         _builder.newLineIfNotEmpty();
@@ -717,7 +727,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("new ");
             String _createReferenceAsConnectionFeatureClassName = this._namingExtensions.getCreateReferenceAsConnectionFeatureClassName(reference);
-            String _shortName_1 = this.shortName(_createReferenceAsConnectionFeatureClassName);
+            String _shortName_1 = this._namingExtensions.shortName(_createReferenceAsConnectionFeatureClassName);
             _builder.append(_shortName_1, "    ");
             _builder.append("(this) ");
             _builder.newLineIfNotEmpty();
@@ -727,6 +737,24 @@ public class FeatureProvider extends FileGenerator {
     }
     _builder.append("    ");
     _builder.append("};");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public StringConcatenation generate_getRemoveFeature(final Diagram diagram) {
+    StringConcatenation _builder = new StringConcatenation();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
+    _builder.newLineIfNotEmpty();
+    _builder.append("public IRemoveFeature getRemoveFeature(IRemoveContext context) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("// Spray specific DefaultRemoveFeature");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("return new DefaultRemoveFeature(this);");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -758,7 +786,7 @@ public class FeatureProvider extends FileGenerator {
         _builder.append("if ( bo.eClass()==");
         EClass _type = cls.getType();
         String _ePackageClassName = this._genModelHelper.getEPackageClassName(_type);
-        String _shortName = this.shortName(_ePackageClassName);
+        String _shortName = this._namingExtensions.shortName(_ePackageClassName);
         _builder.append(_shortName, "        ");
         _builder.append(".Literals.");
         EClass _type_1 = cls.getType();
@@ -797,7 +825,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("    ");
             _builder.append("return new ");
             String _deleteReferenceFeatureClassName = this._namingExtensions.getDeleteReferenceFeatureClassName(reference);
-            String _shortName_1 = this.shortName(_deleteReferenceFeatureClassName);
+            String _shortName_1 = this._namingExtensions.shortName(_deleteReferenceFeatureClassName);
             _builder.append(_shortName_1, "                ");
             _builder.append("(this);");
             _builder.newLineIfNotEmpty();
@@ -924,7 +952,7 @@ public class FeatureProvider extends FileGenerator {
             _builder.append("if( bo.eClass()==");
             EClass _type = metaClass.getType();
             String _ePackageClassName = this._genModelHelper.getEPackageClassName(_type);
-            String _shortName = this.shortName(_ePackageClassName);
+            String _shortName = this._namingExtensions.shortName(_ePackageClassName);
             _builder.append(_shortName, "    ");
             _builder.append(".Literals.");
             EClass _type_1 = metaClass.getType();
@@ -957,7 +985,7 @@ public class FeatureProvider extends FileGenerator {
                     _builder.append("    ");
                     _builder.append("new ");
                     String _customFeatureClassName = this._namingExtensions.getCustomFeatureClassName(behavior);
-                    String _shortName_1 = this.shortName(_customFeatureClassName);
+                    String _shortName_1 = this._namingExtensions.shortName(_customFeatureClassName);
                     _builder.append(_shortName_1, "    ");
                     _builder.append("(this) /*");
                     String _name_1 = behavior.getName();

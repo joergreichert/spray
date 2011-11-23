@@ -13,6 +13,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.FeatureType;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
+import org.eclipselabs.spray.generator.graphiti.util.ImportUtil;
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
@@ -30,6 +31,9 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper;
 public class NamingExtensions {
   @Inject
   private GenModelHelper genModelHelper;
+  
+  @Inject
+  private ImportUtil importUtil;
   
   protected String _getName(final EObject obj) {
     String _apply = SimpleAttributeResolver.NAME_RESOLVER.apply(obj);
@@ -603,17 +607,6 @@ public class NamingExtensions {
     return _ePackageClassName;
   }
   
-  public String getLiteralConstant(final EClass eClass) {
-    String _literalConstant = this.genModelHelper.getLiteralConstant(eClass);
-    return _literalConstant;
-  }
-  
-  public String getLiteralConstant(final MetaClass clazz) {
-    EClass _type = clazz.getType();
-    String _literalConstant = this.genModelHelper.getLiteralConstant(_type);
-    return _literalConstant;
-  }
-  
   public String getEFactoryInterfaceName(final EClass clazz) {
     String _eFactoryInterfaceName = this.genModelHelper.getEFactoryInterfaceName(clazz);
     return _eFactoryInterfaceName;
@@ -623,6 +616,21 @@ public class NamingExtensions {
     EClass _type = clazz.getType();
     String _eFactoryInterfaceName = this.genModelHelper.getEFactoryInterfaceName(_type);
     return _eFactoryInterfaceName;
+  }
+  
+  public String getLiteralConstant(final EClass eClass) {
+    String _ePackageClassName = this.genModelHelper.getEPackageClassName(eClass);
+    String _shortName = this.shortName(_ePackageClassName);
+    String _operator_plus = StringExtensions.operator_plus(_shortName, ".Literals.");
+    String _literalConstant = this.genModelHelper.getLiteralConstant(eClass);
+    String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _literalConstant);
+    return _operator_plus_1;
+  }
+  
+  public String getLiteralConstant(final MetaClass clazz) {
+    EClass _type = clazz.getType();
+    String _literalConstant = this.getLiteralConstant(_type);
+    return _literalConstant;
   }
   
   public String getDiagramName(final MetaClass clazz) {
@@ -686,6 +694,21 @@ public class NamingExtensions {
   public String getModelFileExtension(final EObject ctx) {
     String _modelFileExtension = ProjectProperties.getModelFileExtension();
     return _modelFileExtension;
+  }
+  
+  public String shortName(final JvmTypeReference typeRef) {
+    String _shortName = this.importUtil.shortName(typeRef);
+    return _shortName;
+  }
+  
+  public String shortName(final String qualifiedName) {
+    String _shortName = this.importUtil.shortName(qualifiedName);
+    return _shortName;
+  }
+  
+  public String shortName(final Class<?> clazz) {
+    String _shortName = this.importUtil.shortName(clazz);
+    return _shortName;
   }
   
   public String getName(final EObject metaClass) {

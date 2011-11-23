@@ -11,14 +11,19 @@ import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
+import org.eclipse.graphiti.services.IPeService;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
 
 public class OwnerPropertyDeleteFeature extends DefaultDeleteFeature {
+    protected IPeService peService;
 
     public OwnerPropertyDeleteFeature(IFeatureProvider fp) {
         super(fp);
+        peService = Graphiti.getPeService();
     }
 
+    @Override
     public void delete(IDeleteContext context) {
         PictogramElement pe = context.getPictogramElement();
 
@@ -42,6 +47,7 @@ public class OwnerPropertyDeleteFeature extends DefaultDeleteFeature {
         IRemoveFeature removeFeature = featureProvider.getRemoveFeature(rc);
         if (removeFeature != null) {
             removeFeature.remove(rc);
+            setDoneChanges(true);
         }
 
         deleteBusinessObjects(businessObjectsForPictogramElement);
@@ -51,5 +57,19 @@ public class OwnerPropertyDeleteFeature extends DefaultDeleteFeature {
             getFeatureProvider().layoutIfPossible(layoutCcontext);
         }
         postDelete(context);
+    }
+
+    @Override
+    public boolean canDelete(IDeleteContext context) {
+        if (super.canDelete(context)) {
+            return true;
+        }
+        // the default delete feature delegates to the remove feature
+        // but it might be possible that elements can be deleted, but not removed.
+        // this is the case when the "STATIC" property is set
+        if (Boolean.valueOf(peService.getPropertyValue(context.getPictogramElement(), ISprayConstants.PROPERTY_STATIC)) == true) {
+            return true;
+        }
+        return false;
     }
 }

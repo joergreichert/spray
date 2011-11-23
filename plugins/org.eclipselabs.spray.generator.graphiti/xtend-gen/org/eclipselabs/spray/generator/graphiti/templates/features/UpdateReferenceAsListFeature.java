@@ -133,7 +133,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram = this._metaReferenceExtensions.getDiagram(reference);
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
@@ -179,7 +179,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("return (bo instanceof ");
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(this.target);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName, "    ");
     _builder.append(");");
     _builder.newLineIfNotEmpty();

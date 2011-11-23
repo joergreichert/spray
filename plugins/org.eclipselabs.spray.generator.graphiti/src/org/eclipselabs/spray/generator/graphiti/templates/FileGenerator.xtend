@@ -2,15 +2,13 @@ package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.ImportUtil
 
 class FileGenerator extends TemplateUtil {
-    
+    @Inject ImportUtil importUtil
     extension GenFile genFile
     extension JavaGenFile javaGenFile
-    @Inject ImportUtil importUtil
 
     def getJavaGenFile() {
         return javaGenFile
@@ -76,14 +74,4 @@ class FileGenerator extends TemplateUtil {
     //---------------------------------------------------------------------------------------------
     // delegate methods from ImportUtil
     //---------------------------------------------------------------------------------------------
-    def String shortName (JvmTypeReference typeRef) {
-        return importUtil.shortName(typeRef)
-    }
-    def String shortName (String qualifiedName) {
-        return importUtil.shortName(qualifiedName)
-    }
-    def String shortName (Class<?> clazz) {
-        return importUtil.shortName(clazz)
-    }
-    
 } 

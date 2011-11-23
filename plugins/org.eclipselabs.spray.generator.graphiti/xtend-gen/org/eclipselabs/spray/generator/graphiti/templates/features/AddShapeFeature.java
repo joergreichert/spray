@@ -138,6 +138,8 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;");
+    _builder.newLine();
     _builder.append("import ");
     String _util_package = GeneratorUtil.util_package();
     _builder.append(_util_package, "");
@@ -199,7 +201,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram = this._diagramExtensions.getDiagram(container);
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
@@ -524,7 +526,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("peService.setPropertyValue(");
     _builder.append(varname, "    ");
-    _builder.append(", \"MODEL_TYPE\", type);");
+    _builder.append(", ISprayConstants.PROPERTY_MODEL_TYPE, type);");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("peService.setPropertyValue(");
@@ -571,7 +573,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("Shape dummy = peCreateService.createShape(containerShape, false);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("peService.setPropertyValue(dummy, \"MODEL_TYPE\", \"");
+    _builder.append("peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, \"");
     EClass _eReferenceType = target.getEReferenceType();
     String _name_2 = _eReferenceType.getName();
     _builder.append(_name_2, "    ");
@@ -582,7 +584,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("p.setForeground(manageColor(");
-    String _shortName = this.shortName(org.eclipse.graphiti.util.IColorConstant.class);
+    String _shortName = this._namingExtensions.shortName(org.eclipse.graphiti.util.IColorConstant.class);
     _builder.append(_shortName, "    ");
     _builder.append(".BLACK));");
     _builder.newLineIfNotEmpty();
@@ -602,7 +604,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("for (");
     EClass _eReferenceType_1 = target.getEReferenceType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_eReferenceType_1);
-    String _shortName_1 = this.shortName(_javaInterfaceName);
+    String _shortName_1 = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName_1, "    ");
     _builder.append(" prop : addedModelElement.get");
     String _name_3 = target.getName();
@@ -618,12 +620,12 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("peService.setPropertyValue(");
     _builder.append(varname, "        ");
-    _builder.append(", \"STATIC\", \"true\");");
+    _builder.append(", ISprayConstants.PROPERTY_STATIC, Boolean.TRUE.toString());");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("peService.setPropertyValue(");
     _builder.append(varname, "        ");
-    _builder.append(", \"MODEL_TYPE\", \"");
+    _builder.append(", ISprayConstants.PROPERTY_MODEL_TYPE, \"");
     EClass _eReferenceType_2 = target.getEReferenceType();
     String _name_4 = _eReferenceType_2.getName();
     _builder.append(_name_4, "        ");

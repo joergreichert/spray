@@ -58,18 +58,21 @@ class FeatureProvider extends FileGenerator {
         import org.eclipse.graphiti.features.IMoveShapeFeature;
         import org.eclipse.graphiti.features.IUpdateFeature;
         import org.eclipse.graphiti.features.IDeleteFeature;
+        import org.eclipse.graphiti.features.IRemoveFeature;
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.features.context.ICustomContext;
         import org.eclipse.graphiti.features.context.IDeleteContext;
         import org.eclipse.graphiti.features.context.ILayoutContext;
         import org.eclipse.graphiti.features.context.IMoveShapeContext;
         import org.eclipse.graphiti.features.context.IUpdateContext;
+        import org.eclipse.graphiti.features.context.IRemoveContext;
         import org.eclipse.graphiti.features.custom.ICustomFeature;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;
+        import org.eclipselabs.spray.runtime.graphiti.features.DefaultRemoveFeature;
         import «util_package()».OwnerPropertyDeleteFeature;
         «IF !diagram.metaClasses.empty»
         «ENDIF»
@@ -86,6 +89,7 @@ class FeatureProvider extends FileGenerator {
             «generate_getCreateConnectionFeatures(diagram)»
             «generate_getUpdateFeature(diagram)»
             «generate_getLayoutFeature(diagram)»
+            «generate_getRemoveFeature(diagram)»
             «generate_getDeleteFeature(diagram)»
             «generate_getMoveShapeFeature(diagram)»
             «generate_additionalFields(diagram)»
@@ -215,6 +219,14 @@ class FeatureProvider extends FileGenerator {
                 «ENDFOR»
             «ENDFOR»
             };
+        }
+    '''
+    
+    def generate_getRemoveFeature (Diagram diagram) '''
+        «overrideHeader»
+        public IRemoveFeature getRemoveFeature(IRemoveContext context) {
+            // Spray specific DefaultRemoveFeature
+            return new DefaultRemoveFeature(this);
         }
     '''
     

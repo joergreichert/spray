@@ -204,6 +204,8 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;");
     _builder.newLine();
     _builder.append("import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;");
@@ -232,7 +234,7 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append("gaService = ");
     Diagram _diagram_1 = metaClass.getDiagram();
     String _activatorClassName = this._namingExtensions.getActivatorClassName(_diagram_1);
-    String _shortName = this.shortName(_activatorClassName);
+    String _shortName = this._namingExtensions.shortName(_activatorClassName);
     _builder.append(_shortName, "        ");
     _builder.append(".get(IGaService.class);");
     _builder.newLineIfNotEmpty();
@@ -351,10 +353,10 @@ public class AddConnectionFeature extends FileGenerator {
     _builder.append("// create link and wire it");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, \"");
-    String _name_2 = this._namingExtensions.getName(metaClass);
-    _builder.append(_name_2, "    ");
-    _builder.append("\");");
+    _builder.append("peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, ");
+    String _literalConstant = this._namingExtensions.getLiteralConstant(metaClass);
+    _builder.append(_literalConstant, "    ");
+    _builder.append(".getName());");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("decorateConnection (addConContext, connection);");
@@ -457,7 +459,7 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("fromText.setValue(getFromLabel(addedDomainObject));");
         _builder.newLine();
         _builder.append("    ");
-        _builder.append("peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, \"FROM_LABEL\");");
+        _builder.append("peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL);");
         _builder.newLine();
         _builder.append("    ");
         _builder.append("link(fromDecorator, addedDomainObject);");
@@ -527,7 +529,7 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("text.setValue(getToLabel(addedDomainObject));");
         _builder.newLine();
         _builder.append("    ");
-        _builder.append("peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, \"TO_LABEL\");");
+        _builder.append("peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL);");
         _builder.newLine();
         _builder.append("    ");
         _builder.append("link(toDecorator, addedDomainObject);");
@@ -590,7 +592,7 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.append("sourceText.setValue(getConnectionLabel(addedDomainObject));");
         _builder.newLine();
         _builder.append("    ");
-        _builder.append("peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, \"CONNECTION_LABEL\");");
+        _builder.append("peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_LABEL);");
         _builder.newLine();
         _builder.append("    ");
         _builder.append("link(connectionDecorator, addedDomainObject);");

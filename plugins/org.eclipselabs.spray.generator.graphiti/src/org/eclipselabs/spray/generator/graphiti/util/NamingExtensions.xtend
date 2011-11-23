@@ -15,6 +15,7 @@ import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipse.xtext.common.types.JvmTypeReference
 
 /**
  * Computation of class names, file names etc.
@@ -22,6 +23,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
  */
 class NamingExtensions {
 	@Inject GenModelHelper genModelHelper
+    @Inject ImportUtil importUtil
 
     def dispatch String getName (EObject obj) {
         SimpleAttributeResolver::NAME_RESOLVER.apply(obj)
@@ -257,18 +259,18 @@ class NamingExtensions {
 	def String getEPackageClassName (EClass eClass) {
 		genModelHelper.getEPackageClassName(eClass)
 	}
-	def String getLiteralConstant (EClass eClass) {
-		genModelHelper.getLiteralConstant(eClass)
-	}
-	def String getLiteralConstant (MetaClass clazz) {
-		genModelHelper.getLiteralConstant(clazz.type)
-	}
 	def String getEFactoryInterfaceName (EClass clazz) {
 		genModelHelper.getEFactoryInterfaceName(clazz)
 	}
 	def String getEFactoryInterfaceName (MetaClass clazz) {
 		genModelHelper.getEFactoryInterfaceName(clazz.type)
 	}
+    def String getLiteralConstant (EClass eClass) {
+        genModelHelper.getEPackageClassName(eClass).shortName+".Literals."+genModelHelper.getLiteralConstant(eClass)
+    }
+    def String getLiteralConstant (MetaClass clazz) {
+        getLiteralConstant(clazz.type)
+    }
 	//---------------------------------------------------------------------------------------------
 	// Other names for MetaClass
 	//---------------------------------------------------------------------------------------------
@@ -304,5 +306,15 @@ class NamingExtensions {
     def String getModelFileExtension (EObject ctx) {
         return ProjectProperties::getModelFileExtension();
     }
+    def String shortName (JvmTypeReference typeRef) {
+        return importUtil.shortName(typeRef)
+    }
+    def String shortName (String qualifiedName) {
+        return importUtil.shortName(qualifiedName)
+    }
+    def String shortName (Class<?> clazz) {
+        return importUtil.shortName(clazz)
+    }
+    
 }
 

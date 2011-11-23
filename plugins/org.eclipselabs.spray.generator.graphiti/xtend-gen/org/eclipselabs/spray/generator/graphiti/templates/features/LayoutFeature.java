@@ -217,7 +217,7 @@ public class LayoutFeature extends FileGenerator {
     MetaClass _represents = container.getRepresents();
     EClass _type = _represents.getType();
     String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_type);
-    String _shortName = this.shortName(_javaInterfaceName);
+    String _shortName = this._namingExtensions.shortName(_javaInterfaceName);
     _builder.append(_shortName, "   ");
     _builder.append(");");
     _builder.newLineIfNotEmpty();
