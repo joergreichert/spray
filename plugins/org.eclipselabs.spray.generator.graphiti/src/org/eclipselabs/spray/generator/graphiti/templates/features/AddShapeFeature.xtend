@@ -166,16 +166,10 @@ class AddShapeFeature extends FileGenerator  {
                 // create shape for text and set text graphics algorithm
                 Shape «varname» = peCreateService.createShape(containerShape, false);
                 Text text = gaService.createDefaultText(getDiagram(), «varname»);
-                text.setFont(gaService.manageFont(getDiagram(), text.getFont().getName(), 12));
+                text.setFont(gaService.manageFont(getDiagram(), text.getFont().getName(), 12, «text.layout.italic», «text.layout.bold»));
                 text.setForeground(manageColor(«text.lineColor»));
                 text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
                 text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-            «IF text.layout.bold»
-                text.getFont().setBold(true);
-            «ENDIF»
-            «IF text.layout.italic»
-                text.getFont().setItalic(true);
-            «ENDIF»
                 gaService.setLocationAndSize(text, 0, 0, 0, 0);
                 peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_MODEL_TYPE, type);
                 peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
@@ -198,6 +192,7 @@ class AddShapeFeature extends FileGenerator  {
                 p.setLineVisible(false);
                 gaService.setLocation(p, 0, 0);
                 peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
+                « /* 
                 for («target.EReferenceType.javaInterfaceName.shortName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
                     Shape «varname» = peCreateService.createContainerShape(containerShape, true);
                     peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_STATIC, Boolean.TRUE.toString());
@@ -213,6 +208,7 @@ class AddShapeFeature extends FileGenerator  {
                     // create link and wire it
                     link(«varname», prop);
                 }
+                */ »
             }
         '''
 }
