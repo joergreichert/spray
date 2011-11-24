@@ -108,9 +108,10 @@ class AddShapeFeature extends FileGenerator  {
                     textContainer.getGraphicsAlgorithm().setBackground(manageColor(«container.fillColor»));
                 «ENDIF»    
                 link(containerShape, addedModelElement);
+                link(textContainer, addedModelElement);
         
                 «FOR part : container.parts»
-                    create«part.eClass.name»«part.shapeName.toFirstUpper»(addedModelElement, textContainer);
+                    create«part.eClass.name»«part.shapeName.toFirstUpper»(context, addedModelElement, textContainer);
                 «ENDFOR»
                 
                 // add a chopbox anchor to the shape
@@ -134,7 +135,7 @@ class AddShapeFeature extends FileGenerator  {
         '''
         
         def dispatch createShape (SprayElement part, MetaClass cls) '''
-            protected void create«part.eClass.name»«part.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void create«part.eClass.name»«part.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
                 System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
             }
         '''
@@ -142,7 +143,7 @@ class AddShapeFeature extends FileGenerator  {
         def dispatch createShape (Line line, MetaClass cls) '''
             «val varname = line.shapeName.toFirstLower»
             // Part is Line
-            protected void createLine«line.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createLine«line.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
                 // create shape for line
                 Shape «varname» = peCreateService.createShape(containerShape, false);
                 // create and set graphics algorithm
@@ -160,7 +161,7 @@ class AddShapeFeature extends FileGenerator  {
         def dispatch createShape (Text text, MetaClass cls) '''
             «val varname = text.shapeName.toFirstLower»
             // Part is Text
-            protected void createText«text.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createText«text.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
                 String type = "«text.fullyQualifiedName»";
                 // create shape for text and set text graphics algorithm
                 Shape «varname» = peCreateService.createShape(containerShape, false);
@@ -181,7 +182,7 @@ class AddShapeFeature extends FileGenerator  {
             «val varname = metaRef.name.toFirstLower»
             «val target = metaRef.target» 
             // Part is reference list
-            protected void createMetaReference«metaRef.shapeName» («cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createMetaReference«metaRef.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
                 Shape dummy = peCreateService.createShape(containerShape, false);
                 peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
@@ -191,6 +192,9 @@ class AddShapeFeature extends FileGenerator  {
                 p.setLineVisible(false);
                 gaService.setLocation(p, 0, 0);
                 peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
+                for («target.EReferenceType.javaInterfaceName.shortName» prop: addedModelElement.get«target.name.toFirstUpper»()) {
+                    
+                }
                 « /* 
                 for («target.EReferenceType.javaInterfaceName.shortName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
                     Shape «varname» = peCreateService.createContainerShape(containerShape, true);

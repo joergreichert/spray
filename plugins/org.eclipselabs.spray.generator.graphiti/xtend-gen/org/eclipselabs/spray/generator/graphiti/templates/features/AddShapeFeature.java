@@ -289,6 +289,9 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("link(containerShape, addedModelElement);");
     _builder.newLine();
+    _builder.append("        ");
+    _builder.append("link(textContainer, addedModelElement);");
+    _builder.newLine();
     _builder.newLine();
     {
       SprayElement[] _parts = container.getParts();
@@ -301,7 +304,7 @@ public class AddShapeFeature extends FileGenerator {
         String _shapeName = this._sprayElementNameProvider.getShapeName(part);
         String _firstUpper = StringExtensions.toFirstUpper(_shapeName);
         _builder.append(_firstUpper, "        ");
-        _builder.append("(addedModelElement, textContainer);");
+        _builder.append("(context, addedModelElement, textContainer);");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -367,7 +370,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append(_name, "");
     String _shapeName = this._sprayElementNameProvider.getShapeName(part);
     _builder.append(_shapeName, "");
-    _builder.append(" (");
+    _builder.append(" (IAddContext context, ");
     String _name_1 = this._namingExtensions.getName(cls);
     _builder.append(_name_1, "");
     _builder.append(" addedModelElement, ContainerShape containerShape) {");
@@ -395,7 +398,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("protected void createLine");
     String _shapeName_1 = this._sprayElementNameProvider.getShapeName(line);
     _builder.append(_shapeName_1, "");
-    _builder.append(" (");
+    _builder.append(" (IAddContext context, ");
     String _name = this._namingExtensions.getName(cls);
     _builder.append(_name, "");
     _builder.append(" addedModelElement, ContainerShape containerShape) {");
@@ -462,7 +465,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("protected void createText");
     String _shapeName_1 = this._sprayElementNameProvider.getShapeName(text);
     _builder.append(_shapeName_1, "");
-    _builder.append(" (");
+    _builder.append(" (IAddContext context, ");
     String _name = this._namingExtensions.getName(cls);
     _builder.append(_name, "");
     _builder.append(" addedModelElement, ContainerShape containerShape) {");
@@ -550,7 +553,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("protected void createMetaReference");
     String _shapeName = this._sprayElementNameProvider.getShapeName(metaRef);
     _builder.append(_shapeName, "");
-    _builder.append(" (");
+    _builder.append(" (IAddContext context, ");
     String _name_1 = this._namingExtensions.getName(cls);
     _builder.append(_name_1, "");
     _builder.append(" addedModelElement, ContainerShape containerShape) {");
@@ -588,6 +591,23 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("    ");
     _builder.append("peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("for (");
+    EClass _eReferenceType_1 = target.getEReferenceType();
+    String _javaInterfaceName = this._namingExtensions.getJavaInterfaceName(_eReferenceType_1);
+    String _shortName_1 = this._namingExtensions.shortName(_javaInterfaceName);
+    _builder.append(_shortName_1, "    ");
+    _builder.append(" prop: addedModelElement.get");
+    String _name_2 = target.getName();
+    String _firstUpper = StringExtensions.toFirstUpper(_name_2);
+    _builder.append(_firstUpper, "    ");
+    _builder.append("()) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("}");
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
