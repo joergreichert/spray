@@ -103,11 +103,10 @@ class AddShapeFeature extends FileGenerator  {
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
         
                 ContainerShape containerShape = container.createContainer(context, addedModelElement);
-                «IF container.hasFillColor»
-                    GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
-                    containerGa.setBackground(manageColor(«container.fillColor»));
-                «ENDIF»    
                 ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);
+                «IF container.hasFillColor»
+                    textContainer.getGraphicsAlgorithm().setBackground(manageColor(«container.fillColor»));
+                «ENDIF»    
                 link(containerShape, addedModelElement);
         
                 «FOR part : container.parts»

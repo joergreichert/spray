@@ -272,23 +272,20 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("ContainerShape containerShape = container.createContainer(context, addedModelElement);");
     _builder.newLine();
+    _builder.append("        ");
+    _builder.append("ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);");
+    _builder.newLine();
     {
       boolean _hasFillColor = this._layoutExtensions.hasFillColor(container);
       if (_hasFillColor) {
         _builder.append("        ");
-        _builder.append("GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();");
-        _builder.newLine();
-        _builder.append("        ");
-        _builder.append("containerGa.setBackground(manageColor(");
+        _builder.append("textContainer.getGraphicsAlgorithm().setBackground(manageColor(");
         String _fillColor = this._layoutExtensions.fillColor(container);
         _builder.append(_fillColor, "        ");
         _builder.append("));");
         _builder.newLineIfNotEmpty();
       }
     }
-    _builder.append("        ");
-    _builder.append("ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);");
-    _builder.newLine();
     _builder.append("        ");
     _builder.append("link(containerShape, addedModelElement);");
     _builder.newLine();
