@@ -70,6 +70,7 @@ class UpdateReferenceAsListFeature extends FileGenerator {
             «generate_canUpdate(reference)»
             «generate_updateNeeded(reference)»
             «generate_update(reference)»
+            «generate_getText(reference)»
             «generate_additionalMethods(reference)»
         }
     '''
@@ -104,8 +105,8 @@ class UpdateReferenceAsListFeature extends FileGenerator {
             String businessName = null;
             EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo instanceof «target.name») {
-                «target.name» reference = («target.name») bo;
-                businessName = reference.get«reference.labelPropertyName.toFirstUpper»();
+                «target.name» «target.name.toFirstLower» = («target.name») bo;
+                businessName = getText(context, «target.name.toFirstLower»);
             }
      
             // update needed, if names are different
@@ -128,8 +129,8 @@ class UpdateReferenceAsListFeature extends FileGenerator {
             PictogramElement pictogramElement = context.getPictogramElement();
             EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo instanceof «target.name») {
-                «target.name» eClass = («target.name») bo;
-                businessName = eClass.get«reference.labelPropertyName.toFirstUpper()»();
+                «target.name» «target.name.toFirstLower» = («target.name») bo;
+                businessName = getText(context, «target.name.toFirstLower»);
             }
 
             // Set name in pictogram model
@@ -143,6 +144,15 @@ class UpdateReferenceAsListFeature extends FileGenerator {
                 }
             }
             return false;
+        }
+    '''
+    
+    def generate_getText (MetaReference reference) '''
+        /**
+         * Computes the displayed text. Clients may override this method.
+         */
+        protected String getText (IUpdateContext context, «target.name» bo) {
+            return bo.getName();
         }
     '''
 }
