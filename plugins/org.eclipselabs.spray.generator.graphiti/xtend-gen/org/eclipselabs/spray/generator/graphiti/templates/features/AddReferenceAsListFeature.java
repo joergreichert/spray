@@ -188,6 +188,10 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append(_generate_createShape, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
+    StringConcatenation _generate_getText = this.generate_getText(reference);
+    _builder.append(_generate_getText, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
     StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
@@ -372,11 +376,11 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("// TODO Name attribute should not be default");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get");
+    _builder.append("Text text = gaService.createDefaultText(getDiagram(), newShape, getText(context, addedModelElement)/*, addedModelElement.get");
     String _labelPropertyName = this._namingExtensions.getLabelPropertyName(reference);
     String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName);
     _builder.append(_firstUpper, "    ");
-    _builder.append("());");
+    _builder.append("()*/);");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.append("// TODO find the right text color");
@@ -439,6 +443,35 @@ public class AddReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("return newShape;");
     _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public StringConcatenation generate_getText(final MetaReference reference) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("/**");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("* Computes the displayed text. Clients may override this method.");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("*/");
+    _builder.newLine();
+    _builder.append("protected String getText (IAddContext context, ");
+    EReference _target = reference.getTarget();
+    EClass _eReferenceType = _target.getEReferenceType();
+    String _name = _eReferenceType.getName();
+    _builder.append(_name, "");
+    _builder.append(" bo) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("return bo.get");
+    String _labelPropertyName = this._namingExtensions.getLabelPropertyName(reference);
+    String _firstUpper = StringExtensions.toFirstUpper(_labelPropertyName);
+    _builder.append(_firstUpper, "    ");
+    _builder.append("();");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

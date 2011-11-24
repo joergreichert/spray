@@ -74,6 +74,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
             «generate_canAdd(reference)»
             «generate_add(reference)»
             «generate_createShape(reference)»
+            «generate_getText(reference)»
             «generate_additionalFields(reference)»
         }
     '''
@@ -132,7 +133,7 @@ class AddReferenceAsListFeature extends FileGenerator  {
             peService.setPropertyValue(newShape, PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
             peService.setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
             // TODO Name attribute should not be default
-            Text text = gaService.createDefaultText(getDiagram(), newShape, addedModelElement.get«reference.labelPropertyName.toFirstUpper»());
+            Text text = gaService.createDefaultText(getDiagram(), newShape, getText(context, addedModelElement)/*, addedModelElement.get«reference.labelPropertyName.toFirstUpper»()*/);
             // TODO find the right text color
             text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
             text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
@@ -158,4 +159,14 @@ class AddReferenceAsListFeature extends FileGenerator  {
             return newShape;
         }
     '''
+
+    def generate_getText (MetaReference reference) '''
+        /**
+         * Computes the displayed text. Clients may override this method.
+         */
+        protected String getText (IAddContext context, «reference.target.EReferenceType.name» bo) {
+            return bo.get«reference.labelPropertyName.toFirstUpper»();
+        }
+    '''
+
 }
