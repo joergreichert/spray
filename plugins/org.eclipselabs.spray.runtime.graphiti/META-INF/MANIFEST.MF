@@ -22,4 +22,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.runtime.graphiti,
  org.eclipselabs.spray.runtime.graphiti.containers,
- org.eclipselabs.spray.runtime.graphiti.features
+ org.eclipselabs.spray.runtime.graphiti.features,
+ org.eclipselabs.spray.runtime.graphiti.services,
+ org.eclipselabs.spray.runtime.graphiti.tb

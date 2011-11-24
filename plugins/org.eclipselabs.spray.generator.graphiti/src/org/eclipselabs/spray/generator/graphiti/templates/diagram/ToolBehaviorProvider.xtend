@@ -1,20 +1,22 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
 import com.google.inject.Inject
+import java.util.ArrayList
+import java.util.HashSet
+import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Behavior
-import org.eclipselabs.spray.mm.spray.Connection
-import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.mm.spray.SprayPackage
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
+import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class ToolBehaviorProvider extends FileGenerator {
@@ -45,129 +47,121 @@ class ToolBehaviorProvider extends FileGenerator {
         «header(this)»
         package «diagram_package()»;
 
-        import java.util.HashMap;
-        import java.util.Map;
-        
         import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-        import org.eclipse.graphiti.features.ICreateConnectionFeature;
-        import org.eclipse.graphiti.features.ICreateFeature;
+        import org.eclipse.graphiti.features.IFeature;
         import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
-        import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
-        import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
-        import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
-        import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+        import org.eclipselabs.spray.runtime.graphiti.tb.AbstractSprayToolBehaviorProvider;
+        
+        import com.google.common.collect.Lists;
         // MARKER_IMPORT
-        public class «className» extends DefaultToolBehaviorProvider {
+        public abstract class «className» extends AbstractSprayToolBehaviorProvider {
+            «generate_compartmentConstants(diagram)»
             «generate_additionalFields(diagram)»
             public «className»(IDiagramTypeProvider dtp) {
                 super(dtp);
             }
         
-        
-            @Override
-            public IPaletteCompartmentEntry[] getPalette() {
-                Map<String, PaletteCompartmentEntry> compartments = new HashMap<String, PaletteCompartmentEntry>();
-        
-        «FOR metaClass : diagram.metaClasses.filter(m|m.representedBy instanceof Container)»
-                «FOR behavior : metaClass.behaviors.filter(typeof(CreateBehavior)) »
-                {
-                    ICreateFeature createFeature = new «metaClass.createFeatureClassName.shortName»(this.getFeatureProvider());
-                    ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
-                    PaletteCompartmentEntry compartment = compartments.get("«behavior.paletteCompartment»");
-                    if( compartment == null ){
-                        compartment = new PaletteCompartmentEntry("«behavior.paletteCompartment»", null);
-                    }
-                    compartments.put("«behavior.paletteCompartment»", compartment);
-                    compartment.addToolEntry(objectCreationToolEntry);
-                }
-                
-                «var container = metaClass.representedBy as Container»
-                «FOR reference : container.parts.filter(typeof(MetaReference))»
-                    «val target = reference.target »  
-                    «IF ! target.EReferenceType.abstract»
-                    «objectCreationEntry(reference.createFeatureClassName.shortName, "Other")»
-//                    , new «reference.createFeatureClassName»(this)
-                    «ENDIF»
-                    «FOR subclass : target.EReferenceType.getSubclasses() »
-                        «IF ! subclass.abstract »
-                            «objectCreationEntry(reference.getCreateReferenceAsListFeatureClassName(subclass).shortName, "Other")»
-//                    , new «reference.getCreateReferenceAsListFeatureClassName(subclass)»«subclass.name»Feature(this)
-                        «ENDIF»
-                    «ENDFOR»
-                «ENDFOR»    
-                «ENDFOR»
-            «ENDFOR»
+            «generate_buildCreationTools(diagram)»
+            «generate_buildPaletteCompartments(diagram)»
+            «generate_getPaletteCompartmentForFeature(diagram)»
+            «generate_additionalMethods(diagram)»
+        }
+    '''
+    
+    
+    def List<CreateBehavior> getAllCreateBehaviors (Diagram diagram) {
+        diagram.eAllOfType(typeof(CreateBehavior))
+    }
+    
+    def getPaletteCompartmentNames (Diagram diagram) {
+        val result = new HashSet<String>()
+        for (behavior: diagram.allCreateBehaviors.filter(b|b.paletteCompartment!=null)) {
+            result += behavior.paletteCompartment
+        }
+        result
+    }
 
-            «FOR container : diagram.metaClasses.filter( m | m.representedBy instanceof Container).map(m | m.representedBy as Container) »
-                «FOR metaRef : container.parts.filter(typeof(MetaReference)) »
-                «val metaRefName = metaRef.name»
-                «val target = metaRef.target » 
-                «val createFeatureName = diagram.name + "Create" + container.represents.name + metaRef.name + target.EReferenceType.name + "Feature" »
-                // 00000 Embedded list of references «createFeatureName»
-//                {
-//                    ICreateFeature createFeature = new !!!addToImports(feature_package(), createFeatureName)!!!(this.getFeatureProvider());
-//                    ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
-//                    PaletteCompartmentEntry compartment = compartments.get("Other");
-//                    if( compartment == null ){
-//                        compartment = new PaletteCompartmentEntry("Other", null);
-//                    }
-//                    compartments.put("Other", compartment);
-//                    compartment.addToolEntry(objectCreationToolEntry);
-//                }
+    def generate_compartmentConstants (Diagram diagram) '''
+        «FOR compartmentName : diagram.paletteCompartmentNames»
+            protected static final String COMPARTMENT_«compartmentName.toUpperCase» = "«compartmentName»";
+        «ENDFOR»
+    '''
+
+    def generate_buildCreationTools(Diagram diagram) '''
+        «overrideHeader»
+        protected void buildCreationTools() {
+            «FOR featureName: diagram.allCreateFeatureNames»
+                buildCreationTool(new «featureName»(this.getFeatureProvider()));
+            «ENDFOR»
+            // Compartments
+            «FOR reference: diagram.listReferences.toSet»
+                «val target = reference.target »  
+                «IF ! target.EReferenceType.abstract»
+                    buildCreationTool(new «reference.createFeatureClassName.shortName»(this.getFeatureProvider()));
+                «ENDIF»
+                «FOR subclass : target.EReferenceType.getSubclasses().filter(c|!c.abstract) »
+                        buildCreationTool(new «reference.getCreateReferenceAsListFeatureClassName(subclass).shortName»(this.getFeatureProvider()));
                 «ENDFOR»
             «ENDFOR»
+        }
+    '''
+    
+    def Iterable<String> getAllCreateFeatureNames (Diagram diagram) {
+        val result = new ArrayList<String>()
+        result += diagram.allCreateBehaviors.map(b|b.createFeatureClassName)
+        for (MetaReference ref: diagram.connectionReferences) {
+            result += ref.createReferenceAsConnectionFeatureClassName.shortName
+        }
+        result
+    }
+    
+    def generate_buildPaletteCompartments(Diagram diagram) '''
+        «overrideHeader»
+        protected Iterable<IPaletteCompartmentEntry> buildPaletteCompartments() {
+            return Lists.newArrayList(
+                «FOR compartmentName : diagram.paletteCompartmentNames SEPARATOR ", "»
+                    getPaletteCompartment(COMPARTMENT_«compartmentName.toUpperCase»)
+                «ENDFOR»
+                , getPaletteCompartment(COMPARTMENT_DEFAULT)
+            );
+        }
+    '''
+
+    def generate_getPaletteCompartmentForFeature(Diagram diagram) '''
+        «overrideHeader»
+        protected IPaletteCompartmentEntry getPaletteCompartmentForFeature(IFeature feature) {
+            «FOR behavior: diagram.allCreateBehaviors.filter(b|b.paletteCompartment!=null) SEPARATOR "else"»
+                if (feature instanceof «behavior.createFeatureClassName») {
+                    return getPaletteCompartment(COMPARTMENT_«behavior.paletteCompartment.toUpperCase»);
+                }
+            «ENDFOR»
+            return super.getPaletteCompartmentForFeature(feature);
+        }
+    '''
+    
+    def String getCreateFeatureClassName (CreateBehavior behavior) {
+        val mc = behavior.getContainerOfType(typeof(MetaClass))
         
-            // do the same for connection creators
-            «FOR MetaClass mc : diagram.metaClasses.filter(m|m.representedBy instanceof Connection)»
-            «FOR Behavior behavior: mc.behaviors.filter(typeof(CreateBehavior))»
-                {
-                    ICreateConnectionFeature createFeature = new «mc.createFeatureClassName.shortName»(this.getFeatureProvider());
-                    ConnectionCreationToolEntry objectCreationToolEntry = new ConnectionCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId());
-                    objectCreationToolEntry.addCreateConnectionFeature(createFeature);
-                    PaletteCompartmentEntry compartment = compartments.get("«behavior.paletteCompartment»");
-                    if( compartment == null ){
-                        compartment = new PaletteCompartmentEntry("«behavior.paletteCompartment»", null);
-                    }
-                    compartments.put("«behavior.paletteCompartment»", compartment);
-                    compartment.addToolEntry(objectCreationToolEntry);
-                }
-            «ENDFOR»
-            «ENDFOR»
-            
-            «FOR metaClass: diagram.metaClasses»
-                «FOR reference : metaClass.references »
-                {
-                    // «reference.name»
-                    ICreateConnectionFeature createFeature = new «reference.createReferenceAsConnectionFeatureClassName.shortName»(this.getFeatureProvider());
-                    ConnectionCreationToolEntry objectCreationToolEntry = new ConnectionCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId());
-                    objectCreationToolEntry.addCreateConnectionFeature(createFeature);
-                    PaletteCompartmentEntry compartment = compartments.get("Other");
-                    if( compartment == null ){
-                        compartment = new PaletteCompartmentEntry("Other", null);
-                    }
-                    compartments.put("Other", compartment);
-                    compartment.addToolEntry(objectCreationToolEntry);
-                }
-                «ENDFOR»
-            «ENDFOR»
-                IPaletteCompartmentEntry[] res = compartments.values().toArray(new IPaletteCompartmentEntry[compartments.size()]);
-                return res;
-            }
-            «generate_additionalFields(diagram)»
-        }
-    '''
+        mc.createFeatureClassName.shortName
+    }
     
-    def objectCreationEntry(String className, String paletteCompartment) '''
-        {
-            ICreateFeature createFeature = new «className»(this.getFeatureProvider());
-            ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
-            PaletteCompartmentEntry compartment = compartments.get("«paletteCompartment»");
-            if( compartment == null ){
-                compartment = new PaletteCompartmentEntry("«paletteCompartment»", null);
-            }
-            compartments.put("«paletteCompartment»", compartment);
-            compartment.addToolEntry(objectCreationToolEntry);
+    def getConnectionReferences (Diagram diagram) {
+        val result = new ArrayList<MetaReference>()
+        for (mc: diagram.metaClasses) {
+            result += mc.references
         }
-    '''
+        result
+    }
     
+    def getListReferences (Diagram diagram) {
+        val result = new ArrayList<MetaReference>()
+        for (mc: diagram.metaClasses) {
+            result += mc.eAllOfType(typeof(MetaReference)).filter(mr|mr.isListReference)
+        }
+        result
+    }
+    
+    def isListReference (MetaReference ref) {
+        ref.eContainer.eClass!=SprayPackage::eINSTANCE.metaClass
+    }
 }

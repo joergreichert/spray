@@ -1,30 +1,32 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram;
 
 import com.google.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
+import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.MetaModel;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
-import org.eclipselabs.spray.mm.spray.Behavior;
-import org.eclipselabs.spray.mm.spray.Connection;
-import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.Shape;
-import org.eclipselabs.spray.mm.spray.SprayElement;
+import org.eclipselabs.spray.mm.spray.SprayPackage;
 
 @SuppressWarnings("all")
 public class ToolBehaviorProvider extends FileGenerator {
@@ -93,32 +95,26 @@ public class ToolBehaviorProvider extends FileGenerator {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    _builder.append("import java.util.HashMap;");
-    _builder.newLine();
-    _builder.append("import java.util.Map;");
-    _builder.newLine();
-    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.dt.IDiagramTypeProvider;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.ICreateConnectionFeature;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.features.ICreateFeature;");
+    _builder.append("import org.eclipse.graphiti.features.IFeature;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;");
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.tb.AbstractSprayToolBehaviorProvider;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;");
-    _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;");
+    _builder.append("import com.google.common.collect.Lists;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
     _builder.newLine();
-    _builder.append("public class ");
+    _builder.append("public abstract class ");
     _builder.append(className, "");
-    _builder.append(" extends DefaultToolBehaviorProvider {");
+    _builder.append(" extends AbstractSprayToolBehaviorProvider {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    StringConcatenation _generate_compartmentConstants = this.generate_compartmentConstants(diagram);
+    _builder.append(_generate_compartmentConstants, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
@@ -136,403 +132,311 @@ public class ToolBehaviorProvider extends FileGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.newLine();
     _builder.append("    ");
-    _builder.append("@Override");
-    _builder.newLine();
+    StringConcatenation _generate_buildCreationTools = this.generate_buildCreationTools(diagram);
+    _builder.append(_generate_buildCreationTools, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("public IPaletteCompartmentEntry[] getPalette() {");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("Map<String, PaletteCompartmentEntry> compartments = new HashMap<String, PaletteCompartmentEntry>();");
-    _builder.newLine();
-    _builder.newLine();
-    {
-      MetaClass[] _metaClasses = diagram.getMetaClasses();
-      final Function1<MetaClass,Boolean> _function = new Function1<MetaClass,Boolean>() {
-          public Boolean apply(final MetaClass m) {
-            Shape _representedBy = m.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Container));
-          }
-        };
-      Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
-      for(final MetaClass metaClass : _filter) {
-        {
-          Behavior[] _behaviors = metaClass.getBehaviors();
-          Iterable<CreateBehavior> _filter_1 = IterableExtensions.<CreateBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors)), org.eclipselabs.spray.mm.spray.CreateBehavior.class);
-          for(final CreateBehavior behavior : _filter_1) {
-            _builder.append("{");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("ICreateFeature createFeature = new ");
-            String _createFeatureClassName = this._namingExtensions.getCreateFeatureClassName(metaClass);
-            String _shortName = this._namingExtensions.shortName(_createFeatureClassName);
-            _builder.append(_shortName, "    ");
-            _builder.append("(this.getFeatureProvider());");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("PaletteCompartmentEntry compartment = compartments.get(\"");
-            String _paletteCompartment = behavior.getPaletteCompartment();
-            _builder.append(_paletteCompartment, "    ");
-            _builder.append("\");");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("if( compartment == null ){");
-            _builder.newLine();
-            _builder.append("        ");
-            _builder.append("compartment = new PaletteCompartmentEntry(\"");
-            String _paletteCompartment_1 = behavior.getPaletteCompartment();
-            _builder.append(_paletteCompartment_1, "        ");
-            _builder.append("\", null);");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("}");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("compartments.put(\"");
-            String _paletteCompartment_2 = behavior.getPaletteCompartment();
-            _builder.append(_paletteCompartment_2, "    ");
-            _builder.append("\", compartment);");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("compartment.addToolEntry(objectCreationToolEntry);");
-            _builder.newLine();
-            _builder.append("}");
-            _builder.newLine();
-            _builder.newLine();
-            Shape _representedBy = metaClass.getRepresentedBy();
-            Container container = ((Container) _representedBy);
-            _builder.newLineIfNotEmpty();
-            {
-              SprayElement[] _parts = container.getParts();
-              Iterable<MetaReference> _filter_2 = IterableExtensions.<MetaReference>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_parts)), org.eclipselabs.spray.mm.spray.MetaReference.class);
-              for(final MetaReference reference : _filter_2) {
-                EReference _target = reference.getTarget();
-                final EReference target = _target;
-                _builder.append("  ");
-                _builder.newLineIfNotEmpty();
-                {
-                  EClass _eReferenceType = target.getEReferenceType();
-                  boolean _isAbstract = _eReferenceType.isAbstract();
-                  boolean _operator_not = BooleanExtensions.operator_not(_isAbstract);
-                  if (_operator_not) {
-                    _builder.append("                    ");
-                    String _createFeatureClassName_1 = this._namingExtensions.getCreateFeatureClassName(reference);
-                    String _shortName_1 = this._namingExtensions.shortName(_createFeatureClassName_1);
-                    StringConcatenation _objectCreationEntry = this.objectCreationEntry(_shortName_1, "Other");
-                    _builder.append(_objectCreationEntry, "                    ");
-                    _builder.newLineIfNotEmpty();
-                    _builder.append("//                    , new ");
-                    String _createFeatureClassName_2 = this._namingExtensions.getCreateFeatureClassName(reference);
-                    _builder.append(_createFeatureClassName_2, "");
-                    _builder.append("(this)");
-                    _builder.newLineIfNotEmpty();
-                  }
-                }
-                {
-                  EClass _eReferenceType_1 = target.getEReferenceType();
-                  List<EClass> _subclasses = MetaModel.getSubclasses(_eReferenceType_1);
-                  for(final EClass subclass : _subclasses) {
-                    {
-                      boolean _isAbstract_1 = subclass.isAbstract();
-                      boolean _operator_not_1 = BooleanExtensions.operator_not(_isAbstract_1);
-                      if (_operator_not_1) {
-                        _builder.append("                            ");
-                        String _createReferenceAsListFeatureClassName = this._namingExtensions.getCreateReferenceAsListFeatureClassName(reference, subclass);
-                        String _shortName_2 = this._namingExtensions.shortName(_createReferenceAsListFeatureClassName);
-                        StringConcatenation _objectCreationEntry_1 = this.objectCreationEntry(_shortName_2, "Other");
-                        _builder.append(_objectCreationEntry_1, "                            ");
-                        _builder.newLineIfNotEmpty();
-                        _builder.append("//                    , new ");
-                        String _createReferenceAsListFeatureClassName_1 = this._namingExtensions.getCreateReferenceAsListFeatureClassName(reference, subclass);
-                        _builder.append(_createReferenceAsListFeatureClassName_1, "");
-                        String _name = subclass.getName();
-                        _builder.append(_name, "");
-                        _builder.append("Feature(this)");
-                        _builder.newLineIfNotEmpty();
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    _builder.newLine();
-    {
-      MetaClass[] _metaClasses_1 = diagram.getMetaClasses();
-      final Function1<MetaClass,Boolean> _function_1 = new Function1<MetaClass,Boolean>() {
-          public Boolean apply(final MetaClass m) {
-            Shape _representedBy = m.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Container));
-          }
-        };
-      Iterable<MetaClass> _filter_3 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_1)), _function_1);
-      final Function1<MetaClass,Container> _function_2 = new Function1<MetaClass,Container>() {
-          public Container apply(final MetaClass m) {
-            Shape _representedBy = m.getRepresentedBy();
-            return ((Container) _representedBy);
-          }
-        };
-      Iterable<Container> _map = IterableExtensions.<MetaClass, Container>map(_filter_3, _function_2);
-      for(final Container container_1 : _map) {
-        {
-          SprayElement[] _parts_1 = container_1.getParts();
-          Iterable<MetaReference> _filter_4 = IterableExtensions.<MetaReference>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_parts_1)), org.eclipselabs.spray.mm.spray.MetaReference.class);
-          for(final MetaReference metaRef : _filter_4) {
-            _builder.append("                ");
-            String _name_1 = this._namingExtensions.getName(metaRef);
-            final String metaRefName = _name_1;
-            _builder.newLineIfNotEmpty();
-            _builder.append("                ");
-            EReference _target_1 = metaRef.getTarget();
-            final EReference target_1 = _target_1;
-            _builder.append(" ");
-            _builder.newLineIfNotEmpty();
-            _builder.append("                ");
-            String _name_2 = diagram.getName();
-            String _operator_plus = StringExtensions.operator_plus(_name_2, "Create");
-            MetaClass _represents = container_1.getRepresents();
-            String _name_3 = this._namingExtensions.getName(_represents);
-            String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _name_3);
-            String _name_4 = this._namingExtensions.getName(metaRef);
-            String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, _name_4);
-            EClass _eReferenceType_2 = target_1.getEReferenceType();
-            String _name_5 = _eReferenceType_2.getName();
-            String _operator_plus_3 = StringExtensions.operator_plus(_operator_plus_2, _name_5);
-            String _operator_plus_4 = StringExtensions.operator_plus(_operator_plus_3, "Feature");
-            final String createFeatureName = _operator_plus_4;
-            _builder.newLineIfNotEmpty();
-            _builder.append("                ");
-            _builder.append("// 00000 Embedded list of references ");
-            _builder.append(createFeatureName, "                ");
-            _builder.newLineIfNotEmpty();
-            _builder.append("//                {");
-            _builder.newLine();
-            _builder.append("//                    ICreateFeature createFeature = new !!!addToImports(feature_package(), createFeatureName)!!!(this.getFeatureProvider());");
-            _builder.newLine();
-            _builder.append("//                    ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);");
-            _builder.newLine();
-            _builder.append("//                    PaletteCompartmentEntry compartment = compartments.get(\"Other\");");
-            _builder.newLine();
-            _builder.append("//                    if( compartment == null ){");
-            _builder.newLine();
-            _builder.append("//                        compartment = new PaletteCompartmentEntry(\"Other\", null);");
-            _builder.newLine();
-            _builder.append("//                    }");
-            _builder.newLine();
-            _builder.append("//                    compartments.put(\"Other\", compartment);");
-            _builder.newLine();
-            _builder.append("//                    compartment.addToolEntry(objectCreationToolEntry);");
-            _builder.newLine();
-            _builder.append("//                }");
-            _builder.newLine();
-          }
-        }
-      }
-    }
-    _builder.newLine();
+    StringConcatenation _generate_buildPaletteCompartments = this.generate_buildPaletteCompartments(diagram);
+    _builder.append(_generate_buildPaletteCompartments, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.append("// do the same for connection creators");
-    _builder.newLine();
-    {
-      MetaClass[] _metaClasses_2 = diagram.getMetaClasses();
-      final Function1<MetaClass,Boolean> _function_3 = new Function1<MetaClass,Boolean>() {
-          public Boolean apply(final MetaClass m) {
-            Shape _representedBy = m.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Connection));
-          }
-        };
-      Iterable<MetaClass> _filter_5 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_2)), _function_3);
-      for(final MetaClass mc : _filter_5) {
-        {
-          Behavior[] _behaviors_1 = mc.getBehaviors();
-          Iterable<CreateBehavior> _filter_6 = IterableExtensions.<CreateBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors_1)), org.eclipselabs.spray.mm.spray.CreateBehavior.class);
-          for(final Behavior behavior_1 : _filter_6) {
-            _builder.append("    ");
-            _builder.append("{");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("ICreateConnectionFeature createFeature = new ");
-            String _createFeatureClassName_3 = this._namingExtensions.getCreateFeatureClassName(mc);
-            String _shortName_3 = this._namingExtensions.shortName(_createFeatureClassName_3);
-            _builder.append(_shortName_3, "        ");
-            _builder.append("(this.getFeatureProvider());");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("ConnectionCreationToolEntry objectCreationToolEntry = new ConnectionCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId());");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("objectCreationToolEntry.addCreateConnectionFeature(createFeature);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("PaletteCompartmentEntry compartment = compartments.get(\"");
-            String _paletteCompartment_3 = behavior_1.getPaletteCompartment();
-            _builder.append(_paletteCompartment_3, "        ");
-            _builder.append("\");");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("if( compartment == null ){");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("        ");
-            _builder.append("compartment = new PaletteCompartmentEntry(\"");
-            String _paletteCompartment_4 = behavior_1.getPaletteCompartment();
-            _builder.append(_paletteCompartment_4, "            ");
-            _builder.append("\", null);");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("}");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("compartments.put(\"");
-            String _paletteCompartment_5 = behavior_1.getPaletteCompartment();
-            _builder.append(_paletteCompartment_5, "        ");
-            _builder.append("\", compartment);");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("compartment.addToolEntry(objectCreationToolEntry);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("}");
-            _builder.newLine();
-          }
-        }
-      }
-    }
+    StringConcatenation _generate_getPaletteCompartmentForFeature = this.generate_getPaletteCompartmentForFeature(diagram);
+    _builder.append(_generate_getPaletteCompartmentForFeature, "    ");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    _builder.newLine();
-    {
-      MetaClass[] _metaClasses_3 = diagram.getMetaClasses();
-      for(final MetaClass metaClass_1 : _metaClasses_3) {
-        {
-          MetaReference[] _references = metaClass_1.getReferences();
-          for(final MetaReference reference_1 : _references) {
-            _builder.append("    ");
-            _builder.append("{");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("// ");
-            String _name_6 = this._namingExtensions.getName(reference_1);
-            _builder.append(_name_6, "        ");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("ICreateConnectionFeature createFeature = new ");
-            String _createReferenceAsConnectionFeatureClassName = this._namingExtensions.getCreateReferenceAsConnectionFeatureClassName(reference_1);
-            String _shortName_4 = this._namingExtensions.shortName(_createReferenceAsConnectionFeatureClassName);
-            _builder.append(_shortName_4, "        ");
-            _builder.append("(this.getFeatureProvider());");
-            _builder.newLineIfNotEmpty();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("ConnectionCreationToolEntry objectCreationToolEntry = new ConnectionCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId());");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("objectCreationToolEntry.addCreateConnectionFeature(createFeature);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("PaletteCompartmentEntry compartment = compartments.get(\"Other\");");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("if( compartment == null ){");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("        ");
-            _builder.append("compartment = new PaletteCompartmentEntry(\"Other\", null);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("}");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("compartments.put(\"Other\", compartment);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("    ");
-            _builder.append("compartment.addToolEntry(objectCreationToolEntry);");
-            _builder.newLine();
-            _builder.append("    ");
-            _builder.append("}");
-            _builder.newLine();
-          }
-        }
-      }
-    }
-    _builder.append("        ");
-    _builder.append("IPaletteCompartmentEntry[] res = compartments.values().toArray(new IPaletteCompartmentEntry[compartments.size()]);");
-    _builder.newLine();
-    _builder.append("        ");
-    _builder.append("return res;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
-    _builder.append(_generate_additionalFields_1, "    ");
+    StringConcatenation _generate_additionalMethods = this.generate_additionalMethods(diagram);
+    _builder.append(_generate_additionalMethods, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;
   }
   
-  public StringConcatenation objectCreationEntry(final String className, final String paletteCompartment) {
+  public List<CreateBehavior> getAllCreateBehaviors(final Diagram diagram) {
+    List<CreateBehavior> _eAllOfType = EcoreUtil2.<CreateBehavior>eAllOfType(diagram, org.eclipselabs.spray.mm.spray.CreateBehavior.class);
+    return _eAllOfType;
+  }
+  
+  public HashSet<String> getPaletteCompartmentNames(final Diagram diagram) {
+    HashSet<String> _xblockexpression = null;
+    {
+      HashSet<String> _hashSet = new HashSet<String>();
+      final HashSet<String> result = _hashSet;
+      List<CreateBehavior> _allCreateBehaviors = this.getAllCreateBehaviors(diagram);
+      final Function1<CreateBehavior,Boolean> _function = new Function1<CreateBehavior,Boolean>() {
+          public Boolean apply(final CreateBehavior b) {
+            String _paletteCompartment = b.getPaletteCompartment();
+            boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_paletteCompartment, null);
+            return ((Boolean)_operator_notEquals);
+          }
+        };
+      Iterable<CreateBehavior> _filter = IterableExtensions.<CreateBehavior>filter(_allCreateBehaviors, _function);
+      for (final CreateBehavior behavior : _filter) {
+        String _paletteCompartment = behavior.getPaletteCompartment();
+        CollectionExtensions.<String>operator_add(result, _paletteCompartment);
+      }
+      _xblockexpression = (result);
+    }
+    return _xblockexpression;
+  }
+  
+  public StringConcatenation generate_compartmentConstants(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("{");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("ICreateFeature createFeature = new ");
-    _builder.append(className, "    ");
-    _builder.append("(this.getFeatureProvider());");
+    {
+      HashSet<String> _paletteCompartmentNames = this.getPaletteCompartmentNames(diagram);
+      for(final String compartmentName : _paletteCompartmentNames) {
+        _builder.append("protected static final String COMPARTMENT_");
+        String _upperCase = compartmentName.toUpperCase();
+        _builder.append(_upperCase, "");
+        _builder.append(" = \"");
+        _builder.append(compartmentName, "");
+        _builder.append("\";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
+  }
+  
+  public StringConcatenation generate_buildCreationTools(final Diagram diagram) {
+    StringConcatenation _builder = new StringConcatenation();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);");
+    _builder.append("protected void buildCreationTools() {");
     _builder.newLine();
+    {
+      Iterable<String> _allCreateFeatureNames = this.getAllCreateFeatureNames(diagram);
+      for(final String featureName : _allCreateFeatureNames) {
+        _builder.append("    ");
+        _builder.append("buildCreationTool(new ");
+        _builder.append(featureName, "    ");
+        _builder.append("(this.getFeatureProvider()));");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     _builder.append("    ");
-    _builder.append("PaletteCompartmentEntry compartment = compartments.get(\"");
-    _builder.append(paletteCompartment, "    ");
-    _builder.append("\");");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
-    _builder.append("if( compartment == null ){");
+    _builder.append("// Compartments");
     _builder.newLine();
-    _builder.append("        ");
-    _builder.append("compartment = new PaletteCompartmentEntry(\"");
-    _builder.append(paletteCompartment, "        ");
-    _builder.append("\", null);");
-    _builder.newLineIfNotEmpty();
-    _builder.append("    ");
+    {
+      ArrayList<MetaReference> _listReferences = this.getListReferences(diagram);
+      Set<MetaReference> _set = IterableExtensions.<MetaReference>toSet(_listReferences);
+      for(final MetaReference reference : _set) {
+        _builder.append("    ");
+        EReference _target = reference.getTarget();
+        final EReference target = _target;
+        _builder.append("  ");
+        _builder.newLineIfNotEmpty();
+        {
+          EClass _eReferenceType = target.getEReferenceType();
+          boolean _isAbstract = _eReferenceType.isAbstract();
+          boolean _operator_not = BooleanExtensions.operator_not(_isAbstract);
+          if (_operator_not) {
+            _builder.append("    ");
+            _builder.append("buildCreationTool(new ");
+            String _createFeatureClassName = this._namingExtensions.getCreateFeatureClassName(reference);
+            String _shortName = this._namingExtensions.shortName(_createFeatureClassName);
+            _builder.append(_shortName, "    ");
+            _builder.append("(this.getFeatureProvider()));");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        {
+          EClass _eReferenceType_1 = target.getEReferenceType();
+          List<EClass> _subclasses = MetaModel.getSubclasses(_eReferenceType_1);
+          final Function1<EClass,Boolean> _function = new Function1<EClass,Boolean>() {
+              public Boolean apply(final EClass c) {
+                boolean _isAbstract = c.isAbstract();
+                boolean _operator_not = BooleanExtensions.operator_not(_isAbstract);
+                return ((Boolean)_operator_not);
+              }
+            };
+          Iterable<EClass> _filter = IterableExtensions.<EClass>filter(_subclasses, _function);
+          for(final EClass subclass : _filter) {
+            _builder.append("    ");
+            _builder.append("buildCreationTool(new ");
+            String _createReferenceAsListFeatureClassName = this._namingExtensions.getCreateReferenceAsListFeatureClassName(reference, subclass);
+            String _shortName_1 = this._namingExtensions.shortName(_createReferenceAsListFeatureClassName);
+            _builder.append(_shortName_1, "    ");
+            _builder.append("(this.getFeatureProvider()));");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
     _builder.append("}");
     _builder.newLine();
-    _builder.append("    ");
-    _builder.append("compartments.put(\"");
-    _builder.append(paletteCompartment, "    ");
-    _builder.append("\", compartment);");
+    return _builder;
+  }
+  
+  public Iterable<String> getAllCreateFeatureNames(final Diagram diagram) {
+    ArrayList<String> _xblockexpression = null;
+    {
+      ArrayList<String> _arrayList = new ArrayList<String>();
+      final ArrayList<String> result = _arrayList;
+      List<CreateBehavior> _allCreateBehaviors = this.getAllCreateBehaviors(diagram);
+      final Function1<CreateBehavior,String> _function = new Function1<CreateBehavior,String>() {
+          public String apply(final CreateBehavior b) {
+            String _createFeatureClassName = ToolBehaviorProvider.this.getCreateFeatureClassName(b);
+            return _createFeatureClassName;
+          }
+        };
+      List<String> _map = ListExtensions.<CreateBehavior, String>map(_allCreateBehaviors, _function);
+      CollectionExtensions.<String>operator_add(result, _map);
+      ArrayList<MetaReference> _connectionReferences = this.getConnectionReferences(diagram);
+      for (final MetaReference ref : _connectionReferences) {
+        String _createReferenceAsConnectionFeatureClassName = this._namingExtensions.getCreateReferenceAsConnectionFeatureClassName(ref);
+        String _shortName = this._namingExtensions.shortName(_createReferenceAsConnectionFeatureClassName);
+        CollectionExtensions.<String>operator_add(result, _shortName);
+      }
+      _xblockexpression = (result);
+    }
+    return _xblockexpression;
+  }
+  
+  public StringConcatenation generate_buildPaletteCompartments(final Diagram diagram) {
+    StringConcatenation _builder = new StringConcatenation();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
+    _builder.append("protected Iterable<IPaletteCompartmentEntry> buildPaletteCompartments() {");
+    _builder.newLine();
     _builder.append("    ");
-    _builder.append("compartment.addToolEntry(objectCreationToolEntry);");
+    _builder.append("return Lists.newArrayList(");
+    _builder.newLine();
+    {
+      HashSet<String> _paletteCompartmentNames = this.getPaletteCompartmentNames(diagram);
+      boolean hasAnyElements = false;
+      for(final String compartmentName : _paletteCompartmentNames) {
+        if (!hasAnyElements) {
+          hasAnyElements = true;
+        } else {
+          _builder.appendImmediate(", ", "        ");
+        }
+        _builder.append("        ");
+        _builder.append("getPaletteCompartment(COMPARTMENT_");
+        String _upperCase = compartmentName.toUpperCase();
+        _builder.append(_upperCase, "        ");
+        _builder.append(")");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("        ");
+    _builder.append(", getPaletteCompartment(COMPARTMENT_DEFAULT)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append(");");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
+  }
+  
+  public StringConcatenation generate_getPaletteCompartmentForFeature(final Diagram diagram) {
+    StringConcatenation _builder = new StringConcatenation();
+    StringConcatenation _overrideHeader = this.overrideHeader();
+    _builder.append(_overrideHeader, "");
+    _builder.newLineIfNotEmpty();
+    _builder.append("protected IPaletteCompartmentEntry getPaletteCompartmentForFeature(IFeature feature) {");
+    _builder.newLine();
+    {
+      List<CreateBehavior> _allCreateBehaviors = this.getAllCreateBehaviors(diagram);
+      final Function1<CreateBehavior,Boolean> _function = new Function1<CreateBehavior,Boolean>() {
+          public Boolean apply(final CreateBehavior b) {
+            String _paletteCompartment = b.getPaletteCompartment();
+            boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_paletteCompartment, null);
+            return ((Boolean)_operator_notEquals);
+          }
+        };
+      Iterable<CreateBehavior> _filter = IterableExtensions.<CreateBehavior>filter(_allCreateBehaviors, _function);
+      boolean hasAnyElements = false;
+      for(final CreateBehavior behavior : _filter) {
+        if (!hasAnyElements) {
+          hasAnyElements = true;
+        } else {
+          _builder.appendImmediate("else", "    ");
+        }
+        _builder.append("    ");
+        _builder.append("if (feature instanceof ");
+        String _createFeatureClassName = this.getCreateFeatureClassName(behavior);
+        _builder.append(_createFeatureClassName, "    ");
+        _builder.append(") {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("    ");
+        _builder.append("return getPaletteCompartment(COMPARTMENT_");
+        String _paletteCompartment = behavior.getPaletteCompartment();
+        String _upperCase = _paletteCompartment.toUpperCase();
+        _builder.append(_upperCase, "        ");
+        _builder.append(");");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
+    _builder.append("    ");
+    _builder.append("return super.getPaletteCompartmentForFeature(feature);");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public String getCreateFeatureClassName(final CreateBehavior behavior) {
+    String _xblockexpression = null;
+    {
+      MetaClass _containerOfType = EcoreUtil2.<MetaClass>getContainerOfType(behavior, org.eclipselabs.spray.mm.spray.MetaClass.class);
+      final MetaClass mc = _containerOfType;
+      String _createFeatureClassName = this._namingExtensions.getCreateFeatureClassName(mc);
+      String _shortName = this._namingExtensions.shortName(_createFeatureClassName);
+      _xblockexpression = (_shortName);
+    }
+    return _xblockexpression;
+  }
+  
+  public ArrayList<MetaReference> getConnectionReferences(final Diagram diagram) {
+    ArrayList<MetaReference> _xblockexpression = null;
+    {
+      ArrayList<MetaReference> _arrayList = new ArrayList<MetaReference>();
+      final ArrayList<MetaReference> result = _arrayList;
+      MetaClass[] _metaClasses = diagram.getMetaClasses();
+      for (final MetaClass mc : _metaClasses) {
+        MetaReference[] _references = mc.getReferences();
+        CollectionExtensions.<MetaReference>operator_add(result, ((Iterable<? extends MetaReference>)Conversions.doWrapArray(_references)));
+      }
+      _xblockexpression = (result);
+    }
+    return _xblockexpression;
+  }
+  
+  public ArrayList<MetaReference> getListReferences(final Diagram diagram) {
+    ArrayList<MetaReference> _xblockexpression = null;
+    {
+      ArrayList<MetaReference> _arrayList = new ArrayList<MetaReference>();
+      final ArrayList<MetaReference> result = _arrayList;
+      MetaClass[] _metaClasses = diagram.getMetaClasses();
+      for (final MetaClass mc : _metaClasses) {
+        List<MetaReference> _eAllOfType = EcoreUtil2.<MetaReference>eAllOfType(mc, org.eclipselabs.spray.mm.spray.MetaReference.class);
+        final Function1<MetaReference,Boolean> _function = new Function1<MetaReference,Boolean>() {
+            public Boolean apply(final MetaReference mr) {
+              boolean _isListReference = ToolBehaviorProvider.this.isListReference(mr);
+              return ((Boolean)_isListReference);
+            }
+          };
+        Iterable<MetaReference> _filter = IterableExtensions.<MetaReference>filter(_eAllOfType, _function);
+        CollectionExtensions.<MetaReference>operator_add(result, _filter);
+      }
+      _xblockexpression = (result);
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean isListReference(final MetaReference ref) {
+    EObject _eContainer = ref.eContainer();
+    EClass _eClass = _eContainer.eClass();
+    EClass _metaClass = SprayPackage.eINSTANCE.getMetaClass();
+    boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_eClass, _metaClass);
+    return _operator_notEquals;
   }
 }
