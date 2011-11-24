@@ -10,6 +10,6 @@
 		<relativePath>../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>org.eclipselabs.spray.runtime.graphiti.zest.zest</artifactId>
+	<artifactId>org.eclipselabs.spray.runtime.graphiti.zest</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>
