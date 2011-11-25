@@ -1,0 +1,39 @@
+h1. Cookbook
+
+This chapter collects samples how to use and extend Spray based editors.
+
+h2. Features
+
+h3. Zest Layout
+
+The @ZestLayoutDiagramFeature@ custom feature class allows to layout the diagram with a layout algorithm from the "Zest Visualization Toolkit":http://eclipse.org/gef/zest/.
+
+* Add @org.eclipselabs.spray.runtime.graphiti.zest@ to the required bundles in @MANIFEST.MF@
+* Extend the FeatureProvider class and override @getCustomFeatures()@
+
+bc.. 
+    @Override
+    public ICustomFeature[] getCustomFeatures(ICustomContext context) {
+        List<ICustomFeature> features = new ArrayList<ICustomFeature>(Arrays.asList(super.getCustomFeatures(context)));
+
+        ZestLayoutDiagramFeature zestLayoutFeature = new ZestLayoutDiagramFeature(this);
+        if (zestLayoutFeature.canExecute(context)) {
+            features.add(zestLayoutFeature);
+        }
+        ...
+        return Iterables.toArray(features, ICustomFeature.class);
+    }
+
+p. 
+
+Your diagram will now have a context action "Layout with Zest":
+
+!images/cookbook-zest1.png!
+
+When choosing this action a selection dialog pops up that lets you select an Layout Algorithm:
+
+!images/cookbook-zest2.png!
+
+The diagram will be layouted, e.g. like this:
+
+!images/cookbook-zest3.png!
