@@ -67,7 +67,16 @@ h3. Spray CI Build
 
 Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-build/":https://spray.ci.cloudbees.com/job/spray-ci-build/
 
-Pulls the Git repository (branch master) every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
+Pulls branch @master@ of the Git repository every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
+
+h3. Spray Experimental Build
+
+Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-experimental/":https://spray.ci.cloudbees.com/job/spray-ci-experimental/
+
+Pulls branch @experimental@ of the Git repository every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
+
+You can push your repository state any time to the @experimental@ branch if you want to test things on the build that might break it, like when changing the build configuration or introducing new dependencies.
+
 
 h2. Administration
 

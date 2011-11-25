@@ -42,6 +42,7 @@ Choose now _Help -> Install New Software_. Choose the following update site in "
 * EclEmma Java Code Coverage 1.5.3
 * Mylyn 3.6.2
 * EGit 1.1.0
+* Zest SDK 1.3.0
 
 h3. Troubleshooting
 
