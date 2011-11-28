@@ -20,6 +20,12 @@ public interface ISprayContainer {
 
     public static final String TEXTBOX           = "textbox";
 
+    public static final String TOP_CONTAINER     = "TopContainer";
+
+    public static final String ROLESPEC          = "RoleSpec";
+
+    public static final String ID                = "ID";
+
     public static int          DEFAULT_WIDTH     = 150;
 
     public static int          DEFAULT_HEIGHT    = 50;

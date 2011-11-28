@@ -239,7 +239,7 @@ public class SprayPmwRoleContainer implements ISprayContainer {
             // ContainerShape textBox = (ContainerShape) shape;
             for (Shape sh : textBox.getChildren()) {
                 String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-                String id = Graphiti.getPeService().getPropertyValue(sh, "ID");
+                String id = Graphiti.getPeService().getPropertyValue(sh, ID);
                 if (textType.equalsIgnoreCase(TEXT)) {
                     GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                     Text text = (Text) ga;
@@ -248,7 +248,7 @@ public class SprayPmwRoleContainer implements ISprayContainer {
                     text.setX(0);
                     text.setY(y);
                     y += TEXT_LINE_HEIGHT;
-                } else if (textType.equalsIgnoreCase("line")) {
+                } else if (textType.equalsIgnoreCase(LINE)) {
                     GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                     Polyline polyline = (Polyline) ga;
                     Point newFirstPoint = gaService.createPoint(0, y);

@@ -8,6 +8,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
 public class SprayContainerService {
 
@@ -23,7 +24,7 @@ public class SprayContainerService {
 
     static public ContainerShape findTextShape(ContainerShape main) {
         String mainType = Graphiti.getPeService().getPropertyValue(main, ISprayContainer.CONCEPT_SHAPE_KEY);
-        if ((mainType != null) && mainType.equalsIgnoreCase("textbox")) {
+        if ((mainType != null) && mainType.equalsIgnoreCase(ISprayContainer.TEXTBOX)) {
             return (ContainerShape) main;
         }
         for (Shape shape : main.getChildren()) {
@@ -56,7 +57,7 @@ public class SprayContainerService {
                     update(shape, values);
                 } else {
                     if (shape.getGraphicsAlgorithm() instanceof Text) {
-                        String type = Graphiti.getPeService().getPropertyValue(shape, "MODEL_TYPE");
+                        String type = Graphiti.getPeService().getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
                         String value = values.get(type);
                         if (value != null) {
                             Text text = (Text) shape.getGraphicsAlgorithm();
@@ -72,7 +73,7 @@ public class SprayContainerService {
                         }
                     }
                     if (shape.getGraphicsAlgorithm() instanceof MultiText) {
-                        String type = Graphiti.getPeService().getPropertyValue(shape, "MODEL_TYPE");
+                        String type = Graphiti.getPeService().getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
                         String value = values.get(type);
                         if (value != null) {
                             MultiText text = (MultiText) shape.getGraphicsAlgorithm();

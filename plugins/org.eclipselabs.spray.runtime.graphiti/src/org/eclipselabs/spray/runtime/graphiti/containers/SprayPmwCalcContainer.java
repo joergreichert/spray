@@ -69,7 +69,7 @@ public class SprayPmwCalcContainer implements ISprayContainer {
             ellipse.setLineWidth(1);
             gaService.setLocationAndSize(ellipse, context.getX(), context.getY(), width, height);
             // create link and wire it
-            Graphiti.getPeService().setPropertyValue(mainShape, CONCEPT_SHAPE_KEY, "RoleSpec");
+            Graphiti.getPeService().setPropertyValue(mainShape, CONCEPT_SHAPE_KEY, ROLESPEC);
 
         }
 
@@ -202,7 +202,7 @@ public class SprayPmwCalcContainer implements ISprayContainer {
             // ContainerShape textBox = (ContainerShape) shape;
             for (Shape sh : textBox.getChildren()) {
                 String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-                String id = Graphiti.getPeService().getPropertyValue(sh, "ID");
+                String id = Graphiti.getPeService().getPropertyValue(sh, ID);
                 if (textType.equalsIgnoreCase(TEXT)) {
                     GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                     Text text = (Text) ga;

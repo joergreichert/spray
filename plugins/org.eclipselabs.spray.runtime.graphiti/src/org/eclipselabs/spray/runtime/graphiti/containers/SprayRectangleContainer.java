@@ -52,7 +52,7 @@ public class SprayRectangleContainer implements ISprayContainer {
         int height = context.getHeight() <= 0 ? DEFAULT_HEIGHT : context.getHeight();
 
         ContainerShape mainShape = createContainerShape(addedModelElement, targetDiagram, context.getX(), context.getY(), width, height, true, layout);
-        Graphiti.getPeService().setPropertyValue(mainShape, CONCEPT_SHAPE_KEY, "TopContainer");
+        Graphiti.getPeService().setPropertyValue(mainShape, CONCEPT_SHAPE_KEY, TOP_CONTAINER);
 
         ContainerShape textContainer = createContainerShape(addedModelElement, mainShape, 0, 0, width, height, false, layout);
         Graphiti.getPeService().setPropertyValue(textContainer, CONCEPT_SHAPE_KEY, TEXTBOX);
@@ -132,7 +132,7 @@ public class SprayRectangleContainer implements ISprayContainer {
         ContainerShape textBox = (ContainerShape) shape;
         for (Shape sh : textBox.getChildren()) {
             String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-            String id = Graphiti.getPeService().getPropertyValue(sh, "ID");
+            String id = Graphiti.getPeService().getPropertyValue(sh, ID);
             if (textType.equalsIgnoreCase(TEXT)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 AbstractText text = (AbstractText) ga;
@@ -148,7 +148,7 @@ public class SprayRectangleContainer implements ISprayContainer {
                     text.setHeight(TEXT_LINE_HEIGHT);
                     y += TEXT_LINE_HEIGHT;
                 }
-            } else if (textType.equalsIgnoreCase("line")) {
+            } else if (textType.equalsIgnoreCase(LINE)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 Polyline polyline = (Polyline) ga;
                 Point newFirstPoint = gaService.createPoint(0, y);

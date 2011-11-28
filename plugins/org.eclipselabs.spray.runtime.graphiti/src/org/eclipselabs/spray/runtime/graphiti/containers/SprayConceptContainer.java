@@ -196,7 +196,7 @@ public class SprayConceptContainer implements ISprayContainer {
                 text.setX(0);
                 text.setY(y);
                 y += TEXT_LINE_HEIGHT;
-            } else if (textType.equalsIgnoreCase("line")) {
+            } else if (textType.equalsIgnoreCase(LINE)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 Polyline polyline = (Polyline) ga;
                 Point newFirstPoint = gaService.createPoint(0, y);

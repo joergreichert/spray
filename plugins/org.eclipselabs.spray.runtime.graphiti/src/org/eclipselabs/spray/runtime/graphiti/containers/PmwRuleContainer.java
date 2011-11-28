@@ -289,7 +289,7 @@ public class PmwRuleContainer implements ISprayContainer {
         // ContainerShape textBox = (ContainerShape) shape;
         for (Shape sh : textBox.getChildren()) {
             String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-            String id = Graphiti.getPeService().getPropertyValue(sh, "ID");
+            String id = Graphiti.getPeService().getPropertyValue(sh, ID);
             if (textType.equalsIgnoreCase(TEXT)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 if (ga instanceof Text) {
@@ -314,7 +314,7 @@ public class PmwRuleContainer implements ISprayContainer {
                     IDimension dim = Graphiti.getGaLayoutService().calculateSize(text);
                     //                    System.out.println("MultiText [" + text.getValue() + "] DIMENSION width [" + dim.getWidth() + "] height [" + dim.getHeight() + "]");
                 }
-            } else if (textType.equalsIgnoreCase("line")) {
+            } else if (textType.equalsIgnoreCase(LINE)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 Polyline polyline = (Polyline) ga;
                 Point newFirstPoint = gaService.createPoint(0, y);
