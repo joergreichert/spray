@@ -239,6 +239,8 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.append("    ");
     _builder.append("deleteReferences(businessObjectsForPictogramElement, reference, element);");
     _builder.newLine();
+    _builder.append("    ");
+    _builder.append("setDoneChanges(true);");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("postDelete(context);");

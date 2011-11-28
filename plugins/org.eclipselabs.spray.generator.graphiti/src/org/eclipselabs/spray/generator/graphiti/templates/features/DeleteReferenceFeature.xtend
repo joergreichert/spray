@@ -100,7 +100,7 @@ class DeleteReferenceFeature extends FileGenerator {
             }
 
             deleteReferences(businessObjectsForPictogramElement, reference, element);
-
+            setDoneChanges(true);
             postDelete(context);
         }
     '''
