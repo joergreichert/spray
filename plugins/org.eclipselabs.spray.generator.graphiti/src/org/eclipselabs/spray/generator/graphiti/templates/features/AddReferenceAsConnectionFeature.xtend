@@ -6,11 +6,10 @@ import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
-import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 
 
 class AddReferenceAsConnectionFeature extends FileGenerator  {
@@ -139,7 +138,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
             peService.setPropertyValue(connection, ISprayConstants.PROPERTY_MODEL_TYPE, "«reference.metaClass.name».«target.name»");
             peService.setPropertyValue(connection, ISprayConstants.PROPERTY_REFERENCE, (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE));
             peService.setPropertyValue(connection, ISprayConstants.PROPERTY_TARGETOBJECT, (String)context.getProperty(ISprayConstants.PROPERTY_TARGETOBJECT));
-     //       link(connection, addedDomainObject);
+            link(connection, addedDomainObject);
     
             // add static graphical decorator
             // ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);

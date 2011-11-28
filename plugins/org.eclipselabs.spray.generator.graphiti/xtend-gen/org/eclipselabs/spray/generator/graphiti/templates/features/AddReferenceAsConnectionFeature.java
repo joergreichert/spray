@@ -353,8 +353,8 @@ public class AddReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("        ");
     _builder.append("peService.setPropertyValue(connection, ISprayConstants.PROPERTY_TARGETOBJECT, (String)context.getProperty(ISprayConstants.PROPERTY_TARGETOBJECT));");
     _builder.newLine();
-    _builder.append(" ");
-    _builder.append("//       link(connection, addedDomainObject);");
+    _builder.append("        ");
+    _builder.append("link(connection, addedDomainObject);");
     _builder.newLine();
     _builder.newLine();
     _builder.append("        ");
