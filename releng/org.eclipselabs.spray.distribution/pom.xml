@@ -25,6 +25,7 @@
 		<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 		<module>../../plugins/org.eclipselabs.spray.mm</module>
         <module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
+        <module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
         <module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
 		<module>../../plugins/org.eclipselabs.spray.xtext</module>
 		<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>

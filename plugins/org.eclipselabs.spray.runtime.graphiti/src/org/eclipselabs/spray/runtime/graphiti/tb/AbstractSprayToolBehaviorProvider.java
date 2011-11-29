@@ -2,14 +2,20 @@ package org.eclipselabs.spray.runtime.graphiti.tb;
 
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.tb.IDecorator;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.resource.XtextResource;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -22,9 +28,10 @@ import com.google.common.collect.Maps;
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public abstract class AbstractSprayToolBehaviorProvider extends org.eclipse.graphiti.tb.DefaultToolBehaviorProvider {
-    protected final Map<String, IPaletteCompartmentEntry> paletteCompartments = Maps.newHashMap();
+    protected final Map<String, IPaletteCompartmentEntry> paletteCompartments              = Maps.newHashMap();
     /** Key for the default palette compartment */
-    protected static final String                         COMPARTMENT_DEFAULT = "Other";
+    protected static final String                         COMPARTMENT_DEFAULT              = "Other";
+    private static final IRenderingDecoratorProvider[]    NO_RENDERING_DECORATOR_PROVIDERS = new IRenderingDecoratorProvider[0];
 
     public AbstractSprayToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
         super(diagramTypeProvider);
@@ -107,4 +114,46 @@ public abstract class AbstractSprayToolBehaviorProvider extends org.eclipse.grap
         PaletteCompartmentEntry compartment = (PaletteCompartmentEntry) getPaletteCompartmentForFeature(createFeature);
         compartment.addToolEntry(objectCreationToolEntry);
     }
+
+    /**
+     * If the associated business object is contained in an XtextResource, use the {@link IEObjectDocumentationProvider} to
+     * retrieve the tooltip text.
+     */
+    @Override
+    public String getToolTip(GraphicsAlgorithm ga) {
+        EObject bo = (EObject) getFeatureProvider().getBusinessObjectForPictogramElement(ga.getPictogramElement());
+        if (bo != null && bo.eResource() != null && bo.eResource() instanceof XtextResource) {
+            XtextResource res = (XtextResource) bo.eResource();
+            IEObjectDocumentationProvider documentationProvider = res.getResourceServiceProvider().get(IEObjectDocumentationProvider.class);
+            return documentationProvider.getDocumentation(bo);
+        }
+        return super.getTitleToolTip();
+    }
+
+    /**
+     * {@inheritDoc} This implementation will delegate to instances of IRenderingDecoratorProvider to get decorators for a pictogram element.
+     * 
+     * @see {@link #getRenderingDecoratorProviders()}
+     */
+    @Override
+    public IDecorator[] getDecorators(PictogramElement pe) {
+        final IRenderingDecoratorProvider[] renderingDecoratorProviders = getRenderingDecoratorProviders();
+        for (IRenderingDecoratorProvider renderingDecoratorProvider : renderingDecoratorProviders) {
+            IDecorator[] decorators = renderingDecoratorProvider.getDecorators(pe);
+            if (decorators != null) {
+                return decorators;
+            }
+        }
+        return super.getDecorators(pe);
+    }
+
+    /**
+     * Clients may override this method to provide a custom set of rendering decorator providers.
+     * 
+     * @return
+     */
+    protected IRenderingDecoratorProvider[] getRenderingDecoratorProviders() {
+        return NO_RENDERING_DECORATOR_PROVIDERS;
+    }
+
 }
