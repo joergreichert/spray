@@ -372,6 +372,11 @@ public class NamingExtensionsTest {
         assertEquals("EcorePackage.Literals.ECLASS", fixture.getLiteralConstant(clsEClass.getType()));
     }
 
+    @Test
+    public void test_getLiteralConstant_EReference() {
+        assertEquals("EcorePackage.Literals.ECLASS__EALL_OPERATIONS", fixture.getLiteralConstant(reference.getTarget()));
+    }
+
     //---------------------------------------------------------------------------------------------
     // Other names
     //---------------------------------------------------------------------------------------------

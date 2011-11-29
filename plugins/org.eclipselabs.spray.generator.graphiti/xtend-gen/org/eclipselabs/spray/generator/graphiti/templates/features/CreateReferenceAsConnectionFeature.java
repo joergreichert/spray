@@ -445,10 +445,10 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append("addContext.setNewObject(source);");
     _builder.newLine();
     _builder.append("            ");
-    _builder.append("addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, \"");
-    String _name_5 = this._namingExtensions.getName(reference);
-    _builder.append(_name_5, "            ");
-    _builder.append("\");");
+    _builder.append("addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, ");
+    String _literalConstant = this._namingExtensions.getLiteralConstant(reference);
+    _builder.append(_literalConstant, "            ");
+    _builder.append(".getName());");
     _builder.newLineIfNotEmpty();
     _builder.append("            ");
     _builder.append("// TODO: assume that the target object has a Name property");

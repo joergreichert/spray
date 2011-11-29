@@ -16,6 +16,7 @@ import org.eclipse.xtext.util.SimpleAttributeResolver
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.emf.ecore.EReference
 
 /**
  * Computation of class names, file names etc.
@@ -267,6 +268,12 @@ class NamingExtensions {
 	}
     def String getLiteralConstant (EClass eClass) {
         genModelHelper.getEPackageClassName(eClass).shortName+".Literals."+genModelHelper.getLiteralConstant(eClass)
+    }
+    def String getLiteralConstant (MetaReference reference) {
+        reference.target.literalConstant
+    }
+    def String getLiteralConstant (EReference eReference) {
+        genModelHelper.getEPackageClassName(eReference.EContainingClass).shortName+".Literals."+genModelHelper.getLiteralConstant(eReference)
     }
     def String getLiteralConstant (MetaClass clazz) {
         getLiteralConstant(clazz.type)

@@ -137,18 +137,18 @@ class UpdateConnectionFeature extends FileGenerator  {
     def generate_getValue (Connection connection) '''
         protected String getValue(String type, «connection.represents.name» eClass) {
             String result = "";
-            if( "FROM_LABEL".equals(type) ){
+            if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
                 «var fromLabel =  connection.fromLabel»
                 «IF fromLabel != null»
                 «valueGenerator(connection.fromLabel, "eClass")»
                 «ENDIF»
             }
-            if( "TO_LABEL".equals(type) ){
+            if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
                 «IF connection.toLabel!=null»
                 «valueGenerator(connection.toLabel, "eClass")»
                 «ENDIF»
             }
-            if( "CONNECTION_LABEL".equals(type) ){
+            if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
                 «IF connection.connectionLabel!=null»
                 «valueGenerator(connection.connectionLabel, "eClass")»
                 «ENDIF»

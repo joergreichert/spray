@@ -627,6 +627,22 @@ public class NamingExtensions {
     return _operator_plus_1;
   }
   
+  public String getLiteralConstant(final MetaReference reference) {
+    EReference _target = reference.getTarget();
+    String _literalConstant = this.getLiteralConstant(_target);
+    return _literalConstant;
+  }
+  
+  public String getLiteralConstant(final EReference eReference) {
+    EClass _eContainingClass = eReference.getEContainingClass();
+    String _ePackageClassName = this.genModelHelper.getEPackageClassName(_eContainingClass);
+    String _shortName = this.shortName(_ePackageClassName);
+    String _operator_plus = StringExtensions.operator_plus(_shortName, ".Literals.");
+    String _literalConstant = this.genModelHelper.getLiteralConstant(eReference);
+    String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _literalConstant);
+    return _operator_plus_1;
+  }
+  
   public String getLiteralConstant(final MetaClass clazz) {
     EClass _type = clazz.getType();
     String _literalConstant = this.getLiteralConstant(_type);

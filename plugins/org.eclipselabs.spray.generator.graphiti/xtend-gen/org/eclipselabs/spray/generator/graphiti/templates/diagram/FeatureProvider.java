@@ -237,7 +237,7 @@ public class FeatureProvider extends FileGenerator {
     _builder.append("EObject object = (EObject) context.getNewObject() ;");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("String reference = (String)context.getProperty(\"REFERENCE\");");
+    _builder.append("String reference = (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE);");
     _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
@@ -281,10 +281,10 @@ public class FeatureProvider extends FileGenerator {
           for(final MetaReference reference : _filter) {
             _builder.append("    ");
             _builder.append("        ");
-            _builder.append("} else if( reference.equals(\"");
-            String _name = this._namingExtensions.getName(reference);
-            _builder.append(_name, "            ");
-            _builder.append("\")){");
+            _builder.append("} else if( reference.equals(");
+            String _literalConstant_1 = this._namingExtensions.getLiteralConstant(reference);
+            _builder.append(_literalConstant_1, "            ");
+            _builder.append(".getName())){");
             _builder.newLineIfNotEmpty();
             _builder.append("    ");
             _builder.append("        ");
@@ -397,7 +397,6 @@ public class FeatureProvider extends FileGenerator {
                 _builder.append("    ");
                 EReference _target = reference.getTarget();
                 final EReference target = _target;
-                _builder.append("  ");
                 _builder.newLineIfNotEmpty();
                 {
                   EClass _eReferenceType = target.getEReferenceType();
@@ -776,7 +775,7 @@ public class FeatureProvider extends FileGenerator {
     _builder.append("if (bo == null) return null;");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("String reference = peService.getPropertyValue(pictogramElement, \"REFERENCE\");");
+    _builder.append("String reference = peService.getPropertyValue(pictogramElement, ISprayConstants.PROPERTY_REFERENCE);");
     _builder.newLine();
     _builder.newLine();
     {
@@ -815,10 +814,10 @@ public class FeatureProvider extends FileGenerator {
           for(final MetaReference reference : _filter) {
             _builder.append("        ");
             _builder.append("    ");
-            _builder.append("} else if( reference.equals(\"");
-            String _name = this._namingExtensions.getName(reference);
-            _builder.append(_name, "            ");
-            _builder.append("\")){");
+            _builder.append("} else if( reference.equals(");
+            String _literalConstant_1 = this._namingExtensions.getLiteralConstant(reference);
+            _builder.append(_literalConstant_1, "            ");
+            _builder.append(".getName())){");
             _builder.newLineIfNotEmpty();
             _builder.append("        ");
             _builder.append("    ");
@@ -861,8 +860,8 @@ public class FeatureProvider extends FileGenerator {
                 _builder.append("    ");
                 _builder.append("if( bo instanceof ");
                 EClass _eReferenceType = target.getEReferenceType();
-                String _name_1 = _eReferenceType.getName();
-                _builder.append(_name_1, "            ");
+                String _name = _eReferenceType.getName();
+                _builder.append(_name, "            ");
                 _builder.append(" ){");
                 _builder.newLineIfNotEmpty();
                 _builder.append("        ");
@@ -912,7 +911,7 @@ public class FeatureProvider extends FileGenerator {
     _builder.append("String stat  = peService.getPropertyValue(s, ISprayConstants.PROPERTY_CAN_MOVE);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("if( (stat != null) && (stat.equals(\"false\") )){");
+    _builder.append("if( Boolean.valueOf(stat) == Boolean.FALSE){");
     _builder.newLine();
     _builder.append("        ");
     _builder.append("return null;");

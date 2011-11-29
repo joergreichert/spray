@@ -101,14 +101,14 @@ class FeatureProvider extends FileGenerator {
         public IAddFeature getAddFeature(IAddContext context) {
             // is object for add request a EClass or EReference?
             EObject object = (EObject) context.getNewObject() ;
-            String reference = (String)context.getProperty("REFERENCE");
+            String reference = (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE);
             
             «FOR cls : diagram.metaClasses»
                 if ( object.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) {
                     if ( reference == null ){
                         return new «cls.addFeatureClassName.shortName»(this);
                         «FOR reference :  cls.references.filter(ref|ref.representedBy != null)  »
-                        } else if( reference.equals("«reference.name»")){
+                        } else if( reference.equals(«reference.literalConstant».getName())){
                             return new «reference.addReferenceAsConnectionFeatureClassName.shortName»(this);
                         «ENDFOR»
                     }
@@ -135,7 +135,7 @@ class FeatureProvider extends FileGenerator {
                 «IF cls.representedBy instanceof Container»
                     «val container = cls.representedBy as Container»
                     «FOR reference : container.parts.filter(typeof(MetaReference))»
-                        «val target = reference.target»  
+                        «val target = reference.target»
                         «IF ! target.EReferenceType.abstract»
                         , new «reference.createFeatureClassName.shortName»(this)
                         «ENDIF»
@@ -235,14 +235,14 @@ class FeatureProvider extends FileGenerator {
             PictogramElement pictogramElement = context.getPictogramElement();
             EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
-            String reference = peService.getPropertyValue(pictogramElement, "REFERENCE");
+            String reference = peService.getPropertyValue(pictogramElement, ISprayConstants.PROPERTY_REFERENCE);
     
             «FOR cls : diagram.metaClasses »
             if ( bo.eClass()==«cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) {
                 if( reference == null ){
                     return new DefaultDeleteFeature(this); 
                 «FOR reference : cls.references.filter(ref|ref.representedBy != null)  »
-                } else if( reference.equals("«reference.name»")){
+                } else if( reference.equals(«reference.literalConstant».getName())){
                     return new «reference.deleteReferenceFeatureClassName.shortName»(this);
                 «ENDFOR»    
                 }
@@ -270,7 +270,7 @@ class FeatureProvider extends FileGenerator {
         public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
             Shape s = context.getShape();
             String stat  = peService.getPropertyValue(s, ISprayConstants.PROPERTY_CAN_MOVE);
-            if( (stat != null) && (stat.equals("false") )){
+            if( Boolean.valueOf(stat) == Boolean.FALSE){
                 return null;
             }
             return super.getMoveShapeFeature(context);

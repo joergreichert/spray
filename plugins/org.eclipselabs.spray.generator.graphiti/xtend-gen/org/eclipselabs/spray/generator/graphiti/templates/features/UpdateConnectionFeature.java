@@ -371,7 +371,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("String result = \"\";");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("if( \"FROM_LABEL\".equals(type) ){");
+    _builder.append("if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){");
     _builder.newLine();
     _builder.append("        ");
     Text _fromLabel = connection.getFromLabel();
@@ -391,7 +391,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("if( \"TO_LABEL\".equals(type) ){");
+    _builder.append("if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){");
     _builder.newLine();
     {
       Text _label = connection.getToLabel();
@@ -408,7 +408,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("if( \"CONNECTION_LABEL\".equals(type) ){");
+    _builder.append("if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){");
     _builder.newLine();
     {
       Text _connectionLabel = connection.getConnectionLabel();

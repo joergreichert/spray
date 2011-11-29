@@ -57,8 +57,10 @@ public class GenModelHelper {
         if (genClass == null) {
             return null;
         } else {
-            return null;
+            // TODO: Find appropriate method in GenFeature
+            return getLiteralConstant(feature.getEContainingClass()) + "__" + genClass.getFormattedName().replace(" ", "_").toUpperCase();
         }
+
     }
 
     public String getFileExtension(EClass eClass) {
@@ -86,7 +88,7 @@ public class GenModelHelper {
     protected GenFeature getGenFeature(EStructuralFeature feature) {
         GenClass genClass = getGenClass(feature.getEContainingClass());
         for (GenFeature f : genClass.getAllGenFeatures()) {
-            if (f.getEcoreFeature().equals(feature)) {
+            if (qualifiedNameProvider.getFullyQualifiedName(f.getEcoreFeature()).equals(qualifiedNameProvider.getFullyQualifiedName(feature))) {
                 return f;
             }
         }

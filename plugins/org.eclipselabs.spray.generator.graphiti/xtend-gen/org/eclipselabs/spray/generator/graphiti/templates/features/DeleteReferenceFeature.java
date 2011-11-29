@@ -101,6 +101,8 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.PictogramElement;");
     _builder.newLine();
+    _builder.append("import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;");
+    _builder.newLine();
     _builder.append("import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;");
     _builder.newLine();
     _builder.append("// MARKER_IMPORT");
@@ -160,10 +162,10 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.append("PictogramElement pe = context.getPictogramElement();");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("String reference = peService.getPropertyValue(pe, \"REFERENCE\");");
+    _builder.append("String reference = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_REFERENCE);");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("String element   = peService.getPropertyValue(pe, \"TARGETOBJECT\");");
+    _builder.append("String element   = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_TARGETOBJECT);");
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");

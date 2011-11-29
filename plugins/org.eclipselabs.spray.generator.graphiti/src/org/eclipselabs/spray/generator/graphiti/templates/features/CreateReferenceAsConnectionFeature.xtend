@@ -136,7 +136,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator  {
                 // add connection for business object
                 AddConnectionContext addContext = new AddConnectionContext( context.getSourceAnchor(), context.getTargetAnchor());
                 addContext.setNewObject(source);
-                addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, "«reference.name»");
+                addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, «reference.literalConstant».getName());
                 // TODO: assume that the target object has a Name property
         //        addContext.putProperty("TARGETOBJECT", target.getName());
                 newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
