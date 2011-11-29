@@ -1,59 +1,58 @@
 package org.eclipselabs.spray.generator.graphiti.util.mm
 
-import org.eclipselabs.spray.mm.spray.SprayFactory
-import org.junit.Test
-import org.junit.Assert
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
 import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.junit.runner.RunWith
+import org.eclipse.emf.ecore.EcorePackage
+import org.eclipse.xtext.junit4.InjectWith
+import org.eclipselabs.spray.mm.spray.SprayFactory
+import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Before
-import org.junit.Ignore
+import org.junit.Test
+import org.junit.runner.RunWith
+
+import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(SprayTestsInjectorProvider))
 class MetaClassExtensionsTest {
-    @Inject NamingExtensions ne 
-    // @Inject extension NamingExtensions 
-    private MetaClassExtensions ext
+    @Inject
+    MetaClassExtensions ext
 
     @Before
     def void setUp() {
-        ext = new MetaClassExtensions()
+        // ext = new MetaClassExtensions()
     }
 
-	@Ignore
 	@Test
-	def testGetCreateFeatureLabel_WhenMetaClassHasNoName__ExpectNull () {
+	def testGetCreateFeatureLabel_WhenMetaClassHasNoName__ExpectEClassName () {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+		metaClass.type = EcorePackage::eINSTANCE.EClass
 		val label = ext.getCreateFeatureLabel(metaClass)
-		Assert::assertNull(label)
+		assertEquals("EClass",label)
 	}
 
-	@Ignore
 	@Test
 	def testGetCreateFeatureLabel_WhenMetaClassHasName__ExpectLabel () {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
 		metaClass.alias = "testName"
 		val label = ext.getCreateFeatureLabel(metaClass)
-		Assert::assertEquals("testName", label)
+		assertEquals("testName", label)
 	}
 	
-	@Ignore
 	@Test
 	def getCreateFeatureDescription () {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
 		val description = ext.getCreateFeatureDescription(metaClass)
-		Assert::assertEquals("", description)
+		assertEquals("Create new EClass", description)
 	}
 	
-	@Ignore
 	@Test
 	def getCreateBehavior () {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
 		val behavior = ext.getCreateBehavior(metaClass)
-		Assert::assertNull(behavior)
+		assertNull(behavior)
 	}
 }
