@@ -41,9 +41,17 @@ public class NamingExtensions {
   }
   
   protected String _getName(final MetaClass metaClass) {
+    String _xifexpression = null;
     EClass _type = metaClass.getType();
-    String _name = _type.getName();
-    return _name;
+    boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_type, null);
+    if (_operator_notEquals) {
+      EClass _type_1 = metaClass.getType();
+      String _name = _type_1.getName();
+      _xifexpression = _name;
+    } else {
+      _xifexpression = null;
+    }
+    return _xifexpression;
   }
   
   protected String _getName(final MetaReference ref) {

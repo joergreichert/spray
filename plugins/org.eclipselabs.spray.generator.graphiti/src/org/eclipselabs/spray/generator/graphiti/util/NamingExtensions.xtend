@@ -31,7 +31,7 @@ class NamingExtensions {
     }
 
     def dispatch String getName (MetaClass metaClass) {
-        metaClass.type.name
+        if (metaClass.type!=null) metaClass.type.name else null
     }
     def dispatch String getName (MetaReference ref) {
         ref.target.name
