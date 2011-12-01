@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -53,6 +54,7 @@ public class NamingExtensionsTest {
         setup.setPlatformUri(".");
         setup.setScanClassPath(true);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
+        EPackage.Registry.INSTANCE.put(XMLTypePackage.eNS_URI, XMLTypePackage.eINSTANCE);
         EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(EcorePackage.eNS_URI, URI.createURI("platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"));
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("genmodel", new XMIResourceFactoryImpl());
     }
