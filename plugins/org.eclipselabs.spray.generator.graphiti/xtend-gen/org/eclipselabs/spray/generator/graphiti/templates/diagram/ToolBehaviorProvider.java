@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.eclipse.xtext.xbase.lib.ComparableExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -322,7 +323,17 @@ public class ToolBehaviorProvider extends FileGenerator {
       }
     }
     _builder.append("        ");
-    _builder.append(", getPaletteCompartment(COMPARTMENT_DEFAULT)");
+    {
+      HashSet<String> _paletteCompartmentNames_1 = this.getPaletteCompartmentNames(diagram);
+      int _size = _paletteCompartmentNames_1.size();
+      boolean _operator_greaterThan = ComparableExtensions.<Integer>operator_greaterThan(((Integer)_size), ((Integer)0));
+      if (_operator_greaterThan) {
+        _builder.append(",");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("getPaletteCompartment(COMPARTMENT_DEFAULT)");
     _builder.newLine();
     _builder.append("    ");
     _builder.append(");");
