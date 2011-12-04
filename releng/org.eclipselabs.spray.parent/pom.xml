@@ -48,6 +48,11 @@
 	<profiles>
 		<profile>
 			<id>remote-build-snapshot</id>
+			<activation>
+				<property>
+					<name>remote-build-snapshot</name>
+				</property>
+			</activation>			
 			<repositories>
 				<repository>
 					<id>spray-dependencies</id>
@@ -58,6 +63,11 @@
 		</profile>
 		<profile>
 			<id>remote-build-release</id>
+			<activation>
+				<property>
+					<name>remote-build-release</name>
+				</property>
+			</activation>			
 			<repositories>
 				<repository>
 					<id>spray-dependencies</id>
