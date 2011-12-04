@@ -122,7 +122,8 @@ class ToolBehaviorProvider extends FileGenerator {
                 «FOR compartmentName : diagram.paletteCompartmentNames SEPARATOR ", "»
                     getPaletteCompartment(COMPARTMENT_«compartmentName.toUpperCase»)
                 «ENDFOR»
-                , getPaletteCompartment(COMPARTMENT_DEFAULT)
+                «IF diagram.paletteCompartmentNames.size > 0»,«ENDIF»
+                getPaletteCompartment(COMPARTMENT_DEFAULT)
             );
         }
     '''
