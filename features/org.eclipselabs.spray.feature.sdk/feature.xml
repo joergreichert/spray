@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.spray.feature.sdk"
       label="%featureName"
-      version="0.4.0.qualifier"
+      version="0.0.0"
       provider-name="%providerName">
 
    <description>
@@ -23,102 +23,102 @@
 
    <includes
          id="org.eclipselabs.spray.feature"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <includes
          id="org.eclipselabs.spray.feature.source"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <includes
          id="org.eclipse.emf.mwe2.language.sdk"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <includes
          id="org.eclipse.emf.mwe2.language.sdk.source"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <includes
          id="org.eclipse.graphiti.sdk.feature"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <includes
          id="org.eclipse.graphiti.source.feature"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipselabs.spray.xtext.tests"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.xtext.tests.source"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.examples.one"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.examples.one.source"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.mod4j.dsl.businessdomain.mm"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.mod4j.dsl.businessdomain.mm.source"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.examples.one.tests"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.examples.one.tests.source"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.generator.graphiti.tests.source"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.doc.common"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.doc.dev"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
 </feature>

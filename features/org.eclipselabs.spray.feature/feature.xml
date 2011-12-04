@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.spray.feature"
       label="%featureName"
-      version="0.4.0.qualifier"
+      version="0.0.0"
       provider-name="%providerName">
 
    <description>
@@ -25,62 +25,62 @@
          id="org.eclipselabs.spray.generator.graphiti"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.mm"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.runtime.graphiti"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.xtext"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.xtext.ui"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.generator.graphiti.ui"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.doc.user"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipselabs.spray.runtime.graphiti.zest"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.runtime.graphiti.xtext"
          download-size="0"
          install-size="0"
-         version="0.4.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
