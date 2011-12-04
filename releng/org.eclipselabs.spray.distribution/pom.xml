@@ -15,6 +15,8 @@
 
 	<modules>
 		<module>../../releng/org.eclipselabs.spray.targetplatform</module>
+		<module>../../releng/org.eclipselabs.spray.repository.parent</module>
+		<module>../../releng/org.eclipselabs.spray.repository</module>
 		<module>../../releng/org.eclipselabs.spray.parent</module>
 		<module>../../devtools/org.eclipselabs.spray.dev.feature</module>
 		<module>../../devtools/org.eclipselabs.spray.dev.updatesite</module>
@@ -38,6 +40,6 @@
 		<module>../../features/org.eclipselabs.spray.feature</module>
 		<module>../../features/org.eclipselabs.spray.feature.source</module>
 		<module>../../features/org.eclipselabs.spray.feature.sdk</module>
-		<module>../../releng/org.eclipselabs.spray.repository</module>
+		<module>../../releng/org.eclipselabs.spray.updatesite</module>
 	</modules>
 </project>
