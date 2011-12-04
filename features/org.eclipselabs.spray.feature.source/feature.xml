@@ -25,56 +25,56 @@
          id="org.eclipselabs.spray.generator.graphiti.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.generator.graphiti.ui.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.mm.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.runtime.graphiti.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.runtime.graphiti.xtext.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.runtime.graphiti.zest.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.xtext.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipselabs.spray.xtext.ui.source"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.4.0.qualifier"
          unpack="false"/>
 
 </feature>
