@@ -17,10 +17,14 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 class FeatureProvider extends FileGenerator {
     @Inject extension NamingExtensions
     @Inject extension GenModelHelper
+    @Inject extension DiagramExtensions
+    @Inject extension MetaClassExtensions
     
     override StringConcatenation generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)
@@ -130,26 +134,37 @@ class FeatureProvider extends FileGenerator {
         «overrideHeader»
         public ICreateFeature[] getCreateFeatures() {
             return new ICreateFeature[] { 
-            «FOR cls : diagram.metaClasses.filter(e| ! (e.representedBy instanceof Connection) ) SEPARATOR ","»
-                new «cls.createFeatureClassName.shortName»(this) 
-                «IF cls.representedBy instanceof Container»
-                    «val container = cls.representedBy as Container»
-                    «FOR reference : container.parts.filter(typeof(MetaReference))»
-                        «val target = reference.target»
-                        «IF ! target.EReferenceType.abstract»
-                        , new «reference.createFeatureClassName.shortName»(this)
-                        «ENDIF»
-                        «FOR subclass : target.EReferenceType.getSubclasses() »
-                            «IF ! subclass.abstract »
-                            , new «reference.getCreateReferenceAsListFeatureClassName(subclass).shortName»(this)
-                            «ENDIF»
-                        «ENDFOR»
-                    «ENDFOR»    
-                «ENDIF»
+            «FOR featureClassName : diagram.getCreateFeatureClassNames SEPARATOR ","»
+                new «featureClassName»(this) 
             «ENDFOR»
             };
         }    
     '''
+    
+    /**
+     * Computes the class names of all Create Features of the diagram.
+     */
+    def private List<String> getCreateFeatureClassNames (Diagram diagram) {
+        val result = new ArrayList<String>()
+        
+        val metaClassesForShapes = diagram.metaClassesForShapes
+        for (mc : diagram.metaClassesForShapes.filter(mc|mc.hasCreateBehavior)) {
+            result += mc.createFeatureClassName.shortName
+            if (mc.representedByContainer) {
+                val container = mc.representedBy as Container
+                for (reference : container.parts.filter(typeof(MetaReference))) {
+                    val target = reference.target
+                    if (!target.EReferenceType.abstract) {
+                        result += reference.createFeatureClassName.shortName
+                    }
+                    for (subclass : target.EReferenceType.getSubclasses().filter(cls|!cls.abstract)) {
+                        result += reference.getCreateReferenceAsListFeatureClassName(subclass).shortName
+                    }
+                }
+            }
+        }
+        return result
+    }
     
     def generate_getUpdateFeature (Diagram diagram) '''
         «overrideHeader»

@@ -3,13 +3,17 @@ package org.eclipselabs.spray.generator.graphiti.util.mm;
 import com.google.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Behavior;
+import org.eclipselabs.spray.mm.spray.Connection;
+import org.eclipselabs.spray.mm.spray.Container;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.MetaClass;
+import org.eclipselabs.spray.mm.spray.Shape;
 
 @SuppressWarnings("all")
 public class MetaClassExtensions {
@@ -54,5 +58,29 @@ public class MetaClassExtensions {
     Iterable<CreateBehavior> _filter = IterableExtensions.<CreateBehavior>filter(_behaviorsList, org.eclipselabs.spray.mm.spray.CreateBehavior.class);
     CreateBehavior _head = IterableExtensions.<CreateBehavior>head(_filter);
     return _head;
+  }
+  
+  public boolean hasCreateBehavior(final MetaClass mc) {
+    Behavior[] _behaviors = mc.getBehaviors();
+    Iterable<CreateBehavior> _filter = IterableExtensions.<CreateBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors)), org.eclipselabs.spray.mm.spray.CreateBehavior.class);
+    boolean _isEmpty = IterableExtensions.isEmpty(_filter);
+    boolean _operator_not = BooleanExtensions.operator_not(_isEmpty);
+    return _operator_not;
+  }
+  
+  /**
+   * @return <code>true</code> when the MetaClass is represented by a Container Shape
+   */
+  public boolean isRepresentedByContainer(final MetaClass mc) {
+    Shape _representedBy = mc.getRepresentedBy();
+    return (_representedBy instanceof Container);
+  }
+  
+  /**
+   * @return <code>true</code> when the MetaClass is represented by a Connection Shape
+   */
+  public boolean isRepresentedByConnection(final MetaClass mc) {
+    Shape _representedBy = mc.getRepresentedBy();
+    return (_representedBy instanceof Connection);
   }
 }

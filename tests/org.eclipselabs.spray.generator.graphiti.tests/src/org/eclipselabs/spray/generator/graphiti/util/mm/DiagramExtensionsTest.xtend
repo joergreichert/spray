@@ -3,17 +3,34 @@ package org.eclipselabs.spray.generator.graphiti.util.mm
 import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.mm.spray.Diagram
-import org.junit.Assert
+import static org.junit.Assert.*
 import org.junit.Test
+import com.google.inject.Inject
+import org.eclipse.xtext.junit4.InjectWith
+import org.junit.runner.RunWith
+import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
+import com.google.inject.Provider
+import org.eclipse.xtext.resource.XtextResourceSet
+import org.eclipse.emf.mwe.utils.StandaloneSetup
+import org.eclipse.emf.ecore.EPackage
 
+@RunWith(typeof(XtextRunner))
+@InjectWith(typeof(SprayTestsInjectorProvider))
 class DiagramExtensionsTest {
-    
-	@Test    
+    @Inject
+    DiagramExtensions diagramExtensions
+    @Inject
+    Provider<XtextResourceSet> resourceSetProvider
+
+    // ============================================================================================
+    // TESTS FOR METHOD getDiagram()
+    // ============================================================================================
+	@Test
     def testGetDiagram_WhenDiagramIsInput__FoundExpected() {
 		val diagram = SprayFactory::eINSTANCE.createDiagram
     	executeGetDiagramTest(diagram, diagram, "Diagram should be returned for diagram")
     }
-
 
 	@Test    
     def testGetDiagram_WhenDiagramIsDirectSuperClass__FoundExpected() {
@@ -40,15 +57,24 @@ class DiagramExtensionsTest {
 	@Test    
     def testGetDiagram_WhenDiagramIsNotSuperClass__NullExpected() {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
-    	val diagramExtensions = new DiagramExtensions()
     	val foundDiagram = diagramExtensions.getDiagram(metaClass)
-    	Assert::assertNull(foundDiagram)
+    	assertNull(foundDiagram)
     }
 
 
     def private executeGetDiagramTest(EObject element, Diagram expectedDiagram, String message) {
-    	val diagramExtensions = new DiagramExtensions()
     	val foundDiagram = diagramExtensions.getDiagram(element)
-    	Assert::assertEquals(foundDiagram, expectedDiagram)
+    	assertEquals(foundDiagram, expectedDiagram)
+    }
+
+
+    // ============================================================================================
+    // TESTS FOR METHOD getElementsForTemplate(Diagram, CreateShapeFeature)
+    // ============================================================================================
+    @Test
+    def test_getElementsForTemplate_CreateShapeFeature__FoundExpected () {
+        val rs = resourceSetProvider.get
+        val setup = new StandaloneSetup()
+        
     }
 }
