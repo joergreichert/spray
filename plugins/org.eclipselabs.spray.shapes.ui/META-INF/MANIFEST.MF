@@ -38,6 +38,6 @@ Require-Bundle: org.eclipselabs.spray.shapes;visibility:=reexport,
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.eclipselabs.spray.ui.contentassist.antlr,
- org.eclipselabs.spray.ui.internal
+Export-Package: org.eclipselabs.spray.shapes.ui.contentassist.antlr,
+ org.eclipselabs.spray.shapes.ui.internal
 Bundle-Activator: org.eclipselabs.spray.ui.internal.ShapesActivator
