@@ -6,42 +6,42 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="shapes"
-            id="org.eclipselabs.spray.Shapes"
-            name="Shapes Editor">
+            extensions="shape"
+            id="org.eclipselabs.spray.shapes.Shape"
+            name="Shape Editor">
         </editor>
     </extension>
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+                    definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="org.eclipselabs.spray.Shapes.validate">
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="org.eclipselabs.spray.shapes.Shape.validate">
          <activeWhen>
             <reference
-                    definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+                    definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
             </reference>
          </activeWhen>
       </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="org.eclipselabs.spray.Shapes.Editor.opened">
+        <definition id="org.eclipselabs.spray.shapes.Shape.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="org.eclipselabs.spray.Shapes" 
+                        value="org.eclipselabs.spray.shapes.Shape" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -50,33 +50,33 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.eclipselabs.spray.Shapes"
-            name="Shapes">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipselabs.spray.shapes.Shape"
+            name="Shape">
+            <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
         </page>
         <page
-            category="org.eclipselabs.spray.Shapes"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="org.eclipselabs.spray.Shapes.coloring"
+            category="org.eclipselabs.spray.shapes.Shape"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="org.eclipselabs.spray.shapes.Shape.coloring"
             name="Syntax Coloring">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+            <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
         </page>
         <page
-            category="org.eclipselabs.spray.Shapes"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="org.eclipselabs.spray.Shapes.templates"
+            category="org.eclipselabs.spray.shapes.Shape"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="org.eclipselabs.spray.shapes.Shape.templates"
             name="Templates">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+            <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.eclipselabs.spray.Shapes"
-            name="Shapes">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipselabs.spray.shapes.Shape"
+            name="Shape">
+            <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -86,14 +86,14 @@
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="org.eclipselabs.spray.ui.keyword_Shapes"
-            label="Shapes"/>
+            id="org.eclipselabs.spray.shapes.ui.keyword_Shape"
+            label="Shape"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="org.eclipselabs.spray.Shapes.validate"
+            id="org.eclipselabs.spray.shapes.Shape.validate"
             name="Validate">
       </command>
     </extension>
@@ -101,12 +101,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="org.eclipselabs.spray.Shapes.validate"
+                 commandId="org.eclipselabs.spray.shapes.Shape.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+                    definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -116,7 +116,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+                	<reference definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -124,11 +124,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+                    definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
@@ -139,14 +139,14 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
-			type="shapes">
+			class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="shape">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-            uriExtension="shapes">
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="shape">
         </resourceServiceProvider>
     </extension>
 
@@ -155,27 +155,27 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
       </participant>
    </extension>
    <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            category="org.eclipselabs.spray.Shapes"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="org.eclipselabs.spray.Shapes.compiler.preferencePage"
+            category="org.eclipselabs.spray.shapes.Shape"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipselabs.spray.shapes.Shape.compiler.preferencePage"
             name="Compiler">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+            <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            category="org.eclipselabs.spray.Shapes"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="org.eclipselabs.spray.Shapes.compiler.propertyPage"
+            category="org.eclipselabs.spray.shapes.Shape"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipselabs.spray.shapes.Shape.compiler.propertyPage"
             name="Compiler">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+            <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -187,11 +187,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+					definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -211,7 +211,7 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="org.eclipselabs.spray.Shapes.Editor.opened"/>
+					<reference definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
@@ -220,17 +220,17 @@
    <extension
          point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
       </markerResolutionGenerator>
    </extension>
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
-					definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+					definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -242,7 +242,7 @@
                style="push">
             <visibleWhen checkEnabled="false">
                <reference
-                     definitionId="org.eclipselabs.spray.Shapes.Editor.opened">
+                     definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
                </reference>
             </visibleWhen>
          </command>
@@ -250,31 +250,31 @@
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
-	        category="org.eclipselabs.spray.Shapes"
-	        class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
-	        id="org.eclipselabs.spray.Shapes.refactoring"
+	        category="org.eclipselabs.spray.shapes.Shape"
+	        class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+	        id="org.eclipselabs.spray.shapes.Shape.refactoring"
 	        name="Refactoring">
-	        <keywordReference id="org.eclipselabs.spray.ui.keyword_Shapes"/>
+	        <keywordReference id="org.eclipselabs.spray.shapes.ui.keyword_Shape"/>
 	    </page>
 	</extension>
 
 
   <extension point="org.eclipse.compare.contentViewers">
-    <viewer id="org.eclipselabs.spray.Shapes.compare.contentViewers"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="shapes">
+    <viewer id="org.eclipselabs.spray.shapes.Shape.compare.contentViewers"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+            extensions="shape">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
-    <viewer id="org.eclipselabs.spray.Shapes.compare.contentMergeViewers"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="shapes" label="Shapes Compare">
+    <viewer id="org.eclipselabs.spray.shapes.Shape.compare.contentMergeViewers"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+            extensions="shape" label="Shape Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
-    <provider id="org.eclipselabs.spray.Shapes.editors.documentProviders"
-            class="org.eclipselabs.spray.ui.ShapesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-            extensions="shapes">
+    <provider id="org.eclipselabs.spray.shapes.Shape.editors.documentProviders"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+            extensions="shape">
     </provider>
   </extension>
 
