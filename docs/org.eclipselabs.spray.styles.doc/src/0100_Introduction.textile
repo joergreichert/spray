@@ -1,0 +1,6 @@
+
+h1. Introduction
+
+This documentation is an extensions of the Spray User Guide and Spray Shapes Guide. It describes how to define global graphiti styles for an Spray Project.
+
+A style describes the referenced figures generally. Attributes like background color and line style can be set and they will be finally mapped with a name. Afterwards the styles can be referenced with their name. The reference will be possible in one hand globally for the whole spray project and can be overwritten in the other hand from a class, a shape and/or a shape element (as ellipse, rectangle, ...). If the style will not be referenced at all the default spray style will be taken. The style helps to generate a nice graphiti editor for a given color schema and supports to adjust all element styles as your own necessity.

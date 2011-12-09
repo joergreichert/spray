@@ -1,0 +1,40 @@
+
+h2. Transparency and Background
+
+bc. 
+transparency = 0.95
+
+The @transparency@ defines the visibility of the whole shape. The value is a floating value within the interval 0.00 and 1.00. The value 1.00 defines that the shape is fully visible and 0.00 describes that the whole shape is invisible. All values between 0 and 1 can be used here to define the right transparency value.
+
+This attribute is optional and it is not required to set it. If it isn't set the default value of 1.00 (fully visible) will be taken.   
+    
+bc. 
+background-color = white
+
+The background-color defines the background of the shapes. All shape elements will be of this color. 
+
+Therefore predefined color values are possible as e.g.:
+
+* white
+* very-light-gray
+* light-gray
+* gray
+* dark-gray
+* black
+* red
+* light-orange
+* orange
+* dark-orange
+* yellow
+* green
+* light-green
+* dark-green
+* cyan
+* light-blue
+* blue
+* dark-blue
+
+
+If no predefined color applies to the wanted color then the RGB values can be filled. Following text sequence should be used: @RGB(RED,GREEN,BLUE)@. The values @RED,GREEN,BLUE@ are integer values between 0 and 255. 
+
+Otherwise if a transparent background is wanted then the value @transparent@ can be used. 
