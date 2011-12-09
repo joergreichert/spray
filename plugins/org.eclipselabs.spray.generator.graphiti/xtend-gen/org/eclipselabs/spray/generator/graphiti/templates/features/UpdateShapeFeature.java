@@ -30,14 +30,14 @@ public class UpdateShapeFeature extends FileGenerator {
   @Inject
   private DiagramExtensions _diagramExtensions;
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
     StringConcatenation _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
     return _mainFile;
   }
   
-  public StringConcatenation generateExtensionFile(final EObject modelElement) {
+  public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
@@ -439,7 +439,7 @@ public class UpdateShapeFeature extends FileGenerator {
             _builder.append("\".equals(type)) {");
             _builder.newLineIfNotEmpty();
             _builder.append("    ");
-            StringConcatenation _valueGenerator = this.valueGenerator(text_1, "eClass");
+            CharSequence _valueGenerator = this.valueGenerator(text_1, "eClass");
             _builder.append(_valueGenerator, "    ");
             _builder.newLineIfNotEmpty();
             _builder.append("}");

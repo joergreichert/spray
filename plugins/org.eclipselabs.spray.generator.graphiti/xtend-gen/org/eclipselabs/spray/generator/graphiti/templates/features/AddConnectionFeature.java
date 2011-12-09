@@ -27,14 +27,14 @@ public class AddConnectionFeature extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
     StringConcatenation _mainFile = this.mainFile(((MetaClass) modelElement), _baseClassName);
     return _mainFile;
   }
   
-  public StringConcatenation generateExtensionFile(final EObject modelElement) {
+  public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaClass) modelElement), _className);
@@ -476,7 +476,7 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         Text _fromLabel_1 = connection.getFromLabel();
-        StringConcatenation _valueGenerator = this.valueGenerator(_fromLabel_1, "addedDomainObject");
+        CharSequence _valueGenerator = this.valueGenerator(_fromLabel_1, "addedDomainObject");
         _builder.append(_valueGenerator, "    ");
         _builder.newLineIfNotEmpty();
         _builder.append("}");
@@ -547,7 +547,7 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         Text _label_1 = connection.getToLabel();
-        StringConcatenation _valueGenerator = this.valueGenerator(_label_1, "addedDomainObject");
+        CharSequence _valueGenerator = this.valueGenerator(_label_1, "addedDomainObject");
         _builder.append(_valueGenerator, "    ");
         _builder.newLineIfNotEmpty();
         _builder.append("}");
@@ -610,7 +610,7 @@ public class AddConnectionFeature extends FileGenerator {
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         Text _connectionLabel_1 = connection.getConnectionLabel();
-        StringConcatenation _valueGenerator = this.valueGenerator(_connectionLabel_1, "addedDomainObject");
+        CharSequence _valueGenerator = this.valueGenerator(_connectionLabel_1, "addedDomainObject");
         _builder.append(_valueGenerator, "    ");
         _builder.newLineIfNotEmpty();
         _builder.append("}");

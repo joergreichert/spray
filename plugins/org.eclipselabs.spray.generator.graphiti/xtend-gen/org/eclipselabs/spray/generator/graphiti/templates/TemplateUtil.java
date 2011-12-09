@@ -110,7 +110,7 @@ public class TemplateUtil {
   /**
    * Generate the fulle expression to calculate the  value of a Text, existing of string literals and navigation expressions
    */
-  public StringConcatenation valueGenerator(final Text text, final String metaClassVariable) {
+  public CharSequence valueGenerator(final Text text, final String metaClassVariable) {
     try {
       {
         this.compiler.setMetaClassVariable(metaClassVariable);

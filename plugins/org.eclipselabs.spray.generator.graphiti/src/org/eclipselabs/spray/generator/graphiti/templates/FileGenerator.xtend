@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.ImportUtil
 
 class FileGenerator extends TemplateUtil {
@@ -14,10 +13,10 @@ class FileGenerator extends TemplateUtil {
         return javaGenFile
     }
     
-    def StringConcatenation generateBaseFile(EObject modelElement) {
+    def CharSequence generateBaseFile(EObject modelElement) {
     }
 
-    def StringConcatenation generateExtensionFile(EObject modelElement) {
+    def CharSequence generateExtensionFile(EObject modelElement) {
     }
         
     def generate(EObject modelElement, GenFile genFile) {
@@ -65,11 +64,11 @@ class FileGenerator extends TemplateUtil {
     /**
      * Call this template as a hook in a (Java) class body were additional fields or constants can be generated.
      */
-    def StringConcatenation generate_additionalFields (EObject context) {} 
+    def CharSequence generate_additionalFields (EObject context) {} 
     /**
      * Call this template as a hook in a (Java) class body were additional methods can be generated.
      */
-    def StringConcatenation generate_additionalMethods (EObject context) {} 
+    def CharSequence generate_additionalMethods (EObject context) {} 
     
     //---------------------------------------------------------------------------------------------
     // delegate methods from ImportUtil

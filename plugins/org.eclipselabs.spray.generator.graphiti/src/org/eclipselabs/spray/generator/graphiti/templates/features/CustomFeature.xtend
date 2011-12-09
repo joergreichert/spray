@@ -1,20 +1,19 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
-import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipselabs.spray.mm.spray.CustomBehavior
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class CustomFeature extends FileGenerator  {
     
-    override StringConcatenation generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(EObject modelElement) {
         mainFile( modelElement as CustomBehavior, javaGenFile.baseClassName)
     }
 
-    override StringConcatenation generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(EObject modelElement) {
         mainExtensionPointFile( modelElement as CustomBehavior, javaGenFile.className)
     }
     

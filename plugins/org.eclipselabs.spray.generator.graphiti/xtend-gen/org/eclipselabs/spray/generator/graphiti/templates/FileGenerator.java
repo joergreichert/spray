@@ -8,7 +8,6 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.GenFile;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.templates.TemplateUtil;
@@ -27,11 +26,11 @@ public class FileGenerator extends TemplateUtil {
     return this.javaGenFile;
   }
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     return null;
   }
   
-  public StringConcatenation generateExtensionFile(final EObject modelElement) {
+  public CharSequence generateExtensionFile(final EObject modelElement) {
     return null;
   }
   
@@ -75,7 +74,7 @@ public class FileGenerator extends TemplateUtil {
               String _pathName = this.javaGenFile.getPathName();
               String _operator_plus_2 = StringExtensions.operator_plus("generating ", _pathName);
               InputOutput.<String>println(_operator_plus_2);
-              StringConcatenation _generateExtensionFile = this.generateExtensionFile(modelElement);
+              CharSequence _generateExtensionFile = this.generateExtensionFile(modelElement);
               String _string = _generateExtensionFile.toString();
               fileContent = _string;
               String _apply = organizeImports.apply(fileContent);
@@ -101,7 +100,7 @@ public class FileGenerator extends TemplateUtil {
             String _name = _class.getName();
             String _operator_plus_5 = StringExtensions.operator_plus(_operator_plus_4, _name);
             InputOutput.<String>println(_operator_plus_5);
-            StringConcatenation _generateBaseFile = this.generateBaseFile(modelElement);
+            CharSequence _generateBaseFile = this.generateBaseFile(modelElement);
             String _string_1 = _generateBaseFile.toString();
             fileContent = _string_1;
             String _apply_1 = organizeImports.apply(fileContent);
@@ -121,7 +120,7 @@ public class FileGenerator extends TemplateUtil {
             String _name_1 = _class_1.getName();
             String _operator_plus_8 = StringExtensions.operator_plus(_operator_plus_7, _name_1);
             InputOutput.<String>println(_operator_plus_8);
-            StringConcatenation _generateBaseFile_1 = this.generateBaseFile(modelElement);
+            CharSequence _generateBaseFile_1 = this.generateBaseFile(modelElement);
             String _string_2 = _generateBaseFile_1.toString();
             fileContent = _string_2;
             String _apply_2 = organizeImports.apply(fileContent);
@@ -135,7 +134,7 @@ public class FileGenerator extends TemplateUtil {
           }
         }
       } else {
-        StringConcatenation _generateBaseFile_2 = this.generateBaseFile(modelElement);
+        CharSequence _generateBaseFile_2 = this.generateBaseFile(modelElement);
         String _string_3 = _generateBaseFile_2.toString();
         String _fileContent = fileContent = _string_3;
         _xifexpression = _fileContent;
@@ -148,14 +147,14 @@ public class FileGenerator extends TemplateUtil {
   /**
    * Call this template as a hook in a (Java) class body were additional fields or constants can be generated.
    */
-  public StringConcatenation generate_additionalFields(final EObject context) {
+  public CharSequence generate_additionalFields(final EObject context) {
     return null;
   }
   
   /**
    * Call this template as a hook in a (Java) class body were additional methods can be generated.
    */
-  public StringConcatenation generate_additionalMethods(final EObject context) {
+  public CharSequence generate_additionalMethods(final EObject context) {
     return null;
   }
 }

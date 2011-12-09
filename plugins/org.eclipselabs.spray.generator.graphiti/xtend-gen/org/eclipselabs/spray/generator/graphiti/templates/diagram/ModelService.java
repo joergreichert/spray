@@ -15,7 +15,7 @@ public class ModelService extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _className);

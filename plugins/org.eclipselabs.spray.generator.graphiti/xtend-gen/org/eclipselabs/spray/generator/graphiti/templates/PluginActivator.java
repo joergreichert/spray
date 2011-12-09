@@ -18,7 +18,7 @@ public class PluginActivator extends FileGenerator {
   @Inject
   private NamingExtensions _namingExtensions;
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _className);
@@ -89,7 +89,7 @@ public class PluginActivator extends FileGenerator {
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -206,7 +206,7 @@ public class PluginActivator extends FileGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");

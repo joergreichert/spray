@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
@@ -16,11 +15,11 @@ class CreateShapeFeature extends FileGenerator {
     @Inject extension NamingExtensions
     @Inject extension MetaClassExtensions
     
-    override StringConcatenation generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaClass, javaGenFile.baseClassName)
     }
 
-    override StringConcatenation generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(EObject modelElement) {
         mainExtensionPointFile( modelElement as MetaClass, javaGenFile.className)
     }
     

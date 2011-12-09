@@ -11,14 +11,14 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 
 @SuppressWarnings("all")
 public class CustomFeature extends FileGenerator {
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
     StringConcatenation _mainFile = this.mainFile(((CustomBehavior) modelElement), _baseClassName);
     return _mainFile;
   }
   
-  public StringConcatenation generateExtensionFile(final EObject modelElement) {
+  public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((CustomBehavior) modelElement), _className);

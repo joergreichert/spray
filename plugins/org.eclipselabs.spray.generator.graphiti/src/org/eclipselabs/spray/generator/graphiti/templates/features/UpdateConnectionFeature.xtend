@@ -2,24 +2,23 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.Connection
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 class UpdateConnectionFeature extends FileGenerator  {
     @Inject extension NamingExtensions
     @Inject extension DiagramExtensions
     
-    override StringConcatenation generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Connection, javaGenFile.baseClassName)
     }
 
-    override StringConcatenation generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(EObject modelElement) {
         mainExtensionPointFile( modelElement as Connection, javaGenFile.className)
     }
     

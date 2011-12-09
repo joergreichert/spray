@@ -25,14 +25,14 @@ public class UpdateConnectionFeature extends FileGenerator {
   @Inject
   private DiagramExtensions _diagramExtensions;
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
     StringConcatenation _mainFile = this.mainFile(((Connection) modelElement), _baseClassName);
     return _mainFile;
   }
   
-  public StringConcatenation generateExtensionFile(final EObject modelElement) {
+  public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Connection) modelElement), _className);
@@ -382,7 +382,7 @@ public class UpdateConnectionFeature extends FileGenerator {
       if (_operator_notEquals) {
         _builder.append("        ");
         Text _fromLabel_1 = connection.getFromLabel();
-        StringConcatenation _valueGenerator = this.valueGenerator(_fromLabel_1, "eClass");
+        CharSequence _valueGenerator = this.valueGenerator(_fromLabel_1, "eClass");
         _builder.append(_valueGenerator, "        ");
         _builder.newLineIfNotEmpty();
       }
@@ -399,7 +399,7 @@ public class UpdateConnectionFeature extends FileGenerator {
       if (_operator_notEquals_1) {
         _builder.append("        ");
         Text _label_1 = connection.getToLabel();
-        StringConcatenation _valueGenerator_1 = this.valueGenerator(_label_1, "eClass");
+        CharSequence _valueGenerator_1 = this.valueGenerator(_label_1, "eClass");
         _builder.append(_valueGenerator_1, "        ");
         _builder.newLineIfNotEmpty();
       }
@@ -416,7 +416,7 @@ public class UpdateConnectionFeature extends FileGenerator {
       if (_operator_notEquals_2) {
         _builder.append("        ");
         Text _connectionLabel_1 = connection.getConnectionLabel();
-        StringConcatenation _valueGenerator_2 = this.valueGenerator(_connectionLabel_1, "eClass");
+        CharSequence _valueGenerator_2 = this.valueGenerator(_connectionLabel_1, "eClass");
         _builder.append(_valueGenerator_2, "        ");
         _builder.newLineIfNotEmpty();
       }

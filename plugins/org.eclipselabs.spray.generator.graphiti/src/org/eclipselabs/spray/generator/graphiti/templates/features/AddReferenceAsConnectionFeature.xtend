@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
@@ -17,11 +16,11 @@ class AddReferenceAsConnectionFeature extends FileGenerator  {
     @Inject extension LayoutExtensions
     @Inject extension MetaReferenceExtensions
     
-    override StringConcatenation generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(EObject modelElement) {
         mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
     }
 
-    override StringConcatenation generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(EObject modelElement) {
         mainExtensionPointFile( modelElement as MetaReference, javaGenFile.className)
     }
     

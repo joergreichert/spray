@@ -7,7 +7,6 @@ import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipse.emf.ecore.EObject
 
 class TemplateUtil extends Object {
     @Inject SprayCompiler compiler
@@ -45,7 +44,7 @@ class TemplateUtil extends Object {
     /**
      * Generate the fulle expression to calculate the  value of a Text, existing of string literals and navigation expressions
      */
-    def StringConcatenation valueGenerator(Text text, String metaClassVariable)    {
+    def CharSequence valueGenerator(Text text, String metaClassVariable)    {
         try {
             compiler.metaClassVariable = metaClassVariable
             val body = compiler.compile(text, new ImportManager(false))

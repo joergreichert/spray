@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
@@ -12,11 +11,11 @@ class GuiceModule extends FileGenerator {
     @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     
-    override StringConcatenation generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Diagram, javaGenFile.baseClassName)
     }
 
-    override StringConcatenation generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(EObject modelElement) {
         mainExtensionPointFile( modelElement as Diagram, javaGenFile.className)
     }
 

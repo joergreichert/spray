@@ -3,14 +3,13 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 /*
  * Template for generating Graphiti Update feature for a Container representing a MetaClass
@@ -20,11 +19,11 @@ class UpdateShapeFeature extends FileGenerator  {
     @Inject extension IQualifiedNameProvider
     @Inject extension DiagramExtensions
 
-    override StringConcatenation generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(EObject modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
     }
 
-    override StringConcatenation generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(EObject modelElement) {
         mainExtensionPointFile( modelElement as Container, javaGenFile.className)
     }
     

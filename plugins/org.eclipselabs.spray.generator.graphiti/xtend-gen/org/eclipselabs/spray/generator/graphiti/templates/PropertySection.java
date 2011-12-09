@@ -29,14 +29,14 @@ public class PropertySection extends FileGenerator {
     return _diagram;
   }
   
-  public StringConcatenation generateBaseFile(final EObject modelElement) {
+  public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
     StringConcatenation _mainFile = this.mainFile(((EAttribute) modelElement), _baseClassName);
     return _mainFile;
   }
   
-  public StringConcatenation generateExtensionFile(final EObject modelElement) {
+  public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
     StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((EAttribute) modelElement), _className);
@@ -205,7 +205,7 @@ public class PropertySection extends FileGenerator {
       }
     }
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(this.diagram);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(this.diagram);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append(" ");
@@ -857,7 +857,7 @@ public class PropertySection extends FileGenerator {
     }
     _builder.append("}");
     _builder.newLine();
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(eAttribute);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(eAttribute);
     _builder.append(_generate_additionalFields_1, "");
     _builder.newLineIfNotEmpty();
     return _builder;
