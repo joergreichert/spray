@@ -44,9 +44,11 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ModelService
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 class SprayGraphitiGenerator implements IGenerator {
 	@Inject extension NamingExtensions naming
+	@Inject extension DiagramExtensions diagramExtensions
 	
 	@Inject PluginActivator pluginActivator
 	@Inject ExecutableExtensionFactory executableExtensionFactory
@@ -169,15 +171,14 @@ class SprayGraphitiGenerator implements IGenerator {
 			
 		}
 		
-		for( metaClass : diagram.metaClasses) {
-			if( metaClass.representedBy instanceof Connection){
-				java.setPackageAndClass(metaClass.createFeatureClassName)
-				createConnectionFeature.generate(metaClass, java)
-			} else {
-				java.setPackageAndClass(metaClass.createFeatureClassName)
-				createShapeFeature.generate(metaClass, java)
-			}
+		for( metaClass : diagram.getElementsForTemplate(createConnectionFeature)) {
+			java.setPackageAndClass(metaClass.createFeatureClassName)
+			createConnectionFeature.generate(metaClass, java)
 		}
+        for( metaClass : diagram.getElementsForTemplate(createShapeFeature)) {
+            java.setPackageAndClass(metaClass.createFeatureClassName)
+            createShapeFeature.generate(metaClass, java)
+        }
 		
 //		println("1 : " +  diagram.metaClasses.filter( m | m.container != null))
 		for( reference : diagram.metaClasses.filter( m | m.representedBy != null).map(m | m.representedBy).filter(typeof(Container)).map(c | (c as Container).parts.filter(typeof(MetaReference))).flatten) {

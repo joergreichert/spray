@@ -54,6 +54,7 @@ import org.eclipselabs.spray.generator.graphiti.util.MetaModel;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties;
 import org.eclipselabs.spray.generator.graphiti.util.StringHelpers;
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions;
 import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Container;
@@ -68,6 +69,9 @@ import org.eclipselabs.spray.mm.spray.SprayElement;
 public class SprayGraphitiGenerator implements IGenerator {
   @Inject
   private NamingExtensions naming;
+  
+  @Inject
+  private DiagramExtensions diagramExtensions;
   
   @Inject
   private PluginActivator pluginActivator;
@@ -298,24 +302,23 @@ public class SprayGraphitiGenerator implements IGenerator {
           }
         }
       }
-      MetaClass[] _metaClasses_4 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_4 : _metaClasses_4) {
-        Shape _representedBy_4 = metaClass_4.getRepresentedBy();
-        if ((_representedBy_4 instanceof Connection)) {
-          {
-            String _createFeatureClassName = this.naming.getCreateFeatureClassName(metaClass_4);
-            java.setPackageAndClass(_createFeatureClassName);
-            this.createConnectionFeature.generate(metaClass_4, java);
-          }
-        } else {
-          {
-            String _createFeatureClassName_1 = this.naming.getCreateFeatureClassName(metaClass_4);
-            java.setPackageAndClass(_createFeatureClassName_1);
-            this.createShapeFeature.generate(metaClass_4, java);
-          }
+      Iterable<MetaClass> _elementsForTemplate = this.diagramExtensions.getElementsForTemplate(diagram, this.createConnectionFeature);
+      for (final MetaClass metaClass_4 : _elementsForTemplate) {
+        {
+          String _createFeatureClassName = this.naming.getCreateFeatureClassName(metaClass_4);
+          java.setPackageAndClass(_createFeatureClassName);
+          this.createConnectionFeature.generate(metaClass_4, java);
         }
       }
-      MetaClass[] _metaClasses_5 = diagram.getMetaClasses();
+      Iterable<MetaClass> _elementsForTemplate_1 = this.diagramExtensions.getElementsForTemplate(diagram, this.createShapeFeature);
+      for (final MetaClass metaClass_5 : _elementsForTemplate_1) {
+        {
+          String _createFeatureClassName_1 = this.naming.getCreateFeatureClassName(metaClass_5);
+          java.setPackageAndClass(_createFeatureClassName_1);
+          this.createShapeFeature.generate(metaClass_5, java);
+        }
+      }
+      MetaClass[] _metaClasses_4 = diagram.getMetaClasses();
       final Function1<MetaClass,Boolean> _function_3 = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
@@ -323,7 +326,7 @@ public class SprayGraphitiGenerator implements IGenerator {
             return ((Boolean)_operator_notEquals);
           }
         };
-      Iterable<MetaClass> _filter_4 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_5)), _function_3);
+      Iterable<MetaClass> _filter_4 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_4)), _function_3);
       final Function1<MetaClass,Shape> _function_4 = new Function1<MetaClass,Shape>() {
           public Shape apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
@@ -347,8 +350,8 @@ public class SprayGraphitiGenerator implements IGenerator {
           final String referenceName = _name;
           EObject _eContainer = reference_1.eContainer();
           MetaClass _represents = ((Container) _eContainer).getRepresents();
-          MetaClass metaClass_5 = _represents;
-          EClass _type = metaClass_5.getType();
+          MetaClass metaClass_6 = _represents;
+          EClass _type = metaClass_6.getType();
           EList<EReference> _eAllReferences = _type.getEAllReferences();
           final Function1<EReference,Boolean> _function_6 = new Function1<EReference,Boolean>() {
               public Boolean apply(final EReference e) {
@@ -406,9 +409,9 @@ public class SprayGraphitiGenerator implements IGenerator {
           }
         }
       }
-      MetaClass[] _metaClasses_6 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_6 : _metaClasses_6) {
-        MetaReference[] _references_1 = metaClass_6.getReferences();
+      MetaClass[] _metaClasses_5 = diagram.getMetaClasses();
+      for (final MetaClass metaClass_7 : _metaClasses_5) {
+        MetaReference[] _references_1 = metaClass_7.getReferences();
         final Function1<MetaReference,Boolean> _function_7 = new Function1<MetaReference,Boolean>() {
             public Boolean apply(final MetaReference ref) {
               Connection _representedBy = ref.getRepresentedBy();
@@ -425,30 +428,30 @@ public class SprayGraphitiGenerator implements IGenerator {
           }
         }
       }
-      MetaClass[] _metaClasses_7 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_7 : _metaClasses_7) {
-        Shape _representedBy_5 = metaClass_7.getRepresentedBy();
-        if ((_representedBy_5 instanceof Connection)) {
+      MetaClass[] _metaClasses_6 = diagram.getMetaClasses();
+      for (final MetaClass metaClass_8 : _metaClasses_6) {
+        Shape _representedBy_4 = metaClass_8.getRepresentedBy();
+        if ((_representedBy_4 instanceof Connection)) {
           {
-            String _updateFeatureClassName = this.naming.getUpdateFeatureClassName(metaClass_7);
+            String _updateFeatureClassName = this.naming.getUpdateFeatureClassName(metaClass_8);
             java.setPackageAndClass(_updateFeatureClassName);
-            Shape _representedBy_6 = metaClass_7.getRepresentedBy();
-            this.updateConnectionFeature.generate(_representedBy_6, java);
+            Shape _representedBy_5 = metaClass_8.getRepresentedBy();
+            this.updateConnectionFeature.generate(_representedBy_5, java);
           }
         } else {
-          Shape _representedBy_7 = metaClass_7.getRepresentedBy();
-          if ((_representedBy_7 instanceof Container)) {
+          Shape _representedBy_6 = metaClass_8.getRepresentedBy();
+          if ((_representedBy_6 instanceof Container)) {
             {
-              String _layoutFeatureClassName = this.naming.getLayoutFeatureClassName(metaClass_7);
+              String _layoutFeatureClassName = this.naming.getLayoutFeatureClassName(metaClass_8);
               java.setPackageAndClass(_layoutFeatureClassName);
-              Shape _representedBy_8 = metaClass_7.getRepresentedBy();
-              this.layoutFeature.generate(_representedBy_8, java);
-              String _updateFeatureClassName_1 = this.naming.getUpdateFeatureClassName(metaClass_7);
+              Shape _representedBy_7 = metaClass_8.getRepresentedBy();
+              this.layoutFeature.generate(_representedBy_7, java);
+              String _updateFeatureClassName_1 = this.naming.getUpdateFeatureClassName(metaClass_8);
               java.setPackageAndClass(_updateFeatureClassName_1);
-              Shape _representedBy_9 = metaClass_7.getRepresentedBy();
-              this.updateShapeFeature.generate(_representedBy_9, java);
-              Shape _representedBy_10 = metaClass_7.getRepresentedBy();
-              Container container_2 = ((Container) _representedBy_10);
+              Shape _representedBy_8 = metaClass_8.getRepresentedBy();
+              this.updateShapeFeature.generate(_representedBy_8, java);
+              Shape _representedBy_9 = metaClass_8.getRepresentedBy();
+              Container container_2 = ((Container) _representedBy_9);
               SprayElement[] _parts_1 = container_2.getParts();
               final Function1<SprayElement,Boolean> _function_8 = new Function1<SprayElement,Boolean>() {
                   public Boolean apply(final SprayElement p) {
@@ -466,7 +469,7 @@ public class SprayGraphitiGenerator implements IGenerator {
                 {
                   String _name_5 = this.naming.getName(reference_3);
                   final String referenceName_1 = _name_5;
-                  EClass _type_1 = metaClass_7.getType();
+                  EClass _type_1 = metaClass_8.getType();
                   EList<EReference> _eAllReferences_1 = _type_1.getEAllReferences();
                   final Function1<EReference,Boolean> _function_10 = new Function1<EReference,Boolean>() {
                       public Boolean apply(final EReference e) {
@@ -488,9 +491,9 @@ public class SprayGraphitiGenerator implements IGenerator {
           }
         }
       }
-      MetaClass[] _metaClasses_8 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_8 : _metaClasses_8) {
-        MetaReference[] _references_2 = metaClass_8.getReferences();
+      MetaClass[] _metaClasses_7 = diagram.getMetaClasses();
+      for (final MetaClass metaClass_9 : _metaClasses_7) {
+        MetaReference[] _references_2 = metaClass_9.getReferences();
         for (final MetaReference reference_4 : _references_2) {
           {
             String _deleteReferenceFeatureClassName = this.naming.getDeleteReferenceFeatureClassName(reference_4);
@@ -505,10 +508,10 @@ public class SprayGraphitiGenerator implements IGenerator {
       String _olBehaviorProviderClassName = this.naming.getToolBehaviorProviderClassName(diagram);
       java.setPackageAndClass(_olBehaviorProviderClassName);
       this.toolBehaviourProvider.generate(diagram, java);
-      MetaClass[] _metaClasses_9 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_9 : _metaClasses_9) {
+      MetaClass[] _metaClasses_8 = diagram.getMetaClasses();
+      for (final MetaClass metaClass_10 : _metaClasses_8) {
         {
-          EClass _type_2 = metaClass_9.getType();
+          EClass _type_2 = metaClass_10.getType();
           final EClass eClass1 = _type_2;
           EList<EAttribute> _eAllAttributes = eClass1.getEAllAttributes();
           for (final EAttribute attribute : _eAllAttributes) {
@@ -519,11 +522,11 @@ public class SprayGraphitiGenerator implements IGenerator {
               this.propertySection.generate(attribute, java);
             }
           }
-          Shape _representedBy_11 = metaClass_9.getRepresentedBy();
-          if ((_representedBy_11 instanceof Container)) {
+          Shape _representedBy_10 = metaClass_10.getRepresentedBy();
+          if ((_representedBy_10 instanceof Container)) {
             {
-              Shape _representedBy_12 = metaClass_9.getRepresentedBy();
-              final Container container_3 = ((Container) _representedBy_12);
+              Shape _representedBy_11 = metaClass_10.getRepresentedBy();
+              final Container container_3 = ((Container) _representedBy_11);
               SprayElement[] _parts_2 = container_3.getParts();
               final Function1<SprayElement,Boolean> _function_11 = new Function1<SprayElement,Boolean>() {
                   public Boolean apply(final SprayElement p) {
@@ -541,7 +544,7 @@ public class SprayGraphitiGenerator implements IGenerator {
                 {
                   String _name_6 = this.naming.getName(reference_5);
                   final String referenceName_2 = _name_6;
-                  EClass _type_3 = metaClass_9.getType();
+                  EClass _type_3 = metaClass_10.getType();
                   EList<EReference> _eAllReferences_2 = _type_3.getEAllReferences();
                   final Function1<EReference,Boolean> _function_13 = new Function1<EReference,Boolean>() {
                       public Boolean apply(final EReference r) {
@@ -568,19 +571,19 @@ public class SprayGraphitiGenerator implements IGenerator {
           }
         }
       }
-      MetaClass[] _metaClasses_10 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_10 : _metaClasses_10) {
+      MetaClass[] _metaClasses_9 = diagram.getMetaClasses();
+      for (final MetaClass metaClass_11 : _metaClasses_9) {
         {
           this.filter.setDiagram(diagram);
-          String _filterClassName = this.naming.getFilterClassName(metaClass_10);
+          String _filterClassName = this.naming.getFilterClassName(metaClass_11);
           java.setPackageAndClass(_filterClassName);
-          EClass _type_4 = metaClass_10.getType();
+          EClass _type_4 = metaClass_11.getType();
           this.filter.generate(_type_4, java);
-          Shape _representedBy_13 = metaClass_10.getRepresentedBy();
-          if ((_representedBy_13 instanceof Container)) {
+          Shape _representedBy_12 = metaClass_11.getRepresentedBy();
+          if ((_representedBy_12 instanceof Container)) {
             {
-              Shape _representedBy_14 = metaClass_10.getRepresentedBy();
-              final Container container_4 = ((Container) _representedBy_14);
+              Shape _representedBy_13 = metaClass_11.getRepresentedBy();
+              final Container container_4 = ((Container) _representedBy_13);
               SprayElement[] _parts_3 = container_4.getParts();
               final Function1<SprayElement,Boolean> _function_14 = new Function1<SprayElement,Boolean>() {
                   public Boolean apply(final SprayElement p) {
@@ -598,7 +601,7 @@ public class SprayGraphitiGenerator implements IGenerator {
                 {
                   String _name_7 = this.naming.getName(reference_6);
                   final String referenceName_3 = _name_7;
-                  EClass _type_5 = metaClass_10.getType();
+                  EClass _type_5 = metaClass_11.getType();
                   EList<EReference> _eAllReferences_3 = _type_5.getEAllReferences();
                   final Function1<EReference,Boolean> _function_16 = new Function1<EReference,Boolean>() {
                       public Boolean apply(final EReference ref) {
@@ -620,9 +623,9 @@ public class SprayGraphitiGenerator implements IGenerator {
           }
         }
       }
-      MetaClass[] _metaClasses_11 = diagram.getMetaClasses();
-      for (final MetaClass metaClass_11 : _metaClasses_11) {
-        Behavior[] _behaviors = metaClass_11.getBehaviors();
+      MetaClass[] _metaClasses_10 = diagram.getMetaClasses();
+      for (final MetaClass metaClass_12 : _metaClasses_10) {
+        Behavior[] _behaviors = metaClass_12.getBehaviors();
         Iterable<CustomBehavior> _filter_10 = IterableExtensions.<CustomBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors)), org.eclipselabs.spray.mm.spray.CustomBehavior.class);
         for (final CustomBehavior behavior : _filter_10) {
           {
