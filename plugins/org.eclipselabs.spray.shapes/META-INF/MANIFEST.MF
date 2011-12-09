@@ -6,11 +6,11 @@ Bundle-Localization: plugin
 Bundle-Version: 0.4.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.shapes;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext;bundle-version="[2.1.0,2.2.0)";visibility:=reexport,
- org.eclipse.xtext.builder;bundle-version="[2.1.0,2.2.0)",
- org.eclipse.xtext.ecore;bundle-version="[2.1.0,2.2.0)",
+Require-Bundle: org.eclipse.xtext;bundle-version="[2.2.0,2.3.0)";visibility:=reexport,
+ org.eclipse.xtext.builder;bundle-version="[2.2.0,2.3.0)",
+ org.eclipse.xtext.ecore;bundle-version="[2.2.0,2.3.0)",
  org.eclipse.xtext.generator;resolution:=optional,
- org.eclipse.xtext.xbase;bundle-version="[2.1.0,2.2.0)",
+ org.eclipse.xtext.xbase;bundle-version="[2.2.0,2.3.0)",
  org.eclipse.xtext.util,
  org.eclipse.xtext.common.types,
  org.eclipse.xtext.xtend2.lib,
@@ -27,22 +27,23 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.1.0,2.2.0)";visibility:=ree
  org.eclipse.jdt.core,
  org.eclipse.graphiti.mm,
  org.eclipselabs.spray.styles,
- org.eclipselabs.spray.styles.ui
+ org.eclipselabs.spray.styles.ui,
+ org.eclipse.xtend2.lib
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.eclipselabs.spray,
- org.eclipselabs.spray.formatting,
- org.eclipselabs.spray.generator,
- org.eclipselabs.spray.jvmmodel,
- org.eclipselabs.spray.parser.antlr,
- org.eclipselabs.spray.parser.antlr.internal,
- org.eclipselabs.spray.scoping,
- org.eclipselabs.spray.serializer,
- org.eclipselabs.spray.services,
- org.eclipselabs.spray.shapes,
- org.eclipselabs.spray.shapes.impl,
- org.eclipselabs.spray.shapes.util,
- org.eclipselabs.spray.validation
+Export-Package: org.eclipselabs.spray.shapes,
+ org.eclipselabs.spray.shapes.formatting,
+ org.eclipselabs.spray.shapes.scoping,
+ org.eclipselabs.spray.shapes.serializer,
+ org.eclipselabs.spray.shapes.validation,
+ org.eclipselabs.spray.shapes.services,
+ org.eclipselabs.spray.shapes.shapes,
+ org.eclipselabs.spray.shapes.shapes.impl,
+ org.eclipselabs.spray.shapes.shapes.util,
+ org.eclipselabs.spray.shapes.parser.antlr,
+ org.eclipselabs.spray.shapes.parser.antlr.internal,
+ org.eclipselabs.spray.shapes.jvmmodel
+

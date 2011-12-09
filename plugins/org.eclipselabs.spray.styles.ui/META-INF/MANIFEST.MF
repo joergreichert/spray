@@ -7,10 +7,10 @@ Bundle-Version: 0.4.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.styles.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipselabs.spray.styles;visibility:=reexport,
- org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui;bundle-version="[2.2.0,2.3.0)",
  org.eclipse.ui.editors;bundle-version="3.5.0",
  org.eclipse.ui.ide;bundle-version="3.5.0",
- org.eclipse.xtext.ui.shared;bundle-version="2.0.1",
+ org.eclipse.xtext.ui.shared;bundle-version="[2.2.0,2.3.0)",
  org.eclipse.ui,
  org.eclipse.xtext.builder,
  org.antlr.runtime,
@@ -36,12 +36,11 @@ Require-Bundle: org.eclipselabs.spray.styles;visibility:=reexport,
 Import-Package: org.apache.commons.logging,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.eclipselabs.spray.ui,
- org.eclipselabs.spray.ui.contentassist,
- org.eclipselabs.spray.ui.contentassist.antlr,
- org.eclipselabs.spray.ui.contentassist.antlr.internal,
- org.eclipselabs.spray.ui.internal,
- org.eclipselabs.spray.ui.labeling,
- org.eclipselabs.spray.ui.outline,
- org.eclipselabs.spray.ui.quickfix
-Bundle-Activator: org.eclipselabs.spray.ui.internal.StylesActivator
+Export-Package: org.eclipselabs.spray.styles.ui,
+ org.eclipselabs.spray.styles.ui.contentassist,
+ org.eclipselabs.spray.styles.ui.labeling,
+ org.eclipselabs.spray.styles.ui.outline,
+ org.eclipselabs.spray.styles.ui.quickfix,
+ org.eclipselabs.spray.styles.ui.contentassist.antlr,
+ org.eclipselabs.spray.styles.ui.internal
+Bundle-Activator: org.eclipselabs.spray.styles.ui.internal.StyleActivator

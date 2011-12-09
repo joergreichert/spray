@@ -5,9 +5,9 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http://www.eclipselabs.org/spray/Styles" 
-       class = "org.eclipselabs.spray.styles.StylesPackage"
-       genModel = "org/eclipselabs/spray/Styles.genmodel" /> 
+       uri = "http://www.eclipselabs.org/spray/styles/Style" 
+       class = "org.eclipselabs.spray.styles.styles.StylesPackage"
+       genModel = "org/eclipselabs/spray/styles/Style.genmodel" /> 
 	
   </extension>
 

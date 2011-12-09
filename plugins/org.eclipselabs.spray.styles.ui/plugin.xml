@@ -6,42 +6,42 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="styles"
-            id="org.eclipselabs.spray.Styles"
-            name="Styles Editor">
+            extensions="style"
+            id="org.eclipselabs.spray.styles.Style"
+            name="Style Editor">
         </editor>
     </extension>
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+                    definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="org.eclipselabs.spray.Styles.validate">
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="org.eclipselabs.spray.styles.Style.validate">
          <activeWhen>
             <reference
-                    definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+                    definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
             </reference>
          </activeWhen>
       </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="org.eclipselabs.spray.Styles.Editor.opened">
+        <definition id="org.eclipselabs.spray.styles.Style.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="org.eclipselabs.spray.Styles" 
+                        value="org.eclipselabs.spray.styles.Style" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -50,33 +50,33 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.eclipselabs.spray.Styles"
-            name="Styles">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipselabs.spray.styles.Style"
+            name="Style">
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
         </page>
         <page
-            category="org.eclipselabs.spray.Styles"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="org.eclipselabs.spray.Styles.coloring"
+            category="org.eclipselabs.spray.styles.Style"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="org.eclipselabs.spray.styles.Style.coloring"
             name="Syntax Coloring">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
         </page>
         <page
-            category="org.eclipselabs.spray.Styles"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="org.eclipselabs.spray.Styles.templates"
+            category="org.eclipselabs.spray.styles.Style"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="org.eclipselabs.spray.styles.Style.templates"
             name="Templates">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.eclipselabs.spray.Styles"
-            name="Styles">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipselabs.spray.styles.Style"
+            name="Style">
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -86,14 +86,14 @@
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="org.eclipselabs.spray.ui.keyword_Styles"
-            label="Styles"/>
+            id="org.eclipselabs.spray.styles.ui.keyword_Style"
+            label="Style"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="org.eclipselabs.spray.Styles.validate"
+            id="org.eclipselabs.spray.styles.Style.validate"
             name="Validate">
       </command>
     </extension>
@@ -101,12 +101,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="org.eclipselabs.spray.Styles.validate"
+                 commandId="org.eclipselabs.spray.styles.Style.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+                    definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -116,7 +116,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+                	<reference definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -124,11 +124,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+                    definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
@@ -139,14 +139,14 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
-			type="styles">
+			class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="style">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-            uriExtension="styles">
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="style">
         </resourceServiceProvider>
     </extension>
 
@@ -155,27 +155,27 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
       </participant>
    </extension>
    <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            category="org.eclipselabs.spray.Styles"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="org.eclipselabs.spray.Styles.compiler.preferencePage"
+            category="org.eclipselabs.spray.styles.Style"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipselabs.spray.styles.Style.compiler.preferencePage"
             name="Compiler">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            category="org.eclipselabs.spray.Styles"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="org.eclipselabs.spray.Styles.compiler.propertyPage"
+            category="org.eclipselabs.spray.styles.Style"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipselabs.spray.styles.Style.compiler.propertyPage"
             name="Compiler">
-            <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -187,11 +187,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+					definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -211,7 +211,7 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="org.eclipselabs.spray.Styles.Editor.opened"/>
+					<reference definitionId="org.eclipselabs.spray.styles.Style.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
@@ -220,17 +220,17 @@
    <extension
          point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
       </markerResolutionGenerator>
    </extension>
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
-					definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+					definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -242,7 +242,7 @@
                style="push">
             <visibleWhen checkEnabled="false">
                <reference
-                     definitionId="org.eclipselabs.spray.Styles.Editor.opened">
+                     definitionId="org.eclipselabs.spray.styles.Style.Editor.opened">
                </reference>
             </visibleWhen>
          </command>
@@ -250,31 +250,31 @@
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
-	        category="org.eclipselabs.spray.Styles"
-	        class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
-	        id="org.eclipselabs.spray.Styles.refactoring"
+	        category="org.eclipselabs.spray.styles.Style"
+	        class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+	        id="org.eclipselabs.spray.styles.Style.refactoring"
 	        name="Refactoring">
-	        <keywordReference id="org.eclipselabs.spray.ui.keyword_Styles"/>
+	        <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
 	    </page>
 	</extension>
 
 
   <extension point="org.eclipse.compare.contentViewers">
-    <viewer id="org.eclipselabs.spray.Styles.compare.contentViewers"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="styles">
+    <viewer id="org.eclipselabs.spray.styles.Style.compare.contentViewers"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+            extensions="style">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
-    <viewer id="org.eclipselabs.spray.Styles.compare.contentMergeViewers"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="styles" label="Styles Compare">
+    <viewer id="org.eclipselabs.spray.styles.Style.compare.contentMergeViewers"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+            extensions="style" label="Style Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
-    <provider id="org.eclipselabs.spray.Styles.editors.documentProviders"
-            class="org.eclipselabs.spray.ui.StylesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-            extensions="styles">
+    <provider id="org.eclipselabs.spray.styles.Style.editors.documentProviders"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+            extensions="style">
     </provider>
   </extension>
 

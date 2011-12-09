@@ -1,0 +1,93 @@
+grammar org.eclipselabs.spray.styles.Style with org.eclipse.xtext.xbase.Xbase
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate styles "http://www.eclipselabs.org/spray/styles/Style"
+
+StyleContainer:
+	styles+=Style*;
+
+Style:
+	{Style}
+	"style" name=ID "{"
+	   "description" "=" description=STRING
+	   layout=StyleLayout
+	"}";
+
+StyleLayout: 
+    {StyleLayout}
+    (
+		(transparency=Transparency)? &
+        (background=Background)? &
+        (line=Line)? &
+        (font=Font)? 
+    )
+;
+
+Transparency:
+	{Transparency}
+	(
+		("transparency"     "=" transparency=DOUBLE)
+	)
+;
+
+
+Background:
+	{Background}
+	(
+		("background-color" "=" background=ColorWithTransparency)
+	)
+;
+
+Font: 
+    {Font} 
+    (
+		("font-name"        "=" fontName=STRING)? &
+	    ("font-color"       "=" fontColor=Color)? &
+	    ("font-size"        "=" fontSize=INT)? &
+	    ("font-style"       "=" (fontItalic?="italic")? & (fontBold?="bold")?)?
+	)
+;
+
+Line: 
+    {Line}
+    (
+        ("line-color"       "=" lineColor=ColorWithTransparency)? & 
+        ("line-width"       "=" lineWidth=INT)? &
+        ("line-style"       "=" lineStyle=LineStyle)?
+    )
+;
+
+ColorWithTransparency: Color | Transparent;
+Color: RGBColor | ColorConstantRef;
+RGBColor: "RGB" "(" red=INT "," green=INT "," blue=INT ")";
+ColorConstantRef: value=ColorConstants;
+Transparent: transparent?="transparent";
+enum ColorConstants:
+	WHITE="white" |
+	LIGHT_LIGHT_GRAY="very-light-gray" |
+	LIGHT_GRAY="light-gray" |
+	GRAY="gray" |
+	DARK_GRAY="dark-gray" |
+	BLACK="black" |
+	RED="red" |
+	LIGHT_ORANGE="light-orange" |
+	ORANGE="orange" |
+	DARK_ORANGE="dark-orange" |
+	YELLOW="yellow" |
+	GREEN="green" |
+	LIGHT_GREEN="light-green" |
+	DARK_GREEN="dark-green" |
+	CYAN="cyan" |
+	LIGHT_BLUE="light-blue" |
+	BLUE="blue" |
+	DARK_BLUE="dark-blue";
+
+enum LineStyle:
+	SOLID="solid" |
+	DOT="dot" |
+	DASH="dash" |
+	DASHDOT="dash-dot" |
+	DASHDOTDOT="dash-dot-dot";
+	
+DOUBLE returns ecore::EDouble: INT "." INT;
