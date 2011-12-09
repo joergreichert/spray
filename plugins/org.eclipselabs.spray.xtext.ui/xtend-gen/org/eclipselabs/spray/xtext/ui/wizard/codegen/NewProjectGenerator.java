@@ -1,8 +1,8 @@
 package org.eclipselabs.spray.xtext.ui.wizard.codegen;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo;
 import org.eclipselabs.spray.xtext.ui.wizard.codegen.SprayModelGenerator;
 
@@ -46,7 +46,7 @@ public class NewProjectGenerator {
       _builder.append(_sprayModelDir_1, "               ");
       _builder.append("/");
       _builder.newLineIfNotEmpty();
-      final StringConcatenation content = _builder;
+      final CharSequence content = _builder;
       String _projectName = pi.getProjectName();
       fsa.generateFile("build.properties", _projectName, content);
   }

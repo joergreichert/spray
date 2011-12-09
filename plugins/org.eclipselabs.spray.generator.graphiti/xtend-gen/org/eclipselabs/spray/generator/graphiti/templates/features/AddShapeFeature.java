@@ -1,14 +1,15 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features;
 
 import com.google.inject.Inject;
+import java.util.Arrays;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -45,20 +46,20 @@ public class AddShapeFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Container container, final String className) {
+  public CharSequence mainExtensionPointFile(final Container container, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -92,12 +93,12 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Container container, final String className) {
+  public CharSequence mainFile(final Container container, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     String _constainerClass = GeneratorUtil.constainerClass(container);
     String containerType = _constainerClass;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -180,7 +181,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append(" container = null;");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(container);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(container);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -210,7 +211,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -249,7 +250,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _overrideHeader_1 = this.overrideHeader();
+    CharSequence _overrideHeader_1 = this.overrideHeader();
     _builder.append(_overrideHeader_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -346,7 +347,7 @@ public class AddShapeFeature extends FileGenerator {
       for(final SprayElement part_1 : _parts_1) {
         _builder.append("    ");
         MetaClass _represents_5 = container.getRepresents();
-        StringConcatenation _createShape = this.createShape(part_1, _represents_5);
+        CharSequence _createShape = this.createShape(part_1, _represents_5);
         _builder.append(_createShape, "    ");
         _builder.newLineIfNotEmpty();
       }
@@ -354,7 +355,7 @@ public class AddShapeFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(container);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(container);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -362,7 +363,7 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final SprayElement part, final MetaClass cls) {
+  protected CharSequence _createShape(final SprayElement part, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("protected void create");
     EClass _eClass = part.eClass();
@@ -387,7 +388,7 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final Line line, final MetaClass cls) {
+  protected CharSequence _createShape(final Line line, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     String _shapeName = this._sprayElementNameProvider.getShapeName(line);
     String _firstLower = StringExtensions.toFirstLower(_shapeName);
@@ -435,7 +436,7 @@ public class AddShapeFeature extends FileGenerator {
     {
       Layout _layout_1 = line.getLayout();
       int _lineWidth_1 = _layout_1.getLineWidth();
-      boolean _operator_equals = ObjectExtensions.operator_equals(((Integer)_lineWidth_1), ((Integer)0));
+      boolean _operator_equals = IntegerExtensions.operator_equals(_lineWidth_1, 0);
       if (_operator_equals) {
         _builder.append("polyline.setLineVisible(false);");
         _builder.newLine();
@@ -454,7 +455,7 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final Text text, final MetaClass cls) {
+  protected CharSequence _createShape(final Text text, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     String _shapeName = this._sprayElementNameProvider.getShapeName(text);
     String _firstLower = StringExtensions.toFirstLower(_shapeName);
@@ -538,7 +539,7 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createShape(final MetaReference metaRef, final MetaClass cls) {
+  protected CharSequence _createShape(final MetaReference metaRef, final MetaClass cls) {
     StringConcatenation _builder = new StringConcatenation();
     String _name = this._namingExtensions.getName(metaRef);
     String _firstLower = StringExtensions.toFirstLower(_name);
@@ -616,15 +617,18 @@ public class AddShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation createShape(final SprayElement line, final MetaClass cls) {
+  public CharSequence createShape(final SprayElement line, final MetaClass cls) {
     if (line instanceof Line) {
       return _createShape((Line)line, cls);
     } else if (line instanceof Text) {
       return _createShape((Text)line, cls);
     } else if (line instanceof MetaReference) {
       return _createShape((MetaReference)line, cls);
-    } else {
+    } else if (line != null) {
       return _createShape(line, cls);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(line, cls).toString());
     }
   }
 }

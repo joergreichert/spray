@@ -3,11 +3,11 @@ package org.eclipselabs.spray.generator.graphiti.templates.diagram;
 import com.google.inject.Inject;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -23,20 +23,20 @@ public class ImageProvider extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Diagram diagram, final String className) {
+  public CharSequence mainExtensionPointFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -92,14 +92,14 @@ public class ImageProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Diagram diagram, final String className) {
+  public CharSequence mainFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass[] _metaClasses = diagram.getMetaClasses();
     final Function1<MetaClass,Boolean> _function = new Function1<MetaClass,Boolean>() {
         public Boolean apply(final MetaClass m) {
           String _icon = m.getIcon();
           boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_icon, null);
-          return ((Boolean)_operator_notEquals);
+          return Boolean.valueOf(_operator_notEquals);
         }
       };
     Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
@@ -113,7 +113,7 @@ public class ImageProvider extends FileGenerator {
     Set<String> _set = IterableExtensions.<String>toSet(_map);
     final Set<String> icons = _set;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -139,7 +139,7 @@ public class ImageProvider extends FileGenerator {
     _builder.append(".\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -185,7 +185,7 @@ public class ImageProvider extends FileGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");

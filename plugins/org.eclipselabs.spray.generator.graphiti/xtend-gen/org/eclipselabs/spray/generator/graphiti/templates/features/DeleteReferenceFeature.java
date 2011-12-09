@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -22,20 +22,20 @@ public class DeleteReferenceFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final MetaReference metaReference, final String className) {
+  public CharSequence mainExtensionPointFile(final MetaReference metaReference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -70,9 +70,9 @@ public class DeleteReferenceFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final MetaReference reference, final String className) {
+  public CharSequence mainFile(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -113,7 +113,7 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.append(" extends DefaultDeleteFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -131,19 +131,19 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_delete = this.generate_delete(reference);
+    CharSequence _generate_delete = this.generate_delete(reference);
     _builder.append(_generate_delete, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_deleteReferences = this.generate_deleteReferences(reference);
+    CharSequence _generate_deleteReferences = this.generate_deleteReferences(reference);
     _builder.append(_generate_deleteReferences, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_deleteReference = this.generate_deleteReference(reference);
+    CharSequence _generate_deleteReference = this.generate_deleteReference(reference);
     _builder.append(_generate_deleteReference, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -151,9 +151,9 @@ public class DeleteReferenceFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_delete(final MetaReference reference) {
+  public CharSequence generate_delete(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public void delete(IDeleteContext context) {");
@@ -252,7 +252,7 @@ public class DeleteReferenceFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_deleteReferences(final MetaReference reference) {
+  public CharSequence generate_deleteReferences(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();
@@ -293,7 +293,7 @@ public class DeleteReferenceFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_deleteReference(final MetaReference reference) {
+  public CharSequence generate_deleteReference(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;
@@ -349,7 +349,7 @@ public class DeleteReferenceFeature extends FileGenerator {
     _builder.newLine();
     {
       int _upperBound = target.getUpperBound();
-      boolean _operator_notEquals = ObjectExtensions.operator_notEquals(((Integer)_upperBound), ((Integer)1));
+      boolean _operator_notEquals = IntegerExtensions.operator_notEquals(_upperBound, 1);
       if (_operator_notEquals) {
         _builder.append("    ");
         EClass _eReferenceType = target.getEReferenceType();

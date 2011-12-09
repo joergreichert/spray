@@ -6,15 +6,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.util.XtendProperties;
 
 @SuppressWarnings("all")
 public class IncorrectFeatureProvider {
-  public StringConcatenation finalError(final EPackage pack, final String className) {
+  public CharSequence finalError(final EPackage pack, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     {
       EList<EClassifier> _eClassifiers = pack.getEClassifiers();
@@ -35,7 +35,7 @@ public class IncorrectFeatureProvider {
                   String _value = XtendProperties.getValue("className");
                   String _value_1 = XtendProperties.getValue("attName");
                   boolean _operator_equals = ObjectExtensions.operator_equals(_value, _value_1);
-                  return ((Boolean)_operator_equals);
+                  return Boolean.valueOf(_operator_equals);
                 }
               };
             EReference _findFirst = IterableExtensions.<EReference>findFirst(_eAllReferences, _function);

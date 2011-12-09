@@ -3,8 +3,8 @@ package org.eclipselabs.spray.generator.graphiti.templates.features;
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -33,20 +33,20 @@ public class CreateReferenceAsListFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final MetaReference metaReference, final String className) {
+  public CharSequence mainExtensionPointFile(final MetaReference metaReference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -103,9 +103,9 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final MetaReference reference, final String className) {
+  public CharSequence mainFile(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -151,25 +151,25 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     _builder.append("\";");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_constructor = this.generate_constructor(reference, className);
+    CharSequence _generate_constructor = this.generate_constructor(reference, className);
     _builder.append(_generate_constructor, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_canCreate = this.generate_canCreate(reference);
+    CharSequence _generate_canCreate = this.generate_canCreate(reference);
     _builder.append(_generate_canCreate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_create = this.generate_create(reference);
+    CharSequence _generate_create = this.generate_create(reference);
     _builder.append(_generate_create, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -177,7 +177,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_constructor(final MetaReference reference, final String className) {
+  public CharSequence generate_constructor(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("public ");
     _builder.append(className, "");
@@ -212,7 +212,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canCreate(final MetaReference ref) {
+  public CharSequence generate_canCreate(final MetaReference ref) {
     StringConcatenation _builder = new StringConcatenation();
     EObject _eContainer = ref.eContainer();
     MetaClass _represents = ((Container) _eContainer).getRepresents();
@@ -247,7 +247,7 @@ public class CreateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_create(final MetaReference ref) {
+  public CharSequence generate_create(final MetaReference ref) {
     StringConcatenation _builder = new StringConcatenation();
     EObject _eContainer = ref.eContainer();
     MetaClass _represents = ((Container) _eContainer).getRepresents();

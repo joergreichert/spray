@@ -2,8 +2,8 @@ package org.eclipselabs.spray.generator.graphiti.templates.diagram;
 
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -18,20 +18,20 @@ public class DiagramTypeProvider extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainFile(final Diagram diagram, final String className) {
+  public CharSequence mainFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -55,7 +55,7 @@ public class DiagramTypeProvider extends FileGenerator {
     _builder.append("private IToolBehaviorProvider[] toolBehaviorProviders;");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -112,7 +112,7 @@ public class DiagramTypeProvider extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -120,9 +120,9 @@ public class DiagramTypeProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Diagram diagram, final String className) {
+  public CharSequence mainExtensionPointFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");

@@ -1,10 +1,10 @@
 package org.eclipselabs.spray.xtext.ui.wizard.codegen;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo;
 import org.eclipselabs.spray.xtext.ui.wizard.codegen.PackageHelper;
 
@@ -22,7 +22,7 @@ public class SprayModelGenerator {
       String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, _diagramTypeName);
       String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, ".spray");
       String _projectName_1 = info.getProjectName();
-      StringConcatenation _generateModel = this.generateModel(info);
+      CharSequence _generateModel = this.generateModel(info);
       fsa.generateFile(_operator_plus_2, _projectName_1, _generateModel);
       String _sprayModelDir_1 = info.getSprayModelDir();
       String _operator_plus_3 = StringExtensions.operator_plus(_sprayModelDir_1, "/");
@@ -30,11 +30,11 @@ public class SprayModelGenerator {
       String _operator_plus_4 = StringExtensions.operator_plus(_operator_plus_3, _diagramTypeName_1);
       String _operator_plus_5 = StringExtensions.operator_plus(_operator_plus_4, ".properties");
       String _projectName_2 = info.getProjectName();
-      StringConcatenation _generateProperties = this.generateProperties(info);
+      CharSequence _generateProperties = this.generateProperties(info);
       fsa.generateFile(_operator_plus_5, _projectName_2, _generateProperties);
   }
   
-  public StringConcatenation generateModel(final SprayProjectInfo info) {
+  public CharSequence generateModel(final SprayProjectInfo info) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/*************************************************************************************");
     _builder.newLine();
@@ -90,7 +90,7 @@ public class SprayModelGenerator {
     String _modelTypeName_3 = info.getModelTypeName();
     String _modelTypeName_4 = info.getModelTypeName();
     int _lastIndexOf_1 = _modelTypeName_4.lastIndexOf(".");
-    int _operator_plus = IntegerExtensions.operator_plus(((Integer)_lastIndexOf_1), ((Integer)1));
+    int _operator_plus = IntegerExtensions.operator_plus(_lastIndexOf_1, 1);
     String _substring_1 = _modelTypeName_3.substring(_operator_plus);
     _builder.append(_substring_1, "");
     _builder.newLineIfNotEmpty();
@@ -130,7 +130,7 @@ public class SprayModelGenerator {
     return _builder;
   }
   
-  public StringConcatenation generateProperties(final SprayProjectInfo info) {
+  public CharSequence generateProperties(final SprayProjectInfo info) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("modelFileExtension = ");
     String _modelFileExtension = info.getModelFileExtension();

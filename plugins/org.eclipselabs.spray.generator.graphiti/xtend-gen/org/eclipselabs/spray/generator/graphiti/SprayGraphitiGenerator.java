@@ -22,7 +22,6 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory;
 import org.eclipselabs.spray.generator.graphiti.templates.Filter;
 import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule;
@@ -186,7 +185,7 @@ public class SprayGraphitiGenerator implements IGenerator {
       EList<EObject> _contents = resource.getContents();
       EObject _head = IterableExtensions.<EObject>head(_contents);
       Diagram diagram = ((Diagram) _head);
-      StringConcatenation _generate = this.plugin.generate(diagram);
+      CharSequence _generate = this.plugin.generate(diagram);
       fsa.generateFile("plugin.xml", _generate);
       JavaGenFile java = null;
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(javaFsa, null);
@@ -234,7 +233,7 @@ public class SprayGraphitiGenerator implements IGenerator {
       final Function1<MetaClass,Boolean> _function = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Container));
+            return Boolean.valueOf((_representedBy instanceof Container));
           }
         };
       Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
@@ -251,7 +250,7 @@ public class SprayGraphitiGenerator implements IGenerator {
       final Function1<MetaClass,Boolean> _function_1 = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Connection));
+            return Boolean.valueOf((_representedBy instanceof Connection));
           }
         };
       Iterable<MetaClass> _filter_1 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_1)), _function_1);
@@ -271,7 +270,7 @@ public class SprayGraphitiGenerator implements IGenerator {
             public Boolean apply(final MetaReference ref) {
               Connection _representedBy = ref.getRepresentedBy();
               boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_representedBy, null);
-              return ((Boolean)_operator_notEquals);
+              return Boolean.valueOf(_operator_notEquals);
             }
           };
         Iterable<MetaReference> _filter_2 = IterableExtensions.<MetaReference>filter(((Iterable<MetaReference>)Conversions.doWrapArray(_references)), _function_2);
@@ -323,7 +322,7 @@ public class SprayGraphitiGenerator implements IGenerator {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
             boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_representedBy, null);
-            return ((Boolean)_operator_notEquals);
+            return Boolean.valueOf(_operator_notEquals);
           }
         };
       Iterable<MetaClass> _filter_4 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_4)), _function_3);
@@ -357,7 +356,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               public Boolean apply(final EReference e) {
                 String _name = e.getName();
                 boolean _operator_equals = ObjectExtensions.operator_equals(_name, referenceName);
-                return ((Boolean)_operator_equals);
+                return Boolean.valueOf(_operator_equals);
               }
             };
           EReference _findFirst = IterableExtensions.<EReference>findFirst(_eAllReferences, _function_6);
@@ -416,7 +415,7 @@ public class SprayGraphitiGenerator implements IGenerator {
             public Boolean apply(final MetaReference ref) {
               Connection _representedBy = ref.getRepresentedBy();
               boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_representedBy, null);
-              return ((Boolean)_operator_notEquals);
+              return Boolean.valueOf(_operator_notEquals);
             }
           };
         Iterable<MetaReference> _filter_6 = IterableExtensions.<MetaReference>filter(((Iterable<MetaReference>)Conversions.doWrapArray(_references_1)), _function_7);
@@ -455,7 +454,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               SprayElement[] _parts_1 = container_2.getParts();
               final Function1<SprayElement,Boolean> _function_8 = new Function1<SprayElement,Boolean>() {
                   public Boolean apply(final SprayElement p) {
-                    return ((Boolean)(p instanceof MetaReference));
+                    return Boolean.valueOf((p instanceof MetaReference));
                   }
                 };
               Iterable<SprayElement> _filter_7 = IterableExtensions.<SprayElement>filter(((Iterable<SprayElement>)Conversions.doWrapArray(_parts_1)), _function_8);
@@ -475,7 +474,7 @@ public class SprayGraphitiGenerator implements IGenerator {
                       public Boolean apply(final EReference e) {
                         String _name = e.getName();
                         boolean _operator_equals = ObjectExtensions.operator_equals(_name, referenceName_1);
-                        return ((Boolean)_operator_equals);
+                        return Boolean.valueOf(_operator_equals);
                       }
                     };
                   EReference _findFirst_1 = IterableExtensions.<EReference>findFirst(_eAllReferences_1, _function_10);
@@ -530,7 +529,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               SprayElement[] _parts_2 = container_3.getParts();
               final Function1<SprayElement,Boolean> _function_11 = new Function1<SprayElement,Boolean>() {
                   public Boolean apply(final SprayElement p) {
-                    return ((Boolean)(p instanceof MetaReference));
+                    return Boolean.valueOf((p instanceof MetaReference));
                   }
                 };
               Iterable<SprayElement> _filter_8 = IterableExtensions.<SprayElement>filter(((Iterable<SprayElement>)Conversions.doWrapArray(_parts_2)), _function_11);
@@ -550,7 +549,7 @@ public class SprayGraphitiGenerator implements IGenerator {
                       public Boolean apply(final EReference r) {
                         String _name = r.getName();
                         boolean _operator_equals = ObjectExtensions.operator_equals(_name, referenceName_2);
-                        return ((Boolean)_operator_equals);
+                        return Boolean.valueOf(_operator_equals);
                       }
                     };
                   EReference _findFirst_2 = IterableExtensions.<EReference>findFirst(_eAllReferences_2, _function_13);
@@ -587,7 +586,7 @@ public class SprayGraphitiGenerator implements IGenerator {
               SprayElement[] _parts_3 = container_4.getParts();
               final Function1<SprayElement,Boolean> _function_14 = new Function1<SprayElement,Boolean>() {
                   public Boolean apply(final SprayElement p) {
-                    return ((Boolean)(p instanceof MetaReference));
+                    return Boolean.valueOf((p instanceof MetaReference));
                   }
                 };
               Iterable<SprayElement> _filter_9 = IterableExtensions.<SprayElement>filter(((Iterable<SprayElement>)Conversions.doWrapArray(_parts_3)), _function_14);
@@ -607,7 +606,7 @@ public class SprayGraphitiGenerator implements IGenerator {
                       public Boolean apply(final EReference ref) {
                         String _name = ref.getName();
                         boolean _operator_equals = ObjectExtensions.operator_equals(_name, referenceName_3);
-                        return ((Boolean)_operator_equals);
+                        return Boolean.valueOf(_operator_equals);
                       }
                     };
                   EReference _findFirst_3 = IterableExtensions.<EReference>findFirst(_eAllReferences_3, _function_16);

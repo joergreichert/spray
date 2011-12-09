@@ -3,8 +3,8 @@ package org.eclipselabs.spray.generator.graphiti.templates.features;
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -31,20 +31,20 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final MetaReference metaReference, final String className) {
+  public CharSequence mainExtensionPointFile(final MetaReference metaReference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -79,9 +79,9 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final MetaReference reference, final String className) {
+  public CharSequence mainFile(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -118,7 +118,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.append(" extends AbstractUpdateFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -143,23 +143,23 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canUpdate = this.generate_canUpdate(reference);
+    CharSequence _generate_canUpdate = this.generate_canUpdate(reference);
     _builder.append(_generate_canUpdate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_updateNeeded = this.generate_updateNeeded(reference);
+    CharSequence _generate_updateNeeded = this.generate_updateNeeded(reference);
     _builder.append(_generate_updateNeeded, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_update = this.generate_update(reference);
+    CharSequence _generate_update = this.generate_update(reference);
     _builder.append(_generate_update, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getText = this.generate_getText(reference);
+    CharSequence _generate_getText = this.generate_getText(reference);
     _builder.append(_generate_getText, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalMethods = this.generate_additionalMethods(reference);
+    CharSequence _generate_additionalMethods = this.generate_additionalMethods(reference);
     _builder.append(_generate_additionalMethods, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -167,9 +167,9 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canUpdate(final MetaReference reference) {
+  public CharSequence generate_canUpdate(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canUpdate(IUpdateContext context) {");
@@ -192,10 +192,10 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_updateNeeded(final MetaReference reference) {
+  public CharSequence generate_updateNeeded(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("   ");
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "   ");
     _builder.newLineIfNotEmpty();
     _builder.append("   ");
@@ -312,9 +312,9 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_update(final MetaReference reference) {
+  public CharSequence generate_update(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean update(IUpdateContext context) {");
@@ -398,7 +398,7 @@ public class UpdateReferenceAsListFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getText(final MetaReference reference) {
+  public CharSequence generate_getText(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();

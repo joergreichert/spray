@@ -5,11 +5,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.TemplateUtil;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
@@ -26,7 +26,7 @@ public class Plugin extends TemplateUtil {
   @Inject
   private NamingExtensions _namingExtensions;
   
-  public StringConcatenation generate(final Diagram diagram) {
+  public CharSequence generate(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("        ");
     String _name = diagram.getName();
@@ -38,7 +38,7 @@ public class Plugin extends TemplateUtil {
     _builder.append("<?eclipse version=\"3.0\"?>");
     _builder.newLine();
     _builder.append("        ");
-    StringConcatenation _pluginHeader = this.pluginHeader(this);
+    CharSequence _pluginHeader = this.pluginHeader(this);
     _builder.append(_pluginHeader, "        ");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");

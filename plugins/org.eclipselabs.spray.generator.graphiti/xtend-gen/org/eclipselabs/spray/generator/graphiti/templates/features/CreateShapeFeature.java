@@ -5,10 +5,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -30,20 +30,20 @@ public class CreateShapeFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((MetaClass) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((MetaClass) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaClass) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((MetaClass) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final MetaClass metaClass, final String className) {
+  public CharSequence mainExtensionPointFile(final MetaClass metaClass, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -77,12 +77,12 @@ public class CreateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final MetaClass metaClass, final String className) {
+  public CharSequence mainFile(final MetaClass metaClass, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     Diagram _diagram = metaClass.getDiagram();
     final Diagram diagram = _diagram;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -139,7 +139,7 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.append(" newClass = null;");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(metaClass);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(metaClass);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -173,23 +173,23 @@ public class CreateShapeFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canCreate = this.generate_canCreate(metaClass);
+    CharSequence _generate_canCreate = this.generate_canCreate(metaClass);
     _builder.append(_generate_canCreate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_create = this.generate_create(metaClass);
+    CharSequence _generate_create = this.generate_create(metaClass);
     _builder.append(_generate_create, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_createModelElement = this.generate_createModelElement(metaClass);
+    CharSequence _generate_createModelElement = this.generate_createModelElement(metaClass);
     _builder.append(_generate_createModelElement, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getCreateImageId = this.generate_getCreateImageId(metaClass);
+    CharSequence _generate_getCreateImageId = this.generate_getCreateImageId(metaClass);
     _builder.append(_generate_getCreateImageId, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(metaClass);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(metaClass);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -197,9 +197,9 @@ public class CreateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canCreate(final MetaClass metaClass) {
+  public CharSequence generate_canCreate(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canCreate(ICreateContext context) {");
@@ -215,9 +215,9 @@ public class CreateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_create(final MetaClass metaClass) {
+  public CharSequence generate_create(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public Object[] create(final ICreateContext context) {");
@@ -256,7 +256,7 @@ public class CreateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_createModelElement(final MetaClass metaClass) {
+  public CharSequence generate_createModelElement(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Diagram _diagram = metaClass.getDiagram();
     final Diagram diagram = _diagram;
@@ -372,7 +372,7 @@ public class CreateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getCreateImageId(final MetaClass metaClass) {
+  public CharSequence generate_getCreateImageId(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Diagram _diagram = metaClass.getDiagram();
     final Diagram diagram = _diagram;
@@ -381,7 +381,7 @@ public class CreateShapeFeature extends FileGenerator {
       String _icon = metaClass.getIcon();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_icon, null);
       if (_operator_notEquals) {
-        StringConcatenation _overrideHeader = this.overrideHeader();
+        CharSequence _overrideHeader = this.overrideHeader();
         _builder.append(_overrideHeader, "");
         _builder.newLineIfNotEmpty();
         _builder.append("public String getCreateImageId() {");

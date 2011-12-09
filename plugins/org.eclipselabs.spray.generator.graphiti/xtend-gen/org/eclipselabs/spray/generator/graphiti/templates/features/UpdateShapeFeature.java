@@ -2,9 +2,9 @@ package org.eclipselabs.spray.generator.graphiti.templates.features;
 
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -33,20 +33,20 @@ public class UpdateShapeFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Container container, final String className) {
+  public CharSequence mainExtensionPointFile(final Container container, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -81,9 +81,9 @@ public class UpdateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Container container, final String className) {
+  public CharSequence mainFile(final Container container, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -142,7 +142,7 @@ public class UpdateShapeFeature extends FileGenerator {
     _builder.append(" extends AbstractUpdateFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(container);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(container);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -167,23 +167,23 @@ public class UpdateShapeFeature extends FileGenerator {
     _builder.append(" ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canUpdate = this.generate_canUpdate(container);
+    CharSequence _generate_canUpdate = this.generate_canUpdate(container);
     _builder.append(_generate_canUpdate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_updateNeeded = this.generate_updateNeeded(container);
+    CharSequence _generate_updateNeeded = this.generate_updateNeeded(container);
     _builder.append(_generate_updateNeeded, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_update = this.generate_update(container);
+    CharSequence _generate_update = this.generate_update(container);
     _builder.append(_generate_update, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_valueMapping = this.generate_valueMapping(container);
+    CharSequence _generate_valueMapping = this.generate_valueMapping(container);
     _builder.append(_generate_valueMapping, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(container);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(container);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -191,9 +191,9 @@ public class UpdateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canUpdate(final Container container) {
+  public CharSequence generate_canUpdate(final Container container) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canUpdate(IUpdateContext context) {");
@@ -219,9 +219,9 @@ public class UpdateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_updateNeeded(final Container container) {
+  public CharSequence generate_updateNeeded(final Container container) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public IReason updateNeeded(IUpdateContext context) {");
@@ -326,9 +326,9 @@ public class UpdateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_update(final Container container) {
+  public CharSequence generate_update(final Container container) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean update(IUpdateContext context) {");
@@ -359,7 +359,7 @@ public class UpdateShapeFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_valueMapping(final Container container) {
+  public CharSequence generate_valueMapping(final Container container) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Map<String, String> values = null; ");
     _builder.newLine();
