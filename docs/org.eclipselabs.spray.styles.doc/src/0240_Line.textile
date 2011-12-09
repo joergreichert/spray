@@ -1,0 +1,7 @@
+
+h2. Line
+
+bc. 
+line-color = black
+line-style = solid
+line-width = 1

@@ -1,0 +1,22 @@
+
+h2. General
+
+bc. 
+style BlackAndWhiteStyle
+
+A style begins with the __style__ keyword. After the keyword a name for the style is necessary. This name should be unique in the whole project scope. The style name will be at the same time the name of the generated Java class as well. 
+
+bc. 
+public class BlackAndWhiteStyle implements ISprayStyle
+
+Every style generates a class. Because of the implementation of the ISprayStyle interface two methods will be available. 
+
+bc. 
+public Style getStyle(Diagram diagram);
+public Color getFontColor(Diagram diagram);
+
+The first method @getStyle()@ returns a Style (@org.eclipse.graphiti.mm.algorithms.styles.Style@) of the graphiti meta model plugin. This style will have all attributes set which are defined in the DSL. The second method (@getFontColor()@) is necessary because graphiti allows just one color for the foreground. The foreground color could be a line color and a font color. With this method the font color could be different.
+
+Hint: It is recommended to use a style name that can be spelled in this way: "shape with BlackAndWhiteStyle". So the reference to the style will become easier and understandable. For example names like "RedLines, BlueShadows, RedBackground" are good names.
+
+  

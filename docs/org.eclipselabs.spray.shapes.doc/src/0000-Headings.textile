@@ -1,0 +1,9 @@
+h1. Spray - A quick way of creating Graphiti
+
+**Shapes Guide**
+
+*Authors:* Fabio Filippelli, Markus Gerhart, Michael Bauer, Steffen Kollosche, Marko Boger
+
+*Contents*
+
+{toc:style=disc|maxLevel=3}
