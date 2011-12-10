@@ -18,11 +18,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.swtbot.eclipse.core;bundle-version="2.0.4",
  org.eclipse.swtbot.junit4_x;bundle-version="2.0.4",
  org.junit4;bundle-version="4.8.1",
- org.eclipselabs.spray.generator.graphiti;bundle-version="0.2.0",
- org.eclipselabs.spray.mm;bundle-version="0.2.0",
- org.eclipselabs.spray.runtime.graphiti;bundle-version="0.2.0",
- org.eclipselabs.spray.xtext;bundle-version="0.2.0",
- org.eclipselabs.spray.xtext.ui;bundle-version="0.2.0"
+ org.eclipselabs.spray.generator.graphiti;bundle-version="0.4.0",
+ org.eclipselabs.spray.mm;bundle-version="0.4.0",
+ org.eclipselabs.spray.runtime.graphiti;bundle-version="0.4.0",
+ org.eclipselabs.spray.runtime.graphiti.xtext;bundle-version="0.4.0",
+ org.eclipselabs.spray.xtext;bundle-version="0.4.0",
+ org.eclipselabs.spray.xtext.ui;bundle-version="0.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j;version="1.2.15"
