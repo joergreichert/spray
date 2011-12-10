@@ -8,7 +8,7 @@ Bundle-Version: 0.4.0.qualifier
 Require-Bundle: org.eclipse.graphiti;bundle-version="0.8.0",
  org.eclipse.zest.layouts;bundle-version="1.1.0",
  org.eclipse.ui;bundle-version="3.7.0",
- com.google.collect;bundle-version="1.0.0"
+ com.google.guava;bundle-version="10.0.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.runtime.graphiti.zest.features
