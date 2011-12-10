@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.xtext.jvmmodel;
 
 import com.google.inject.Inject;
+import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -19,6 +20,7 @@ import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -65,8 +67,13 @@ public class SprayJvmModelInferrer extends AbstractModelInferrer {
       try {
         EClass _type_2 = clazz.getType();
         this._genModelHelper.getJavaInterfaceName(_type_2);
-      } catch (final IllegalStateException e) {
-        return;
+      } catch (final Throwable _t) {
+        if (_t instanceof IllegalStateException) {
+          final IllegalStateException e = (IllegalStateException)_t;
+          return;
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
       }
       EClass _type_3 = clazz.getType();
       String _javaInterfaceName = this._genModelHelper.getJavaInterfaceName(_type_3);
@@ -114,8 +121,11 @@ public class SprayJvmModelInferrer extends AbstractModelInferrer {
   public void infer(final EObject clazz, final IAcceptor<JvmDeclaredType> acceptor, final boolean prelinkingPhase) {
     if (clazz instanceof MetaClass) {
       _infer((MetaClass)clazz, acceptor, prelinkingPhase);
-    } else {
+    } else if (clazz != null) {
       _infer(clazz, acceptor, prelinkingPhase);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(clazz, acceptor, prelinkingPhase).toString());
     }
   }
 }

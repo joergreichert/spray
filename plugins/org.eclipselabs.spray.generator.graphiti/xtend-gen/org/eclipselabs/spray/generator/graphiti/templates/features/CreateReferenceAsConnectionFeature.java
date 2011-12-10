@@ -4,11 +4,11 @@ import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
-import org.eclipse.xtext.xbase.lib.ComparableExtensions;
+import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -29,21 +29,21 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((MetaReference) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((MetaReference) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final MetaReference metaReference, final String className) {
+  public CharSequence mainExtensionPointFile(final MetaReference metaReference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(" ");
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, " ");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -100,7 +100,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final MetaReference reference, final String className) {
+  public CharSequence mainFile(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;
@@ -110,7 +110,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     String _name = _diagram.getName();
     final String diagramName = _name;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -141,40 +141,40 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     _builder.append(" extends AbstractCreateConnectionFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_constructor = this.generate_constructor(reference, className);
+    CharSequence _generate_constructor = this.generate_constructor(reference, className);
     _builder.append(_generate_constructor, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_canCreate = this.generate_canCreate(reference);
+    CharSequence _generate_canCreate = this.generate_canCreate(reference);
     _builder.append(_generate_canCreate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_canStartConnection = this.generate_canStartConnection(reference);
+    CharSequence _generate_canStartConnection = this.generate_canStartConnection(reference);
     _builder.append(_generate_canStartConnection, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_create = this.generate_create(reference);
+    CharSequence _generate_create = this.generate_create(reference);
     _builder.append(_generate_create, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getMetaClassForReference = this.generate_getMetaClassForReference(reference);
+    CharSequence _generate_getMetaClassForReference = this.generate_getMetaClassForReference(reference);
     _builder.append(_generate_getMetaClassForReference, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getReferenceTargetAnchor = this.generate_getReferenceTargetAnchor(reference);
+    CharSequence _generate_getReferenceTargetAnchor = this.generate_getReferenceTargetAnchor(reference);
     _builder.append(_generate_getReferenceTargetAnchor, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_createTargetType = this.generate_createTargetType(reference);
+    CharSequence _generate_createTargetType = this.generate_createTargetType(reference);
     _builder.append(_generate_createTargetType, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(reference);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(reference);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -183,7 +183,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_constructor(final MetaReference reference, final String className) {
+  public CharSequence generate_constructor(final MetaReference reference, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;
@@ -221,12 +221,12 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canCreate(final MetaReference reference) {
+  public CharSequence generate_canCreate(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canCreate(ICreateConnectionContext context) {");
@@ -276,12 +276,12 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canStartConnection(final MetaReference reference) {
+  public CharSequence generate_canStartConnection(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canStartConnection(ICreateConnectionContext context) {");
@@ -329,7 +329,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
         _operator_and = false;
       } else {
         int _upperBound = target.getUpperBound();
-        boolean _operator_greaterEqualsThan = ComparableExtensions.<Integer>operator_greaterEqualsThan(((Integer)_upperBound), ((Integer)0));
+        boolean _operator_greaterEqualsThan = IntegerExtensions.operator_greaterEqualsThan(_upperBound, 0);
         _operator_and = BooleanExtensions.operator_and(_isMany, _operator_greaterEqualsThan);
       }
       if (_operator_and) {
@@ -381,14 +381,14 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_create(final MetaReference reference) {
+  public CharSequence generate_create(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("    ");
     EReference _target = reference.getTarget();
     final EReference target = _target;
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -472,7 +472,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getMetaClassForReference(final MetaReference reference) {
+  public CharSequence generate_getMetaClassForReference(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();
@@ -530,7 +530,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getReferenceTargetAnchor(final MetaReference reference) {
+  public CharSequence generate_getReferenceTargetAnchor(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;
@@ -598,7 +598,7 @@ public class CreateReferenceAsConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_createTargetType(final MetaReference reference) {
+  public CharSequence generate_createTargetType(final MetaReference reference) {
     StringConcatenation _builder = new StringConcatenation();
     EReference _target = reference.getTarget();
     final EReference target = _target;

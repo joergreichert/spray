@@ -740,8 +740,11 @@ public class NamingExtensions {
       return _getName((MetaClass)metaClass);
     } else if (metaClass instanceof MetaReference) {
       return _getName((MetaReference)metaClass);
-    } else {
+    } else if (metaClass != null) {
       return _getName(metaClass);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(metaClass).toString());
     }
   }
   

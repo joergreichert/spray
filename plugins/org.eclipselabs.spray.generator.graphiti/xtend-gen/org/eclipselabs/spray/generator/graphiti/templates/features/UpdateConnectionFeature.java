@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -28,20 +28,20 @@ public class UpdateConnectionFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Connection) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Connection) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Connection) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Connection) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Connection connection, final String className) {
+  public CharSequence mainExtensionPointFile(final Connection connection, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -75,7 +75,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Connection connection, final String className) {
+  public CharSequence mainFile(final Connection connection, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass _represents = connection.getRepresents();
     Diagram _diagram = _represents.getDiagram();
@@ -99,7 +99,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLineIfNotEmpty();
     final String labelName = "name";
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -151,7 +151,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.append(" extends AbstractUpdateFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(connection);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(connection);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -176,23 +176,23 @@ public class UpdateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canUpdate = this.generate_canUpdate(connection);
+    CharSequence _generate_canUpdate = this.generate_canUpdate(connection);
     _builder.append(_generate_canUpdate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_updateNeeded = this.generate_updateNeeded(connection);
+    CharSequence _generate_updateNeeded = this.generate_updateNeeded(connection);
     _builder.append(_generate_updateNeeded, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_update = this.generate_update(connection);
+    CharSequence _generate_update = this.generate_update(connection);
     _builder.append(_generate_update, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getValue = this.generate_getValue(connection);
+    CharSequence _generate_getValue = this.generate_getValue(connection);
     _builder.append(_generate_getValue, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(connection);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(connection);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -200,13 +200,13 @@ public class UpdateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canUpdate(final Connection connection) {
+  public CharSequence generate_canUpdate(final Connection connection) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass _represents = connection.getRepresents();
     String _name = this._namingExtensions.getName(_represents);
     final String metaClassName = _name;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canUpdate(IUpdateContext context) {");
@@ -230,13 +230,13 @@ public class UpdateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_updateNeeded(final Connection connection) {
+  public CharSequence generate_updateNeeded(final Connection connection) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass _represents = connection.getRepresents();
     String _name = this._namingExtensions.getName(_represents);
     final String metaClassName = _name;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public IReason updateNeeded(IUpdateContext context) {");
@@ -309,13 +309,13 @@ public class UpdateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_update(final Connection connection) {
+  public CharSequence generate_update(final Connection connection) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass _represents = connection.getRepresents();
     String _name = this._namingExtensions.getName(_represents);
     final String metaClassName = _name;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean update(IUpdateContext context) {");
@@ -359,7 +359,7 @@ public class UpdateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getValue(final Connection connection) {
+  public CharSequence generate_getValue(final Connection connection) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("protected String getValue(String type, ");
     MetaClass _represents = connection.getRepresents();

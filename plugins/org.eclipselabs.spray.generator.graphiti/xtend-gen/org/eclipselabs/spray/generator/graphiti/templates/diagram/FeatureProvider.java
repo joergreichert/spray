@@ -6,13 +6,13 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -48,20 +48,20 @@ public class FeatureProvider extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Diagram diagram, final String className) {
+  public CharSequence mainExtensionPointFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -97,9 +97,9 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Diagram diagram, final String className) {
+  public CharSequence mainFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -176,7 +176,7 @@ public class FeatureProvider extends FileGenerator {
     _builder.append(" extends DefaultFeatureProvider {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -192,39 +192,39 @@ public class FeatureProvider extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_getAddFeature = this.generate_getAddFeature(diagram);
+    CharSequence _generate_getAddFeature = this.generate_getAddFeature(diagram);
     _builder.append(_generate_getAddFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getCreateFeatures = this.generate_getCreateFeatures(diagram);
+    CharSequence _generate_getCreateFeatures = this.generate_getCreateFeatures(diagram);
     _builder.append(_generate_getCreateFeatures, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getCreateConnectionFeatures = this.generate_getCreateConnectionFeatures(diagram);
+    CharSequence _generate_getCreateConnectionFeatures = this.generate_getCreateConnectionFeatures(diagram);
     _builder.append(_generate_getCreateConnectionFeatures, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getUpdateFeature = this.generate_getUpdateFeature(diagram);
+    CharSequence _generate_getUpdateFeature = this.generate_getUpdateFeature(diagram);
     _builder.append(_generate_getUpdateFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getLayoutFeature = this.generate_getLayoutFeature(diagram);
+    CharSequence _generate_getLayoutFeature = this.generate_getLayoutFeature(diagram);
     _builder.append(_generate_getLayoutFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getRemoveFeature = this.generate_getRemoveFeature(diagram);
+    CharSequence _generate_getRemoveFeature = this.generate_getRemoveFeature(diagram);
     _builder.append(_generate_getRemoveFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getDeleteFeature = this.generate_getDeleteFeature(diagram);
+    CharSequence _generate_getDeleteFeature = this.generate_getDeleteFeature(diagram);
     _builder.append(_generate_getDeleteFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getMoveShapeFeature = this.generate_getMoveShapeFeature(diagram);
+    CharSequence _generate_getMoveShapeFeature = this.generate_getMoveShapeFeature(diagram);
     _builder.append(_generate_getMoveShapeFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -232,9 +232,9 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getAddFeature(final Diagram diagram) {
+  public CharSequence generate_getAddFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public IAddFeature getAddFeature(IAddContext context) {");
@@ -283,7 +283,7 @@ public class FeatureProvider extends FileGenerator {
               public Boolean apply(final MetaReference ref) {
                 Connection _representedBy = ref.getRepresentedBy();
                 boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_representedBy, null);
-                return ((Boolean)_operator_notEquals);
+                return Boolean.valueOf(_operator_notEquals);
               }
             };
           Iterable<MetaReference> _filter = IterableExtensions.<MetaReference>filter(((Iterable<MetaReference>)Conversions.doWrapArray(_references)), _function);
@@ -358,9 +358,9 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getCreateFeatures(final Diagram diagram) {
+  public CharSequence generate_getCreateFeatures(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public ICreateFeature[] getCreateFeatures() {");
@@ -370,10 +370,10 @@ public class FeatureProvider extends FileGenerator {
     _builder.newLine();
     {
       List<String> _createFeatureClassNames = this.getCreateFeatureClassNames(diagram);
-      boolean hasAnyElements = false;
+      boolean _hasElements = false;
       for(final String featureClassName : _createFeatureClassNames) {
-        if (!hasAnyElements) {
-          hasAnyElements = true;
+        if (!_hasElements) {
+          _hasElements = true;
         } else {
           _builder.appendImmediate(",", "    ");
         }
@@ -404,7 +404,7 @@ public class FeatureProvider extends FileGenerator {
       final Function1<MetaClass,Boolean> _function = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass mc) {
             boolean _hasCreateBehavior = FeatureProvider.this._metaClassExtensions.hasCreateBehavior(mc);
-            return ((Boolean)_hasCreateBehavior);
+            return Boolean.valueOf(_hasCreateBehavior);
           }
         };
       Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(_metaClassesForShapes_1, _function);
@@ -438,7 +438,7 @@ public class FeatureProvider extends FileGenerator {
                       public Boolean apply(final EClass cls) {
                         boolean _isAbstract = cls.isAbstract();
                         boolean _operator_not = BooleanExtensions.operator_not(_isAbstract);
-                        return ((Boolean)_operator_not);
+                        return Boolean.valueOf(_operator_not);
                       }
                     };
                   Iterable<EClass> _filter_2 = IterableExtensions.<EClass>filter(_subclasses, _function_1);
@@ -456,10 +456,10 @@ public class FeatureProvider extends FileGenerator {
       return result;
   }
   
-  public StringConcatenation generate_getUpdateFeature(final Diagram diagram) {
+  public CharSequence generate_getUpdateFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("    ");
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -602,9 +602,9 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getLayoutFeature(final Diagram diagram) {
+  public CharSequence generate_getLayoutFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public ILayoutFeature getLayoutFeature(ILayoutContext context) {");
@@ -624,7 +624,7 @@ public class FeatureProvider extends FileGenerator {
           public Boolean apply(final MetaClass m) {
             Shape _representedBy = m.getRepresentedBy();
             boolean _operator_not = BooleanExtensions.operator_not((_representedBy instanceof Connection));
-            return ((Boolean)_operator_not);
+            return Boolean.valueOf(_operator_not);
           }
         };
       Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
@@ -662,9 +662,9 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getCreateConnectionFeatures(final Diagram diagram) {
+  public CharSequence generate_getCreateConnectionFeatures(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public ICreateConnectionFeature[] getCreateConnectionFeatures() {");
@@ -677,14 +677,14 @@ public class FeatureProvider extends FileGenerator {
       final Function1<MetaClass,Boolean> _function = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass e) {
             Shape _representedBy = e.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Connection));
+            return Boolean.valueOf((_representedBy instanceof Connection));
           }
         };
       Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
-      boolean hasAnyElements = false;
+      boolean _hasElements = false;
       for(final MetaClass cls : _filter) {
-        if (!hasAnyElements) {
-          hasAnyElements = true;
+        if (!_hasElements) {
+          _hasElements = true;
         } else {
           _builder.appendImmediate(",", "    ");
         }
@@ -702,7 +702,7 @@ public class FeatureProvider extends FileGenerator {
       final Function1<MetaClass,Boolean> _function_1 = new Function1<MetaClass,Boolean>() {
           public Boolean apply(final MetaClass e) {
             Shape _representedBy = e.getRepresentedBy();
-            return ((Boolean)(_representedBy instanceof Connection));
+            return Boolean.valueOf((_representedBy instanceof Connection));
           }
         };
       Iterable<MetaClass> _filter_1 = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses_1)), _function_1);
@@ -723,14 +723,14 @@ public class FeatureProvider extends FileGenerator {
               public Boolean apply(final MetaReference ref) {
                 Connection _representedBy = ref.getRepresentedBy();
                 boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_representedBy, null);
-                return ((Boolean)_operator_notEquals);
+                return Boolean.valueOf(_operator_notEquals);
               }
             };
           Iterable<MetaReference> _filter_2 = IterableExtensions.<MetaReference>filter(((Iterable<MetaReference>)Conversions.doWrapArray(_references)), _function_2);
-          boolean hasAnyElements_1 = false;
+          boolean _hasElements_1 = false;
           for(final MetaReference reference : _filter_2) {
-            if (!hasAnyElements_1) {
-              hasAnyElements_1 = true;
+            if (!_hasElements_1) {
+              _hasElements_1 = true;
             } else {
               _builder.appendImmediate(",", "    ");
             }
@@ -753,9 +753,9 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getRemoveFeature(final Diagram diagram) {
+  public CharSequence generate_getRemoveFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public IRemoveFeature getRemoveFeature(IRemoveContext context) {");
@@ -771,7 +771,7 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getDeleteFeature(final Diagram diagram) {
+  public CharSequence generate_getDeleteFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("    ");
     _builder.append("public IDeleteFeature getDeleteFeature(IDeleteContext context) {");
@@ -818,7 +818,7 @@ public class FeatureProvider extends FileGenerator {
               public Boolean apply(final MetaReference ref) {
                 Connection _representedBy = ref.getRepresentedBy();
                 boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_representedBy, null);
-                return ((Boolean)_operator_notEquals);
+                return Boolean.valueOf(_operator_notEquals);
               }
             };
           Iterable<MetaReference> _filter = IterableExtensions.<MetaReference>filter(((Iterable<MetaReference>)Conversions.doWrapArray(_references)), _function);
@@ -901,7 +901,7 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getMoveShapeFeature(final Diagram diagram) {
+  public CharSequence generate_getMoveShapeFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/** ");
     _builder.newLine();
@@ -938,7 +938,7 @@ public class FeatureProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getCustomFeatures(final Diagram diagram) {
+  public CharSequence generate_getCustomFeatures(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("@Override");
     _builder.newLine();
@@ -980,10 +980,10 @@ public class FeatureProvider extends FileGenerator {
             {
               Behavior[] _behaviors_1 = metaClass.getBehaviors();
               Iterable<CustomBehavior> _filter = IterableExtensions.<CustomBehavior>filter(((Iterable<? extends Object>)Conversions.doWrapArray(_behaviors_1)), org.eclipselabs.spray.mm.spray.CustomBehavior.class);
-              boolean hasAnyElements = false;
+              boolean _hasElements = false;
               for(final CustomBehavior behavior : _filter) {
-                if (!hasAnyElements) {
-                  hasAnyElements = true;
+                if (!_hasElements) {
+                  _hasElements = true;
                 } else {
                   _builder.appendImmediate(",", "    ");
                 }

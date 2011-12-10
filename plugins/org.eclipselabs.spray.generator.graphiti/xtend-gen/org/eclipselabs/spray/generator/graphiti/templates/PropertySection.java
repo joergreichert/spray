@@ -6,10 +6,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -32,20 +32,20 @@ public class PropertySection extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((EAttribute) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((EAttribute) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((EAttribute) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((EAttribute) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final EAttribute eAttribute, final String className) {
+  public CharSequence mainExtensionPointFile(final EAttribute eAttribute, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -68,7 +68,7 @@ public class PropertySection extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final EAttribute eAttribute, final String className) {
+  public CharSequence mainFile(final EAttribute eAttribute, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     String _name = this.diagram.getName();
     final String diagramName = _name;
@@ -88,7 +88,7 @@ public class PropertySection extends FileGenerator {
     boolean _operator_equals = ObjectExtensions.operator_equals(_name_2, "EBoolean");
     final boolean isBoolean = _operator_equals;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");

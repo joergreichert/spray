@@ -8,16 +8,16 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
-import org.eclipse.xtext.xbase.lib.ComparableExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -37,20 +37,20 @@ public class ToolBehaviorProvider extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Diagram) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Diagram) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Diagram diagram, final String className) {
+  public CharSequence mainExtensionPointFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -85,9 +85,9 @@ public class ToolBehaviorProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Diagram diagram, final String className) {
+  public CharSequence mainFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -114,11 +114,11 @@ public class ToolBehaviorProvider extends FileGenerator {
     _builder.append(" extends AbstractSprayToolBehaviorProvider {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_compartmentConstants = this.generate_compartmentConstants(diagram);
+    CharSequence _generate_compartmentConstants = this.generate_compartmentConstants(diagram);
     _builder.append(_generate_compartmentConstants, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(diagram);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(diagram);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -134,19 +134,19 @@ public class ToolBehaviorProvider extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_buildCreationTools = this.generate_buildCreationTools(diagram);
+    CharSequence _generate_buildCreationTools = this.generate_buildCreationTools(diagram);
     _builder.append(_generate_buildCreationTools, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_buildPaletteCompartments = this.generate_buildPaletteCompartments(diagram);
+    CharSequence _generate_buildPaletteCompartments = this.generate_buildPaletteCompartments(diagram);
     _builder.append(_generate_buildPaletteCompartments, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getPaletteCompartmentForFeature = this.generate_getPaletteCompartmentForFeature(diagram);
+    CharSequence _generate_getPaletteCompartmentForFeature = this.generate_getPaletteCompartmentForFeature(diagram);
     _builder.append(_generate_getPaletteCompartmentForFeature, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalMethods = this.generate_additionalMethods(diagram);
+    CharSequence _generate_additionalMethods = this.generate_additionalMethods(diagram);
     _builder.append(_generate_additionalMethods, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -169,7 +169,7 @@ public class ToolBehaviorProvider extends FileGenerator {
           public Boolean apply(final CreateBehavior b) {
             String _paletteCompartment = b.getPaletteCompartment();
             boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_paletteCompartment, null);
-            return ((Boolean)_operator_notEquals);
+            return Boolean.valueOf(_operator_notEquals);
           }
         };
       Iterable<CreateBehavior> _filter = IterableExtensions.<CreateBehavior>filter(_allCreateBehaviors, _function);
@@ -182,7 +182,7 @@ public class ToolBehaviorProvider extends FileGenerator {
     return _xblockexpression;
   }
   
-  public StringConcatenation generate_compartmentConstants(final Diagram diagram) {
+  public CharSequence generate_compartmentConstants(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
     {
       HashSet<String> _paletteCompartmentNames = this.getPaletteCompartmentNames(diagram);
@@ -199,9 +199,9 @@ public class ToolBehaviorProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_buildCreationTools(final Diagram diagram) {
+  public CharSequence generate_buildCreationTools(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("protected void buildCreationTools() {");
@@ -249,7 +249,7 @@ public class ToolBehaviorProvider extends FileGenerator {
               public Boolean apply(final EClass c) {
                 boolean _isAbstract = c.isAbstract();
                 boolean _operator_not = BooleanExtensions.operator_not(_isAbstract);
-                return ((Boolean)_operator_not);
+                return Boolean.valueOf(_operator_not);
               }
             };
           Iterable<EClass> _filter = IterableExtensions.<EClass>filter(_subclasses, _function);
@@ -295,9 +295,9 @@ public class ToolBehaviorProvider extends FileGenerator {
     return _xblockexpression;
   }
   
-  public StringConcatenation generate_buildPaletteCompartments(final Diagram diagram) {
+  public CharSequence generate_buildPaletteCompartments(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("protected Iterable<IPaletteCompartmentEntry> buildPaletteCompartments() {");
@@ -307,10 +307,10 @@ public class ToolBehaviorProvider extends FileGenerator {
     _builder.newLine();
     {
       HashSet<String> _paletteCompartmentNames = this.getPaletteCompartmentNames(diagram);
-      boolean hasAnyElements = false;
+      boolean _hasElements = false;
       for(final String compartmentName : _paletteCompartmentNames) {
-        if (!hasAnyElements) {
-          hasAnyElements = true;
+        if (!_hasElements) {
+          _hasElements = true;
         } else {
           _builder.appendImmediate(", ", "        ");
         }
@@ -326,7 +326,7 @@ public class ToolBehaviorProvider extends FileGenerator {
     {
       HashSet<String> _paletteCompartmentNames_1 = this.getPaletteCompartmentNames(diagram);
       int _size = _paletteCompartmentNames_1.size();
-      boolean _operator_greaterThan = ComparableExtensions.<Integer>operator_greaterThan(((Integer)_size), ((Integer)0));
+      boolean _operator_greaterThan = IntegerExtensions.operator_greaterThan(_size, 0);
       if (_operator_greaterThan) {
         _builder.append(",");
       }
@@ -343,9 +343,9 @@ public class ToolBehaviorProvider extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getPaletteCompartmentForFeature(final Diagram diagram) {
+  public CharSequence generate_getPaletteCompartmentForFeature(final Diagram diagram) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("protected IPaletteCompartmentEntry getPaletteCompartmentForFeature(IFeature feature) {");
@@ -356,14 +356,14 @@ public class ToolBehaviorProvider extends FileGenerator {
           public Boolean apply(final CreateBehavior b) {
             String _paletteCompartment = b.getPaletteCompartment();
             boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_paletteCompartment, null);
-            return ((Boolean)_operator_notEquals);
+            return Boolean.valueOf(_operator_notEquals);
           }
         };
       Iterable<CreateBehavior> _filter = IterableExtensions.<CreateBehavior>filter(_allCreateBehaviors, _function);
-      boolean hasAnyElements = false;
+      boolean _hasElements = false;
       for(final CreateBehavior behavior : _filter) {
-        if (!hasAnyElements) {
-          hasAnyElements = true;
+        if (!_hasElements) {
+          _hasElements = true;
         } else {
           _builder.appendImmediate("else", "    ");
         }
@@ -432,7 +432,7 @@ public class ToolBehaviorProvider extends FileGenerator {
         final Function1<MetaReference,Boolean> _function = new Function1<MetaReference,Boolean>() {
             public Boolean apply(final MetaReference mr) {
               boolean _isListReference = ToolBehaviorProvider.this.isListReference(mr);
-              return ((Boolean)_isListReference);
+              return Boolean.valueOf(_isListReference);
             }
           };
         Iterable<MetaReference> _filter = IterableExtensions.<MetaReference>filter(_eAllOfType, _function);

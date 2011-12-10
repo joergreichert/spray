@@ -7,12 +7,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -36,20 +36,20 @@ public class CreateConnectionFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((MetaClass) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((MetaClass) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((MetaClass) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((MetaClass) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final MetaClass metaClass, final String className) {
+  public CharSequence mainExtensionPointFile(final MetaClass metaClass, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -96,7 +96,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final MetaClass metaClass, final String className) {
+  public CharSequence mainFile(final MetaClass metaClass, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
@@ -112,7 +112,7 @@ public class CreateConnectionFeature extends FileGenerator {
     Diagram _diagram = metaClass.getDiagram();
     final Diagram diagram = ((Diagram) _diagram);
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -142,7 +142,7 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.append(" extends AbstractCreateConnectionFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(metaClass);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(metaClass);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -176,35 +176,35 @@ public class CreateConnectionFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canCreate = this.generate_canCreate(metaClass);
+    CharSequence _generate_canCreate = this.generate_canCreate(metaClass);
     _builder.append(_generate_canCreate, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_canStartConnection = this.generate_canStartConnection(metaClass);
+    CharSequence _generate_canStartConnection = this.generate_canStartConnection(metaClass);
     _builder.append(_generate_canStartConnection, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_create = this.generate_create(metaClass);
+    CharSequence _generate_create = this.generate_create(metaClass);
     _builder.append(_generate_create, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getFromTypeForAnchor = this.generate_getFromTypeForAnchor(metaClass);
+    CharSequence _generate_getFromTypeForAnchor = this.generate_getFromTypeForAnchor(metaClass);
     _builder.append(_generate_getFromTypeForAnchor, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getToTypeForAnchor = this.generate_getToTypeForAnchor(metaClass);
+    CharSequence _generate_getToTypeForAnchor = this.generate_getToTypeForAnchor(metaClass);
     _builder.append(_generate_getToTypeForAnchor, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_createEReference = this.generate_createEReference(metaClass);
+    CharSequence _generate_createEReference = this.generate_createEReference(metaClass);
     _builder.append(_generate_createEReference, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_getCreateImageId = this.generate_getCreateImageId(metaClass);
+    CharSequence _generate_getCreateImageId = this.generate_getCreateImageId(metaClass);
     _builder.append(_generate_getCreateImageId, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(metaClass);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(metaClass);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -212,7 +212,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canCreate(final MetaClass metaClass) {
+  public CharSequence generate_canCreate(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
@@ -225,7 +225,7 @@ public class CreateConnectionFeature extends FileGenerator {
     EClassifier _eType_1 = _to.getEType();
     final EClass to = ((EClass) _eType_1);
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canCreate(ICreateConnectionContext context) {");
@@ -271,7 +271,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canStartConnection(final MetaClass metaClass) {
+  public CharSequence generate_canStartConnection(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
@@ -280,7 +280,7 @@ public class CreateConnectionFeature extends FileGenerator {
     EClassifier _eType = _from.getEType();
     final EClass from = ((EClass) _eType);
     _builder.newLineIfNotEmpty();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canStartConnection(ICreateConnectionContext context) {");
@@ -308,7 +308,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_create(final MetaClass metaClass) {
+  public CharSequence generate_create(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("    ");
     Shape _representedBy = metaClass.getRepresentedBy();
@@ -329,7 +329,7 @@ public class CreateConnectionFeature extends FileGenerator {
     final Diagram diagram = ((Diagram) _diagram);
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
@@ -452,7 +452,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getFromTypeForAnchor(final MetaClass metaClass) {
+  public CharSequence generate_getFromTypeForAnchor(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
@@ -512,7 +512,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getToTypeForAnchor(final MetaClass metaClass) {
+  public CharSequence generate_getToTypeForAnchor(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
@@ -583,7 +583,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_createEReference(final MetaClass metaClass) {
+  public CharSequence generate_createEReference(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     Shape _representedBy = metaClass.getRepresentedBy();
     final Connection connection = ((Connection) _representedBy);
@@ -640,7 +640,7 @@ public class CreateConnectionFeature extends FileGenerator {
           public Boolean apply(final EAttribute att) {
             String _name = att.getName();
             boolean _operator_equals = ObjectExtensions.operator_equals(_name, "name");
-            return ((Boolean)_operator_equals);
+            return Boolean.valueOf(_operator_equals);
           }
         };
       boolean _exists = IterableExtensions.<EAttribute>exists(_eAttributes, _function);
@@ -681,7 +681,7 @@ public class CreateConnectionFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_getCreateImageId(final MetaClass metaClass) {
+  public CharSequence generate_getCreateImageId(final MetaClass metaClass) {
     StringConcatenation _builder = new StringConcatenation();
     {
       boolean _operator_and = false;

@@ -3,15 +3,15 @@ package org.eclipselabs.spray.styles.generator;
 import java.util.Arrays;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
-import org.eclipse.xtext.xbase.lib.ComparableExtensions;
+import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipse.xtext.xtend2.lib.ResourceExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.styles.styles.Background;
 import org.eclipselabs.spray.styles.styles.Color;
 import org.eclipselabs.spray.styles.styles.ColorConstantRef;
@@ -33,7 +33,7 @@ public class StyleGenerator implements IGenerator {
     Iterable<Style> _filter = IterableExtensions.<Style>filter(_allContentsIterable, org.eclipselabs.spray.styles.styles.Style.class);
     for (final Style style : _filter) {
       String _filepath = this.filepath(style);
-      StringConcatenation _compile = this.compile(style);
+      CharSequence _compile = this.compile(style);
       fsa.generateFile(_filepath, _compile);
     }
   }
@@ -60,7 +60,7 @@ public class StyleGenerator implements IGenerator {
     return "org/eclipselabs/spray/styles/";
   }
   
-  public StringConcatenation compile(final Style s) {
+  public CharSequence compile(final Style s) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();
@@ -96,13 +96,13 @@ public class StyleGenerator implements IGenerator {
     _builder.append("import org.eclipselabs.spray.ISprayStyle;");
     _builder.newLine();
     _builder.newLine();
-    StringConcatenation _body = this.body(s);
+    CharSequence _body = this.body(s);
     _builder.append(_body, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
-  public StringConcatenation body(final Style s) {
+  public CharSequence body(final Style s) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("@SuppressWarnings(\"all\")");
     _builder.newLine();
@@ -143,7 +143,7 @@ public class StyleGenerator implements IGenerator {
     _builder.newLine();
     _builder.append("\t\t");
     StyleLayout _layout = s.getLayout();
-    StringConcatenation _createLayout = this.createLayout(_layout);
+    CharSequence _createLayout = this.createLayout(_layout);
     _builder.append(_createLayout, "		");
     _builder.newLineIfNotEmpty();
     _builder.append("\t    ");
@@ -182,31 +182,31 @@ public class StyleGenerator implements IGenerator {
     return _builder;
   }
   
-  public StringConcatenation createLayout(final StyleLayout l) {
+  public CharSequence createLayout(final StyleLayout l) {
     StringConcatenation _builder = new StringConcatenation();
     Transparency _transparency = l.getTransparency();
-    StringConcatenation _createTransparencyAttributes = this.createTransparencyAttributes(_transparency);
+    CharSequence _createTransparencyAttributes = this.createTransparencyAttributes(_transparency);
     _builder.append(_createTransparencyAttributes, "");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     Background _background = l.getBackground();
-    StringConcatenation _createBackgroundAttributes = this.createBackgroundAttributes(_background);
+    CharSequence _createBackgroundAttributes = this.createBackgroundAttributes(_background);
     _builder.append(_createBackgroundAttributes, "");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     Line _line = l.getLine();
-    StringConcatenation _createLineAttributes = this.createLineAttributes(_line);
+    CharSequence _createLineAttributes = this.createLineAttributes(_line);
     _builder.append(_createLineAttributes, "");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     Font _font = l.getFont();
-    StringConcatenation _createFontAttributes = this.createFontAttributes(_font);
+    CharSequence _createFontAttributes = this.createFontAttributes(_font);
     _builder.append(_createFontAttributes, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
-  public StringConcatenation createTransparencyAttributes(final Transparency l) {
+  public CharSequence createTransparencyAttributes(final Transparency l) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Setting the transparency value - default is 1.0");
     _builder.newLine();
@@ -217,7 +217,7 @@ public class StyleGenerator implements IGenerator {
         _operator_or = true;
       } else {
         double _transparency = l.getTransparency();
-        boolean _operator_equals_1 = ObjectExtensions.operator_equals(((Double)_transparency), null);
+        boolean _operator_equals_1 = ObjectExtensions.operator_equals(Double.valueOf(_transparency), null);
         _operator_or = BooleanExtensions.operator_or(_operator_equals, _operator_equals_1);
       }
       if (_operator_or) {
@@ -234,7 +234,7 @@ public class StyleGenerator implements IGenerator {
     return _builder;
   }
   
-  public StringConcatenation createBackgroundAttributes(final Background l) {
+  public CharSequence createBackgroundAttributes(final Background l) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Setting the background color");
     _builder.newLine();
@@ -263,7 +263,7 @@ public class StyleGenerator implements IGenerator {
           _builder.newLine();
           _builder.append("style.setBackground(gaService.manageColor(diagram, ");
           ColorWithTransparency _background_2 = l.getBackground();
-          StringConcatenation _createColorValue = this.createColorValue(_background_2);
+          CharSequence _createColorValue = this.createColorValue(_background_2);
           _builder.append(_createColorValue, "");
           _builder.append("));");
           _builder.newLineIfNotEmpty();
@@ -273,7 +273,7 @@ public class StyleGenerator implements IGenerator {
     return _builder;
   }
   
-  public StringConcatenation createLineAttributes(final Line l) {
+  public CharSequence createLineAttributes(final Line l) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Setting the line attributes (line color is called foreground color)");
     _builder.newLine();
@@ -323,7 +323,7 @@ public class StyleGenerator implements IGenerator {
           _builder.newLine();
           _builder.append("style.setForeground(gaService.manageColor(diagram, ");
           ColorWithTransparency _lineColor_2 = l.getLineColor();
-          StringConcatenation _createColorValue = this.createColorValue(_lineColor_2);
+          CharSequence _createColorValue = this.createColorValue(_lineColor_2);
           _builder.append(_createColorValue, "");
           _builder.append("));");
           _builder.newLineIfNotEmpty();
@@ -354,7 +354,7 @@ public class StyleGenerator implements IGenerator {
     return _builder;
   }
   
-  public StringConcatenation createFontAttributes(final Font l) {
+  public CharSequence createFontAttributes(final Font l) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Managing the font (default values are Arial, size 8, no italic, no bold)");
     _builder.newLine();
@@ -386,7 +386,7 @@ public class StyleGenerator implements IGenerator {
         _operator_or_1 = true;
       } else {
         int _fontSize = l.getFontSize();
-        boolean _operator_greaterThan = ComparableExtensions.<Integer>operator_greaterThan(((Integer)_fontSize), ((Integer)0));
+        boolean _operator_greaterThan = IntegerExtensions.operator_greaterThan(_fontSize, 0);
         boolean _operator_not = BooleanExtensions.operator_not(_operator_greaterThan);
         _operator_or_1 = BooleanExtensions.operator_or(_operator_equals_2, _operator_not);
       }
@@ -443,26 +443,26 @@ public class StyleGenerator implements IGenerator {
       } else {
         Line _line_2 = l.getLine();
         ColorWithTransparency _lineColor_1 = _line_2.getLineColor();
-        StringConcatenation _createColorValue = this.createColorValue(_lineColor_1);
+        CharSequence _createColorValue = this.createColorValue(_lineColor_1);
         _xifexpression_1 = _createColorValue;
       }
       _xifexpression = _xifexpression_1;
     } else {
       Font _font_2 = l.getFont();
       Color _fontColor_1 = _font_2.getFontColor();
-      StringConcatenation _createColorValue_1 = this.createColorValue(_fontColor_1);
+      CharSequence _createColorValue_1 = this.createColorValue(_fontColor_1);
       _xifexpression = _createColorValue_1;
     }
     return _xifexpression;
   }
   
-  protected StringConcatenation _createColorValue(final Transparent c) {
+  protected CharSequence _createColorValue(final Transparent c) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("null");
     return _builder;
   }
   
-  protected StringConcatenation _createColorValue(final ColorConstantRef c) {
+  protected CharSequence _createColorValue(final ColorConstantRef c) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("IColorConstant.");
     ColorConstants _value = c.getValue();
@@ -471,7 +471,7 @@ public class StyleGenerator implements IGenerator {
     return _builder;
   }
   
-  protected StringConcatenation _createColorValue(final RGBColor c) {
+  protected CharSequence _createColorValue(final RGBColor c) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("new ColorConstant(");
     int _red = c.getRed();
@@ -486,7 +486,7 @@ public class StyleGenerator implements IGenerator {
     return _builder;
   }
   
-  public StringConcatenation createColorValue(final ColorWithTransparency c) {
+  public CharSequence createColorValue(final ColorWithTransparency c) {
     if (c instanceof ColorConstantRef) {
       return _createColorValue((ColorConstantRef)c);
     } else if (c instanceof RGBColor) {

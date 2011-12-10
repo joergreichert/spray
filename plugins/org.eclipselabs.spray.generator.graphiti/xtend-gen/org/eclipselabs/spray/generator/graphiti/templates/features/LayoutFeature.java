@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -23,20 +23,20 @@ public class LayoutFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((Container) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((Container) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final Container container, final String className) {
+  public CharSequence mainExtensionPointFile(final Container container, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -71,7 +71,7 @@ public class LayoutFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final Container container, final String className) {
+  public CharSequence mainFile(final Container container, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass _represents = container.getRepresents();
     Diagram _diagram = _represents.getDiagram();
@@ -92,7 +92,7 @@ public class LayoutFeature extends FileGenerator {
     String _constainerClass = GeneratorUtil.constainerClass(container);
     String containerType = _constainerClass;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -141,7 +141,7 @@ public class LayoutFeature extends FileGenerator {
     _builder.append(" container = null;");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(container);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(container);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -174,15 +174,15 @@ public class LayoutFeature extends FileGenerator {
     _builder.append(" ");
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canLayout = this.generate_canLayout(container);
+    CharSequence _generate_canLayout = this.generate_canLayout(container);
     _builder.append(_generate_canLayout, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_layout = this.generate_layout(container);
+    CharSequence _generate_layout = this.generate_layout(container);
     _builder.append(_generate_layout, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(container);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(container);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -190,9 +190,9 @@ public class LayoutFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canLayout(final Container container) {
+  public CharSequence generate_canLayout(final Container container) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canLayout(ILayoutContext context) {");
@@ -226,9 +226,9 @@ public class LayoutFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_layout(final Container container) {
+  public CharSequence generate_layout(final Container container) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean layout(ILayoutContext context) {");

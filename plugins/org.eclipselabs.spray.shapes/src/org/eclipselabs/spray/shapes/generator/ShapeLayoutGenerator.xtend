@@ -8,8 +8,8 @@ class ShapeLayoutGenerator {
 		//Check if default size is set
 		if(s.shapeLayout.defheight != null && s.shapeLayout.defwidth != null) {
 			'''
-			invisibleRectangle.setWidth(Â«s.shapeLayout.defwidthÂ»);
-			invisibleRectangle.setHeight(Â«s.shapeLayout.defheightÂ»);
+			invisibleRectangle.setWidth(«s.shapeLayout.defwidth»);
+			invisibleRectangle.setHeight(«s.shapeLayout.defheight»);
 			'''
 		}
 		//Check if min size is set NOT IMPLEMENTED YET
@@ -25,13 +25,13 @@ class ShapeLayoutGenerator {
 		}
 		//Set proportional,
 		'''
-			styleInvisibleRectangle.setProportional(Â«s.shapeLayout.proportionalÂ»);	   
+			styleInvisibleRectangle.setProportional(«s.shapeLayout.proportional»);	   
 		'''
 		
 		//Set strechting
 		if(s.shapeLayout.stretchH != null){
 		'''
-			styleInvisibleRectangle.setStretchH(Â«s.shapeLayout.stretchHÂ»);	   
+			styleInvisibleRectangle.setStretchH(«s.shapeLayout.stretchH»);	   
 		'''
 		}else{
 			'''
@@ -42,7 +42,7 @@ class ShapeLayoutGenerator {
 		//Set proportional, strechting
 		if(s.shapeLayout.stretchV != null){
 		'''
-			styleInvisibleRectangle.setStretchV(Â«s.shapeLayout.stretchVÂ»);	   
+			styleInvisibleRectangle.setStretchV(«s.shapeLayout.stretchV»);	   
 		'''
 		}else{
 			'''
@@ -53,7 +53,7 @@ class ShapeLayoutGenerator {
 		//Set Angle
 		if(s.shapeLayout.angle != null){			
 			'''
-			int angle = Â«s.shapeLayout.angleÂ»;
+			int angle = «s.shapeLayout.angle»;
 			styleInvisibleRectangle.setAngle(angle);
 			'''
 		}

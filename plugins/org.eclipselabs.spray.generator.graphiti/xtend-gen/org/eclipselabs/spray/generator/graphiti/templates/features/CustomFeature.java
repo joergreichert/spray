@@ -1,7 +1,7 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -14,20 +14,20 @@ public class CustomFeature extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _baseClassName = _javaGenFile.getBaseClassName();
-    StringConcatenation _mainFile = this.mainFile(((CustomBehavior) modelElement), _baseClassName);
+    CharSequence _mainFile = this.mainFile(((CustomBehavior) modelElement), _baseClassName);
     return _mainFile;
   }
   
   public CharSequence generateExtensionFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainExtensionPointFile = this.mainExtensionPointFile(((CustomBehavior) modelElement), _className);
+    CharSequence _mainExtensionPointFile = this.mainExtensionPointFile(((CustomBehavior) modelElement), _className);
     return _mainExtensionPointFile;
   }
   
-  public StringConcatenation mainExtensionPointFile(final CustomBehavior metaClass, final String className) {
+  public CharSequence mainExtensionPointFile(final CustomBehavior metaClass, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _extensionHeader = this.extensionHeader(this);
+    CharSequence _extensionHeader = this.extensionHeader(this);
     _builder.append(_extensionHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -79,14 +79,14 @@ public class CustomFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation mainFile(final CustomBehavior behavior, final String className) {
+  public CharSequence mainFile(final CustomBehavior behavior, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     MetaClass _metaClass = behavior.getMetaClass();
     Diagram _diagram = _metaClass.getDiagram();
     String _name = _diagram.getName();
     String diagramName = _name;
     _builder.newLineIfNotEmpty();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");
@@ -111,7 +111,7 @@ public class CustomFeature extends FileGenerator {
     _builder.append(" extends AbstractCustomFeature {");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields = this.generate_additionalFields(behavior);
+    CharSequence _generate_additionalFields = this.generate_additionalFields(behavior);
     _builder.append(_generate_additionalFields, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -160,15 +160,15 @@ public class CustomFeature extends FileGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("    ");
-    StringConcatenation _generate_canExecute = this.generate_canExecute(behavior);
+    CharSequence _generate_canExecute = this.generate_canExecute(behavior);
     _builder.append(_generate_canExecute, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_execute = this.generate_execute(behavior);
+    CharSequence _generate_execute = this.generate_execute(behavior);
     _builder.append(_generate_execute, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
-    StringConcatenation _generate_additionalFields_1 = this.generate_additionalFields(behavior);
+    CharSequence _generate_additionalFields_1 = this.generate_additionalFields(behavior);
     _builder.append(_generate_additionalFields_1, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -176,9 +176,9 @@ public class CustomFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_canExecute(final CustomBehavior behavior) {
+  public CharSequence generate_canExecute(final CustomBehavior behavior) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public boolean canExecute(ICustomContext context) {");
@@ -223,9 +223,9 @@ public class CustomFeature extends FileGenerator {
     return _builder;
   }
   
-  public StringConcatenation generate_execute(final CustomBehavior behavior) {
+  public CharSequence generate_execute(final CustomBehavior behavior) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _overrideHeader = this.overrideHeader();
+    CharSequence _overrideHeader = this.overrideHeader();
     _builder.append(_overrideHeader, "");
     _builder.newLineIfNotEmpty();
     _builder.append("public void execute(ICustomContext context) {");

@@ -3,15 +3,16 @@ package org.eclipselabs.spray.shapes.generator;
 import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.ResourceExtensions;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.shapes.generator.ShapeLayoutGenerator;
 import org.eclipselabs.spray.shapes.shapes.CommonLayout;
 import org.eclipselabs.spray.shapes.shapes.Ellipse;
@@ -32,11 +33,12 @@ public class ShapeGenerator implements IGenerator {
   private ShapeLayoutGenerator layoutGen;
   
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
-    Iterable<EObject> _allContentsIterable = ResourceExtensions.allContentsIterable(resource);
-    Iterable<ShapeDefinition> _filter = IterableExtensions.<ShapeDefinition>filter(_allContentsIterable, org.eclipselabs.spray.shapes.shapes.ShapeDefinition.class);
+    TreeIterator<EObject> _allContents = resource.getAllContents();
+    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+    Iterable<ShapeDefinition> _filter = IterableExtensions.<ShapeDefinition>filter(_iterable, org.eclipselabs.spray.shapes.shapes.ShapeDefinition.class);
     for (final ShapeDefinition shape : _filter) {
       String _filepath = this.filepath(shape);
-      StringConcatenation _compile = this.compile(shape);
+      CharSequence _compile = this.compile(shape);
       fsa.generateFile(_filepath, _compile);
     }
   }
@@ -50,16 +52,16 @@ public class ShapeGenerator implements IGenerator {
     return _operator_plus_1;
   }
   
-  public StringConcatenation compile(final ShapeDefinition s) {
-    StringConcatenation _xblockexpression = null;
+  public CharSequence compile(final ShapeDefinition s) {
+    CharSequence _xblockexpression = null;
     {
       this.element_index = 0;
       StringConcatenation _builder = new StringConcatenation();
-      StringConcatenation _head = this.head(s);
+      CharSequence _head = this.head(s);
       _builder.append(_head, "");
       _builder.newLineIfNotEmpty();
       _builder.newLine();
-      StringConcatenation _body = this.body(s);
+      CharSequence _body = this.body(s);
       _builder.append(_body, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -67,7 +69,7 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  public StringConcatenation head(final ShapeDefinition s) {
+  public CharSequence head(final ShapeDefinition s) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();
@@ -125,7 +127,7 @@ public class ShapeGenerator implements IGenerator {
     return _builder;
   }
   
-  public StringConcatenation body(final ShapeDefinition s) {
+  public CharSequence body(final ShapeDefinition s) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("@SuppressWarnings(\"all\")");
     _builder.newLine();
@@ -165,7 +167,7 @@ public class ShapeGenerator implements IGenerator {
     _builder.append("/*");
     _builder.newLine();
     _builder.append("\t\t");
-    StringConcatenation _generateLayout = this.layoutGen.generateLayout(s);
+    CharSequence _generateLayout = this.layoutGen.generateLayout(s);
     _builder.append(_generateLayout, "		");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -180,7 +182,7 @@ public class ShapeGenerator implements IGenerator {
       EList<Shape> _shape = s.getShape();
       for(final Shape element : _shape) {
         _builder.append("\t\t");
-        StringConcatenation _createElement = this.createElement(element, "containerShape");
+        CharSequence _createElement = this.createElement(element, "containerShape");
         _builder.append(_createElement, "		");
         _builder.newLineIfNotEmpty();
       }
@@ -202,8 +204,8 @@ public class ShapeGenerator implements IGenerator {
     return null;
   }
   
-  protected StringConcatenation _createElement(final Line line, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final Line line, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -224,8 +226,8 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  protected StringConcatenation _createElement(final Rectangle rectangle, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final Rectangle rectangle, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -286,8 +288,8 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  protected StringConcatenation _createElement(final Polygon polygon, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final Polygon polygon, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -308,8 +310,8 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  protected StringConcatenation _createElement(final Polyline polyline, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final Polyline polyline, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -330,8 +332,8 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  protected StringConcatenation _createElement(final RoundedRectangle roundedrectangle, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final RoundedRectangle roundedrectangle, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -392,8 +394,8 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  protected StringConcatenation _createElement(final Ellipse ellipse, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final Ellipse ellipse, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -454,8 +456,8 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  protected StringConcatenation _createElement(final Text text, final String parentName) {
-    StringConcatenation _xblockexpression = null;
+  protected CharSequence _createElement(final Text text, final String parentName) {
+    CharSequence _xblockexpression = null;
     {
       String _nextAttname = this.getNextAttname();
       final String attname = _nextAttname;
@@ -474,9 +476,9 @@ public class ShapeGenerator implements IGenerator {
   public String getNextAttname() {
     String _xblockexpression = null;
     {
-      int _operator_plus = IntegerExtensions.operator_plus(((Integer)this.element_index), ((Integer)1));
+      int _operator_plus = IntegerExtensions.operator_plus(this.element_index, 1);
       this.element_index = _operator_plus;
-      String _operator_plus_1 = StringExtensions.operator_plus("element_", ((Integer)this.element_index));
+      String _operator_plus_1 = StringExtensions.operator_plus("element_", Integer.valueOf(this.element_index));
       _xblockexpression = (_operator_plus_1);
     }
     return _xblockexpression;
@@ -488,7 +490,7 @@ public class ShapeGenerator implements IGenerator {
       StringBuilder _stringBuilder = new StringBuilder();
       final StringBuilder sb = _stringBuilder;
       for (final Shape element : shapeList) {
-        StringConcatenation _createElement = this.createElement(element, attname);
+        CharSequence _createElement = this.createElement(element, attname);
         sb.append(_createElement);
       }
       String _string = sb.toString();
@@ -497,7 +499,7 @@ public class ShapeGenerator implements IGenerator {
     return _xblockexpression;
   }
   
-  public StringConcatenation createElement(final Shape ellipse, final String parentName) {
+  public CharSequence createElement(final Shape ellipse, final String parentName) {
     if (ellipse instanceof Ellipse) {
       return _createElement((Ellipse)ellipse, parentName);
     } else if (ellipse instanceof Line) {

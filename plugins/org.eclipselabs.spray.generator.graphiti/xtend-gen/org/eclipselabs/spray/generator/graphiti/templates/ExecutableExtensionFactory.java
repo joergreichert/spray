@@ -2,7 +2,7 @@ package org.eclipselabs.spray.generator.graphiti.templates;
 
 import com.google.inject.Inject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator;
 import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
@@ -21,13 +21,13 @@ public class ExecutableExtensionFactory extends FileGenerator {
   public CharSequence generateBaseFile(final EObject modelElement) {
     JavaGenFile _javaGenFile = this.getJavaGenFile();
     String _className = _javaGenFile.getClassName();
-    StringConcatenation _mainFile = this.mainFile(((Diagram) modelElement), _className);
+    CharSequence _mainFile = this.mainFile(((Diagram) modelElement), _className);
     return _mainFile;
   }
   
-  public StringConcatenation mainFile(final Diagram diagram, final String className) {
+  public CharSequence mainFile(final Diagram diagram, final String className) {
     StringConcatenation _builder = new StringConcatenation();
-    StringConcatenation _header = this.header(this);
+    CharSequence _header = this.header(this);
     _builder.append(_header, "");
     _builder.newLineIfNotEmpty();
     _builder.append("package ");

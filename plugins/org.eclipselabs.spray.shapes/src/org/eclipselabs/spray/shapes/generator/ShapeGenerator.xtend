@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 
-import static extension org.eclipse.xtext.xtend2.lib.ResourceExtensions.*
+import static extension org.eclipse.xtext.xbase.lib.IteratorExtensions.*
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.Line
 import org.eclipselabs.spray.shapes.shapes.Rectangle
@@ -20,12 +20,12 @@ import org.eclipselabs.spray.shapes.shapes.Ellipse
 import org.eclipselabs.spray.shapes.shapes.Text
 import org.eclipselabs.spray.shapes.shapes.Shape
 
-class ShapeGenerator implements IGenerator {
+class ShapeGenerator implements IGenerator { 
 	
 	@Inject ShapeLayoutGenerator layoutGen
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for(shape : resource.allContentsIterable().filter(typeof(ShapeDefinition))) {
+		for(shape : resource.allContents.toIterable.filter(typeof(ShapeDefinition))) {
       		fsa.generateFile(shape.filepath, shape.compile)
    		}
 	}
@@ -37,9 +37,9 @@ class ShapeGenerator implements IGenerator {
 	def compile(ShapeDefinition s) { 
 		element_index = 0
 		'''
-		Â«s.headÂ»
+		«s.head»
 		
-		Â«s.bodyÂ»
+		«s.body»
 		'''
 		}
 	 
@@ -79,7 +79,7 @@ class ShapeGenerator implements IGenerator {
 	 def body(ShapeDefinition s) {
 		'''
 		@SuppressWarnings("all")
-		public class Â«s.nameÂ» implements ISprayShape {
+		public class «s.name» implements ISprayShape {
 		    
 			@Override
 			public ContainerShape getShape(Diagram diagram) {
@@ -91,13 +91,13 @@ class ShapeGenerator implements IGenerator {
 				
 				// General Shape Layout definition
 				/*
-				Â«layoutGen.generateLayout(s)Â»
+				«layoutGen.generateLayout(s)»
 				*/
 				
 				// Creating the different figures
-				Â«FOR element : s.shapeÂ»
-				Â«element.createElement("containerShape")Â»
-				Â«ENDFORÂ»
+				«FOR element : s.shape»
+				«element.createElement("containerShape")»
+				«ENDFOR»
 				
 				return containerShape;
 			}
@@ -112,70 +112,70 @@ class ShapeGenerator implements IGenerator {
 	def dispatch createElement(Line line, String parentName) {
 		val attname = getNextAttname
 		'''
-		Polyline Â«attnameÂ» = gaService.createPolyline(Â«parentNameÂ»);
+		Polyline «attname» = gaService.createPolyline(«parentName»);
 
-		Â«line.shape.recursiveCreation(attname)Â»
+		«line.shape.recursiveCreation(attname)»
      	'''
 	}
 	
 	def dispatch createElement(Rectangle rectangle, String parentName) { 
 		val attname = getNextAttname
 		'''
-		Rectangle Â«attnameÂ» = gaService.createRectangle(Â«parentNameÂ»);
-		Â«attnameÂ».setWidth(Â«rectangle.layout.common.widthÂ»);
-		Â«attnameÂ».setHeight(Â«rectangle.layout.common.heigthÂ»);
-		gaService.setLocationAndSize(Â«attnameÂ», Â«rectangle.layout.common.xcorÂ», Â«rectangle.layout.common.ycorÂ», Â«rectangle.layout.common.widthÂ», Â«rectangle.layout.common.heigthÂ»);
+		Rectangle «attname» = gaService.createRectangle(«parentName»);
+		«attname».setWidth(«rectangle.layout.common.width»);
+		«attname».setHeight(«rectangle.layout.common.heigth»);
+		gaService.setLocationAndSize(«attname», «rectangle.layout.common.xcor», «rectangle.layout.common.ycor», «rectangle.layout.common.width», «rectangle.layout.common.heigth»);
 
-		Â«rectangle.shape.recursiveCreation(attname)Â»
+		«rectangle.shape.recursiveCreation(attname)»
      	'''
 	}
 	
 	def dispatch createElement(Polygon polygon, String parentName) { 
 		val attname = getNextAttname
 		'''
-		Polygon Â«attnameÂ» = gaService.createPolygon(Â«parentNameÂ»);
+		Polygon «attname» = gaService.createPolygon(«parentName»);
 
-		Â«polygon.shape.recursiveCreation(attname)Â»
+		«polygon.shape.recursiveCreation(attname)»
      	'''
 	}
 	
 	def dispatch createElement(Polyline polyline, String parentName) { 
 		val attname = getNextAttname
 		'''
-		Polyline Â«attnameÂ» = gaService.createPolyline(Â«parentNameÂ»);
+		Polyline «attname» = gaService.createPolyline(«parentName»);
 
-		Â«polyline.shape.recursiveCreation(attname)Â»
+		«polyline.shape.recursiveCreation(attname)»
      	'''
 	}
 	
 	def dispatch createElement(RoundedRectangle roundedrectangle, String parentName) { 
 		val attname = getNextAttname
 		'''
-		RoundedRectangle Â«attnameÂ» = gaService.createRoundedRectangle(Â«parentNameÂ»);
-		Â«attnameÂ».setWidth(Â«roundedrectangle.layout.common.widthÂ»);
-		Â«attnameÂ».setHeight(Â«roundedrectangle.layout.common.heigthÂ»);
-		gaService.setLocationAndSize(Â«attnameÂ», Â«roundedrectangle.layout.common.xcorÂ», Â«roundedrectangle.layout.common.ycorÂ», Â«roundedrectangle.layout.common.widthÂ», Â«roundedrectangle.layout.common.heigthÂ»);
+		RoundedRectangle «attname» = gaService.createRoundedRectangle(«parentName»);
+		«attname».setWidth(«roundedrectangle.layout.common.width»);
+		«attname».setHeight(«roundedrectangle.layout.common.heigth»);
+		gaService.setLocationAndSize(«attname», «roundedrectangle.layout.common.xcor», «roundedrectangle.layout.common.ycor», «roundedrectangle.layout.common.width», «roundedrectangle.layout.common.heigth»);
 
-		Â«roundedrectangle.shape.recursiveCreation(attname)Â»
+		«roundedrectangle.shape.recursiveCreation(attname)»
      	'''
 	}
 	
 	def dispatch createElement(Ellipse ellipse, String parentName) {
 		val attname = getNextAttname
 		'''
-		Ellipse Â«attnameÂ» = gaService.createEllipse(Â«parentNameÂ»);
-		Â«attnameÂ».setWidth(Â«ellipse.layout.common.widthÂ»);
-		Â«attnameÂ».setHeight(Â«ellipse.layout.common.heigthÂ»);
-		gaService.setLocationAndSize(Â«attnameÂ», Â«ellipse.layout.common.xcorÂ», Â«ellipse.layout.common.ycorÂ», Â«ellipse.layout.common.widthÂ», Â«ellipse.layout.common.heigthÂ»);
+		Ellipse «attname» = gaService.createEllipse(«parentName»);
+		«attname».setWidth(«ellipse.layout.common.width»);
+		«attname».setHeight(«ellipse.layout.common.heigth»);
+		gaService.setLocationAndSize(«attname», «ellipse.layout.common.xcor», «ellipse.layout.common.ycor», «ellipse.layout.common.width», «ellipse.layout.common.heigth»);
 
-		Â«ellipse.shape.recursiveCreation(attname)Â»
+		«ellipse.shape.recursiveCreation(attname)»
      	'''
 	}
 	
 	def dispatch createElement(Text text, String parentName) { 
 		val attname = getNextAttname
 		'''
-		Text Â«attnameÂ» = gaService.createText(Â«parentNameÂ»);
+		Text «attname» = gaService.createText(«parentName»);
      	'''
 	}
 	

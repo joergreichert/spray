@@ -1,9 +1,9 @@
 package org.eclipselabs.spray.generator.graphiti.templates;
 
 import com.google.inject.Inject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.compiler.ImportManager;
-import org.eclipse.xtext.xtend2.lib.StringConcatenation;
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
 import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler;
 import org.eclipselabs.spray.mm.spray.Text;
@@ -13,7 +13,7 @@ public class TemplateUtil {
   @Inject
   private SprayCompiler compiler;
   
-  public StringConcatenation header(final Object templateClass) {
+  public CharSequence header(final Object templateClass) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/*************************************************************************************");
     _builder.newLine();
@@ -48,7 +48,7 @@ public class TemplateUtil {
     return _builder;
   }
   
-  public StringConcatenation extensionHeader(final Object templateClass) {
+  public CharSequence extensionHeader(final Object templateClass) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/*************************************************************************************");
     _builder.newLine();
@@ -83,7 +83,7 @@ public class TemplateUtil {
     return _builder;
   }
   
-  public StringConcatenation pluginHeader(final Object templateClass) {
+  public CharSequence pluginHeader(final Object templateClass) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<!--");
     _builder.newLine();
@@ -117,8 +117,8 @@ public class TemplateUtil {
         ImportManager _importManager = new ImportManager(false);
         String _compile = this.compiler.compile(text, _importManager);
         final String body = _compile;
-        StringConcatenation _stringConcatenation = new StringConcatenation();
-        final StringConcatenation result = _stringConcatenation;
+        org.eclipse.xtext.xtend2.lib.StringConcatenation _stringConcatenation = new org.eclipse.xtext.xtend2.lib.StringConcatenation();
+        final org.eclipse.xtext.xtend2.lib.StringConcatenation result = _stringConcatenation;
         result.append(body);
         return result;
       }
@@ -139,7 +139,7 @@ public class TemplateUtil {
   /**
    * Generate an Override annotation and Javadoc inheritance
    */
-  public StringConcatenation overrideHeader() {
+  public CharSequence overrideHeader() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("/**");
     _builder.newLine();

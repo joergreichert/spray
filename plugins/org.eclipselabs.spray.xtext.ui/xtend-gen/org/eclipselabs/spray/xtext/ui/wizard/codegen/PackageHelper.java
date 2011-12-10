@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
-import org.eclipse.xtext.xbase.lib.ComparableExtensions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
@@ -29,19 +29,19 @@ public class PackageHelper {
           final int index = _lastIndexOf;
           String foundPackageName = null;
           boolean _operator_and = false;
-          boolean _operator_greaterThan = ComparableExtensions.<Integer>operator_greaterThan(((Integer)index), ((Integer)0));
+          boolean _operator_greaterThan = IntegerExtensions.operator_greaterThan(index, 0);
           if (!_operator_greaterThan) {
             _operator_and = false;
           } else {
             int _length = element.length();
-            boolean _operator_lessThan = ComparableExtensions.<Integer>operator_lessThan(((Integer)index), ((Integer)_length));
+            boolean _operator_lessThan = IntegerExtensions.operator_lessThan(index, _length);
             _operator_and = BooleanExtensions.operator_and(_operator_greaterThan, _operator_lessThan);
           }
           if (_operator_and) {
             {
               String _substring = element.substring(0, index);
               final String packageName = _substring;
-              int _operator_plus = IntegerExtensions.operator_plus(((Integer)index), ((Integer)1));
+              int _operator_plus = IntegerExtensions.operator_plus(index, 1);
               String _substring_1 = element.substring(_operator_plus);
               final String className = _substring_1;
               EPackage ePackage = null;
@@ -77,8 +77,13 @@ public class PackageHelper {
             }
           }
         }
-      } catch (final Exception e) {
-        e.printStackTrace();
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          e.printStackTrace();
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
       }
       return element;
   }

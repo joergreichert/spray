@@ -28,9 +28,9 @@
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.mwe.sdk.feature.group" version="1.2.1.v201110310946"/>
-<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.1.0.v201111010714"/>
-<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.1.0.v201110310946"/>
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.1.1.v201111141332"/>
+<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.2.0.v201112071250"/>
+<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.2.0.v201112070431"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.2.0.v201112071226"/>
 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">

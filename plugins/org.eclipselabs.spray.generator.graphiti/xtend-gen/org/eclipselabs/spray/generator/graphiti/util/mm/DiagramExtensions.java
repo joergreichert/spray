@@ -34,7 +34,7 @@ public class DiagramExtensions {
         public Boolean apply(final MetaClass mc) {
           Shape _representedBy = mc.getRepresentedBy();
           boolean _operator_not = BooleanExtensions.operator_not((_representedBy instanceof Connection));
-          return ((Boolean)_operator_not);
+          return Boolean.valueOf(_operator_not);
         }
       };
     Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
@@ -50,7 +50,7 @@ public class DiagramExtensions {
     final Function1<MetaClass,Boolean> _function = new Function1<MetaClass,Boolean>() {
         public Boolean apply(final MetaClass mc) {
           Shape _representedBy = mc.getRepresentedBy();
-          return ((Boolean)(_representedBy instanceof Connection));
+          return Boolean.valueOf((_representedBy instanceof Connection));
         }
       };
     Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
@@ -70,13 +70,13 @@ public class DiagramExtensions {
             Behavior[] _behaviors = mc.getBehaviors();
             final Function1<Behavior,Boolean> _function = new Function1<Behavior,Boolean>() {
                 public Boolean apply(final Behavior b) {
-                  return ((Boolean)(b instanceof CreateBehavior));
+                  return Boolean.valueOf((b instanceof CreateBehavior));
                 }
               };
             boolean _exists = IterableExtensions.<Behavior>exists(((Iterable<Behavior>)Conversions.doWrapArray(_behaviors)), _function);
             _operator_and = BooleanExtensions.operator_and(_operator_not, _exists);
           }
-          return ((Boolean)_operator_and);
+          return Boolean.valueOf(_operator_and);
         }
       };
     Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
@@ -95,13 +95,13 @@ public class DiagramExtensions {
             Behavior[] _behaviors = mc.getBehaviors();
             final Function1<Behavior,Boolean> _function = new Function1<Behavior,Boolean>() {
                 public Boolean apply(final Behavior b) {
-                  return ((Boolean)(b instanceof CreateBehavior));
+                  return Boolean.valueOf((b instanceof CreateBehavior));
                 }
               };
             boolean _exists = IterableExtensions.<Behavior>exists(((Iterable<Behavior>)Conversions.doWrapArray(_behaviors)), _function);
             _operator_and = BooleanExtensions.operator_and((_representedBy instanceof Connection), _exists);
           }
-          return ((Boolean)_operator_and);
+          return Boolean.valueOf(_operator_and);
         }
       };
     Iterable<MetaClass> _filter = IterableExtensions.<MetaClass>filter(((Iterable<MetaClass>)Conversions.doWrapArray(_metaClasses)), _function);
