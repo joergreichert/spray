@@ -17,7 +17,7 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
 
 	@Override
 	public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
-		return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
+		//return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
 	}
 
 	// contributed by
