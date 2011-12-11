@@ -30,15 +30,15 @@ h3. Features to Install
 
 Choose now _Help -> Install New Software_. Choose the following update site in "Work with": Spray Development Environment, this will install
 
-* MWE SDK 1.2.0
-* MWE 2 language SDK 2.1.0
-* MWE 2 runtime SDK 2.1.0
+* MWE SDK 1.2.1
+* MWE 2 language SDK 2.2.0
+* MWE 2 runtime SDK 2.2.0
 * EMF - Eclipse Modeling Framework SDK 2.7.0
 * Graphiti SDK 0.8.1
 * Xtext Antlr 2.0.0
 * SWT Bot
 * xtext-utils unittesting
-* Xtext SDK 2.1.1
+* Xtext SDK 2.2.0
 * EclEmma Java Code Coverage 1.5.3
 * Mylyn 3.6.2
 * EGit 1.1.0
@@ -111,8 +111,9 @@ The target platform contains the following features
 * Eclipse Platform SDK 3.7.1 - "http://download.eclipse.org/eclipse/updates/3.7":http://download.eclipse.org/eclipse/updates/3.7
 * EMF - Eclipse Modeling Framework SDK 2.7.0 - "http://download.eclipse.org/releases/indigo":http://download.eclipse.org/releases/indigo
 * Graphiti SDK 0.8.1 - "http://download.eclipse.org/graphiti/updates/0.8.0":http://download.eclipse.org/graphiti/updates/0.8.0
-* MWE SDK 1.2.0 - "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
-* Xtext SDK 2.1.0 -  "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
+* MWE SDK 1.2.1 - "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
+* Xtext SDK 2.2.0 -  "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/* 
+* Xtend SDK 2.2.0 -  "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
 * Xtext Antlr 2.0.0 - "http://download.itemis.com/updates/releases/2.0.0/":http://download.itemis.com/updates/releases/2.0.0/
 * xtext-utils unittesting - "http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x":http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
 * SWT Bot - "http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site":http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site
