@@ -23,8 +23,6 @@
 		<module>../../docs/org.eclipselabs.spray.doc.common</module>
 		<module>../../docs/org.eclipselabs.spray.doc.dev</module>
 		<module>../../docs/org.eclipselabs.spray.doc.user</module>
-		<module>../../docs/org.eclipselabs.spray.shapes.doc</module>
-		<module>../../docs/org.eclipselabs.spray.styles.doc</module> 
 		<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 		<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 		<module>../../plugins/org.eclipselabs.spray.mm</module>
