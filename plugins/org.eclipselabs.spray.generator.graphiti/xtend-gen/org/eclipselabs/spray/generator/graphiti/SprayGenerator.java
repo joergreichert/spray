@@ -16,7 +16,6 @@ public class SprayGenerator implements IGenerator {
   private JvmModelGenerator jvmModelGenerator;
   
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
-      this.jvmModelGenerator.doGenerate(resource, fsa);
-      this.graphitiGenerator.doGenerate(resource, fsa);
+    this.graphitiGenerator.doGenerate(resource, fsa);
   }
 }

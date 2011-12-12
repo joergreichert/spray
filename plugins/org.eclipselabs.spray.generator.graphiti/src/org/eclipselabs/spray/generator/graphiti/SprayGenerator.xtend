@@ -16,7 +16,7 @@ class SprayGenerator implements IGenerator {
 	JvmModelGenerator jvmModelGenerator
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
-		jvmModelGenerator.doGenerate(resource, fsa)
+		// jvmModelGenerator.doGenerate(resource, fsa)
 		graphitiGenerator.doGenerate(resource, fsa)
 	}
 
