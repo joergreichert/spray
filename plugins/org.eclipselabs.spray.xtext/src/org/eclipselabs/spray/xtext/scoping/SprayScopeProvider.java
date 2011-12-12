@@ -3,7 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Assert;
@@ -28,7 +27,7 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.scoping.impl.MapBasedScope;
-import org.eclipse.xtext.scoping.impl.SimpleScope;
+import org.eclipse.xtext.scoping.impl.SingletonScope;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
@@ -37,6 +36,7 @@ import org.eclipselabs.spray.mm.spray.Connection;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
+import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
 import com.google.common.base.Function;
@@ -310,23 +310,27 @@ public class SprayScopeProvider extends XbaseScopeProvider {
      */
     @Override
     protected IScope createLocalVarScope(IScope parentScope, LocalVariableScopeContext scopeContext) {
-        // Look up the containment hierarchy of the current object to find the MetaClass
-        MetaClass mc = EcoreUtil2.getContainerOfType(scopeContext.getContext(), MetaClass.class);
-        if (mc != null) {
-            // get the JvmType for MetaClass. It is inferred by the SprayJvmModelInferrer
-            JvmGenericType jvmType = (JvmGenericType) getJvmType(mc);
-            if (jvmType == null || jvmType.getMembers().isEmpty()) {
-                // should not happen!
-                return IScope.NULLSCOPE;
+        // bind the EClass of the context's MetaClass, only if the context is for a Spray DSL element.
+        // all others context objects (like expressions) should be handled by default behavior
+        if (scopeContext.getContext().eClass().getEPackage() == SprayPackage.eINSTANCE) {
+            // Look up the containment hierarchy of the current object to find the MetaClass
+            MetaClass mc = EcoreUtil2.getContainerOfType(scopeContext.getContext(), MetaClass.class);
+            if (mc != null) {
+                // get the JvmType for MetaClass. It is inferred by the SprayJvmModelInferrer
+                JvmGenericType jvmType = (JvmGenericType) getJvmType(mc);
+                if (jvmType == null || jvmType.getMembers().isEmpty()) {
+                    // should not happen!
+                    return IScope.NULLSCOPE;
+                }
+                // the JvmType has a field named 'ecoreClass'
+                JvmField eClassField = (JvmField) jvmType.getMembers().get(0);
+                Assert.isTrue(eClassField.getSimpleName().equals("ecoreClass"));
+                // get the JvmType of the associated EClass
+                JvmType jvmTypeOfEcoreClass = eClassField.getType().getType();
+                // bind the EClass' JvmType as variable 'this'
+                IScope result = new SingletonScope(EObjectDescription.create(XbaseScopeProvider.THIS, jvmTypeOfEcoreClass), super.createLocalVarScope(parentScope, scopeContext));
+                return result;
             }
-            // the JvmType has a field named 'ecoreClass'
-            JvmField eClassField = (JvmField) jvmType.getMembers().get(0);
-            Assert.isTrue(eClassField.getSimpleName().equals("ecoreClass"));
-            // get the JvmType of the associated EClass
-            JvmType jvmTypeOfEcoreClass = eClassField.getType().getType();
-            // bind the EClass' JvmType as variable 'this'
-            IScope result = new SimpleScope(parentScope, Collections.singleton(EObjectDescription.create(XbaseScopeProvider.THIS, jvmTypeOfEcoreClass)));
-            return result;
         }
         return super.createLocalVarScope(parentScope, scopeContext);
     }
