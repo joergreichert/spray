@@ -45,6 +45,7 @@ import org.eclipse.zest.layouts.exampleStructures.SimpleNode;
 
 import com.google.common.collect.Lists;
 
+
 /**
  * A class to test various Zest {@link LayoutAlgorithm} in Graphiti
  * 

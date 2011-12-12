@@ -36,7 +36,8 @@ class Association icon "connection16.gif":
     {
         from source;
         to   target;
-        fromText text()  "source " + source.name;
+        fromText text()  "source " + source;
+        // fromText text()  "source " + source.name;
         connectionText text() targetMultiplicity.name;
         toText text() name;
     } 

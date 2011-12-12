@@ -3,6 +3,7 @@ package org.eclipselabs.spray.shapes.generator;
 import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -10,8 +11,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipse.xtext.xtend2.lib.ResourceExtensions;
 import org.eclipselabs.spray.shapes.generator.ShapeLayoutGenerator;
 import org.eclipselabs.spray.shapes.shapes.CommonLayout;
 import org.eclipselabs.spray.shapes.shapes.Ellipse;
@@ -32,8 +33,9 @@ public class ShapeGenerator implements IGenerator {
   private ShapeLayoutGenerator layoutGen;
   
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
-    Iterable<EObject> _allContentsIterable = ResourceExtensions.allContentsIterable(resource);
-    Iterable<ShapeDefinition> _filter = IterableExtensions.<ShapeDefinition>filter(_allContentsIterable, org.eclipselabs.spray.shapes.shapes.ShapeDefinition.class);
+    TreeIterator<EObject> _allContents = resource.getAllContents();
+    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+    Iterable<ShapeDefinition> _filter = IterableExtensions.<ShapeDefinition>filter(_iterable, org.eclipselabs.spray.shapes.shapes.ShapeDefinition.class);
     for (final ShapeDefinition shape : _filter) {
       String _filepath = this.filepath(shape);
       CharSequence _compile = this.compile(shape);

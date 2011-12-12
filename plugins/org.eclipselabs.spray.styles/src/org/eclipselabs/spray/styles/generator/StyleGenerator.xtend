@@ -36,7 +36,7 @@ class StyleGenerator implements IGenerator {
 		/**
 		 * This is a generated Style for Spray
 		 */
-		package Â«s.packageNameÂ»;
+		package «s.packageName»;
 		
 		import org.eclipse.graphiti.mm.pictograms.Diagram;
 		import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -49,24 +49,24 @@ class StyleGenerator implements IGenerator {
 		
 		import org.eclipselabs.spray.ISprayStyle;
 
-		Â«s.bodyÂ»
+		«s.body»
 		'''
 	}
 	
 	def body(Style s) {
 		'''
 		@SuppressWarnings("all")
-		public class Â«s.classNameÂ» implements ISprayStyle {
+		public class «s.className» implements ISprayStyle {
 		    
 			@Override
 			public Style getStyle(Diagram diagram) {
 				IGaService gaService = Graphiti.getGaService();
 				
 				// Creating Style with given id and description
-				Style style = gaService.createStyle(diagram, "Â«s.nameÂ»");
-				style.setDescription("Â«s.descriptionÂ»");
+				Style style = gaService.createStyle(diagram, "«s.name»");
+				style.setDescription("«s.description»");
 				
-				Â«s.layout.createLayoutÂ»
+				«s.layout.createLayout»
 			    
 				return style;
 			}
@@ -74,7 +74,7 @@ class StyleGenerator implements IGenerator {
 			@Override
 			public Color getFontColor(Diagram diagram) {
 				IGaService gaService = Graphiti.getGaService();
-				return gaService.manageColor(diagram, Â«s.layout.createFontColorÂ»);
+				return gaService.manageColor(diagram, «s.layout.createFontColor»);
 			}
 			
 		}	
@@ -83,83 +83,83 @@ class StyleGenerator implements IGenerator {
 
     def createLayout(StyleLayout l) {
         '''
-        Â«l.transparency.createTransparencyAttributesÂ»
+        «l.transparency.createTransparencyAttributes»
 
-        Â«l.background.createBackgroundAttributesÂ»
+        «l.background.createBackgroundAttributes»
         
-        Â«l.line.createLineAttributesÂ»
+        «l.line.createLineAttributes»
 
-        Â«l.font.createFontAttributesÂ»
+        «l.font.createFontAttributes»
         '''
     }
 
     def createTransparencyAttributes(Transparency l) {
         '''
         // Setting the transparency value - default is 1.0
-        Â«IF l == null || l.transparency == nullÂ»
+        «IF l == null || l.transparency == null»
         style.setTransparency(1.0);
-        Â«ELSEÂ»
-        style.setTransparency(Â«l.transparencyÂ»);
-        Â«ENDIFÂ»
+        «ELSE»
+        style.setTransparency(«l.transparency»);
+        «ENDIF»
         '''    
     }
         
     def createBackgroundAttributes(Background l) {
         '''
         // Setting the background color
-        Â«IF l == null || l.background == nullÂ»
+        «IF l == null || l.background == null»
         style.setFilled(true);
         style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-        Â«ELSEIF l.background instanceof TransparentÂ»
+        «ELSEIF l.background instanceof Transparent»
         style.setFilled(false);
-        Â«ELSEÂ»
+        «ELSE»
         style.setFilled(true);
-        style.setBackground(gaService.manageColor(diagram, Â«l.background.createColorValueÂ»));
-        Â«ENDIFÂ»
+        style.setBackground(gaService.manageColor(diagram, «l.background.createColorValue»));
+        «ENDIF»
         '''    
     }
     
     def createLineAttributes(Line l) {
         '''
         // Setting the line attributes (line color is called foreground color)
-        Â«IF l == null || l.lineColor == nullÂ»
+        «IF l == null || l.lineColor == null»
         style.setLineVisible(true);
         style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setLineWidth(Â«Math::max(l.lineWidth,1)Â»);
-        Â«IF l.lineStyle == nullÂ» 
+        style.setLineWidth(«Math::max(l.lineWidth,1)»);
+        «IF l.lineStyle == null» 
         style.setLineStyle(LineStyle.SOLID);
-        Â«ELSEÂ»
-        style.setLineStyle(LineStyle.Â«l.lineStyle.nameÂ»);
-        Â«ENDIFÂ»
-        Â«ELSEIF l.lineColor instanceof TransparentÂ»
+        «ELSE»
+        style.setLineStyle(LineStyle.«l.lineStyle.name»);
+        «ENDIF»
+        «ELSEIF l.lineColor instanceof Transparent»
         style.setLineVisible(false);
-        Â«ELSEÂ»
+        «ELSE»
         style.setLineVisible(true);
-        style.setForeground(gaService.manageColor(diagram, Â«l.lineColor.createColorValueÂ»));
-        style.setLineWidth(Â«Math::max(l.lineWidth,1)Â»);
-        Â«IF l.lineStyle == nullÂ»  
+        style.setForeground(gaService.manageColor(diagram, «l.lineColor.createColorValue»));
+        style.setLineWidth(«Math::max(l.lineWidth,1)»);
+        «IF l.lineStyle == null»  
         style.setLineStyle(LineStyle.SOLID);
-        Â«ELSEÂ»
-        style.setLineStyle(LineStyle.Â«l.lineStyle.nameÂ»);
-        Â«ENDIFÂ»
-        Â«ENDIFÂ»
+        «ELSE»
+        style.setLineStyle(LineStyle.«l.lineStyle.name»);
+        «ENDIF»
+        «ENDIF»
         '''    
     }
 
     def createFontAttributes(Font l) {
         '''
         // Managing the font (default values are Arial, size 8, no italic, no bold)
-        Â«IF l == null || l.fontName == nullÂ»
+        «IF l == null || l.fontName == null»
         String fontName = "Arial";
-        Â«ELSEÂ»
-        String fontName = "Â«l.fontNameÂ»";
-        Â«ENDIFÂ»
-        Â«IF l == null || !(l.fontSize > 0)Â»
+        «ELSE»
+        String fontName = "«l.fontName»";
+        «ENDIF»
+        «IF l == null || !(l.fontSize > 0)»
         int fontSize = 8;
-        Â«ELSEÂ»
-        int fontSize = Â«l.fontSizeÂ»;
- 	    Â«ENDIFÂ»
-        style.setFont(gaService.manageFont(diagram, fontName, fontSize, Â«l.fontItalicÂ», Â«l.fontBoldÂ»));
+        «ELSE»
+        int fontSize = «l.fontSize»;
+ 	    «ENDIF»
+        style.setFont(gaService.manageFont(diagram, fontName, fontSize, «l.fontItalic», «l.fontBold»));
         '''    
     }
     
@@ -176,7 +176,7 @@ class StyleGenerator implements IGenerator {
     }
     
     def dispatch createColorValue(Transparent c) { '''null''' }
-    def dispatch createColorValue(ColorConstantRef c) { '''IColorConstant.Â«c.value.nameÂ»''' }
-	def dispatch createColorValue(RGBColor c) { '''new ColorConstant(Â«c.redÂ», Â«c.greenÂ», Â«c.blueÂ»)''' }
+    def dispatch createColorValue(ColorConstantRef c) { '''IColorConstant.«c.value.name»''' }
+	def dispatch createColorValue(RGBColor c) { '''new ColorConstant(«c.red», «c.green», «c.blue»)''' }
 	
 }

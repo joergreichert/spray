@@ -37,8 +37,8 @@
 		<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 		<module>../../plugins/org.eclipselabs.spray.shapes</module>
 		<module>../../plugins/org.eclipselabs.spray.shapes.ui</module> 
-		<module>../../examples/one/org.eclipselabs.spray.examples.one</module> 
 		<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+		<module>../../examples/one/org.eclipselabs.spray.examples.one</module> 
 		<module>../../tests/org.eclipselabs.spray.testhelper</module>
 		<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 		<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
