@@ -1,0 +1,135 @@
+
+h1. Style DSL Guide
+
+This chapter describes how to define global Graphiti styles for an Spray Project.
+
+A style describes the referenced figures generally. Attributes like background color and line style can be set and they will be finally mapped with a name. Afterwards the styles can be referenced with their name. The reference will be possible in one hand globally for the whole spray project and can be overwritten in the other hand from a class, a shape and/or a shape element (as ellipse, rectangle, ...). If the style will not be referenced at all the default spray style will be taken. The style helps to generate a nice graphiti editor for a given color schema and supports to adjust all element styles as your own necessity.
+
+h2. An example for a style
+
+bc. 
+style BlackAndWhiteStyle {
+    description = "A style for white background and black foreground."
+    transparency = 0.95
+    background-color = white
+    line-color = black
+    line-style = solid
+    line-width = 1
+    font-color = black
+    font-name = "Tahoma"
+    font-size = 10
+    font-italic = yes
+    font-bold = no
+}
+
+
+h2. Style Key Facts
+
+bc. 
+style BlackAndWhiteStyle
+
+A style starts with the keyword __style__. After the keyword a unique id (name) for the style will be set. It is very important, that this name is unique for the whole project scope. At the same time the style id will become the name of the generated Java class as well. 
+
+bc. 
+public class BlackAndWhiteStyle extends DefaultSprayStyle implements ISprayStyle
+
+For every defined style a Java class will be generated. The interface ISprayStyle provides two methods which will be defined for every style. The inherited class __DefaultSprayStyle__ is the super class of all styles and provides default attributes. The inheritance could be overwritten in the DSL. 
+
+bc. 
+public Style getStyle(Diagram diagram);
+public Color getFontColor(Diagram diagram);
+
+The first method @getStyle()@ returns a Style (@org.eclipse.graphiti.mm.algorithms.styles.Style@) of the graphiti meta model plugin. This style will have all attributes set which are defined in the DSL. The second method (@getFontColor()@) becomes necessary because graphiti allows just one color for the foreground. The foreground color could be a line color and a font color at the same time. This method helps the user to define a font-color that is different from the line color. 
+
+h2. Default Values
+
+If the user doesn't specify any value for one or more attribute the *default values* will be gained. The default values are.
+
+|_. Attribute      |_. Type      |_. Range                                      |_. Default Value | 
+| transparency     | float       | 0.0 - 1.0                                    | 1.0             | 
+| background color | Color       | RGB (r,g,b), predefined color or transparent | white           |
+| line color       | Color       | RGB (r,g,b), predefined color or transparent | black           | 
+| line width       | integer     | > 0                                          | 1               | 
+| line style       | LineStyle   | solid, dot, dash, dash-dot, dash-dot-dot     | solid           |
+| font name        | String      | -                                            | Arial           |
+| font color       | Color       | RGB (r,g,b) or predefined color              | black           |
+| font size        | integer     | >= 0                                         | 1               |
+| font italic      | boolean     | yes or no                                    | no              |
+| font bold        | boolean     | yes or no                                    | no              |
+
+There are *predefined colors* available. They are following 
+* white
+* very-light-gray
+* light-gray
+* gray
+* dark-gray
+* black
+* red
+* light-orange
+* orange
+* dark-orange
+* yellow
+* green
+* light-green
+* dark-green
+* cyan
+* light-blue
+* blue
+* dark-blue
+
+h2. Style Elements
+
+h3. Description
+
+bc. 
+description = "A style for white background and black foreground."
+
+The @description@ should describe the style with a sentence. This attribute is required and have to be defined. It is recommended to use a description of at least 20 characters. 
+
+h3. Transparency
+
+bc. 
+transparency = 0.95
+
+The @transparency@ defines the visibility of the whole shape. The value is a floating value within the interval 0.00 and 1.00. The value 1.00 defines that the shape is fully visible and 0.00 describes that the whole shape is invisible. All values between 0 and 1 can be used here to define the right transparency value.
+   
+h3. Background
+ 
+bc. 
+background-color = white
+
+The background-color defines the background of the shapes. All shape elements will be of this color. Therefore predefined color values can be used or if no predefined color applies to the wanted color then the RGB values can be filled. Following text sequence should be used: @RGB(RED,GREEN,BLUE)@. The values @RED,GREEN,BLUE@ are integer values between 0 and 255. Finally if a transparent background is wanted then the value @transparent@ can be used. 
+
+h3. Line
+
+bc. 
+line-color = black
+
+The line-color is mapped to the foreground color in Graphiti. It defines the foreground elements on the shapes. The foreground elements are e.g. border of shapes, lines and font. Same as on the @background-color@ predefined color values can be used or if no predefined color applies to the wanted color then the RGB values can be filled. Following text sequence should be used: @RGB(RED,GREEN,BLUE)@. The values @RED,GREEN,BLUE@ are integer values between 0 and 255. Finally if a transparent foreground is wanted then the value @transparent@ can be used. 
+
+bc. 
+line-style = solid
+
+The @line style@ defines the style type of the line. There are possible values as @solid@, @dot@, @dash@, @dash-dot@ and @dash-dot-dot@. All lines will be created with this style.
+
+bc. 
+line-width = 1
+
+The @line width@ defines the width of foreground elements (e.g. lines and shape borders). Therefore a simple integer value of 0 or bigger (>= 0) can be used. If 0 is used then no lines and shape borders will be drawn.
+
+h3. Font
+
+bc. 
+line-color = black
+
+The line-color is mapped to the foreground color in Graphiti. It defines the foreground elements on the shapes. The foreground elements are e.g. border of shapes, lines and font. Same as on the @background-color@ predefined color values can be used or if no predefined color applies to the wanted color then the RGB values can be filled. Following text sequence should be used: @RGB(RED,GREEN,BLUE)@. The values @RED,GREEN,BLUE@ are integer values between 0 and 255. Finally if a transparent foreground is wanted then the value @transparent@ can be used. 
+
+bc. 
+line-style = solid
+
+The @line style@ defines the style type of the line. There are possible values as @solid@, @dot@, @dash@, @dash-dot@ and @dash-dot-dot@. All lines will be created with this style.
+
+bc. 
+line-width = 1
+
+The @line width@ defines the width of foreground elements (e.g. lines and shape borders). Therefore a simple integer value of 0 or bigger (>= 0) can be used. If 0 is used then no lines and shape borders will be drawn.
