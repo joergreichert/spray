@@ -13,39 +13,73 @@
 	<packaging>pom</packaging>
 	<name>Eclipselabs Spray</name>
 
+
 	<modules>
-		<module>../../releng/org.eclipselabs.spray.targetplatform</module>
 		<module>../../releng/org.eclipselabs.spray.repository.parent</module>
-		<module>../../releng/org.eclipselabs.spray.repository</module>
 		<module>../../releng/org.eclipselabs.spray.parent</module>
 		<module>../../devtools/org.eclipselabs.spray.dev.feature</module>
 		<module>../../devtools/org.eclipselabs.spray.dev.updatesite</module>
-		<module>../../docs/org.eclipselabs.spray.doc.common</module>
-		<module>../../docs/org.eclipselabs.spray.doc.dev</module>
-		<module>../../docs/org.eclipselabs.spray.doc.user</module>
 		<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 		<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 		<module>../../plugins/org.eclipselabs.spray.mm</module>
-        <module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
-        <module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
-        <module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
+		<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
+		<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
+		<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
 		<module>../../plugins/org.eclipselabs.spray.xtext</module>
 		<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 		<module>../../plugins/org.eclipselabs.spray.styles</module>
 		<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 		<module>../../plugins/org.eclipselabs.spray.shapes</module>
-		<module>../../plugins/org.eclipselabs.spray.shapes.ui</module> 
+		<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 		<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
-		<module>../../examples/one/org.eclipselabs.spray.examples.one</module> 
+		<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 		<module>../../tests/org.eclipselabs.spray.testhelper</module>
 		<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 		<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 		<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>
 		<module>../../tests/org.eclipselabs.spray.styles.tests</module>
 		<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
-		<module>../../features/org.eclipselabs.spray.feature</module>
-		<module>../../features/org.eclipselabs.spray.feature.source</module>
-		<module>../../features/org.eclipselabs.spray.feature.sdk</module>
-		<module>../../releng/org.eclipselabs.spray.updatesite</module>
 	</modules>
+
+	<profiles>
+		<profile>
+			<id>modules-targetplatform</id>
+			<activation>
+				<property>
+					<name>modules-targetplatform</name>
+				</property>
+			</activation>
+			<modules>
+				<module>../../releng/org.eclipselabs.spray.targetplatform</module>
+				<module>../../releng/org.eclipselabs.spray.repository</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>modules-assembly</id>
+			<activation>
+				<property>
+					<name>modules-assembly</name>
+				</property>
+			</activation>
+			<modules>
+				<module>../../features/org.eclipselabs.spray.feature</module>
+				<module>../../features/org.eclipselabs.spray.feature.source</module>
+				<module>../../features/org.eclipselabs.spray.feature.sdk</module>
+				<module>../../releng/org.eclipselabs.spray.updatesite</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>modules-docs</id>
+			<activation>
+				<property>
+					<name>modules-docs</name>
+				</property>
+			</activation>
+			<modules>
+				<module>../../docs/org.eclipselabs.spray.doc.common</module>
+				<module>../../docs/org.eclipselabs.spray.doc.dev</module>
+				<module>../../docs/org.eclipselabs.spray.doc.user</module>
+			</modules>
+		</profile>
+	</profiles>
 </project>
