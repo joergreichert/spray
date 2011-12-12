@@ -1,9 +1,0 @@
-
-h2. Font
-
-bc. 
-font-color = black
-font-name = "Tahoma"
-font-size = 10
-font-style = bold
-
