@@ -26,12 +26,12 @@ public class SprayActivatorExt extends SprayActivator {
     @Override
     public void start(BundleContext context) throws Exception {
         super.start(context);
+        getInjector(LANGUAGE_ID).injectMembers(this);
         sprayResourceChangeBuildInvoker = new SprayResourceChangeBuildInvoker(this);
         ResourcesPlugin.getWorkspace().addResourceChangeListener(sprayResourceChangeBuildInvoker);
         ResourcesPlugin.getWorkspace().addResourceChangeListener(registerPlatformGenmodelListener);
         // register workspace genmodels
         registerPlatformGenmodelListener.initWorkspace();
-        getInjector(LANGUAGE_ID).injectMembers(this);
     }
 
     @Override
