@@ -46,21 +46,36 @@
 		</repository>
 	</repositories>-->
 	<profiles>
-		<profile>
-			<id>remote-build-snapshot</id>
-			<activation>
-				<property>
-					<name>remote-build-snapshot</name>
-				</property>
-			</activation>			
-			<repositories>
-				<repository>
-					<id>spray-dependencies</id>
-					<layout>p2</layout>
-					<url>https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
-				</repository>
-			</repositories>
-		</profile>
+        <profile>
+            <id>local-build</id>
+            <activation>
+                <property>
+                    <name>local-build</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>spray-dependencies</id>
+                    <layout>p2</layout>
+                    <url>file:../../releng/org.eclipselabs.spray.repository/target/repository</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <id>remote-build-snapshot</id>
+            <activation>
+                <property>
+                    <name>remote-build-snapshot</name>
+                </property>
+            </activation>           
+            <repositories>
+                <repository>
+                    <id>spray-dependencies</id>
+                    <layout>p2</layout>
+                    <url>https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
+                </repository>
+            </repositories>
+        </profile>
 		<profile>
 			<id>remote-build-release</id>
 			<activation>
