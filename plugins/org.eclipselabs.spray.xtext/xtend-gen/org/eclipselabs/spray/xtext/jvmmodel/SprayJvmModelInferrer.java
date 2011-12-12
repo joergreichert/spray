@@ -99,9 +99,10 @@ public class SprayJvmModelInferrer extends AbstractModelInferrer {
       EClass _type_5 = clazz.getType();
       EPackage _ePackage = _type_5.getEPackage();
       String _name_1 = _ePackage.getName();
-      String _operator_plus = StringExtensions.operator_plus(_name_1, ".");
-      String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, clazzName);
-      QualifiedName _qualifiedName = this.converter.toQualifiedName(_operator_plus_1);
+      String _operator_plus = StringExtensions.operator_plus("org.eclipselabs.spray.", _name_1);
+      String _operator_plus_1 = StringExtensions.operator_plus(_operator_plus, ".");
+      String _operator_plus_2 = StringExtensions.operator_plus(_operator_plus_1, clazzName);
+      QualifiedName _qualifiedName = this.converter.toQualifiedName(_operator_plus_2);
       final Procedure1<JvmGenericType> _function = new Procedure1<JvmGenericType>() {
           public void apply(final JvmGenericType it) {
             {
