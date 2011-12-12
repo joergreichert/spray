@@ -7,7 +7,6 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
-import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -15,11 +14,9 @@ import org.eclipse.xtext.xtend2.lib.ResourceExtensions;
 import org.eclipselabs.spray.styles.styles.Background;
 import org.eclipselabs.spray.styles.styles.Color;
 import org.eclipselabs.spray.styles.styles.ColorConstantRef;
-import org.eclipselabs.spray.styles.styles.ColorConstants;
 import org.eclipselabs.spray.styles.styles.ColorWithTransparency;
 import org.eclipselabs.spray.styles.styles.Font;
 import org.eclipselabs.spray.styles.styles.Line;
-import org.eclipselabs.spray.styles.styles.LineStyle;
 import org.eclipselabs.spray.styles.styles.RGBColor;
 import org.eclipselabs.spray.styles.styles.Style;
 import org.eclipselabs.spray.styles.styles.StyleLayout;
@@ -70,11 +67,8 @@ public class StyleGenerator implements IGenerator {
     _builder.append(" ");
     _builder.append("*/");
     _builder.newLine();
-    _builder.append("package ");
-    String _packageName = this.packageName(s);
-    _builder.append(_packageName, "");
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
+    _builder.append("package \uFFFDs.packageName\uFFFD;");
+    _builder.newLine();
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.Diagram;");
     _builder.newLine();
@@ -96,9 +90,8 @@ public class StyleGenerator implements IGenerator {
     _builder.append("import org.eclipselabs.spray.ISprayStyle;");
     _builder.newLine();
     _builder.newLine();
-    CharSequence _body = this.body(s);
-    _builder.append(_body, "");
-    _builder.newLineIfNotEmpty();
+    _builder.append("\uFFFDs.body\uFFFD");
+    _builder.newLine();
     return _builder;
   }
   
@@ -106,11 +99,8 @@ public class StyleGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("@SuppressWarnings(\"all\")");
     _builder.newLine();
-    _builder.append("public class ");
-    String _className = this.className(s);
-    _builder.append(_className, "");
-    _builder.append(" implements ISprayStyle {");
-    _builder.newLineIfNotEmpty();
+    _builder.append("public class \uFFFDs.className\uFFFD implements ISprayStyle {");
+    _builder.newLine();
     _builder.append("    ");
     _builder.newLine();
     _builder.append("\t");
@@ -128,24 +118,16 @@ public class StyleGenerator implements IGenerator {
     _builder.append("// Creating Style with given id and description");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("Style style = gaService.createStyle(diagram, \"");
-    String _name = s.getName();
-    _builder.append(_name, "		");
-    _builder.append("\");");
-    _builder.newLineIfNotEmpty();
+    _builder.append("Style style = gaService.createStyle(diagram, \"\uFFFDs.name\uFFFD\");");
+    _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("style.setDescription(\"");
-    String _description = s.getDescription();
-    _builder.append(_description, "		");
-    _builder.append("\");");
-    _builder.newLineIfNotEmpty();
+    _builder.append("style.setDescription(\"\uFFFDs.description\uFFFD\");");
+    _builder.newLine();
     _builder.append("\t\t");
     _builder.newLine();
     _builder.append("\t\t");
-    StyleLayout _layout = s.getLayout();
-    CharSequence _createLayout = this.createLayout(_layout);
-    _builder.append(_createLayout, "		");
-    _builder.newLineIfNotEmpty();
+    _builder.append("\uFFFDs.layout.createLayout\uFFFD");
+    _builder.newLine();
     _builder.append("\t    ");
     _builder.newLine();
     _builder.append("\t\t");
@@ -166,12 +148,8 @@ public class StyleGenerator implements IGenerator {
     _builder.append("IGaService gaService = Graphiti.getGaService();");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("return gaService.manageColor(diagram, ");
-    StyleLayout _layout_1 = s.getLayout();
-    CharSequence _createFontColor = this.createFontColor(_layout_1);
-    _builder.append(_createFontColor, "		");
-    _builder.append(");");
-    _builder.newLineIfNotEmpty();
+    _builder.append("return gaService.manageColor(diagram, \uFFFDs.layout.createFontColor\uFFFD);");
+    _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
@@ -184,25 +162,17 @@ public class StyleGenerator implements IGenerator {
   
   public CharSequence createLayout(final StyleLayout l) {
     StringConcatenation _builder = new StringConcatenation();
-    Transparency _transparency = l.getTransparency();
-    CharSequence _createTransparencyAttributes = this.createTransparencyAttributes(_transparency);
-    _builder.append(_createTransparencyAttributes, "");
-    _builder.newLineIfNotEmpty();
+    _builder.append("\uFFFDl.transparency.createTransparencyAttributes\uFFFD");
     _builder.newLine();
-    Background _background = l.getBackground();
-    CharSequence _createBackgroundAttributes = this.createBackgroundAttributes(_background);
-    _builder.append(_createBackgroundAttributes, "");
-    _builder.newLineIfNotEmpty();
     _builder.newLine();
-    Line _line = l.getLine();
-    CharSequence _createLineAttributes = this.createLineAttributes(_line);
-    _builder.append(_createLineAttributes, "");
-    _builder.newLineIfNotEmpty();
+    _builder.append("\uFFFDl.background.createBackgroundAttributes\uFFFD");
     _builder.newLine();
-    Font _font = l.getFont();
-    CharSequence _createFontAttributes = this.createFontAttributes(_font);
-    _builder.append(_createFontAttributes, "");
-    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("\uFFFDl.line.createLineAttributes\uFFFD");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\uFFFDl.font.createFontAttributes\uFFFD");
+    _builder.newLine();
     return _builder;
   }
   
@@ -210,27 +180,16 @@ public class StyleGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Setting the transparency value - default is 1.0");
     _builder.newLine();
-    {
-      boolean _operator_or = false;
-      boolean _operator_equals = ObjectExtensions.operator_equals(l, null);
-      if (_operator_equals) {
-        _operator_or = true;
-      } else {
-        double _transparency = l.getTransparency();
-        boolean _operator_equals_1 = ObjectExtensions.operator_equals(Double.valueOf(_transparency), null);
-        _operator_or = BooleanExtensions.operator_or(_operator_equals, _operator_equals_1);
-      }
-      if (_operator_or) {
-        _builder.append("style.setTransparency(1.0);");
-        _builder.newLine();
-      } else {
-        _builder.append("style.setTransparency(");
-        double _transparency_1 = l.getTransparency();
-        _builder.append(_transparency_1, "");
-        _builder.append(");");
-        _builder.newLineIfNotEmpty();
-      }
-    }
+    _builder.append("\uFFFDIF l == null || l.transparency == null\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setTransparency(1.0);");
+    _builder.newLine();
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setTransparency(\uFFFDl.transparency\uFFFD);");
+    _builder.newLine();
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
     return _builder;
   }
   
@@ -238,38 +197,24 @@ public class StyleGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Setting the background color");
     _builder.newLine();
-    {
-      boolean _operator_or = false;
-      boolean _operator_equals = ObjectExtensions.operator_equals(l, null);
-      if (_operator_equals) {
-        _operator_or = true;
-      } else {
-        ColorWithTransparency _background = l.getBackground();
-        boolean _operator_equals_1 = ObjectExtensions.operator_equals(_background, null);
-        _operator_or = BooleanExtensions.operator_or(_operator_equals, _operator_equals_1);
-      }
-      if (_operator_or) {
-        _builder.append("style.setFilled(true);");
-        _builder.newLine();
-        _builder.append("style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));");
-        _builder.newLine();
-      } else {
-        ColorWithTransparency _background_1 = l.getBackground();
-        if ((_background_1 instanceof Transparent)) {
-          _builder.append("style.setFilled(false);");
-          _builder.newLine();
-        } else {
-          _builder.append("style.setFilled(true);");
-          _builder.newLine();
-          _builder.append("style.setBackground(gaService.manageColor(diagram, ");
-          ColorWithTransparency _background_2 = l.getBackground();
-          CharSequence _createColorValue = this.createColorValue(_background_2);
-          _builder.append(_createColorValue, "");
-          _builder.append("));");
-          _builder.newLineIfNotEmpty();
-        }
-      }
-    }
+    _builder.append("\uFFFDIF l == null || l.background == null\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setFilled(true);");
+    _builder.newLine();
+    _builder.append("style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));");
+    _builder.newLine();
+    _builder.append("\uFFFDELSEIF l.background instanceof Transparent\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setFilled(false);");
+    _builder.newLine();
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setFilled(true);");
+    _builder.newLine();
+    _builder.append("style.setBackground(gaService.manageColor(diagram, \uFFFDl.background.createColorValue\uFFFD));");
+    _builder.newLine();
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
     return _builder;
   }
   
@@ -277,138 +222,88 @@ public class StyleGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("// Setting the line attributes (line color is called foreground color)");
     _builder.newLine();
-    {
-      boolean _operator_or = false;
-      boolean _operator_equals = ObjectExtensions.operator_equals(l, null);
-      if (_operator_equals) {
-        _operator_or = true;
-      } else {
-        ColorWithTransparency _lineColor = l.getLineColor();
-        boolean _operator_equals_1 = ObjectExtensions.operator_equals(_lineColor, null);
-        _operator_or = BooleanExtensions.operator_or(_operator_equals, _operator_equals_1);
-      }
-      if (_operator_or) {
-        _builder.append("style.setLineVisible(true);");
-        _builder.newLine();
-        _builder.append("style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));");
-        _builder.newLine();
-        _builder.append("style.setLineWidth(");
-        int _lineWidth = l.getLineWidth();
-        int _max = Math.max(_lineWidth, 1);
-        _builder.append(_max, "");
-        _builder.append(");");
-        _builder.newLineIfNotEmpty();
-        {
-          LineStyle _lineStyle = l.getLineStyle();
-          boolean _operator_equals_2 = ObjectExtensions.operator_equals(_lineStyle, null);
-          if (_operator_equals_2) {
-            _builder.append("style.setLineStyle(LineStyle.SOLID);");
-            _builder.newLine();
-          } else {
-            _builder.append("style.setLineStyle(LineStyle.");
-            LineStyle _lineStyle_1 = l.getLineStyle();
-            String _name = _lineStyle_1.name();
-            _builder.append(_name, "");
-            _builder.append(");");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      } else {
-        ColorWithTransparency _lineColor_1 = l.getLineColor();
-        if ((_lineColor_1 instanceof Transparent)) {
-          _builder.append("style.setLineVisible(false);");
-          _builder.newLine();
-        } else {
-          _builder.append("style.setLineVisible(true);");
-          _builder.newLine();
-          _builder.append("style.setForeground(gaService.manageColor(diagram, ");
-          ColorWithTransparency _lineColor_2 = l.getLineColor();
-          CharSequence _createColorValue = this.createColorValue(_lineColor_2);
-          _builder.append(_createColorValue, "");
-          _builder.append("));");
-          _builder.newLineIfNotEmpty();
-          _builder.append("style.setLineWidth(");
-          int _lineWidth_1 = l.getLineWidth();
-          int _max_1 = Math.max(_lineWidth_1, 1);
-          _builder.append(_max_1, "");
-          _builder.append(");");
-          _builder.newLineIfNotEmpty();
-          {
-            LineStyle _lineStyle_2 = l.getLineStyle();
-            boolean _operator_equals_3 = ObjectExtensions.operator_equals(_lineStyle_2, null);
-            if (_operator_equals_3) {
-              _builder.append("style.setLineStyle(LineStyle.SOLID);");
-              _builder.newLine();
-            } else {
-              _builder.append("style.setLineStyle(LineStyle.");
-              LineStyle _lineStyle_3 = l.getLineStyle();
-              String _name_1 = _lineStyle_3.name();
-              _builder.append(_name_1, "");
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-            }
-          }
-        }
-      }
-    }
+    _builder.append("\uFFFDIF l == null || l.lineColor == null\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setLineVisible(true);");
+    _builder.newLine();
+    _builder.append("style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));");
+    _builder.newLine();
+    _builder.append("style.setLineWidth(\uFFFDMath::max(l.lineWidth,1)\uFFFD);");
+    _builder.newLine();
+    _builder.append("\uFFFDIF l.lineStyle == null\uFFFD ");
+    _builder.newLine();
+    _builder.append("style.setLineStyle(LineStyle.SOLID);");
+    _builder.newLine();
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setLineStyle(LineStyle.\uFFFDl.lineStyle.name\uFFFD);");
+    _builder.newLine();
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
+    _builder.append("\uFFFDELSEIF l.lineColor instanceof Transparent\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setLineVisible(false);");
+    _builder.newLine();
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setLineVisible(true);");
+    _builder.newLine();
+    _builder.append("style.setForeground(gaService.manageColor(diagram, \uFFFDl.lineColor.createColorValue\uFFFD));");
+    _builder.newLine();
+    _builder.append("style.setLineWidth(\uFFFDMath::max(l.lineWidth,1)\uFFFD);");
+    _builder.newLine();
+    _builder.append("\uFFFDIF l.lineStyle == null\uFFFD  ");
+    _builder.newLine();
+    _builder.append("style.setLineStyle(LineStyle.SOLID);");
+    _builder.newLine();
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("style.setLineStyle(LineStyle.\uFFFDl.lineStyle.name\uFFFD);");
+    _builder.newLine();
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
     return _builder;
   }
   
   public CharSequence createFontAttributes(final Font l) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("        ");
     _builder.append("// Managing the font (default values are Arial, size 8, no italic, no bold)");
     _builder.newLine();
-    {
-      boolean _operator_or = false;
-      boolean _operator_equals = ObjectExtensions.operator_equals(l, null);
-      if (_operator_equals) {
-        _operator_or = true;
-      } else {
-        String _fontName = l.getFontName();
-        boolean _operator_equals_1 = ObjectExtensions.operator_equals(_fontName, null);
-        _operator_or = BooleanExtensions.operator_or(_operator_equals, _operator_equals_1);
-      }
-      if (_operator_or) {
-        _builder.append("String fontName = \"Arial\";");
-        _builder.newLine();
-      } else {
-        _builder.append("String fontName = \"");
-        String _fontName_1 = l.getFontName();
-        _builder.append(_fontName_1, "");
-        _builder.append("\";");
-        _builder.newLineIfNotEmpty();
-      }
-    }
-    {
-      boolean _operator_or_1 = false;
-      boolean _operator_equals_2 = ObjectExtensions.operator_equals(l, null);
-      if (_operator_equals_2) {
-        _operator_or_1 = true;
-      } else {
-        int _fontSize = l.getFontSize();
-        boolean _operator_greaterThan = IntegerExtensions.operator_greaterThan(_fontSize, 0);
-        boolean _operator_not = BooleanExtensions.operator_not(_operator_greaterThan);
-        _operator_or_1 = BooleanExtensions.operator_or(_operator_equals_2, _operator_not);
-      }
-      if (_operator_or_1) {
-        _builder.append("int fontSize = 8;");
-        _builder.newLine();
-      } else {
-        _builder.append("int fontSize = ");
-        int _fontSize_1 = l.getFontSize();
-        _builder.append(_fontSize_1, "");
-        _builder.append(";");
-        _builder.newLineIfNotEmpty();
-      }
-    }
-    _builder.append("style.setFont(gaService.manageFont(diagram, fontName, fontSize, ");
-    boolean _isFontItalic = l.isFontItalic();
-    _builder.append(_isFontItalic, "");
-    _builder.append(", ");
-    boolean _isFontBold = l.isFontBold();
-    _builder.append(_isFontBold, "");
-    _builder.append("));");
-    _builder.newLineIfNotEmpty();
+    _builder.append("        ");
+    _builder.append("\uFFFDIF l == null || l.fontName == null\uFFFD");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("String fontName = \"Arial\";");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("String fontName = \"\uFFFDl.fontName\uFFFD\";");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("\uFFFDIF l == null || !(l.fontSize > 0)\uFFFD");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("int fontSize = 8;");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("\uFFFDELSE\uFFFD");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("int fontSize = \uFFFDl.fontSize\uFFFD;");
+    _builder.newLine();
+    _builder.append("\uFFFDENDIF\uFFFD");
+    _builder.newLine();
+    _builder.append("        ");
+    _builder.append("style.setFont(gaService.manageFont(diagram, fontName, fontSize, \uFFFDl.fontItalic\uFFFD, \uFFFDl.fontBold\uFFFD));");
+    _builder.newLine();
     return _builder;
   }
   
@@ -464,25 +359,13 @@ public class StyleGenerator implements IGenerator {
   
   protected CharSequence _createColorValue(final ColorConstantRef c) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("IColorConstant.");
-    ColorConstants _value = c.getValue();
-    String _name = _value.name();
-    _builder.append(_name, "");
+    _builder.append("IColorConstant.\uFFFDc.value.name\uFFFD");
     return _builder;
   }
   
   protected CharSequence _createColorValue(final RGBColor c) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("new ColorConstant(");
-    int _red = c.getRed();
-    _builder.append(_red, "");
-    _builder.append(", ");
-    int _green = c.getGreen();
-    _builder.append(_green, "");
-    _builder.append(", ");
-    int _blue = c.getBlue();
-    _builder.append(_blue, "");
-    _builder.append(")");
+    _builder.append("new ColorConstant(\uFFFDc.red\uFFFD, \uFFFDc.green\uFFFD, \uFFFDc.blue\uFFFD)");
     return _builder;
   }
   
