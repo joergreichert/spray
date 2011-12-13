@@ -276,7 +276,7 @@
                 <repository>
                     <id>spray-dependencies</id>
                     <layout>p2</layout>
-                    <url>https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
+                    <url>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
                 </repository>
             </repositories>
         </profile>
@@ -294,19 +294,6 @@
 					<url>http://spray.eclipselabs.org.codespot.com/git.distribution/releases/</url>
 				</repository>
 			</repositories>
-		</profile>
-		<profile>
-			<id>platform-indigo</id>
-			<activation>
-				<property>
-					<name>platform-version-name</name>
-					<value>indigo</value>
-				</property>
-			</activation>
-			<properties>
-				<eclipse-site>http://download.eclipse.org/releases/indigo</eclipse-site>
-				<platform-version>[3.7,3.8)</platform-version>
-			</properties>
 		</profile>
 		<profile>
 			<id>release</id>
