@@ -7,21 +7,21 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 
-import static extension org.eclipse.xtext.xtend2.lib.ResourceExtensions.*
+import static extension org.eclipse.xtext.xbase.lib.IteratorExtensions.*
+
 import org.eclipselabs.spray.styles.styles.Style
 import org.eclipselabs.spray.styles.styles.StyleLayout
-import org.eclipselabs.spray.styles.styles.Transparency
-import org.eclipselabs.spray.styles.styles.Background
 import org.eclipselabs.spray.styles.styles.Transparent
-import org.eclipselabs.spray.styles.styles.Line
-import org.eclipselabs.spray.styles.styles.Font
 import org.eclipselabs.spray.styles.styles.ColorConstantRef
 import org.eclipselabs.spray.styles.styles.RGBColor
+import org.eclipselabs.spray.styles.styles.ColorWithTransparency
+import org.eclipselabs.spray.styles.styles.YesNoBool
+import org.eclipselabs.spray.styles.styles.LineStyle
 
 class StyleGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for(style : resource.allContentsIterable().filter(typeof(Style))) {
+		for(style : resource.allContents.toIterable.filter(typeof(Style))) {
       		fsa.generateFile(style.filepath, style.compile)
    		}
 	}
@@ -33,10 +33,18 @@ class StyleGenerator implements IGenerator {
 	
 	def compile(Style s) {
 		'''
+		Â«s.headÂ»
+		
+		Â«s.bodyÂ»
+		'''
+	}
+	
+	def head(Style s) {
+		'''
 		/**
-		 * This is a generated Style for Spray
+		 * This is a generated Style class for Spray.
 		 */
-		package «s.packageName»;
+		package Â«s.packageNameÂ»;
 		
 		import org.eclipse.graphiti.mm.pictograms.Diagram;
 		import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -46,137 +54,169 @@ class StyleGenerator implements IGenerator {
 		import org.eclipse.graphiti.services.IGaService;
 		import org.eclipse.graphiti.util.ColorConstant;
 		import org.eclipse.graphiti.util.IColorConstant;
-		
-		import org.eclipselabs.spray.ISprayStyle;
-
-		«s.body»
+Â«Â«Â«		import org.eclipselabs.spray.styles.ISprayStyle;
+		Â«IF s.superStyle == nullÂ»
+Â«Â«Â«		import org.eclipselabs.spray.styles.DefaultSprayStyle;
+		Â«ELSEÂ»
+		import Â«s.superStyle.qualifiedNameÂ»;
+		Â«ENDIFÂ»
 		'''
 	}
 	
 	def body(Style s) {
 		'''
+		/**
+		 * This is a generated Style class for Spray.
+		 * Description: Â«s.descriptionÂ»
+		 */
 		@SuppressWarnings("all")
-		public class «s.className» implements ISprayStyle {
+		public class Â«s.classNameÂ» extends Â«s.createSuperStyleÂ» implements ISprayStyle {
 		    
-			@Override
+		    /**
+			 * This method creates a Style and returns the defined style.
+			 * Description: Â«s.descriptionÂ»
+			 */
+		    @Override
 			public Style getStyle(Diagram diagram) {
 				IGaService gaService = Graphiti.getGaService();
 				
 				// Creating Style with given id and description
-				Style style = gaService.createStyle(diagram, "«s.name»");
-				style.setDescription("«s.description»");
+				Style style = super.getStyle(diagram);
+				style.setId("Â«s.nameÂ»");
+				style.setDescription("Â«s.descriptionÂ»");
 				
-				«s.layout.createLayout»
+				Â«s.layout.createLayoutÂ»
 			    
 				return style;
 			}
 			
+		    /**
+			 * This method returns the font color for the style. 
+			 * The font color will be returned separated, because Graphiti allows just the foreground color.
+			 * The foreground color will be used for lines and fonts at the same time.
+			 */
 			@Override
 			public Color getFontColor(Diagram diagram) {
-				IGaService gaService = Graphiti.getGaService();
-				return gaService.manageColor(diagram, «s.layout.createFontColor»);
+				Â«s.layout.createFontColorÂ»
 			}
 			
 		}	
 		'''
 	}
 
+	def createSuperStyle(Style s) {
+		if(s.superStyle == null) "DefaultSprayStyle" else s.superStyle.simpleName
+	}
+
+	def getStyle(Style s) {
+		if(s.superStyle == null)
+			'''gaService.createStyle(diagram, "Â«s.nameÂ»");'''
+		else 
+			'''super.getStyle(diagram);'''			
+	}
+
     def createLayout(StyleLayout l) {
         '''
-        «l.transparency.createTransparencyAttributes»
+        Â«l.createTransparencyAttributesÂ»
 
-        «l.background.createBackgroundAttributes»
+        Â«l.createBackgroundAttributesÂ»
         
-        «l.line.createLineAttributes»
+        Â«l.createLineAttributesÂ»
 
-        «l.font.createFontAttributes»
+        Â«l.createFontAttributesÂ»
         '''
     }
 
-    def createTransparencyAttributes(Transparency l) {
+    def createTransparencyAttributes(StyleLayout l) {
         '''
-        // Setting the transparency value - default is 1.0
-        «IF l == null || l.transparency == null»
-        style.setTransparency(1.0);
-        «ELSE»
-        style.setTransparency(«l.transparency»);
-        «ENDIF»
+        // transparency value
+        Â«IF !(l == null || l.transparency == Double::MIN_VALUE)Â»
+        style.setTransparency(Â«l.transparencyÂ»);
+        Â«ENDIFÂ»
         '''    
     }
         
-    def createBackgroundAttributes(Background l) {
+    def createBackgroundAttributes(StyleLayout l) {
         '''
-        // Setting the background color
-        «IF l == null || l.background == null»
-        style.setFilled(true);
-        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-        «ELSEIF l.background instanceof Transparent»
+        // background attributes
+        Â«IF l == null || l.background == nullÂ»
+        Â«ELSEIF l.background instanceof TransparentÂ»
         style.setFilled(false);
-        «ELSE»
+        Â«ELSEÂ»
         style.setFilled(true);
-        style.setBackground(gaService.manageColor(diagram, «l.background.createColorValue»));
-        «ENDIF»
+        style.setBackground(gaService.manageColor(diagram, Â«l.background.createColorValueÂ»));
+        Â«ENDIFÂ»
         '''    
     }
     
-    def createLineAttributes(Line l) {
+    def createLineAttributes(StyleLayout l) {
         '''
-        // Setting the line attributes (line color is called foreground color)
-        «IF l == null || l.lineColor == null»
-        style.setLineVisible(true);
-        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setLineWidth(«Math::max(l.lineWidth,1)»);
-        «IF l.lineStyle == null» 
-        style.setLineStyle(LineStyle.SOLID);
-        «ELSE»
-        style.setLineStyle(LineStyle.«l.lineStyle.name»);
-        «ENDIF»
-        «ELSEIF l.lineColor instanceof Transparent»
+        // line attributes
+        Â«IF l == null || l.lineColor == nullÂ»
+        Â«ELSEIF l.lineColor instanceof TransparentÂ»
         style.setLineVisible(false);
-        «ELSE»
-        style.setLineVisible(true);
-        style.setForeground(gaService.manageColor(diagram, «l.lineColor.createColorValue»));
-        style.setLineWidth(«Math::max(l.lineWidth,1)»);
-        «IF l.lineStyle == null»  
-        style.setLineStyle(LineStyle.SOLID);
-        «ELSE»
-        style.setLineStyle(LineStyle.«l.lineStyle.name»);
-        «ENDIF»
-        «ENDIF»
+        Â«ELSEÂ»
+		style.setLineVisible(true);
+		style.setForeground(gaService.manageColor(diagram, Â«l.lineColor.createColorValueÂ»));
+		Â«IF l.lineWidth > 0Â»
+		style.setLineWidth(Â«Math::max(l.lineWidth,1)Â»);
+		Â«ENDIFÂ»
+        Â«IF l.lineStyle != LineStyle::NULLÂ» 
+		style.setLineStyle(LineStyle.Â«l.lineStyle.nameÂ»);
+        Â«ENDIFÂ»
+        Â«ENDIFÂ»
         '''    
     }
 
-    def createFontAttributes(Font l) {
+    def createFontAttributes(StyleLayout l) {
         '''
-        // Managing the font (default values are Arial, size 8, no italic, no bold)
-        «IF l == null || l.fontName == null»
-        String fontName = "Arial";
-        «ELSE»
-        String fontName = "«l.fontName»";
-        «ENDIF»
-        «IF l == null || !(l.fontSize > 0)»
-        int fontSize = 8;
-        «ELSE»
-        int fontSize = «l.fontSize»;
- 	    «ENDIF»
-        style.setFont(gaService.manageFont(diagram, fontName, fontSize, «l.fontItalic», «l.fontBold»));
+		// font attributes
+        Â«IF l == null || l.fontName == nullÂ»
+		String fontName = style.getFont().getName();
+        Â«ELSEÂ»
+		String fontName = "Â«l.fontNameÂ»";
+        Â«ENDIFÂ»
+        Â«IF l == null || l.fontSize == Integer::MIN_VALUEÂ»
+		int fontSize = style.getFont().getSize();
+        Â«ELSEÂ»
+		int fontSize = Â«l.fontSizeÂ»;
+ 	    Â«ENDIFÂ»
+ 	    Â«IF l == null || l.fontItalic == YesNoBool::NULLÂ»
+		boolean fontItalic = style.getFont().isItalic();
+ 	    Â«ELSEÂ»
+		boolean fontItalic = Â«l.fontItalic.transformYesNoToBooleanÂ»;
+ 	    Â«ENDIFÂ»
+		Â«IF l == null || l.fontBold == YesNoBool::NULLÂ»
+		boolean fontBold = style.getFont().isBold();
+		Â«ELSEÂ»
+		boolean fontBold = Â«l.fontBold.transformYesNoToBooleanÂ»;
+		Â«ENDIFÂ»
+		style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
         '''    
     }
     
     def createFontColor(StyleLayout l) {
-    	if(l.font == null || l.font.fontColor == null) {
- 			if(l.line == null || l.line.lineColor == null) {
- 				"IColorConstant.BLACK"
+    	if(l == null || l.fontColor == null) {
+ 			if(l == null || l.lineColor == null) {
+				'''return super.getFontColor(diagram);'''
  			} else {
- 				l.line.lineColor.createColorValue
+ 				l.lineColor.createFontColor
  			}
     	} else {
-    		l.font.fontColor.createColorValue
+    		l.fontColor.createFontColor
     	}
     }
     
+    def createFontColor(ColorWithTransparency c) {
+    	'''
+		IGaService gaService = Graphiti.getGaService();
+		return gaService.manageColor(diagram, Â«c.createColorValueÂ»);
+    	'''
+    }
+    
+    def transformYesNoToBoolean(YesNoBool yesNo) { if(yesNo == YesNoBool::YES) "true" else "false" }
     def dispatch createColorValue(Transparent c) { '''null''' }
-    def dispatch createColorValue(ColorConstantRef c) { '''IColorConstant.«c.value.name»''' }
-	def dispatch createColorValue(RGBColor c) { '''new ColorConstant(«c.red», «c.green», «c.blue»)''' }
+    def dispatch createColorValue(ColorConstantRef c) { '''IColorConstant.Â«c.value.nameÂ»''' }
+	def dispatch createColorValue(RGBColor c) { '''new ColorConstant(Â«c.redÂ», Â«c.greenÂ», Â«c.blueÂ»)''' }
 	
 }

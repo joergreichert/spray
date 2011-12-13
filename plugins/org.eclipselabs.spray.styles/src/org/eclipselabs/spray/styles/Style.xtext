@@ -9,7 +9,7 @@ StyleContainer:
 
 Style:
 	{Style}
-	"style" name=ID "{"
+	"style" name=ID ("extends" superStyle=JvmTypeReference)? "{"
 	   "description" "=" description=STRING
 	   layout=StyleLayout
 	"}";
@@ -17,44 +17,16 @@ Style:
 StyleLayout: 
     {StyleLayout}
     (
-		(transparency=Transparency)? &
-        (background=Background)? &
-        (line=Line)? &
-        (font=Font)? 
-    )
-;
-
-Transparency:
-	{Transparency}
-	(
-		("transparency"     "=" transparency=DOUBLE)
-	)
-;
-
-
-Background:
-	{Background}
-	(
-		("background-color" "=" background=ColorWithTransparency)
-	)
-;
-
-Font: 
-    {Font} 
-    (
-		("font-name"        "=" fontName=STRING)? &
+		("transparency"     "=" transparency=DOUBLE)? &
+		("background-color" "=" background=ColorWithTransparency)? &
+		("line-color"       "=" lineColor=ColorWithTransparency)? & 
+        ("line-width"       "=" lineWidth=INT)? &
+        ("line-style"       "=" lineStyle=LineStyle)? &
+        ("font-name"        "=" fontName=STRING)? &
 	    ("font-color"       "=" fontColor=Color)? &
 	    ("font-size"        "=" fontSize=INT)? &
-	    ("font-style"       "=" (fontItalic?="italic")? & (fontBold?="bold")?)?
-	)
-;
-
-Line: 
-    {Line}
-    (
-        ("line-color"       "=" lineColor=ColorWithTransparency)? & 
-        ("line-width"       "=" lineWidth=INT)? &
-        ("line-style"       "=" lineStyle=LineStyle)?
+	    ("font-italic"      "=" fontItalic=YesNoBool)? &
+	    ("font-bold"        "=" fontBold=YesNoBool)?
     )
 ;
 
@@ -89,5 +61,9 @@ enum LineStyle:
 	DASH="dash" |
 	DASHDOT="dash-dot" |
 	DASHDOTDOT="dash-dot-dot";
-	
+
+enum YesNoBool:
+	YES="yes" | 
+	NO="no";
+
 DOUBLE returns ecore::EDouble: INT "." INT;

@@ -24,6 +24,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.2.0,2.3.0)";visibility:=ree
  org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
  org.antlr.runtime,
  org.eclipse.jdt.core,
+ org.eclipse.graphiti,
  org.eclipse.graphiti.mm,
  org.eclipse.xtext.xtend2;bundle-version="2.1.1",
  org.eclipse.xtend2.lib
