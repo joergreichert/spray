@@ -11,10 +11,20 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
+import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
+import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
+import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
+import org.eclipselabs.spray.styles.ISprayStyle;
+import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.styles.StylesPackage;
+
+import com.google.inject.Inject;
 
 /**
  * see
@@ -22,28 +32,39 @@ import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
  * how to customize content assistant
  */
 public class StyleProposalProvider extends AbstractStyleProposalProvider {
+
+	@Inject
+	ITypesProposalProvider proposalProvider;
+
+	@Inject
+	IJvmTypeProvider.Factory typeProviderFactory;
+
+	@Override
+	public void complete_JvmTypeReference(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(model.eResource().getResourceSet());
+		Filter filter = TypeMatchFilters.and(TypeMatchFilters.isPublic(), TypeMatchFilters.canInstantiate());
+		if (model instanceof Style) {
+			JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
+			proposalProvider.createSubTypeProposals(superType, this, context, StylesPackage.Literals.STYLE__SUPER_STYLE, filter, acceptor);
+		}
+		super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
+	}
+
 	/**
 	 * Completes the Color selection of the user. The ColorDialog of SWT will be
 	 * used therefore. Returns the content assist value: RGB(RED,GREEN,BLUE).
 	 */
 	@Override
-	public void complete_RGBColor(EObject model, RuleCall ruleCall,
-			final ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		ConfigurableCompletionProposal pickColor = (ConfigurableCompletionProposal) createCompletionProposal(
-				"Pick RGB color...", context);
+	public void complete_RGBColor(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		ConfigurableCompletionProposal pickColor = (ConfigurableCompletionProposal) createCompletionProposal("Pick RGB color...", context);
 		if (pickColor != null) {
 			pickColor.setTextApplier(new ReplacementTextApplier() {
 				@Override
-				public String getActualReplacementString(
-						ConfigurableCompletionProposal proposal) {
-					Display display = context.getViewer().getTextWidget()
-							.getDisplay();
-					ColorDialog colorDialog = new ColorDialog(display
-							.getActiveShell());
+				public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
+					Display display = context.getViewer().getTextWidget().getDisplay();
+					ColorDialog colorDialog = new ColorDialog(display.getActiveShell());
 					RGB newColor = colorDialog.open();
-					return "RGB(" + newColor.red + "," + newColor.green + ","
-							+ newColor.blue + ")";
+					return "RGB(" + newColor.red + "," + newColor.green + "," + newColor.blue + ")";
 				}
 			});
 			pickColor.setPriority(600);
@@ -52,60 +73,49 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
 		super.complete_RGBColor(model, ruleCall, context, acceptor);
 	}
 
-	@Override
-	public void complete_Font(EObject model, RuleCall ruleCall,
-			final ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal(
-				"Pick font...", context);
-		if (pickFont != null) {
-			pickFont.setTextApplier(new ReplacementTextApplier() {
-				@Override
-				public String getActualReplacementString(
-						ConfigurableCompletionProposal proposal) {
-					Display display = context.getViewer().getTextWidget()
-							.getDisplay();
-					FontDialog fontDialog = new FontDialog(display
-							.getActiveShell());
-					FontData newFont = fontDialog.open();
-					StringBuilder sb = new StringBuilder();
-					sb.append("font-name" + "=" + "\"" + newFont.getName()
-							+ "\"\n");
-					sb.append("\tfont-size" + "=" + newFont.getHeight() + "\n");
-					sb.append("\tfont-color" + "= RGB("
-							+ fontDialog.getRGB().red + ","
-							+ fontDialog.getRGB().green + ","
-							+ fontDialog.getRGB().blue + ")\n");
-					sb.append("\tfont-style" + "="
-							+ getStyle(newFont.getStyle()) + "\n");
-					return sb.toString();
-				}
-			});
-			pickFont.setPriority(600);
-			acceptor.accept(pickFont);
-		}
-		super.complete_Font(model, ruleCall, context, acceptor);
-	}
+//	/**
+//	 * Completes the whole Font selection of the font by using the SWT
+//	 * FontDialog. The user will be able to select the font-name, font-size,
+//	 * font-color and font-style. This attributes will be generated in the DSL
+//	 * after clicking "OK"
+//	 */
+//	@Override
+//	public void complete_Font(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+//		ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal("Pick font...", context);
+//		if (pickFont != null) {
+//			pickFont.setTextApplier(new ReplacementTextApplier() {
+//				@Override
+//				public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
+//					Display display = context.getViewer().getTextWidget().getDisplay();
+//					FontDialog fontDialog = new FontDialog(display.getActiveShell());
+//					FontData newFont = fontDialog.open();
+//					StringBuilder sb = new StringBuilder();
+//					sb.append("font-name" + "=" + "\"" + newFont.getName() + "\"\n");
+//					sb.append("\tfont-size" + "=" + newFont.getHeight() + "\n");
+//					sb.append("\tfont-color" + "= RGB(" + fontDialog.getRGB().red + "," + fontDialog.getRGB().green + "," + fontDialog.getRGB().blue + ")\n");
+//					sb.append("\tfont-style" + "=" + getStyle(newFont.getStyle()) + "\n");
+//					return sb.toString();
+//				}
+//			});
+//			pickFont.setPriority(600);
+//			acceptor.accept(pickFont);
+//		}
+//		super.complete_Font(model, ruleCall, context, acceptor);
+//	}
 
 	/**
 	 * Completes the User Selection for the Font Name with the usage of the SWT
 	 * FontDialog. The values for color, style and size will be ignored.
 	 */
 	@Override
-	public void completeFont_FontName(EObject model, Assignment assignment,
-			final ContentAssistContext context,
-			ICompletionProposalAcceptor acceptor) {
-		ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal(
-				"Pick font name...", context);
+	public void complete_StyleLayout(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal("Pick font name...", context);
 		if (pickFont != null) {
 			pickFont.setTextApplier(new ReplacementTextApplier() {
 				@Override
-				public String getActualReplacementString(
-						ConfigurableCompletionProposal proposal) {
-					Display display = context.getViewer().getTextWidget()
-							.getDisplay();
-					FontDialog fontDialog = new FontDialog(display
-							.getActiveShell());
+				public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
+					Display display = context.getViewer().getTextWidget().getDisplay();
+					FontDialog fontDialog = new FontDialog(display.getActiveShell());
 					FontData newFont = fontDialog.open();
 					return newFont.getName();
 				}
@@ -113,7 +123,7 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
 			pickFont.setPriority(600);
 			acceptor.accept(pickFont);
 		}
-		super.completeFont_FontName(model, assignment, context, acceptor);
+		super.complete_StyleLayout(model, ruleCall, context, acceptor);
 	}
 
 	/**
