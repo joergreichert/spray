@@ -1,0 +1,11 @@
+style NoTransparency {
+	description = "This is a description for the NoTransparency"
+	background-color = black
+	line-color = RGB(23,45,56)
+	line-style = solid
+	line-width = 5
+	font-color = dark-gray
+	font-name = "Tahoma"
+	font-size = 2
+	font-italic = yes
+}

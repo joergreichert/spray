@@ -1,0 +1,11 @@
+style NoLinecolor {
+	description = "This is a description for the NoLinecolor"
+	transparency = 0.235
+	background-color = RGB(45,23,237)
+	line-style = dash-dot-dot
+	line-width = 5
+	font-color = light-blue
+	font-name = "Arial"
+	font-size = 10
+	font-italic = yes
+}

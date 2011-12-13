@@ -1,0 +1,12 @@
+style NoFontsize {
+	description = "This is a description for the NoFontsize"
+	transparency = 0.1
+	background-color = green
+	line-color = transparent
+	line-style = dash
+	line-width = 2
+	font-color = very-light-gray
+	font-name = "Times New Roman"
+	font-italic = yes
+	font-bold = yes
+}

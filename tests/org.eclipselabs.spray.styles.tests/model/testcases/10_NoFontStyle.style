@@ -1,0 +1,11 @@
+style NoFontstyle {
+	description = "This is a description for the NoFontstyle"
+	transparency = 0.5
+	background-color = white
+	line-color = black
+	line-style = dash-dot-dot
+	line-width = 1
+	font-color = yellow
+	font-name = "Comic Sans MS"
+	font-size = 11
+}

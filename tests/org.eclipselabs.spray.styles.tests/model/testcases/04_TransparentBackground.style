@@ -1,0 +1,12 @@
+style TransparentBackground {
+	description = "This is a description for the TransparentBackground"
+	transparency = 0.23337
+	background-color = transparent
+	line-color = black
+	line-style = dot
+	line-width = 8
+	font-color = very-light-gray
+	font-name = "Arial"
+	font-size = 15
+	font-bold = yes
+}
