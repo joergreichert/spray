@@ -13,6 +13,10 @@
 	<packaging>pom</packaging>
 	<name>Eclipselabs Spray</name>
 
+	<modules>
+		<module>../../releng/org.eclipselabs.spray.targetplatform</module>
+		<module>../../releng/org.eclipselabs.spray.parent</module>
+	</modules>
 	<profiles>
 		<profile>
 			<id>modules-default</id>
@@ -20,8 +24,6 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>../../releng/org.eclipselabs.spray.targetplatform</module>
-				<module>../../releng/org.eclipselabs.spray.parent</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.mm</module>
