@@ -95,3 +95,25 @@ Require Bundle is sometimes a too tight dependency binding. It does not allow to
 * org.apache.log4j
 * org.apache.commons.logging
 * com.ibm.icu
+
+h2. Plugin Development
+
+h3. plugin.xml
+
+Xtext generates a @plugin.xml@ just once, on second generator execution it creates a @plugin.xml_gen@. This is because Xtext's generator cannot merge changes into the @plugin.xml@ and manual modifications might be intended. Differences between both files must be merged manually.
+
+The @plugin.xml@ file is quite large and it can become difficult to decide, which differences are produced by the generator and which are manual changes. In order to identify the intended changes these places must be marked in the code by comments @<!-- SPRAY BEGIN -->...<!-- SPRAY END -->@. Example:
+
+bc.. 
+    <extension
+            point="org.eclipse.ui.preferencePages">
+        <!-- SPRAY BEGIN --><!-- adding category -->
+        <page
+            category="org.eclipselabs.spray.xtext.Spray"
+            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.eclipselabs.spray.styles.Style"
+            name="Style Language">
+            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
+        </page>
+        <!-- SPRAY END -->
+p. 
