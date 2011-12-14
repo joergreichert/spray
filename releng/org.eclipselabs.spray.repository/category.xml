@@ -66,6 +66,9 @@
    <feature url="features/org.eclipselabs.xtext.utils.unittesting.feature_0.9.2.jar" id="org.eclipselabs.xtext.utils.unittesting.feature" version="0.9.2">
       <category name="3rdparty"/>
    </feature>
+   <feature url="features/org.eclipse.sdk_3.7.1.r37x_v20110728-7Q7xAEDDePtVvBAYYD3z-il0ox7CoGe6mz-B8FDdVn0YR.jar" id="org.eclipse.sdk" version="3.7.1.r37x_v20110728-7Q7xAEDDePtVvBAYYD3z-il0ox7CoGe6mz-B8FDdVn0YR">
+      <category name="3rdparty"/>
+   </feature>
    <category-def name="3rdparty" label="Third Party">
       <description>
          Dependent features to work with Spray.
