@@ -10,7 +10,7 @@
 		<relativePath>../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>org.eclipse.spray.runtime.xtext</artifactId>
+	<artifactId>org.eclipselabs.spray.runtime.xtext</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
