@@ -18,6 +18,7 @@
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
 		<platform-version-name>indigo</platform-version-name>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<build>
@@ -35,6 +36,7 @@
 				<configuration>
 					<resolver>p2</resolver>
 					<pomDependencies>consider</pomDependencies>
+					<!-- 
 					<target>
 						<artifact>
 							<groupId>org.eclipselabs.spray</groupId>
@@ -43,6 +45,7 @@
 							<classifier>spray</classifier>
 						</artifact>
 					</target>
+					 -->
 					<environments>
 						<environment>
 							<os>win32</os>
@@ -269,7 +272,7 @@
             <id>remote-build-snapshot</id>
             <activation>
                 <property>
-                    <name>remote-build-snapshot</name>
+                    <name>!local-build</name>
                 </property>
             </activation>           
             <repositories>
