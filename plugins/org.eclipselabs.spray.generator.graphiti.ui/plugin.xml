@@ -7,5 +7,21 @@
             class="org.eclipselabs.spray.generator.graphiti.ui.internal.ExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
       </participant>
    </extension>
+    <extension
+        point="org.eclipse.ui.keywords">
+        <keyword
+            id="org.eclipselabs.spray.xtext.ui.keyword_Spray"
+            label="Spray"/>
+    </extension>
+   <extension
+            point="org.eclipse.ui.preferencePages">
+        <page
+            category="org.eclipselabs.spray.xtext.Spray"
+            class="org.eclipselabs.spray.generator.graphiti.ui.internal.ExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="org.eclipselabs.spray.xtext.Spray.compiler.preferencePage"
+            name="Compiler">
+            <keywordReference id="org.eclipselabs.spray.xtext.ui.keyword_Spray"/>
+        </page>
+    </extension>
 
 </plugin>
