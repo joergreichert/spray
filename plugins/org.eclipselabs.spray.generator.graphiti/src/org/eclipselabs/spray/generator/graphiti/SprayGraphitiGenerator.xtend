@@ -1,7 +1,8 @@
 package org.eclipselabs.spray.generator.graphiti
 
 import com.google.inject.Inject
-import org.eclipse.core.resources.IProject
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2
 import org.eclipse.xtext.generator.IFileSystemAccess
@@ -17,6 +18,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.PropertySection
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.DiagramTypeProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.FeatureProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ImageProvider
+import org.eclipselabs.spray.generator.graphiti.templates.diagram.ModelService
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviorProvider
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature
@@ -32,19 +34,17 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFeature
-import org.eclipselabs.spray.generator.graphiti.util.EclipseHelpers
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
-import org.eclipselabs.spray.generator.graphiti.util.StringHelpers
+import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.graphiti.templates.diagram.ModelService
-import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 
 class SprayGraphitiGenerator implements IGenerator {
 	@Inject extension NamingExtensions naming
@@ -80,228 +80,347 @@ class SprayGraphitiGenerator implements IGenerator {
 	 * This method is a long sequence of calling all templates for the code generation
 	 */
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
-		var JavaIoFileSystemAccess javaFsa 
-		var EclipseResourceFileSystemAccess2 eclipseFsa
-		var String modelPath = resource.getURI().devicePath;
-		var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
+		//var String modelPath = resource.getURI().devicePath;
+		//var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
 		ProjectProperties::setModelUri(resource.URI)
+
+		var JavaGenFile java = getJavaGenFile(fsa)
+		var Diagram diagram = resource.contents.head as Diagram
+
+		generatePluginXml(diagram, fsa)
+        generatePluginActivator(diagram, java, pluginActivator)
+        generateExectuableExtensionFactory(diagram, java)
+        generateModelService(diagram, java)
+        generateGuiceModule(diagram, java)
+		
+		generateDiagramTypeProvider(diagram, java, dtp)
+		generateFeatureProvider(diagram, java, fp)
+		
+		generateAddShapeFeatures(diagram, java, addShapeFeature)
+		generateAddConnectionFeatures(diagram, java, addConnectionFeature)
+		generateAddReferenceAsConnectionFeature(diagram, java, addReferenceAsConnectionFeature)
+		generateAddReferenceAsListFeature(diagram, java, addReferenceAsListFeature)
+		
+		generateCreateConnectionFeature(diagram, java, createConnectionFeature)
+		generateCreateShapeFeature(diagram, java, createShapeFeature)
+		
+		handleTypesInReferences(diagram, java, createReferenceAsListFeature)
+		
+		generateCreateReferenceAsConnectionFeature(diagram, java, createReferenceAsConnectionFeature)
+		generateUpdateAndLayoutFeatures(diagram, java, updateShapeFeature, updateConnectionFeature, updateReferenceAsListFeature, layoutFeature)
+		generateDeleteReferenceFeature(diagram, java, deleteReferenceFeature)
+		
+		generateImageProvider(diagram, java, imageProvider)
+		generateToolBehaviourProvider(diagram, java, toolBehaviourProvider)
+		
+		generatePropertySection(diagram, java, propertySection)
+		generateFilter(diagram, java, filter, filter2)
+		
+		generateCustomFeature(diagram, java, customFeature)
+	}
+	
+	def JavaGenFile getJavaGenFile(IFileSystemAccess fsa) {
+		
 		var String genOutputPath = ProjectProperties::projectPath + "/" + ProjectProperties::srcGenPath;
 		var String manOutputPath = ProjectProperties::projectPath + "/" + ProjectProperties::srcManPath;
 
+		var JavaGenFile java
 		if( fsa instanceof JavaIoFileSystemAccess) {
-			javaFsa = (fsa as JavaIoFileSystemAccess) 
+			java = handleJavaIoFileSystemAccess(fsa, genOutputPath, manOutputPath)
 		}
-		if( fsa instanceof EclipseResourceFileSystemAccess2){
-			println("EclipseResourceFileSystemAccess: WARNING: dos not work yet")
-			eclipseFsa = (fsa as EclipseResourceFileSystemAccess2)
+		if( fsa instanceof EclipseResourceFileSystemAccess2 && java == null){
+			java = handleEclipseResourceFileSystemAccess(fsa, genOutputPath, manOutputPath)
 		}
-		
-		var Diagram diagram = resource.contents.head as Diagram
-		fsa.generateFile("plugin.xml", plugin.generate(diagram))
-		
+		java
+	}
+	
+	def JavaGenFile handleEclipseResourceFileSystemAccess(IFileSystemAccess fsa, String genOutputPath, String manOutputPath) {
+		println("EclipseResourceFileSystemAccess: WARNING: dos not work yet")
+		var JavaGenFile java
+		if(  fsa != null ){
+			java = new JavaGenFile(fsa as EclipseResourceFileSystemAccess2)
+//			var IProject project  = EclipseHelpers::toEclipseResource(resource).project  
+			java.setGenOutputPath(ProjectProperties::srcGenPath);
+			java.setManOutputPath(ProjectProperties::srcManPath);
+		}
+		java
+	}
+
+	def JavaGenFile handleJavaIoFileSystemAccess(IFileSystemAccess fsa, String genOutputPath, String manOutputPath) {
+		var JavaIoFileSystemAccess javaFsa = (fsa as JavaIoFileSystemAccess) 
 		var JavaGenFile java
 		if(  javaFsa != null ){
 			java = new JavaGenFile(javaFsa)
 			java.setGenOutputPath(genOutputPath)
 			java.setManOutputPath(manOutputPath)
-		} else  {
-			java = new JavaGenFile(eclipseFsa)
-			var IProject project  = EclipseHelpers::toEclipseResource(resource).project  
-			
-			java.setGenOutputPath(ProjectProperties::srcGenPath);
-			java.setManOutputPath(ProjectProperties::srcManPath);
-		}
-		
-        java.hasExtensionPoint = false
-        // Generate Plugin Activator
-        java.setPackageAndClass(diagram.activatorClassName)
-        pluginActivator.generate(diagram, java)
-        // Generate ExectuableExtensionFactory
+		}	
+		java
+	}
+
+	def generatePluginXml(Diagram diagram, IFileSystemAccess fsa) {
+		fsa.generateFile("plugin.xml", plugin.generate(diagram))
+	}
+	
+	def generatePluginActivator(Diagram diagram, JavaGenFile java, PluginActivator activator) {
+		java.hasExtensionPoint = false
+		java.setPackageAndClass(diagram.activatorClassName)
+        activator.generate(diagram, java)
+	}
+	
+	def generateExectuableExtensionFactory(Diagram diagram, JavaGenFile java) {
         java.setPackageAndClass(diagram.extensionFactoryClassName)
         executableExtensionFactory.generate(diagram, java)
-        // Generate ModelService
+	}
+	
+	def generateModelService(Diagram diagram, JavaGenFile java) {
         java.setPackageAndClass(diagram.modelServiceClassName)
         modelService.generate(diagram, java)
-        
+	}
+	
+	def generateGuiceModule(Diagram diagram, JavaGenFile java) {
         java.hasExtensionPoint = true
-        // Generate Guice Module
         java.setPackageAndClass(diagram.guiceModuleClassName)
         guiceModule.generate(diagram, java)
-
-		// Generate Diagram Type Provider
+	}
+	
+	def generateDiagramTypeProvider(Diagram diagram, JavaGenFile java, DiagramTypeProvider diagramTypeProvider) {
 		java.setPackageAndClass(diagram.diagramTypeProviderClassName)
-		dtp.generate(diagram, java)
-		
-		// Generate Feature Provider
+		diagramTypeProvider.generate(diagram, java)
+	}
+	
+	def generateFeatureProvider(Diagram diagram, JavaGenFile java, FeatureProvider featureProvider) {
 		java.setPackageAndClass(diagram.featureProviderClassName)
-		fp.generate(diagram, java)
-		
+		featureProvider.generate(diagram, java)
+	}
+	
+	def generateAddShapeFeatures(Diagram diagram, JavaGenFile java, AddShapeFeature asf) {
 		// Generate for all Container Shapes
 		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof Container)){
 			var container = metaClass.representedBy as Container
 			java.setPackageAndClass(metaClass.addFeatureClassName)
 			
-			addShapeFeature.generate(container, java)
+			asf.generate(container, java)
 		}
+	}	
 
+	def generateAddConnectionFeatures(Diagram diagram, JavaGenFile java, AddConnectionFeature acf) {
 		// Generate for all Connection
 		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof Connection)){
-			var connection = metaClass.representedBy as Connection
+			//var connection = metaClass.representedBy as Connection
 			java.setPackageAndClass(metaClass.addFeatureClassName)
-			addConnectionFeature.generate(metaClass, java)
+			acf.generate(metaClass, java)
 		}
-
-		// Generate for all EReferences as Connection   TODO metaClass.name ==> metaClass.viibleName()
+	}
+	
+	def generateAddReferenceAsConnectionFeature(Diagram diagram, JavaGenFile java, AddReferenceAsConnectionFeature aracf) {
+		// Generate for all EReferences as Connection   TODO metaClass.name ==> metaClass.visibleName()
 		for( metaClass : diagram.metaClasses) {
 			for( reference : metaClass.references.filter(ref|ref.representedBy != null) ){
 				java.setPackageAndClass(reference.addReferenceAsConnectionFeatureClassName)
 				
-				addReferenceAsConnectionFeature.generate(reference, java)
+				aracf.generate(reference, java)
 			}
 		}
-
+	}	
+	
+	def generateAddReferenceAsListFeature(Diagram diagram, JavaGenFile java, AddReferenceAsListFeature aralf) {
 		for( metaClass : diagram.metaClasses) {
 			if( metaClass.representedBy instanceof Container ){
 				var container = metaClass.representedBy as Container
 				for(metaRef : container.parts.filter(typeof(MetaReference)) ){
 					java.setPackageAndClass(metaRef.addReferenceAsListFeatureClassName)
-					addReferenceAsListFeature.generate(metaRef, java)
+					aralf.generate(metaRef, java)
 				}
 			}
-			
 		}
-		
+	}
+	
+	def generateCreateConnectionFeature(Diagram diagram, JavaGenFile java, CreateConnectionFeature ccf) {
 		for( metaClass : diagram.getElementsForTemplate(createConnectionFeature)) {
 			java.setPackageAndClass(metaClass.createFeatureClassName)
-			createConnectionFeature.generate(metaClass, java)
+			ccf.generate(metaClass, java)
 		}
+	}
+	
+	def generateCreateShapeFeature(Diagram diagram, JavaGenFile java, CreateShapeFeature csf) {
         for( metaClass : diagram.getElementsForTemplate(createShapeFeature)) {
             java.setPackageAndClass(metaClass.createFeatureClassName)
-            createShapeFeature.generate(metaClass, java)
+            csf.generate(metaClass, java)
         }
-		
+	}
+	
+	def handleTypesInReferences(Diagram diagram, JavaGenFile java, CreateReferenceAsListFeature cralf) {
 //		println("1 : " +  diagram.metaClasses.filter( m | m.container != null))
 		for( reference : diagram.metaClasses.filter( m | m.representedBy != null).map(m | m.representedBy).filter(typeof(Container)).map(c | (c as Container).parts.filter(typeof(MetaReference))).flatten) {
 			val referenceName = reference.getName
 			var metaClass = (reference.eContainer as Container).represents
 			var target = metaClass.type.EAllReferences.findFirst(e|e.name == referenceName) 
 			var targetType = target.EReferenceType 
-			if( ! targetType.abstract){
-				println("NOT ABSTRACT: " + targetType.name)
-				java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
-				createReferenceAsListFeature.setTarget(targetType)
-				createReferenceAsListFeature.generate(reference, java)
-			} else {
-				println("ABSTRACT: " + targetType.name)
-//				java.setPackageAndClass(feature_package(), metaClass.diagram.name.toFirstUpper + "Create" + metaClass.name + reference.name + targetType.name + "Feature")
-//				var CreateReferenceAsListFeature ft = new CreateReferenceAsListFeature()
-//				ft.setTarget(targetType)
-//				ft.generate(reference, java)
-			}
-			for( subclass : targetType.getSubclasses() ){
-				if( ! subclass.abstract ){
-					println("NOT ABSTRACT subclass: " + subclass.name)
-					java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
-					createReferenceAsListFeature.setTarget(subclass)
-					createReferenceAsListFeature.generate(reference, java)
-				} else {
-					println("ABSTRACT subclass: " +subclass.name)
-					java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
-					createReferenceAsListFeature.setTarget(subclass)
-					createReferenceAsListFeature.generate(reference, java)
-				}
-			}	
+			handleTargetType(java, cralf, reference, targetType)
 		}
+	}
+	
+	def handleTargetType(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
+		if( !targetType.abstract ) {
+			println("NOT ABSTRACT: " + targetType.name)
+			java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
+			cralf.setTarget(targetType)
+			cralf.generate(reference, java)
+		} else {
+			println("ABSTRACT: " + targetType.name)
+//			java.setPackageAndClass(feature_package(), metaClass.diagram.name.toFirstUpper + "Create" + metaClass.name + reference.name + targetType.name + "Feature")
+//			var CreateReferenceAsListFeature ft = new CreateReferenceAsListFeature()
+//			ft.setTarget(targetType)
+//			ft.generate(reference, java)
+		}
+		handleTargetTypeSubClasses(java, cralf, reference, targetType)
+	}
+	
+	def handleTargetTypeSubClasses(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
+		for( subclass : targetType.getSubclasses() ){
+			if( ! subclass.abstract ){
+				println("NOT ABSTRACT subclass: " + subclass.name)
+				java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
+				cralf.setTarget(subclass)
+				cralf.generate(reference, java)
+			} else {
+				println("ABSTRACT subclass: " +subclass.name)
+				java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
+				cralf.setTarget(subclass)
+				cralf.generate(reference, java)
+			}
+		}	
+	}
+	
+	def generateCreateReferenceAsConnectionFeature(Diagram diagram, JavaGenFile java, CreateReferenceAsConnectionFeature cracf) {
 		for( metaClass : diagram.metaClasses) {
 			for( reference : metaClass.references.filter(ref|ref.representedBy != null) ) {
 				java.setPackageAndClass(reference.getCreateReferenceAsConnectionFeatureClassName)
-				createReferenceAsConnectionFeature.generate(reference, java)
+				cracf.generate(reference, java)
 		    }
  	    }
- 	    
-		for( metaClass : diagram.metaClasses) {
-			if( metaClass.representedBy instanceof Connection) {
+	}
+	
+	def generateUpdateAndLayoutFeatures(Diagram diagram, JavaGenFile java, UpdateShapeFeature usf, UpdateConnectionFeature ucf, UpdateReferenceAsListFeature uralf, LayoutFeature lf) {
+		for( metaClass : diagram.metaClasses ) {
+			if( metaClass.representedBy instanceof Connection ) {
 				//    No layout feature needed 
-				java.setPackageAndClass(metaClass.updateFeatureClassName)
-				updateConnectionFeature.generate(metaClass.representedBy, java)
-			} else if( metaClass.representedBy instanceof Container) {
-				java.setPackageAndClass(metaClass.layoutFeatureClassName)
-				layoutFeature.generate(metaClass.representedBy, java)
-				
-				java.setPackageAndClass(metaClass.updateFeatureClassName)
-				updateShapeFeature.generate(metaClass.representedBy, java)
-
-				var container = metaClass.representedBy as Container
-				for(reference : container.parts.filter(p | p instanceof MetaReference).map(p | p as MetaReference) ){
-					val referenceName = reference.getName
-				    var eClass = metaClass.type.EAllReferences.findFirst(e|e.name == referenceName).EReferenceType 
-					updateReferenceAsListFeature.setTarget(eClass)
-					java.setPackageAndClass(reference.updateReferenceAsListFeatureClassName)
-					updateReferenceAsListFeature.generate(reference, java)
-				}
+				generateUpdateShapeFeature(metaClass, java, usf)
+			} else if( metaClass.representedBy instanceof Container ) {
+				generateLayoutFeature(metaClass, java, lf)
+				generateUpdateShapeFeature(metaClass, java, usf)
+				generateUpdateReferenceAsListFeature(metaClass, java, uralf)
 			}
 		}	
-		
-		for( metaClass : diagram.metaClasses) {
-			for( reference : metaClass.references) {
-				java.setPackageAndClass(reference.deleteReferenceFeatureClassName)
-				deleteReferenceFeature.generate(reference, java)
-			}
-			
-		}
-		
-		java.setPackageAndClass(diagram.imageProviderClassName)
-		imageProvider.generate(diagram, java)
+	}
+	
+	def generateUpdateShapeFeature(MetaClass metaClass, JavaGenFile java, UpdateShapeFeature usf) {
+		java.setPackageAndClass(metaClass.updateFeatureClassName)
+		usf.generate(metaClass.representedBy, java)
+	}
+	
+	def generateLayoutFeature(MetaClass metaClass, JavaGenFile java, LayoutFeature lf) {
+		java.setPackageAndClass(metaClass.layoutFeatureClassName)
+		lf.generate(metaClass.representedBy, java)
+	}
 
-		java.setPackageAndClass(diagram.toolBehaviorProviderClassName)
-		toolBehaviourProvider.generate(diagram, java)
-		
-		// PropertySections Java code
+	def generateUpdateReferenceAsListFeature(MetaClass metaClass, JavaGenFile java, UpdateReferenceAsListFeature uralf) {
+		var container = metaClass.representedBy as Container
+		for( reference : container.parts.filter(p | p instanceof MetaReference).map(p | p as MetaReference) ) {
+			val referenceName = reference.getName
+			var eClass = metaClass.type.EAllReferences.findFirst(e|e.name == referenceName).EReferenceType 
+			uralf.setTarget(eClass)
+			java.setPackageAndClass(reference.updateReferenceAsListFeatureClassName)
+			uralf.generate(reference, java)
+		}
+	}
+	
+	def generateDeleteReferenceFeature(Diagram diagram, JavaGenFile java, DeleteReferenceFeature drf) {
 		for( metaClass : diagram.metaClasses) {
-			val eClass1 = metaClass.type
-			for( attribute : eClass1.EAllAttributes){
-				java.setPackageAndClass(naming.getPropertySectionClassName(eClass1, attribute))
-				propertySection.setDiagram(diagram)
-				propertySection.generate(attribute, java)
+			for( reference : metaClass.references ) {
+				java.setPackageAndClass(reference.deleteReferenceFeatureClassName)
+				drf.generate(reference, java)
 			}
+		}
+	}	
+	
+	def generateImageProvider(Diagram diagram, JavaGenFile java, ImageProvider ip) {
+		java.setPackageAndClass(diagram.imageProviderClassName)
+		ip.generate(diagram, java)
+	}	
+	
+	def generateToolBehaviourProvider(Diagram diagram, JavaGenFile java, ToolBehaviorProvider tbp) {
+		java.setPackageAndClass(diagram.toolBehaviorProviderClassName)
+		tbp.generate(diagram, java)
+	}	
+	
+	def generatePropertySection(Diagram diagram, JavaGenFile java, PropertySection ps) {
+		for( metaClass : diagram.metaClasses) {
+			generatePropertySectionForEClassAttributes(diagram, java, metaClass.type, ps)
 			if( metaClass.representedBy instanceof Container ){
-				val container = metaClass.representedBy as Container
-				for( reference : container.parts.filter(p | p instanceof MetaReference).map(p | p as MetaReference)) {
-					val referenceName = reference.getName
-					var eClass = metaClass.type.EAllReferences.findFirst(r | r.name == referenceName).EReferenceType
-					for( attribute : eClass.EAllAttributes ){
-						java.setPackageAndClass(naming.getPropertySectionClassName(eClass, attribute))
-						propertySection.setDiagram(diagram)
-						propertySection.generate(attribute, java)
-					}
-				}
+				generatePropertySectionForReferenceAttributes(diagram, java, metaClass, ps)
 			}
 		}		
-		
-		for( metaClass : diagram.metaClasses) {
-			filter.setDiagram(diagram)
-			java.setPackageAndClass(metaClass.filterClassName)
-			filter.generate(metaClass.type, java)
+	}	
 
-			if( metaClass.representedBy instanceof Container){
-				val container = metaClass.representedBy as Container
-				for( reference : container.parts.filter( p | p instanceof MetaReference).map(p | p as MetaReference)){
-					val referenceName = reference.getName
-					val eClass = metaClass.type.EAllReferences.findFirst(ref| ref.name == referenceName).EReferenceType 
-					filter2.setDiagram(diagram)
-					java.setPackageAndClass(eClass.filterClassName)
-					filter2.generate(eClass, java)
-				}
-			}
-		}
-
-		for( metaClass : diagram.metaClasses) {
-			for(CustomBehavior behavior : metaClass.behaviors.filter(typeof(CustomBehavior))) {
-				java.setPackageAndClass(behavior.customFeatureClassName)
-				customFeature.generate(behavior, java)
-			}
+	def generatePropertySectionForReferenceAttributes(Diagram diagram, JavaGenFile java, MetaClass metaClass, PropertySection ps) {
+		val container = metaClass.representedBy as Container
+		for( reference : container.parts.filter(p | p instanceof MetaReference).map(p | p as MetaReference)) {
+			val referenceName = reference.getName
+			var eClass = metaClass.type.EAllReferences.findFirst(r | r.name == referenceName).EReferenceType
+			generatePropertySectionForEClassAttributes(diagram, java, eClass, ps)
 		}
 	}
 
+	def generatePropertySectionForEClassAttributes(Diagram diagram, JavaGenFile java, EClass eClass, PropertySection ps) {
+		for( attribute : eClass.EAllAttributes){
+			generatePropertySectionForAttribute(diagram, java, eClass, attribute, ps)
+		}
+	}
 
+	def generatePropertySectionForAttribute(Diagram diagram, JavaGenFile java, EClass eClass, EAttribute attribute, PropertySection ps) {
+		java.setPackageAndClass(naming.getPropertySectionClassName(eClass, attribute))
+		ps.setDiagram(diagram)
+		ps.generate(attribute, java)
+	}
+	
+	def generateFilter(Diagram diagram, JavaGenFile java, Filter f, Filter f2) {
+		for( metaClass : diagram.metaClasses) {
+			generateFilter(diagram, java, metaClass, f)
+
+			if( metaClass.representedBy instanceof Container){
+				generateFilterForReference(diagram, java, f2, metaClass)
+			}
+		}
+	}	
+	
+	def generateFilterForReference(Diagram diagram, JavaGenFile java, Filter f, MetaClass metaClass) {
+		val container = metaClass.representedBy as Container
+		for( reference : container.parts.filter( p | p instanceof MetaReference).map(p | p as MetaReference)){
+			val referenceName = reference.getName
+			val eClass = metaClass.type.EAllReferences.findFirst(ref| ref.name == referenceName).EReferenceType 
+			generateFilter(diagram, java, eClass, f)
+		}
+	}
+
+	def generateFilter(Diagram diagram, JavaGenFile java, MetaClass metaClass, Filter f) {
+		f.setDiagram(diagram)
+		java.setPackageAndClass(metaClass.filterClassName)
+		f.generate(metaClass.type, java)
+	}	
+	
+	def generateFilter(Diagram diagram, JavaGenFile java, EClass eClass, Filter f) {
+		f.setDiagram(diagram)
+		java.setPackageAndClass(eClass.filterClassName)
+		f.generate(eClass, java)
+	}	
+	
+	def generateCustomFeature(Diagram diagram, JavaGenFile java, CustomFeature cf) {
+		for( metaClass : diagram.metaClasses) {
+			for(CustomBehavior behavior : metaClass.behaviors.filter(typeof(CustomBehavior))) {
+				java.setPackageAndClass(behavior.customFeatureClassName)
+				cf.generate(behavior, java)
+			}
+		}
+	}
 }
