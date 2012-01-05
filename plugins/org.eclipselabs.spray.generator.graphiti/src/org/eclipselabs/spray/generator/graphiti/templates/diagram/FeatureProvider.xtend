@@ -284,7 +284,7 @@ class FeatureProvider extends FileGenerator {
         public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
             Shape s = context.getShape();
             String stat  = peService.getPropertyValue(s, ISprayConstants.PROPERTY_CAN_MOVE);
-            if( Boolean.valueOf(stat) == Boolean.FALSE){
+            if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
                 return null;
             }
             return super.getMoveShapeFeature(context);
