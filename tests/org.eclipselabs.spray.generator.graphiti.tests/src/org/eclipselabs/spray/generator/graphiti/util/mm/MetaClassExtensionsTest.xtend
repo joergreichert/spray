@@ -24,7 +24,7 @@ class MetaClassExtensionsTest {
     }
 
 	@Test
-	def testGetCreateFeatureLabel_WhenMetaClassHasNoName__ExpectEClassName () {
+	def testGetCreateFeatureLabel_WhenMetaClassHasNoCreateBehaviorAndHasNoName__ExpectEClassName () {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		metaClass.type = EcorePackage::eINSTANCE.EClass
 		val label = ext.getCreateFeatureLabel(metaClass)
@@ -32,7 +32,51 @@ class MetaClassExtensionsTest {
 	}
 
 	@Test
-	def testGetCreateFeatureLabel_WhenMetaClassHasName__ExpectLabel () {
+	def testGetCreateFeatureLabel_WhenMetaClassHasNoCreateBehaviorAndHasEmptyName__ExpectEmptyName () {
+		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
+		metaClass.alias = ""
+		val label = ext.getCreateFeatureLabel(metaClass)
+		assertEquals("EClass",label)
+	}
+
+	@Test
+	def testGetCreateFeatureLabel_WhenMetaClassHasCreateBehaviorThatHasName__ExpectBehaviorLabel () {
+		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
+		metaClass.alias = "testName"
+		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
+		createBehavior.label = "testBehaviorName"
+		metaClass.behaviorsList.add(createBehavior)
+		val label = ext.getCreateFeatureLabel(metaClass)
+		assertEquals("testBehaviorName", label)
+	}
+
+	@Test
+	def testGetCreateFeatureLabel_WhenMetaClassHasCreateBehaviorThatHasNoName__ExpectMetaClassName () {
+		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
+		metaClass.alias = "testName"
+		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
+		metaClass.behaviorsList.add(createBehavior)
+		val label = ext.getCreateFeatureLabel(metaClass)
+		assertEquals("testName", label)
+	}
+
+	@Test
+	def testGetCreateFeatureLabel_WhenMetaClassHasCreateBehaviorThatHasEmptyName__ExpectMetaClassName () {
+		val metaClass = SprayFactory::eINSTANCE.createMetaClass
+        metaClass.type = EcorePackage::eINSTANCE.EClass
+		metaClass.alias = "testName"
+		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
+		createBehavior.label = ""
+		metaClass.behaviorsList.add(createBehavior)
+		val label = ext.getCreateFeatureLabel(metaClass)
+		assertEquals("testName", label)
+	}
+
+	@Test
+	def testGetCreateFeatureLabel_WhenMetaClassHasNoCreateBehaviorAndHasName__ExpectLabel () {
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
         metaClass.type = EcorePackage::eINSTANCE.EClass
 		metaClass.alias = "testName"

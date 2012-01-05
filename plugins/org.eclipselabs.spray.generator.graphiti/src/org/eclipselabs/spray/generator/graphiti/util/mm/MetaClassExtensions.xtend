@@ -14,7 +14,7 @@ class MetaClassExtensions {
     @Inject extension NamingExtensions 
 	def getCreateFeatureLabel (MetaClass metaClass) {
 	    val createBehavior = metaClass.createBehavior
-	    if (createBehavior != null && createBehavior.label != null) {
+	    if (createBehavior != null && createBehavior.label != null && createBehavior.label.length > 0) {
             createBehavior.label
 	    } else {
 	        metaClass.visibleName

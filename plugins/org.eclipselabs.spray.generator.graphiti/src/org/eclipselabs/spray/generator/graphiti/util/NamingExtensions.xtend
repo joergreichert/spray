@@ -38,7 +38,7 @@ class NamingExtensions {
     }
     
 	def String getVisibleName (AliasableElement elem) {
-	    if (elem.alias != null)
+	    if (elem.alias != null && elem.alias.length > 0)
 	       return elem.alias
 	    else
 	       return elem.name
