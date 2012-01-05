@@ -16,6 +16,9 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.eclipselabs.spray.wizard.tests.SprayProjectWizardConfiguration;
+import org.eclipselabs.spray.wizard.tests.SprayProjectWizardTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -25,6 +28,7 @@ import BusinessDomainDsl.BusinessClass;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class SimpleUITest extends AbstractGraphitiTest {
 	final String projectName = "org.eclipselabs.spray.examples.SimpleUITest";
+	final String expectedDiagramTypeName = "SimpleUITest";
 
 	@Test
 	public void testCreateNewBusinessClass() throws Exception {
@@ -38,7 +42,30 @@ public class SimpleUITest extends AbstractGraphitiTest {
 		int targetY = 60;
 
 		bot.perspectiveByLabel(perspective).activate();
-		createNewProject(projectName);
+		SprayProjectWizardConfiguration wizardConfiguration = SprayProjectWizardConfiguration
+				.init()
+				.firstPage()
+				.projectName(projectName)
+				.diagramTypeName(expectedDiagramTypeName)
+				.browseRegisteredEPackages(true)
+				.setGenModel(false)
+				.ePackageUriToBrowseInRegisteredEPackages(
+						"http://www.mod4j.org/busmod")
+				.ePackageUri(
+						"platform:/plugin/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.ecore")
+				.genModelUri(
+						"platform:/plugin/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel")
+				.selectType(true)
+				.modelEClassToSelect("BusinessDomainModel")
+				.modelEClass("BusinessDomainDsl.BusinessDomainModel")
+				.setFileExtension(false)
+				.fileExtension("businessdomaindsl")
+				.wizardConfiguration()
+				.secondPage()
+				.defaultBasePackage(
+						"org.eclipselabs.spray.examples.simpleuitest")
+				.wizardConfiguration();
+		createNewProject(wizardConfiguration);
 		selectFolderNode(projectName, diagramFolder);
 		createDiagramViaGraphitiExampleWizard(diagramTypeName, fileName);
 		SWTBotEditor editor = bot.activeEditor();
@@ -48,6 +75,24 @@ public class SimpleUITest extends AbstractGraphitiTest {
 				targetY);
 		assertBusinessClassRepresentationExists(ged, businessClassName,
 				targetX, targetY);
+	}
+
+	@Override
+	protected void executeSprayWizard(SWTBotShell shell,
+			SprayProjectWizardConfiguration wizardConfiguration) {
+		SprayProjectWizardTestHelper wizardTestHelper = new SprayProjectWizardTestHelper(
+				bot);
+		wizardTestHelper.handleProjectName(wizardConfiguration);
+		wizardTestHelper.handleLocation(wizardConfiguration);
+		wizardTestHelper.handleDiagramType(wizardConfiguration);
+		wizardTestHelper.handleEPackage(wizardConfiguration);
+		wizardTestHelper.handleGenModel(wizardConfiguration);
+		wizardTestHelper.handleModelRoot(wizardConfiguration);
+		wizardTestHelper.handleFileExtension(wizardConfiguration);
+		bot.button("Next >").click();
+		wizardTestHelper.handleProjectStructure(wizardConfiguration);
+		wizardTestHelper.handlePackageNames(wizardConfiguration);
+		wizardTestHelper.handleTimestamp(wizardConfiguration);
 	}
 
 	private void createBusinessClass(final SWTBotGefEditor ged,
@@ -66,7 +111,7 @@ public class SimpleUITest extends AbstractGraphitiTest {
 		assertRoundedRectangle(targetX, targetY, figure);
 		assertDomainObject(shapeName, editPart);
 	}
-	
+
 	private IFigure assertFigure(int targetX, int targetY,
 			SWTBotGefEditPart editPart) {
 		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
@@ -109,16 +154,18 @@ public class SimpleUITest extends AbstractGraphitiTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void assertDomainObject(String shapeName, SWTBotGefEditPart editPart) {
 		Object model = ((GraphicalEditPart) editPart.part()).getModel();
 		assertTrue("should have been shape", model instanceof Shape);
 		Shape shape = (Shape) model;
 		PictogramLink link = shape.getLink();
 		assertNotNull("not linked with bo", link);
-		assertEquals("not the expected bo count", 1, link.getBusinessObjects().size());
+		assertEquals("not the expected bo count", 1, link.getBusinessObjects()
+				.size());
 		EObject bo = link.getBusinessObjects().get(0);
-		assertTrue("should have been business class", bo instanceof BusinessClass);
+		assertTrue("should have been business class",
+				bo instanceof BusinessClass);
 		BusinessClass bc = (BusinessClass) bo;
 		assertNotNull("bc name set", bc.getName());
 		assertEquals("not the expected bc name", shapeName, bc.getName());
