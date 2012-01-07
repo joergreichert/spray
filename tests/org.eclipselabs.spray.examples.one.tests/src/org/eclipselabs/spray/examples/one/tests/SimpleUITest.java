@@ -93,7 +93,6 @@ public class SimpleUITest extends AbstractGraphitiTest {
 		wizardTestHelper.handleProjectStructure(wizardConfiguration);
 		wizardTestHelper.handlePackageNames(wizardConfiguration);
 		wizardTestHelper.handleTimestamp(wizardConfiguration);
-		bot.button("Finish").click();
 	}
 
 	private void createBusinessClass(final SWTBotGefEditor ged,
