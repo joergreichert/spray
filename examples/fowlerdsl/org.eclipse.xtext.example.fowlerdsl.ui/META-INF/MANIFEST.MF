@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.xtext.example.fowlerdsl.ui
-Bundle-Version: 0.2.0.qualifier
+Bundle-Version: 0.4.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.fowlerdsl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext.example.fowlerdsl;bundle-version="0.2.0";visibility:=reexport,
