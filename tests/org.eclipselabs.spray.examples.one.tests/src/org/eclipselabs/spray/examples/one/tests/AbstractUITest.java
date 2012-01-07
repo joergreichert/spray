@@ -30,8 +30,8 @@ public abstract class AbstractUITest extends SWTBotGefTestCase {
 		}
 	}
 
-	protected void createNewProject(SprayProjectWizardConfiguration wizardConfiguration) {
-		SWTBotShell shell = startCreateNewProjectOfType("Spray");
+	protected void createNewSprayProject(SprayProjectWizardConfiguration wizardConfiguration) {
+		SWTBotShell shell = startCreateNewProject("Spray", "Spray Project");
 		bot.sleep(1000);
 		executeSprayWizard(shell, wizardConfiguration);
 		finishWizard(shell);
@@ -39,17 +39,16 @@ public abstract class AbstractUITest extends SWTBotGefTestCase {
 
 	protected abstract void executeSprayWizard(SWTBotShell shell, SprayProjectWizardConfiguration wizardConfiguration);
 
-	private void finishWizard(SWTBotShell shell) {
+	protected void finishWizard(SWTBotShell shell) {
 		bot.button("Finish").click();
 		bot.waitUntil(Conditions.shellCloses(shell), 120 * 1000);
 	}
 
-	private SWTBotShell startCreateNewProjectOfType(String projectName) {
+	protected SWTBotShell startCreateNewProject(String... path) {
 		bot.viewByTitle("Package Explorer").menu("New").click();
 		SWTBotShell shell = bot.shell("New");
 		shell.activate();
-		SWTBotTreeItem treeItem = bot.tree().expandNode(projectName);
-		treeItem.select("Spray Project");
+		bot.tree().expandNode(path).select();
 		// press "Next >"
 		bot.button(1).click();
 		return shell;

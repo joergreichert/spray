@@ -65,7 +65,7 @@ public class SimpleUITest extends AbstractGraphitiTest {
 				.defaultBasePackage(
 						"org.eclipselabs.spray.examples.simpleuitest")
 				.wizardConfiguration();
-		createNewProject(wizardConfiguration);
+		createNewSprayProject(wizardConfiguration);
 		selectFolderNode(projectName, diagramFolder);
 		createDiagramViaGraphitiExampleWizard(diagramTypeName, fileName);
 		SWTBotEditor editor = bot.activeEditor();
@@ -93,6 +93,7 @@ public class SimpleUITest extends AbstractGraphitiTest {
 		wizardTestHelper.handleProjectStructure(wizardConfiguration);
 		wizardTestHelper.handlePackageNames(wizardConfiguration);
 		wizardTestHelper.handleTimestamp(wizardConfiguration);
+		bot.button("Finish").click();
 	}
 
 	private void createBusinessClass(final SWTBotGefEditor ged,

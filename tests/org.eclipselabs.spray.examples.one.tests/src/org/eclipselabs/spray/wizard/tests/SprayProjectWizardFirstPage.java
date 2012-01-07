@@ -15,6 +15,7 @@ public class SprayProjectWizardFirstPage extends
 	private String ePackageUriToBrowseInRegisteredEPackages;
 	private String[] ePackageUriSegmentsToBrowseInWorkspace;
 	private String metamodelEPackageUri;
+	private String modelUri = null;
 	private boolean browseWorkspaceForGenModels = false;
 	private boolean setGenModel = false;
 	private String[] genModelUriSegmentsToBrowseInWorkspace;
@@ -89,6 +90,15 @@ public class SprayProjectWizardFirstPage extends
 		return setValue(ePackageUriSegmentsToBrowseInWorkspace,
 				"ePackageUriSegmentsToBrowseInWorkspace");
 	}
+	
+	public SprayProjectWizardFirstPage setModelUri(String modelUri) {
+		return setValue(modelUri,
+				"modelUri");
+	}
+
+	public String modelUri() {
+		return modelUri;
+	}
 
 	public SprayProjectWizardFirstPage ePackageUri(String metamodelEPackageUri) {
 		return setValue(metamodelEPackageUri, "metamodelEPackageUri");
@@ -127,7 +137,7 @@ public class SprayProjectWizardFirstPage extends
 		return setValue(metamodelModelEClass, "metamodelModelEClass");
 	}
 	
-	public SprayProjectWizardFirstPage setFileExtension(boolean fileExtension) {
+	public SprayProjectWizardFirstPage setFileExtension(boolean setFileExtension) {
 		return setValue(setFileExtension, "setFileExtension");
 	}
 

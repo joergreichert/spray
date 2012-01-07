@@ -19,6 +19,18 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 public abstract class AbstractGraphitiTest extends AbstractUITest {
 	private final int DIL = 5;
 
+	protected String getString(String... strings) {
+		StringBuilder sb = new StringBuilder();
+		int len = strings.length;
+		if(len > 0) {
+			for(int i=0; i<len-1; i++) {
+				sb.append(strings[i]).append("\n");
+			}
+			sb.append(strings[len-1]);
+		}
+		return sb.toString();
+	}
+	
 	protected void createDiagramViaGraphitiExampleWizard(
 			String diagramTypeName, String fileName) {
 		bot.menu("File").menu("New").menu("Other...").click();

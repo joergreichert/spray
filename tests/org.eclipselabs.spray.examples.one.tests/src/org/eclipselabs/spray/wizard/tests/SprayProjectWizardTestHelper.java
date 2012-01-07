@@ -9,14 +9,11 @@ import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.ui.dialogs.FilteredList;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 
-public class SprayProjectWizardTestHelper {
-	private SWTBot bot;
+public class SprayProjectWizardTestHelper extends ProjectWizardTestHelper {
 
 	public SprayProjectWizardTestHelper(SWTBot bot) {
-		this.bot = bot;
+		super(bot);
 	}
 
 	public void handleProjectName(
@@ -29,16 +26,16 @@ public class SprayProjectWizardTestHelper {
 	public void handleLocation(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.firstPage().isUseDefaultLocation()) {
-			bot.checkBox(0).select();
-			Assert.assertFalse("Location field should not be enabled", bot
+			getBot().checkBox(0).select();
+			Assert.assertFalse("Location field should not be enabled", getBot()
 					.text(1).isEnabled());
 			String projectName = wizardConfiguration.firstPage().projectName();
 			Assert.assertTrue("Expected location ending",
-					bot.text(1).getText() != null
-							&& bot.text(1).getText().endsWith((projectName)));
+					getBot().text(1).getText() != null
+							&& getBot().text(1).getText().endsWith((projectName)));
 		} else {
-			bot.checkBox(0).deselect();
-			Assert.assertTrue("Location field should be enabled", bot.text(1)
+			getBot().checkBox(0).deselect();
+			Assert.assertTrue("Location field should be enabled", getBot().text(1)
 					.isEnabled());
 			setText(1, wizardConfiguration.firstPage().location());
 		}
@@ -47,15 +44,15 @@ public class SprayProjectWizardTestHelper {
 	public void handleDiagramType(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.firstPage().isDiagramTypeNameFromProjectName()) {
-			bot.checkBox(1).select();
-			Assert.assertFalse("Diagram type field should not be enabled", bot
+			getBot().checkBox(1).select();
+			Assert.assertFalse("Diagram type field should not be enabled", getBot()
 					.text(2).isEnabled());
 			Assert.assertEquals("Expected diagram type", wizardConfiguration
-					.firstPage().diagramTypeName(), bot.text(2).getText());
+					.firstPage().diagramTypeName(), getBot().text(2).getText());
 		} else {
-			bot.checkBox(1).deselect();
+			getBot().checkBox(1).deselect();
 			Assert.assertTrue("Diagram type field should be enabled",
-					bot.text(2).isEnabled());
+					getBot().text(2).isEnabled());
 			setText(2, wizardConfiguration.firstPage().diagramTypeName());
 		}
 	}
@@ -65,18 +62,18 @@ public class SprayProjectWizardTestHelper {
 		if (wizardConfiguration.firstPage().isBrowseRegisteredEPackages()
 				|| wizardConfiguration.firstPage()
 						.isBrowseWorkspaceForEPackages()) {
-			SWTBotShell outerShell = bot.activeShell();
+			SWTBotShell outerShell = getBot().activeShell();
 			String messageEpackage = "";
 			String messageGenModel = "";
 			if (wizardConfiguration.firstPage().isBrowseRegisteredEPackages()) {
-				bot.button(1).click();
+				getBot().button(1).click();
 				messageEpackage = "Expected EPackage URI after chosen by registered EPackages";
 				messageGenModel = "Expected GenModel URI after chosen by registered EPackages";
-				SWTBotShell shell = bot.activeShell();
-				SWTBotText text = bot.text();
+				SWTBotShell shell = getBot().activeShell();
+				SWTBotText text = getBot().text();
 				text.setText(wizardConfiguration.firstPage()
 						.ePackageUriToBrowseInRegisteredEPackages());
-				final FilteredList list = bot.widget(WidgetOfType
+				final FilteredList list = getBot().widget(WidgetOfType
 						.widgetOfType(FilteredList.class));
 				Display.getDefault().syncExec(new Runnable() {
 
@@ -85,29 +82,36 @@ public class SprayProjectWizardTestHelper {
 						list.setSelection(new int[] { 0 });
 					}
 				});
-				bot.button("OK").click();
-				bot.waitUntil(Conditions.shellCloses(shell));
+				getBot().button("OK").click();
+				getBot().waitUntil(Conditions.shellCloses(shell));
 			} else if (wizardConfiguration.firstPage()
 					.isBrowseWorkspaceForEPackages()) {
-				bot.button(2).click();
-				SWTBotShell shell = bot.activeShell();
+				getBot().button(2).click();
+				SWTBotShell shell = getBot().activeShell();
 				messageEpackage = "Expected EPackage URI after chosen by workspace";
 				messageGenModel = "Expected GenModel URI after chosen by workspace";
-				bot.tree()
+				getBot().tree()
 						.expandNode(
 								wizardConfiguration
 										.firstPage()
 										.ePackageUriSegmentsToBrowseInWorkspace())
 						.select();
-				bot.button("OK").click();
-				bot.waitUntil(Conditions.shellCloses(shell));
+				getBot().button("OK").click();
+				getBot().waitUntil(Conditions.shellCloses(shell));
 			}
-			bot.waitUntil(Conditions.shellIsActive(outerShell.getText()));
-			bot = outerShell.bot();
-			Assert.assertEquals(messageEpackage, wizardConfiguration
-					.firstPage().ePackageUri(), bot.text(3).getText());
+			getBot().waitUntil(Conditions.shellIsActive(outerShell.getText()));
+			setBot(outerShell.bot());
+			handleBinCase(wizardConfiguration);
+			if(wizardConfiguration
+					.firstPage().modelUri() != null) {
+				Assert.assertEquals(messageEpackage, wizardConfiguration
+						.firstPage().modelUri(), getBot().text(3).getText());
+			} else {
+				Assert.assertEquals(messageEpackage, wizardConfiguration
+						.firstPage().ePackageUri(), getBot().text(3).getText());
+			}
 			Assert.assertEquals(messageGenModel, wizardConfiguration
-					.firstPage().genModelUri(), bot.text(4).getText());
+					.firstPage().genModelUri(), getBot().text(4).getText());
 		} else if (wizardConfiguration.firstPage().isSetEPackage()) {
 			setText(3, wizardConfiguration.firstPage().ePackageUri());
 		}
@@ -116,16 +120,16 @@ public class SprayProjectWizardTestHelper {
 	public void handleGenModel(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.firstPage().isBrowseWorkspaceForGenModels()) {
-			bot.button(3).click();
-			bot.tree()
+			getBot().button(3).click();
+			getBot().tree()
 					.expandNode(
 							wizardConfiguration.firstPage()
 									.genModelUriSegmentsToBrowseInWorkspace())
 					.select();
-			bot.button("OK").click();
+			getBot().button("OK").click();
 			Assert.assertEquals(
 					"Expected GenModel URI after chosen by workspace GenModel",
-					wizardConfiguration.firstPage().genModelUri(), bot.text(4)
+					wizardConfiguration.firstPage().genModelUri(), getBot().text(4)
 							.getText());
 		} else if (wizardConfiguration.firstPage().isSetGenModel()) {
 			String genModelUriToSet = wizardConfiguration.firstPage()
@@ -135,7 +139,7 @@ public class SprayProjectWizardTestHelper {
 			} else {
 				Assert.assertEquals(
 						"Expected GenModel URI after doing nothing",
-						wizardConfiguration.firstPage().genModelUri(), bot
+						wizardConfiguration.firstPage().genModelUri(), getBot()
 								.text(4).getText());
 			}
 		}
@@ -144,13 +148,13 @@ public class SprayProjectWizardTestHelper {
 	public void handleModelRoot(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.firstPage().isSelectType()) {
-			SWTBotShell outerShell = bot.activeShell();
-			bot.button(4).click();
-			SWTBotShell shell = bot.activeShell();
-			bot = bot.activeShell().bot();
-			SWTBotText text = bot.text();
+			SWTBotShell outerShell = getBot().activeShell();
+			getBot().button(4).click();
+			SWTBotShell shell = getBot().activeShell();
+			setBot(getBot().activeShell().bot());
+			SWTBotText text = getBot().text();
 			text.setText(wizardConfiguration.firstPage().modelEClassToSelect());
-			final FilteredList list = bot.widget(WidgetOfType
+			final FilteredList list = getBot().widget(WidgetOfType
 					.widgetOfType(FilteredList.class));
 			Display.getDefault().syncExec(new Runnable() {
 
@@ -159,12 +163,12 @@ public class SprayProjectWizardTestHelper {
 					list.setSelection(new int[] { 0 });
 				}
 			});
-			bot.button("OK").click();
-			bot.waitUntil(Conditions.shellCloses(shell));
-			bot.waitUntil(Conditions.shellIsActive(outerShell.getText()));
-			bot = bot.activeShell().bot();
+			getBot().button("OK").click();
+			getBot().waitUntil(Conditions.shellCloses(shell));
+			getBot().waitUntil(Conditions.shellIsActive(outerShell.getText()));
+			setBot(getBot().activeShell().bot());
 			Assert.assertEquals("Expected model root after chosen by type",
-					wizardConfiguration.firstPage().modelEClass(), bot.text(5)
+					wizardConfiguration.firstPage().modelEClass(), getBot().text(5)
 							.getText());
 		} else {
 			setText(5, wizardConfiguration.firstPage().modelEClass());
@@ -177,38 +181,29 @@ public class SprayProjectWizardTestHelper {
 			setText(6, wizardConfiguration.firstPage().fileExtension());
 		} else {
 			Assert.assertEquals("Expected file extension", wizardConfiguration
-					.firstPage().fileExtension(), bot.text(6).getText());
-		}
-	}
-
-	private void setText(int pos, String text, String... defaultText) {
-		if (text != null) {
-			bot.text(pos).setText(text);
-		} else if (defaultText.length == 2) {
-			Assert.assertEquals(defaultText[0], defaultText[1], bot.text(pos)
-					.getText());
+					.firstPage().fileExtension(), getBot().text(6).getText());
 		}
 	}
 
 	public void handleProjectStructure(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.secondPage().isUseProjectDefaultStructure()) {
-			bot.checkBox(0).select();
+			getBot().checkBox(0).select();
 			Assert.assertEquals("Expected model folder", wizardConfiguration
-					.secondPage().defaultModelFolder(), bot.text(0).getText());
+					.secondPage().defaultModelFolder(), getBot().text(0).getText());
 			Assert.assertEquals("Expected src folder", wizardConfiguration
-					.secondPage().defaultSrcFolder(), bot.text(1).getText());
+					.secondPage().defaultSrcFolder(), getBot().text(1).getText());
 			Assert.assertEquals("Expected src-gen folder", wizardConfiguration
-					.secondPage().defaultSrcGenFolder(), bot.text(2).getText());
+					.secondPage().defaultSrcGenFolder(), getBot().text(2).getText());
 			Assert.assertEquals("Expected resource folder", wizardConfiguration
-					.secondPage().defaultResourceFolder(), bot.text(3)
+					.secondPage().defaultResourceFolder(), getBot().text(3)
 					.getText());
 			Assert.assertEquals(
 					"Expected resource-gen folder",
 					wizardConfiguration.secondPage().defaultResourceGenFolder(),
-					bot.text(4).getText());
+					getBot().text(4).getText());
 		} else {
-			bot.checkBox(0).deselect();
+			getBot().checkBox(0).deselect();
 			setText(0, wizardConfiguration.secondPage().modelFolder(),
 					"Expected default model folder", wizardConfiguration
 							.secondPage().defaultModelFolder());
@@ -230,20 +225,20 @@ public class SprayProjectWizardTestHelper {
 	public void handlePackageNames(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.secondPage().isUseDefaultNaming()) {
-			bot.checkBox(1).select();
+			getBot().checkBox(1).select();
 			Assert.assertEquals("Expected base package", wizardConfiguration
-					.secondPage().defaultBasePackage(), bot.text(5).getText());
+					.secondPage().defaultBasePackage(), getBot().text(5).getText());
 			Assert.assertEquals("Expected diagram package", wizardConfiguration
-					.secondPage().defaultDiagramPackage(), bot.text(6)
+					.secondPage().defaultDiagramPackage(), getBot().text(6)
 					.getText());
 			Assert.assertEquals("Expected feature package", wizardConfiguration
-					.secondPage().defaultFeaturePackage(), bot.text(7)
+					.secondPage().defaultFeaturePackage(), getBot().text(7)
 					.getText());
 			Assert.assertEquals("Expected property package",
 					wizardConfiguration.secondPage().defaultPropertyPackage(),
-					bot.text(8).getText());
+					getBot().text(8).getText());
 		} else {
-			bot.checkBox(1).deselect();
+			getBot().checkBox(1).deselect();
 			setText(5, wizardConfiguration.secondPage().basePackage(),
 					"Expected default base package", wizardConfiguration
 							.secondPage().defaultBasePackage());
@@ -262,9 +257,31 @@ public class SprayProjectWizardTestHelper {
 	public void handleTimestamp(
 			SprayProjectWizardConfiguration wizardConfiguration) {
 		if (wizardConfiguration.secondPage().isGenerateTimestamp()) {
-			bot.checkBox(2).select();
+			getBot().checkBox(2).select();
 		} else {
-			bot.checkBox(2).deselect();
+			getBot().checkBox(2).deselect();
 		}
+	}
+
+	private void handleBinCase(
+			SprayProjectWizardConfiguration wizardConfiguration) {
+		SWTBotText ePackageText = getBot().text(3);
+		String ePackageStr = ePackageText.getText();
+		ePackageStr = replaceBin(ePackageText);
+		getBot().text(3).setText(ePackageStr);
+		if(ePackageStr.endsWith(".ecore")) {
+			wizardConfiguration.firstPage().setModelUri(ePackageStr);
+		}
+		SWTBotText genModelText = getBot().text(4);
+		String genModelStr = replaceBin(genModelText);
+		getBot().text(4).setText(genModelStr);
+	}
+
+	private String replaceBin(SWTBotText text) {
+		String string = text.getText();
+		if(string != null && string.contains("/bin/")) {
+			string = string.replaceAll("/bin/", "/src-gen/");
+		}
+		return string;
 	}
 }
