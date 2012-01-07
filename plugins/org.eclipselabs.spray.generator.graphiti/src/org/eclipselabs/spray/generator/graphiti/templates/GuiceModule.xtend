@@ -1,22 +1,21 @@
 package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
 
-class GuiceModule extends FileGenerator {
+class GuiceModule extends FileGenerator<Diagram> {
     @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as Diagram, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(Diagram modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as Diagram, javaGenFile.className)
+    override CharSequence generateExtensionFile(Diagram modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
 
     def mainExtensionPointFile(Diagram diagram, String className) '''

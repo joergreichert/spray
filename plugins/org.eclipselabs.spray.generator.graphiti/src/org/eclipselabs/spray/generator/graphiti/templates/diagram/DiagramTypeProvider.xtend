@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
@@ -10,15 +9,15 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class DiagramTypeProvider extends FileGenerator {
+class DiagramTypeProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as Diagram, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(Diagram modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as Diagram, javaGenFile.className)
+    override CharSequence generateExtensionFile(Diagram modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
 
     def mainFile(Diagram diagram, String className) '''

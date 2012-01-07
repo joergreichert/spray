@@ -2,14 +2,13 @@ package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class Filter extends FileGenerator {
+class Filter extends FileGenerator<EClass> {
     @Inject extension NamingExtensions
     
     Diagram diagram
@@ -18,12 +17,12 @@ class Filter extends FileGenerator {
         diagram = d
     }
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as EClass, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(EClass modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as EClass, javaGenFile.className)
+    override CharSequence generateExtensionFile(EClass modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(EClass eClass, String className) '''    

@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
@@ -12,16 +11,16 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
-class AddConnectionFeature extends FileGenerator {
+class AddConnectionFeature extends FileGenerator<MetaClass> {
     @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as MetaClass, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(MetaClass modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as MetaClass, javaGenFile.className)
+    override CharSequence generateExtensionFile(MetaClass modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(MetaClass metaClass, String className) '''    

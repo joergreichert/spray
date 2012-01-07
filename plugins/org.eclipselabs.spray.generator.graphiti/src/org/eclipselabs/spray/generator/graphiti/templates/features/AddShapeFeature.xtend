@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.graphiti.util.IColorConstant
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
@@ -19,18 +18,18 @@ import org.eclipselabs.spray.mm.spray.Text
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class AddShapeFeature extends FileGenerator  {
+class AddShapeFeature extends FileGenerator<Container>  {
     @Inject extension LayoutExtensions
     @Inject extension IQualifiedNameProvider
     @Inject extension NamingExtensions
     @Inject extension SprayElementNameProvider
     @Inject extension DiagramExtensions
     
-    override CharSequence generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(Container modelElement) {
         mainFile( modelElement as Container, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
+    override CharSequence generateExtensionFile(Container modelElement) {
         mainExtensionPointFile( modelElement as Container, javaGenFile.className)
     }
     

@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
@@ -12,7 +11,7 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class CreateReferenceAsListFeature extends FileGenerator  {
+class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
     @Inject extension NamingExtensions
     @Inject extension MetaReferenceExtensions
     
@@ -22,12 +21,12 @@ class CreateReferenceAsListFeature extends FileGenerator  {
         target = m
     }
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as MetaReference, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(MetaReference modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as MetaReference, javaGenFile.className)
+    override CharSequence generateExtensionFile(MetaReference modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(MetaReference metaReference, String className) '''    

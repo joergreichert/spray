@@ -304,24 +304,31 @@ class SprayGraphitiGenerator implements IGenerator {
 	def generateUpdateAndLayoutFeatures(Diagram diagram, JavaGenFile java, UpdateShapeFeature usf, UpdateConnectionFeature ucf, UpdateReferenceAsListFeature uralf, LayoutFeature lf) {
 		for( metaClass : diagram.metaClasses ) {
 			if( metaClass.representedBy instanceof Connection ) {
-				//    No layout feature needed 
-				generateUpdateShapeFeature(metaClass, java, usf)
+				//    No layout feature needed
+				val connection = metaClass.representedBy as Connection
+				generateUpdateConnectionFeature(metaClass, connection, java, ucf)
 			} else if( metaClass.representedBy instanceof Container ) {
-				generateLayoutFeature(metaClass, java, lf)
-				generateUpdateShapeFeature(metaClass, java, usf)
+				val container = metaClass.representedBy as Container
+				generateLayoutFeature(metaClass, container, java, lf)
+				generateUpdateShapeFeature(metaClass, container, java, usf)
 				generateUpdateReferenceAsListFeature(metaClass, java, uralf)
 			}
 		}	
 	}
-	
-	def generateUpdateShapeFeature(MetaClass metaClass, JavaGenFile java, UpdateShapeFeature usf) {
+
+	def generateUpdateShapeFeature(MetaClass metaClass, Container container, JavaGenFile java, UpdateShapeFeature usf) {
 		java.setPackageAndClass(metaClass.updateFeatureClassName)
-		usf.generate(metaClass.representedBy, java)
+		usf.generate(container, java)
 	}
 	
-	def generateLayoutFeature(MetaClass metaClass, JavaGenFile java, LayoutFeature lf) {
+	def generateUpdateConnectionFeature(MetaClass metaClass, Connection connection, JavaGenFile java, UpdateConnectionFeature ucf) {
+		java.setPackageAndClass(metaClass.updateFeatureClassName)
+		ucf.generate(connection, java)
+	}
+	
+	def generateLayoutFeature(MetaClass metaClass, Container container, JavaGenFile java, LayoutFeature lf) {
 		java.setPackageAndClass(metaClass.layoutFeatureClassName)
-		lf.generate(metaClass.representedBy, java)
+		lf.generate(container, java)
 	}
 
 	def generateUpdateReferenceAsListFeature(MetaClass metaClass, JavaGenFile java, UpdateReferenceAsListFeature uralf) {

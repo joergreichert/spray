@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
@@ -18,15 +17,15 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
-class ToolBehaviorProvider extends FileGenerator {
+class ToolBehaviorProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as Diagram, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(Diagram modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as Diagram, javaGenFile.className)
+    override CharSequence generateExtensionFile(Diagram modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(Diagram diagram, String className) '''

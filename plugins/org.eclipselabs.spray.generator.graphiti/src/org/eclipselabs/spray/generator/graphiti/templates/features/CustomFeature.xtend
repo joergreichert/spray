@@ -1,20 +1,19 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class CustomFeature extends FileGenerator  {
+class CustomFeature extends FileGenerator<CustomBehavior>  {
     
-    override CharSequence generateBaseFile(EObject modelElement) {
+    override CharSequence generateBaseFile(CustomBehavior modelElement) {
         mainFile( modelElement as CustomBehavior, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as CustomBehavior, javaGenFile.className)
+    override CharSequence generateExtensionFile(CustomBehavior modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(CustomBehavior metaClass, String className) '''    

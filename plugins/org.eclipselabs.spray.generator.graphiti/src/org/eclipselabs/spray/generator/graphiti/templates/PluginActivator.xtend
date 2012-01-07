@@ -9,12 +9,12 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class PluginActivator extends FileGenerator  {
+class PluginActivator extends FileGenerator<Diagram>  {
     @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as Diagram, javaGenFile.className)
+    override CharSequence generateBaseFile(Diagram modelElement) {
+        mainFile( modelElement, javaGenFile.className)
     }
     
     def mainFile(Diagram diagram, String className) '''

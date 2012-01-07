@@ -3,7 +3,6 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EEnum
-import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
@@ -11,7 +10,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
-class PropertySection extends FileGenerator  {
+class PropertySection extends FileGenerator<EAttribute>  {
     @Inject extension NamingExtensions
     
     Diagram diagram
@@ -20,12 +19,12 @@ class PropertySection extends FileGenerator  {
         diagram = d
     }
     
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as EAttribute, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(EAttribute modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as EAttribute, javaGenFile.className)
+    override CharSequence generateExtensionFile(EAttribute modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(EAttribute eAttribute, String className) '''    

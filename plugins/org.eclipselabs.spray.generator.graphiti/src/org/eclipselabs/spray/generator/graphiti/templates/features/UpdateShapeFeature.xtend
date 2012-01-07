@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
@@ -14,17 +13,17 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 /*
  * Template for generating Graphiti Update feature for a Container representing a MetaClass
  */
-class UpdateShapeFeature extends FileGenerator  {
+class UpdateShapeFeature extends FileGenerator<Container>  {
     @Inject extension NamingExtensions
     @Inject extension IQualifiedNameProvider
     @Inject extension DiagramExtensions
 
-    override CharSequence generateBaseFile(EObject modelElement) {
-        mainFile( modelElement as Container, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(Container modelElement) {
+        mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(EObject modelElement) {
-        mainExtensionPointFile( modelElement as Container, javaGenFile.className)
+    override CharSequence generateExtensionFile(Container modelElement) {
+        	mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(Container container, String className) '''

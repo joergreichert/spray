@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.util.ImportUtil
 
-class FileGenerator extends TemplateUtil {
+class FileGenerator<T extends EObject> extends TemplateUtil {
     @Inject ImportUtil importUtil
     extension GenFile genFile
     extension JavaGenFile javaGenFile
@@ -13,13 +13,13 @@ class FileGenerator extends TemplateUtil {
         return javaGenFile
     }
     
-    def CharSequence generateBaseFile(EObject modelElement) {
+    def CharSequence generateBaseFile(T modelElement) {
     }
 
-    def CharSequence generateExtensionFile(EObject modelElement) {
+    def CharSequence generateExtensionFile(T modelElement) {
     }
         
-    def generate(EObject modelElement, GenFile genFile) {
+    def generate(T modelElement, GenFile genFile) {
         this.genFile = genFile
         
         if( genFile instanceof JavaGenFile){
