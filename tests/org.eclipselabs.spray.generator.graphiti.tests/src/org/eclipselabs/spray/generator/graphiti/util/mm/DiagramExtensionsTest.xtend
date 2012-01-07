@@ -10,10 +10,9 @@ import org.eclipse.xtext.junit4.InjectWith
 import org.junit.runner.RunWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
-import com.google.inject.Provider
-import org.eclipse.xtext.resource.XtextResourceSet
-import org.eclipse.emf.mwe.utils.StandaloneSetup
-import org.eclipse.emf.ecore.EPackage
+import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.CreateConnectionFeature
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(SprayTestsInjectorProvider))
@@ -21,7 +20,10 @@ class DiagramExtensionsTest {
     @Inject
     DiagramExtensions diagramExtensions
     @Inject
-    Provider<XtextResourceSet> resourceSetProvider
+   	CreateConnectionFeature createConnectionFeatureTemplate
+    @Inject
+   	CreateShapeFeature createShapeFeatureTemplate
+    
 
     // ============================================================================================
     // TESTS FOR METHOD getDiagram()
@@ -66,15 +68,92 @@ class DiagramExtensionsTest {
     	val foundDiagram = diagramExtensions.getDiagram(element)
     	assertEquals(foundDiagram, expectedDiagram)
     }
-
-
-    // ============================================================================================
-    // TESTS FOR METHOD getElementsForTemplate(Diagram, CreateShapeFeature)
-    // ============================================================================================
+    
     @Test
-    def test_getElementsForTemplate_CreateShapeFeature__FoundExpected () {
-        val rs = resourceSetProvider.get
-        val setup = new StandaloneSetup()
-        
+    def testGetMetaClassesForShapes() {
+    	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
+		val connection = SprayFactory::eINSTANCE.createConnection
+		metaClass1.representedBy = connection 
+		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
+		val container = SprayFactory::eINSTANCE.createContainer
+		metaClass2.representedBy = container 
+		diagram.metaClassesList.add(metaClass1)
+		diagram.metaClassesList.add(metaClass2)
+    	val Iterable<MetaClass> foundClasses = diagramExtensions.getMetaClassesForShapes(diagram)
+    	assertEquals("expected metaClass count", 1, foundClasses.size)
+    	assertEquals("expected metaClass", metaClass2, foundClasses.head)
+    }
+    
+    @Test
+    def testGetMetaClassesForConnections() {
+    	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
+		val connection = SprayFactory::eINSTANCE.createConnection
+		metaClass1.representedBy = connection 
+		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
+		val container = SprayFactory::eINSTANCE.createContainer
+		metaClass2.representedBy = container 
+		diagram.metaClassesList.add(metaClass1)
+		diagram.metaClassesList.add(metaClass2)
+    	val Iterable<MetaClass> foundClasses = diagramExtensions.getMetaClassesForConnections(diagram)
+    	assertEquals("expected metaClass count", 1, foundClasses.size)
+    	assertEquals("expected metaClass", metaClass1, foundClasses.head)
+    }
+    
+    @Test
+    def testGetElementsForTemplateCreateShapeFeature() {
+    	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
+		val connection = SprayFactory::eINSTANCE.createConnection
+		metaClass1.representedBy = connection 
+		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
+		val container = SprayFactory::eINSTANCE.createContainer
+		metaClass2.representedBy = container 
+		val metaClass3 = SprayFactory::eINSTANCE.createMetaClass
+		val container2 = SprayFactory::eINSTANCE.createContainer
+		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
+		metaClass3.representedBy = container2
+		metaClass3.behaviorsList.add(createBehavior)
+		val metaClass4 = SprayFactory::eINSTANCE.createMetaClass
+		val container3 = SprayFactory::eINSTANCE.createConnection
+		val customBehavior = SprayFactory::eINSTANCE.createCustomBehavior
+		metaClass4.representedBy = container3
+		metaClass4.behaviorsList.add(customBehavior)
+		diagram.metaClassesList.add(metaClass1)
+		diagram.metaClassesList.add(metaClass2)
+		diagram.metaClassesList.add(metaClass3)
+		diagram.metaClassesList.add(metaClass4)
+    	val Iterable<MetaClass> foundClasses = diagramExtensions.getElementsForTemplate(diagram, createShapeFeatureTemplate)
+    	assertEquals("expected metaClass count", 1, foundClasses.size)
+    	assertEquals("expected metaClass", metaClass3, foundClasses.head)
+    }
+    
+    @Test
+    def testGetElementsForTemplateCreateConnectionFeature() {
+    	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
+		val connection = SprayFactory::eINSTANCE.createConnection
+		metaClass1.representedBy = connection 
+		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
+		val container = SprayFactory::eINSTANCE.createContainer
+		metaClass2.representedBy = container 
+		val metaClass3 = SprayFactory::eINSTANCE.createMetaClass
+		val connection2 = SprayFactory::eINSTANCE.createConnection
+		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
+		metaClass3.representedBy = connection2
+		metaClass3.behaviorsList.add(createBehavior)
+		val metaClass4 = SprayFactory::eINSTANCE.createMetaClass
+		val connection3 = SprayFactory::eINSTANCE.createConnection
+		val customBehavior = SprayFactory::eINSTANCE.createCustomBehavior
+		metaClass4.representedBy = connection3
+		metaClass4.behaviorsList.add(customBehavior)
+		diagram.metaClassesList.add(metaClass1)
+		diagram.metaClassesList.add(metaClass2)
+		diagram.metaClassesList.add(metaClass3)
+		diagram.metaClassesList.add(metaClass4)
+    	val Iterable<MetaClass> foundClasses = diagramExtensions.getElementsForTemplate(diagram, createConnectionFeatureTemplate)
+    	assertEquals("expected metaClass count", 1, foundClasses.size)
+    	assertEquals("expected metaClass", metaClass3, foundClasses.head)
     }
 }
