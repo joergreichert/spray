@@ -9,6 +9,7 @@ import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.Text
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import com.google.common.collect.Lists
 
 /*
  * Template for generating Graphiti Update feature for a Container representing a MetaClass
@@ -137,7 +138,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
         
         def generate_valueMapping (Container container) '''
             Map<String, String> values = null; 
-            protected Map<String, String> getValues(«container.represents.name» eClass) {
+            protected Map<String, String> getValues(«container?.represents?.name» eClass) {
                 if (values == null) {
                     values = new HashMap<String, String>();
                     fillValues(eClass);
@@ -145,9 +146,9 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
                 return values;
             }
 
-            protected void fillValues(«container.represents.name» eClass) {
+            protected void fillValues(«container?.represents?.name» eClass) {
                 String type, value;
-            «FOR part :  container.parts »
+            «FOR part : if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
                 «IF part instanceof Text»
                     «var text = part as Text»
                 type = "«text.fullyQualifiedName»";
@@ -157,8 +158,8 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             «ENDFOR»            
             }
             
-            protected String getValue (String type, «container.represents.name» eClass) {
-            «FOR part :  container.parts »
+            protected String getValue (String type, «container?.represents?.name» eClass) {
+            «FOR part :  if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
                 «IF part instanceof Text»
                     «var text = part as Text»
                     if ("«text.fullyQualifiedName»".equals(type)) {
