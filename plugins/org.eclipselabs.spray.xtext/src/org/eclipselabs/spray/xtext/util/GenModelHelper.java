@@ -28,6 +28,9 @@ public class GenModelHelper {
     private ResourceSet            resourceSet;
 
     public String getJavaInterfaceName(EClass eClass) {
+        if (eClass == null) {
+            return null;
+        }
         GenClass genClass = getGenClass(eClass);
         return genClass != null ? genClass.getQualifiedInterfaceName() : null;
     }
@@ -113,8 +116,14 @@ public class GenModelHelper {
     }
 
     public GenModel getGenModel(EClassifier eClassifier) {
+        if (eClassifier == null) {
+            throw new IllegalStateException("Cannot determine interface name for EClass, since the EClass is null");
+        }
         if (eClassifier.eIsProxy()) {
             throw new IllegalStateException("Cannot determine interface name for EClass, since the EClass is an unresolved proxy (" + EcoreUtil.getURI(eClassifier) + ")");
+        }
+        if (eClassifier.getEPackage() == null) {
+            throw new IllegalStateException("EPackage of EClass '" + eClassifier + "' is null.");
         }
         URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(eClassifier.getEPackage().getNsURI());
         if (genModelUri == null) {

@@ -12,6 +12,10 @@ class FileGenerator<T extends EObject> extends TemplateUtil {
     def getJavaGenFile() {
         return javaGenFile
     }
+
+    def getImportUtil() {
+        return importUtil
+    }
     
     def CharSequence generateBaseFile(T modelElement) {
     }
