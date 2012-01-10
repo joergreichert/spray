@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import java.util.Date
 import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl
@@ -13,8 +12,16 @@ import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
+import org.junit.After
 import org.junit.runner.RunWith
-
+import java.io.File
+import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
+import org.eclipse.emf.ecore.plugin.EcorePlugin
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner2))
@@ -749,8 +756,10 @@ class UpdateShapeFeatureTest {
 		«expectedEmptyOutputMainFileEnd()»
 	'''
 	
+	@Inject
+    private ResourceSet resourceSet
+	
 	@Test
-	@org.junit.Ignore
 	def testMainFile__WhenContainerHasMetaClassName() {
 		val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
 		diagram.name = "SampleDiagram"
@@ -758,10 +767,30 @@ class UpdateShapeFeatureTest {
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = "SampleEClass"
 		val ePackage = EcoreFactory::eINSTANCE.createEPackage
-		ePackage.nsURI = "file://test"
+		ePackage.name = "samplepackage"
+		ePackage.nsURI = "test.xmi"
+		val URI genModelUri = URI::createURI("gentest.genmodel")
+		EcorePlugin::getEPackageNsURIToGenModelLocationMap().put(ePackage.nsURI, genModelUri)
+		val GenModel genModel = GenModelFactory::eINSTANCE.createGenModel()
 		ePackage.getEClassifiers().add(eClass)
 		metaClass.type = eClass 
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val GenClass genClass = GenModelFactory::eINSTANCE.createGenClass()
+		genClass.ecoreClass = eClass
+		val GenPackage genPackage = GenModelFactory::eINSTANCE.createGenPackage()
+		genPackage.genClasses.add(genClass)
+		genPackage.ecorePackage = ePackage
+		genModel.genPackages.add(genPackage)		
+		Helper::registerXmiModel(resourceSet)
+		val Resource res = resourceSet.createResource(URI::createURI(ePackage.nsURI));
+		assertNotNull("EMF resource expected to be not null", res)
+		res.contents.add(ePackage)
+		res.save(null)
+		Helper::registerGenModel(resourceSet)
+		val Resource genRes = resourceSet.createResource(genModelUri);
+		assertNotNull("Gen model resource expected to be not null", genRes)
+		genRes.contents.add(genModel)
+		genRes.save(null)
+		val Container container = SprayFactory::eINSTANCE.createContainer()
 		metaClass.representedBy = container // have to be contained
 		diagram.metaClassesList.add(metaClass)
 		val String className = null
@@ -769,6 +798,14 @@ class UpdateShapeFeatureTest {
 		sut.importUtil.initImports("features")
 		val output = sut.mainFile(container, className)
     	assertEquals("expected output", expectedOutput.toString, output.toString);
+	}
+	
+	@After
+	def void tearDown() {
+		val file = new java.io.File("test.xmi");
+		if(file.exists) file.delete()
+		val genFile = new java.io.File("gentest.genmodel");
+		if(genFile.exists) genFile.delete()
 	}
 	
 	def expectedOutputMainFileWheContainerHasMetaClassName() '''
@@ -799,7 +836,7 @@ class UpdateShapeFeatureTest {
 		import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 		import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
 		import org.eclipselabs.spray.runtime.containers.SprayContainerService;
-		import ;
+		import samplepackage.SampleEClass;
 		// MARKER_IMPORT
 
 		public class  extends AbstractUpdateFeature {
@@ -808,6 +845,78 @@ class UpdateShapeFeatureTest {
 		        gaService = Activator.get(IGaService.class);
 		    }
 		 
-		«expectedEmptyOutputMainFileEnd()»
-	''' 	 	
+		    /**
+		     * {@inheritDoc}
+		     */
+		    @Override
+		    public boolean canUpdate(IUpdateContext context) {
+		        // return true, if linked business object is a EClass
+		        EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
+		        PictogramElement pictogramElement = context.getPictogramElement();
+		        return (bo instanceof SampleEClass)&& (!(pictogramElement instanceof Diagram));
+		    }
+		    /**
+		     * {@inheritDoc}
+		     */
+		    @Override
+		    public IReason updateNeeded(IUpdateContext context) {
+		        PictogramElement pictogramElement = context.getPictogramElement();
+		        EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+		        if ( ! (bo instanceof SampleEClass)) {
+		            return Reason.createFalseReason(); 
+		        }
+		           SampleEClass eClass = (SampleEClass) bo;
+		    
+		        // retrieve name from pictogram model
+		        if (pictogramElement instanceof ContainerShape) {
+		            ContainerShape cs = (ContainerShape) pictogramElement;
+		            ContainerShape textBox = SprayContainerService.findTextShape(cs);
+		            for (Shape shape : textBox.getChildren()) {
+		                if (shape.getGraphicsAlgorithm() instanceof Text) {
+		                    Text text = (Text) shape.getGraphicsAlgorithm();
+		                    String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
+		                    String value = getValues(eClass).get(type);
+		                    if( value != null){
+		                           String pictogramName = text.getValue();
+		    
+		                         // update needed, if names are different
+		                        boolean updateNameNeeded =((pictogramName == null && value != null) || (pictogramName != null && !pictogramName.equals(value)));
+		                        if (updateNameNeeded) {
+		                            return Reason.createTrueReason("Name [" + pictogramName + "] is out of date");
+		                        }
+		                    }
+		                }
+		            }
+		        }
+		        return Reason.createFalseReason();
+		     }
+		    /**
+		     * {@inheritDoc}
+		     */
+		    @Override
+		    public boolean update(IUpdateContext context) {
+		        PictogramElement pictogramElement = context.getPictogramElement();
+		        EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+		          SampleEClass eClass = (SampleEClass) bo;
+		        return SprayContainerService.update(pictogramElement, getValues(eClass));
+		        
+		    }
+		    Map<String, String> values = null; 
+		    protected Map<String, String> getValues(SampleEClass eClass) {
+		        if (values == null) {
+		            values = new HashMap<String, String>();
+		            fillValues(eClass);
+		        }
+		        return values;
+		    }
+		    
+		    protected void fillValues(SampleEClass eClass) {
+		        String type, value;
+		    }
+		    
+		    protected String getValue (String type, SampleEClass eClass) {
+		        throw new IllegalArgumentException(type);
+		    }
+		}
+	'''
 }
