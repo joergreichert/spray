@@ -10,6 +10,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipselabs.spray.mm.spray.MetaClass;
+import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.Shape;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 
@@ -36,11 +37,23 @@ public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
     public QualifiedName qualifiedName(Shape element) {
         EObject parentObject = element.eContainer();
         QualifiedName parent = getFullyQualifiedName(parentObject);
+        EObject grandParentObject = null;
         while (parent == null && parentObject != null) {
-            parentObject = parentObject.eContainer();
-            parent = parentObject != null ? getFullyQualifiedName(parentObject) : null;
+            grandParentObject = parentObject.eContainer();
+            parent = grandParentObject != null ? getFullyQualifiedName(grandParentObject) : null;
         }
-        String name = element.getAlias() != null ? element.getAlias() : element.eClass().getName() + element.eContainer().eContents().indexOf(element);
+        String name = element.getAlias() != null ? element.getAlias() : calculateNameByPositionInParentChildren(element);
         return parent.append(name);
+    }
+
+    private String calculateNameByPositionInParentChildren(EObject element) {
+        String parentName = "";
+        if (element.eContainer() instanceof MetaReference) {
+            parentName = calculateNameByPositionInParentChildren(element.eContainer());
+            if (parentName == null) {
+                parentName = "";
+            }
+        }
+        return parentName + element.eClass().getName() + element.eContainer().eContents().indexOf(element);
     }
 }
