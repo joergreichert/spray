@@ -62,14 +62,14 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «util_package()».SprayContainerService;
-        import «container.represents.javaInterfaceName»;
+        import «container?.represents?.javaInterfaceName»;
         // MARKER_IMPORT
         
         public class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(container)»
             public «className»(IFeatureProvider fp) {
                 super(fp);
-                gaService = «container.diagram.activatorClassName.shortName».get(IGaService.class);
+                gaService = «container?.diagram?.activatorClassName?.shortName».get(IGaService.class);
             }
          
             «generate_canUpdate(container)»
@@ -86,7 +86,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
                 // return true, if linked business object is a EClass
                 EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
                 PictogramElement pictogramElement = context.getPictogramElement();
-                return (bo instanceof «container.represents.name»)&& (!(pictogramElement instanceof Diagram));
+                return (bo instanceof «container?.represents?.name»)&& (!(pictogramElement instanceof Diagram));
             }
         '''
         
@@ -95,10 +95,10 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             public IReason updateNeeded(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
                 EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof «container.represents.name»)) {
+                if ( ! (bo instanceof «container?.represents?.name»)) {
                     return Reason.createFalseReason(); 
                 }
-                   «container.represents.name» eClass = («container.represents.name») bo;
+                   «container?.represents?.name» eClass = («container?.represents?.name») bo;
 
                 // retrieve name from pictogram model
                 if (pictogramElement instanceof ContainerShape) {
@@ -130,7 +130,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             public boolean update(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
                 EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                  «container.represents.name» eClass = («container.represents.name») bo;
+                  «container?.represents?.name» eClass = («container?.represents?.name») bo;
                 return SprayContainerService.update(pictogramElement, getValues(eClass));
                 
             }
