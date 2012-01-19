@@ -70,7 +70,7 @@ class StyleGenerator implements IGenerator {
 		 * Description: «s.description»
 		 */
 		@SuppressWarnings("all")
-		public class «s.className» extends «s.createSuperStyle» implements ISprayStyle {
+		public class «s.className» extends «s.createSuperStyle» {
 		    
 		    /**
 			 * This method creates a Style and returns the defined style.
@@ -142,6 +142,7 @@ class StyleGenerator implements IGenerator {
         «IF l == null || l.background == null»
         «ELSEIF l.background instanceof Transparent»
         style.setFilled(false);
+        style.setBackground(null);
         «ELSE»
         style.setFilled(true);
         style.setBackground(gaService.manageColor(diagram, «l.background.createColorValue»));
@@ -155,6 +156,7 @@ class StyleGenerator implements IGenerator {
         «IF l == null || l.lineColor == null»
         «ELSEIF l.lineColor instanceof Transparent»
         style.setLineVisible(false);
+        style.setForeground(null);
         «ELSE»
 		style.setLineVisible(true);
 		style.setForeground(gaService.manageColor(diagram, «l.lineColor.createColorValue»));

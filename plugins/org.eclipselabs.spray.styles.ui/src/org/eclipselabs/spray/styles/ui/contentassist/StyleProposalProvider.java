@@ -22,6 +22,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.styles.ISprayStyle;
 import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.styles.StyleLayout;
 import org.eclipselabs.spray.styles.styles.StylesPackage;
 
 import com.google.inject.Inject;
@@ -39,6 +40,10 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
 	@Inject
 	IJvmTypeProvider.Factory typeProviderFactory;
 
+	/**
+	 * Completes the JvmTypeReference, that matchs just on public, instanceable subtypes
+	 * of the interface ISprayStyle.
+	 */
 	@Override
 	public void complete_JvmTypeReference(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(model.eResource().getResourceSet());
@@ -73,57 +78,29 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
 		super.complete_RGBColor(model, ruleCall, context, acceptor);
 	}
 
-//	/**
-//	 * Completes the whole Font selection of the font by using the SWT
-//	 * FontDialog. The user will be able to select the font-name, font-size,
-//	 * font-color and font-style. This attributes will be generated in the DSL
-//	 * after clicking "OK"
-//	 */
-//	@Override
-//	public void complete_Font(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-//		ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal("Pick font...", context);
-//		if (pickFont != null) {
-//			pickFont.setTextApplier(new ReplacementTextApplier() {
-//				@Override
-//				public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
-//					Display display = context.getViewer().getTextWidget().getDisplay();
-//					FontDialog fontDialog = new FontDialog(display.getActiveShell());
-//					FontData newFont = fontDialog.open();
-//					StringBuilder sb = new StringBuilder();
-//					sb.append("font-name" + "=" + "\"" + newFont.getName() + "\"\n");
-//					sb.append("\tfont-size" + "=" + newFont.getHeight() + "\n");
-//					sb.append("\tfont-color" + "= RGB(" + fontDialog.getRGB().red + "," + fontDialog.getRGB().green + "," + fontDialog.getRGB().blue + ")\n");
-//					sb.append("\tfont-style" + "=" + getStyle(newFont.getStyle()) + "\n");
-//					return sb.toString();
-//				}
-//			});
-//			pickFont.setPriority(600);
-//			acceptor.accept(pickFont);
-//		}
-//		super.complete_Font(model, ruleCall, context, acceptor);
-//	}
-
 	/**
 	 * Completes the User Selection for the Font Name with the usage of the SWT
 	 * FontDialog. The values for color, style and size will be ignored.
 	 */
 	@Override
-	public void complete_StyleLayout(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal("Pick font name...", context);
-		if (pickFont != null) {
-			pickFont.setTextApplier(new ReplacementTextApplier() {
-				@Override
-				public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
-					Display display = context.getViewer().getTextWidget().getDisplay();
-					FontDialog fontDialog = new FontDialog(display.getActiveShell());
-					FontData newFont = fontDialog.open();
-					return newFont.getName();
-				}
-			});
-			pickFont.setPriority(600);
-			acceptor.accept(pickFont);
+	public void complete_STRING(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		if (model instanceof StyleLayout) {
+			ConfigurableCompletionProposal pickFont = (ConfigurableCompletionProposal) createCompletionProposal("Pick font name...", context);
+			if (pickFont != null) {
+				pickFont.setTextApplier(new ReplacementTextApplier() {
+					@Override
+					public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
+						Display display = context.getViewer().getTextWidget().getDisplay();
+						FontDialog fontDialog = new FontDialog(display.getActiveShell());
+						FontData newFont = fontDialog.open();
+						return "\"" + newFont.getName() + "\"";
+					}
+				});
+				pickFont.setPriority(600);
+				acceptor.accept(pickFont);
+			}
 		}
-		super.complete_StyleLayout(model, ruleCall, context, acceptor);
+		super.complete_STRING(model, ruleCall, context, acceptor);
 	}
 
 	/**

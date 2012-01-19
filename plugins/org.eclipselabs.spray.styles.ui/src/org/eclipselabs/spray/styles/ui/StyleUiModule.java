@@ -4,6 +4,13 @@
 package org.eclipselabs.spray.styles.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.styles.ui.syntaxcoloring.StyleHighlightingConfiguration;
+import org.eclipselabs.spray.styles.ui.syntaxcoloring.StyleTokenToAttributeIdMapper;
+
+import com.google.inject.Binder;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -12,4 +19,19 @@ public class StyleUiModule extends org.eclipselabs.spray.styles.ui.AbstractStyle
 	public StyleUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
+	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
+		return StyleTokenToAttributeIdMapper.class;
+	}
+
+	@Override
+	public void configure(Binder binder) {
+		super.configure(binder);
+		binder.bind(TokenTypeToStringMapper.class).to(StyleTokenToAttributeIdMapper.class);
+	}
+
+	public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
+		return StyleHighlightingConfiguration.class;
+	}
+
 }

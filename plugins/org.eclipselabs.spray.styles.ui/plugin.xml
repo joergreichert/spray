@@ -49,15 +49,12 @@
     </extension>
     <extension
             point="org.eclipse.ui.preferencePages">
-        <!-- SPRAY BEGIN --><!-- adding category -->
         <page
-            category="org.eclipselabs.spray.xtext.Spray.root"
             class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
             id="org.eclipselabs.spray.styles.Style"
-            name="Style Language">
+            name="Style">
             <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
         </page>
-        <!-- SPRAY END -->
         <page
             category="org.eclipselabs.spray.styles.Style"
             class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
