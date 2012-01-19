@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Ellipse" deleted="false" description="insert a default ellipse" enabled="true" name="ellipseDefault">ellipse {
+	position(x=0,y=0)
+	size(width=0,height=0)
+}</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Line" deleted="false" description="insert a default line with 2 empty points" enabled="true" name="lineDefault">line {
+	point(x=0,y=0) 
+	point(x=0,y=0)
+}</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Point" deleted="false" description="insert a default point" enabled="true" name="pointDefault">point(x=0,y=0)</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Polygon" deleted="false" description="insert a polygon" enabled="true" name="polygonDefault">polygon  {
+	point(x=0,y=0)
+	point(x=0,y=0)
+	point(x=0,y=0)
+}</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Polyline" deleted="false" description="insert a default polyline" enabled="true" name="polylineDefault">polyline {
+	point(x=0,y=0)
+	point(x=0,y=0)
+	point(x=0,y=0)
+}
+</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Rectangle" deleted="false" description="insert a default rectangle" enabled="true" name="rectangleDefault">rectangle {
+	position(x=0,y=0)
+	size(width=0,height=0)
+}</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.RoundedRectangle" deleted="false" description="insert a default rounded rectancle " enabled="true" name="roundedRectangleDefault">rounded-rectangle {
+	size(width=0,height=0)
+	position(x=0,y=0)
+	curve(width=0,height=0)
+}</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.ShapeDefinition" deleted="false" description="insert a default shape without elements" enabled="true" name="shapeDefault">shape ${name} {
+	size-min(width=0, height=0)	
+	size-max(width=0, height=0)
+	stretching(horizontal=false, vertical=false)
+	proportional=false
+}
+</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.ShapeDefinition" deleted="false" description="insert a default shape without element and style" enabled="true" name="shapeDefaultStyle">shape ${name} style ${stylename} {
+	size-min(width=0, height=0)	
+	size-max(width=0, height=0)
+	stretching(horizontal=false, vertical=false)
+	proportional=false
+}</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.ShapestyleLayout" deleted="false" description="insert a specific style to a shape" enabled="true" name="shapestyle">style( 
+    transparency = 0.0
+    background-color = white
+    line-color = black
+    line-style = solid
+    line-width = 1
+    font-color = black
+    font-name = "Arial"
+    font-size = 8
+    font-bold = no
+    font-italic = no
+)</template><template autoinsert="true" context="org.eclipselabs.spray.shapes.Shape.Text" deleted="false" description="insert a default text value" enabled="true" name="textDefault">text { 
+	align(horizontal=center, vertical=middle)
+	"textValue"
+}</template></templates>

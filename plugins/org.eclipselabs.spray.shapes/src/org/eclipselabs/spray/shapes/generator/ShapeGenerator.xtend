@@ -4,191 +4,26 @@
 package org.eclipselabs.spray.shapes.generator
 
 import com.google.inject.Inject
-import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-
-import static extension org.eclipse.xtext.xbase.lib.IteratorExtensions.*
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
-import org.eclipselabs.spray.shapes.shapes.Line
-import org.eclipselabs.spray.shapes.shapes.Rectangle
-import org.eclipselabs.spray.shapes.shapes.Polygon
-import org.eclipselabs.spray.shapes.shapes.Polyline
-import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
-import org.eclipselabs.spray.shapes.shapes.Ellipse
-import org.eclipselabs.spray.shapes.shapes.Text
-import org.eclipselabs.spray.shapes.shapes.Shape
 
-class ShapeGenerator implements IGenerator { 
-	
-	@Inject ShapeLayoutGenerator layoutGen
+class ShapeGenerator implements IGenerator {
+
+	@Inject extension GeneratorShapeDefinition shapeGenerator
+	@Inject extension GeneratorConnectionDefinition connectionGenerator 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		for(shape : resource.allContents.toIterable.filter(typeof(ShapeDefinition))) {
-      		fsa.generateFile(shape.filepath, shape.compile)
+    		// create the Shapes
+	  		fsa.generateFile(shape.filepath, shape.compile)
+   		}
+   		for(connection : resource.allContents.toIterable.filter(typeof(ConnectionDefinition))) {
+      		// create the connections
+   			fsa.generateFile(connection.filepath, connection.compile)
    		}
 	}
 	
-	int element_index
-	
-	def filepath(ShapeDefinition s) { "org/eclipselabs/spray/shapes/" + s.name + ".java" }
-	
-	def compile(ShapeDefinition s) { 
-		element_index = 0
-		'''
-		«s.head»
-		
-		«s.body»
-		'''
-		}
-	 
-	 
-	 def head(ShapeDefinition s) {
-	 	'''
-		/**
-		 * This is a generated Shape for Spray
-		 */
-		package org.eclipselabs.spray.shapes;
-		
-		import org.eclipse.graphiti.features.context.IAddContext;
-		import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
-		import org.eclipse.graphiti.services.Graphiti;
-		import org.eclipse.graphiti.services.IGaService;
-		import org.eclipse.graphiti.services.IPeCreateService;
-		
-		import org.eclipse.graphiti.mm.pictograms.Diagram;
-		import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-		import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-		import org.eclipse.graphiti.mm.pictograms.Shape;
-		import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-		import org.eclipse.graphiti.mm.algorithms.Text;
-		import org.eclipse.graphiti.mm.algorithms.MultiText;
-		import org.eclipse.graphiti.mm.algorithms.Ellipse;
-		import org.eclipse.graphiti.mm.algorithms.Polyline;
-		import org.eclipse.graphiti.mm.algorithms.Rectangle;
-		import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
-		import org.eclipse.graphiti.mm.algorithms.styles.Font;
-		import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
-		import org.eclipse.graphiti.mm.algorithms.styles.Style;
-		
-		import org.eclipselabs.spray.ISprayShape;
-		'''
-	 }
-	 
-	 def body(ShapeDefinition s) {
-		'''
-		@SuppressWarnings("all")
-		public class «s.name» implements ISprayShape {
-		    
-			@Override
-			public ContainerShape getShape(Diagram diagram) {
-				IGaService gaService = Graphiti.getGaService();
-				IPeCreateService peCreateService = Graphiti.getPeCreateService();
-				
-				// Creating ContainerShape with given id
-				ContainerShape containerShape = peCreateService.createContainerShape(diagram, true);
-				
-				// General Shape Layout definition
-				/*
-				«layoutGen.generateLayout(s)»
-				*/
-				
-				// Creating the different figures
-				«FOR element : s.shape»
-				«element.createElement("containerShape")»
-				«ENDFOR»
-				
-				return containerShape;
-			}
-		}
-		'''
-	}
-
-	def shapeLayout(ShapeDefinition s) {
-		
-	}
-	
-	def dispatch createElement(Line line, String parentName) {
-		val attname = getNextAttname
-		'''
-		Polyline «attname» = gaService.createPolyline(«parentName»);
-
-		«line.shape.recursiveCreation(attname)»
-     	'''
-	}
-	
-	def dispatch createElement(Rectangle rectangle, String parentName) { 
-		val attname = getNextAttname
-		'''
-		Rectangle «attname» = gaService.createRectangle(«parentName»);
-		«attname».setWidth(«rectangle.layout.common.width»);
-		«attname».setHeight(«rectangle.layout.common.heigth»);
-		gaService.setLocationAndSize(«attname», «rectangle.layout.common.xcor», «rectangle.layout.common.ycor», «rectangle.layout.common.width», «rectangle.layout.common.heigth»);
-
-		«rectangle.shape.recursiveCreation(attname)»
-     	'''
-	}
-	
-	def dispatch createElement(Polygon polygon, String parentName) { 
-		val attname = getNextAttname
-		'''
-		Polygon «attname» = gaService.createPolygon(«parentName»);
-
-		«polygon.shape.recursiveCreation(attname)»
-     	'''
-	}
-	
-	def dispatch createElement(Polyline polyline, String parentName) { 
-		val attname = getNextAttname
-		'''
-		Polyline «attname» = gaService.createPolyline(«parentName»);
-
-		«polyline.shape.recursiveCreation(attname)»
-     	'''
-	}
-	
-	def dispatch createElement(RoundedRectangle roundedrectangle, String parentName) { 
-		val attname = getNextAttname
-		'''
-		RoundedRectangle «attname» = gaService.createRoundedRectangle(«parentName»);
-		«attname».setWidth(«roundedrectangle.layout.common.width»);
-		«attname».setHeight(«roundedrectangle.layout.common.heigth»);
-		gaService.setLocationAndSize(«attname», «roundedrectangle.layout.common.xcor», «roundedrectangle.layout.common.ycor», «roundedrectangle.layout.common.width», «roundedrectangle.layout.common.heigth»);
-
-		«roundedrectangle.shape.recursiveCreation(attname)»
-     	'''
-	}
-	
-	def dispatch createElement(Ellipse ellipse, String parentName) {
-		val attname = getNextAttname
-		'''
-		Ellipse «attname» = gaService.createEllipse(«parentName»);
-		«attname».setWidth(«ellipse.layout.common.width»);
-		«attname».setHeight(«ellipse.layout.common.heigth»);
-		gaService.setLocationAndSize(«attname», «ellipse.layout.common.xcor», «ellipse.layout.common.ycor», «ellipse.layout.common.width», «ellipse.layout.common.heigth»);
-
-		«ellipse.shape.recursiveCreation(attname)»
-     	'''
-	}
-	
-	def dispatch createElement(Text text, String parentName) { 
-		val attname = getNextAttname
-		'''
-		Text «attname» = gaService.createText(«parentName»);
-     	'''
-	}
-	
-	def getNextAttname(){
-		element_index = element_index + 1;
-		"element_" + element_index
-	}
-	
-	def recursiveCreation(EList<Shape> shapeList, String attname ) {	
-		val sb = new StringBuilder()
-	 	for(element : shapeList) {
-      		sb.append(element.createElement(attname))
-      	}
-      	sb.toString();
-	}
 }

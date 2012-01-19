@@ -1,10 +1,8 @@
 package org.eclipselabs.spray.shapes.jvmmodel
- 
-import com.google.inject.Inject
+
 import org.eclipse.xtext.common.types.JvmDeclaredType
 import org.eclipse.xtext.util.IAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
-import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.shapes.shapes.ShapeContainer
 
 /**
@@ -18,7 +16,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
     /**
      * conveninence API to build and initialize JvmTypes and their members.
      */
-	@Inject extension JvmTypesBuilder
+//	@Inject extension JvmTypesBuilder
 
 	/**
 	 * Is called for each instance of the first argument's type contained in a resource.

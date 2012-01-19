@@ -25,6 +25,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.2.0,2.3.0)";visibility:=ree
  org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
  org.antlr.runtime,
  org.eclipse.jdt.core,
+ org.eclipse.graphiti,
  org.eclipse.graphiti.mm,
  org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.ui,
@@ -36,14 +37,14 @@ Import-Package: org.apache.commons.logging,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipselabs.spray.shapes,
  org.eclipselabs.spray.shapes.formatting,
+ org.eclipselabs.spray.shapes.jvmmodel,
+ org.eclipselabs.spray.shapes.parser.antlr,
+ org.eclipselabs.spray.shapes.parser.antlr.internal,
  org.eclipselabs.spray.shapes.scoping,
  org.eclipselabs.spray.shapes.serializer,
- org.eclipselabs.spray.shapes.validation,
  org.eclipselabs.spray.shapes.services,
  org.eclipselabs.spray.shapes.shapes,
  org.eclipselabs.spray.shapes.shapes.impl,
  org.eclipselabs.spray.shapes.shapes.util,
- org.eclipselabs.spray.shapes.parser.antlr,
- org.eclipselabs.spray.shapes.parser.antlr.internal,
- org.eclipselabs.spray.shapes.jvmmodel
+ org.eclipselabs.spray.shapes.validation
 

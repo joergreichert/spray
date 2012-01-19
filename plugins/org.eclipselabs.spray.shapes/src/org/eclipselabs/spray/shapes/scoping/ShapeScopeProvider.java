@@ -3,15 +3,25 @@
  */
 package org.eclipselabs.spray.shapes.scoping;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.TypesPackage;
+import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
+import org.eclipse.xtext.scoping.impl.MapBasedScope;
+import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
-import org.eclipselabs.spray.shapes.shapes.WithStyle;
+import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
+import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 
 import com.google.common.base.Predicate;
 
@@ -24,24 +34,71 @@ import com.google.common.base.Predicate;
  */
 public class ShapeScopeProvider extends XbaseScopeProvider {
 
-	@Override
-	public IScope getScope(EObject context, EReference reference) {
-		if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
-			WithStyle withStyle = EcoreUtil2.getContainerOfType(context,
-					WithStyle.class);
-			if (withStyle != null) {
-				return getStyleTypeScope(withStyle);
-			}
-		}
-		return super.getScope(context, reference);
-	}
+	/**
+	 * Gets the Scope of a JvmParametrizedType by refercing to the Shape or the
+	 * Style Interface
+	 */
+//	@Override
+//	public IScope getScope(EObject context, EReference reference) {
+//		if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
+//			ShapeRef shape = EcoreUtil2.getContainerOfType(context, ShapeRef.class);
+//			ShapeStyleRef style = EcoreUtil2.getContainerOfType(context, ShapeStyleRef.class);
+//			if (shape != null) {
+//				return getShapeTypeScope(shape);
+//			}
+//			if (style != null) {
+//				return getStyleTypeScope(style);
+//			}
+//		}
+//		return super.getScope(context, reference);
+//	}
 
-	protected IScope getStyleTypeScope(WithStyle withStyle) {
-		IScope typesScope = delegateGetScope(withStyle,
-				TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-		Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
-		IScope result = new FilteringScope(typesScope, stylesFilter);
-		return result;
+	/**
+	 * Returns the Scope of a Style by referrincing the Style Interface
+	 * (ISprayStyle)
+	 * 
+	 * @param style
+	 *            of the ShapeStyleRef context
+	 * @return the restricted IScope
+	 */
+//	protected IScope getStyleTypeScope(ShapeStyleRef style) {
+//		IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+//		Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
+//		IScope result = new FilteringScope(typesScope, stylesFilter);
+//		return result;
+//	}
+
+	/**
+	 * Returns the Scope of another Shape by referrincing the Shape Interface
+	 * (ISprayShape)
+	 * 
+	 * @param shape
+	 *            the ShapeRef context
+	 * @return the restricted IScope
+	 */
+//	protected IScope getShapeTypeScope(ShapeRef shape) {
+//		IScope typesScope = delegateGetScope(shape, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+//		Predicate<IEObjectDescription> shapesFilter = new ShapeScopeRestrictor();
+//		IScope result = new FilteringScope(typesScope, shapesFilter);
+//		return result;
+//	}
+
+	/**
+	 * Add Shape Parameters to the Scope of Local Variables
+	 */
+	@Override
+	protected IScope createLocalVarScope(IScope parentScope, LocalVariableScopeContext scopeContext) {
+		if (scopeContext.getContext() instanceof ShapeDefinition) {
+			ShapeDefinition shapeDefinition = (ShapeDefinition) scopeContext.getContext();
+			EList<JvmFormalParameter> descriptions = shapeDefinition.getParam();
+			List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
+			for (JvmFormalParameter param : descriptions) {
+				IEObjectDescription description = EObjectDescription.create(param.getName(), param, null);
+				descrList.add(description);
+			}
+			return MapBasedScope.createScope(super.createLocalVarScope(parentScope, scopeContext), descrList);
+		}
+		return super.createLocalVarScope(parentScope, scopeContext);
 	}
 
 }

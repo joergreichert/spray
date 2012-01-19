@@ -4,6 +4,13 @@
 package org.eclipselabs.spray.shapes.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeHighlightingConfiguration;
+import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeTokenToAttributeIdMapper;
+
+import com.google.inject.Binder;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -12,4 +19,19 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
 	public ShapeUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+	
+	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
+        return ShapeTokenToAttributeIdMapper.class;
+    }
+
+    @Override
+    public void configure(Binder binder) {
+        super.configure(binder);
+        binder.bind(TokenTypeToStringMapper.class).to(ShapeTokenToAttributeIdMapper.class);
+    }
+
+	
+	public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration () {
+	    return ShapeHighlightingConfiguration.class;
+	  }
 }

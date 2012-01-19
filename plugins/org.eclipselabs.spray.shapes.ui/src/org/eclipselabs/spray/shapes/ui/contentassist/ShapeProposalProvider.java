@@ -12,6 +12,8 @@ import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.eclipselabs.spray.shapes.ISprayShape;
+import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
 import org.eclipselabs.spray.styles.ISprayStyle;
 
@@ -30,16 +32,17 @@ public class ShapeProposalProvider extends AbstractShapeProposalProvider {
 	IJvmTypeProvider.Factory typeProviderFactory;
 
 	@Override
-	public void complete_JvmTypeReference(EObject model, RuleCall ruleCall,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		IJvmTypeProvider typeProvider = typeProviderFactory
-				.findOrCreateTypeProvider(model.eResource().getResourceSet());
-		JvmType superType = typeProvider.findTypeByName(ISprayStyle.class
-				.getName());
-		Filter filter = TypeMatchFilters.and(TypeMatchFilters.isPublic(),
-				TypeMatchFilters.canInstantiate());
-		proposalProvider.createSubTypeProposals(superType, this, context,
-				ShapesPackage.Literals.WITH_STYLE__STYLE, filter, acceptor);
+	public void complete_JvmTypeReference(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(model.eResource().getResourceSet());
+		Filter filter = TypeMatchFilters.and(TypeMatchFilters.isPublic(), TypeMatchFilters.canInstantiate());
+//		if (model instanceof ShapeRef) {
+//			JvmType superType = typeProvider.findTypeByName(ISprayShape.class.getName());
+//			proposalProvider.createSubTypeProposals(superType, this, context, ShapesPackage.Literals.SHAPE_REF__REF, filter, acceptor);
+//		} else {
+		if(model instanceof ShapeStyleRef) {	
+			JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
+			proposalProvider.createSubTypeProposals(superType, this, context, ShapesPackage.Literals.SHAPE_STYLE_REF__STYLE, filter, acceptor);
+		}
 		super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
 	}
 }

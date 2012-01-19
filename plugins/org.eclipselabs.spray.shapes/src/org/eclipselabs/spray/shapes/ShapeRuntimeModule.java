@@ -7,7 +7,8 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 
 /**
- * Use this class to register components to be used at runtime / without the Equinox extension registry.
+ * Use this class to register components to be used at runtime / without the
+ * Equinox extension registry.
  */
 public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractShapeRuntimeModule {
 	@Override
@@ -15,10 +16,10 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
 		return ShapeScopeProvider.class;
 	}
 
-	//@Override
-	//public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
-		//return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
-	//}
+	@Override
+	public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
+		return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
+	}
 
 	// contributed by
 	// org.eclipse.xtext.generator.scoping.AbstractScopingFragment
@@ -33,6 +34,5 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider.class;
 	}
-
 
 }
