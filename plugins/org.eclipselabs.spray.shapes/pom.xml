@@ -60,6 +60,15 @@
 							</excludes>
 						</fileset>
 						<fileset>
+							<directory>xtend-gen</directory>
+							<includes>
+								<include>**</include>
+							</includes>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+						<fileset>
 							<directory>../${project.artifactId}.ui/src-gen</directory>
 							<includes>
 								<include>**</include>
@@ -104,6 +113,17 @@
 								</jvmArgs>
 							</jvmSettings>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.xtend2</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
