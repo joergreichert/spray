@@ -101,4 +101,9 @@ public class ModelTests extends XtextTest {
     public void test_45_alias() {
         testFile("testcases/45-alias.spray", "mod4j/BusinessDomainDsl.ecore");
     }
+
+    @Test
+    public void test_50_alias() {
+        testFile("testcases/50-connection.spray", "mod4j/BusinessDomainDsl.ecore");
+    }
 }

@@ -28,4 +28,16 @@ public class ValidationRulesTest extends XtextTest {
         testFile("validation/alias-02.spray", "mod4j/BusinessDomainDsl.ecore");
         assertConstraints(issues.oneOfThemContains("Duplicate alias name BC1"));
     }
+    
+    @Test
+    public void test_connection_01() {
+        testFile("validation/connection-01.spray", "mod4j/BusinessDomainDsl.ecore");
+        assertConstraints(issues.oneOfThemContains("Duplicate connection reference: associationsTo : connection ()"));
+    }
+    
+    @Test
+    public void test_connection_02() {
+        testFile("validation/connection-02.spray", "mod4j/BusinessDomainDsl.ecore");
+        assertConstraints(issues.oneOfThemContains("Connection reference to containment reference not supported yet: classpath:///validation/connection-02.spray#xtextLink_::0.2.1.3.2::4::/1 : connection ()"));
+    }
 }

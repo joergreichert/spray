@@ -11,6 +11,7 @@ import org.eclipselabs.spray.mm.spray.Connection
 import org.eclipselabs.spray.mm.spray.Container
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
+import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
@@ -217,23 +218,49 @@ class FeatureProvider extends FileGenerator<Diagram> {
     '''
 
     def generate_getCreateConnectionFeatures (Diagram diagram) '''
-        «overrideHeader»
-        public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-            return new ICreateConnectionFeature[] { 
-            «FOR cls : diagram.metaClasses.filter(e|e.representedBy instanceof Connection) SEPARATOR ","»
-                new «cls.createFeatureClassName.shortName»(this) 
-            «ENDFOR»
-            «IF ! diagram.metaClasses.filter(e|e.representedBy instanceof Connection).isEmpty »
-            ,
-            «ENDIF»
-            «FOR metaClass : diagram.metaClasses»
-                «FOR reference : metaClass.references.filter(ref|ref.representedBy != null) SEPARATOR ","»
-                      new «reference.createReferenceAsConnectionFeatureClassName.shortName»(this) 
-                «ENDFOR»
-            «ENDFOR»
-            };
-        }
+		«overrideHeader»
+		public ICreateConnectionFeature[] getCreateConnectionFeatures() {
+		    return new ICreateConnectionFeature[] {
+		        «handleConnections(	getMetaclassesRepresentedByConnections(diagram), getMetaReferencesRepresentedByConnections(diagram))»
+		    };
+		}
     '''
+    
+    def handleConnections(Iterable<MetaClass> metaclassesRepresentedByConnections, 
+    	Iterable<MetaReference> metaReferencesRepresentedByConnections) '''
+		«IF metaclassesRepresentedByConnections.size > 0»
+			«newCreateConnection(metaclassesRepresentedByConnections.head)»
+			«FOR cls : metaclassesRepresentedByConnections.tail BEFORE ", " SEPARATOR "," »
+				«newCreateConnection(cls)»
+			«ENDFOR»
+		«ENDIF»
+		«IF !metaclassesRepresentedByConnections.isEmpty && 
+			!metaReferencesRepresentedByConnections.isEmpty»
+			, 
+		«ENDIF»
+		«IF metaReferencesRepresentedByConnections.size > 0»
+			«newCreateConnection(metaReferencesRepresentedByConnections.head)»
+			«FOR reference : metaReferencesRepresentedByConnections.tail BEFORE ", " SEPARATOR "," »
+				«newCreateConnection(reference)»
+			«ENDFOR»
+		«ENDIF»
+    '''
+    
+    def newCreateConnection(MetaClass cls) '''
+    	new «cls.createFeatureClassName.shortName»(this)«»
+    '''
+
+    def newCreateConnection(MetaReference reference) '''
+    	new «reference.createReferenceAsConnectionFeatureClassName.shortName»(this)
+    '''
+    
+    def getMetaclassesRepresentedByConnections(Diagram diagram) {
+    	diagram.metaClasses.filter(e|e.representedBy instanceof Connection)
+    }
+    
+    def Iterable<MetaReference> getMetaReferencesRepresentedByConnections(Diagram diagram) {
+    	diagram.metaClasses.map(mclass|mclass.references.filter(ref|ref.representedBy != null)).flatten()	
+    }
     
     def generate_getRemoveFeature (Diagram diagram) '''
         «overrideHeader»
