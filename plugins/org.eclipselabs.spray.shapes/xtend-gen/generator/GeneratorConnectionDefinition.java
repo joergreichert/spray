@@ -72,11 +72,9 @@ public class GeneratorConnectionDefinition {
     _builder.append("import java.util.List;");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.mm.algorithms.styles.Point;");
-    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.algorithms.*;");
     _builder.newLine();
-    _builder.append("import org.eclipse.graphiti.mm.algorithms.styles.Style;");
+    _builder.append("import org.eclipse.graphiti.mm.algorithms.styles.*;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.*;");
     _builder.newLine();

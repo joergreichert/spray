@@ -34,9 +34,8 @@ class GeneratorConnectionDefinition {
 		import java.util.ArrayList;
 		import java.util.List;
 
-		import org.eclipse.graphiti.mm.algorithms.styles.Point;
 		import org.eclipse.graphiti.mm.algorithms.*;
-		import org.eclipse.graphiti.mm.algorithms.styles.Style;
+		import org.eclipse.graphiti.mm.algorithms.styles.*;
 		import org.eclipse.graphiti.mm.pictograms.*;
 		import org.eclipse.graphiti.services.Graphiti;
 		import org.eclipse.graphiti.services.IGaService;
