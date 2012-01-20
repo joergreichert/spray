@@ -1,0 +1,289 @@
+h1. Shape DSL Guide
+
+this chapter describes how to define global graphiti shapes for a spray project.
+
+The shape DSL is a geometric description for the visual representation of a figure. A figure  mostly consists of at least one or more geometric forms which are implemented in graphiti the graphiti framework. If a more complex figure is needed basic forms can be nested together.       
+
+h2. An example for a shape
+
+bc.. shape Usecase (java.lang.String textline) style org.eclipselabs.spray.styles.NoTransparency 
+	{
+	size-min(width=100, height=100)	
+	size-max(width=200, height=200)
+	stretching(horizontal=true, vertical=true)
+	proportional=true
+	
+	ellipse  {
+		size(width=200, heigth=100)
+		position(x=5,y=5)
+		style(background-color=blue line-color=red) 
+		text {
+			align(horizontal=center,vertical=bottom)
+			style(font-color=black)
+			"Paul"
+		}
+	}
+}
+
+h2. Shape Key Facts
+
+bc. shape Usecase
+
+A shape definition starts with the keyword "shape" for every figure. After the keyword a unique name (id) will be set, which identify the shape for the whole project. Shapes with the same name are not valid and will be displayed as error. The name of a figure will be the name for the generated java class.
+
+bc. 
+public class Usecase implements ISprayShape
+
+for ever defined shape a Java class will be generated. The interface ISprayShape provide one method
+which will be define for every class. 
+
+bc. 
+public ContainerShape getShape(Diagram diagram);
+
+The implemented method getShape returns a ContainerShape (@org.eclipse.graphiti.mm.pictograms.ContainerShape@) this container comprised all elements of the defined figure/shape.   
+
+
+h2. Shape Visualisation 
+
+bc. shape Usecase style BlackAndWhiteStyle
+
+Every shape definition can reference a custom style for their visual behavior. The style will be inherited to the nested shape elements. If a custom style on a nested shape is needed a separate style can be referenced too.
+
+bc. shape Usecase style BlackAndWhiteStyle { 
+		ellipse { style(background-color=blue line-color=red) } }
+
+The nested style only affects the referenced shape without inheritance. If element values are not set, the graphiti default value will be set.
+
+h2. Shape Elements
+
+A complex figure could have multiple level for their visualisation. The brackets "{ }" represents a separator for each level of a figure.   
+
+bc. shape Usecase { ellipse {} }
+
+If elements are at the same level like a ellipse and a text there will be defined among each other.
+
+bc. shape Usecase { ellipse {} text {} }
+
+Every figure got the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ got an attribute for @horizinal@ and @vertical@ stretching of the figure. @proportional@ handles if the resize proportion between height and width is kept or not.
+
+bc.. shape Usecase (java.lang.String textline) 
+	{
+	size-min(width=100, height=100)	
+	size-max(width=200, height=200)
+	stretching(horizontal=true, vertical=true)
+	proportional=true
+}
+
+h2. Shape Default Values
+
+If the user doesn't specify any value for one or more attribute the *default values* will be gained. The default values are.
+
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+| proportional	     			| boolean     | yes or no            | false (no)      	| 
+| stretching 	- vertical  	| boolean     | yes or no			 | true (yes)      	|
+| stretching 	- horizontal  	| boolean     | yes or no			 | true (yes)     	|
+| size-min   	- width   		| integer     | >= 0 				 | ???				|      
+| size-max   	- width   		| integer     | >= 0                 | ???            	| 
+| size-min   	- height  		| integer     | >= 0 				 | ???				|      
+| size-max   	- height  		| integer     | >= 0                 | ???            	|
+
+textfield
+| align 		- horizontal    | boolean     | yes or no            | false (no)     	| 
+| align 		- vertical 		| boolean     | yes or no			 | true  (yes)     	|
+| (textvalue) 					| String	  | -					 | ""			   	|
+
+line/polyline/polygon
+| point 		- x  			| integer     | >= 0           		 | 0             	| 
+| point 		- y  			| integer     | >= 0            	 | 0            	| 
+
+2d shapes
+| size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
+| size 			- height    	| integer     | >= 0             	 | 0            	|
+| position 		- x		    	| integer     | >= 0             	 | 0            	|
+| position		- y		    	| integer     | >= 0             	 | 0             	|
+
+RoundedRectangl
+| curve 		- width	    	| integer     | >= 0             	 | 0            	|
+| curve 		- height    	| integer     | >= 0             	 | 0             	|
+
+h3. Text
+
+The keyword @text@ represents a shape element which 
+
+bc. text { 
+
+A text field has one obligatory and one optional attribute. The first attribute is the alignment(@align@) separated in @horizontal@ and @vertical@. For both values are enumeration values referenced. The First value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The optional attribute can set the @"text"@ value of the shape.
+
+bc. text {
+		align(horizontal=center,vertical=bottom)
+		"text" 
+
+h3. Line
+
+The keyword @line@ represents a line shape element
+
+bc. line { 
+
+This shape needs a pair of @point@ which define the startpoint and an endpoint of a line. Each point has their @x=@/ @y=@ coordinates.
+
+bc. line {
+		point(x=25,y=20)
+		point(x=25,y=20) 
+
+h3. Polyline
+
+The keyword @polyline@ represents a polyline shape element
+
+bc. polyline { }
+
+A polyline definition required a set of @point@ to specify every start and end of a route. Each point has their @x=@/ @y=@ coordinates.
+
+bc. polyline {
+		point(x=50,y=0)
+		point(x=50,y=10)
+		point(x=60,y=10) 
+
+h3. 2D Shape
+
+All 2d shape definitions have two obligatory attributes @size@ and @position@. The @size@ defines the @width@ and @height@ of a 2d shape. The @position@ defines the @x@ and @y@ coordinate where the figure is displayed.
+
+h3. Ellipse
+
+The keyword @ellipse@ represents a ellipse shape element.
+
+bc. ellipse  { }
+
+An ellipse element is able to represent every kind of ellipses and also circles, when the @with@ and @height@ attribute got the same value.
+
+bc. ellipse  {
+		size(width=200, height=100)
+		position(x=5,y=5)
+
+h3. Rectangle
+
+The keyword @rectangle@ represents a rectangle shape element
+
+bc. rectangle { }
+
+The rectangle can present all types of rectangles and also squares, when the @with@ and @height@ attribute got the same value.
+
+bc. rectangle {
+		size(width=100, height=100)
+		position(x=0,y=0) 
+
+h3. RoundedRectangle
+
+The keyword @roundedrectangle@ represents a roundedrectangle shape element
+
+bc. roundedrectangle { 
+
+The roundedrectangle definition is similar to the rectangle definition. There is just one optional attribute named @curve@ which set the curve of the corners
+
+bc. roundedrectangle {
+		size(width=100, height=100)
+		position(x=0,y=0)
+		curve(width=30, height=30 
+
+h3. Polygon
+
+The keyword @polygon@ represents a polygon shape element
+
+bc. polygon { 
+
+A polygon is shape with n-sides. This figure is bounded by a closed path, this mean the startpoint is connected to the end point. Every side is defines by two @point@ with there @x@ and @y@ coordinates.
+
+bc. polygon {
+		size(width=100, height=100)
+		position(x=0,y=0)
+		point(x=50,y=0)
+		point(x=50,y=10)
+		point(x=60,y=10) 
+}
+
+h2. Practise Examples 
+
+To get more experience in defining some complex figures, we set up some examples figures from UML (Unified Modeling Language) and BPMN (Business Process Model and Notation). 
+
+h3. UML - Example
+
+This example shows how to create an actor with the shape dsl. At first we need to define a shape with the name @UML_UC_Actor@. After that we will define the geometric from of this figure and add an @ellipse@. This @ellipse@ is a circle, because the value for @width@ and @height@ are the same. The circle represents the head of the actor and is displayed at top of the shape.    
+
+bc. shape UML_UC_Actor {
+	ellipse { // Head
+		position(x=0,y=0)
+		size(width=50,height=50)
+	}
+}
+
+Then we add two @line@-shapes for the body and the hands of the actor. The coordinates starts from left upper corner (@x@=0/ @y@=0) to the right bottom corner. We want to place the body below the head so we need to set @50@ (length of the head) for the @y@ values and 25 (middle of the head) for first @x@ value. The length of the body part will be decided by the distance between the both @y@-point values which is @50@. The second line defines the hands of the actor which is displayed @20@ beneath the body starts. The length of the hands are equal to the size of the head.    
+
+bc. shape UML_UC_Actor {
+	ellipse { // Head
+		position(x=0,y=0)
+		size(width=50,height=50)
+	}
+	line {point(x=25,y=50) point(x=25,y=100)} // Body 
+	line {point(x=0,y=70) point(x=50,y=70)} // Hands
+}
+
+The last step will complete our actor. Therefore we need to define a polyline for the feet. We also want to place the feet below the body so we need to add the @y@-values first. This mid point has  @100@ (y-head + y-body) as @y@-value and @25@ (middle of head) as @x@-value which is the boundary point between the body and feet. The two other points of the polyline are connected to boundary point and decide the length of the feet which is the square root of @50@. The start and the end of the polyline is based on the headsize in this example from @x@=0 to @x@=50.
+
+bc. shape UML_UC_Actor {
+	ellipse { // Head
+		position(x=0,y=0)
+		size(width=50,height=50)
+	}
+	line {point(x=25,y=50) point(x=25,y=100)} // Body 
+	line {point(x=0,y=70) point(x=50,y=70)} // Hands
+	polyline {point(x=0,y=150) point(x=25,y=100) point(x=50,y=150)} // Feet
+}
+
+h3. BPMN - Example 
+
+This example shows how to create an envelope with the shape dsl. The hole figure is inside a circle so our custom shape starts with an @ellipse@ where @width@ and @height@ got the same value. After that we specify the edge of the envelope with a @rectangle@. The position of the @rectangle@ is slightly indented to display it in the center of the @ellipse@. Now we need to add a triangle shape to complete the envelope. For this case we need a @polygon@ that consist out of three @point@. The triangle is equal-sided that mean that two points got the same @y@. The difference between those both @x@ values define the length of upper edge. The third point is connected to the other two and an triangle is created. There are more than one way to specify a custom shape e.g this shape could also be realized with @line@ instead of @polygon@.   
+
+bc. shape BPMN_EventMail {
+	ellipse {
+		size(width=50, height=50)
+		position(x=0, y=0)
+		rectangle {
+			size(width=30, height=20)
+			position(x=10, y=15)
+			polygon  {
+				point(x=0,y=0)
+				point(x=15,y=10)
+				point(x=30,y=0)
+			}
+		}
+	}
+}
+
+
+h2. Connections
+
+A @connection@ is an element to connect two or more shapes which each other. Every definition starts with the keyword @connection@ followed by a unique name. An element definition could look like that.
+
+bc. connection BPMN_DefaultFlow {
+	placing {
+		position(offset=1.0,distance=0,angle=0,active=false)
+		polygon {
+			point(x=-10,y=10)
+			point(x=0,y=0)
+			point(x=-10,y=-10)
+			style(background-color=black)
+		}
+	}
+	placing {
+		position(offset=0.05,distance=0,angle=0,active=false)
+		line{
+			point(x=0,y=-10)
+			point(x=5,y=10)
+		}
+	}
+}
+
+If a custom visual behavior around the @connection@ element is needed, a @placing@ could be used. Each @placing@ decsribes the content that is placed on top or below of a @connection@ definition. Every @placing@ requires an element named @position@ where value for the alignment will be set. 
+
+bc. position(offset=1.0,distance=0,angle=0,active=false)
+
+A @position@ element got four diffrent attributes @offset@, @distance@, @angle@ and @active@. The @offset@ is the position value among the line from left(@offset=0.0@) to right(@offset=1.0@), the @distance@ is the gap with a specified @angle@ between the connection and the element which is placed.  
