@@ -120,16 +120,22 @@ The @line width@ defines the width of foreground elements (e.g. lines and shape 
 h3. Font
 
 bc. 
-line-color = black
+font-color = black
 
-The line-color is mapped to the foreground color in Graphiti. It defines the foreground elements on the shapes. The foreground elements are e.g. border of shapes, lines and font. Same as on the @background-color@ predefined color values can be used or if no predefined color applies to the wanted color then the RGB values can be filled. Following text sequence should be used: @RGB(RED,GREEN,BLUE)@. The values @RED,GREEN,BLUE@ are integer values between 0 and 255. Finally if a transparent foreground is wanted then the value @transparent@ can be used. 
-
-bc. 
-line-style = solid
-
-The @line style@ defines the style type of the line. There are possible values as @solid@, @dot@, @dash@, @dash-dot@ and @dash-dot-dot@. All lines will be created with this style.
+The font color is almost the same as the @line-color@ but it doesn't allow to set a @transparent@ font-color. The font color is as the line color a foreground color. Therefore the generated Java class provides a own method for this. This color will be finally used on all fonts. If no font-color is set, the line-color will be gained.
 
 bc. 
-line-width = 1
+font-name = "Tahoma"
 
-The @line width@ defines the width of foreground elements (e.g. lines and shape borders). Therefore a simple integer value of 0 or bigger (>= 0) can be used. If 0 is used then no lines and shape borders will be drawn.
+The font name is a simple String that defines the name of the font family on the computer. If the given String can not be found on the machine a warning will be shown in the Eclipse UI Style Editor.  
+
+bc. 
+font-size = 10
+
+The font size is a simple integer with a value of 1 or bigger (>= 1). This defines the font pixels of the font.
+
+bc. 
+font-italic = yes
+font-bold = no
+
+The font style @italic@ and @bold@ can be set with the attributes @font-italic@ and @font-bold@. Therefore a *yes* or *no* boolean can be used. "*yes*" defines the the font will be drawn with this style, "*no*" defines that this style will not be got.
