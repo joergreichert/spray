@@ -59,7 +59,7 @@
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
-						<fileset>
+						<!-- <fileset>
 							<directory>xtend-gen</directory>
 							<includes>
 								<include>**</include>
@@ -67,7 +67,7 @@
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
-						</fileset>
+						</fileset> -->
 						<fileset>
 							<directory>../${project.artifactId}.ui/src-gen</directory>
 							<includes>
@@ -116,7 +116,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.eclipse.xtend2</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 				<executions>
@@ -126,7 +126,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
