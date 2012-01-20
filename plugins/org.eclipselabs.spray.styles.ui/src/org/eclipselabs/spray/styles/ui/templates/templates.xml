@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.eclipselabs.spray.styles.Style.Style" deleted="false" description="insert a default style" enabled="true" name="styleDefault">style ${name} {
+	description = "describe your element here"
+    transparency = 0.0
+    background-color = white
+    line-color = black
+    line-style = solid
+    line-width = 1
+    font-color = black
+    font-name = "Arial"
+    font-size = 8
+    font-bold = no
+    font-italic = no
+}</template><template autoinsert="true" context="org.eclipselabs.spray.styles.Style.Style" deleted="false" description="insert a default style that extend another" enabled="true" name="styleDefaultExtend">style ${name} extends ${superStyle} {
+	description = "describe your element here"
+    transparency = 0.0
+    background-color = white
+    line-color = black
+    line-style = solid
+    line-width = 1
+    font-color = black
+    font-name = "Arial"
+    font-size = 8
+    font-bold = no
+    font-italic = no
+}</template></templates>
