@@ -1,0 +1,6 @@
+shape LineTest {
+	line {
+		point(x=0,y=0)
+		point(x=10,y=10)
+	}
+}

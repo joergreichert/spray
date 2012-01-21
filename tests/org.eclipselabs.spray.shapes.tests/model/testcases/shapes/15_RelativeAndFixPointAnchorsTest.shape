@@ -1,0 +1,12 @@
+shape RelativeAndFixPointAnchorsTest {
+	ellipse {
+		position(x=0,y=0)
+		size(width=500,height=500)
+	}
+	anchor {
+		position(x=5, y=10)
+		position(x=50, y=100)
+		position(xoffset=0.1, yoffset=0.0)
+		position(xoffset=0.8, yoffset=1.0)
+	}
+}

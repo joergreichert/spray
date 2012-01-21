@@ -1,0 +1,7 @@
+shape PolylineTest {
+	polyline {
+		point(x=0,y=0)
+		point(x=10,y=10)
+		point(x=0,y=10)
+	}
+}

@@ -1,0 +1,10 @@
+shape FixPointAnchorsTest {
+	ellipse {
+		position(x=0,y=0)
+		size(width=500,height=500)
+	}
+	anchor {
+		position(x=5, y=10)
+		position(x=50, y=100)
+	}
+}

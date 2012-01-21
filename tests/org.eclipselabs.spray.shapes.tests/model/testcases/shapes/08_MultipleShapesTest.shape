@@ -1,0 +1,10 @@
+shape MultipleShapesTest {
+	ellipse {
+		position(x=0,y=0)
+		size(width=500,height=500)
+	}
+	rectangle {
+		position(x=0,y=500)
+		size(width=50,height=50)
+	}
+}

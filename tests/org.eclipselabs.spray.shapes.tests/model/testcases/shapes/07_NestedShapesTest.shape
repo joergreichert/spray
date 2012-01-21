@@ -1,0 +1,19 @@
+shape NestedShapesTest {
+	ellipse {
+		position(x=0,y=0)
+		size(width=500,height=500)
+		rectangle {
+			position(x=0,y=0)
+			size(width=100,height=100)
+			polygon  {
+				point(x=0,y=50)
+				point(x=50,y=0)
+				point(x=50,y=50)
+				ellipse {
+					position(x=0,y=0)
+					size(width=20,height=20)
+				}
+			}
+		}
+	}
+}
