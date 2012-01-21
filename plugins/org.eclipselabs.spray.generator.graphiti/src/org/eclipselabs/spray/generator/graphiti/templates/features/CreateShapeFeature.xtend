@@ -111,14 +111,16 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();    
             newClass.setName(newName);
             
-            // add the element to containment reference
-            «modelClassName» model = modelService.getModel();
-            «IF containmentRef.many»
-                model.get«containmentRef.name.toFirstUpper»().add(newClass);
-            «ELSE»
-                model.set«containmentRef.name.toFirstUpper»(newClass);
-            «ENDIF»
-            
+            «IF containmentRef != null»
+               // add the element to containment reference
+               «modelClassName» model = modelService.getModel();
+               «IF containmentRef.many»
+                   model.get«containmentRef.name.toFirstUpper»().add(newClass);
+               «ELSE»
+                   model.set«containmentRef.name.toFirstUpper»(newClass);
+               «ENDIF»
+               
+			«ENDIF»
             setDoneChanges(true);
             return newClass;
         }
