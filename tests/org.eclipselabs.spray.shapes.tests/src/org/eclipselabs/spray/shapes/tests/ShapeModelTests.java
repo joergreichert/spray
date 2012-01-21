@@ -93,4 +93,19 @@ public class ShapeModelTests extends XtextTest {
 		testFile("testcases/shapes/15_RelativeAndFixPointAnchorsTest.shape");
 	}
 
+	@Test
+	public void test_16_ReferencedStyleOnShapeTest() {
+		testFile("testcases/shapes/16_ReferencedStyleOnShapeTest.shape");
+	}
+
+	@Test
+	public void test_17_ReferencedStyleOnElementTest() {
+		testFile("testcases/shapes/17_ReferencedStyleOnElementTest.shape");
+	}
+
+	@Test
+	public void test_18_ReferencedStyleTest() {
+		testFile("testcases/shapes/18_ReferencedStyleTest.shape");
+	}
+
 }
