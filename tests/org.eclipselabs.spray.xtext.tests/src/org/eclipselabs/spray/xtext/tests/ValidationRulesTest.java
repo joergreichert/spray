@@ -5,6 +5,7 @@ import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,6 +30,7 @@ public class ValidationRulesTest extends XtextTest {
         assertConstraints(issues.oneOfThemContains("Duplicate alias name BC1"));
     }
     
+    @Ignore
     @Test
     public void test_connection_01() {
         testFile("validation/connection-01.spray", "mod4j/BusinessDomainDsl.ecore");
