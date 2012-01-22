@@ -66,7 +66,9 @@ Behavior :
     CreateBehavior | CustomBehavior;
 
 CreateBehavior :
-    'create' 'into' containmentReference=[ecore::EReference] (label = STRING)? ('palette' paletteCompartment = STRING)?;
+    'create' 'into' containmentReference=[ecore::EReference] (label = STRING)? 
+    ('palette' paletteCompartment = STRING)? 
+    ('askFor' askFor=[ecore::EAttribute])?;
 
 CustomBehavior :
     name = ID (label = STRING);

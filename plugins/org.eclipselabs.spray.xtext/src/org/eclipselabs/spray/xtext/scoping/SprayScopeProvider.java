@@ -3,10 +3,26 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -33,6 +49,7 @@ import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.Connection;
+import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -43,18 +60,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
-
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
 
 /**
  * This class contains custom scoping description.
@@ -122,6 +127,24 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 }
             }
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaRef.getTarget().getEReferenceType().getEAllAttributes()));
+            return result;
+        } else if (context.eClass() == CREATE_BEHAVIOR && reference == CREATE_BEHAVIOR__ASK_FOR) {
+            CreateBehavior createBehavior = (CreateBehavior) context;
+            EReference ref = createBehavior.getContainmentReference();
+            if (ref.eIsProxy()) {
+                ref = (EReference) EcoreUtil.resolve(ref, context);
+                if (ref.eIsProxy()) {
+                    // still a proxy?
+                    return IScope.NULLSCOPE;
+                }
+            }
+            Iterable<EAttribute> simpleAttributes = Iterables.filter(createBehavior.getContainmentReference().getEReferenceType().getEAllAttributes(), new Predicate<EAttribute>() {
+                @Override
+                public boolean apply(EAttribute input) {
+                    return input.getEType() instanceof EDataType;
+                }
+            });
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(simpleAttributes));
             return result;
         } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
             ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);

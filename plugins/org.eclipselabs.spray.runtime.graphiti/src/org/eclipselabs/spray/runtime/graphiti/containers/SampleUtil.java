@@ -30,6 +30,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
@@ -71,10 +72,10 @@ public class SampleUtil {
      *            (equivalent to the empty string)
      * @return the string
      */
-    public static String askString(String dialogTitle, String dialogMessage, String initialValue) {
+    public static String askString(String dialogTitle, String dialogMessage, String initialValue, IInputValidator validator) {
         String ret = null;
         Shell shell = getShell();
-        InputDialog inputDialog = new InputDialog(shell, dialogTitle, dialogMessage, initialValue, null);
+        InputDialog inputDialog = new InputDialog(shell, dialogTitle, dialogMessage, initialValue, validator);
         int retDialog = inputDialog.open();
         if (retDialog == Window.OK) {
             ret = inputDialog.getValue();
