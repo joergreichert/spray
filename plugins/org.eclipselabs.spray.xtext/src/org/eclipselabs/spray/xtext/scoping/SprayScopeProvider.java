@@ -180,51 +180,35 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         return Scopes.scopeFor(Iterables.filter(containerType.getEAllContainments(), filter));
     }
 
-    private List<EClass> getAbsoluteSuperType(List<EClass> superTypes, EClass element) {
-        if (element.getEAllSuperTypes().size() == 0) {
-            superTypes.add(element);
-        } else {
-            for (EClass superType : element.getEAllSuperTypes()) {
-                getAbsoluteSuperType(superTypes, superType);
-            }
-        }
-        return superTypes;
-    }
-
     protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
         // TODO Restrict to containment types
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
-        List<EClass> absoluteSuperTypes = getAbsoluteSuperType(new ArrayList<EClass>(), diagramModelType);
-        EClass absoluteSuperType = null;
-        if (absoluteSuperTypes.size() == 0) {
-            absoluteSuperType = diagramModelType;
-        } else {
-            absoluteSuperType = absoluteSuperTypes.get(0);
-        }
 
-        Function<EReference, EClass> referenceToEClass = new Function<EReference, EClass>() {
-            @Override
-            public EClass apply(EReference from) {
-                return from.getEReferenceType();
-            }
-        };
-        Iterable<EClass> containmentTypes = Iterables.transform(diagramModelType.getEAllContainments(), referenceToEClass);
+        //        Function<EReference, EClass> referenceToEClass = new Function<EReference, EClass>() {
+        //            @Override
+        //            public EClass apply(EReference from) {
+        //                return from.getEReferenceType();
+        //            }
+        //        };
+        //        Iterable<EClass> containmentTypes = Iterables.transform(diagramModelType.getEAllContainments(), referenceToEClass);
         // include all non abstract sub classes of the contained types contained in the all scope
 
         List<EClass> containedTypes = new ArrayList<EClass>();
         EClass eClassInAllScope = null;
-        EClass containedType = null;
+        //        EClass containedType = null;
         for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
             if (classifier instanceof EClass) {
                 eClassInAllScope = (EClass) classifier;
-                for (Iterator<EClass> containmentIterator = containmentTypes.iterator(); containmentIterator.hasNext();) {
-                    containedType = containmentIterator.next();
-                    if (!eClassInAllScope.isAbstract() && containedType.isSuperTypeOf(eClassInAllScope)) {
-                        containedTypes.add(eClassInAllScope);
-                    }
+                //                for (Iterator<EClass> containmentIterator = containmentTypes.iterator(); containmentIterator.hasNext();) {
+                //                    containedType = containmentIterator.next();
+                if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)
+                //                            && containedType.isSuperTypeOf(eClassInAllScope)
+                ) {
+                    containedTypes.add(eClassInAllScope);
                 }
+                //                }
             }
         }
         return Scopes.scopeFor(containedTypes);
