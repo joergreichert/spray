@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.EcorePackage
 
 class GenModelTestHelper {
 	
@@ -21,6 +22,8 @@ class GenModelTestHelper {
 	
 	def GenModel createGenModel(EPackage ePackage, URI genModelURI) {
 		EcorePlugin::getEPackageNsURIToGenModelLocationMap().put(ePackage.nsURI, genModelURI)
+		EcorePlugin::getEPackageNsURIToGenModelLocationMap().put("http://www.eclipse.org/emf/2002/Ecore", URI::createURI("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"))
+		EcorePlugin::getEPackageNsURIToGenModelLocationMap().put("http://www.eclipse.org/emf/2002/GenModel", URI::createURI("platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel")) 
 		GenModelFactory::eINSTANCE.createGenModel()
 	}
 	
@@ -32,10 +35,21 @@ class GenModelTestHelper {
 	
 	def GenPackage createGenPackage(ResourceSet resourceSet, EPackage ePackage, String prefix) {
 		Helper::registerGenModel(resourceSet)
+		resourceSet.packageRegistry.put(EcorePackage::eINSTANCE.nsURI, EcorePackage::eINSTANCE)
 		val GenPackage genPackage = GenModelFactory::eINSTANCE.createGenPackage()
 		genPackage.ecorePackage = ePackage
 		genPackage.prefix = prefix;
+		createDataTypes(genPackage)
 		genPackage
+	}
+	
+	def createDataTypes(GenPackage genPackage) {
+		val genString = GenModelFactory::eINSTANCE.createGenDataType
+		genString.ecoreDataType = EcorePackage::eINSTANCE.getEString()
+		genPackage.genDataTypes.add(genString)
+		val genDouble = GenModelFactory::eINSTANCE.createGenDataType
+		genDouble.ecoreDataType = EcorePackage::eINSTANCE.getEDouble()
+		genPackage.genDataTypes.add(genDouble)
 	}
 	
 	def Resource createGenResource(ResourceSet resourceSet, GenModel genModel, URI genModelURI) {

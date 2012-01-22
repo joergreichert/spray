@@ -9,6 +9,9 @@ import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EClassifier
 
 class DomainModelTestHelper {
 	
@@ -16,6 +19,20 @@ class DomainModelTestHelper {
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = name
 		eClass
+	}
+
+	def EDataType createEDataType(String name) {
+		val eDataType = EcoreFactory::eINSTANCE.createEDataType
+		eDataType.name = name
+		eDataType
+	}
+	
+	def EAttribute createEAttribute(EClass eClass, String name, EClassifier type) {
+		val eAttribute = EcoreFactory::eINSTANCE.createEAttribute
+		eAttribute.name = name
+		eAttribute.EType = type
+		eClass.getEStructuralFeatures().add(eAttribute)
+		eAttribute
 	}
 	
 	def EReference createEReference(EClass container, EClass containee, boolean contained) {
@@ -34,8 +51,8 @@ class DomainModelTestHelper {
 		ePackage
 	}
 	
-	def addEClassesToEPackage(EPackage ePackage, List<EClass> eClasses) {
-		eClasses.forEach(c|ePackage.getEClassifiers().add(c))
+	def addEClassifiersToEPackage(EPackage ePackage, List<? extends EClassifier> eClassifiers) {
+		eClassifiers.forEach(c|ePackage.getEClassifiers().add(c))
 	}
 	
 	def Resource createResource(ResourceSet resourceSet, EPackage ePackage) {
