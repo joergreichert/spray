@@ -166,7 +166,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return IScope.NULLSCOPE;
         }
         Diagram diagram = mc.getDiagram();
-        final EClass containerType = diagram.getModelType();
+        final EClass diagramModelType = diagram.getModelType();
         Predicate<EReference> filter = new Predicate<EReference>() {
             @Override
             public boolean apply(EReference input) {
@@ -177,7 +177,18 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 return superType;
             }
         };
-        return Scopes.scopeFor(Iterables.filter(containerType.getEAllContainments(), filter));
+        // get all containments of EClass contained in this package
+        List<EReference> containmentReferences = new ArrayList<EReference>();
+        EClass eClassInAllScope = null;
+        if (diagramModelType.getEPackage() != null) {
+            for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
+                if (classifier instanceof EClass) {
+                    eClassInAllScope = (EClass) classifier;
+                    containmentReferences.addAll(eClassInAllScope.getEAllContainments());
+                }
+            }
+        }
+        return Scopes.scopeFor(Iterables.filter(containmentReferences, filter));
     }
 
     protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
