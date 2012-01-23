@@ -198,17 +198,19 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         List<EClass> containedTypes = new ArrayList<EClass>();
         EClass eClassInAllScope = null;
         //        EClass containedType = null;
-        for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
-            if (classifier instanceof EClass) {
-                eClassInAllScope = (EClass) classifier;
-                //                for (Iterator<EClass> containmentIterator = containmentTypes.iterator(); containmentIterator.hasNext();) {
-                //                    containedType = containmentIterator.next();
-                if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)
-                //                            && containedType.isSuperTypeOf(eClassInAllScope)
-                ) {
-                    containedTypes.add(eClassInAllScope);
+        if (diagramModelType.getEPackage() != null) {
+            for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
+                if (classifier instanceof EClass) {
+                    eClassInAllScope = (EClass) classifier;
+                    //                for (Iterator<EClass> containmentIterator = containmentTypes.iterator(); containmentIterator.hasNext();) {
+                    //                    containedType = containmentIterator.next();
+                    if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)
+                    //                            && containedType.isSuperTypeOf(eClassInAllScope)
+                    ) {
+                        containedTypes.add(eClassInAllScope);
+                    }
+                    //                }
                 }
-                //                }
             }
         }
         return Scopes.scopeFor(containedTypes);

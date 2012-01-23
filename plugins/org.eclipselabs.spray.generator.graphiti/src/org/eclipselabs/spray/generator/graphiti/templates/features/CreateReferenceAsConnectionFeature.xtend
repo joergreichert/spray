@@ -114,6 +114,8 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             «ELSEIF !target.many»
                 // single valued reference. can only be started if the reference is not set yet.
                 return «reference.metaClass.name.toFirstLower».get«target.name.toFirstUpper»() == null;
+            «ELSE»
+                return true;
             «ENDIF»
         }
     '''

@@ -14,6 +14,7 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
@@ -255,7 +256,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     '''
     
     def getMetaclassesRepresentedByConnections(Diagram diagram) {
-    	diagram.metaClasses.filter(e|e.representedBy instanceof Connection)
+    	diagram.metaClasses.filter(e|e.representedBy instanceof Connection  && e.behaviors.exists(b|b instanceof CreateBehavior))
     }
     
     def Iterable<MetaReference> getMetaReferencesRepresentedByConnections(Diagram diagram) {
