@@ -104,7 +104,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
         @Override
         public Object[] create(ICreateContext context) {
             // ask user for «target.name» name
-            String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
+            String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
             if (newName == null || newName.trim().length() == 0) {
                 return EMPTY;
             }

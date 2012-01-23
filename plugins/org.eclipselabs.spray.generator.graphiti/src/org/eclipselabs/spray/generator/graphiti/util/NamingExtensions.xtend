@@ -17,6 +17,7 @@ import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EDataType
 
 /**
  * Computation of class names, file names etc.
@@ -262,6 +263,9 @@ class NamingExtensions {
 	}
 	def String getEFactoryInterfaceName (EClass clazz) {
 		genModelHelper.getEFactoryInterfaceName(clazz)
+	}
+	def String getEFactoryInterfaceName (EDataType dataType) {
+		genModelHelper.getEFactoryInterfaceName(dataType)
 	}
 	def String getEFactoryInterfaceName (MetaClass clazz) {
 		genModelHelper.getEFactoryInterfaceName(clazz.type)

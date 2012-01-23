@@ -104,6 +104,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="CreateBehavior" eSuperTypes="#//Behavior">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentReference" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="askFor" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomBehavior" eSuperTypes="#//Behavior"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorGroup" eSuperTypes="#//SprayElement #//NamedElement">

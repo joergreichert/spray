@@ -1,8 +1,7 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EcoreFactory
-import org.eclipse.emf.ecore.resource.Resource
+
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
@@ -12,100 +11,103 @@ import org.junit.runner.RunWith
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
-import org.eclipse.emf.ecore.plugin.EcorePlugin
 import static org.junit.Assert.*
 import org.junit.Test
-import org.junit.Ignore
+import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.mm.spray.CreateBehavior
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EcorePackage
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(SprayTestsInjectorProvider))
 class CreateShapeFeatureTest {
-	@Inject
-	CreateShapeFeature sut
+	@Inject	CreateShapeFeature sut
 	
-	@Inject
-    private ResourceSet resourceSet
+	@Inject private ResourceSet resourceSet
+
+    @Inject private extension DomainModelTestHelper
+    @Inject private extension GenModelTestHelper
+    @Inject private extension SprayModelTestHelper
+    
+    private String domainModelResource = "test.xmi"
+    private String genModelResource = "gentest.genmodel"
 	
-	@Ignore
-	@Test
-	def testGenerate_createModelElement () {
-		val sampleClass = EcoreFactory::eINSTANCE.createEClass
-		sampleClass.name = "SampleClass"
+	def MetaClass createModelsAroundMetaclass() {
+		val ePackage = createEPackage(resourceSet, "samplepackage", domainModelResource)
+		val sampleModelRoot = createEClass("SampleModelRoot")
+		val sampleClass = createEClass("SampleClass")
 
-		val sampleModelRoot = EcoreFactory::eINSTANCE.createEClass
-		sampleModelRoot.name = "SampleModelRoot"
+		val contained = true
+		createEReference(sampleModelRoot, sampleClass, contained) 
+		addEClassifiersToEPackage(ePackage, newArrayList(sampleModelRoot, sampleClass))
 
-		val sampleClassReferences = EcoreFactory::eINSTANCE.createEReference
-		sampleClassReferences.containment = true
-		sampleClassReferences.eType = sampleClass
-		sampleModelRoot.getEStructuralFeatures().add(sampleClassReferences)
+		val URI genModelURI = URI::createURI(genModelResource)
+		val GenModel genModel = createGenModel(ePackage, genModelURI)
+		val GenClass genSampleModelRoot = createGenClass(sampleModelRoot)
+		val GenClass genSampleClass = createGenClass(sampleClass)
 		
-		val ePackage = EcoreFactory::eINSTANCE.createEPackage
-		ePackage.name = "samplepackage"
-		ePackage.nsURI = "test.xmi"
-		ePackage.getEClassifiers().add(sampleModelRoot)
-		ePackage.getEClassifiers().add(sampleClass)
+		val prefix = "SamplePack"
+		val GenPackage genPackage = createGenPackage(resourceSet, ePackage, prefix)		
 
-		val URI genModelUri = URI::createURI("gentest.genmodel")
-		EcorePlugin::getEPackageNsURIToGenModelLocationMap().put(ePackage.nsURI, genModelUri)
-		val GenModel genModel = GenModelFactory::eINSTANCE.createGenModel()
-		
-		val GenClass genSampleModelRoot = GenModelFactory::eINSTANCE.createGenClass()
-		genSampleModelRoot.ecoreClass = sampleModelRoot
-
-		val GenClass genSampleClass = GenModelFactory::eINSTANCE.createGenClass()
-		genSampleClass.ecoreClass = sampleClass
-		
-		val GenPackage genPackage = GenModelFactory::eINSTANCE.createGenPackage()
-		genPackage.genClasses.add(genSampleClass)
-		genPackage.genClasses.add(genSampleModelRoot)
-		genPackage.ecorePackage = ePackage
 		genModel.genPackages.add(genPackage)		
-		Helper::registerXmiModel(resourceSet)
+		addGenClassesToGenPackage(genPackage, newArrayList(genSampleClass, genSampleModelRoot))
 		
-		val Resource res = resourceSet.createResource(URI::createURI(ePackage.nsURI));
-		assertNotNull("EMF resource expected to be not null", res)
-		res.contents.add(ePackage)
-		res.save(null)
-		Helper::registerGenModel(resourceSet)
-		
-		val Resource genRes = resourceSet.createResource(genModelUri);
-		assertNotNull("Gen model resource expected to be not null", genRes)
-		genRes.contents.add(genModel)
-		genRes.save(null)		
+		createResource(resourceSet, ePackage)
+		createGenResource(resourceSet, genModel, genModelURI)
 
-		val metaClass = SprayFactory::eINSTANCE.createMetaClass
-		metaClass.type = sampleClass
+		val metaClass = createMetaClass(sampleClass)
 		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
 		metaClass.behaviorsList.add(createBehavior)
 		
-		val diagram = SprayFactory::eINSTANCE.createDiagram
-		diagram.name = "SampleDiagram"
-		diagram.modelType = sampleModelRoot 
+		val diagram = createDiagram("SampleDiagram", sampleModelRoot) 
 		diagram.metaClassesList.add(metaClass)
+		
+		metaClass
+	}
+	
+	def metaClassWithAskFor(MetaClass metaClass, String attributeName, EDataType attributeDataType) {
+		addEClassifiersToEPackage(metaClass.type.EPackage, newArrayList(attributeDataType))
+		val nameAttribute = createEAttribute(metaClass.type, attributeName, attributeDataType)
+		(metaClass.behaviorsList.head as CreateBehavior).askFor = nameAttribute
+	}
 
+	def EReference metaClassWithContainmentReference(MetaClass metaClass, EClass container, EClass containee, 
+		Boolean contained, String referenceName, Integer lowerBound, Integer upperBound) {
+		val sampleClassesReference = createEReference(container, containee, contained)
+		sampleClassesReference.name = referenceName
+		sampleClassesReference.lowerBound = lowerBound
+		sampleClassesReference.upperBound = upperBound
+		val behavior = (metaClass.behaviorsList.head as CreateBehavior)
+		behavior.containmentReference = sampleClassesReference 
+		sampleClassesReference 
+	}
+	
+	@Test
+	def testGenerate_createModelElement__WhenNoContainmentRef () {
+		val metaClass = createModelsAroundMetaclass()
+		metaClassWithAskFor(metaClass, "name", EcorePackage::eINSTANCE.getEString())
+		
 		val expectedOutput = '''
 			/**
 			 * Creates a new {@link SampleClass} instance and adds it to the containing type.
 			 */
-			protected SampleEClass createSampleClass(ICreateContext context) {
-				// ask user for SampleClass name
-				String newName = SampleUtil.askString(TITLE, USER_QUESTION, "");
-				if (newName == null || newName.trim().length() == 0) {
-			    	return null;
-				}
-				 // create SampleEClass instance
-				SampleClass newClass = SampleFactory.eINSTANCE.createSampleClass();    
-				newClass.setName(newName);
+			protected SampleClass createSampleClass(ICreateContext context) {
+			    // create SampleClass instance
+			    SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+			    // ask user for SampleClass name
+			    String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
+			    if (newName == null || newName.trim().length() == 0) {
+			       return null;
+			    } else {
+			       newClass.setName(newName);
+			    }
 			    
-				// add the element to containment reference
-				SampleModel model = modelService.getModel();
-				model.getSampleClasses().add(newClass);
-				setDoneChanges(true);
-				return newClass;
+			    setDoneChanges(true);
+			    return newClass;
 			}
     	'''	
     	sut.importUtil.initImports("features")
@@ -113,11 +115,183 @@ class CreateShapeFeatureTest {
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
 	
+	@Test
+	def testGenerate_createModelElement__WhenNoAskFor () {
+		val metaClass = createModelsAroundMetaclass()
+
+		val expectedOutput = '''
+			/**
+			 * Creates a new {@link SampleClass} instance and adds it to the containing type.
+			 */
+			protected SampleClass createSampleClass(ICreateContext context) {
+			    // create SampleClass instance
+			    SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+			    
+			    setDoneChanges(true);
+			    return newClass;
+			}
+    	'''	
+    	sut.importUtil.initImports("features")
+		val output = sut.generate_createModelElement(metaClass)
+		assertEquals("expected output", expectedOutput.toString, output.toString);
+	}
+	
+	@Test
+	def testGenerate_createModelElement__WhenAskForOfTypeDouble () {
+		val metaClass = createModelsAroundMetaclass()
+		metaClassWithAskFor(metaClass, "id", EcorePackage::eINSTANCE.getEDouble())
+
+		val expectedOutput = '''
+			/**
+			 * Creates a new {@link SampleClass} instance and adds it to the containing type.
+			 */
+			protected SampleClass createSampleClass(ICreateContext context) {
+			    // create SampleClass instance
+			    SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+			    // ask user for SampleClass id
+			    org.eclipse.jface.dialogs.IInputValidator validator = new org.eclipse.jface.dialogs.IInputValidator() {
+			       public String isValid(String _newText) {
+			          String message = null;
+			          try {
+			             Double.valueOf(_newText);
+			          } catch(Exception nfe) {
+			             message = _newText + " cannot be cast to Double";
+			          }
+			          return message;
+			       }
+			    };
+			    String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
+			    Double newId = Double.valueOf(newIdString);	
+			    newClass.setId(newId);
+			    
+			    setDoneChanges(true);
+			    return newClass;
+			}
+    	'''	
+    	sut.importUtil.initImports("features")
+		val output = sut.generate_createModelElement(metaClass)
+		assertEquals("expected output", expectedOutput.toString, output.toString);
+	}
+
+	@Test
+	def testGenerate_createModelElement__WhenAskForOfTypeInteger () {
+		val metaClass = createModelsAroundMetaclass()
+		metaClassWithAskFor(metaClass, "id", EcorePackage::eINSTANCE.getEInt())
+
+		val expectedOutput = '''
+			/**
+			 * Creates a new {@link SampleClass} instance and adds it to the containing type.
+			 */
+			protected SampleClass createSampleClass(ICreateContext context) {
+			    // create SampleClass instance
+			    SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+			    // ask user for SampleClass id
+			    org.eclipse.jface.dialogs.IInputValidator validator = new org.eclipse.jface.dialogs.IInputValidator() {
+			       public String isValid(String _newText) {
+			          String message = null;
+			          try {
+			             Integer.valueOf(_newText);
+			          } catch(Exception nfe) {
+			             message = _newText + " cannot be cast to Integer";
+			          }
+			          return message;
+			       }
+			    };
+			    String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
+			    Integer newId = Integer.valueOf(newIdString);	
+			    newClass.setId(newId);
+			    
+			    setDoneChanges(true);
+			    return newClass;
+			}
+    	'''	
+    	sut.importUtil.initImports("features")
+		val output = sut.generate_createModelElement(metaClass)
+		assertEquals("expected output", expectedOutput.toString, output.toString);
+	}
+
+	
+	@Test
+	def testGenerate_createModelElement_WhenOneToOneContainment () {
+		val metaClass = createModelsAroundMetaclass()
+		metaClassWithAskFor(metaClass, "name", EcorePackage::eINSTANCE.getEString())
+
+		val contained = true
+		metaClassWithContainmentReference(metaClass, 
+			metaClass.type.EPackage.EClassifiers.filter(c|c.name.matches("SampleModelRoot")).head as EClass, 
+			metaClass.type, contained, "sampleClass", 0, 1)
+
+		val expectedOutput = '''
+			/**
+			 * Creates a new {@link SampleClass} instance and adds it to the containing type.
+			 */
+			protected SampleClass createSampleClass(ICreateContext context) {
+			    // create SampleClass instance
+			    SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+			    // ask user for SampleClass name
+			    String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
+			    if (newName == null || newName.trim().length() == 0) {
+			       return null;
+			    } else {
+			       newClass.setName(newName);
+			    }
+			    
+			    // add the element to containment reference
+			    SampleModelRoot model = modelService.getModel();
+			    model.setSampleClass(newClass);
+			    
+			    setDoneChanges(true);
+			    return newClass;
+			}
+    	'''	
+    	sut.importUtil.initImports("features")
+		val output = sut.generate_createModelElement(metaClass)
+		assertEquals("expected output", expectedOutput.toString, output.toString);
+	}
+	
+	@Test
+	def testGenerate_createModelElement_WhenOneToManyContainment () {
+		val metaClass = createModelsAroundMetaclass()
+		metaClassWithAskFor(metaClass, "name", EcorePackage::eINSTANCE.getEString())
+
+		val contained = true
+		metaClassWithContainmentReference(metaClass, 
+			metaClass.type.EPackage.EClassifiers.filter(c|c.name.matches("SampleModelRoot")).head as EClass, 
+			metaClass.type, contained, "sampleClasses", 0, -1)
+
+		val expectedOutput = '''
+			/**
+			 * Creates a new {@link SampleClass} instance and adds it to the containing type.
+			 */
+			protected SampleClass createSampleClass(ICreateContext context) {
+			    // create SampleClass instance
+			    SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+			    // ask user for SampleClass name
+			    String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
+			    if (newName == null || newName.trim().length() == 0) {
+			       return null;
+			    } else {
+			       newClass.setName(newName);
+			    }
+			    
+			    // add the element to containment reference
+			    SampleModelRoot model = modelService.getModel();
+			    model.getSampleClasses().add(newClass);
+			    
+			    setDoneChanges(true);
+			    return newClass;
+			}
+    	'''	
+    	sut.importUtil.initImports("features")
+		val output = sut.generate_createModelElement(metaClass)
+		assertEquals("expected output", expectedOutput.toString, output.toString);
+	}	
+	
 	@After
 	def void tearDown() {
-		val file = new java.io.File("test.xmi");
+		val file = new java.io.File(domainModelResource);
 		if(file.exists) file.delete()
-		val genFile = new java.io.File("gentest.genmodel");
+		val genFile = new java.io.File(genModelResource);
 		if(genFile.exists) genFile.delete()
 	}
 }

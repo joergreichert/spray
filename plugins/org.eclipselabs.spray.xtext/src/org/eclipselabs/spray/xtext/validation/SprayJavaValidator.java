@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
+import org.eclipselabs.spray.mm.spray.Behavior;
+import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
@@ -113,6 +115,20 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
                 String referenceName = getReferenceName(ref);
                 error("Connection reference to containment reference not supported yet: " + referenceName, element, SprayPackage.Literals.META_CLASS__REFERENCES, IssueCodes.CONTAINMENT_CONNECTION_REFERENCE, referenceName);
             }
+        }
+    }
+
+    @Check
+    public void checkCreateBehavior(final MetaClass element) {
+        Predicate<Behavior> createBehaviorFilter = new Predicate<Behavior>() {
+            @Override
+            public boolean apply(Behavior input) {
+                return input instanceof CreateBehavior;
+            }
+        };
+        String name = (element.getType() != null && element.getType().getName() != null) ? element.getType().getName() : element.toString();
+        if (!Iterables.filter(element.getBehaviorsList(), createBehaviorFilter).iterator().hasNext()) {
+            error("There is no create behavior defined For class  " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
         }
     }
 }
