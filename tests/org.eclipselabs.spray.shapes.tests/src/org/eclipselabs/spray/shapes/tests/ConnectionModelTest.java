@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(XtextRunner2.class)
 @InjectWith(ShapeInjectorProvider.class)
-public class ConnectionModelTests extends XtextTest {
+public class ConnectionModelTest extends XtextTest {
 	
 	@Before
 	public void before() {

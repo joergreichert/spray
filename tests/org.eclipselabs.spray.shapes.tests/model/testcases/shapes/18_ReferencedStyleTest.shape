@@ -1,6 +1,10 @@
-shape ReferencedStyleOnElementTest {
-	ellipse style org.eclipselabs.spray.styles.DefaultSprayStyle {
+shape ReferencedStyleTest style org.eclipselabs.spray.styles.DefaultSprayStyle {
+	ellipse {
 		position(x=0,y=0)
 		size(width=0,height=0)
+		rectangle style org.eclipselabs.spray.styles.DefaultSprayStyle {
+			position(x=0,y=0)
+			size(width=0,height=0)
+		}
 	}
 }

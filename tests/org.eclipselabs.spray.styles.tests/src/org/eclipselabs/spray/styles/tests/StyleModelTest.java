@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(XtextRunner2.class)
 @InjectWith(StyleInjectorProvider.class)
-public class StyleModelTests extends XtextTest {
+public class StyleModelTest extends XtextTest {
 	
 	@Before
 	public void before() {
