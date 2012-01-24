@@ -77,5 +77,15 @@ public class StyleModelTest extends XtextTest {
 	public void test_12_StyleInheritance() {
 		testFile("testcases/12_StyleInheritance.style");
 	}
+	
+	@Test
+	public void test_13_DefaultLine() {
+		testFile("testcases/13_DefaultLine.style");
+	}
+	
+	@Test
+	public void test_14_DefaultFont() {
+		testFile("testcases/14_DefaultFont.style");
+	}
 
 }
