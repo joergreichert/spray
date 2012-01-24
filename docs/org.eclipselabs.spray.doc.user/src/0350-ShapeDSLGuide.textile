@@ -60,7 +60,7 @@ A complex figure could have multiple level for their visualisation. The brackets
 
 bc. shape Usecase { ellipse {} }
 
-If elements are at the same level like a ellipse and a text there will be defined among each other.
+If elements are at the same level like a ellipse and a text there will be defined among each other, so shapes can be multiple nested. 
 
 bc. shape Usecase { ellipse {} text {} }
 
@@ -73,6 +73,26 @@ bc.. shape Usecase (java.lang.String textline)
 	stretching(horizontal=true, vertical=true)
 	proportional=true
 }
+
+
+h3. Anchor
+
+Every shape has the ability to place different types of anchors with the keyword @anchor@. An anchor is specified at the first level of an shape and give the shape the possibility place a connection. There are four options to place an anchor. The first 2 options are dynamic and can be set with a keyword @anchor = center@ or @anchor = corners@. Does not matter what kind of shape is chosen the anchor will be placed in the center or at the corners where the shape is drawn onto. If an @ellipse@ is defined, this shape will be drawn on a invisible rectangle so the corners of the @anchor@ are the one from the rectangle.      
+There are two more options to define an @anchor@ a relative and fix one. A relative anchor type can look like this.
+
+bc. anchor {
+		position(xoffset=0.1,yoffset=0.0)
+		position(xoffset=0.8,yoffset=1.0)
+	}
+
+Every position entry represent a anchor point for a connection.In this case the @anchor@ got an attribute @position@ with two values @xoffset@ and @yoffset@. The @xoffset@/ @yoffset@ is the distance from the upper left corner to given value.
+
+bc. anchor {
+		position(x=5, y=10)
+		position(x=50, y=100)
+	}
+	
+This example defines a fixed anchor, where the coordinates for the position are with a fixed value.
 
 h2. Shape Default Values
 
@@ -282,8 +302,20 @@ bc. connection BPMN_DefaultFlow {
 	}
 }
 
-If a custom visual behavior around the @connection@ element is needed, a @placing@ could be used. Each @placing@ decsribes the content that is placed on top or below of a @connection@ definition. Every @placing@ requires an element named @position@ where value for the alignment will be set. 
+
+h3. Placing
+
+If a custom visual behavior around the @connection@ element is needed, a @placing@ could be used. Each @placing@ describes the content that is placed arround of a @connection@. Every @placing@ requires an element named @position@ where the value for the alignment will be set. 
 
 bc. position(offset=1.0,distance=0,angle=0,active=false)
 
-A @position@ element got four diffrent attributes @offset@, @distance@, @angle@ and @active@. The @offset@ is the position value among the line from left(@offset=0.0@) to right(@offset=1.0@), the @distance@ is the gap with a specified @angle@ between the connection and the element which is placed.  
+A @position@ attribute got four diffrent values @offset@, @distance@, @angle@ and @active@. The @offset@ is the position value among the line from left(@offset=0.0@) to right(@offset=1.0@), the @distance@ is the gap with a specified @angle@ between the connection and the element which is placed. The @angle@ can be specified in degree from 0 to 360. Imagine a circle with 4 quadrants, then the first quadrant is from 0 to 90 degree, the second is from 90 to 180 and so on. The last value of the @position@ is the @active@ which is a boolean value. If the @active@ is true the @placing@ element can be move belatedly, if not the position is fixed.
+
+
+h3. ConnectionType
+
+The type of the connection can be set with the attribute @connection-type@. There are two diffrent types @connection-type=manhattan@ and @connection-type=freeform@ which are available.
+
+
+
+
