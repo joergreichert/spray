@@ -139,3 +139,4 @@ font-italic = yes
 font-bold = no
 
 The font style @italic@ and @bold@ can be set with the attributes @font-italic@ and @font-bold@. Therefore a *yes* or *no* boolean can be used. "*yes*" defines the the font will be drawn with this style, "*no*" defines that this style will not be got.
+
