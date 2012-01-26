@@ -55,6 +55,8 @@ class SprayModelGenerator {
         diagramPackage  = «info.getBasePackage».«info.diagramPackage»
         featurePackage  = «info.getBasePackage».«info.featurePackage»
         propertyPackage = «info.getBasePackage».«info.propertyPackage»
+        stylesPackage   = «info.getBasePackage».«info.stylesPackage»
+        shapesPackage   = «info.getBasePackage».«info.shapesPackage»
         utilPackage     = org.eclipselabs.spray.runtime.graphiti.containers
         
         srcManPath      = «info.javaMainSrcDir»

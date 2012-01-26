@@ -15,6 +15,8 @@ public class SprayProjectInfo extends DefaultProjectInfo {
     private String  diagramPackage  = "diagram";
     private String  featurePackage  = "features";
     private String  propertyPackage = "property";
+    private String  stylesPackage   = "styles";
+    private String  shapesPackage   = "shapes";
     private boolean createTimestamp = true;
     private String  epackageURI;
     private String  genmodelURI;
@@ -106,6 +108,22 @@ public class SprayProjectInfo extends DefaultProjectInfo {
 
     public void setPropertyPackage(String propertyPackage) {
         this.propertyPackage = propertyPackage;
+    }
+
+    public String getStylesPackage() {
+        return stylesPackage;
+    }
+
+    public void setStylesPackage(String stylesPackage) {
+        this.stylesPackage = stylesPackage;
+    }
+
+    public String getShapesPackage() {
+        return shapesPackage;
+    }
+
+    public void setShapesPackage(String shapesPackage) {
+        this.shapesPackage = shapesPackage;
     }
 
     public void setBasePackage(String basePackage) {

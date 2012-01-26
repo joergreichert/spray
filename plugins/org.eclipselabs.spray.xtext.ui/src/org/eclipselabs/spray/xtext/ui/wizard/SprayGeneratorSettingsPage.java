@@ -23,6 +23,8 @@ public class SprayGeneratorSettingsPage extends WizardPage {
     private Text               txtDiagramPackage;
     private Text               txtFeaturesPackage;
     private Text               txtPropertyPackage;
+    private Text               txtStylesPackage;
+    private Text               txtShapesPackage;
     private Text               txtSrc;
     private Text               txtSrcgen;
     private Text               txtModel;
@@ -173,6 +175,22 @@ public class SprayGeneratorSettingsPage extends WizardPage {
         txtPropertyPackage.setText("property");
         txtPropertyPackage.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
+        Label lblStylesPackage = new Label(grpPackageNames, SWT.NONE);
+        lblStylesPackage.setText("Styles package");
+
+        txtStylesPackage = new Text(grpPackageNames, SWT.BORDER);
+        txtStylesPackage.setEnabled(false);
+        txtStylesPackage.setText("styles");
+        txtStylesPackage.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+
+        Label lblShapesPackage = new Label(grpPackageNames, SWT.NONE);
+        lblShapesPackage.setText("Shapes package");
+
+        txtShapesPackage = new Text(grpPackageNames, SWT.BORDER);
+        txtShapesPackage.setEnabled(false);
+        txtShapesPackage.setText("shapes");
+        txtShapesPackage.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+
         btnGenerateTimestamp = new Button(container, SWT.CHECK);
         btnGenerateTimestamp.setToolTipText("If checked a timestamp will be generated into the generated sources");
         btnGenerateTimestamp.setSelection(true);
@@ -188,7 +206,8 @@ public class SprayGeneratorSettingsPage extends WizardPage {
         txtDiagramPackage.setEnabled(!useDefault);
         txtFeaturesPackage.setEnabled(!useDefault);
         txtPropertyPackage.setEnabled(!useDefault);
-
+        txtStylesPackage.setEnabled(!useDefault);
+        txtShapesPackage.setEnabled(!useDefault);
         if (useDefault) {
             if (projectInfo.getProjectName().endsWith("." + projectInfo.getDiagramTypeName())) {
                 txtBasePackage.setText(projectInfo.getProjectName().toLowerCase());
@@ -198,6 +217,8 @@ public class SprayGeneratorSettingsPage extends WizardPage {
             txtDiagramPackage.setText("diagram");
             txtFeaturesPackage.setText("features");
             txtPropertyPackage.setText("property");
+            txtStylesPackage.setText("styles");
+            txtShapesPackage.setText("shapes");
         }
     }
 
@@ -254,6 +275,14 @@ public class SprayGeneratorSettingsPage extends WizardPage {
         IObservableValue txtPropertyPackageObserveTextObserveWidget = SWTObservables.observeText(txtPropertyPackage, SWT.Modify);
         IObservableValue projectInfoPropertyPackageObserveValue = PojoObservables.observeValue(projectInfo, "propertyPackage");
         bindingContext.bindValue(txtPropertyPackageObserveTextObserveWidget, projectInfoPropertyPackageObserveValue, null, null);
+        //
+        IObservableValue txtStylesPackageObserveTextObserveWidget = SWTObservables.observeText(txtStylesPackage, SWT.Modify);
+        IObservableValue projectInfoStylesPackageObserveValue = PojoObservables.observeValue(projectInfo, "stylesPackage");
+        bindingContext.bindValue(txtStylesPackageObserveTextObserveWidget, projectInfoStylesPackageObserveValue, null, null);
+        //
+        IObservableValue txtShapesPackageObserveTextObserveWidget = SWTObservables.observeText(txtShapesPackage, SWT.Modify);
+        IObservableValue projectInfoShapesPackageObserveValue = PojoObservables.observeValue(projectInfo, "shapesPackage");
+        bindingContext.bindValue(txtShapesPackageObserveTextObserveWidget, projectInfoShapesPackageObserveValue, null, null);
         //
         IObservableValue txtResourcesObserveTextObserveWidget = SWTObservables.observeText(txtResources, SWT.Modify);
         IObservableValue projectInfoResourceManDirObserveValue = PojoObservables.observeValue(projectInfo, "resourceManDir");
