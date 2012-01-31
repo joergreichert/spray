@@ -604,7 +604,8 @@ public class ConnectionPlacingGenerator {
           if (_operator_lessThan) {
             int _xblockexpression = (int) 0;
             {
-              double _cos = Math.cos((angle).intValue());
+              double _radians = Math.toRadians((angle).intValue());
+              double _cos = Math.cos(_radians);
               double _operator_multiply = DoubleExtensions.operator_multiply(_cos, (distance).intValue());
               int _intValue = Double.valueOf(_operator_multiply).intValue();
               int posx = _intValue;
@@ -619,7 +620,8 @@ public class ConnectionPlacingGenerator {
               {
                 int _operator_minus_1 = IntegerExtensions.operator_minus(180, (angle).intValue());
                 int newangle = _operator_minus_1;
-                double _cos_1 = Math.cos(newangle);
+                double _radians_1 = Math.toRadians(newangle);
+                double _cos_1 = Math.cos(_radians_1);
                 double _operator_multiply_1 = DoubleExtensions.operator_multiply(_cos_1, (distance).intValue());
                 int _intValue_1 = Double.valueOf(_operator_multiply_1).intValue();
                 int posx_1 = _intValue_1;
@@ -636,7 +638,8 @@ public class ConnectionPlacingGenerator {
                 {
                   int _operator_minus_3 = IntegerExtensions.operator_minus((angle).intValue(), 180);
                   int newangle1 = _operator_minus_3;
-                  double _cos_2 = Math.cos(newangle1);
+                  double _radians_2 = Math.toRadians(newangle1);
+                  double _cos_2 = Math.cos(_radians_2);
                   double _operator_multiply_3 = DoubleExtensions.operator_multiply(_cos_2, (distance).intValue());
                   int _intValue_2 = Double.valueOf(_operator_multiply_3).intValue();
                   int posx_2 = _intValue_2;
@@ -653,7 +656,8 @@ public class ConnectionPlacingGenerator {
                   {
                     int _operator_minus_5 = IntegerExtensions.operator_minus(360, (angle).intValue());
                     int newangle_1 = _operator_minus_5;
-                    double _cos_3 = Math.cos(newangle_1);
+                    double _radians_3 = Math.toRadians(newangle_1);
+                    double _cos_3 = Math.cos(_radians_3);
                     double _operator_multiply_5 = DoubleExtensions.operator_multiply(_cos_3, (distance).intValue());
                     int _intValue_3 = Double.valueOf(_operator_multiply_5).intValue();
                     int posx_3 = _intValue_3;
@@ -686,25 +690,25 @@ public class ConnectionPlacingGenerator {
       int _xifexpression_1 = (int) 0;
       boolean _operator_or = false;
       boolean _operator_or_1 = false;
-      boolean _operator_equals_1 = IntegerExtensions.operator_equals((angle).intValue(), 180);
+      boolean _operator_equals_1 = IntegerExtensions.operator_equals((angle).intValue(), 0);
       if (_operator_equals_1) {
         _operator_or_1 = true;
       } else {
-        boolean _operator_equals_2 = IntegerExtensions.operator_equals((angle).intValue(), 0);
+        boolean _operator_equals_2 = IntegerExtensions.operator_equals((angle).intValue(), 180);
         _operator_or_1 = BooleanExtensions.operator_or(_operator_equals_1, _operator_equals_2);
       }
       if (_operator_or_1) {
         _operator_or = true;
       } else {
-        boolean _operator_equals_3 = IntegerExtensions.operator_equals((angle).intValue(), 360);
-        _operator_or = BooleanExtensions.operator_or(_operator_or_1, _operator_equals_3);
+        boolean _operator_greaterEqualsThan = IntegerExtensions.operator_greaterEqualsThan((angle).intValue(), 360);
+        _operator_or = BooleanExtensions.operator_or(_operator_or_1, _operator_greaterEqualsThan);
       }
       if (_operator_or) {
         _xifexpression_1 = 0;
       } else {
         Integer _xifexpression_2 = null;
-        boolean _operator_equals_4 = IntegerExtensions.operator_equals((angle).intValue(), 270);
-        if (_operator_equals_4) {
+        boolean _operator_equals_3 = IntegerExtensions.operator_equals((angle).intValue(), 270);
+        if (_operator_equals_3) {
           _xifexpression_2 = distance;
         } else {
           int _xifexpression_3 = (int) 0;
@@ -712,7 +716,8 @@ public class ConnectionPlacingGenerator {
           if (_operator_lessThan) {
             int _xblockexpression = (int) 0;
             {
-              double _sin = Math.sin((angle).intValue());
+              double _radians = Math.toRadians((angle).intValue());
+              double _sin = Math.sin(_radians);
               double _operator_multiply = DoubleExtensions.operator_multiply(_sin, (distance).intValue());
               int _intValue = Double.valueOf(_operator_multiply).intValue();
               int posy = _intValue;
@@ -729,7 +734,8 @@ public class ConnectionPlacingGenerator {
               {
                 int _operator_minus_2 = IntegerExtensions.operator_minus(180, (angle).intValue());
                 int newangle = _operator_minus_2;
-                double _sin_1 = Math.sin(newangle);
+                double _radians_1 = Math.toRadians(newangle);
+                double _sin_1 = Math.sin(_radians_1);
                 double _operator_multiply_2 = DoubleExtensions.operator_multiply(_sin_1, (distance).intValue());
                 int _intValue_1 = Double.valueOf(_operator_multiply_2).intValue();
                 int posy_1 = _intValue_1;
@@ -746,7 +752,8 @@ public class ConnectionPlacingGenerator {
                 {
                   int _operator_minus_4 = IntegerExtensions.operator_minus((angle).intValue(), 180);
                   int newangle1 = _operator_minus_4;
-                  double _sin_2 = Math.sin(newangle1);
+                  double _radians_2 = Math.toRadians(newangle1);
+                  double _sin_2 = Math.sin(_radians_2);
                   double _operator_multiply_4 = DoubleExtensions.operator_multiply(_sin_2, (distance).intValue());
                   int _intValue_2 = Double.valueOf(_operator_multiply_4).intValue();
                   int posy_2 = _intValue_2;
@@ -761,7 +768,8 @@ public class ConnectionPlacingGenerator {
                   {
                     int _operator_minus_5 = IntegerExtensions.operator_minus(360, (angle).intValue());
                     int newangle_1 = _operator_minus_5;
-                    double _sin_3 = Math.sin(newangle_1);
+                    double _radians_3 = Math.toRadians(newangle_1);
+                    double _sin_3 = Math.sin(_radians_3);
                     double _operator_multiply_5 = DoubleExtensions.operator_multiply(_sin_3, (distance).intValue());
                     int _intValue_3 = Double.valueOf(_operator_multiply_5).intValue();
                     int posy_3 = _intValue_3;

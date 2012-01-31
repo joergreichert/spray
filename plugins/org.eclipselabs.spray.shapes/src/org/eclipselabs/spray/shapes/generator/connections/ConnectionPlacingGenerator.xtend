@@ -179,66 +179,53 @@ class ConnectionPlacingGenerator {
 	}
 	
 	def getXPositionforAngle(Integer distance, Integer angle) {
-		// Spezialfälle 0/90/180/270/360
+		// Spezialfälle 0/90/180/270/>=360
 		if(angle == 90 || angle == 270){
 			0
-			
 		} else if(angle == 180){
 			-distance
-			
 		} else if(angle == 0 || angle >= 360){
 			distance
-			
-		} else if(angle < 90) { // Quandrant 1
-			var posx = (Math::cos(angle)*distance).intValue
+		} else if(angle < 90) { // Quadrant 1
+			var posx = (Math::cos(Math::toRadians(angle))*distance).intValue
 			posx
-				
-		} else if(angle < 180) { // Quandrant 2
+		} else if(angle < 180) { // Quadrant 2
 			var newangle = 180 - angle
-			var posx = (Math::cos(newangle)*distance).intValue
+			var posx = (Math::cos(Math::toRadians(newangle))*distance).intValue
 			posx * -1
-			
-		} else if (angle < 270) { // Quandrant 3
+		} else if (angle < 270) { // Quadrant 3
 			var newangle1 = angle - 180
-			var posx = (Math::cos(newangle1)*distance).intValue
+			var posx = (Math::cos(Math::toRadians(newangle1))*distance).intValue
 			posx * -1
-			
-		} else if (angle < 360) { // Quandrant 4
+		} else if (angle < 360) { // Quadrant 4
 			var newangle = 360 - angle
-			var posx = (Math::cos(newangle)*distance).intValue
+			var posx = (Math::cos(Math::toRadians(newangle))*distance).intValue
 			posx
 		}
-		
 	}
 	
 	def getYPositionforAngle(Integer distance, Integer angle) {
-		// Spezialfälle 0/90/180/270/360
+		// Spezialfälle 0/90/180/270/>=360
 		if(angle == 90){
 			-distance
-			
-		} else if(angle == 180 || angle == 0 || angle == 360){
+		} else if(angle == 0 || angle == 180 || angle >= 360){
 			0
-			
-		} else if(angle == 270){
+		} else if(angle == 270) {
 			distance
-			
-		} else if(angle < 90) { // Quandrant 1
-			var posy = (Math::sin(angle)*distance).intValue
+		} else if(angle < 90) { // Quadrant 1
+			var posy = (Math::sin(Math::toRadians(angle))*distance).intValue
 			posy * -1
-				
-		} else if(angle < 180) { // Quandrant 2
+		} else if(angle < 180) { // Quadrant 2
 			var newangle = 180 - angle
-			var posy = (Math::sin(newangle)*distance).intValue
+			var posy = (Math::sin(Math::toRadians(newangle))*distance).intValue
 			posy * -1
-			
-		} else if (angle < 270) { // Quandrant 3
+		} else if (angle < 270) { // Quadrant 3
 			var newangle1 = angle - 180
-			var posy = (Math::sin(newangle1)*distance).intValue
+			var posy = (Math::sin(Math::toRadians(newangle1))*distance).intValue
 			posy
-			
-		} else if (angle < 360) { // Quandrant 4
+		} else if (angle < 360) { // Quadrant 4
 			var newangle = 360 - angle
-			var posy = (Math::sin(newangle)*distance).intValue
+			var posy = (Math::sin(Math::toRadians(newangle))*distance).intValue
 			posy
 		}
 	}
