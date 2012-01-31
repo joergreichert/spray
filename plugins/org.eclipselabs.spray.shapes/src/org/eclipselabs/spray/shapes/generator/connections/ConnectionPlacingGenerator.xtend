@@ -24,7 +24,7 @@ class ConnectionPlacingGenerator {
 	def generatePlacing(PlacingDefinition pd) {
 		'''
 		{
-			ConnectionDecorator decorator = peCreateService.createConnectionDecorator(newConnection, «pd.active», «pd.offset», true);
+			ConnectionDecorator decorator = peCreateService.createConnectionDecorator(newConnection, false, «pd.offset», true);
 			«pd.shapeCon.createElement("decorator", "sprayStyle", pd.angle, pd.distance)»
 		}
 		'''
@@ -52,14 +52,27 @@ class ConnectionPlacingGenerator {
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
-		Rectangle «attname» = gaService.createRectangle(«parentName»);
+		{
+		// Create a List of Points
+		List<Point> pL = new ArrayList<Point>();
+		
+		Point p1 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», 0, 0);
+		pL.add(p1);
+		Point p2 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», 0, 0);
+		pL.add(p2);
+		Point p3 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0);
+		pL.add(p3);
+		Point p4 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0);
+		pL.add(p4);
+		
+		//Create Rectangle with Polygon
+		Polygon «attname» = gaService.createPolygon(«parentName», pL);
 		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style_«element_index»);
 		
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);
-		
 		//Set special Style information
 		«generateStyleForConnection(attname, element.layout.layout)»
+		}
      	'''
 	}
 	
@@ -104,13 +117,27 @@ class ConnectionPlacingGenerator {
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
-		RoundedRectangle «attname» = gaService.createRoundedRectangle(«parentName», «element.layout.curveWidth», «element.layout.curveHeight»);
+		{
+		// Create a List of Points
+		List<Point> pL = new ArrayList<Point>();
+		
+		Point p1 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.curveHeight», «element.layout.curveWidth») ;
+		pL.add(p1);
+		Point p2 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», «element.layout.curveWidth», «element.layout.curveHeight»);
+		pL.add(p2);
+		Point p3 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveHeight», «element.layout.curveWidth»);
+		pL.add(p3);
+		Point p4 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveWidth», «element.layout.curveHeight»);
+		pL.add(p4);
+		
+		//Create Rectangle with Polygon
+		Polygon «attname» = gaService.createPolygon(«parentName», pL);
 		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style_«element_index»);
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);
 		
 		//Set special Style information
 		«generateStyleForConnection(attname, element.layout.layout)»
+		}
      	'''
 	}
 	
@@ -135,6 +162,7 @@ class ConnectionPlacingGenerator {
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		Text «attname» = gaService.createText(«parentName»);
+		«parentName».setActive(true);
 		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style_«element_index»);
 		// TODO: define position
@@ -180,11 +208,11 @@ class ConnectionPlacingGenerator {
 	
 	def getXPositionforAngle(Integer distance, Integer angle) {
 		// Spezialfälle 0/90/180/270/>=360
-		if(angle == 90 || angle == 270){
+		if(angle == 90 || angle == 270) {
 			0
-		} else if(angle == 180){
+		} else if(angle == 180) {
 			-distance
-		} else if(angle == 0 || angle >= 360){
+		} else if(angle == 0 || angle >= 360) {
 			distance
 		} else if(angle < 90) { // Quadrant 1
 			var posx = (Math::cos(Math::toRadians(angle))*distance).intValue
@@ -206,9 +234,9 @@ class ConnectionPlacingGenerator {
 	
 	def getYPositionforAngle(Integer distance, Integer angle) {
 		// Spezialfälle 0/90/180/270/>=360
-		if(angle == 90){
+		if(angle == 90) {
 			-distance
-		} else if(angle == 0 || angle == 180 || angle >= 360){
+		} else if(angle == 0 || angle == 180 || angle >= 360) {
 			0
 		} else if(angle == 270) {
 			distance

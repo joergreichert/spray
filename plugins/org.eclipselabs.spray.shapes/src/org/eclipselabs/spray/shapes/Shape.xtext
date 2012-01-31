@@ -1,180 +1,125 @@
 grammar org.eclipselabs.spray.shapes.Shape with org.eclipselabs.spray.styles.Style // with org.eclipse.xtext.common.Terminals
+
 import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
-import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
+
 generate shapes 'http://www.eclipselabs.org/spray/shapes/Shape'
 
-ShapeContainer:
-	shapeContainerElement+=ShapeContainerElement*;
+ShapeContainer: 
+	shapeContainerElement+=ShapeContainerElement*
+;
 
-ShapeContainerElement:
-	ShapeDefinition | ConnectionDefinition;
+ShapeContainerElement: ShapeDefinition | ConnectionDefinition;
 
-ConnectionDefinition:
-	'connection' name=ID ('(' param+=FullJvmFormalParameter ("," param+=FullJvmFormalParameter)* ')')? (style=ShapeStyleRef)? '{'
-	('connection-type' connectionStyle=ConnectionStyle)?
-	layout=ShapestyleLayout?
-	placing+=PlacingDefinition*
+ConnectionDefinition: 
+	'connection' name=ID ( '(' param+=JvmFormalParameter ("," param+=JvmFormalParameter)* ')')? (style=ShapeStyleRef)? '{'
+		('connection-type' connectionStyle=ConnectionStyle)? 
+		layout=ShapestyleLayout? 
+		placing+=PlacingDefinition* 
 	'}';
 
-ShapeDefinition:
-	'shape' name=ID ('(' param+=FullJvmFormalParameter ("," param+=FullJvmFormalParameter)* ')')? (style=ShapeStyleRef)? '{'
-	shapeLayout=ShapeLayout
-	shape+=Shape+
-	anchor=Anchor?
+ShapeDefinition: 
+	'shape' name=ID  ('(' param+=JvmFormalParameter ("," param+=JvmFormalParameter)* ')')? (style=ShapeStyleRef)? '{'
+		shapeLayout=ShapeLayout
+	   	shape+=Shape+
+	   	anchor=Anchor?
 	'}';
 
-PlacingDefinition:
+PlacingDefinition: 
 	'placing' '{'
-	'position' '(' 'offset' '=' offset=DOUBLE ',' 'radius' '=' distance=INT ',' 'angle' '=' angle=INT ')'
-	shapeCon=ShapeConnection
-	'}';
+		'position' '(' 'offset' '=' offset=DOUBLE ',' 'radius' '=' distance=INT ',' 'angle' '=' angle=INT ')'
+		shapeCon=ShapeConnection
+	'}'
+; 
 
-Anchor:
-	'anchor' type=AnchorType;
+Anchor: 'anchor' type=AnchorType;
+AnchorType: AnchorPredefinied|AnchorManual;
 
-AnchorType:
-	AnchorPredefinied | AnchorManual;
+AnchorPredefinied: value=AnchorPredefiniedEnum;
+AnchorManual: '{' position+=AnchorPosition+ '}';
+AnchorPosition: 'position' '(' pos=AnchorPositionPos ')';
+AnchorPositionPos: AnchorRelativePosition | AnchorFixPointPosition;
+AnchorRelativePosition: 'xoffset' '=' xoffset=DOUBLE ',' 'yoffset' '=' yoffset=DOUBLE;
+AnchorFixPointPosition: 'x' '=' xcor=INT ',' 'y' '=' ycor=INT;
 
-AnchorPredefinied:
-	value=AnchorPredefiniedEnum;
+Shape: Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text;
 
-AnchorManual:
-	'{' position+=AnchorPosition+ '}';
+ShapeConnection: CDLine | CDPolyline | CDRectangle | CDRoundedRectangle | CDPolygon | CDEllipse | CDText;
 
-AnchorPosition:
-	'position' '(' pos=AnchorPositionPos ')';
+CDLine: {CDLine} 'line' (style=ShapeStyleRef)? ( '{' layout=LineLayout '}' ) ;
+CDPolyline: {CDPolyline} 'polyline' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
+CDRectangle: {CDRectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout '}' );
+CDRoundedRectangle: {CDRoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout '}' );
+CDPolygon: {CDPolygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
+CDEllipse: {CDEllipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout '}' );
+CDText: {CDText} 'text' (style=ShapeStyleRef)? ( '{' layout=TextLayout body=XExpression '}' );
 
-AnchorPositionPos:
-	AnchorRelativePosition | AnchorFixPointPosition;
+Line: {Line} 'line' (style=ShapeStyleRef)? ( '{' layout=LineLayout '}' ) ;
+Polyline: {Polyline} 'polyline' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
+Rectangle: {Rectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout shape+=Shape* '}' );
+RoundedRectangle: {RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}' );
+Polygon: {Polygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout shape+=Shape* '}' );
+Ellipse: {Ellipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout shape+=Shape* '}' );
+Text: {Text} 'text' (style=ShapeStyleRef)? ( '{' layout=TextLayout '{' body=XExpression '}' '}' );
+//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 
-AnchorRelativePosition:
-	'xoffset' '=' xoffset=DOUBLE ',' 'yoffset' '=' yoffset=DOUBLE;
-
-AnchorFixPointPosition:
-	'x=' xcor=INT ',' 'y=' ycor=INT;
-
-Shape:
-	Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text;
-
-ShapeConnection:
-	CDLine | CDPolyline | CDRectangle | CDRoundedRectangle | CDPolygon | CDEllipse | CDText;
-
-CDLine:
-	{CDLine} 'line' (style=ShapeStyleRef)? ('{' layout=LineLayout '}');
-
-CDPolyline:
-	{CDPolyline} 'polyline' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout '}');
-
-CDRectangle:
-	{CDRectangle} 'rectangle' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout '}');
-
-CDRoundedRectangle:
-	{CDRoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout '}');
-
-CDPolygon:
-	{CDPolygon} 'polygon' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout '}');
-
-CDEllipse:
-	{CDEllipse} 'ellipse' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout '}');
-
-CDText:
-	{CDText} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
-
-Line:
-	{Line} 'line' (style=ShapeStyleRef)? ('{' layout=LineLayout '}');
-
-Polyline:
-	{Polyline} 'polyline' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout '}');
-
-Rectangle:
-	{Rectangle} 'rectangle' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout shape+=Shape* '}');
-
-RoundedRectangle:
-	{RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}');
-
-Polygon:
-	{Polygon} 'polygon' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout shape+=Shape* '}');
-
-Ellipse:
-	{Ellipse} 'ellipse' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout shape+=Shape* '}');
-
-Text:
-	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
-	//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 ShapeLayout:
-	{ShapeLayout}
-	(('size-min' '(' 'width' '=' minwidth=INT ',' 'height' '=' minheight=INT ')')?
-	('size-max' '(' 'width' '=' maxwidth=INT ',' 'height' '=' maxheight=INT ')')?
-	('stretching' '(' 'horizontal' '=' stretchH=Boolean ',' 'vertical' '=' stretchV=Boolean ')')?
-	('proportional' '=' proportional=Boolean)?);
-
-RectangleEllipseLayout:
-	{RectangleEllipseLayout} ((common=CommonLayout) &
-	(layout=ShapestyleLayout)?);
-
-LineLayout:
-	{LineLayout} ((point+=Point) (point+=Point)
-	(layout=ShapestyleLayout)?);
-
-PolyLineLayout:
-	{PolyLineLayout} ((point+=Point) (point+=Point+)
-	(layout=ShapestyleLayout)?);
-
-RoundedRectangleLayout:
-	{RoundedRectangleLayout} ((common=CommonLayout) &
-	('curve' '(' 'width' '=' curveWidth=INT ',' 'height' '=' curveHeight=INT ')') &
-	(layout=ShapestyleLayout)?);
-
-TextLayout:
-	{TextLayout} ((common=CommonLayout) &
-	('align' '(' ('horizontal' '=' hAlign=HAlign ',' 'vertical' '=' vAlign=VAlign)? ')')? &
-	(layout=ShapestyleLayout)?);
-
-ShapestyleLayout:
-	{ShapestyleLayout} ('style' '(' layout=StyleLayout ')');
-
-ShapeStyleRef:
-	'style' (style=JvmTypeReference);
-
-CommonLayout:
-	{CommonLayout} (
-		('position' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT ')' )? & 
-		('size' '(' 'width' '=' width=INT ',' 'height' '=' heigth=INT ')' )
+	{ShapeLayout} 
+	(
+	   ('size-min'     '(' 'width' '=' minwidth=INT ',' 'height' '=' minheight=INT ')' )? 
+	   ('size-max'     '(' 'width' '=' maxwidth=INT ',' 'height' '=' maxheight=INT ')' )? 
+	   ('stretching'   '(' 'horizontal' '=' stretchH=Boolean ',' 'vertical' '=' stretchV=Boolean ')' )? 
+	   ('proportional' '=' proportional=Boolean)? 
 	);
 
-TextBody:
-	"value" "=" value=TextBodyValue;
+RectangleEllipseLayout:
+	{RectangleEllipseLayout} (
+    	(common=CommonLayout) & 
+    	(layout=ShapestyleLayout)?   
+    );
 
-TextBodyValue:
-	TextBodyParameter | TextBodyString;
+LineLayout:
+	{LineLayout} (
+		(point+=Point) & 
+		(point+=Point) & 
+		(layout=ShapestyleLayout)? 
+	);
 
-TextBodyString:
-	param=STRING;
+PolyLineLayout:
+	{PolyLineLayout} (
+	   (point+=Point) & 
+	   (point+=Point+) &
+	   (layout=ShapestyleLayout)? 
+	);
 
-TextBodyParameter:
-	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
+RoundedRectangleLayout:
+	{RoundedRectangleLayout} (
+    	(common=CommonLayout) &
+    	('curve' '(' 'width' '=' curveWidth=INT ',' 'height' '=' curveHeight=INT ')' ) & 
+    	(layout=ShapestyleLayout)? 
+    );
 
-Point:
-	{Point} ('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','
-	'curveAfter' '=' curveAfter=INT)? ')');
+TextLayout:
+	{TextLayout} (
+		('position' '(' ( 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT ) ')' ) &
+		('align' '(' ( 'horizontal' '=' hAlign=HAlign ',' 'vertical' '=' vAlign=VAlign)? ')')? &
+	  	(layout=ShapestyleLayout)? 
+	);
 
-Boolean returns ecore::EBoolean:
-	'true' | 'false';
+ShapestyleLayout: {ShapestyleLayout} ( 'style' '(' layout=StyleLayout ')' );
 
-enum HAlign:
-	LEFT='left' | CENTER='center' | RIGHT='right';
+ShapeStyleRef: 'style' (style=JvmTypeReference);
 
-enum VAlign:
-	TOP='top' | MIDDLE='middle' | BOTTOM='bottom';
+CommonLayout:
+	{CommonLayout} ( 
+	   ('position' '(' ( 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT ) ')' )? &
+	   ('size' '(' ( 'width' '=' width=INT ',' 'height' '=' heigth=INT ) ')' )
+    ); 
+    
 
-enum ConnectionStyle:
-	freeform='freeform' | manhatten='manhatten';
-
-enum AnchorPredefiniedEnum:
-	center='center' | corners='corners';
-
-enum TextType:
-	default="text" | multiline="wrapped-text";
-
-N_INT returns ecore::EInt:
-	('-')? INT;
+Point: {Point} ( ('point' '(' 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ',' 'curveAfter' '=' curveAfter=INT)? ')' ) );
+Boolean returns ecore::EBoolean: 'true' | 'false';
+enum HAlign: LEFT='left' | CENTER='center' | RIGHT='right';
+enum VAlign: TOP='top' | MIDDLE='middle' | BOTTOM='bottom';
+enum ConnectionStyle: freeform='freeform' | manhatten='manhatten';
+enum AnchorPredefiniedEnum: center='center'|corners='corners';
+N_INT returns ecore::EInt: ('-')? INT;
