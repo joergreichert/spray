@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.xtext.xbase.compiler.ImportManager
 import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
-import org.eclipselabs.spray.mm.spray.Text
+import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
@@ -44,7 +44,7 @@ class TemplateUtil extends Object {
     /**
      * Generate the fulle expression to calculate the  value of a Text, existing of string literals and navigation expressions
      */
-    def CharSequence valueGenerator(Text text, String metaClassVariable)    {
+    def CharSequence valueGenerator(TextInSpray text, String metaClassVariable)    {
         try {
             compiler.metaClassVariable = metaClassVariable
             val body = compiler.compile(text, new ImportManager(false))
@@ -59,7 +59,7 @@ class TemplateUtil extends Object {
     /**
      * Generate a unique key for the full expression to be used in map storage
      */
-    def keyGenerator(Text text) {
+    def keyGenerator(TextInSpray text) {
         return text.value.toString
     }
     

@@ -5,29 +5,29 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
-import org.eclipselabs.spray.mm.spray.Container
-import org.eclipselabs.spray.mm.spray.Text
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
+import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import com.google.common.collect.Lists
 
 /*
- * Template for generating Graphiti Update feature for a Container representing a MetaClass
+ * Template for generating Graphiti Update feature for a ContainerInSpray representing a MetaClass
  */
-class UpdateShapeFeature extends FileGenerator<Container>  {
+class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
     @Inject extension NamingExtensions
     @Inject extension IQualifiedNameProvider
     @Inject extension DiagramExtensions
 
-    override CharSequence generateBaseFile(Container modelElement) {
+    override CharSequence generateBaseFile(ContainerInSpray modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(Container modelElement) {
+    override CharSequence generateExtensionFile(ContainerInSpray modelElement) {
         	mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Container container, String className) '''
+    def mainExtensionPointFile(ContainerInSpray container, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -41,7 +41,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
         }
     '''
 
-    def mainFile(Container container, String className) '''
+    def mainFile(ContainerInSpray container, String className) '''
         «header(this)»
         package «feature_package()»;
 
@@ -80,7 +80,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
         }
         '''
         
-        def generate_canUpdate (Container container) '''
+        def generate_canUpdate (ContainerInSpray container) '''
             «overrideHeader»
             public boolean canUpdate(IUpdateContext context) {
                 // return true, if linked business object is a EClass
@@ -90,7 +90,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             }
         '''
         
-        def generate_updateNeeded (Container container) '''
+        def generate_updateNeeded (ContainerInSpray container) '''
             «overrideHeader»
             public IReason updateNeeded(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
@@ -125,7 +125,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
              }
         '''
         
-        def generate_update (Container container) '''
+        def generate_update (ContainerInSpray container) '''
             «overrideHeader»
             public boolean update(IUpdateContext context) {
                 PictogramElement pictogramElement = context.getPictogramElement();
@@ -136,7 +136,7 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             }
         '''
         
-        def generate_valueMapping (Container container) '''
+        def generate_valueMapping (ContainerInSpray container) '''
             Map<String, String> values = null; 
             protected Map<String, String> getValues(«container?.represents?.name» eClass) {
                 if (values == null) {
@@ -149,8 +149,8 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             protected void fillValues(«container?.represents?.name» eClass) {
                 String type, value;
             «FOR part : if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
-                «IF part instanceof Text»
-                    «var text = part as Text»
+                «IF part instanceof TextInSpray»
+                    «var text = part as TextInSpray»
                 type = "«text.fullyQualifiedName»";
                 value = getValue(type, eClass);
                 values.put(type, value);
@@ -160,8 +160,8 @@ class UpdateShapeFeature extends FileGenerator<Container>  {
             
             protected String getValue (String type, «container?.represents?.name» eClass) {
             «FOR part :  if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
-                «IF part instanceof Text»
-                    «var text = part as Text»
+                «IF part instanceof TextInSpray»
+                    «var text = part as TextInSpray»
                     if ("«text.fullyQualifiedName»".equals(type)) {
                         «valueGenerator(text, "eClass")»
                     }

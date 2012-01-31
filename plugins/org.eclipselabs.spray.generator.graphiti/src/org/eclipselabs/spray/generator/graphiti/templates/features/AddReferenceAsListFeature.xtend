@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -34,7 +34,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
     '''
 
     def mainFile(MetaReference reference, String className) '''
-        «val metaClass = (reference.eContainer as Container).represents»
+        «val metaClass = (reference.eContainer as ContainerInSpray).represents»
         «val target = reference.target» 
         «val diagramName = metaClass.diagram.name »  
         «header(this)»
@@ -79,7 +79,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
     
     def generate_canAdd (MetaReference reference) '''
         «val target = reference.target» 
-        «val metaClass = (reference.eContainer as Container).represents»
+        «val metaClass = (reference.eContainer as ContainerInSpray).represents»
         /**
          * {@inheritDoc}
          */

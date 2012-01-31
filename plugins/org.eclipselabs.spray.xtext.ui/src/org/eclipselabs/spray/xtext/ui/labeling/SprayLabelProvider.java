@@ -7,14 +7,14 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Behavior;
-import org.eclipselabs.spray.mm.spray.Connection;
-import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
+import org.eclipselabs.spray.mm.spray.ContainerInSpray;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
-import org.eclipselabs.spray.mm.spray.Line;
+import org.eclipselabs.spray.mm.spray.LineInSpray;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.Text;
+import org.eclipselabs.spray.mm.spray.TextInSpray;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 
 import com.google.inject.Inject;
@@ -34,15 +34,15 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         super(delegate);
     }
 
-    public String text(Connection element) {
+    public String text(ConnectionInSpray element) {
         return String.format(" %s -> %s", element.getFrom().getName(), element.getTo().getName());
     }
 
-    public String image(Connection element) {
+    public String image(ConnectionInSpray element) {
         return "connection16.gif";
     }
 
-    public String text(Container element) {
+    public String text(ContainerInSpray element) {
         return "";
     }
 
@@ -54,11 +54,11 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         return "Import.gif";
     }
 
-    public String text(Line element) {
+    public String text(LineInSpray element) {
         return "";
     }
 
-    public String image(Line element) {
+    public String image(LineInSpray element) {
         return "Line.png";
     }
 
@@ -100,18 +100,18 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         }
     }
 
-    public String text(Text element) {
+    public String text(TextInSpray element) {
         StringBuilder b = new StringBuilder();
         ICompositeNode node = NodeModelUtils.getNode(element);
         for (INode child : node.getChildren()) {
-            if (child.getGrammarElement() == grammar.getTextAccess().getValueXExpressionParserRuleCall_4_0()) {
+            if (child.getGrammarElement() == grammar.getTextInSprayAccess().getValueXExpressionParserRuleCall_4_0()) {
                 b.append(child.getText());
             }
         }
         return b.toString().trim();
     }
 
-    public String image(Text element) {
+    public String image(TextInSpray element) {
         return "Text.gif";
     }
 }

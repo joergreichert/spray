@@ -4,24 +4,24 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
-import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
-class UpdateConnectionFeature extends FileGenerator<Connection>  {
+class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     @Inject extension NamingExtensions
     @Inject extension DiagramExtensions
     
-    override CharSequence generateBaseFile(Connection modelElement) {
+    override CharSequence generateBaseFile(ConnectionInSpray modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(Connection modelElement) {
+    override CharSequence generateExtensionFile(ConnectionInSpray modelElement) {
         mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Connection connection, String className) '''    
+    def mainExtensionPointFile(ConnectionInSpray connection, String className) '''    
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -34,7 +34,7 @@ class UpdateConnectionFeature extends FileGenerator<Connection>  {
         }
     '''
     
-    def mainFile(Connection connection, String className) '''
+    def mainFile(ConnectionInSpray connection, String className) '''
         «val diagramName = connection.represents.diagram.name »
         «val metaClassName = connection.represents.name»
         «val pack = connection.represents.type.EPackage.name »
@@ -76,7 +76,7 @@ class UpdateConnectionFeature extends FileGenerator<Connection>  {
         }
     '''
 
-    def generate_canUpdate (Connection connection) '''
+    def generate_canUpdate (ConnectionInSpray connection) '''
         «val metaClassName = connection.represents.name»
         «overrideHeader()»
         public boolean canUpdate(IUpdateContext context) {
@@ -87,7 +87,7 @@ class UpdateConnectionFeature extends FileGenerator<Connection>  {
         }
     '''
 
-    def generate_updateNeeded (Connection connection) '''
+    def generate_updateNeeded (ConnectionInSpray connection) '''
         «val metaClassName = connection.represents.name»
         «overrideHeader()»
         public IReason updateNeeded(IUpdateContext context) {
@@ -114,7 +114,7 @@ class UpdateConnectionFeature extends FileGenerator<Connection>  {
         }
     '''
 
-    def generate_update (Connection connection) '''
+    def generate_update (ConnectionInSpray connection) '''
         «val metaClassName = connection.represents.name»
         «overrideHeader()»
         public boolean update(IUpdateContext context) {
@@ -132,7 +132,7 @@ class UpdateConnectionFeature extends FileGenerator<Connection>  {
         }
     '''
     
-    def generate_getValue (Connection connection) '''
+    def generate_getValue (ConnectionInSpray connection) '''
         protected String getValue(String type, «connection.represents.name» eClass) {
             String result = "";
             if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){

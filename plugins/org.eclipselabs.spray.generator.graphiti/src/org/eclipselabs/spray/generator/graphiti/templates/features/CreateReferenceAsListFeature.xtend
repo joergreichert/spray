@@ -5,7 +5,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
-import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -84,7 +84,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
     '''
     
     def generate_canCreate (MetaReference ref) '''
-        «val metaClass = (ref.eContainer as Container).represents»
+        «val metaClass = (ref.eContainer as ContainerInSpray).represents»
         /**
          * {@inheritDoc}
          */
@@ -97,7 +97,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
     '''
     
     def generate_create (MetaReference ref) '''
-        «val metaClass = (ref.eContainer as Container).represents»
+        «val metaClass = (ref.eContainer as ContainerInSpray).represents»
         /**
          * {@inheritDoc}
          */

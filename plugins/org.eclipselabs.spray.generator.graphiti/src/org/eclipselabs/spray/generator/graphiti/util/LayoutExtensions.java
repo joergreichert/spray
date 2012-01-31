@@ -1,12 +1,12 @@
 package org.eclipselabs.spray.generator.graphiti.util;
 
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipselabs.spray.mm.spray.Color;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
+import org.eclipselabs.spray.mm.spray.ColorInSpray;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.RGBColor;
-import org.eclipselabs.spray.mm.spray.Shape;
+import org.eclipselabs.spray.mm.spray.ShapeInSpray;
 
 import com.google.inject.Inject;
 
@@ -17,7 +17,7 @@ public class LayoutExtensions {
     // --------------------------------------------------------------------------------------------
     // Shape colors
     // --------------------------------------------------------------------------------------------
-    protected String colorString(Color color) {
+    protected String colorString(ColorInSpray color) {
         if (color == null) {
             return importUtil.shortName(IColorConstant.class) + ".BLACK";
         }
@@ -35,30 +35,30 @@ public class LayoutExtensions {
         }
     }
 
-    public boolean hasFillColor(Shape element) {
+    public boolean hasFillColor(ShapeInSpray element) {
         return element.getLayout().getFillColor() != null;
     }
 
-    public String fillColor(Shape element) {
-        Color color = element.getLayout().getFillColor();
+    public String fillColor(ShapeInSpray element) {
+        ColorInSpray color = element.getLayout().getFillColor();
         return colorString(color);
     }
 
-    public boolean hasLineColor(Shape element) {
+    public boolean hasLineColor(ShapeInSpray element) {
         return element.getLayout().getLineColor() != null;
     }
 
-    public String lineColor(Shape element) {
-        Color color = element.getLayout().getLineColor();
+    public String lineColor(ShapeInSpray element) {
+        ColorInSpray color = element.getLayout().getLineColor();
         return colorString(color);
     }
 
-    public boolean hasTextColor(Shape element) {
+    public boolean hasTextColor(ShapeInSpray element) {
         return element.getLayout().getTextColor() != null;
     }
 
-    public String textColor(Shape element) {
-        Color color = element.getLayout().getTextColor();
+    public String textColor(ShapeInSpray element) {
+        ColorInSpray color = element.getLayout().getTextColor();
         return colorString(color);
     }
 

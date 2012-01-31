@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.util;
 import java.io.File;
 import java.util.Date;
 
-import org.eclipselabs.spray.mm.spray.Container;
+import org.eclipselabs.spray.mm.spray.ContainerInSpray;
 
 public class GeneratorUtil {
 
@@ -50,7 +50,7 @@ public class GeneratorUtil {
         return name.split("\\.")[0];
     }
 
-    public static String constainerClass(Container container) {
+    public static String constainerClass(ContainerInSpray container) {
         if (container.getLayout().getFigure().equalsIgnoreCase("rectangle")) {
             return "SprayRectangleContainer";
         } else if (container.getLayout().getFigure().equalsIgnoreCase("Diamond")) {

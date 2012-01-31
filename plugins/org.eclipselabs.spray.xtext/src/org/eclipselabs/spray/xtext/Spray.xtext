@@ -25,11 +25,11 @@ QualifiedNameWithWildCard returns ecore::EString :
     
 
 SprayElement :
-    Shape | MetaReferenceAsShape;
+    ShapeInSpray | MetaReferenceAsShape;
 
 MetaClass :
     'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)?
-    ":" representedBy=Shape
+    ":" representedBy=ShapeInSpray
     (
     "references" "{"
         (references += MetaReference2  ";")*
@@ -47,7 +47,7 @@ MetaClass :
 
 MetaReference2 returns MetaReference:  
 	target=[ecore::EReference]
-	":" representedBy=Connection  
+	":" representedBy=ConnectionInSpray  
 ;   
 
     
@@ -73,8 +73,8 @@ CreateBehavior :
 CustomBehavior :
     name = ID (label = STRING);
 
-Shape :
-    (Rectangle | Text | Container | Connection | Line) 
+ShapeInSpray :
+    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray) 
 ;
 
 Layout :
@@ -82,8 +82,8 @@ Layout :
  '('
         (
             ( 'width'  '=' lineWidth = INT )?
-          & ( 'color'  '=' lineColor = Color)?
-          & ( 'fill'   '=' fillColor = Color)?
+          & ( 'color'  '=' lineColor = ColorInSpray)?
+          & ( 'fill'   '=' fillColor = ColorInSpray)?
           & ( 'figure' '=' figure    = STRING)?
           & ( bold ?= 'bold' )?
           & ( italic ?= 'italic' )?
@@ -92,29 +92,29 @@ Layout :
 
 ;
 
-Rectangle returns Rectangle:
-	{Rectangle}
+RectangleInSpray returns RectangleInSpray:
+	{RectangleInSpray}
     "rectangle" ('alias' alias=ID)?
 	layout = Layout // 	name=EString
 ;
 
-Connection returns Connection :
-	{Connection}
+ConnectionInSpray returns ConnectionInSpray :
+	{ConnectionInSpray}
 	'connection' ('alias' alias=ID)? layout = Layout
 	(
 	    '{'
 		'from' from=[ecore::EReference] ";"
 		'to'   to  =[ecore::EReference] ";"
 		(
-            ('fromText' fromLabel = Text ";")? & 
-            ('connectionText' connectionLabel = Text ";")? &
-		    ('toText' toLabel   = Text ";")?
+            ('fromText' fromLabel = TextInSpray ";")? & 
+            ('connectionText' connectionLabel = TextInSpray ";")? &
+		    ('toText' toLabel   = TextInSpray ";")?
 		)
 		'}'
 	)?
 ;
 
-Color:
+ColorInSpray:
 	ColorConstantRef | RGBColor
 ;
 ColorConstantRef:
@@ -125,19 +125,19 @@ RGBColor:
 	'RGB' '(' red=INT ',' green=INT ',' blue=INT ')'
 ;
 
-Text returns Text:
-	{Text}
+TextInSpray returns TextInSpray:
+	{TextInSpray}
 	'text' ('alias' alias=ID)? layout = Layout
 	value = XExpression
 	;
 
-Line returns Line :
-	{Line}
+LineInSpray returns LineInSpray :
+	{LineInSpray}
 	'line' ('alias' alias=ID)? layout = Layout
 ;
 
-Container returns Container:
-    { Container }
+ContainerInSpray returns ContainerInSpray:
+    { ContainerInSpray }
 	'container' ('alias' alias=ID)? layout = Layout
 	'{'
 		(parts+=SprayElement  ";" )* 

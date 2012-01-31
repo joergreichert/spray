@@ -4,9 +4,9 @@
 package org.eclipselabs.spray.xtext.scoping;
 
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
@@ -51,7 +51,7 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.mm.spray.ColorConstantRef;
-import org.eclipselabs.spray.mm.spray.Connection;
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
@@ -86,12 +86,12 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return scope_MetaClass_Type(context, reference);
         } else if (reference == CREATE_BEHAVIOR__CONTAINMENT_REFERENCE) {
             return scope_CreateBehavior_ContainmentReference(context, reference);
-        } else if (context.eClass() == CONNECTION && reference == CONNECTION__FROM) {
+        } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__FROM) {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
             return result;
-        } else if (context.eClass() == CONNECTION && reference == CONNECTION__TO) {
-            final Connection connection = (Connection) context;
+        } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__TO) {
+            final ConnectionInSpray connection = (ConnectionInSpray) context;
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
             // filter 'from' from the possible references
             Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {

@@ -33,7 +33,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
     @Override
     protected Set<EReference> getTypeConformanceCheckedReferences() {
         Set<EReference> references = new HashSet<EReference>(super.getTypeConformanceCheckedReferences());
-        references.add(SprayPackage.Literals.TEXT__VALUE);
+        references.add(SprayPackage.Literals.TEXT_IN_SPRAY__VALUE);
         return references;
     }
 

@@ -49,7 +49,7 @@ class FeatureProviderTest {
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = name
 		metaClass.type = eClass
-		val connection = SprayFactory::eINSTANCE.createConnection
+		val connection = SprayFactory::eINSTANCE.createConnectionInSpray
 		metaClass.representedBy = connection
 		diagram.metaClassesList.add(metaClass)
 	}
@@ -80,9 +80,9 @@ class FeatureProviderTest {
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = className
 		metaClass.type = eClass
-		val container = SprayFactory::eINSTANCE.createContainer
+		val container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass.representedBy = container
-		val referenceConnection = SprayFactory::eINSTANCE.createConnection
+		val referenceConnection = SprayFactory::eINSTANCE.createConnectionInSpray
 		val reference = SprayFactory::eINSTANCE.createMetaReference
 		reference.representedBy = referenceConnection
 		val eReference = EcoreFactory::eINSTANCE.createEReference

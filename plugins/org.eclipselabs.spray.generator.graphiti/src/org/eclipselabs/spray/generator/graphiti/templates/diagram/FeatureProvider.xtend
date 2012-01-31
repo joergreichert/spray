@@ -7,8 +7,8 @@ import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
-import org.eclipselabs.spray.mm.spray.Connection
-import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
@@ -117,8 +117,8 @@ class FeatureProvider extends FileGenerator<Diagram> {
                         «ENDFOR»
                     }
                 } 
-                «IF cls.representedBy instanceof Container»
-                    «val container = cls.representedBy as Container»
+                «IF cls.representedBy instanceof ContainerInSpray»
+                    «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
                         if( object instanceof «reference.target.EReferenceType.javaInterfaceName.shortName» ){
                             return new «reference.addReferenceAsListFeatureClassName.shortName»(this);
@@ -151,7 +151,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         for (mc : diagram.metaClassesForShapes.filter(mc|mc.hasCreateBehavior)) {
             result += mc.createFeatureClassName.shortName
             if (mc.representedByContainer) {
-                val container = mc.representedBy as Container
+                val container = mc.representedBy as ContainerInSpray
                 for (reference : container.parts.filter(typeof(MetaReference))) {
                     val target = reference.target
                     if (!target.EReferenceType.abstract) {
@@ -174,13 +174,13 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
                 if (bo == null) return null;
             «FOR cls : diagram.metaClasses »
-                «IF ! (cls.representedBy instanceof Connection) »
+                «IF ! (cls.representedBy instanceof ConnectionInSpray) »
                 if ( bo.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) { // 11
                     return new «cls.updateFeatureClassName.shortName»(this); 
                 }
                 «ENDIF»
-                «IF cls.representedBy instanceof Container»
-                    «val container = cls.representedBy as Container»
+                «IF cls.representedBy instanceof ContainerInSpray»
+                    «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
                         «var eClass = reference.target.EReferenceType » 
                         «IF  eClass.abstract»
@@ -189,8 +189,8 @@ class FeatureProvider extends FileGenerator<Diagram> {
                             }
                         «ENDIF»
                     «ENDFOR»
-                «ELSEIF cls.representedBy instanceof Connection»
-                    «var connection = cls.representedBy as Connection»
+                «ELSEIF cls.representedBy instanceof ConnectionInSpray»
+                    «var connection = cls.representedBy as ConnectionInSpray»
                         «IF !cls.type.abstract»
                             if (bo instanceof «cls.javaInterfaceName.shortName») { // 33
                                 return new «cls.updateFeatureClassName.shortName»(this); 
@@ -209,7 +209,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             PictogramElement pictogramElement = context.getPictogramElement();
             EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
-            «FOR cls : diagram.metaClasses.filter(m |! (m.representedBy instanceof Connection) )  »
+            «FOR cls : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
             if ( bo.eClass()==«cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) {
                 return new «cls.layoutFeatureClassName.shortName»(this);
             }
@@ -256,7 +256,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     '''
     
     def getMetaclassesRepresentedByConnections(Diagram diagram) {
-    	diagram.metaClasses.filter(e|e.representedBy instanceof Connection  && e.behaviors.exists(b|b instanceof CreateBehavior))
+    	diagram.metaClasses.filter(e|e.representedBy instanceof ConnectionInSpray  && e.behaviors.exists(b|b instanceof CreateBehavior))
     }
     
     def Iterable<MetaReference> getMetaReferencesRepresentedByConnections(Diagram diagram) {
@@ -288,8 +288,8 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 «ENDFOR»    
                 }
             } 
-                «IF cls.representedBy instanceof Container»
-                    «val container = cls.representedBy as Container»
+                «IF cls.representedBy instanceof ContainerInSpray»
+                    «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
                         «val target = reference.target» 
                     if( bo instanceof «target.EReferenceType.name» ){

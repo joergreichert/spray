@@ -8,32 +8,32 @@ import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.SprayElementNameProvider
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
-import org.eclipselabs.spray.mm.spray.Container
-import org.eclipselabs.spray.mm.spray.Line
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
+import org.eclipselabs.spray.mm.spray.LineInSpray
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.SprayElement
-import org.eclipselabs.spray.mm.spray.Text
+import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
-class AddShapeFeature extends FileGenerator<Container>  {
+class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
     @Inject extension LayoutExtensions
     @Inject extension IQualifiedNameProvider
     @Inject extension NamingExtensions
     @Inject extension SprayElementNameProvider
     @Inject extension DiagramExtensions
     
-    override CharSequence generateBaseFile(Container modelElement) {
-        mainFile( modelElement as Container, javaGenFile.baseClassName)
+    override CharSequence generateBaseFile(ContainerInSpray modelElement) {
+        mainFile( modelElement as ContainerInSpray, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(Container modelElement) {
-        mainExtensionPointFile( modelElement as Container, javaGenFile.className)
+    override CharSequence generateExtensionFile(ContainerInSpray modelElement) {
+        mainExtensionPointFile( modelElement as ContainerInSpray, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Container container, String className) '''    
+    def mainExtensionPointFile(ContainerInSpray container, String className) '''    
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -46,7 +46,7 @@ class AddShapeFeature extends FileGenerator<Container>  {
         }
     '''
 
-    def mainFile(Container container, String className) '''
+    def mainFile(ContainerInSpray container, String className) '''
         «var containerType = constainerClass(container)»
         «header(this)»
         package «feature_package()»;
@@ -138,10 +138,10 @@ class AddShapeFeature extends FileGenerator<Container>  {
             }
         '''
         
-        def dispatch createShape (Line line, MetaClass cls) '''
+        def dispatch createShape (LineInSpray line, MetaClass cls) '''
             «val varname = line.shapeName.toFirstLower»
             // Part is Line
-            protected void createLine«line.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createLineInSpray«line.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
                 // create shape for line
                 Shape «varname» = peCreateService.createShape(containerShape, false);
                 // create and set graphics algorithm
@@ -156,10 +156,10 @@ class AddShapeFeature extends FileGenerator<Container>  {
             }
         '''
         
-        def dispatch createShape (Text text, MetaClass cls) '''
+        def dispatch createShape (TextInSpray text, MetaClass cls) '''
             «val varname = text.shapeName.toFirstLower»
             // Part is Text
-            protected void createText«text.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createTextInSpray«text.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
                 String type = "«text.fullyQualifiedName»";
                 // create shape for text and set text graphics algorithm
                 Shape «varname» = peCreateService.createShape(containerShape, false);

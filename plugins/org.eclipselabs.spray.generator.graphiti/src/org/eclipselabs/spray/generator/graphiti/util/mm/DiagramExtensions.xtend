@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.util.mm
 import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFeature
-import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
@@ -20,7 +20,7 @@ class DiagramExtensions {
      * This method will return those MetaClasses of a Diagram that <i>are <b>not</b></i> represented by a Connection.
      */
     def Iterable<MetaClass> getMetaClassesForShapes (Diagram diagram) {
-        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof Connection))
+        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof ConnectionInSpray))
     }
     
     /**
@@ -28,15 +28,15 @@ class DiagramExtensions {
      * This method will return those MetaClasses of a Diagram that <i>are</i> represented by a Connection.
      */
     def Iterable<MetaClass> getMetaClassesForConnections (Diagram diagram) {
-        diagram.metaClasses.filter(mc|mc.representedBy instanceof Connection)
+        diagram.metaClasses.filter(mc|mc.representedBy instanceof ConnectionInSpray)
     }
     
     def dispatch Iterable<MetaClass> getElementsForTemplate (Diagram diagram, CreateShapeFeature template) {
-        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof Connection) && mc.behaviors.exists(b|b instanceof CreateBehavior))
+        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof ConnectionInSpray) && mc.behaviors.exists(b|b instanceof CreateBehavior))
     }
     
     def dispatch Iterable<MetaClass> getElementsForTemplate (Diagram diagram, CreateConnectionFeature template) {
-        diagram.metaClasses.filter(mc|mc.representedBy instanceof Connection && mc.behaviors.exists(b|b instanceof CreateBehavior))
+        diagram.metaClasses.filter(mc|mc.representedBy instanceof ConnectionInSpray && mc.behaviors.exists(b|b instanceof CreateBehavior))
     }
     
     

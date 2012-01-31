@@ -10,15 +10,11 @@
   <genPackages prefix="Spray" basePackage="org.eclipselabs.spray.mm" disposableProviderFactory="true"
       ecorePackage="spray.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="spray.ecore#//Figure"/>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="spray.ecore#//BehaviourType">
-      <genEnumLiterals ecoreEnumLiteral="spray.ecore#//BehaviourType/EMPTY_BEHAVIOUR"/>
-      <genEnumLiterals ecoreEnumLiteral="spray.ecore#//BehaviourType/CREATE_BEHAVIOUR"/>
-      <genEnumLiterals ecoreEnumLiteral="spray.ecore#//BehaviourType/CUSTOM_BEHAVIOUR"/>
-    </genEnums>
     <genClasses ecoreClass="spray.ecore#//Diagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/metaClasses"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/behaviourGroups"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/imports"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/modelType"/>
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//Shape">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Shape/represents"/>
@@ -60,29 +56,31 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/references"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//MetaClass/icon"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviours"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviourGroups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviorGroups"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/type"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//MetaReference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/representedBy"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/metaClass"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/text"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/reference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/labelProperty"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//Line"/>
-    <genClasses image="false" ecoreClass="spray.ecore#//Behaviour">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behaviour/name"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Behaviour/metaClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behaviour/label"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behaviour/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behaviour/paletteCompartment"/>
+    <genClasses image="false" ecoreClass="spray.ecore#//Behavior">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behavior/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Behavior/metaClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behavior/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behavior/paletteCompartment"/>
     </genClasses>
-    <genClasses ecoreClass="spray.ecore#//StandardBehaviour"/>
-    <genClasses ecoreClass="spray.ecore#//CustomBehaviour"/>
-    <genClasses ecoreClass="spray.ecore#//BehaviourGroup">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//BehaviourGroup/behaviours"/>
+    <genClasses ecoreClass="spray.ecore#//CreateBehavior">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//CreateBehavior/containmentReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//CreateBehavior/askFor"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//CustomBehavior"/>
+    <genClasses ecoreClass="spray.ecore#//BehaviorGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//BehaviorGroup/behaviors"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Import/importedNamespace"/>

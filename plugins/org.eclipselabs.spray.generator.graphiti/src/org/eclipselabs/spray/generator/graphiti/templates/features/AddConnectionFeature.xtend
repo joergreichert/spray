@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -78,7 +78,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         «val diagramName = metaClass.diagram.name »
         «val packge = metaClass.type.EPackage.name »
         «val fullPackage = fullPackageName(metaClass.type) »
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «header(this)»
         package «feature_package()»;
         
@@ -134,7 +134,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
     '''
     
     def generate_add (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «overrideHeader»
         public PictogramElement add(IAddContext context) {
             IAddConnectionContext addConContext = (IAddConnectionContext) context;
@@ -169,7 +169,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
     '''
 
     def generate_connectionFromLabel (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «IF connection.fromLabel != null»
         «overrideHeader»
         protected GraphicsAlgorithm createConnectionFromLabel (IAddConnectionContext context, Connection connection) {
@@ -189,7 +189,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
     '''
 
     def generate_connectionToLabel (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «IF connection.toLabel != null»
         «overrideHeader»
         protected GraphicsAlgorithm createConnectionToLabel (IAddConnectionContext context, Connection connection) {
@@ -213,7 +213,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
     '''
 
     def generate_connectionLabel (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «IF connection.connectionLabel != null»
         «overrideHeader»
         protected GraphicsAlgorithm createConnectionLabel (IAddConnectionContext context, Connection connection) {

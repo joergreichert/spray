@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.xbase.XbaseFactory
-import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
@@ -32,7 +32,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test	
 	def testMainExtensionPointFile__WheClassNameIsNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val String className = null
 		val expectedOutput = expectedEmptyOutputMainExtensionPointFile()
 		val output = sut.mainExtensionPointFile(container, className)
@@ -62,7 +62,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test	
 	def testMainExtensionPointFile__WhenClassNameIsNotNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val String className = "SampleClassName"
 		val expectedOutput = expectedOutputMainExtensionPointFile()
 		val output = sut.mainExtensionPointFile(container, className)
@@ -92,7 +92,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_canUpdate__WhenContainerIsNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val output = sut.generate_canUpdate(container)
 		val expectedOutput = expectedEmptyOutputGenerate_canUpdate()
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -100,7 +100,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_canUpdate__WhenContainerHasNoMetaClass() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val output = sut.generate_canUpdate(container)
 		val expectedOutput = expectedEmptyOutputGenerate_canUpdate()
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -108,7 +108,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_canUpdate__WhenMetaClassNoName() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		container.represents = metaClass
 		val output = sut.generate_canUpdate(container)
@@ -131,7 +131,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_canUpdate__WhenMetaClassHasName() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = "SampleEClass"
@@ -155,7 +155,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_updateNeeded__WhenContainerIsNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val output = sut.generate_updateNeeded(container)
 		val expectedOutput = expectedEmptyOutputGenerate_updateNeeded()
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -163,7 +163,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_updateNeededWhenContainerHasNoMetaClass() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val output = sut.generate_updateNeeded(container)
 		val expectedOutput = expectedEmptyOutputGenerate_updateNeeded()
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -171,7 +171,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_updateNeeded__WhenMetaClassNoName() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		container.represents = metaClass
 		val output = sut.generate_updateNeeded(container)
@@ -219,7 +219,7 @@ class UpdateShapeFeatureTest {
         
 	@Test
 	def testGenerate_updateNeeded__WhenMetaClassHasName() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = "SampleEClass"
@@ -268,7 +268,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_update__WhenContainerIsNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val output = sut.generate_update(container)
 		val expectedOutput = expectedEmptyOutputGenerate_update()
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -276,7 +276,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_update__WhenContainerHasNoMetaClass() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val output = sut.generate_update(container)
 		val expectedOutput = expectedEmptyOutputGenerate_update()
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -284,7 +284,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_update__WhenMetaClassNoName() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		container.represents = metaClass
 		val output = sut.generate_update(container)
@@ -308,7 +308,7 @@ class UpdateShapeFeatureTest {
 
 	@Test
 	def testGenerate_update__WhenMetaClassHasName() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = "SampleEClass"
@@ -333,7 +333,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_valueMapping__WhenContainerIsNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsNull()
 		val output = sut.generate_valueMapping(container)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -341,7 +341,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test
 	def testGenerate_valueMapping__WhenContainerIsEmpty() {
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsNull()
 		val output = sut.generate_valueMapping(container)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
@@ -370,9 +370,9 @@ class UpdateShapeFeatureTest {
 	@Test(expected=typeof(NullPointerException))
 	def void testGenerate_valueMapping__WhenTextHasNoFullyQualifiedName__NPEExpected() {
 		val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-		val Container container = SprayFactory::eINSTANCE.createContainer
-		val text = SprayFactory::eINSTANCE.createText
-		val rectangle = SprayFactory::eINSTANCE.createRectangle
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
+		val text = SprayFactory::eINSTANCE.createTextInSpray
+		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 		container.partsList.add(rectangle)
 		container.partsList.add(text)
 		res.contents.add(container)
@@ -382,12 +382,12 @@ class UpdateShapeFeatureTest {
 	@Test
 	def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameWithoutRepresents() {
 		val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-		val Container container = SprayFactory::eINSTANCE.createContainer
-		val text = SprayFactory::eINSTANCE.createText
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
+		val text = SprayFactory::eINSTANCE.createTextInSpray
 		val literal = XbaseFactory::eINSTANCE.createXStringLiteral
 		literal.value = "test"
 		text.value = literal
-		val rectangle = SprayFactory::eINSTANCE.createRectangle
+		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 		container.partsList.add(rectangle)
 		container.partsList.add(text)
 		res.contents.add(container)
@@ -426,14 +426,14 @@ class UpdateShapeFeatureTest {
 	@Test
 	def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithNullName() {
 		val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		container.represents = metaClass 
-		val text = SprayFactory::eINSTANCE.createText
+		val text = SprayFactory::eINSTANCE.createTextInSpray
 		val literal = XbaseFactory::eINSTANCE.createXStringLiteral
 		literal.value = "test"
 		text.value = literal
-		val rectangle = SprayFactory::eINSTANCE.createRectangle
+		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 		container.partsList.add(rectangle)
 		container.partsList.add(text)
 		res.contents.add(container)
@@ -446,15 +446,15 @@ class UpdateShapeFeatureTest {
 	@Test
 	def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithAliasSet() {
 		val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		metaClass.alias = "Alias"
 		container.represents = metaClass 
-		val text = SprayFactory::eINSTANCE.createText
+		val text = SprayFactory::eINSTANCE.createTextInSpray
 		val literal = XbaseFactory::eINSTANCE.createXStringLiteral
 		literal.value = "test"
 		text.value = literal
-		val rectangle = SprayFactory::eINSTANCE.createRectangle
+		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 		container.partsList.add(rectangle)
 		container.partsList.add(text)
 		res.contents.add(container)
@@ -473,13 +473,13 @@ class UpdateShapeFeatureTest {
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = "SampleEClass"
 		metaClass.type = eClass 
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass.representedBy = container // have to be contained
-		val text = SprayFactory::eINSTANCE.createText
+		val text = SprayFactory::eINSTANCE.createTextInSpray
 		val literal = XbaseFactory::eINSTANCE.createXStringLiteral
 		literal.value = "test"
 		text.value = literal
-		val rectangle = SprayFactory::eINSTANCE.createRectangle
+		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 		container.partsList.add(rectangle)
 		container.partsList.add(text)
 		diagram.metaClassesList.add(metaClass)
@@ -525,13 +525,13 @@ class UpdateShapeFeatureTest {
 		val eClass = EcoreFactory::eINSTANCE.createEClass
 		eClass.name = "SampleEClass"
 		metaClass.type = eClass 
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass.representedBy = container // have to be contained
-		val text = SprayFactory::eINSTANCE.createText
+		val text = SprayFactory::eINSTANCE.createTextInSpray
 		val literal = XbaseFactory::eINSTANCE.createXStringLiteral
 		literal.value = "test"
 		text.value = literal
-		val rectangle = SprayFactory::eINSTANCE.createRectangle
+		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 		container.partsList.add(rectangle)
 		container.partsList.add(text)
 		diagram.metaClassesList.add(metaClass)
@@ -568,7 +568,7 @@ class UpdateShapeFeatureTest {
 	
 	@Test	
 	def testMainFile__WheContainerAndClassNameAreNull() {
-		val Container container = null
+		val ContainerInSpray container = null
 		val String className = null
 		val expectedOutput = expectedEmptyOutputMainFile() 
 		val output = sut.mainFile(container, className)
@@ -699,13 +699,13 @@ class UpdateShapeFeatureTest {
 //		val eClass = EcoreFactory::eINSTANCE.createEClass
 //		eClass.name = "SampleEClass"
 //		metaClass.type = eClass 
-		val Container container = SprayFactory::eINSTANCE.createContainer
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass.representedBy = container // have to be contained
 //		val text = SprayFactory::eINSTANCE.createText
 //		val literal = XbaseFactory::eINSTANCE.createXStringLiteral
 //		literal.value = "test"
 //		text.value = literal
-//		val rectangle = SprayFactory::eINSTANCE.createRectangle
+//		val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
 //		container.partsList.add(rectangle)
 //		container.partsList.add(text)
 		diagram.metaClassesList.add(metaClass)
@@ -790,7 +790,7 @@ class UpdateShapeFeatureTest {
 		assertNotNull("Gen model resource expected to be not null", genRes)
 		genRes.contents.add(genModel)
 		genRes.save(null)
-		val Container container = SprayFactory::eINSTANCE.createContainer()
+		val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray()
 		metaClass.representedBy = container // have to be contained
 		diagram.metaClassesList.add(metaClass)
 		val String className = null

@@ -7,8 +7,8 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
-import org.eclipselabs.spray.mm.spray.Container
-import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 
 class MetaClassExtensions {
     @Inject extension NamingExtensions 
@@ -37,12 +37,12 @@ class MetaClassExtensions {
 	 * @return <code>true</code> when the MetaClass is represented by a Container Shape
 	 */
     def boolean isRepresentedByContainer (MetaClass mc) {
-        mc.representedBy instanceof Container
+        mc.representedBy instanceof ContainerInSpray
     }
     /**
      * @return <code>true</code> when the MetaClass is represented by a Connection Shape
      */
     def boolean isRepresentedByConnection (MetaClass mc) {
-        mc.representedBy instanceof Connection
+        mc.representedBy instanceof ConnectionInSpray
     }
 }

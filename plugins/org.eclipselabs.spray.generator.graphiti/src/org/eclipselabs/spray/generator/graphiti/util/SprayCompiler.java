@@ -8,7 +8,7 @@ import org.eclipse.xtext.xbase.compiler.ImportManager;
 import org.eclipse.xtext.xbase.compiler.StringBuilderBasedAppendable;
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
-import org.eclipselabs.spray.mm.spray.Text;
+import org.eclipselabs.spray.mm.spray.TextInSpray;
 
 import com.google.inject.Inject;
 
@@ -16,10 +16,10 @@ import com.google.inject.Inject;
 public class SprayCompiler extends XbaseCompiler {
     @Inject
     private ITypeProvider typeProvider;
-    
-    private String metaClassVariable;
-    
-    public String compile(Text operation, ImportManager importManager) {
+
+    private String        metaClassVariable;
+
+    public String compile(TextInSpray operation, ImportManager importManager) {
         StringBuilderBasedAppendable appendable = new StringBuilderBasedAppendable(importManager);
         IAppendable result = compile(operation.getValue(), appendable, typeProvider.getExpectedType(operation.getValue()));
         return result.toString();
@@ -27,16 +27,15 @@ public class SprayCompiler extends XbaseCompiler {
 
     @Override
     protected boolean isVariableDeclarationRequired(XExpression expr, IAppendable b) {
-        if (expr instanceof XAbstractFeatureCall 
-                && ((XAbstractFeatureCall)expr).getFeature() instanceof JvmGenericType) {
+        if (expr instanceof XAbstractFeatureCall && ((XAbstractFeatureCall) expr).getFeature() instanceof JvmGenericType) {
             return false;
         }
-        return super.isVariableDeclarationRequired(expr,b);
+        return super.isVariableDeclarationRequired(expr, b);
     }
 
     @Override
     protected String getVarName(Object ex, IAppendable appendable) {
-        if(ex instanceof JvmGenericType) {
+        if (ex instanceof JvmGenericType) {
             return metaClassVariable != null ? metaClassVariable : "this";
         }
         return super.getVarName(ex, appendable);
@@ -49,7 +48,5 @@ public class SprayCompiler extends XbaseCompiler {
     public void setMetaClassVariable(String metaClassVariable) {
         this.metaClassVariable = metaClassVariable;
     }
-    
-    
 
 }

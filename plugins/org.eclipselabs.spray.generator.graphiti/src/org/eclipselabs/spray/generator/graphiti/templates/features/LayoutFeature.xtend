@@ -3,24 +3,24 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
-class LayoutFeature extends FileGenerator<Container> {
+class LayoutFeature extends FileGenerator<ContainerInSpray> {
     @Inject extension NamingExtensions
     
-    override CharSequence generateBaseFile(Container modelElement) {
+    override CharSequence generateBaseFile(ContainerInSpray modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
     }
 
-    override CharSequence generateExtensionFile(Container modelElement) {
+    override CharSequence generateExtensionFile(ContainerInSpray modelElement) {
         mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
-    def mainExtensionPointFile(Container container, String className) '''
+    def mainExtensionPointFile(ContainerInSpray container, String className) '''
         «extensionHeader(this)»
         package «feature_package()»;
         
@@ -34,7 +34,7 @@ class LayoutFeature extends FileGenerator<Container> {
         }
     '''
 
-    def mainFile(Container container, String className) '''
+    def mainFile(ContainerInSpray container, String className) '''
         «var diagramName = container.represents.diagram.name »
         «var pack = container.represents.type.EPackage.name »
         «var fullPackage = fullPackageName(container.represents.type) »
@@ -72,7 +72,7 @@ class LayoutFeature extends FileGenerator<Container> {
         }
         '''
         
-        def generate_canLayout (Container container) '''
+        def generate_canLayout (ContainerInSpray container) '''
             «overrideHeader»
             public boolean canLayout(ILayoutContext context) {
                PictogramElement pe = context.getPictogramElement();
@@ -84,7 +84,7 @@ class LayoutFeature extends FileGenerator<Container> {
             }
         '''
         
-        def generate_layout (Container container) '''
+        def generate_layout (ContainerInSpray container) '''
             «overrideHeader»
             public boolean layout(ILayoutContext context) {
                 return container.layoutContainer(context);

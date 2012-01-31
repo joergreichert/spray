@@ -48,9 +48,9 @@ class DiagramExtensionsTest {
 		val diagram = SprayFactory::eINSTANCE.createDiagram
 		val metaClass = SprayFactory::eINSTANCE.createMetaClass
 		diagram.metaClassesList.add(metaClass)
-		val container = SprayFactory::eINSTANCE.createContainer
+		val container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass.representedBy = container
-		val text = SprayFactory::eINSTANCE.createText
+		val text = SprayFactory::eINSTANCE.createTextInSpray
 		container.partsList.add(text)
     	executeGetDiagramTest(text, diagram, "Diagram should be returned for text")
     }
@@ -73,10 +73,10 @@ class DiagramExtensionsTest {
     def testGetMetaClassesForShapes() {
     	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
 		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
-		val connection = SprayFactory::eINSTANCE.createConnection
+		val connection = SprayFactory::eINSTANCE.createConnectionInSpray
 		metaClass1.representedBy = connection 
 		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
-		val container = SprayFactory::eINSTANCE.createContainer
+		val container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass2.representedBy = container 
 		diagram.metaClassesList.add(metaClass1)
 		diagram.metaClassesList.add(metaClass2)
@@ -89,10 +89,10 @@ class DiagramExtensionsTest {
     def testGetMetaClassesForConnections() {
     	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
 		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
-		val connection = SprayFactory::eINSTANCE.createConnection
+		val connection = SprayFactory::eINSTANCE.createConnectionInSpray
 		metaClass1.representedBy = connection 
 		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
-		val container = SprayFactory::eINSTANCE.createContainer
+		val container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass2.representedBy = container 
 		diagram.metaClassesList.add(metaClass1)
 		diagram.metaClassesList.add(metaClass2)
@@ -105,18 +105,18 @@ class DiagramExtensionsTest {
     def testGetElementsForTemplateCreateShapeFeature() {
     	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
 		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
-		val connection = SprayFactory::eINSTANCE.createConnection
+		val connection = SprayFactory::eINSTANCE.createConnectionInSpray
 		metaClass1.representedBy = connection 
 		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
-		val container = SprayFactory::eINSTANCE.createContainer
+		val container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass2.representedBy = container 
 		val metaClass3 = SprayFactory::eINSTANCE.createMetaClass
-		val container2 = SprayFactory::eINSTANCE.createContainer
+		val container2 = SprayFactory::eINSTANCE.createContainerInSpray
 		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
 		metaClass3.representedBy = container2
 		metaClass3.behaviorsList.add(createBehavior)
 		val metaClass4 = SprayFactory::eINSTANCE.createMetaClass
-		val container3 = SprayFactory::eINSTANCE.createConnection
+		val container3 = SprayFactory::eINSTANCE.createConnectionInSpray
 		val customBehavior = SprayFactory::eINSTANCE.createCustomBehavior
 		metaClass4.representedBy = container3
 		metaClass4.behaviorsList.add(customBehavior)
@@ -133,18 +133,18 @@ class DiagramExtensionsTest {
     def testGetElementsForTemplateCreateConnectionFeature() {
     	val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
 		val metaClass1 = SprayFactory::eINSTANCE.createMetaClass
-		val connection = SprayFactory::eINSTANCE.createConnection
+		val connection = SprayFactory::eINSTANCE.createConnectionInSpray
 		metaClass1.representedBy = connection 
 		val metaClass2 = SprayFactory::eINSTANCE.createMetaClass
-		val container = SprayFactory::eINSTANCE.createContainer
+		val container = SprayFactory::eINSTANCE.createContainerInSpray
 		metaClass2.representedBy = container 
 		val metaClass3 = SprayFactory::eINSTANCE.createMetaClass
-		val connection2 = SprayFactory::eINSTANCE.createConnection
+		val connection2 = SprayFactory::eINSTANCE.createConnectionInSpray
 		val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
 		metaClass3.representedBy = connection2
 		metaClass3.behaviorsList.add(createBehavior)
 		val metaClass4 = SprayFactory::eINSTANCE.createMetaClass
-		val connection3 = SprayFactory::eINSTANCE.createConnection
+		val connection3 = SprayFactory::eINSTANCE.createConnectionInSpray
 		val customBehavior = SprayFactory::eINSTANCE.createCustomBehavior
 		metaClass4.representedBy = connection3
 		metaClass4.behaviorsList.add(customBehavior)

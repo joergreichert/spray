@@ -7,13 +7,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
-import org.eclipselabs.spray.mm.spray.Connection;
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
-import org.eclipselabs.spray.mm.spray.Line;
+import org.eclipselabs.spray.mm.spray.LineInSpray;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
-import org.eclipselabs.spray.mm.spray.Text;
+import org.eclipselabs.spray.mm.spray.TextInSpray;
 
 /**
  * customization of the default outline structure
@@ -48,15 +48,15 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
         return true;
     }
 
-    protected boolean _isLeaf(Connection element) {
+    protected boolean _isLeaf(ConnectionInSpray element) {
         return true;
     }
 
-    protected boolean _isLeaf(Text element) {
+    protected boolean _isLeaf(TextInSpray element) {
         return true;
     }
 
-    protected boolean _isLeaf(Line element) {
+    protected boolean _isLeaf(LineInSpray element) {
         return true;
     }
 

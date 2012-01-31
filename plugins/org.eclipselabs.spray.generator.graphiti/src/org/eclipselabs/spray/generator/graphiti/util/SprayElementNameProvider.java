@@ -5,12 +5,12 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.Shape;
+import org.eclipselabs.spray.mm.spray.ShapeInSpray;
 import org.eclipselabs.spray.mm.spray.SprayElement;
 
 public class SprayElementNameProvider {
     class ShapeQNProvider extends DefaultDeclarativeQualifiedNameProvider {
-        QualifiedName qualifiedName(Shape shape) {
+        QualifiedName qualifiedName(ShapeInSpray shape) {
             if (shape.getAlias() != null) {
                 return QualifiedName.create(shape.getAlias());
             } else {
@@ -34,6 +34,6 @@ public class SprayElementNameProvider {
 
     public String getShapeName(SprayElement shape) {
         QualifiedName qn = qnProvider.getFullyQualifiedName(shape);
-        return StringExtensions.toFirstUpper(qn.toString().replace(".", "_"));
+        return StringExtensions.toFirstUpper(qn.toString().replace(".", "_").replace("InSray", ""));
     }
 }

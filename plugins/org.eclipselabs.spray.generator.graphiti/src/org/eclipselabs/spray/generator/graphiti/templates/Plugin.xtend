@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.XtendProperties
-import org.eclipselabs.spray.mm.spray.Container
+import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
 
@@ -109,8 +109,8 @@ class Plugin extends TemplateUtil {
     
         // Find all clases that are shown as lists in the compartments
         «FOR cls :  diagram.metaClasses »
-            «IF cls.representedBy instanceof Container»
-                «var container = (cls.representedBy as Container) »
+            «IF cls.representedBy instanceof ContainerInSpray»
+                «var container = (cls.representedBy as ContainerInSpray) »
                 «FOR ref :  container.parts.filter(typeof(MetaReference)) »  
                     «XtendProperties::setValue("refName", ref.name)» 
                     «val references = cls.type.EAllReferences» 

@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EClass
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.Connection
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
@@ -44,7 +44,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
 
     def mainFile (MetaClass metaClass, String className) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «val diagram = metaClass.diagram as Diagram»
@@ -80,7 +80,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
     
     def generate_canCreate (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «overrideHeader»
@@ -97,7 +97,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
     
     def generate_canStartConnection (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «overrideHeader»
         public boolean canStartConnection(ICreateConnectionContext context) {
@@ -110,7 +110,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
     
     def generate_create (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «val diagram = metaClass.diagram as Diagram»
@@ -147,7 +147,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
     
     def generate_getFromTypeForAnchor (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         /**
          * Returns the «from.name» belonging to the anchor, or null if not available.
@@ -164,7 +164,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
     
     def generate_getToTypeForAnchor (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «IF from.name != to.name»
@@ -184,7 +184,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
     
     def generate_createEReference (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as Connection»
+        «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         /**
