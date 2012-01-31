@@ -1,0 +1,9 @@
+connection DefaultConnection style org.eclipselabs.spray.styles.DefaultSprayStyle{
+	placing {
+		position(offset=0.0,radius=10,angle=0)
+		ellipse {
+			position(x=0,y=0)
+			size(width=20,height=20)
+		}
+	}
+}

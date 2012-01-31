@@ -1,17 +1,12 @@
 package org.eclipselabs.spray.shapes.generator.shapes;
 
-import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
-import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
-import org.eclipse.graphiti.services.IGaCreateService;
-import org.eclipse.graphiti.services.IPeCreateService;
-
 public class ShapeAnchorCalculator {
 
 	public int calculateCorrection(int sizeShape, int sizeAnchor, double offset) {
-		int position = (int) (sizeShape*offset);
+		int position = (int) (sizeShape * offset);
 		return calculateCorrection(position, sizeShape, sizeAnchor);
 	}
-		
+
 	public int calculateCorrection(int position, int sizeShape, int sizeAnchor) {
 		int correction = 0;
 		if (position + sizeAnchor > sizeShape) {

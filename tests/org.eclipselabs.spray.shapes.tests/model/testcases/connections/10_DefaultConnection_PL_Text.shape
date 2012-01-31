@@ -1,0 +1,8 @@
+connection DefaultConnection {
+	placing {
+		position(offset=0.5,radius=0,angle=30)
+		text {
+			"Test"
+		}	
+	}
+}
