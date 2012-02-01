@@ -11,6 +11,7 @@ import org.eclipselabs.spray.xtext.customizing.SprayDocumentationProvider;
 import org.eclipselabs.spray.xtext.customizing.SprayQualifiedNameProvider;
 import org.eclipselabs.spray.xtext.customizing.SpraySimpleNameProvider;
 import org.eclipselabs.spray.xtext.customizing.SprayTypeProvider;
+import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.scoping.SprayScopeProvider;
 
 import com.google.common.collect.Sets;
@@ -22,6 +23,13 @@ import com.google.inject.name.Names;
  */
 @SuppressWarnings("restriction")
 public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
+
+    @Override
+    public void configure(Binder binder) {
+        binder.requestStaticInjection(AppInjectedAccess.class);
+        super.configure(binder);
+    }
+
     @Override
     public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
         return SprayQualifiedNameProvider.class;

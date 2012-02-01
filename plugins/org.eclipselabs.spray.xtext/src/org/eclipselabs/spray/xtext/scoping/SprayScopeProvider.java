@@ -42,6 +42,9 @@ import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
@@ -78,8 +81,31 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     @Inject(optional = true)
     private IColorConstantTypeProvider colorConstantTypeProvider;
 
+    private IResourceDescriptions      dscriptions = null;
+
+    public void listVisibleResources() {
+        ResourceDescriptionsProvider serviceProvider = AppInjectedAccess.getit(); // AppInjectedAccess.resourceDescriptionsProvider;
+        dscriptions = serviceProvider.createResourceDescriptions();
+        for (IResourceDescription rd : dscriptions.getAllResourceDescriptions()) {
+            System.out.println("Resource: " + rd.getURI());
+            for (IEObjectDescription od : rd.getExportedObjects()) {
+                if (od.getEClass().getName().startsWith("Shape")) {
+                    System.out.println("Shape scope name : [" + od.getName() + "] qualified [" + od.getQualifiedName() + "]");
+                } else {
+                    //                    System.out.println("Any qualified name : " + od.getName());
+                }
+            }
+        }
+    }
+
     @Override
     public IScope getScope(EObject context, EReference reference) {
+        System.out.println("getScope: " + context.toString() + " ref " + reference.toString());
+        //        if (reference == META_CLASS__REPRESENTED_BY_SHAPE) {
+        //            listVisibleResources();
+        //            return super.getScope(context, reference);
+        //        }
+        //
         if (reference == DIAGRAM__MODEL_TYPE) {
             return scope_Diagram_ModelType(context, reference);
         } else if (reference == META_CLASS__TYPE) {
@@ -157,7 +183,14 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         } else if (reference == COLOR_CONSTANT_REF__FIELD) {
             return getColorConstantFieldScope(context);
         }
-        return super.getScope(context, reference);
+
+        IScope scope = super.getScope(context, reference);
+        System.out.print("scope returned: ");
+        for (IEObjectDescription od : scope.getAllElements()) {
+            System.out.print(od.getName() + ", ");
+        }
+        System.out.println("!");
+        return scope;
     }
 
     protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {

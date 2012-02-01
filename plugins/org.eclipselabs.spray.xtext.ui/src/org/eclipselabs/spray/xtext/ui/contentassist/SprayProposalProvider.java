@@ -5,6 +5,8 @@ package org.eclipselabs.spray.xtext.ui.contentassist;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -29,6 +31,9 @@ import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
@@ -37,6 +42,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IConstants;
+import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
 
@@ -61,6 +67,33 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @Inject
     private SprayGrammarAccess            grammar;
     private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior");
+
+    private IResourceDescriptions         dscriptions       = null;
+
+    public List<String> listVisibleResources() {
+        List<String> result = new ArrayList<String>();
+        ResourceDescriptionsProvider serviceProvider = AppInjectedAccess.getit();
+        dscriptions = serviceProvider.createResourceDescriptions();
+        for (IResourceDescription rd : dscriptions.getAllResourceDescriptions()) {
+            for (IEObjectDescription od : rd.getExportedObjects()) {
+                if (od.getEClass().getName().startsWith("Shape")) {
+                    //                    System.out.println("Shape qualified : [" + od.getQualifiedName() + "] " + od.getEObjectOrProxy().getClass().getName());
+                    result.add(od.getName().toString());
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public void completeMetaClass_RepresentedByShape(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        // TODO Auto-generated method stub
+        for (String name : listVisibleResources()) {
+            ICompletionProposal proposal = doCreateProposal(name, null, null, 0, context);
+            acceptor.accept(proposal);
+        }
+        //        super.completeMetaClass_RepresentedByShape(model, assignment, context, acceptor);
+    }
 
     @Override
     public void completeMetaClass_Icon(EObject model, Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {

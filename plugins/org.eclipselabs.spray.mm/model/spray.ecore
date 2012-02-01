@@ -79,6 +79,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorGroups" upperBound="-1"
         eType="#//BehaviorGroup"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="representedByShape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//Shape"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.ecore#//Style"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaReference" eSuperTypes="#//SprayElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ConnectionInSpray"

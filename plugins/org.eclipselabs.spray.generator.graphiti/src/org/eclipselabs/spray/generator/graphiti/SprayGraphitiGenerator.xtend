@@ -24,6 +24,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnection
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferenceAsConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferenceAsListFeature
@@ -43,6 +44,7 @@ import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.shapes.shapes.Shape
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
@@ -57,6 +59,7 @@ class SprayGraphitiGenerator implements IGenerator {
 	@Inject DiagramTypeProvider dtp
 	@Inject FeatureProvider fp
 	@Inject AddShapeFeature addShapeFeature
+	@Inject AddShapeFromDslFeature addShapeFromDslFeature
 	@Inject AddConnectionFeature addConnectionFeature
 	@Inject AddReferenceAsConnectionFeature addReferenceAsConnectionFeature
 	@Inject AddReferenceAsListFeature addReferenceAsListFeature
@@ -97,6 +100,7 @@ class SprayGraphitiGenerator implements IGenerator {
 		generateFeatureProvider(diagram, java, fp)
 		
 		generateAddShapeFeatures(diagram, java, addShapeFeature)
+		generateAddShapeFromDslFeatures(diagram, java, addShapeFromDslFeature)
 		generateAddConnectionFeatures(diagram, java, addConnectionFeature)
 		generateAddReferenceAsConnectionFeature(diagram, java, addReferenceAsConnectionFeature)
 		generateAddReferenceAsListFeature(diagram, java, addReferenceAsListFeature)
@@ -199,6 +203,15 @@ class SprayGraphitiGenerator implements IGenerator {
 			var container = metaClass.representedBy as ContainerInSpray
 			java.setPackageAndClass(metaClass.addFeatureClassName)
 			
+			asf.generate(container, java)
+		}
+	}
+	def generateAddShapeFromDslFeatures(Diagram diagram, JavaGenFile java, AddShapeFromDslFeature asf) {
+		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof Shape)){
+			var container = metaClass.representedBy as Shape
+			java.setPackageAndClass(metaClass.addFeatureClassName + "FromDsl")
+			
+			asf.setMetaClass(metaClass)
 			asf.generate(container, java)
 		}
 	}	
