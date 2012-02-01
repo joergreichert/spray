@@ -50,7 +50,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/fromLabel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/toLabel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/connectionLabel"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/connection"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//MetaClass">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/representedBy"/>
@@ -60,6 +59,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviors"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviorGroups"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/representedByShape"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/hasStyle"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//MetaReference">
@@ -102,9 +102,6 @@
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//AliasableElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//AliasableElement/alias"/>
-    </genClasses>
-    <genClasses ecoreClass="spray.ecore#//ShapeFromDsl">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/shape"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

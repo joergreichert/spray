@@ -65,9 +65,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionLabel" eType="#//TextInSpray"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//ConnectionDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="#//ShapePropertyAssignment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaClass" eSuperTypes="#//AliasableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ShapeInSpray"
@@ -82,6 +79,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorGroups" upperBound="-1"
         eType="#//BehaviorGroup"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="representedByShape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//Shape"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.ecore#//Style"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaReference" eSuperTypes="#//SprayElement">
@@ -135,15 +133,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AliasableElement" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ShapeFromDsl" eSuperTypes="#//ShapeInSpray">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="shape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//ShapeDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="#//ShapePropertyAssignment" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ShapePropertyAssignment">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmIdentifiableElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
-        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

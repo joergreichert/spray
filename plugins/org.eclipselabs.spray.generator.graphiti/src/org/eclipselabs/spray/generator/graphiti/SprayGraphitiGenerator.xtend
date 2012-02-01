@@ -54,6 +54,7 @@ import org.eclipselabs.spray.shapes.shapes.Shape
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class SprayGraphitiGenerator implements IGenerator {
+    @Inject Provider<JavaGenFile> genFileProvider
 	@Inject extension NamingExtensions naming
 	@Inject extension DiagramExtensions diagramExtensions
 	
@@ -96,7 +97,8 @@ class SprayGraphitiGenerator implements IGenerator {
 		//var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
 		ProjectProperties::setModelUri(resource.URI)
 
-		var JavaGenFile java = getJavaGenFile(fsa)
+		val JavaGenFile java = genFileProvider.get()
+		java.access = fsa
 		var Diagram diagram = resource.contents.head as Diagram
 
 		generatePluginXml(diagram, fsa)
@@ -133,43 +135,7 @@ class SprayGraphitiGenerator implements IGenerator {
 		generateCustomFeature(diagram, java, customFeature)
 	}
 	
-	def JavaGenFile getJavaGenFile(IFileSystemAccess fsa) {
-		
-		var String genOutputPath = ProjectProperties::projectPath + "/" + ProjectProperties::srcGenPath;
-		var String manOutputPath = ProjectProperties::projectPath + "/" + ProjectProperties::srcManPath;
 
-		var JavaGenFile java
-		if( fsa instanceof JavaIoFileSystemAccess) {
-			java = handleJavaIoFileSystemAccess(fsa, genOutputPath, manOutputPath)
-		}
-		if( fsa instanceof EclipseResourceFileSystemAccess2 && java == null){
-			java = handleEclipseResourceFileSystemAccess(fsa, genOutputPath, manOutputPath)
-		}
-		java
-	}
-	
-	def JavaGenFile handleEclipseResourceFileSystemAccess(IFileSystemAccess fsa, String genOutputPath, String manOutputPath) {
-		println("EclipseResourceFileSystemAccess: WARNING: dos not work yet")
-		var JavaGenFile java
-		if(  fsa != null ){
-			java = new JavaGenFile(fsa as EclipseResourceFileSystemAccess2)
-//			var IProject project  = EclipseHelpers::toEclipseResource(resource).project  
-			java.setGenOutputPath(ProjectProperties::srcGenPath);
-			java.setManOutputPath(ProjectProperties::srcManPath);
-		}
-		java
-	}
-
-	def JavaGenFile handleJavaIoFileSystemAccess(IFileSystemAccess fsa, String genOutputPath, String manOutputPath) {
-		var JavaIoFileSystemAccess javaFsa = (fsa as JavaIoFileSystemAccess) 
-		var JavaGenFile java
-		if(  javaFsa != null ){
-			java = new JavaGenFile(javaFsa)
-			java.setGenOutputPath(genOutputPath)
-			java.setManOutputPath(manOutputPath)
-		}	
-		java
-	}
 
 	def generatePluginXml(Diagram diagram, IFileSystemAccess fsa) {
 		fsa.generateFile("plugin.xml", plugin.generate(diagram))
@@ -216,12 +182,10 @@ class SprayGraphitiGenerator implements IGenerator {
 			asf.generate(container, java)
 		}
 	}
-	
 	def generateAddShapeFromDslFeatures(Diagram diagram, JavaGenFile java, AddShapeFromDslFeature asf) {
 		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl )){
 			var container = metaClass.representedBy as ShapeFromDsl
 			java.setPackageAndClass(metaClass.addFeatureClassName)
-			
 			asf.setMetaClass(metaClass)
 			asf.generate(container, java)
 		}
