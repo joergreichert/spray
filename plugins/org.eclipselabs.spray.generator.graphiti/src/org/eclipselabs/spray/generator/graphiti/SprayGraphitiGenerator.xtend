@@ -32,14 +32,17 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFe
 import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferenceFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.ContainerInSpray
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
@@ -69,7 +72,9 @@ class SprayGraphitiGenerator implements IGenerator {
 	@Inject CreateReferenceAsConnectionFeature createReferenceAsConnectionFeature 
 	@Inject UpdateConnectionFeature updateConnectionFeature
 	@Inject LayoutFeature layoutFeature
+	@Inject LayoutFromDslFeature layoutFromDslFeature
 	@Inject UpdateShapeFeature updateShapeFeature
+	@Inject UpdateShapeFromDslFeature updateShapeFromDslFeature
 	@Inject UpdateReferenceAsListFeature updateReferenceAsListFeature
 	@Inject DeleteReferenceFeature deleteReferenceFeature
 	@Inject ImageProvider imageProvider
@@ -112,6 +117,7 @@ class SprayGraphitiGenerator implements IGenerator {
 		
 		generateCreateReferenceAsConnectionFeature(diagram, java, createReferenceAsConnectionFeature)
 		generateUpdateAndLayoutFeatures(diagram, java, updateShapeFeature, updateConnectionFeature, updateReferenceAsListFeature, layoutFeature)
+		generateUpdateAndLayoutFromDslFeatures(diagram, java, updateShapeFromDslFeature, layoutFromDslFeature)
 		generateDeleteReferenceFeature(diagram, java, deleteReferenceFeature)
 		
 		generateImageProvider(diagram, java, imageProvider)
@@ -206,10 +212,11 @@ class SprayGraphitiGenerator implements IGenerator {
 			asf.generate(container, java)
 		}
 	}
+	
 	def generateAddShapeFromDslFeatures(Diagram diagram, JavaGenFile java, AddShapeFromDslFeature asf) {
-		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof Shape)){
-			var container = metaClass.representedBy as Shape
-			java.setPackageAndClass(metaClass.addFeatureClassName + "FromDsl")
+		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl )){
+			var container = metaClass.representedBy as ShapeFromDsl
+			java.setPackageAndClass(metaClass.addFeatureClassName)
 			
 			asf.setMetaClass(metaClass)
 			asf.generate(container, java)
@@ -329,7 +336,24 @@ class SprayGraphitiGenerator implements IGenerator {
 		}	
 	}
 
+	def generateUpdateAndLayoutFromDslFeatures(Diagram diagram, JavaGenFile java, UpdateShapeFromDslFeature usf, LayoutFromDslFeature lf) {
+		for( metaClass : diagram.metaClasses ) {
+			if( metaClass.representedBy instanceof ConnectionInSpray ) {
+				//    No layout feature needed
+			} else if( metaClass.representedBy instanceof ShapeFromDsl ) {
+				val container = metaClass.representedBy as ShapeFromDsl
+				generateLayoutFromDslFeature(metaClass, container, java, lf)
+				generateUpdateShapeFromDslFeature(metaClass, container, java, usf)
+			}
+		}	
+	}
+
 	def generateUpdateShapeFeature(MetaClass metaClass, ContainerInSpray container, JavaGenFile java, UpdateShapeFeature usf) {
+		java.setPackageAndClass(metaClass.updateFeatureClassName)
+		usf.generate(container, java)
+	}
+	
+	def generateUpdateShapeFromDslFeature(MetaClass metaClass, ShapeFromDsl container, JavaGenFile java, UpdateShapeFromDslFeature usf) {
 		java.setPackageAndClass(metaClass.updateFeatureClassName)
 		usf.generate(container, java)
 	}
@@ -340,6 +364,10 @@ class SprayGraphitiGenerator implements IGenerator {
 	}
 	
 	def generateLayoutFeature(MetaClass metaClass, ContainerInSpray container, JavaGenFile java, LayoutFeature lf) {
+		java.setPackageAndClass(metaClass.layoutFeatureClassName)
+		lf.generate(container, java)
+	}
+	def generateLayoutFromDslFeature(MetaClass metaClass, ShapeFromDsl container, JavaGenFile java, LayoutFromDslFeature lf) {
 		java.setPackageAndClass(metaClass.layoutFeatureClassName)
 		lf.generate(container, java)
 	}

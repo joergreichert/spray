@@ -100,7 +100,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
     @Override
     public IScope getScope(EObject context, EReference reference) {
-        System.out.println("getScope: " + context.toString() + " ref " + reference.toString());
+        //        System.out.println("getScope: " + context.toString() + " ref " + reference.toString());
         //        if (reference == META_CLASS__REPRESENTED_BY_SHAPE) {
         //            listVisibleResources();
         //            return super.getScope(context, reference);
@@ -185,11 +185,11 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         }
 
         IScope scope = super.getScope(context, reference);
-        System.out.print("scope returned: ");
-        for (IEObjectDescription od : scope.getAllElements()) {
-            System.out.print(od.getName() + ", ");
-        }
-        System.out.println("!");
+        //        System.out.print("scope returned: ");
+        //        for (IEObjectDescription od : scope.getAllElements()) {
+        //            System.out.print(od.getName() + ", ");
+        //        }
+        //        System.out.println("!");
         return scope;
     }
 

@@ -86,13 +86,13 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     }
 
     @Override
-    public void completeMetaClass_RepresentedByShape(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+    public void completeShapeFromDsl_ShapeId(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         // TODO Auto-generated method stub
         for (String name : listVisibleResources()) {
             ICompletionProposal proposal = doCreateProposal(name, null, null, 0, context);
             acceptor.accept(proposal);
         }
-        //        super.completeMetaClass_RepresentedByShape(model, assignment, context, acceptor);
+        super.completeShapeFromDsl_ShapeId(model, assignment, context, acceptor);
     }
 
     @Override

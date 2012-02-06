@@ -1,19 +1,30 @@
 import BusinessDomainDsl.*
 import org.eclipse.graphiti.util.IColorConstant
 import LineShape33
-
-diagram mod4j for BusinessDomainModel
-
-//behavior samen {  
-//	doit "Do it" ;     
-//}   
-   
-class UniqueRule : spaheRef LineShape33                              
+  
+diagram mod4j for BusinessDomainModel     
+ 
+behavior samen {   
+	doit "Do it" ;         
+}   
+      
+class BusinessClass : shape LWC_Pump
     behavior {
-    	create into businessRules palette "Shapes" askFor name;
+    	create into types palette "Shapes" askFor name;
     }
 
-//class BusinessClass:
+class Enumeration :
+  container ()
+  {
+          text ( )  { "<<"+eClass.name+">> " + name};
+          line ( color=black width=2);
+          reference enumerationLiterals attribute name;
+	}  
+	behavior {
+		create into  enumerations palette "Shapes" askFor name ;
+	} 
+  
+//class BusinessClass alias FullClass :
 //      container  ( fill=dark_green ) 
 //    {
 //          text ( )  { "<<"+eClass.name+">> " + name};
@@ -37,17 +48,17 @@ class UniqueRule : spaheRef LineShape33
 //    }
 //   
 // 
-//class Association icon "connection16.gif":  
-//    connection () 
-//    {
-//        from source;
-//        to   target;
-//        fromText text()  "source " + source.name;
-//        connectionText text() targetMultiplicity.name;
-//        toText text() name;
-//    } 
-//    behavior {
-//        create into associations palette "Connections"  askFor name;
-//        group samen;
-//    }
-//
+class Association icon "connection16.gif":  
+    connection () 
+    {
+        from source;
+        to   target;
+        fromText text()  "source " + source.name;
+        connectionText text() targetMultiplicity.name;
+        toText text() name;
+    } 
+    behavior {
+        create into associations palette "Connections"  askFor name;
+        group samen;
+    }
+

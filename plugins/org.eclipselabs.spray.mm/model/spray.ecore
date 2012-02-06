@@ -79,8 +79,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorGroups" upperBound="-1"
         eType="#//BehaviorGroup"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="representedByShape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//Shape"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.ecore#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="representedByShapeId" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaReference" eSuperTypes="#//SprayElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ConnectionInSpray"
@@ -133,5 +133,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AliasableElement" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeFromDsl" eSuperTypes="#//ShapeInSpray">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//Shape"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shapeId" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

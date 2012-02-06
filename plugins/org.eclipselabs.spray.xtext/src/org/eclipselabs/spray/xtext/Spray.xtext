@@ -31,8 +31,9 @@ SprayElement :
 MetaClass :
     'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)?
     ":" 
-    (   'spaheRef' representedByShape = [shapes::Shape|QualifiedName]
-    	|
+    ( 
+//    	  'shapeRef' representedByShapeId = ID
+//    	|
 	    representedBy=ShapeInSpray
     )
     (
@@ -79,7 +80,11 @@ CustomBehavior :
     name = ID (label = STRING);
 
 ShapeInSpray :
-    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray) 
+    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl) 
+;
+
+ShapeFromDsl :
+	'shape'  shapeId = ID
 ;
 
 Layout :
