@@ -7,10 +7,15 @@ diagram mod4j for BusinessDomainModel
 behavior samen {   
 	doit "Do it" ;         
 }   
-      
+       
 class BusinessClass : shape LWC_Pump
+	references {   
+	     superclass : connection(); 
+	}
     behavior {
     	create into types palette "Shapes" askFor name;
+		menuitem "Menu Item";
+    	group samen;
     }
 
 class Enumeration :
@@ -22,6 +27,7 @@ class Enumeration :
 	}  
 	behavior {
 		create into  enumerations palette "Shapes" askFor name ;
+		menuitem "Menu Item";
 	} 
   
 //class BusinessClass alias FullClass :

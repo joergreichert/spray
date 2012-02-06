@@ -18,7 +18,7 @@
     <anchors xsi:type="pi:ChopboxAnchor"/>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="60" height="60" x="90" y="360">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="60" height="60" x="174" y="490">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" lineWidth="1" transparency="0.0" width="60" height="60" style="//@styles.1">
         <graphicsAlgorithmChildren xsi:type="al:Polyline" lineWidth="1" filled="false" transparency="0.0" style="//@styles.1">
           <points x="8" y="10"/>
