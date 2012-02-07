@@ -86,16 +86,6 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     }
 
     @Override
-    public void completeShapeFromDsl_ShapeId(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        // TODO Auto-generated method stub
-        for (String name : listVisibleResources()) {
-            ICompletionProposal proposal = doCreateProposal(name, null, null, 0, context);
-            acceptor.accept(proposal);
-        }
-        super.completeShapeFromDsl_ShapeId(model, assignment, context, acceptor);
-    }
-
-    @Override
     public void completeMetaClass_Icon(EObject model, Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
         URI uri = model.eResource().getURI();
         if (!uri.isPlatformResource()) {

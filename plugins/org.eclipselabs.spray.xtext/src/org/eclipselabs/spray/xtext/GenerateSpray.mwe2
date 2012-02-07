@@ -37,6 +37,29 @@ Workflow {
             from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
             to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
         }
+                uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.styles.mm/model/Style.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.styles/model/Style.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.styles/model/Style.genmodel"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.shapes/model/Shape.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.shapes/model/Shape.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.shapes/model/Shape.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.shapes/model/Shape.genmodel"
+        }
+        registerGeneratedEPackage = "org.eclipselabs.spray.styles.styles.StylesPackage"
+        registerGenModelFile = "platform:/resource/org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.genmodel"
+        registerGeneratedEPackage = "org.eclipselabs.spray.shapes.shapes.ShapesPackage"
+        registerGenModelFile = "platform:/resource/org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.genmodel"
+        
+        
+        
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.mm.spray.SprayPackage"
         registerGenModelFile = "platform:/resource/org.eclipselabs.spray.mm/model/spray.genmodel"

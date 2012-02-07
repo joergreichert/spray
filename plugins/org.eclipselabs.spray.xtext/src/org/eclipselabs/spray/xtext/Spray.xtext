@@ -83,8 +83,8 @@ ShapeInSpray :
     (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl) 
 ;
 
-ShapeFromDsl :
-	'shape'  shapeId = ID
+ShapeFromDsl : { ShapeFromDsl }
+	'shape'  shape =  [shapes::ShapeDefinition|FQN]
 ;
 
 Layout :

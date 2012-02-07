@@ -70,7 +70,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipselabs.spray.styles.ISprayStyle;
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
 
-        import org.eclipselabs.spray.shapes.«container.shapeId»;
+        import org.eclipselabs.spray.shapes.«container.shape.name»;
         // MARKER_IMPORT
 
         public class «className» extends AbstractAddFeature {
@@ -101,7 +101,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         
 //                Diagram targetDiagram = (Diagram) context.getTargetContainer();
                 ISprayStyle style = new DefaultSprayStyle();
-                ISprayShape shape = new «container.shapeId»();
+                ISprayShape shape = new «container.shape.name»();
                 ContainerShape conShape = shape.getShape(targetDiagram, style);
 		        IGaService gaService = Graphiti.getGaService();
 		        gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
