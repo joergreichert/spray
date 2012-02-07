@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="mod4j" name="newDiagram-shapes-test" snapToGrid="true" showGuides="true" pictogramLinks="//@link //@children.0/@link //@children.1/@link //@children.2/@link //@children.3/@link //@children.4/@link //@connections.0/@connectionDecorators.0/@link //@connections.0/@connectionDecorators.1/@link //@connections.0/@connectionDecorators.2/@link //@connections.0/@link //@children.5/@link //@children.6/@link //@children.6/@children.0/@link //@children.6/@children.0/@children.0/@link //@children.6/@children.0/@children.2/@link //@children.6/@children.0/@children.3/@link //@children.6/@children.0/@children.4/@link //@connections.1/@connectionDecorators.0/@link //@connections.1/@connectionDecorators.1/@link //@connections.1/@connectionDecorators.2/@link //@connections.1/@link">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="mod4j" name="newDiagram-shapes-test" snapToGrid="true" showGuides="true" pictogramLinks="//@link //@children.0/@link //@children.1/@link //@children.2/@link //@children.3/@link //@children.4/@link //@connections.0/@connectionDecorators.0/@link //@connections.0/@connectionDecorators.1/@link //@connections.0/@connectionDecorators.2/@link //@connections.0/@link //@children.5/@link //@children.6/@link //@children.6/@children.0/@link //@children.6/@children.0/@children.0/@link //@children.6/@children.0/@children.2/@link //@children.6/@children.0/@children.3/@link //@children.6/@children.0/@children.4/@link //@connections.1/@connectionDecorators.0/@link //@connections.1/@connectionDecorators.1/@link //@connections.1/@connectionDecorators.2/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link">
   <properties key="URI" value="platform:/resource/org.eclipselabs.spray.examples.one/model/newDiagram-shapes-test.businessdomaindsl#/"/>
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <link>
@@ -33,7 +33,7 @@
     <link>
       <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@types.1"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0"/>
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0 //@connections.4" incomingConnections="//@connections.2 //@connections.5"/>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="60" height="60" x="610" y="370">
@@ -87,7 +87,7 @@
     <link>
       <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@types.4"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0 //@connections.1"/>
+    <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0 //@connections.1 //@connections.3"/>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="74" height="81" x="174" y="140">
@@ -105,7 +105,7 @@
     <link>
       <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@types.5"/>
     </link>
-    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
+    <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1 //@connections.2 //@connections.3 //@connections.5" incomingConnections="//@connections.4"/>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="CONCEPT_SHAPE" value="TopContainer"/>
@@ -178,6 +178,10 @@
   <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0" stretchH="false" stretchV="false" proportional="false"/>
   <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0" stretchH="false" stretchV="false" proportional="false"/>
   <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0" stretchH="false" stretchV="false" proportional="false"/>
+  <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0"/>
+  <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0"/>
+  <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0"/>
+  <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="1.0" id="DefaultSprayStyle" description="This is the default Style definition for Spray" font="//@fonts.0"/>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.4/@anchors.0">
     <properties key="MODEL_TYPE" value="Association"/>
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0"/>
@@ -234,6 +238,96 @@
       </link>
     </connectionDecorators>
     <bendpoints x="349" y="216"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.1/@anchors.0">
+    <properties key="MODEL_TYPE" value="Association"/>
+    <graphicsAlgorithm xsi:type="al:Polyline" lineWidth="1" filled="false" transparency="0.0" style="//@styles.6"/>
+    <link>
+      <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@associations.2"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" lineWidth="0" transparency="0.0" style="//@styles.6">
+        <points x="-10" y="10"/>
+        <points/>
+        <points x="-10" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <connectionDecorators visible="true" locationRelative="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" lineWidth="1" transparency="0.0" style="//@styles.6">
+        <points/>
+        <points x="-20" y="10"/>
+        <points x="-40"/>
+        <points x="-20" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="76" y="305"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.4/@anchors.0">
+    <properties key="MODEL_TYPE" value="Association"/>
+    <graphicsAlgorithm xsi:type="al:Polyline" lineWidth="1" filled="false" transparency="0.0" style="//@styles.7"/>
+    <link>
+      <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@associations.3"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" lineWidth="0" transparency="0.0" style="//@styles.7">
+        <points x="-10" y="10"/>
+        <points/>
+        <points x="-10" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <connectionDecorators visible="true" locationRelative="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" lineWidth="1" transparency="0.0" style="//@styles.7">
+        <points/>
+        <points x="-20" y="10"/>
+        <points x="-40"/>
+        <points x="-20" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@anchors.0" end="//@children.5/@anchors.0">
+    <properties key="MODEL_TYPE" value="Association"/>
+    <graphicsAlgorithm xsi:type="al:Polyline" lineWidth="1" filled="false" transparency="0.0" style="//@styles.8"/>
+    <link>
+      <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@associations.4"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" lineWidth="0" transparency="0.0" style="//@styles.8">
+        <points x="-10" y="10"/>
+        <points/>
+        <points x="-10" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <connectionDecorators visible="true" locationRelative="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" lineWidth="1" transparency="0.0" style="//@styles.8">
+        <points/>
+        <points x="-20" y="10"/>
+        <points x="-40"/>
+        <points x="-20" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.1/@anchors.0">
+    <properties key="MODEL_TYPE" value="Association"/>
+    <graphicsAlgorithm xsi:type="al:Polyline" lineWidth="1" filled="false" transparency="0.0" style="//@styles.9"/>
+    <link>
+      <businessObjects href="newDiagram-shapes-test.businessdomaindsl#//@associations.5"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.2" lineWidth="0" transparency="0.0" style="//@styles.9">
+        <points x="-10" y="10"/>
+        <points/>
+        <points x="-10" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <connectionDecorators visible="true" locationRelative="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" lineWidth="1" transparency="0.0" style="//@styles.9">
+        <points/>
+        <points x="-20" y="10"/>
+        <points x="-40"/>
+        <points x="-20" y="-10"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="280" y="349"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

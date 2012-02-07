@@ -80,7 +80,7 @@ CustomBehavior :
     name = ID (label = STRING);
 
 ShapeInSpray :
-    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl) 
+    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl ) 
 ;
 
 ShapeFromDsl : { ShapeFromDsl }
@@ -110,7 +110,9 @@ RectangleInSpray returns RectangleInSpray:
 
 ConnectionInSpray returns ConnectionInSpray :
 	{ConnectionInSpray}
-	'connection' ('alias' alias=ID)? layout = Layout
+	'connection' 
+	( connection = [shapes::ConnectionDefinition|FQN] )?
+	('alias' alias=ID)? layout = Layout
 	(
 	    '{'
 		'from' from=[ecore::EReference] ";"

@@ -6,11 +6,15 @@
     <enumerationLiterals name="red"/>
   </enumerations>
   <types xsi:type="busmod:BusinessClass" name="aap"/>
-  <types xsi:type="busmod:BusinessClass" name="aap" associationsTo="//@associations.0"/>
+  <types xsi:type="busmod:BusinessClass" name="aap" associationsFrom="//@associations.2 //@associations.5" associationsTo="//@associations.0 //@associations.4"/>
   <types xsi:type="busmod:BusinessClass" name="noot"/>
   <types xsi:type="busmod:BusinessClass" name="mies"/>
-  <types xsi:type="busmod:BusinessClass" name="xxc" associationsFrom="//@associations.0 //@associations.1"/>
-  <types xsi:type="busmod:BusinessClass" name="dfsdfhsdrthsd" associationsTo="//@associations.1"/>
+  <types xsi:type="busmod:BusinessClass" name="xxc" associationsFrom="//@associations.0 //@associations.1 //@associations.3"/>
+  <types xsi:type="busmod:BusinessClass" name="dfsdfhsdrthsd" associationsFrom="//@associations.4" associationsTo="//@associations.1 //@associations.2 //@associations.3 //@associations.5"/>
   <associations source="//@types.1" target="//@types.4"/>
   <associations source="//@types.5" target="//@types.4"/>
+  <associations source="//@types.5" target="//@types.1"/>
+  <associations source="//@types.5" target="//@types.4"/>
+  <associations source="//@types.1" target="//@types.5"/>
+  <associations source="//@types.5" target="//@types.1"/>
 </busmod:BusinessDomainModel>

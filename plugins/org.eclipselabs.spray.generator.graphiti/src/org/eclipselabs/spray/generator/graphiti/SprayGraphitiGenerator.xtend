@@ -21,6 +21,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.diagram.ImageProvider
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ModelService
 import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviorProvider
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFeature
@@ -34,6 +35,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferen
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFromDslFeature
@@ -64,6 +66,7 @@ class SprayGraphitiGenerator implements IGenerator {
 	@Inject AddShapeFeature addShapeFeature
 	@Inject AddShapeFromDslFeature addShapeFromDslFeature
 	@Inject AddConnectionFeature addConnectionFeature
+	@Inject AddConnectionFromDslFeature addConnectionFromDslFeature
 	@Inject AddReferenceAsConnectionFeature addReferenceAsConnectionFeature
 	@Inject AddReferenceAsListFeature addReferenceAsListFeature
 	@Inject CreateConnectionFeature createConnectionFeature
@@ -71,6 +74,7 @@ class SprayGraphitiGenerator implements IGenerator {
 	@Inject CreateReferenceAsListFeature createReferenceAsListFeature
 	@Inject CreateReferenceAsConnectionFeature createReferenceAsConnectionFeature 
 	@Inject UpdateConnectionFeature updateConnectionFeature
+	@Inject UpdateConnectionFromDslFeature updateConnectionFromDslFeature
 	@Inject LayoutFeature layoutFeature
 	@Inject LayoutFromDslFeature layoutFromDslFeature
 	@Inject UpdateShapeFeature updateShapeFeature
@@ -225,10 +229,15 @@ class SprayGraphitiGenerator implements IGenerator {
 
 	def generateAddConnectionFeatures(Diagram diagram, JavaGenFile java, AddConnectionFeature acf) {
 		// Generate for all Connection
-		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ConnectionInSpray)){
+		for( metaClass : diagram.metaClasses.filter(m | (m.representedBy instanceof ConnectionInSpray) && ( (m.representedBy as ConnectionInSpray).connection == null) )){
 			//var connection = metaClass.representedBy as Connection
 			java.setPackageAndClass(metaClass.addFeatureClassName)
 			acf.generate(metaClass, java)
+		}
+		for( metaClass : diagram.metaClasses.filter(m | (m.representedBy instanceof ConnectionInSpray) && ( (m.representedBy as ConnectionInSpray).connection != null) )){
+			//var connection = metaClass.representedBy as Connection
+			java.setPackageAndClass(metaClass.addFeatureClassName)
+			addConnectionFromDslFeature.generate(metaClass, java)
 		}
 	}
 	
@@ -323,7 +332,7 @@ class SprayGraphitiGenerator implements IGenerator {
 	
 	def generateUpdateAndLayoutFeatures(Diagram diagram, JavaGenFile java, UpdateShapeFeature usf, UpdateConnectionFeature ucf, UpdateReferenceAsListFeature uralf, LayoutFeature lf) {
 		for( metaClass : diagram.metaClasses ) {
-			if( metaClass.representedBy instanceof ConnectionInSpray ) {
+			if( (metaClass.representedBy instanceof ConnectionInSpray ) && ( (metaClass.representedBy as ConnectionInSpray).connection == null)) {
 				//    No layout feature needed
 				val connection = metaClass.representedBy as ConnectionInSpray
 				generateUpdateConnectionFeature(metaClass, connection, java, ucf)
@@ -338,8 +347,10 @@ class SprayGraphitiGenerator implements IGenerator {
 
 	def generateUpdateAndLayoutFromDslFeatures(Diagram diagram, JavaGenFile java, UpdateShapeFromDslFeature usf, LayoutFromDslFeature lf) {
 		for( metaClass : diagram.metaClasses ) {
-			if( metaClass.representedBy instanceof ConnectionInSpray ) {
+			if( (metaClass.representedBy instanceof ConnectionInSpray ) && ( (metaClass.representedBy as ConnectionInSpray).connection != null)) {
 				//    No layout feature needed
+				val connection = metaClass.representedBy as ConnectionInSpray
+				generateUpdateConnectionFromDslFeature(metaClass, connection, java, updateConnectionFromDslFeature)
 			} else if( metaClass.representedBy instanceof ShapeFromDsl ) {
 				val container = metaClass.representedBy as ShapeFromDsl
 				generateLayoutFromDslFeature(metaClass, container, java, lf)
@@ -359,6 +370,10 @@ class SprayGraphitiGenerator implements IGenerator {
 	}
 	
 	def generateUpdateConnectionFeature(MetaClass metaClass, ConnectionInSpray connection, JavaGenFile java, UpdateConnectionFeature ucf) {
+		java.setPackageAndClass(metaClass.updateFeatureClassName)
+		ucf.generate(connection, java)
+	}
+	def generateUpdateConnectionFromDslFeature(MetaClass metaClass, ConnectionInSpray connection, JavaGenFile java, UpdateConnectionFromDslFeature ucf) {
 		java.setPackageAndClass(metaClass.updateFeatureClassName)
 		ucf.generate(connection, java)
 	}
