@@ -1,12 +1,11 @@
 import BusinessDomainDsl.*
 import org.eclipse.graphiti.util.IColorConstant
-import LineShape33
   
 diagram mod4j for BusinessDomainModel     
   
 behavior samen {   
 	doit "Do it" ;          
-}   
+}    
        
 class BusinessClass : shape LWC_Pump_Vacuum 
 //	references {   
