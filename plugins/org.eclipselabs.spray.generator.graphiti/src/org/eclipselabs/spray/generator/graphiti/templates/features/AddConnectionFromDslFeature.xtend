@@ -36,7 +36,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         }
     '''
     
-    def mainFile(MetaClass metaClass, String className) '''
+    def mainFile(MetaClass metaClass, String className) ''' 
         «val diagramName = metaClass.diagram.name »
         «val packge = metaClass.type.EPackage.name »
         «val fullPackage = fullPackageName(metaClass.type) »
