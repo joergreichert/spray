@@ -128,7 +128,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
         };
         String name = (element.getType() != null && element.getType().getName() != null) ? element.getType().getName() : element.toString();
         if (!Iterables.filter(element.getBehaviorsList(), createBehaviorFilter).iterator().hasNext()) {
-            error("There is no create behavior defined For class  " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
+            warning("There is no create behavior defined For class  " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
         }
     }
 }
