@@ -75,7 +75,11 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(MetaReference element) {
-        return String.format("%s/%s::%s", element.getTarget().getName(), element.getTarget().getEReferenceType().getName(), sprayExtensions.getLabelPropertyName(element));
+        if (!element.getTarget().eIsProxy() && !element.getTarget().getEReferenceType().eIsProxy()) {
+            return String.format("%s/%s::%s", element.getTarget().getName(), element.getTarget().getEReferenceType().getName(), sprayExtensions.getLabelPropertyName(element));
+        } else {
+            return sprayExtensions.getLabelPropertyName(element);
+        }
     }
 
     public String image(MetaReference element) {
