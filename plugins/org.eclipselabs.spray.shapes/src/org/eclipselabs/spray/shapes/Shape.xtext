@@ -117,7 +117,8 @@ CommonLayout:
     ); 
     
 TextBody: "value" "=" value=TextBodyValue;
-TextBodyValue: {TextBodyValue}	STRING | TextBodyParameter; 
+TextBodyValue: TextBodyParameter | TextBodyString;
+TextBodyString: param=STRING;
 TextBodyParameter: param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
 
 Point: {Point} ( ('point' '(' 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ',' 'curveAfter' '=' curveAfter=INT)? ')' ) );

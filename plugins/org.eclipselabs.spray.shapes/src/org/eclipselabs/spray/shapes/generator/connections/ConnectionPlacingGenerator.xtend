@@ -12,12 +12,11 @@ import org.eclipselabs.spray.shapes.shapes.CDRectangle
 import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.CDText
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
+import org.eclipselabs.spray.shapes.shapes.TextType
+import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
+import org.eclipselabs.spray.shapes.shapes.TextBodyString
 
 class ConnectionPlacingGenerator {
-
-	int element_index
-	int plcount
-	int pcount
 
 	@Inject extension ConnectionStyleGenerator styleGenerator
 	
@@ -31,179 +30,139 @@ class ConnectionPlacingGenerator {
 	}
 	
 	def dispatch createElement(CDLine element, String parentName, String shapeStyle, Integer angle, Integer distance) {
-		val attname = nextAttributeName
-		val plname = nextPointListName
+		val attname = "element"
+		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)		
 		'''
 		«createPointList(element.layout.point, plname, x, y)»
-
 		Polyline «attname» = gaService.createPolyline(«parentName», «plname»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
-		
-		//Set special Style information
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
 	
 	def dispatch createElement(CDRectangle element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
-		val attname = nextAttributeName
+		val attname = "element"
+		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		{
-		// Create a List of Points
-		List<Point> pL = new ArrayList<Point>();
-		
-		Point p1 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», 0, 0);
-		pL.add(p1);
-		Point p2 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», 0, 0);
-		pL.add(p2);
-		Point p3 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0);
-		pL.add(p3);
-		Point p4 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0);
-		pL.add(p4);
-		
-		//Create Rectangle with Polygon
-		Polygon «attname» = gaService.createPolygon(«parentName», pL);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
-		
-		//Set special Style information
+		// As Graphiti doesn´t allow rectangles, creating rectangle as polygon
+		List<Point> «plname» = new ArrayList<Point>();
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», 0, 0));
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», 0, 0));
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));
+		Polygon «attname» = gaService.createPolygon(«parentName», «plname»);
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
 		«generateStyleForConnection(attname, element.layout.layout)»
 		}
      	'''
 	}
 	
 	def dispatch createElement(CDPolygon element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
-		val attname = nextAttributeName
-		val plname = nextPointListName
+		val attname = "element"
+		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		«createPointList(element.layout.point, plname,x,y)»
-		
-		//Create Polygon with Points and curve
 		Polygon «attname» = gaService.createPolygon(«parentName», «plname»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
-		
-		//Set special Style information
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
 	
 	def dispatch createElement(CDPolyline element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
-		val attname = nextAttributeName
-		val plname = nextPointListName
+		val attname = "element"
+		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		«createPointList(element.layout.point, plname,x,y)»
-		
-		//Create Polyline with Points and curve
 		Polyline «attname» = gaService.createPolyline(«parentName», «plname»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
-		
-		//Set special Style information
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
 	
 	def dispatch createElement(CDRoundedRectangle element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
-		val attname = nextAttributeName
+		val attname = "element"
+		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		{
-		// Create a List of Points
-		List<Point> pL = new ArrayList<Point>();
-		
-		Point p1 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.curveHeight», «element.layout.curveWidth») ;
-		pL.add(p1);
-		Point p2 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», «element.layout.curveWidth», «element.layout.curveHeight»);
-		pL.add(p2);
-		Point p3 = gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveHeight», «element.layout.curveWidth»);
-		pL.add(p3);
-		Point p4 = gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveWidth», «element.layout.curveHeight»);
-		pL.add(p4);
-		
-		//Create Rectangle with Polygon
-		Polygon «attname» = gaService.createPolygon(«parentName», pL);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
-		
-		//Set special Style information
+		// As Graphiti doesn´t allow rectangles, creating rounded rectangle as curved polygon
+		List<Point> «plname» = new ArrayList<Point>();
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.curveHeight», «element.layout.curveWidth»));
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», «element.layout.curveWidth», «element.layout.curveHeight»);
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveHeight», «element.layout.curveWidth»);
+		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveWidth», «element.layout.curveHeight»);
+		Polygon «attname» = gaService.createPolygon(«parentName», «plname»);
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
 		«generateStyleForConnection(attname, element.layout.layout)»
 		}
      	'''
 	}
 	
 	def dispatch createElement(CDEllipse element, String parentName, String shapeStyle, Integer angle, Integer distance) {
-		val attname = nextAttributeName
+		val attname = "element"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		Ellipse «attname» = gaService.createEllipse(«parentName»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);
-		
-		//Set special Style information
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
 	
 	def dispatch createElement(CDText element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
-		val attname = nextAttributeName
+		val attname = "element"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
+		decorator.setActive(true);
+		«IF element.texttype == TextType::DEFAULT»
 		Text «attname» = gaService.createText(«parentName»);
-		«parentName».setActive(true);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
-		// TODO: define position
-		
-		//Set special Style information
+		«ELSE»
+		MultiText «attname» = gaService.createMultiText(«parentName»);
+		«ENDIF»
+		Style style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style);
+		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
+		«attname».setValue(«element.body.value.bodyForText»);
+		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
 	
-		def createPointList(EList<Point> pointlist, String plname, Integer x, Integer y) {
+	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
+	def dispatch bodyForText(TextBodyParameter body) { '''get«body.param.simpleName.toFirstUpper»().toString()''' }
+	
+	def createPointList(EList<Point> pointlist, String plname, Integer x, Integer y) {
 		'''
-		// Create a List of Points
 		List<Point> «plname» = new ArrayList<Point>();
 		«FOR point: pointlist»
-			«var pname = nextPointName»
-			Point «pname» = gaService.createPoint(«point.xcor+x», «point.ycor+y», «point.curveBefore», «point.curveAfter»);
-			«plname».add(«pname»);			
+			«plname».add(gaService.createPoint(«point.xcor+x», «point.ycor+y», «point.curveBefore», «point.curveAfter»));
 		«ENDFOR»
 		'''
 	}
 	
-		def styleForElement(ShapeStyleRef s, String styleName) {
+	def styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {
 			'''new «s.style.qualifiedName»().getStyle(diagram)'''
 		} else {
 			styleName
 		}
-	}
-	
-	def nextAttributeName() {
-		element_index = element_index + 1;
-		"element_" + element_index
-	}
-	
-	def nextPointListName() {
-		plcount = plcount + 1;
-		"pointList_" + plcount 
-	}
-	
-	def nextPointName() {
-		pcount = pcount + 1;
-		"point_" + pcount
 	}
 	
 	def getXPositionforAngle(Integer distance, Integer angle) {

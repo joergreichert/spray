@@ -17,6 +17,7 @@ import org.eclipselabs.spray.shapes.shapes.TextType
 import org.eclipselabs.spray.shapes.shapes.TextBody
 import org.eclipselabs.spray.shapes.shapes.TextBodyValue
 import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
+import org.eclipselabs.spray.shapes.shapes.TextBodyString
 
 class ShapeTypeGenerator {
 	
@@ -151,7 +152,7 @@ class ShapeTypeGenerator {
      	'''
 	}
 
-	def dispatch bodyForText(String body) { '''"«body»"''' }
+	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
 	def dispatch bodyForText(TextBodyParameter body) { '''get«body.param.simpleName.toFirstUpper»().toString()''' }
 
 	def styleForElement(ShapeStyleRef s, String styleName) {
