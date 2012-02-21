@@ -34,6 +34,7 @@ public class ShapeTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 		layoutShapeAttribKeywords.add("'curve'");
 		layoutShapeAttribKeywords.add("'align'");
 		layoutShapeAttribKeywords.add("'anchor'");
+		layoutShapeAttribKeywords.add("'value'");
 	}
 
 	@Override
