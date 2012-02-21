@@ -19,6 +19,8 @@ public class ShapeTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 		layoutShapeKeywords.add("'polygon'");
 		layoutShapeKeywords.add("'polyline'");
 		layoutShapeKeywords.add("'line'");
+		layoutShapeKeywords.add("'text'");
+		layoutShapeKeywords.add("'wrapped-text'");
 		layoutShapeKeywords.add("'placing'");
 		layoutShapeAttribKeywords.add("'style'");
 		layoutShapeAttribKeywords.add("'size-min'");

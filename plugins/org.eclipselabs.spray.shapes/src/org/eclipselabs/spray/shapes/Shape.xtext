@@ -51,7 +51,7 @@ CDRectangle: {CDRectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=Rect
 CDRoundedRectangle: {CDRoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout '}' );
 CDPolygon: {CDPolygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
 CDEllipse: {CDEllipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout '}' );
-CDText: {CDText} 'text' (style=ShapeStyleRef)? ( '{' layout=TextLayout body=XExpression '}' );
+CDText: {CDText} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout body=XExpression '}' );
 
 Line: {Line} 'line' (style=ShapeStyleRef)? ( '{' layout=LineLayout '}' ) ;
 Polyline: {Polyline} 'polyline' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
@@ -59,7 +59,7 @@ Rectangle: {Rectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=Rectangl
 RoundedRectangle: {RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}' );
 Polygon: {Polygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout shape+=Shape* '}' );
 Ellipse: {Ellipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout shape+=Shape* '}' );
-Text: {Text} 'text' (style=ShapeStyleRef)? ( '{' layout=TextLayout '{' body=XExpression '}' '}' );
+Text: {Text} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout '{' body=XExpression '}' '}' );
 //ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 
 ShapeLayout:
@@ -122,4 +122,5 @@ enum HAlign: LEFT='left' | CENTER='center' | RIGHT='right';
 enum VAlign: TOP='top' | MIDDLE='middle' | BOTTOM='bottom';
 enum ConnectionStyle: freeform='freeform' | manhatten='manhatten';
 enum AnchorPredefiniedEnum: center='center'|corners='corners';
+enum TextType : default="text" | multiline="wrapped-text";
 N_INT returns ecore::EInt: ('-')? INT;
