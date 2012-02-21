@@ -14,6 +14,9 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.Text
 import org.eclipselabs.spray.shapes.shapes.TextType
+import org.eclipselabs.spray.shapes.shapes.TextBody
+import org.eclipselabs.spray.shapes.shapes.TextBodyValue
+import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
 
 class ShapeTypeGenerator {
 	
@@ -143,10 +146,13 @@ class ShapeTypeGenerator {
 		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style_«element_index»);
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
-		«attname».setValue("«element.body»");
+		«attname».setValue(«element.body.value.bodyForText»);
 		«generateStyleForElement(attname, element.layout.layout)»
      	'''
 	}
+
+	def dispatch bodyForText(String body) { '''"«body»"''' }
+	def dispatch bodyForText(TextBodyParameter body) { '''get«body.param.simpleName.toFirstUpper»().toString()''' }
 
 	def styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {

@@ -58,16 +58,6 @@ class GeneratorShapeDefinition {
 		@SuppressWarnings("all")
 		public class «s.className» extends DefaultSprayShape {
 		    
-		   	«FOR param : s.param»
-		   	«param.parameterType.qualifiedName» «param.name»;
-		   	«ENDFOR»
-		    
-«««		    public «s.className»(«FOR param : s.param» «param.parameterType.qualifiedName» «param.name», «ENDFOR») {
-«««			   	«FOR param : s.param»
-«««			   	this.«param.name» = «param.name»;
-«««			   	«ENDFOR»
-«««		    }
-«««		    
 			private IGaService gaService = Graphiti.getGaService();
 			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				
@@ -94,6 +84,18 @@ class GeneratorShapeDefinition {
 				
 				return invisibleRectangle;
 			}
+			
+			«FOR param : s.param»
+			«param.parameterType.qualifiedName» «param.name»;
+			
+			public «param.parameterType.qualifiedName» get«param.name.toFirstUpper»() {
+				return this.«param.name»;
+			}
+			
+			public void set«param.name.toFirstUpper»(«param.parameterType.qualifiedName» «param.name») {
+				this.«param.name» = «param.name»;
+			}
+			«ENDFOR»
 		}
 		'''
 	}

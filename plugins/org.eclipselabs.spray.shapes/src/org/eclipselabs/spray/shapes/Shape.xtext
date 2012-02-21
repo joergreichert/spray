@@ -1,6 +1,7 @@
 grammar org.eclipselabs.spray.shapes.Shape with org.eclipselabs.spray.styles.Style // with org.eclipse.xtext.common.Terminals
 
 import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
 
 generate shapes 'http://www.eclipselabs.org/spray/shapes/Shape'
 
@@ -51,7 +52,7 @@ CDRectangle: {CDRectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=Rect
 CDRoundedRectangle: {CDRoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout '}' );
 CDPolygon: {CDPolygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
 CDEllipse: {CDEllipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout '}' );
-CDText: {CDText} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout body=XExpression '}' );
+CDText: {CDText} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout body=TextBody '}' );
 
 Line: {Line} 'line' (style=ShapeStyleRef)? ( '{' layout=LineLayout '}' ) ;
 Polyline: {Polyline} 'polyline' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout '}' );
@@ -59,7 +60,7 @@ Rectangle: {Rectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=Rectangl
 RoundedRectangle: {RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}' );
 Polygon: {Polygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout shape+=Shape* '}' );
 Ellipse: {Ellipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout shape+=Shape* '}' );
-Text: {Text} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout '{' body=STRING '}' '}' );
+Text: {Text} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout body=TextBody '}' );
 //ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 
 ShapeLayout:
@@ -115,6 +116,9 @@ CommonLayout:
 	   ('size' '(' ( 'width' '=' width=INT ',' 'height' '=' heigth=INT ) ')' )
     ); 
     
+TextBody: "value" "=" value=TextBodyValue;
+TextBodyValue: {TextBodyValue}	STRING | TextBodyParameter; 
+TextBodyParameter: param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
 
 Point: {Point} ( ('point' '(' 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ',' 'curveAfter' '=' curveAfter=INT)? ')' ) );
 Boolean returns ecore::EBoolean: 'true' | 'false';
