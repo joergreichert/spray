@@ -18,39 +18,23 @@ class StyleXtext2EcorePostProcessor implements IXtext2EcorePostProcessor {
 			eEnum.processEnum
 		}
 		for(c : ePackage.EClassifiers.filter(typeof(EClass))) {
-			if(c.name == "Transparency") {
-				c.processTransparency
-			}
-			if(c.name == "Line") {
-				c.processLine
-			}
-			if(c.name == "Font") {
-				c.processFont
+			if(c.name == "StyleLayout") {
+				c.processAttributes
 			}
 		}
 	}
 	
-	def processTransparency(EClass eClass) {
+	def processAttributes(EClass eClass) {
 		for(s: eClass.EStructuralFeatures) {
 			if(s.name == "transparency") {
 				s.setDefaultValue(Double::MIN_VALUE)
 			}
-		}
-	}
-	
-	def processLine(EClass eClass) {
-		for(s: eClass.EStructuralFeatures) {
 			if(s.name == "lineWidth") {
 				s.setDefaultValue(Integer::MIN_VALUE)
 			}
 			if(s.name == "lineStyle") {
 				s.setDefaultValueLiteral("null")
 			}
-		}
-	}
-	
-	def processFont(EClass eClass) {
-		for(s: eClass.EStructuralFeatures) {
 			if(s.name == "fontSize") {
 				s.setDefaultValue(Integer::MIN_VALUE)
 			}
@@ -59,7 +43,6 @@ class StyleXtext2EcorePostProcessor implements IXtext2EcorePostProcessor {
 			}
 			if(s.name == "fontBold") {
 				s.setDefaultValueLiteral("null")
-
 			}
 		}
 	}

@@ -30,12 +30,10 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0
-		
 		for(point : element.layout.point) {
 			maxX = Math::max(maxX, point.xcor)
 			maxY = Math::max(maxY, point.ycor)
 		}
-		
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);		
 		return sizeMap;
@@ -45,10 +43,8 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0
-				
 		maxX = element.layout.common.width + element.layout.common.xcor;
 		maxY = element.layout.common.heigth + element.layout.common.ycor;
-		
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);	
 		return sizeMap;
@@ -58,12 +54,10 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0
-		
 		for(point : element.layout.point) {
 			maxX = Math::max(maxX, point.xcor)
 			maxY = Math::max(maxY, point.ycor)
 		}		
-		
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);	
 		return sizeMap;
@@ -73,12 +67,10 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0
-		
 		for(point : element.layout.point) {
 			maxX = Math::max(maxX, point.xcor)
 			maxY = Math::max(maxY, point.ycor)
 		}
-		
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);	
 		return sizeMap;
@@ -88,10 +80,8 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0		
-		
 		maxX = element.layout.common.width + element.layout.common.xcor;
 		maxY = element.layout.common.heigth + element.layout.common.ycor;
-		
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);	
 		return sizeMap;
@@ -101,10 +91,8 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0
-		
 		maxX = element.layout.common.width + element.layout.common.xcor;
 		maxY = element.layout.common.heigth + element.layout.common.ycor;
-			
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);	
 		return sizeMap;
@@ -114,22 +102,11 @@ class ShapeSizeCalculator {
 		var sizeMap = new HashMap<String, Integer>();
 		var maxX = 0
 		var maxY = 0
-		//TODO Missing size of the textfield
+		maxX = element.layout.common.width + element.layout.common.xcor;
+		maxY = element.layout.common.heigth + element.layout.common.ycor;
 		sizeMap.put("width", maxX);
 		sizeMap.put("height", maxY);	
 		return sizeMap;
 	}
 	
-//	def dispatch getSize(ShapeRef element){
-//		var sizeMap = new HashMap<String, Integer>();
-//		var maxX = 0
-//		var maxY = 0
-//				
-//		maxX = element.layout.common.width + element.layout.common.xcor;
-//		maxY = element.layout.common.heigth + element.layout.common.ycor;
-//		
-//		sizeMap.put("width", maxX);
-//		sizeMap.put("height", maxY);	
-//		return sizeMap;
-//	}
 }

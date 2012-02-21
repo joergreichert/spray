@@ -59,7 +59,7 @@ Rectangle: {Rectangle} 'rectangle'  (style=ShapeStyleRef)? ( '{' layout=Rectangl
 RoundedRectangle: {RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}' );
 Polygon: {Polygon} 'polygon' (style=ShapeStyleRef)? ( '{' layout=PolyLineLayout shape+=Shape* '}' );
 Ellipse: {Ellipse} 'ellipse' (style=ShapeStyleRef)? ( '{' layout=RectangleEllipseLayout shape+=Shape* '}' );
-Text: {Text} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout '{' body=XExpression '}' '}' );
+Text: {Text} texttype=TextType (style=ShapeStyleRef)? ( '{' layout=TextLayout '{' body=STRING '}' '}' );
 //ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 
 ShapeLayout:
@@ -100,7 +100,7 @@ RoundedRectangleLayout:
 
 TextLayout:
 	{TextLayout} (
-		('position' '(' ( 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT ) ')' ) &
+		(common=CommonLayout) &
 		('align' '(' ( 'horizontal' '=' hAlign=HAlign ',' 'vertical' '=' vAlign=VAlign)? ')')? &
 	  	(layout=ShapestyleLayout)? 
 	);
