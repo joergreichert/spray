@@ -18,6 +18,8 @@ import org.eclipselabs.spray.shapes.shapes.TextBody
 import org.eclipselabs.spray.shapes.shapes.TextBodyValue
 import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
 import org.eclipselabs.spray.shapes.shapes.TextBodyString
+import org.eclipselabs.spray.shapes.shapes.VAlign
+import org.eclipselabs.spray.shapes.shapes.HAlign
 
 class ShapeTypeGenerator {
 	
@@ -147,11 +149,29 @@ class ShapeTypeGenerator {
 		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style_«element_index»);
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
+		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
+		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
 		«attname».setValue(«element.body.value.bodyForText»);
 		«generateStyleForElement(attname, element.layout.layout)»
      	'''
 	}
 
+	def mapAlignment(VAlign align) {
+		switch align {
+			case VAlign::MIDDLE: "ALIGNMENT_MIDDLE"
+			case VAlign::BOTTOM: "ALIGNMENT_BOTTOM"
+			case VAlign::TOP: "ALIGNMENT_TOP"
+		}
+	}
+	
+	def mapAlignment(HAlign align) {
+		switch align {
+			case HAlign::CENTER: "ALIGNMENT_CENTER"
+			case HAlign::LEFT: "ALIGNMENT_LEFT"
+			case HAlign::RIGHT: "ALIGNMENT_RIGHT"
+		}
+	}
+	
 	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
 	def dispatch bodyForText(TextBodyParameter body) { '''get«body.param.simpleName.toFirstUpper»().toString()''' }
 

@@ -15,6 +15,8 @@ import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.TextType
 import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
 import org.eclipselabs.spray.shapes.shapes.TextBodyString
+import org.eclipselabs.spray.shapes.shapes.VAlign
+import org.eclipselabs.spray.shapes.shapes.HAlign
 
 class ConnectionPlacingGenerator {
 
@@ -140,9 +142,27 @@ class ConnectionPlacingGenerator {
 		Style style = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style);
 		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
+		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
+		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
 		«attname».setValue(«element.body.value.bodyForText»);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
+	}
+	
+	def mapAlignment(VAlign align) {
+		switch align {
+			case VAlign::MIDDLE: "ALIGNMENT_MIDDLE"
+			case VAlign::BOTTOM: "ALIGNMENT_BOTTOM"
+			case VAlign::TOP: "ALIGNMENT_TOP"
+		}
+	}
+	
+	def mapAlignment(HAlign align) {
+		switch align {
+			case HAlign::CENTER: "ALIGNMENT_CENTER"
+			case HAlign::LEFT: "ALIGNMENT_LEFT"
+			case HAlign::RIGHT: "ALIGNMENT_RIGHT"
+		}
 	}
 	
 	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }

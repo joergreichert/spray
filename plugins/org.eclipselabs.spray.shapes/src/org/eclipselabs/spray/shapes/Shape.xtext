@@ -123,8 +123,8 @@ TextBodyParameter: param=[types::JvmIdentifiableElement] ("formatting" format=ID
 
 Point: {Point} ( ('point' '(' 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ',' 'curveAfter' '=' curveAfter=INT)? ')' ) );
 Boolean returns ecore::EBoolean: 'true' | 'false';
-enum HAlign: LEFT='left' | CENTER='center' | RIGHT='right';
-enum VAlign: TOP='top' | MIDDLE='middle' | BOTTOM='bottom';
+enum HAlign: CENTER='center' | LEFT='left' | RIGHT='right';
+enum VAlign: MIDDLE='middle' | TOP='top' | BOTTOM='bottom';
 enum ConnectionStyle: freeform='freeform' | manhatten='manhatten';
 enum AnchorPredefiniedEnum: center='center'|corners='corners';
 enum TextType : default="text" | multiline="wrapped-text";
