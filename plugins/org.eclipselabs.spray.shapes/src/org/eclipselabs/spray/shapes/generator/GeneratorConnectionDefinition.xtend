@@ -85,7 +85,6 @@ class GeneratorConnectionDefinition {
 				return newConnection;
 			}
 			
-						
 			«FOR param : c.param»
 			«param.parameterType.qualifiedName» «param.name»;
 			
