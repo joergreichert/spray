@@ -7,7 +7,9 @@ behavior samen {
 	doit "Do it" ;          
 }    
        
-class BusinessClass : shape LWC_Pump_Vacuum 
+class BusinessClass : shape ShapeWithText {
+		ShapeWithText.shapeName = name
+	}
 //	references {   
 //	     superclass : connection(); 
 //	}

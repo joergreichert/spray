@@ -84,7 +84,13 @@ ShapeInSpray :
 ;
 
 ShapeFromDsl : { ShapeFromDsl }
-	'shape'  shape =  [shapes::ShapeDefinition|FQN]
+	'shape'  shape =  [shapes::ShapeDefinition|FQN] '{'
+		properties+=ShapePropertyAssignment*	
+	'}'
+;
+
+ShapePropertyAssignment: 
+	key=[types::JvmIdentifiableElement|FQN] OpSingleAssign value=XAssignment
 ;
 
 Layout :
