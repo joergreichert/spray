@@ -14,10 +14,10 @@ class ConnectionStyleGenerator {
 		'''
 		«IF(csl != null && csl.layout != null)»
 			«IF(csl.layout.background != null)»
-				«attName».setBackground(gaService.manageColor(diagram,«stylegen.createColorValue(csl.layout.background)»));
+			«attName».setBackground(gaService.manageColor(diagram,«stylegen.createColorValue(csl.layout.background)»));
 			«ENDIF»
 			«IF(csl.layout.transparency != Double::MIN_VALUE)»
-				«attName».setTransparency(«csl.layout.transparency»);		
+			«attName».setTransparency(«csl.layout.transparency»);		
 			«ENDIF»
 			«createLineAttributes(attName, csl)»
 			«createFontAttributes(attName, csl)»
@@ -29,43 +29,43 @@ class ConnectionStyleGenerator {
 		'''
 		«IF !(l.layout.fontName == null && l.layout.fontSize == Integer::MIN_VALUE && l.layout.fontItalic == YesNoBool::NULL && l.layout.fontItalic == YesNoBool::NULL)»
 		{
-		Style style = «attName».getStyle();
-        «IF l.layout.fontName == null»
-		String fontName = style.getFont().getName();
-        «ELSE»
-		String fontName = "«l.layout.fontName»";
-        «ENDIF»
-        «IF l.layout.fontSize == Integer::MIN_VALUE»
-		int fontSize = style.getFont().getSize();
-        «ELSE»
-		int fontSize = «l.layout.fontSize»;
- 	    «ENDIF»
- 	    «IF l.layout.fontItalic == YesNoBool::NULL»
-		boolean fontItalic = style.getFont().isItalic();
- 	    «ELSE»
-		boolean fontItalic = «stylegen.transformYesNoToBoolean(l.layout.fontItalic)»;
- 	    «ENDIF»
-		«IF l.layout.fontBold == YesNoBool::NULL»
-		boolean fontBold = style.getFont().isBold();
-		«ELSE»
-		boolean fontBold = «stylegen.transformYesNoToBoolean(l.layout.fontBold)»;
-		«ENDIF»
-		style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
+			Style style = «attName».getStyle();
+			«IF l.layout.fontName == null»
+			String fontName = style.getFont().getName();
+			«ELSE»
+			String fontName = "«l.layout.fontName»";
+			«ENDIF»
+			«IF l.layout.fontSize == Integer::MIN_VALUE»
+			int fontSize = style.getFont().getSize();
+			«ELSE»
+			int fontSize = «l.layout.fontSize»;
+			«ENDIF»
+			«IF l.layout.fontItalic == YesNoBool::NULL»
+			boolean fontItalic = style.getFont().isItalic();
+			«ELSE»
+			boolean fontItalic = «stylegen.transformYesNoToBoolean(l.layout.fontItalic)»;
+			«ENDIF»
+			«IF l.layout.fontBold == YesNoBool::NULL»
+			boolean fontBold = style.getFont().isBold();
+			«ELSE»
+			boolean fontBold = «stylegen.transformYesNoToBoolean(l.layout.fontBold)»;
+			«ENDIF»
+			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 		}
 		«ENDIF»
-        '''  
+        '''
     }
     
     def createLineAttributes(String attName, ShapestyleLayout csl){
      	'''
     	«IF(csl.layout.lineColor != null)»
-			«attName».setForeground(gaService.manageColor(diagram,«stylegen.createColorValue(csl.layout.lineColor)»));    	
+		«attName».setForeground(gaService.manageColor(diagram,«stylegen.createColorValue(csl.layout.lineColor)»));    	
     	«ENDIF»
     	«IF(csl.layout.lineStyle != null && csl.layout.lineStyle != LineStyle::NULL)»
-  			«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);	
+  		«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);	
     	«ENDIF»
     	«IF(csl.layout.lineWidth != Integer::MIN_VALUE)»
-    		«attName».setLineWidth(«csl.layout.lineWidth»);
+    	«attName».setLineWidth(«csl.layout.lineWidth»);
     	«ENDIF»    	
     	'''
     }
