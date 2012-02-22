@@ -173,7 +173,9 @@ class ShapeTypeGenerator {
 	}
 	
 	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
-	def dispatch bodyForText(TextBodyParameter body) { '''get«body.param.simpleName.toFirstUpper»().toString()''' }
+	def dispatch bodyForText(TextBodyParameter body) { 
+		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
+	}
 
 	def styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {
