@@ -29,28 +29,28 @@ class ShapeTypeStyleGenerator {
         '''
 		«IF !(l.layout.fontName == null && l.layout.fontSize == Integer::MIN_VALUE && l.layout.fontItalic == YesNoBool::NULL && l.layout.fontItalic == YesNoBool::NULL)»
 		{
-		Style style = «attName».getStyle();
-        «IF l.layout.fontName == null»
-		String fontName = style.getFont().getName();
-        «ELSE»
-		String fontName = "«l.layout.fontName»";
-        «ENDIF»
-        «IF l.layout.fontSize == Integer::MIN_VALUE»
-		int fontSize = style.getFont().getSize();
-        «ELSE»
-		int fontSize = «l.layout.fontSize»;
- 	    «ENDIF»
- 	    «IF l.layout.fontItalic == YesNoBool::NULL»
-		boolean fontItalic = style.getFont().isItalic();
- 	    «ELSE»
-		boolean fontItalic = «stylegen.transformYesNoToBoolean(l.layout.fontItalic)»;
- 	    «ENDIF»
-		«IF l.layout.fontBold == YesNoBool::NULL»
-		boolean fontBold = style.getFont().isBold();
-		«ELSE»
-		boolean fontBold = «stylegen.transformYesNoToBoolean(l.layout.fontBold)»;
-		«ENDIF»
-		style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
+			Style style = «attName».getStyle();
+			«IF l.layout.fontName == null»
+			String fontName = style.getFont().getName();
+			«ELSE»
+			String fontName = "«l.layout.fontName»";
+			«ENDIF»
+			«IF l.layout.fontSize == Integer::MIN_VALUE»
+			int fontSize = style.getFont().getSize();
+			«ELSE»
+			int fontSize = «l.layout.fontSize»;
+			«ENDIF»
+			«IF l.layout.fontItalic == YesNoBool::NULL»
+			boolean fontItalic = style.getFont().isItalic();
+			«ELSE»
+			boolean fontItalic = «stylegen.transformYesNoToBoolean(l.layout.fontItalic)»;
+			«ENDIF»
+			«IF l.layout.fontBold == YesNoBool::NULL»
+			boolean fontBold = style.getFont().isBold();
+			«ELSE»
+			boolean fontBold = «stylegen.transformYesNoToBoolean(l.layout.fontBold)»;
+			«ENDIF»
+			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 		}
 		«ENDIF»
         '''    

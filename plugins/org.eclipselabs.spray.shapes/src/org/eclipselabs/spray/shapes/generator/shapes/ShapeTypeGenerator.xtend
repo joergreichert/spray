@@ -14,8 +14,6 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.Text
 import org.eclipselabs.spray.shapes.shapes.TextType
-import org.eclipselabs.spray.shapes.shapes.TextBody
-import org.eclipselabs.spray.shapes.shapes.TextBodyValue
 import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
 import org.eclipselabs.spray.shapes.shapes.TextBodyString
 import org.eclipselabs.spray.shapes.shapes.VAlign

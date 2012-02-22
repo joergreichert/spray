@@ -158,13 +158,13 @@ class StyleGenerator implements IGenerator {
         style.setLineVisible(false);
         style.setForeground(null);
         «ELSE»
-		style.setLineVisible(true);
-		style.setForeground(gaService.manageColor(diagram, «l.lineColor.createColorValue»));
-		«IF l.lineWidth > 0»
-		style.setLineWidth(«Math::max(l.lineWidth,1)»);
-		«ENDIF»
-        «IF l.lineStyle != LineStyle::NULL» 
-		style.setLineStyle(LineStyle.«l.lineStyle.name»);
+        style.setLineVisible(true);
+        style.setForeground(gaService.manageColor(diagram, «l.lineColor.createColorValue»));
+        «IF l.lineWidth > 0»
+        style.setLineWidth(«Math::max(l.lineWidth,1)»);
+        «ENDIF»
+        «IF l.lineStyle != LineStyle::NULL»
+        style.setLineStyle(LineStyle.«l.lineStyle.name»);
         «ENDIF»
         «ENDIF»
         '''    
@@ -173,19 +173,19 @@ class StyleGenerator implements IGenerator {
     def createFontAttributes(StyleLayout l) {
         '''
 		// font attributes
-        «IF l == null || l.fontName == null»
+		«IF l == null || l.fontName == null»
 		String fontName = style.getFont().getName();
-        «ELSE»
+		«ELSE»
 		String fontName = "«l.fontName»";
-        «ENDIF»
-        «IF l == null || l.fontSize == Integer::MIN_VALUE»
+		«ENDIF»
+		«IF l == null || l.fontSize == Integer::MIN_VALUE»
 		int fontSize = style.getFont().getSize();
-        «ELSE»
+		«ELSE»
 		int fontSize = «l.fontSize»;
- 	    «ENDIF»
- 	    «IF l == null || l.fontItalic == YesNoBool::NULL»
+		«ENDIF»
+		«IF l == null || l.fontItalic == YesNoBool::NULL»
 		boolean fontItalic = style.getFont().isItalic();
- 	    «ELSE»
+		«ELSE»
 		boolean fontItalic = «l.fontItalic.transformYesNoToBoolean»;
  	    «ENDIF»
 		«IF l == null || l.fontBold == YesNoBool::NULL»
