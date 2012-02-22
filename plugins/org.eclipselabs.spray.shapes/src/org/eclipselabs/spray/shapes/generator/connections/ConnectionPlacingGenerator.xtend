@@ -166,8 +166,10 @@ class ConnectionPlacingGenerator {
 	}
 	
 	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
-	def dispatch bodyForText(TextBodyParameter body) { '''get«body.param.simpleName.toFirstUpper»().toString()''' }
-	
+	def dispatch bodyForText(TextBodyParameter body) { 
+		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
+	}
+
 	def createPointList(EList<Point> pointlist, String plname, Integer x, Integer y) {
 		'''
 		List<Point> «plname» = new ArrayList<Point>();
