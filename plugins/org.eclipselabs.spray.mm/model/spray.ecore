@@ -66,6 +66,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionLabel" eType="#//TextInSpray"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//ConnectionDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//ShapePropertyAssignment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaClass" eSuperTypes="#//AliasableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ShapeInSpray"
