@@ -113,13 +113,11 @@ RectangleEllipseLayout:
 	(layout=ShapestyleLayout)?);
 
 LineLayout:
-	{LineLayout} ((point+=Point) &
-	(point+=Point) &
+	{LineLayout} ((point+=Point) (point+=Point)
 	(layout=ShapestyleLayout)?);
 
 PolyLineLayout:
-	{PolyLineLayout} ((point+=Point) &
-	(point+=Point+) &
+	{PolyLineLayout} ((point+=Point) (point+=Point+)
 	(layout=ShapestyleLayout)?);
 
 RoundedRectangleLayout:
@@ -157,8 +155,8 @@ TextBodyParameter:
 	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
 
 Point:
-	{Point} (('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','
-	'curveAfter' '=' curveAfter=INT)? ')'));
+	{Point} ('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','
+	'curveAfter' '=' curveAfter=INT)? ')');
 
 Boolean returns ecore::EBoolean:
 	'true' | 'false';
