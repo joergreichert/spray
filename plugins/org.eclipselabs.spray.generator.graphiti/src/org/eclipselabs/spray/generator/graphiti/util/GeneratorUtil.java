@@ -42,6 +42,14 @@ public class GeneratorUtil {
         return ProjectProperties.getPropertyPackage();
     }
 
+    public static String styles_package() { //  GLOBALVAR property_package;
+        return ProjectProperties.getStylesPackage();
+    }
+
+    public static String shapes_package() { //  GLOBALVAR property_package;
+        return ProjectProperties.getShapesPackage();
+    }
+
     public static String util_package() {
         return ProjectProperties.getUtilPackage();
     }

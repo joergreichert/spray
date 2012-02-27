@@ -98,13 +98,13 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             public PictogramElement add(IAddContext context) {
                 «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
-        
-//                Diagram targetDiagram = (Diagram) context.getTargetContainer();
+                
+                // Diagram targetDiagram = (Diagram) context.getTargetContainer();
                 ISprayStyle style = new DefaultSprayStyle();
-                ISprayShape shape = new «container.shape.name»();
+                «container.shape.name» shape = new «container.shape.name»();
                 ContainerShape conShape = shape.getShape(targetDiagram, style);
-		        IGaService gaService = Graphiti.getGaService();
-		        gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
+                IGaService gaService = Graphiti.getGaService();
+                gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
                 link(conShape, addedModelElement);
 
                 setDoneChanges(true);

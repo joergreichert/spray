@@ -1,14 +1,5 @@
 package org.eclipselabs.spray.shapes.validation;
 
-import java.util.Map;
-
-import org.eclipse.xtext.validation.Check;
-import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.eclipselabs.spray.shapes.generator.shapes.ShapeSizeCalculator;
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
-import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
-
-import com.google.inject.Inject;
 
 public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 

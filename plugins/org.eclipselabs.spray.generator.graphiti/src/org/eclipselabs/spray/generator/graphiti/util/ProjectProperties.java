@@ -84,6 +84,8 @@ public class ProjectProperties {
         diagramPackage = properties.getProperty("diagramPackage", diagramPackage);
         featurePackage = properties.getProperty("featurePackage", featurePackage);
         propertyPackage = properties.getProperty("propertyPackage", propertyPackage);
+        stylesPackage = properties.getProperty("stylesPackage", stylesPackage);
+        shapesPackage = properties.getProperty("shapesPackage", shapesPackage);
         utilPackage = properties.getProperty("utilPackage", utilPackage);
         srcGenPath = properties.getProperty("srcGenPath", srcGenPath);
         resourceGenPath = properties.getProperty("resourceGenPath", resourceGenPath);
@@ -133,6 +135,8 @@ public class ProjectProperties {
     private static String       diagramPackage                = "diagrams";
     private static String       featurePackage                = "features";
     private static String       propertyPackage               = "property";
+    private static String       stylesPackage                 = "styles";
+    private static String       shapesPackage                 = "shapes";
     private static String       utilPackage                   = "org.eclipselabs.spray.runtime.containers";
 
     private static String       srcGenPath                    = "src-gen";
@@ -245,6 +249,14 @@ public class ProjectProperties {
 
     public static String getPropertyPackage() {
         return propertyPackage;
+    }
+
+    public static String getStylesPackage() {
+        return stylesPackage;
+    }
+
+    public static String getShapesPackage() {
+        return shapesPackage;
     }
 
     public static String getUtilPackage() {
