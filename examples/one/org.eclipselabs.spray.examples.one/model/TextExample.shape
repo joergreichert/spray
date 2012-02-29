@@ -1,0 +1,52 @@
+shape ShapeWithText (java.lang.String shapeName) {
+	rectangle {
+		size(width=100, height=200)
+		position(x=0, y=0)
+		text { 
+			size(width=100,height=30)
+			position(x=0,y=0)
+			align(horizontal=center,vertical=middle)
+			value = "Shape with Text"
+		}
+		text { 
+			size(width=100,height=30)
+			position(x=0,y=30)
+			value = shapeName	
+		}
+	}
+}
+
+connection ConnectionWithText (java.lang.String connectionName) {
+	placing {
+		position(offset=1.0,radius=0,angle=0)
+		polygon {
+			point(x=-10,y=10)
+			point(x=0,y=0)
+			point(x=-10,y=-10)
+			style(background-color=black)
+		}
+	}
+	placing {
+		position(offset=0.0,radius=0,angle=0)
+		polygon {
+			point(x=0,y=0)
+			point(x=-20,y=10)
+			point(x=-40,y=0)
+			point(x=-20,y=-10)
+		}
+	}
+	placing {
+		position(offset=0.5, radius=20, angle=90)
+		text {
+			size(width=100,height=20)
+			value = "Connection with Text"
+		}
+	}
+	placing {
+		position(offset=0.5, radius=20, angle=270)
+		text {
+			size(width=100,height=20)
+			value = connectionName
+		}
+	}
+}
