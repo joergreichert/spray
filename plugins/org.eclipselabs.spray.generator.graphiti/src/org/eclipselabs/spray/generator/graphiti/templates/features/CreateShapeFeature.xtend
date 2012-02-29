@@ -47,6 +47,12 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «metaClass.javaInterfaceName»;
+        «IF metaClass.alias!=null»
+        import org.eclipse.graphiti.features.context.IAreaContext;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.features.context.impl.AddContext;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+        «ENDIF»
         // MARKER_IMPORT
         
         public class «className» extends AbstractCreateFeature {
@@ -67,6 +73,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             «generate_create(metaClass)»
             «generate_createModelElement(metaClass)»
             «generate_getCreateImageId(metaClass)»
+            «generate_addGraphicalRepresentation(metaClass)»
             «generate_additionalFields(metaClass)»
         }
     '''
@@ -151,6 +158,22 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
               «typeName» new«attribute.name.toFirstUpper» = «typeName».valueOf(new«attribute.name.toFirstUpper»String);	
               newClass.set«attribute.name.toFirstUpper»(new«attribute.name.toFirstUpper»);
            «ENDIF»
+        «ENDIF»
+    '''
+ 
+ 
+    /**
+     * When a MetaClass is aliased we need to put a property with the alias name into the AddContext in order to
+     * return the right AddFeature in the FeatureProvider
+     */
+    def generate_addGraphicalRepresentation (MetaClass metaClass) '''
+        «IF metaClass.alias!=null»
+        «overrideHeader()»
+        protected PictogramElement addGraphicalRepresentation(IAreaContext context, Object newObject) {
+            final AddContext ctx = new AddContext(context, newObject);
+            ctx.putProperty(ISprayConstants.PROPERTY_ALIAS, "«metaClass.alias»");
+            return getFeatureProvider().addIfPossible(ctx);
+        }
         «ENDIF»
     '''
     

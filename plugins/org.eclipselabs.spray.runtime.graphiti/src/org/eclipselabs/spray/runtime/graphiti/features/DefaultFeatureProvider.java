@@ -9,8 +9,9 @@ import org.eclipse.graphiti.services.IGaLayoutService;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
-public class DefaultFeatureProvider extends org.eclipse.graphiti.ui.features.DefaultFeatureProvider {
+public class DefaultFeatureProvider extends org.eclipse.graphiti.ui.features.DefaultFeatureProvider implements ISprayConstants {
     protected IGaCreateService gaCreateService;
     protected IGaLayoutService gaLayoutService;
     protected IGaService       gaService;

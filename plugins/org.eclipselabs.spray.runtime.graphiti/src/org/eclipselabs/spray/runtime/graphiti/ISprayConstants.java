@@ -9,6 +9,7 @@ public interface ISprayConstants {
     String PROPERTY_STATIC                           = "STATIC";
     String PROPERTY_REFERENCE                        = "REFERENCE";
     String PROPERTY_TARGETOBJECT                     = "TARGETOBJECT";
+    String PROPERTY_ALIAS                            = "ALIAS";
     /**
      * Property stores an URI string
      */

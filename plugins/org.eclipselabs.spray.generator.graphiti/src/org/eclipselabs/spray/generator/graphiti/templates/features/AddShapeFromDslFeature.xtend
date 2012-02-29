@@ -63,8 +63,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddContext;
-		import org.eclipse.graphiti.services.Graphiti;
-		import org.eclipse.graphiti.services.IGaService;
+        import org.eclipse.graphiti.services.Graphiti;
+        import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         import org.eclipselabs.spray.shapes.ISprayShape;
         import org.eclipselabs.spray.styles.ISprayStyle;
@@ -106,6 +106,9 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
                 link(conShape, addedModelElement);
+                «IF metaClass.alias!=null»
+                peService.setPropertyValue(conShape , PROPERTY_ALIAS, "«metaClass.alias»");
+                «ENDIF»
 
                 setDoneChanges(true);
                 

@@ -104,14 +104,14 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «overrideHeader»
         public IAddFeature getAddFeature(IAddContext context) {
             // is object for add request a EClass or EReference?
-            EObject object = (EObject) context.getNewObject() ;
-            String reference = (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE);
-            
+            final EObject object = (EObject) context.getNewObject() ;
+            final String reference = (String)context.getProperty(PROPERTY_REFERENCE);
+            final String alias = (String)context.getProperty(PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses»
-                if ( object.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) {
+                if ( object.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») {
                     if ( reference == null ){
                         return new «cls.addFeatureClassName.shortName»(this);
-                        «FOR reference :  cls.references.filter(ref|ref.representedBy != null)  »
+                        «FOR reference : cls.references.filter(ref|ref.representedBy != null)  »
                         } else if( reference.equals(«reference.literalConstant».getName())){
                             return new «reference.addReferenceAsConnectionFeatureClassName.shortName»(this);
                         «ENDFOR»
@@ -128,6 +128,10 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «ENDFOR»
             return super.getAddFeature(context);
         }
+    '''
+    
+    def private generate_aliasClause (MetaClass cls) '''
+        «IF cls.alias!=null»"«cls.alias»".equals(context.getProperty(PROPERTY_ALIAS))«ELSE»context.getProperty(PROPERTY_ALIAS)==null«ENDIF»
     '''
     
     def generate_getCreateFeatures (Diagram diagram) '''
@@ -169,13 +173,14 @@ class FeatureProvider extends FileGenerator<Diagram> {
     def generate_getUpdateFeature (Diagram diagram) '''
         «overrideHeader»
         public IUpdateFeature getUpdateFeature(IUpdateContext context) {
-            PictogramElement pictogramElement = context.getPictogramElement();
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
         //    if (pictogramElement instanceof ContainerShape) {
                 EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
                 if (bo == null) return null;
             «FOR cls : diagram.metaClasses »
                 «IF ! (cls.representedBy instanceof ConnectionInSpray) »
-                if ( bo.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) { // 11
+                if ( bo.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») { // 11
                     return new «cls.updateFeatureClassName.shortName»(this); 
                 }
                 «ENDIF»
