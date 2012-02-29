@@ -36,15 +36,25 @@ class SprayModelGenerator {
         // a workspace project, this project must have the Xtext nature.
         //
         // Example class mapping:
-        //   class BusinessClass:
-        //     container  ( fill=dark_green ) 
+        //   class BusinessClass icon "ecore/EClass.gif":
+        //     container  ( fill=yellow ) 
         //     {
         //       text ( )  { "<<"+eClass.name+">> " + name};
+        //       line ( color=black width=2)
         //     }
         //     behavior {
         //       // Enable create feature for this class and add it to the palette "Shapes"
         //       create into types palette "Shapes";
         //     }
+        //
+        // Example association mapping:
+        //   class Association icon "connection16.gif"
+        //     connection ( ) {
+        //       from source;
+        //       to target;
+        //       fromText "source " + source.name
+        //     }
+        
         
     '''
     
