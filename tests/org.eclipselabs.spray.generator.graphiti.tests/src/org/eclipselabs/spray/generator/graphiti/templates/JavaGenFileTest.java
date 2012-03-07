@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipselabs.spray.generator.graphiti.util.IFileSystemAccessUtil;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
+import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Before;
 import org.junit.Test;

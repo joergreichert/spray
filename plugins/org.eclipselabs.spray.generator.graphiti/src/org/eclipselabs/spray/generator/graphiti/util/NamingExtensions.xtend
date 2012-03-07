@@ -18,6 +18,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EDataType
+import org.eclipselabs.spray.xtext.generator.ImportUtil
 
 /**
  * Computation of class names, file names etc.

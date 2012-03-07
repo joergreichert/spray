@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.ui;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
-import org.eclipselabs.spray.generator.graphiti.formatting.IPostProcessor;
+import org.eclipselabs.spray.xtext.generator.IPostProcessor;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

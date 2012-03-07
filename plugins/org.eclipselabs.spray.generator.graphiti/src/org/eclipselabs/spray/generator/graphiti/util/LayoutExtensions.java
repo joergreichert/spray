@@ -7,6 +7,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.RGBColor;
 import org.eclipselabs.spray.mm.spray.ShapeInSpray;
+import org.eclipselabs.spray.xtext.generator.ImportUtil;
 
 import com.google.inject.Inject;
 
