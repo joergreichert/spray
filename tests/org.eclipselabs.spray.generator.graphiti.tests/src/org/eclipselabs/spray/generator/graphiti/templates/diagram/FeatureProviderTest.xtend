@@ -33,7 +33,6 @@ class FeatureProviderTest {
 			    };
 			}
 		'''
-		sut.importUtil.initImports("diagram")
 	    val output = sut.generate_getCreateConnectionFeatures(diagram)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	} 
@@ -70,7 +69,6 @@ class FeatureProviderTest {
 			    };
 			}
 		'''
-		sut.importUtil.initImports("diagram")
 	    val output = sut.generate_getCreateConnectionFeatures(diagram)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -115,7 +113,6 @@ class FeatureProviderTest {
 			    };
 			}
 		'''
-		sut.importUtil.initImports("diagram")
 	    val output = sut.generate_getCreateConnectionFeatures(diagram)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	} 
@@ -143,7 +140,6 @@ class FeatureProviderTest {
 			    };
 			}
 		'''
-		sut.importUtil.initImports("diagram")
 	    val output = sut.generate_getCreateConnectionFeatures(diagram)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	} 	

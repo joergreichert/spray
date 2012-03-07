@@ -110,7 +110,6 @@ class CreateShapeFeatureTest {
 			    return newClass;
 			}
     	'''	
-    	sut.importUtil.initImports("features")
 		val output = sut.generate_createModelElement(metaClass)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -131,7 +130,6 @@ class CreateShapeFeatureTest {
 			    return newClass;
 			}
     	'''	
-    	sut.importUtil.initImports("features")
 		val output = sut.generate_createModelElement(metaClass)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -168,7 +166,6 @@ class CreateShapeFeatureTest {
 			    return newClass;
 			}
     	'''	
-    	sut.importUtil.initImports("features")
 		val output = sut.generate_createModelElement(metaClass)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -205,7 +202,6 @@ class CreateShapeFeatureTest {
 			    return newClass;
 			}
     	'''	
-    	sut.importUtil.initImports("features")
 		val output = sut.generate_createModelElement(metaClass)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -244,7 +240,6 @@ class CreateShapeFeatureTest {
 			    return newClass;
 			}
     	'''	
-    	sut.importUtil.initImports("features")
 		val output = sut.generate_createModelElement(metaClass)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -282,7 +277,6 @@ class CreateShapeFeatureTest {
 			    return newClass;
 			}
     	'''	
-    	sut.importUtil.initImports("features")
 		val output = sut.generate_createModelElement(metaClass)
 		assertEquals("expected output", expectedOutput.toString, output.toString);
 	}	

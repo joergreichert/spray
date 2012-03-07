@@ -549,13 +549,13 @@ class UpdateShapeFeatureTest {
 
             protected void fillValues(SampleEClass eClass) {
                 String type, value;
-            type = "SampleDiagram.Container0.Text1";
+            type = "SampleDiagram.ContainerInSpray0.TextInSpray1";
             value = getValue(type, eClass);
             values.put(type, value);
             }
             
             protected String getValue (String type, SampleEClass eClass) {
-            if ("SampleDiagram.Container0.Text1".equals(type)) {
+            if ("SampleDiagram.ContainerInSpray0.TextInSpray1".equals(type)) {
                 
                 return "test";
             }
@@ -711,7 +711,7 @@ class UpdateShapeFeatureTest {
 		diagram.metaClassesList.add(metaClass)
 		val String className = null
 		val expectedOutput = expectedOutputMainFileWhenContainerHasDiagram()
-		sut.importUtil.initImports("features")
+		// sut.importUtil.initImports("features")
 		val output = sut.mainFile(container, className)
     	assertEquals("expected output", expectedOutput.toString, output.toString);
 	}
@@ -795,7 +795,7 @@ class UpdateShapeFeatureTest {
 		diagram.metaClassesList.add(metaClass)
 		val String className = null
 		val expectedOutput = expectedOutputMainFileWheContainerHasMetaClassName()
-		sut.importUtil.initImports("features")
+		//sut.importUtil.initImports("features")
 		val output = sut.mainFile(container, className)
     	assertEquals("expected output", expectedOutput.toString, output.toString);
 	}

@@ -3,8 +3,8 @@ package org.eclipselabs.spray.generator.graphiti.templates;
 import java.math.BigDecimal;
 
 import org.eclipse.xtext.generator.IFileSystemAccess;
-import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.junit4.InjectWith;
+import org.eclipselabs.spray.generator.graphiti.util.IFileSystemAccessUtil;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Before;
@@ -19,12 +19,15 @@ import static org.junit.Assert.assertEquals;
 @InjectWith(SprayTestsInjectorProvider.class)
 public class JavaGenFileTest {
     @Inject
-    private IFileSystemAccess fsa;
-    private JavaGenFile       fixture;
+    private IFileSystemAccess     fsa;
+    @Inject
+    private IFileSystemAccessUtil fsaUtil;
+
+    private JavaGenFile           fixture;
 
     @Before
     public void setUp() {
-        fixture = new JavaGenFile((JavaIoFileSystemAccess) fsa);
+        fixture = new JavaGenFile(fsaUtil);
     }
 
     @Test
@@ -33,4 +36,5 @@ public class JavaGenFileTest {
         assertEquals("java.math", fixture.getPackageName());
         assertEquals("BigDecimal", fixture.getClassName());
     }
+
 }
