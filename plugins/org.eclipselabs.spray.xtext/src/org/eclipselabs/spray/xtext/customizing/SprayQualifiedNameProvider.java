@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -16,6 +17,11 @@ import org.eclipselabs.spray.mm.spray.SprayPackage;
 
 import com.google.inject.Inject;
 
+/**
+ * Spray specific {@link IQualifiedNameProvider}.
+ * 
+ * @author Karsten Thoms (karsten.thoms@itemis.de)
+ */
 public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
     @Inject
     private IQualifiedNameConverter converter;
@@ -24,6 +30,10 @@ public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
         return converter.toQualifiedName(type.getQualifiedName());
     }
 
+    /**
+     * @param element
+     * @return [diagram name].[referenced EClass name]
+     */
     public QualifiedName qualifiedName(MetaClass element) {
         if (element.getAlias() == null) {
             List<INode> nodes = NodeModelUtils.findNodesForFeature(element, SprayPackage.Literals.META_CLASS__TYPE);
@@ -36,11 +46,10 @@ public class SprayQualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 
     public QualifiedName qualifiedName(ShapeInSpray element) {
         EObject parentObject = element.eContainer();
-        QualifiedName parent = getFullyQualifiedName(parentObject);
-        EObject grandParentObject = null;
+        QualifiedName parent = null;
         while (parent == null && parentObject != null) {
-            grandParentObject = parentObject.eContainer();
-            parent = grandParentObject != null ? getFullyQualifiedName(grandParentObject) : null;
+            parent = getFullyQualifiedName(parentObject);
+            parentObject = parentObject.eContainer();
         }
         String name = element.getAlias() != null ? element.getAlias() : calculateNameByPositionInParentChildren(element);
         return parent.append(name);
