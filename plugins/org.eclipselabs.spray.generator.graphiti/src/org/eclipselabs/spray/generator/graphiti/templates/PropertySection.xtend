@@ -86,7 +86,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
             «ELSE»
             protected Text «propertyName»Widget;
             «ENDIF»
-            «generate_additionalFields(diagram)»
+            «generate_additionalFields(eAttribute)»
          
             @Override
             public void createControls(Composite parent, TabbedPropertySheetPage tabbedPropertySheetPage) {
