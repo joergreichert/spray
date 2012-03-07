@@ -70,7 +70,7 @@ public class JavaGenFile extends GenFile {
         if (fsaUtil.fileExists(fsa, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCMAN, getPathName())) {
             fsa.generateFile(fileName, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCMAN, contents);
         } else {
-            fsa.generateFile(fileName, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCGENCOND, contents);
+            fsa.generateFile(fileName, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCGEN, contents);
         }
     }
 }

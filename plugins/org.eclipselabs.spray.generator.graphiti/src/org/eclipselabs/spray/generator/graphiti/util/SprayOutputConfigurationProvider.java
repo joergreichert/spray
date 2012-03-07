@@ -14,12 +14,11 @@ import com.google.common.collect.Sets;
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public class SprayOutputConfigurationProvider implements IOutputConfigurationProvider {
-    public static String                          OUTPUTCONFIG_SRCGEN     = IFileSystemAccess.DEFAULT_OUTPUT;
-    public static String                          OUTPUTCONFIG_SRCGENCOND = "SRCGENCOND";
-    public static String                          OUTPUTCONFIG_SRCMAN     = "SRCMAN";
-    public static String                          OUTPUTCONFIG_PLUGIN     = "PLUGIN";
+    public static String                          OUTPUTCONFIG_SRCGEN = IFileSystemAccess.DEFAULT_OUTPUT;
+    public static String                          OUTPUTCONFIG_SRCMAN = "SRCMAN";
+    public static String                          OUTPUTCONFIG_PLUGIN = "PLUGIN";
 
-    private final static Set<OutputConfiguration> CONFIGURATIONS          = Sets.newHashSet();
+    private final static Set<OutputConfiguration> CONFIGURATIONS      = Sets.newHashSet();
     static {
         OutputConfiguration srcGenOutput = new OutputConfiguration(OUTPUTCONFIG_SRCGEN);
         srcGenOutput.setDescription("Folder for generated Java sources");
@@ -29,15 +28,6 @@ public class SprayOutputConfigurationProvider implements IOutputConfigurationPro
         srcGenOutput.setCleanUpDerivedResources(true);
         srcGenOutput.setSetDerivedProperty(true);
         CONFIGURATIONS.add(srcGenOutput);
-
-        OutputConfiguration srcGenCondOutput = new GenerationGapOutputConfiguration(OUTPUTCONFIG_SRCGENCOND, OUTPUTCONFIG_SRCMAN);
-        srcGenCondOutput.setDescription("Folder for generated Java sources");
-        srcGenCondOutput.setOutputDirectory("./src-gen");
-        srcGenCondOutput.setOverrideExistingResources(true);
-        srcGenCondOutput.setCreateOutputDirectory(true);
-        srcGenCondOutput.setCleanUpDerivedResources(true);
-        srcGenCondOutput.setSetDerivedProperty(true);
-        CONFIGURATIONS.add(srcGenCondOutput);
 
         OutputConfiguration srcManOutput = new OutputConfiguration(OUTPUTCONFIG_SRCMAN);
         srcManOutput.setDescription("Folder for manual Java sources");
