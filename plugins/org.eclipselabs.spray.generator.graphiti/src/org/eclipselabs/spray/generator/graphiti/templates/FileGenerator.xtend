@@ -2,19 +2,15 @@ package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipselabs.spray.generator.graphiti.util.ImportUtil
+import org.eclipselabs.spray.xtext.generator.ImportUtil
 
-class FileGenerator<T extends EObject> extends TemplateUtil {
+class FileGenerator<T super EObject> extends TemplateUtil {
     @Inject ImportUtil importUtil
     extension GenFile genFile
     extension JavaGenFile javaGenFile
 
     def getJavaGenFile() {
         return javaGenFile
-    }
-
-    def getImportUtil() {
-        return importUtil
     }
     
     def CharSequence generateBaseFile(T modelElement) {
@@ -32,33 +28,33 @@ class FileGenerator<T extends EObject> extends TemplateUtil {
         	javaGenFile = null
         }
         
-        val organizeImports = [String s1| s1.replace("// MARKER_IMPORT", importUtil.printImports) ]
         var String fileContent
         if(javaGenFile!=null && javaGenFile.hasExtensionPoint){
-            importUtil.initImports(javaGenFile.packageName)
-            if( javaGenFile.extensionFileExists ){
-                println("Not regenerating extension point [" + javaGenFile.fileName + "]")
-            } else {
-                println("generating " + javaGenFile.getPathName)
-                fileContent = generateExtensionFile(modelElement).toString
-                fileContent = organizeImports.apply(fileContent) 
-                javaGenFile.fsa.generateFile(javaGenFile.getPathName, fileContent)
-            }
         }
         if (javaGenFile!=null) {
+            val organizeImports = [String s1| s1.replace("// MARKER_IMPORT", importUtil.printImports) ]
             if (javaGenFile.hasExtensionPoint) {
-                importUtil.initImports(javaGenFile.packageName)
+                if( javaGenFile.extensionFileExists ){
+                    println("Not regenerating extension point [" + javaGenFile.fileName + "]")
+                } else {
+                    println("generating " + javaGenFile.getPathName)
+                    importUtil.initImports(javaGenFile.packageName)
+                    fileContent = generateExtensionFile(modelElement).toString
+                    fileContent = organizeImports.apply(fileContent) 
+                    javaGenFile.generateBaseFile(javaGenFile.getPathName, fileContent)
+                }
                 println("generating 1 " + javaGenFile.getBasePathName + " from " + this.getClass().name)
-                fileContent = generateBaseFile(modelElement).toString
-                fileContent = organizeImports.apply(fileContent) 
-                genFile.fsa.generateFile(javaGenFile.basePathName, fileContent)
-            } else {
                 importUtil.initImports(javaGenFile.packageName)
-                println("generating 2 " + javaGenFile.pathName + " from " + this.getClass().name)
                 fileContent = generateBaseFile(modelElement).toString
                 fileContent = organizeImports.apply(fileContent) 
-                genFile.fsa.setOutputPath(javaGenFile.getGenOutputPath());
-                genFile.fsa.generateFile(javaGenFile.pathName, fileContent)
+                genFile.generateFile(javaGenFile.basePathName, fileContent)
+            } else {
+                println("generating 2 " + javaGenFile.pathName + " from " + this.getClass().name)
+                importUtil.initImports(javaGenFile.packageName)
+                fileContent = generateBaseFile(modelElement).toString
+                fileContent = organizeImports.apply(fileContent) 
+                // genFile.fsa.setOutputPath(javaGenFile.getGenOutputPath());
+                genFile.generateFile(javaGenFile.pathName, fileContent)
             }
         } else {
             fileContent = generateBaseFile(modelElement).toString
@@ -68,11 +64,11 @@ class FileGenerator<T extends EObject> extends TemplateUtil {
     /**
      * Call this template as a hook in a (Java) class body were additional fields or constants can be generated.
      */
-    def CharSequence generate_additionalFields (EObject context) {} 
+    def CharSequence generate_additionalFields (T context) {} 
     /**
      * Call this template as a hook in a (Java) class body were additional methods can be generated.
      */
-    def CharSequence generate_additionalMethods (EObject context) {} 
+    def CharSequence generate_additionalMethods (T context) {} 
     
     //---------------------------------------------------------------------------------------------
     // delegate methods from ImportUtil

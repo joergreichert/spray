@@ -1,22 +1,14 @@
 package org.eclipselabs.spray.generator.graphiti.templates;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
-import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
-import org.eclipselabs.spray.generator.graphiti.util.EclipseHelpers;
-import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
+import org.eclipselabs.spray.generator.graphiti.util.SprayOutputConfigurationProvider;
+import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
+
+import com.google.inject.Inject;
 
 public class JavaGenFile extends GenFile {
-
-    public JavaGenFile(JavaIoFileSystemAccess fsa) {
-        super(fsa);
-    }
-
-    public JavaGenFile(EclipseResourceFileSystemAccess2 fsa) {
-        super(fsa);
+    @Inject
+    public JavaGenFile(IFileSystemAccessUtil fsaUtil) {
+        super(fsaUtil);
     }
 
     protected String className;
@@ -26,30 +18,6 @@ public class JavaGenFile extends GenFile {
     }
 
     protected String packageName;
-    protected String genOutputPath;
-    protected String manOutputPath;
-
-    public String getGenOutputPath() {
-        return genOutputPath;
-    }
-
-    public String getManOutputPath() {
-        return manOutputPath;
-    }
-
-    public void setGenOutputPath(String s) {
-        System.out.println("genOutputPath: " + s);
-        genOutputPath = s;
-        if (javaFsa != null)
-            javaFsa.setOutputPath(genOutputPath);
-        else
-            fsaEclipse.setOutputPath(genOutputPath);
-    }
-
-    public void setManOutputPath(String s) {
-        System.out.println("manOutputPath: " + s);
-        manOutputPath = s;
-    }
 
     public void setPackageAndClass(String pack, String cls) {
         this.packageName = pack;
@@ -76,38 +44,33 @@ public class JavaGenFile extends GenFile {
         return getClassName() + ".java";
     }
 
-    public String getAbsolutePathName() {
-        return genOutputPath + "/" + packageName.replaceAll("\\.", "/") + "/" + getFileName();
-    }
-
     public String getPathName() {
         return packageName.replaceAll("\\.", "/") + "/" + getFileName();
-    }
-
-    public String getAbsoluteBasePathName() {
-        return genOutputPath + "/" + packageName.replaceAll("\\.", "/") + "/" + getBaseFileName();
     }
 
     public String getBasePathName() {
         return packageName.replaceAll("\\.", "/") + "/" + getBaseFileName();
     }
 
-    @Override
-    public boolean extensionFileExists() {
-        if (javaFsa != null) {
-            return GeneratorUtil.fileExist(manOutputPath + "/" + getPathName());
-        } else {
-            IPath path = new Path(manOutputPath + "/" + getPathName());
-            if (fsaEclipse instanceof IAdaptable) {
-                IProject project = (IProject) ((IAdaptable) fsaEclipse).getAdapter(IProject.class);
-                path = project.getFullPath().append(path);
-            }
-            return EclipseHelpers.getIFile(path).exists();
-        }
-    }
-
     public String getPackageName() {
         return packageName;
     }
 
+    @Override
+    public boolean extensionFileExists() {
+        return fsaUtil.fileExists(fsa, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCMAN, getPathName());
+    }
+
+    @Override
+    public void generateFile(String fileName, CharSequence contents) {
+        fsa.generateFile(fileName, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCGEN, contents);
+    }
+
+    public void generateBaseFile(String fileName, CharSequence contents) {
+        if (fsaUtil.fileExists(fsa, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCMAN, getPathName())) {
+            fsa.generateFile(fileName, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCMAN, contents);
+        } else {
+            fsa.generateFile(fileName, SprayOutputConfigurationProvider.OUTPUTCONFIG_SRCGENCOND, contents);
+        }
+    }
 }

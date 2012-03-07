@@ -52,6 +52,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.shapes.shapes.Shape
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import com.google.inject.Provider
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
@@ -99,7 +100,7 @@ class SprayGraphitiGenerator implements IGenerator {
 
 		val JavaGenFile java = genFileProvider.get()
 		java.access = fsa
-		var Diagram diagram = resource.contents.head as Diagram
+		val Diagram diagram = resource.contents.head as Diagram
 
 		generatePluginXml(diagram, fsa)
         generatePluginActivator(diagram, java, pluginActivator)
@@ -135,7 +136,6 @@ class SprayGraphitiGenerator implements IGenerator {
 		generateCustomFeature(diagram, java, customFeature)
 	}
 	
-
 
 	def generatePluginXml(Diagram diagram, IFileSystemAccess fsa) {
 		fsa.generateFile("plugin.xml", plugin.generate(diagram))
@@ -182,10 +182,12 @@ class SprayGraphitiGenerator implements IGenerator {
 			asf.generate(container, java)
 		}
 	}
+	
 	def generateAddShapeFromDslFeatures(Diagram diagram, JavaGenFile java, AddShapeFromDslFeature asf) {
 		for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl )){
 			var container = metaClass.representedBy as ShapeFromDsl
 			java.setPackageAndClass(metaClass.addFeatureClassName)
+			
 			asf.setMetaClass(metaClass)
 			asf.generate(container, java)
 		}

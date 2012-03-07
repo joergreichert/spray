@@ -1,41 +1,37 @@
 package org.eclipselabs.spray.generator.graphiti.templates;
 
-import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
-import org.eclipse.xtext.generator.AbstractFileSystemAccess;
-import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
-import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil;
+import javax.inject.Inject;
+
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.xtext.generator.IFileSystemAccess;
+import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
 
 public class GenFile {
+    protected IFileSystemAccess           fsa;
 
-    public JavaIoFileSystemAccess           javaFsa;
-    public EclipseResourceFileSystemAccess2 fsaEclipse;
+    protected final IFileSystemAccessUtil fsaUtil;
 
-    protected String                        fileName;
-
-    protected String                        pathName;
-
-    public boolean                          hasExtensionPoint;
-
-    //	public FileType fileType;
-
-    public GenFile(JavaIoFileSystemAccess fsa) {
-        this.javaFsa = fsa;
+    @Inject
+    public GenFile(IFileSystemAccessUtil fsaUtil) {
+        this.fsaUtil = fsaUtil;
     }
 
-    public AbstractFileSystemAccess getFsa() {
-        if (javaFsa != null) {
-            return javaFsa;
-        } else {
-            return fsaEclipse;
-        }
-    }
+    protected String fileName;
 
-    public GenFile(EclipseResourceFileSystemAccess2 fsa) {
-        this.fsaEclipse = fsa;
-    }
+    protected String pathName;
+
+    public boolean   hasExtensionPoint;
 
     public boolean extensionFileExists() {
-        return GeneratorUtil.fileExist(pathName);
+        return fsaUtil.fileExists(fsa, IFileSystemAccess.DEFAULT_OUTPUT, pathName);
     }
 
+    public void generateFile(String fileName, CharSequence contents) {
+        Assert.isNotNull(fsa, "Need to set IFileSystemAccess first");
+        fsa.generateFile(fileName, IFileSystemAccess.DEFAULT_OUTPUT, contents);
+    }
+
+    public void setAccess(IFileSystemAccess fsa) {
+        this.fsa = fsa;
+    }
 }

@@ -7,7 +7,6 @@ import org.eclipse.xtext.util.Modules2;
 import org.eclipselabs.spray.generator.graphiti.GraphitiGeneratorModule;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiRuntimeModule;
 import org.eclipselabs.spray.xtext.SprayRuntimeModule;
-import org.eclipselabs.spray.xtext.ui.SprayUiModule;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Guice;
@@ -28,7 +27,7 @@ public class Activator extends AbstractUIPlugin {
         super.start(context);
         INSTANCE = this;
         try {
-            injector = Guice.createInjector(Modules2.mixin(new SprayRuntimeModule(), new GraphitiRuntimeModule(), new GraphitiGeneratorModule(), new GraphitiGeneratorUIModule(this), new SharedStateModule(), new SprayUiModule(this)));
+            injector = Guice.createInjector(Modules2.mixin(new SprayRuntimeModule(), new GraphitiRuntimeModule(), new GraphitiGeneratorModule(), new GraphitiGeneratorUIModule(this), new SharedStateModule()/* , new SprayUiModule(this) */));
         } catch (Exception e) {
             Logger.getLogger(getClass()).error(e.getMessage(), e);
             throw e;

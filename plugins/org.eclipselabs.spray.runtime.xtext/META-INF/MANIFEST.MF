@@ -31,4 +31,6 @@ Import-Package: org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.eclipselabs.spray.styles.postprocess
+Export-Package: org.eclipselabs.spray.styles.postprocess,
+ org.eclipselabs.spray.xtext.builder,
+ org.eclipselabs.spray.xtext.generator
