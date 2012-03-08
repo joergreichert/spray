@@ -1,27 +1,15 @@
 import BusinessDomainDsl.*
 import org.eclipse.graphiti.util.IColorConstant
   
-diagram mod4j for BusinessDomainModel     
+diagram mod4j for BusinessDomainModel
   
 behavior samen {   
 	doit "Do it" ;          
 }    
        
-class BusinessClass : shape ShapeWithText {
-		ShapeWithText.shapeName = name
-	}
-//	references {   
-//	     superclass : connection(); 
-//	}
-    behavior {
-    	create into types palette "Shapes" askFor name;
-		menuitem "Menu Item";
-    	group samen;
-    }  
-
 class Enumeration :  
   container ()
-  {
+  { 
           text ( )  { "<<"+eClass.name+">> " + name};
           line ( color=black width=2);
           reference enumerationLiterals attribute name;
@@ -31,32 +19,32 @@ class Enumeration :
 		menuitem "Menu Item";
 	} 
   
-//class BusinessClass alias FullClass :
-//      container  ( fill=dark_green ) 
-//    {
-//          text ( )  { "<<"+eClass.name+">> " + name};
-//          line ( color=black width=2);
-//          reference properties attribute dataType;
-//          line                   (width=2  color=RGB(255,138,141));
-//          reference businessRules;   // will use name property by default
-//          line                   (width=2  color=IColorConstant::DARK_BLUE);
-//          
-////          attribute description; 
-//          text () "::" + description;    
-//          line                   (width=1  );
-//	}   
-//	references {   
-//	     superclass : connection(); 
-//	}
-//    behavior {
-//        create into types palette "Shapes"  askFor name ; 
-//        doWithBusinessClass "Do It With";  
-//        group samen ;
-//    }
-//   
-// 
+class BusinessClass alias FullClass :
+      container  ( fill=dark_green ) 
+    {
+          text ( )  { "<<"+eClass.name+">> " + name};
+          line ( color=black width=2);
+          reference properties attribute dataType;
+          line                   (width=2  color=RGB(255,138,141));
+          reference businessRules;   // will use name property by default
+          line                   (width=2  color=IColorConstant::DARK_BLUE);
+          
+//          attribute description; 
+          text () "::" + description;    
+          line                   (width=1  );
+	}   
+	references {   
+	     superclass : connection(); 
+	}
+    behavior {
+        create into types palette "Shapes"  askFor name ; 
+        doWithBusinessClass "Do It With";  
+        group samen ;
+    }
+   
+ 
 class Association icon "connection16.gif":  
-    connection BPMN_ConditionalFlow  () 
+    connection () 
     {  
         from source;
         to   target;
