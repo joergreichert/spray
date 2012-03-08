@@ -50,6 +50,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/fromLabel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/toLabel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/connectionLabel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/properties"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//MetaClass">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/representedBy"/>
@@ -102,6 +104,14 @@
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//AliasableElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//AliasableElement/alias"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//ShapeFromDsl">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/shape"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//ShapePropertyAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
