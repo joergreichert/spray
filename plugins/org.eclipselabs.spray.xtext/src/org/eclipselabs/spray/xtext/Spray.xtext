@@ -31,7 +31,7 @@ SprayElement :
 MetaClass :
     'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)?
     ":" 
-    (   'spaheRef' representedByShape = [shapes::Shape|QualifiedName]
+    (   'shapeRef' representedByShape = [shapes::Shape|QualifiedName]
     	|
 	    representedBy=ShapeInSpray
     )
@@ -147,7 +147,3 @@ ContainerInSpray returns ContainerInSpray:
 	'{'
 		(parts+=SprayElement  ";" )* 
     '}';
-
-FQN : 
-	ID ('.' ID)*
-;
