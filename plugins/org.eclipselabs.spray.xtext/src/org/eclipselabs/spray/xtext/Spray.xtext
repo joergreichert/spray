@@ -31,10 +31,7 @@ SprayElement :
 MetaClass :
     'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)?
     ":" 
-    (   'shapeRef' representedByShape = [shapes::Shape|QualifiedName]
-    	|
-	    representedBy=ShapeInSpray
-    )
+    ( representedBy=ShapeInSpray )
     (
     "references" "{"
         (references += MetaReference2  ";")*
@@ -79,7 +76,17 @@ CustomBehavior :
     name = ID (label = STRING);
 
 ShapeInSpray :
-    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray) 
+    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl ) 
+;
+
+ShapeFromDsl : { ShapeFromDsl }
+	'shape'  shape =  [shapes::ShapeDefinition|QualifiedName] ('{'
+		properties+=ShapePropertyAssignment+
+	'}')?
+;
+
+ShapePropertyAssignment: 
+	key=[types::JvmIdentifiableElement|QualifiedName] OpSingleAssign value=XAssignment
 ;
 
 Layout :
@@ -105,7 +112,12 @@ RectangleInSpray returns RectangleInSpray:
 
 ConnectionInSpray returns ConnectionInSpray :
 	{ConnectionInSpray}
-	'connection' ('alias' alias=ID)? layout = Layout
+	'connection' 
+	 ( connection = [shapes::ConnectionDefinition|QualifiedName] ('{'
+			properties+=ShapePropertyAssignment+
+	   '}')?
+	 )?
+	('alias' alias=ID)? layout = Layout
 	(
 	    '{'
 		'from' from=[ecore::EReference] ";"
