@@ -86,16 +86,6 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     }
 
     @Override
-    public void completeMetaClass_RepresentedByShape(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        // TODO Auto-generated method stub
-        for (String name : listVisibleResources()) {
-            ICompletionProposal proposal = doCreateProposal(name, null, null, 0, context);
-            acceptor.accept(proposal);
-        }
-        //        super.completeMetaClass_RepresentedByShape(model, assignment, context, acceptor);
-    }
-
-    @Override
     public void completeMetaClass_Icon(EObject model, Assignment assignment, final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
         URI uri = model.eResource().getURI();
         if (!uri.isPlatformResource()) {
@@ -189,7 +179,6 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         acceptor.accept(proposal);
     };
 
-    @SuppressWarnings("restriction")
     @Override
     public void completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext, ICompletionProposalAcceptor acceptor) {
         if (FILTERED_KEYWORDS.contains(keyword.getValue())) {
