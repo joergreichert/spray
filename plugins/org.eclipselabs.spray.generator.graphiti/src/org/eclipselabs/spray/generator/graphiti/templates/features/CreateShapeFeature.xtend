@@ -122,7 +122,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                    model.set«containmentRef.name.toFirstUpper»(newClass);
                «ENDIF»
                
-			«ENDIF»
+            «ENDIF»
             setDoneChanges(true);
             return newClass;
         }
@@ -155,7 +155,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                  }
               };
               String new«attribute.name.toFirstUpper»String = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
-              «typeName» new«attribute.name.toFirstUpper» = «typeName».valueOf(new«attribute.name.toFirstUpper»String);	
+              «typeName» new«attribute.name.toFirstUpper» = «typeName».valueOf(new«attribute.name.toFirstUpper»String);    
               newClass.set«attribute.name.toFirstUpper»(new«attribute.name.toFirstUpper»);
            «ENDIF»
         «ENDIF»

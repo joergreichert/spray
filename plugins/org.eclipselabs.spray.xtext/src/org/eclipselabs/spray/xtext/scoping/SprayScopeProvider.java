@@ -3,20 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -66,6 +52,20 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
 
 /**
  * This class contains custom scoping description.
@@ -229,31 +229,17 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
-
-        //        Function<EReference, EClass> referenceToEClass = new Function<EReference, EClass>() {
-        //            @Override
-        //            public EClass apply(EReference from) {
-        //                return from.getEReferenceType();
-        //            }
-        //        };
-        //        Iterable<EClass> containmentTypes = Iterables.transform(diagramModelType.getEAllContainments(), referenceToEClass);
-        // include all non abstract sub classes of the contained types contained in the all scope
-
         List<EClass> containedTypes = new ArrayList<EClass>();
         EClass eClassInAllScope = null;
-        //        EClass containedType = null;
+
         if (diagramModelType.getEPackage() != null) {
             for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
                 if (classifier instanceof EClass) {
                     eClassInAllScope = (EClass) classifier;
-                    //                for (Iterator<EClass> containmentIterator = containmentTypes.iterator(); containmentIterator.hasNext();) {
-                    //                    containedType = containmentIterator.next();
-                    if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)
-                    //                            && containedType.isSuperTypeOf(eClassInAllScope)
-                    ) {
+
+                    if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)) {
                         containedTypes.add(eClassInAllScope);
                     }
-                    //                }
                 }
             }
         }

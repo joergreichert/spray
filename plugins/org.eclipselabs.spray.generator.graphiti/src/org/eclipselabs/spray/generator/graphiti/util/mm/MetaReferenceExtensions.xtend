@@ -5,7 +5,7 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipse.xtext.EcoreUtil2.*
 
 class MetaReferenceExtensions {
-	def Diagram getDiagram (MetaReference reference) {
-	    getContainerOfType(reference, typeof(Diagram))
-	}
+    def Diagram getDiagram (MetaReference reference) {
+        getContainerOfType(reference, typeof(Diagram))
+    }
 }

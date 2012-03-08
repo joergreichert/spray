@@ -24,7 +24,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
     }
 
     override CharSequence generateExtensionFile(ContainerInSpray modelElement) {
-        	mainExtensionPointFile( modelElement, javaGenFile.className)
+            mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(ContainerInSpray container, String className) '''

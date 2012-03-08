@@ -4,9 +4,9 @@ import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvide
 import org.eclipse.emf.ecore.EObject
 
 class SprayDocumentationProvider extends MultiLineCommentDocumentationProvider {
-	override String getDocumentation (EObject object) {
-		var doc = super.getDocumentation(object)
-		
-		doc
-	}
+    override String getDocumentation (EObject object) {
+        var doc = super.getDocumentation(object)
+        
+        doc
+    }
 }

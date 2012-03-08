@@ -5,8 +5,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import com.google.inject.Inject
 
 class SprayModelGenerator {
-	@Inject extension PackageHelper
-	
+    @Inject extension PackageHelper
+    
     def doGenerate (SprayProjectInfo info, IFileSystemAccess fsa) {
         val project = info.projectName
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".spray", info.projectName, generateModel(info))

@@ -25,7 +25,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     }
 
     override CharSequence generateExtensionFile(ShapeFromDsl modelElement) {
-        	mainExtensionPointFile( modelElement, javaGenFile.className)
+            mainExtensionPointFile( modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(ShapeFromDsl container, String className) '''
@@ -129,7 +129,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             }
             
             protected String getValue (String type, «container?.represents?.name» eClass) {
-            	return "UNKNOWN";
+                return "UNKNOWN";
             }
         '''
 }

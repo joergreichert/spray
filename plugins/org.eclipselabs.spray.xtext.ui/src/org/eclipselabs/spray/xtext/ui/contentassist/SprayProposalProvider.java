@@ -189,6 +189,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         acceptor.accept(proposal);
     };
 
+    @SuppressWarnings("restriction")
     @Override
     public void completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext, ICompletionProposalAcceptor acceptor) {
         if (FILTERED_KEYWORDS.contains(keyword.getValue())) {

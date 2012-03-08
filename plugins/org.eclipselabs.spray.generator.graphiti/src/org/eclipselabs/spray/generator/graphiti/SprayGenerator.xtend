@@ -10,15 +10,15 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
 
 class SprayGenerator implements IGenerator {
-	@Inject
-	SprayGraphitiGenerator graphitiGenerator
-	@Inject
-	JvmModelGenerator jvmModelGenerator
+    @Inject
+    SprayGraphitiGenerator graphitiGenerator
+    @Inject
+    JvmModelGenerator jvmModelGenerator
 
-	override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
-		// jvmModelGenerator.doGenerate(resource, fsa)
-		graphitiGenerator.doGenerate(resource, fsa)
-	}
+    override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
+        // jvmModelGenerator.doGenerate(resource, fsa)
+        graphitiGenerator.doGenerate(resource, fsa)
+    }
 
 
 }

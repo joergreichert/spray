@@ -5,15 +5,15 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import com.google.inject.Inject
 
 class NewProjectGenerator {
-	@Inject SprayModelGenerator generateModel
-	
-	def doGenerate (SprayProjectInfo projectInfo, IFileSystemAccess fsa) {
-		generateModel.doGenerate(projectInfo, fsa)
-		generateBuildProperties(projectInfo, fsa)
-	}
-	
-	def generateBuildProperties (SprayProjectInfo pi, IFileSystemAccess fsa) {
-	   val content = '''
+    @Inject SprayModelGenerator generateModel
+    
+    def doGenerate (SprayProjectInfo projectInfo, IFileSystemAccess fsa) {
+        generateModel.doGenerate(projectInfo, fsa)
+        generateBuildProperties(projectInfo, fsa)
+    }
+    
+    def generateBuildProperties (SprayProjectInfo pi, IFileSystemAccess fsa) {
+       val content = '''
         source.. = «pi.javaMainSrcDir»/,\
                    «pi.javaGenSrcDir»/,\
                    «pi.sprayModelDir»/
@@ -21,7 +21,7 @@ class NewProjectGenerator {
                        plugin.xml,\
                        icons/,\
                        «pi.sprayModelDir»/
-	   '''
-	   fsa.generateFile("build.properties", pi.projectName, content);
-	}
+       '''
+       fsa.generateFile("build.properties", pi.projectName, content);
+    }
 }

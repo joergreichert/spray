@@ -20,8 +20,8 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
  * {@link IJvmModelAssociator}.</p>     
  */
 class SprayJvmModelInferrer extends AbstractModelInferrer {
-	@Inject TypeReferences typeReferences
-	@Inject extension GenModelHelper
+    @Inject TypeReferences typeReferences
+    @Inject extension GenModelHelper
     @Inject extension JvmTypesBuilder
     @Inject IQualifiedNameConverter converter
 

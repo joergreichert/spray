@@ -28,7 +28,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     MetaClass metaClass = null
     
     def setMetaClass(MetaClass cls){
-    	metaClass = cls
+        metaClass = cls
     }
     
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {

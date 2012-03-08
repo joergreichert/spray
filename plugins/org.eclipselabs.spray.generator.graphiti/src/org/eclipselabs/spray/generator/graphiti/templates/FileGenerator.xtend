@@ -25,7 +25,7 @@ class FileGenerator<T super EObject> extends TemplateUtil {
         if( genFile instanceof JavaGenFile){
             javaGenFile = (genFile as JavaGenFile)
         } else {
-        	javaGenFile = null
+            javaGenFile = null
         }
         
         var String fileContent
