@@ -2,6 +2,6 @@
 // Aliased Shape of type Rectangle
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass :
+class BusinessClass :
     rectangle alias shape1 ()
     

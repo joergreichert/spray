@@ -4,7 +4,7 @@ import org.eclipse.graphiti.util.IColorConstant
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
 
-class BusinessDomainDsl.BusinessClass :
+class BusinessClass :
     container  () {
        // text expression with feature call
        text ( )  name;
