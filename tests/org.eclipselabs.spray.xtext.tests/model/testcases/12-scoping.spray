@@ -4,8 +4,9 @@ import BusinessDomainDsl.*
 
 diagram test for BusinessDomainModel
 
-class BusinessClass : 
+class BusinessClass {
     container () {}
     behavior {
-        create into types;
+        create into types
     }
+}

@@ -54,9 +54,7 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
 
     private void handleMetaclass(FormattingConfig c, SprayGrammarAccess f) {
         c.setLinewrap(2).before(f.getMetaClassAccess().getClassKeyword_0());
-        c.setLinewrap(1).after(f.getMetaClassAccess().getColonKeyword_4());
 
-        c.setIndentationIncrement().after(f.getMetaClassAccess().getColonKeyword_4());
         c.setIndentationDecrement().after(f.getMetaClassAccess().getRightCurlyBracketKeyword_7_3());
     }
 

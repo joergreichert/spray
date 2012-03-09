@@ -9,7 +9,7 @@ behavior samen {
        
 class Enumeration :  
   container ()
-  { 
+  {
           text ( )  { "<<"+eClass.name+">> " + name};
           line ( color=black width=2);
           reference enumerationLiterals attribute name;

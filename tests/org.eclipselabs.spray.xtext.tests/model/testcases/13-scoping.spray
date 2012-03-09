@@ -4,5 +4,6 @@ import BusinessDomainDsl.*
 
 diagram test for BusinessDomainModel
 
-class BoolProperty : 
+class BoolProperty { 
     container () {}
+}

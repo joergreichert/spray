@@ -35,7 +35,9 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(ConnectionInSpray element) {
-        return String.format(" %s -> %s", element.getFrom().getName(), element.getTo().getName());
+        final String from = element.getFrom() != null ? element.getFrom().getName() : "";
+        final String to = element.getTo() != null ? element.getTo().getName() : "";
+        return String.format(" %s -> %s", from, to);
     }
 
     public String image(ConnectionInSpray element) {
@@ -75,7 +77,7 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(MetaReference element) {
-        if (!element.getTarget().eIsProxy() && !element.getTarget().getEReferenceType().eIsProxy()) {
+        if (element.getTarget() != null && !element.getTarget().eIsProxy() && !element.getTarget().getEReferenceType().eIsProxy()) {
             return String.format("%s/%s::%s", element.getTarget().getName(), element.getTarget().getEReferenceType().getName(), sprayExtensions.getLabelPropertyName(element));
         } else {
             return sprayExtensions.getLabelPropertyName(element);

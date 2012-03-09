@@ -1,7 +1,8 @@
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass :
+class BusinessClass {
     container  () {
        // text expression without feature call
-       text ( )  "<<" + " >>";
+       text ( )  "<<" + " >>"
     }
+}

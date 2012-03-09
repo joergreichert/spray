@@ -2,11 +2,12 @@
 // multiple connection references to not contained features
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass :
+class BusinessClass {
     container () {
-        text () { name };
+        text () { name }
     }
     references {
-        superclass : connection ();
-        associationsTo : connection ();
-    } 
+        superclass : connection ()
+        associationsTo : connection ()
+    }
+}

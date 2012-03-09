@@ -2,6 +2,7 @@
 // Aliased Shape of type Container
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass :
+class BusinessClass {
     container alias con1 () {
     }
+}
