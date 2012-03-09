@@ -33,24 +33,25 @@ class ShapeAnchorGenerator {
 		for(double aWidth = 0.0; aWidth <= 1.0; aWidth+=0.5) {
 			for(double aHeigth = 0.0; aHeigth <= 1.0; aHeigth+=0.5) {
 				//No anchor in center
-				if(aWidth == 0.5 && aHeigth == 0.5 ) {  
-					
-				} else {
-				BoxRelativeAnchor boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
-				boxAnchor.setRelativeWidth(aWidth);
-				boxAnchor.setRelativeHeight(aHeigth);
-				Rectangle rectangle = gaService.createInvisibleRectangle(boxAnchor);
-				rectangle.setFilled(true);
-				rectangle.setWidth(10);
-				rectangle.setHeight(10);
-				if(aWidth == 0.0 && aHeigth == 0.0 ) { rectangle.setX(0); rectangle.setY(0); }
-				else if(aWidth == 0.0 && aHeigth == 0.5 ) { rectangle.setX(0); rectangle.setY(-5); }
-				else if(aWidth == 0.0 && aHeigth == 1.0 ) { rectangle.setX(0); rectangle.setY(-10); }
-				else if(aWidth == 0.5 && aHeigth == 0.0 ) { rectangle.setX(-5); rectangle.setY(0); }
-				else if(aWidth == 0.5 && aHeigth == 1.0 ) { rectangle.setX(-5); rectangle.setY(-10); }
-				else if(aWidth == 1.0 && aHeigth == 0.0 ) { rectangle.setX(-10); rectangle.setY(0); }
-				else if(aWidth == 1.0 && aHeigth == 0.5 ) { rectangle.setX(-10); rectangle.setY(-5); }
-				else if(aWidth == 1.0 && aHeigth == 1.0 ) { rectangle.setX(-10); rectangle.setY(-10); }
+				if(aWidth != 0.5 && aHeigth != 0.5 ) {
+					int sizeAnchor = 6;
+					BoxRelativeAnchor boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
+					boxAnchor.setRelativeWidth(aWidth);
+					boxAnchor.setRelativeHeight(aHeigth);
+					Ellipse ellipse = gaService.createEllipse(boxAnchor);
+					ellipse.setFilled(true);
+					ellipse.setLineVisible(false);
+					ellipse.setBackground(gaService.manageColor(diagram, IColorConstant.GRAY));
+					ellipse.setWidth(sizeAnchor);
+					ellipse.setHeight(sizeAnchor);
+					if(aWidth == 0.0 && aHeigth == 0.0 ) { ellipse.setX(0); ellipse.setY(0); }
+					else if(aWidth == 0.0 && aHeigth == 0.5 ) { ellipse.setX(0); ellipse.setY(-(sizeAnchor/2)); }
+					else if(aWidth == 0.0 && aHeigth == 1.0 ) { ellipse.setX(0); ellipse.setY(-sizeAnchor); }
+					else if(aWidth == 0.5 && aHeigth == 0.0 ) { ellipse.setX(-(sizeAnchor/2)); ellipse.setY(0); }
+					else if(aWidth == 0.5 && aHeigth == 1.0 ) { ellipse.setX(-(sizeAnchor/2)); ellipse.setY(-sizeAnchor); }
+					else if(aWidth == 1.0 && aHeigth == 0.0 ) { ellipse.setX(-sizeAnchor); ellipse.setY(0); }
+					else if(aWidth == 1.0 && aHeigth == 0.5 ) { ellipse.setX(-sizeAnchor); ellipse.setY(-(sizeAnchor/2)); }
+					else if(aWidth == 1.0 && aHeigth == 1.0 ) { ellipse.setX(-sizeAnchor); ellipse.setY(-sizeAnchor); }
 				}
 			}
 		}
@@ -74,11 +75,14 @@ class ShapeAnchorGenerator {
 			BoxRelativeAnchor boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
 			boxAnchor.setRelativeWidth(«position.xoffset»);
 			boxAnchor.setRelativeHeight(«position.yoffset»);
-			Rectangle rectangle = gaService.createInvisibleRectangle(boxAnchor);
-			rectangle.setX(«calculateCorrection(Integer::parseInt(sizeMap.get("width").toString), widthA, position.xoffset)»);
-			rectangle.setY(«calculateCorrection(Integer::parseInt(sizeMap.get("height").toString), heightA, position.yoffset)»);
-			rectangle.setWidth(«widthA»);
-			rectangle.setHeight(«heightA»);
+			Ellipse ellipse = gaService.createEllipse(boxAnchor);
+			ellipse.setFilled(true);
+			ellipse.setLineVisible(false);
+			ellipse.setBackground(gaService.manageColor(diagram, IColorConstant.GRAY));
+			ellipse.setX(«calculateCorrection(Integer::parseInt(sizeMap.get("width").toString), widthA, position.xoffset)»);
+			ellipse.setY(«calculateCorrection(Integer::parseInt(sizeMap.get("height").toString), heightA, position.yoffset)»);
+			ellipse.setWidth(«widthA»);
+			ellipse.setHeight(«heightA»);
 		}
 		'''
 	}
@@ -89,11 +93,14 @@ class ShapeAnchorGenerator {
 			FixPointAnchor fixAnchor = peCreateService.createFixPointAnchor(containerShape);
 			Point fixAnchorPoint = gaService.createPoint(«position.xcor», «position.ycor»);
 			fixAnchor.setLocation(fixAnchorPoint);
-			Rectangle rectangle = gaService.createInvisibleRectangle(fixAnchor);
-			rectangle.setX(«calculateCorrection(position.xcor, Integer::parseInt(sizeMap.get("width").toString), widthA)»);
-			rectangle.setY(«calculateCorrection(position.ycor, Integer::parseInt(sizeMap.get("height").toString), heightA)»);
-			rectangle.setWidth(«widthA»);
-			rectangle.setHeight(«heightA»);
+			Ellipse ellipse = gaService.createEllipse(fixAnchor);
+			ellipse.setFilled(true);
+			ellipse.setLineVisible(false);
+			ellipse.setBackground(gaService.manageColor(diagram, IColorConstant.GRAY));
+			ellipse.setX(«calculateCorrection(position.xcor, Integer::parseInt(sizeMap.get("width").toString), widthA)»);
+			ellipse.setY(«calculateCorrection(position.ycor, Integer::parseInt(sizeMap.get("height").toString), heightA)»);
+			ellipse.setWidth(«widthA»);
+			ellipse.setHeight(«heightA»);
 		}
 		'''
 	}
