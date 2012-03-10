@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.generator.shapes;
+package org.eclipselabs.spray.shapes.generator.util;
 
 public class ShapeAnchorCalculator {
 

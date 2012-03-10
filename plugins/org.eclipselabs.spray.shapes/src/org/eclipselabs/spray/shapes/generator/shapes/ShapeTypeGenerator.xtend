@@ -18,6 +18,7 @@ import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
 import org.eclipselabs.spray.shapes.shapes.TextBodyString
 import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.HAlign
+import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 
 class ShapeTypeGenerator {
 	
@@ -34,8 +35,8 @@ class ShapeTypeGenerator {
 		'''
 		// Create a Invisible Rectangle Around the Elements
 		GraphicsAlgorithm invisibleRectangle = gaService.createInvisibleRectangle(pictogramElement);
-		invisibleRectangle.setWidth(«sizeMap.get("width")»);
-		invisibleRectangle.setHeight(«sizeMap.get("height")»);
+		invisibleRectangle.setWidth(«sizeMap.width»);
+		invisibleRectangle.setHeight(«sizeMap.heigth»);
 		
 		Style style_«element_index» = «s.style.styleForElement("sprayStyle")»;
 		«FOR element : s.shape»

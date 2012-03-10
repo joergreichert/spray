@@ -8,6 +8,9 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.AnchorManual
 import org.eclipselabs.spray.shapes.shapes.AnchorRelativePosition
 import org.eclipselabs.spray.shapes.shapes.AnchorFixPointPosition
+import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
+import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator
+import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper
 
 class ShapeAnchorGenerator {
 	
@@ -15,17 +18,17 @@ class ShapeAnchorGenerator {
 	@Inject extension ShapeAnchorCalculator anchorCalculator
 	
 	def createAnchorPoints(ShapeDefinition s){
-		var sizeMap = s.getContainerSize
+		var size = s.getContainerSize
 		'''
 		«IF(s.anchor == null)»
 			peCreateService.createChopboxAnchor(containerShape);
 		«ELSE»
-			«s.anchor.type.generatorAnchorType(sizeMap)»
+			«s.anchor.type.generatorAnchorType(size)»
 		«ENDIF»
 		'''
 	}
 	
-	def dispatch generatorAnchorType(AnchorPredefinied anchorpredefinied,HashMap<String, Integer> sizeMap){
+	def dispatch generatorAnchorType(AnchorPredefinied anchorpredefinied, ShapeSizeWrapper shapeSize){
 		'''
 		«IF(anchorpredefinied.value == AnchorPredefiniedEnum::CENTER)»
 		peCreateService.createChopboxAnchor(containerShape);
@@ -59,17 +62,17 @@ class ShapeAnchorGenerator {
 		'''
 	}
 	
-	def dispatch generatorAnchorType(AnchorManual manualAnchor,HashMap<String, Integer> sizeMap){
+	def dispatch generatorAnchorType(AnchorManual manualAnchor, ShapeSizeWrapper shapeSize){
 		var widthA = 6
 		var heightA = 6
 		'''
 		«FOR position : manualAnchor.position »
-			«position.pos.generateAnchor(sizeMap, widthA, heightA)»
+			«position.pos.generateAnchor(shapeSize, widthA, heightA)»
 		«ENDFOR»
 		'''
 	}
 	
-	def dispatch generateAnchor(AnchorRelativePosition position,HashMap<String, Integer> sizeMap, int widthA, int heightA) {
+	def dispatch generateAnchor(AnchorRelativePosition position, ShapeSizeWrapper shapeSize, int widthA, int heightA) {
 		'''	
 		{
 			BoxRelativeAnchor boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
@@ -79,15 +82,15 @@ class ShapeAnchorGenerator {
 			ellipse.setFilled(true);
 			ellipse.setLineVisible(false);
 			ellipse.setBackground(gaService.manageColor(diagram, IColorConstant.GRAY));
-			ellipse.setX(«calculateCorrection(Integer::parseInt(sizeMap.get("width").toString), widthA, position.xoffset)»);
-			ellipse.setY(«calculateCorrection(Integer::parseInt(sizeMap.get("height").toString), heightA, position.yoffset)»);
+			ellipse.setX(«calculateCorrection(shapeSize.width, widthA, position.xoffset)»);
+			ellipse.setY(«calculateCorrection(shapeSize.heigth, heightA, position.yoffset)»);
 			ellipse.setWidth(«widthA»);
 			ellipse.setHeight(«heightA»);
 		}
 		'''
 	}
 		
-	def dispatch generateAnchor(AnchorFixPointPosition position,HashMap<String, Integer> sizeMap, int widthA, int heightA) {
+	def dispatch generateAnchor(AnchorFixPointPosition position, ShapeSizeWrapper shapeSize, int widthA, int heightA) {
 		'''
 		{
 			FixPointAnchor fixAnchor = peCreateService.createFixPointAnchor(containerShape);
@@ -97,8 +100,8 @@ class ShapeAnchorGenerator {
 			ellipse.setFilled(true);
 			ellipse.setLineVisible(false);
 			ellipse.setBackground(gaService.manageColor(diagram, IColorConstant.GRAY));
-			ellipse.setX(«calculateCorrection(position.xcor, Integer::parseInt(sizeMap.get("width").toString), widthA)»);
-			ellipse.setY(«calculateCorrection(position.ycor, Integer::parseInt(sizeMap.get("height").toString), heightA)»);
+			ellipse.setX(«calculateCorrection(position.xcor, shapeSize.width, widthA)»);
+			ellipse.setY(«calculateCorrection(position.ycor, shapeSize.heigth, heightA)»);
 			ellipse.setWidth(«widthA»);
 			ellipse.setHeight(«heightA»);
 		}
