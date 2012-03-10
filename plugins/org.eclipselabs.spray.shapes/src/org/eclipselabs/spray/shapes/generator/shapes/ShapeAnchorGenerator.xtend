@@ -36,7 +36,7 @@ class ShapeAnchorGenerator {
 		for(double aWidth = 0.0; aWidth <= 1.0; aWidth+=0.5) {
 			for(double aHeigth = 0.0; aHeigth <= 1.0; aHeigth+=0.5) {
 				//No anchor in center
-				if(aWidth != 0.5 && aHeigth != 0.5 ) {
+				if(!(aWidth == 0.5 & aHeigth == 0.5)) {
 					int sizeAnchor = 6;
 					BoxRelativeAnchor boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
 					boxAnchor.setRelativeWidth(aWidth);
