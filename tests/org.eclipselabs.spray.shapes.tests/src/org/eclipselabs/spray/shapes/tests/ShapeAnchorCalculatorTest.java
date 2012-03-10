@@ -4,7 +4,7 @@ import junit.framework.Assert;
 
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipselabs.spray.shapes.ShapeInjectorProvider;
-import org.eclipselabs.spray.shapes.generator.shapes.ShapeAnchorCalculator;
+import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
