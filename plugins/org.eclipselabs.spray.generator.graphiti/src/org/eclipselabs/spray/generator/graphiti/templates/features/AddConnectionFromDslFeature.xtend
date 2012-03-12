@@ -9,11 +9,15 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
+import org.eclipse.xtext.xbase.XExpression
 
 
 class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
+   
     @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
+    @Inject extension SprayCompiler
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -60,6 +64,8 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.shapes.ISprayConnection;
         import org.eclipselabs.spray.styles.ISprayStyle;
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
+        import com.google.common.base.Function;
+        
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         import org.eclipselabs.spray.shapes.«connection.connection.name»;
         // MARKER_IMPORT
@@ -108,6 +114,12 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 
             ISprayStyle style = new DefaultSprayStyle();
             «connection.connection.name» connection = new «connection.connection.name»();
+            «FOR property : connection.propertiesList»
+            {
+            	«property.value.propertyAssignmentFunction(metaClass.name, "value")»
+            	connection.set«property.key.simpleName.toFirstUpper»(value);
+            }
+            «ENDFOR»
             PictogramElement result = connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
 
             // create link and wire it
@@ -188,4 +200,11 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «ENDIF»
     '''
 
+    def propertyAssignmentFunction(XExpression xexp, String metaClassName, String valueName) '''
+    	«xexp.returnTypeForPropertyAssignment» «valueName» = new Function<«metaClassName», «xexp.returnTypeForPropertyAssignment»>() {
+    		public «xexp.returnTypeForPropertyAssignment» apply(«metaClassName» modelElement) {
+    			«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+    		}
+    	}.apply(addedDomainObject); 
+    '''
 }

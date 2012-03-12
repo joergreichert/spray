@@ -15,6 +15,14 @@ import org.eclipselabs.spray.mm.spray.SprayElement
 import org.eclipselabs.spray.shapes.shapes.Shape
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import org.eclipse.xtext.xbase.compiler.XbaseCompiler
+import org.eclipse.xtext.xbase.compiler.StringBuilderBasedAppendable
+import org.eclipse.xtext.xbase.compiler.ImportManager
+import org.eclipse.xtext.xbase.typing.ITypeProvider
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
+import org.eclipse.xtext.xbase.XExpression
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider
 
 
 //class AddShapeFromDslFeature extends FileGenerator<Shape>  {
@@ -24,6 +32,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension NamingExtensions
     @Inject extension SprayElementNameProvider
     @Inject extension DiagramExtensions
+    @Inject extension SprayCompiler
     
     MetaClass metaClass = null
     
@@ -69,6 +78,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipselabs.spray.shapes.ISprayShape;
         import org.eclipselabs.spray.styles.ISprayStyle;
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
+        import com.google.common.base.Function;
 
         import org.eclipselabs.spray.shapes.«container.shape.name»;
         // MARKER_IMPORT
@@ -102,6 +112,12 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 // Diagram targetDiagram = (Diagram) context.getTargetContainer();
                 ISprayStyle style = new DefaultSprayStyle();
                 «container.shape.name» shape = new «container.shape.name»();
+                «FOR property : container.propertiesList»
+                {
+                	«property.value.propertyAssignmentFunction(metaClass.name, "value")»
+                	shape.set«property.key.simpleName.toFirstUpper»(value);
+                }
+                «ENDFOR»
                 ContainerShape conShape = shape.getShape(targetDiagram, style);
                 IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
@@ -116,5 +132,13 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             }
             
         }
+        '''
+        
+        def propertyAssignmentFunction(XExpression xexp, String metaClassName, String valueName) '''
+        	«xexp.returnTypeForPropertyAssignment» «valueName» = new Function<«metaClassName», «xexp.returnTypeForPropertyAssignment»>() {
+        		public «xexp.returnTypeForPropertyAssignment» apply(«metaClassName» modelElement) {
+        			«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+        		}
+        	}.apply(addedModelElement); 
         '''
 }

@@ -25,6 +25,19 @@ public class SprayCompiler extends XbaseCompiler {
         return result.toString();
     }
 
+    public String compileForPropertyAssignement(XExpression expression, String valueName, String metaClassVariable) {
+        setMetaClassVariable(metaClassVariable);
+        StringBuilderBasedAppendable appendable = new StringBuilderBasedAppendable(new ImportManager(false));
+        IAppendable result = compile(expression, appendable, typeProvider.getExpectedType(expression));
+        return result.toString();
+    }
+
+    public String getReturnTypeForPropertyAssignment(XExpression expression) {
+        // JvmTypeReference typeRef = typeProvider.getExpectedType(expression);
+        // TODO: Limitation (just Strings are available). 
+        return "String";
+    }
+
     @Override
     protected boolean isVariableDeclarationRequired(XExpression expr, IAppendable b) {
         if (expr instanceof XAbstractFeatureCall && ((XAbstractFeatureCall) expr).getFeature() instanceof JvmGenericType) {
