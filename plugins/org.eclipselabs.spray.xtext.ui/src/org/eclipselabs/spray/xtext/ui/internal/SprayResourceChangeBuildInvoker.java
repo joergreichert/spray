@@ -50,7 +50,7 @@ class SprayResourceChangeBuildInvoker implements IResourceChangeListener {
                         return false;
 
                     IFile file = delta.getResource() instanceof IFile ? (IFile) delta.getResource() : null;
-                    if (file != null && file.exists() && file.getFileExtension().equals("properties")) {
+                    if (file != null && file.exists() && "properties".equals(file.getFileExtension())) {
                         IPath sprayPath = file.getFullPath().removeFileExtension().addFileExtension("spray");
                         IFile sprayFile = ResourcesPlugin.getWorkspace().getRoot().getFile(sprayPath);
                         if (sprayFile.exists()) {
