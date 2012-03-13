@@ -4,7 +4,7 @@ import org.eclipse.graphiti.util.IColorConstant
 diagram mod4j for BusinessDomainModel
   
 behavior samen {   
-	doit "Do it" ;          
+    custom doit "Do it" ;
 }    
        
 class Enumeration :  
@@ -13,11 +13,11 @@ class Enumeration :
           text ( )  { "<<"+eClass.name+">> " + name};
           line ( color=black width=2);
           reference enumerationLiterals attribute name;
-	}  
-	behavior {
-		create into  enumerations palette "Shapes" askFor name ;
-		menuitem "Menu Item";
-	} 
+    }  
+    behavior {
+        create into enumerations palette "Shapes" askFor name ;
+        custom menuitem "Menu Item";
+    }
   
 class BusinessClass alias FullClass :
       container  ( fill=dark_green ) 
@@ -32,13 +32,13 @@ class BusinessClass alias FullClass :
 //          attribute description; 
           text () "::" + description;    
           line                   (width=1  );
-	}   
-	references {   
-	     superclass : connection(); 
-	}
+    }   
+    references {   
+         superclass : connection(); 
+    }
     behavior {
         create into types palette "Shapes"  askFor name ; 
-        doWithBusinessClass "Do It With";  
+        custom doWithBusinessClass "Do It With";  
         group samen ;
     }
    
