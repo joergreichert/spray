@@ -60,6 +60,7 @@
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
+						<!-- 
 						<fileset>
 							<directory>xtend-gen</directory>
 							<includes>
@@ -69,6 +70,7 @@
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
+						 -->
 						<fileset>
 							<directory>../${project.artifactId}.ui/src-gen</directory>
 							<includes>
