@@ -209,15 +209,19 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     protected IScope scope_ShapePropertyAssignment_Key(EObject context, EReference reference) {
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
         final QualifiedName qnShape = qnProvider.getFullyQualifiedName(shape.getShape());
-        final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
-            @Override
-            public boolean apply(IEObjectDescription input) {
-                return input.getQualifiedName().startsWith(qnShape);
-            }
-        };
-        final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
-        final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
-        return aliasingScope;
+        if (qnShape != null) {
+            final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
+                @Override
+                public boolean apply(IEObjectDescription input) {
+                    return input.getQualifiedName().startsWith(qnShape);
+                }
+            };
+            final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
+            final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
+            return aliasingScope;
+        } else {
+            return IScope.NULLSCOPE;
+        }
     }
 
     protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {

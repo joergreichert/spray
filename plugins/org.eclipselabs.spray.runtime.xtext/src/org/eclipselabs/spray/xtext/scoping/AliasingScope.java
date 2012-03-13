@@ -7,6 +7,7 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractScope;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 
 /**
@@ -37,10 +38,12 @@ public class AliasingScope extends AbstractScope {
         final Function<IEObjectDescription, IEObjectDescription> toAliasedDescription = new Function<IEObjectDescription, IEObjectDescription>() {
             @Override
             public IEObjectDescription apply(IEObjectDescription input) {
-                return new AliasedEObjectDescription(aliasingFunction.apply(input.getQualifiedName()), input);
+                // the alias function might result into null, return null in this case. The nulls will be filtered afterwards
+                final QualifiedName alias = aliasingFunction.apply(input.getQualifiedName());
+                return alias != null ? new AliasedEObjectDescription(alias, input) : null;
             }
         };
-        elements = Iterables.transform(parent.getAllElements(), toAliasedDescription);
+        elements = Iterables.filter(Iterables.transform(parent.getAllElements(), toAliasedDescription), Predicates.notNull());
     }
 
     @Override
