@@ -77,6 +77,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Behavior/metaClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behavior/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behavior/paletteCompartment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Behavior/realizedBy"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//CreateBehavior">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//CreateBehavior/containmentReference"/>

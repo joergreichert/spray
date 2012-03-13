@@ -86,7 +86,7 @@ ShapeFromDsl : { ShapeFromDsl }
 ;
 
 ShapePropertyAssignment: 
-    key=[types::JvmIdentifiableElement|QualifiedName] OpSingleAssign value=XAssignment
+    key=[types::JvmFormalParameter|QualifiedName] OpSingleAssign value=XExpression
 ;
 
 Layout :
