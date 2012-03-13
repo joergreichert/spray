@@ -2,10 +2,14 @@ package org.eclipselabs.spray.xtext;
 
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
+import org.eclipselabs.spray.mm.spray.SprayFactory;
+import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.customizing.SprayDocumentationProvider;
 import org.eclipselabs.spray.xtext.customizing.SprayQualifiedNameProvider;
@@ -27,6 +31,11 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
     @Override
     public void configure(Binder binder) {
         binder.requestStaticInjection(AppInjectedAccess.class);
+        // bind well known EPackage and EFactory instances
+        binder.bind(SprayPackage.class).toInstance(SprayPackage.eINSTANCE);
+        binder.bind(SprayFactory.class).toInstance(SprayFactory.eINSTANCE);
+        binder.bind(EcorePackage.class).toInstance(EcorePackage.eINSTANCE);
+        binder.bind(EcoreFactory.class).toInstance(EcoreFactory.eINSTANCE);
         super.configure(binder);
     }
 
