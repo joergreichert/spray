@@ -25,6 +25,7 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -45,6 +46,7 @@ import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
@@ -80,6 +82,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     private IJvmTypeProvider.Factory   typeProviderFactory;
     @Inject(optional = true)
     private IColorConstantTypeProvider colorConstantTypeProvider;
+    @Inject
+    private IQualifiedNameProvider     qnProvider;
 
     private IResourceDescriptions      dscriptions = null;
 
@@ -182,6 +186,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             }
         } else if (reference == COLOR_CONSTANT_REF__FIELD) {
             return getColorConstantFieldScope(context);
+        } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
+            return scope_ShapePropertyAssignment_Key(context, reference);
         }
 
         IScope scope = super.getScope(context, reference);
@@ -191,6 +197,27 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         //        }
         //        System.out.println("!");
         return scope;
+    }
+
+    /**
+     * Restrict the scope of keys to the simple names of parameters
+     * 
+     * @param context
+     * @param reference
+     * @return
+     */
+    protected IScope scope_ShapePropertyAssignment_Key(EObject context, EReference reference) {
+        final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
+        final QualifiedName qnShape = qnProvider.getFullyQualifiedName(shape.getShape());
+        final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
+            @Override
+            public boolean apply(IEObjectDescription input) {
+                return input.getQualifiedName().startsWith(qnShape);
+            }
+        };
+        final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
+        final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
+        return aliasingScope;
     }
 
     protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {
