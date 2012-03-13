@@ -16,11 +16,17 @@ import org.junit.Test
 class FeatureProviderTest {
     @Inject
     FeatureProvider sut
+    @Inject
+    SprayFactory factory
+    @Inject
+    EcoreFactory ecoreFactory
     
     @Test
     def testGenerate_getCreateConnectionFeatures__WhenOneConnection () {
         val Diagram diagram = createDiagram("SampleDiagram")
         createMetaclassRepresentedByConnection(diagram, "SampleEClass1")
+        val metaClasses = sut.getMetaclassesRepresentedByConnections(diagram)
+        assertEquals(1, metaClasses.size)
         
         val expectedOutput = '''
             /**
@@ -38,26 +44,30 @@ class FeatureProviderTest {
     } 
     
     def createDiagram(String name) {
-        val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+        val Diagram diagram = factory.createDiagram
         diagram.name = name
         diagram
     }
     
     def createMetaclassRepresentedByConnection(Diagram diagram, String name) {
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = name
         metaClass.type = eClass
-        val connection = SprayFactory::eINSTANCE.createConnectionInSpray
+        val connection = factory.createConnectionInSpray
         metaClass.representedBy = connection
         diagram.metaClassesList.add(metaClass)
+        // metaclass must have create behavior
+        val createBehavior = factory.createCreateBehavior
+        metaClass.behaviorsList += createBehavior
     }
 
     @Test
     def testGenerate_getCreateConnectionFeatures__WhenOneConnectionReference () {
         val Diagram diagram = createDiagram("SampleDiagram")
         createMetaReferenceRepresentedByConnection(diagram, "SampleEClass1", "SampleEClass2", "sampleEClass2Reference")
-        
+        val metaReferences = sut.getMetaReferencesRepresentedByConnections(diagram)
+        assertEquals(1, metaReferences.size)
         val expectedOutput = '''
             /**
              * {@inheritDoc}
@@ -74,23 +84,23 @@ class FeatureProviderTest {
     }
     
     def createMetaReferenceRepresentedByConnection(Diagram diagram, String className, String referencedClassName, String referenceName) {
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = className
         metaClass.type = eClass
-        val container = SprayFactory::eINSTANCE.createContainerInSpray
+        val container = factory.createContainerInSpray
         metaClass.representedBy = container
-        val referenceConnection = SprayFactory::eINSTANCE.createConnectionInSpray
-        val reference = SprayFactory::eINSTANCE.createMetaReference
+        val referenceConnection = factory.createConnectionInSpray
+        val reference = factory.createMetaReference
         reference.representedBy = referenceConnection
-        val eReference = EcoreFactory::eINSTANCE.createEReference
+        val eReference = ecoreFactory.createEReference
         eReference.containment = false
-        val eClass2 = EcoreFactory::eINSTANCE.createEClass
+        val eClass2 = ecoreFactory.createEClass
         eClass2.name = referencedClassName
         eReference.name = referenceName
         eReference.eType = eClass2
         reference.target = eReference
-        metaClass.referencesList.add(reference)        
+        metaClass.referencesList.add(reference)
         diagram.metaClassesList.add(metaClass)
     } 
     
