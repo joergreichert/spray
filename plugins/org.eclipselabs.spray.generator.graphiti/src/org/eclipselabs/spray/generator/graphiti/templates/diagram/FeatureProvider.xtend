@@ -195,7 +195,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                         «ENDIF»
                     «ENDFOR»
                 «ELSEIF cls.representedBy instanceof ConnectionInSpray»
-                    «var connection = cls.representedBy as ConnectionInSpray»
+                    «val connection = cls.representedBy as ConnectionInSpray»
                         «IF !cls.type.abstract»
                             if (bo instanceof «cls.javaInterfaceName.shortName») { // 33
                                 return new «cls.updateFeatureClassName.shortName»(this); 
@@ -260,8 +260,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
         new «reference.createReferenceAsConnectionFeatureClassName.shortName»(this)
     '''
     
+    /**
+     * @return The metaclasses in the diagram that are represented as connection and which have a create behavior
+     */
     def getMetaclassesRepresentedByConnections(Diagram diagram) {
-        diagram.metaClasses.filter(e|e.representedBy instanceof ConnectionInSpray  && e.behaviors.exists(b|b instanceof CreateBehavior))
+        diagram.metaClasses.filter(e|e.representedBy instanceof ConnectionInSpray  && e.hasCreateBehavior)
     }
     
     def Iterable<MetaReference> getMetaReferencesRepresentedByConnections(Diagram diagram) {
