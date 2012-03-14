@@ -19,6 +19,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EDataType
 import org.eclipselabs.spray.xtext.generator.ImportUtil
+import org.eclipse.emf.ecore.EcorePackage
 
 /**
  * Computation of class names, file names etc.
@@ -250,26 +251,37 @@ class NamingExtensions {
     //---------------------------------------------------------------------------------------------
     // Names from GenModel
     //---------------------------------------------------------------------------------------------
+    def String getJavaInterfaceName (MetaClass clazz) {
+        this.getJavaInterfaceName(clazz.type)
+    }
     def String getJavaInterfaceName (EClass eClass) {
         genModelHelper.getJavaInterfaceName(eClass)
     }
-    def String getJavaInterfaceName (MetaClass clazz) {
-        genModelHelper.getJavaInterfaceName(clazz.type)
-    }
     def String getEPackageClassName (MetaClass clazz) {
-        genModelHelper.getEPackageClassName(clazz.type)
+        this.getEPackageClassName(clazz.type)
     }
     def String getEPackageClassName (EClass eClass) {
-        genModelHelper.getEPackageClassName(eClass)
+        // remove the need to register Ecore Genmodel in a standalone workflow
+        // although this usually is not a problem, we had some on CI for the examples project
+        if (eClass.EPackage==EcorePackage::eINSTANCE)
+            "org.eclipse.emf.ecore.EcorePackage"
+        else
+            genModelHelper.getEPackageClassName(eClass)
     }
-    def String getEFactoryInterfaceName (EClass clazz) {
-        genModelHelper.getEFactoryInterfaceName(clazz)
-    }
-    def String getEFactoryInterfaceName (EDataType dataType) {
-        genModelHelper.getEFactoryInterfaceName(dataType)
+    def String getEFactoryInterfaceName (EClass eClass) {
+        if (eClass.EPackage==EcorePackage::eINSTANCE)
+            "org.eclipse.emf.ecore.EcoreFactory"
+        else
+            genModelHelper.getEFactoryInterfaceName(eClass)
     }
     def String getEFactoryInterfaceName (MetaClass clazz) {
-        genModelHelper.getEFactoryInterfaceName(clazz.type)
+        this.getEFactoryInterfaceName(clazz.type)
+    }
+    def String getEFactoryInterfaceName (EDataType dataType) {
+        if (dataType.EPackage==EcorePackage::eINSTANCE)
+            "org.eclipse.emf.ecore.EcoreFactory"
+        else
+            genModelHelper.getEFactoryInterfaceName(dataType)
     }
     def String getLiteralConstant (EClass eClass) {
         genModelHelper.getEPackageClassName(eClass).shortName+".Literals."+genModelHelper.getLiteralConstant(eClass)
