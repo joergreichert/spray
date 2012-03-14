@@ -3,11 +3,9 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
 class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
@@ -36,9 +34,6 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
     '''
 
     def mainFile(ShapeFromDsl container, String className) '''
-        «var diagramName = container.represents.diagram.name »
-        «var pack = container.represents.type.EPackage.name »
-        «var fullPackage = fullPackageName(container.represents.type) »
         «header(this)»
         package «feature_package()»;
         

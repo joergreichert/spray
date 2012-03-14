@@ -75,7 +75,6 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     '''
     
     def mainFile(MetaReference reference, String className) '''
-        «val target=reference.target»
         «header(this)»
         package «feature_package()»;
         import org.eclipse.emf.ecore.EObject;

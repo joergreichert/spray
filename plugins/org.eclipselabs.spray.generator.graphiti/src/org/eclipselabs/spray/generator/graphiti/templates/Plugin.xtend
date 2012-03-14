@@ -95,9 +95,9 @@ class Plugin extends TemplateUtil {
                   <propertySection tab="«diagramName».main.tab"
                    class="«diagram.extensionFactoryClassName»:«cls.type.getPropertySectionClassName(property)»"
                    filter="«cls.filterClassName»"
-                 «IF XtendProperties::getValue("PreviousSection") != null»
+                   «IF XtendProperties::getValue("PreviousSection") != null»
                    afterSection="«XtendProperties::getValue("PreviousSection")»"
-                 «ENDIF»
+                   «ENDIF»
                    «XtendProperties::setValue("PreviousSection", diagramName + ".main.tab." + cls.getName + "." + property.name)»
                    id="«XtendProperties::getValue("PreviousSection")»">
                   </propertySection>
@@ -113,7 +113,6 @@ class Plugin extends TemplateUtil {
                 «var container = (cls.representedBy as ContainerInSpray) »
                 «FOR ref :  container.parts.filter(typeof(MetaReference)) »  
                     «XtendProperties::setValue("refName", ref.name)» 
-                    «val references = cls.type.EAllReferences» 
                     «val target = ref.target»
                       «XtendProperties::setValue("PreviousSection", null)»
                     <extension
@@ -123,9 +122,9 @@ class Plugin extends TemplateUtil {
                           <propertySection tab="«diagramName».main.tab"           
                            class="«diagram.extensionFactoryClassName»:«GeneratorUtil::property_package()».«target.EReferenceType.name»«attribute.name.toFirstUpper»Section"
                            filter="«GeneratorUtil::property_package()».«target.EReferenceType.name»Filter"
-                         «IF XtendProperties::getValue("PreviousSection") != null»
-                          afterSection="«XtendProperties::getValue("PreviousSection")»"
-                         «ENDIF»
+                          «IF XtendProperties::getValue("PreviousSection") != null»
+                           afterSection="«XtendProperties::getValue("PreviousSection")»"
+                          «ENDIF»
                            «XtendProperties::setValue("PreviousSection", diagramName + ".main.tab." + target.EReferenceType.name + "." + attribute.name)»
                            id="«XtendProperties::getValue("PreviousSection")»">
                           </propertySection>

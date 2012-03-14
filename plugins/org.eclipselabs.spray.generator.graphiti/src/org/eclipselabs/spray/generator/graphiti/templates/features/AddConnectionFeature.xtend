@@ -75,10 +75,6 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
     '''
     
     def mainFile(MetaClass metaClass, String className) '''
-        «val diagramName = metaClass.diagram.name »
-        «val packge = metaClass.type.EPackage.name »
-        «val fullPackage = fullPackageName(metaClass.type) »
-        «val connection = metaClass.representedBy as ConnectionInSpray»
         «header(this)»
         package «feature_package()»;
         
@@ -134,7 +130,6 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
     '''
     
     def generate_add (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as ConnectionInSpray»
         «overrideHeader»
         public PictogramElement add(IAddContext context) {
             IAddConnectionContext addConContext = (IAddConnectionContext) context;

@@ -38,7 +38,6 @@ class PropertySection extends FileGenerator<EAttribute>  {
     '''
 
     def mainFile(EAttribute eAttribute, String className) '''
-        «val diagramName = diagram.name»
         «val eClass = eAttribute.EContainingClass»
         «val propertyName = eAttribute.name» 
         «val isEnum = eAttribute.EAttributeType instanceof EEnum »

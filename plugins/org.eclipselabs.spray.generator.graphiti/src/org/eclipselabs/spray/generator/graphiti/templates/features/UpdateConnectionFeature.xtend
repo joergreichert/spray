@@ -35,11 +35,6 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     '''
     
     def mainFile(ConnectionInSpray connection, String className) '''
-        «val diagramName = connection.represents.diagram.name »
-        «val metaClassName = connection.represents.name»
-        «val pack = connection.represents.type.EPackage.name »
-        «val fullPackage = fullPackageName(connection.represents.type) »
-        «val labelName = "name"»
         «header(this)»
         package «feature_package()»;
 

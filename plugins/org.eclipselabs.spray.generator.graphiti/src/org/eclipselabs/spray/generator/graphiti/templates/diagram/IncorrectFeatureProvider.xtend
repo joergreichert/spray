@@ -11,7 +11,7 @@ class IncorrectFeatureProvider {
             «XtendProperties::setValue("className", cls.name)»
             «FOR attribute : cls.EAllAttributes»
                 «XtendProperties::setValue("attName", attribute.name)»
-                «var target = cls.EAllReferences.findFirst(e| XtendProperties::getValue("className") == XtendProperties::getValue("attName") ) » 
+«««                «var target = cls.EAllReferences.findFirst(e| XtendProperties::getValue("className") == XtendProperties::getValue("attName") ) » 
             «ENDFOR»
         «ENDFOR»
         }

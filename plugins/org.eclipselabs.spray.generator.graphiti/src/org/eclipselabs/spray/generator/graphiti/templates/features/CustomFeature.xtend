@@ -38,7 +38,6 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
     '''
 
     def mainFile(CustomBehavior behavior, String className) '''
-        «var diagramName = behavior.metaClass.diagram.name »
         «header(this)»
         package «feature_package()»;
         

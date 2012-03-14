@@ -54,8 +54,6 @@ public class MetaModel {
     static protected Resource    metaModelEcoreResource    = null;
     static protected Resource    metaModelGenmodelResource = null;
 
-    private static String        basePackage               = null;
-
     public static String getBasePackage(EClassifier eClassifier) {
         EPackage pack = eClassifier.getEPackage();
         URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(pack.getNsURI());
@@ -129,8 +127,8 @@ public class MetaModel {
         Resource res = obj.eResource();
         List<EClass> result = new ArrayList<EClass>();
 
-        for (Iterator iterator = res.getAllContents(); iterator.hasNext();) {
-            EObject eObject = (EObject) iterator.next();
+        for (Iterator<EObject> iterator = res.getAllContents(); iterator.hasNext();) {
+            EObject eObject = iterator.next();
             if (eObject instanceof EClass) {
                 EClass eClass = (EClass) eObject;
                 if (eClass.getEAllSuperTypes().contains(obj)) {

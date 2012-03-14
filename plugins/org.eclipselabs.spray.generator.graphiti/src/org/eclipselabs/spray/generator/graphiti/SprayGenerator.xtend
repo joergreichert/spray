@@ -7,13 +7,12 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
 
 class SprayGenerator implements IGenerator {
     @Inject
     SprayGraphitiGenerator graphitiGenerator
-    @Inject
-    JvmModelGenerator jvmModelGenerator
+//    @Inject
+//    JvmModelGenerator jvmModelGenerator
 
     override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
         // jvmModelGenerator.doGenerate(resource, fsa)

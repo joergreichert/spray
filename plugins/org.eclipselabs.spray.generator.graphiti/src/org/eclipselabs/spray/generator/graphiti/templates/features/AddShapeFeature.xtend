@@ -177,7 +177,6 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         '''
         
         def dispatch createShape (MetaReference metaRef, MetaClass cls) '''
-            «val varname = metaRef.name.toFirstLower»
             «val target = metaRef.target» 
             // Part is reference list
             protected void createMetaReference«metaRef.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {

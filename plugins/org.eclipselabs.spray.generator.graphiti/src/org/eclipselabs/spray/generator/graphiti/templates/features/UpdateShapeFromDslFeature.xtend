@@ -1,13 +1,9 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
-import com.google.common.collect.Lists
 import com.google.inject.Inject
-import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
-import org.eclipselabs.spray.mm.spray.ContainerInSpray
-import org.eclipselabs.spray.mm.spray.TextInSpray
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
@@ -17,7 +13,6 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
  */
 class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension NamingExtensions
-    @Inject extension IQualifiedNameProvider
     @Inject extension DiagramExtensions
 
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {

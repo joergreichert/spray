@@ -1,21 +1,19 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
+import org.eclipse.xtext.xbase.XExpression
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
-import org.eclipse.xtext.xbase.XExpression
 
 
 class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
    
-    @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     @Inject extension SprayCompiler
     
@@ -41,9 +39,6 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
     '''
     
     def mainFile(MetaClass metaClass, String className) ''' 
-        «val diagramName = metaClass.diagram.name »
-        «val packge = metaClass.type.EPackage.name »
-        «val fullPackage = fullPackageName(metaClass.type) »
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «header(this)»
         package «feature_package()»;

@@ -35,9 +35,6 @@ class LayoutFeature extends FileGenerator<ContainerInSpray> {
     '''
 
     def mainFile(ContainerInSpray container, String className) '''
-        «var diagramName = container.represents.diagram.name »
-        «var pack = container.represents.type.EPackage.name »
-        «var fullPackage = fullPackageName(container.represents.type) »
         «var containerType = constainerClass(container)»
         «header(this)»
         package «feature_package()»;

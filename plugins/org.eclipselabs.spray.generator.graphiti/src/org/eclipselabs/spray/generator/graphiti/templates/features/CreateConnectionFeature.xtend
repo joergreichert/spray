@@ -44,10 +44,6 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     '''
 
     def mainFile (MetaClass metaClass, String className) '''
-        «val connection = metaClass.representedBy as ConnectionInSpray»
-        «val from = connection.from.EType as EClass»
-        «val to = connection.to.EType as EClass»
-        «val diagram = metaClass.diagram as Diagram»
         «header(this)»
         package «feature_package()»;
         import org.eclipse.graphiti.features.IFeatureProvider;

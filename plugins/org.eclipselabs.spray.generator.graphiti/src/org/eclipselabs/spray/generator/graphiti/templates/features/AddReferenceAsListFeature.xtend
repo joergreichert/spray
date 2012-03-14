@@ -35,8 +35,6 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
 
     def mainFile(MetaReference reference, String className) '''
         «val metaClass = (reference.eContainer as ContainerInSpray).represents»
-        «val target = reference.target» 
-        «val diagramName = metaClass.diagram.name »  
         «header(this)»
         package «feature_package()»;
         import java.util.ArrayList;

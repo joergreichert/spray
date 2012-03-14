@@ -1,13 +1,12 @@
 package org.eclipselabs.spray.generator.graphiti
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EClass
+import com.google.inject.Provider
 import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory
 import org.eclipselabs.spray.generator.graphiti.templates.Filter
 import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule
@@ -44,15 +43,13 @@ import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.ContainerInSpray
-import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
-import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.shapes.shapes.Shape
+import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import com.google.inject.Provider
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider

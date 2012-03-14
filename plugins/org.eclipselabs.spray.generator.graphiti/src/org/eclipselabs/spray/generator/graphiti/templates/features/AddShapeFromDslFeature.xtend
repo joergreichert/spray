@@ -1,37 +1,19 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipse.graphiti.util.IColorConstant
-import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.xtext.xbase.XExpression
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.generator.graphiti.util.SprayElementNameProvider
-import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
-import org.eclipselabs.spray.mm.spray.SprayElement
-import org.eclipselabs.spray.shapes.shapes.Shape
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.eclipse.xtext.xbase.compiler.XbaseCompiler
-import org.eclipse.xtext.xbase.compiler.StringBuilderBasedAppendable
-import org.eclipse.xtext.xbase.compiler.ImportManager
-import org.eclipse.xtext.xbase.typing.ITypeProvider
-import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
-import org.eclipse.xtext.xbase.XExpression
-import org.eclipse.xtext.common.types.access.IJvmTypeProvider
 
 
 //class AddShapeFromDslFeature extends FileGenerator<Shape>  {
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
-    @Inject extension LayoutExtensions
-    @Inject extension IQualifiedNameProvider
     @Inject extension NamingExtensions
-    @Inject extension SprayElementNameProvider
-    @Inject extension DiagramExtensions
     @Inject extension SprayCompiler
     
     MetaClass metaClass = null

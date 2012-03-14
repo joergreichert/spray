@@ -14,7 +14,6 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.util.GenModelHelper
-import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
@@ -130,9 +129,9 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def private generate_aliasClause (MetaClass cls) '''
-        «IF cls.alias!=null»"«cls.alias»".equals(context.getProperty(PROPERTY_ALIAS))«ELSE»context.getProperty(PROPERTY_ALIAS)==null«ENDIF»
-    '''
+//    def private generate_aliasClause (MetaClass cls) '''
+//        «IF cls.alias!=null»"«cls.alias»".equals(context.getProperty(PROPERTY_ALIAS))«ELSE»context.getProperty(PROPERTY_ALIAS)==null«ENDIF»
+//    '''
     
     def generate_getCreateFeatures (Diagram diagram) '''
         «overrideHeader»
@@ -151,7 +150,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
     def private List<String> getCreateFeatureClassNames (Diagram diagram) {
         val result = new ArrayList<String>()
         
-        val metaClassesForShapes = diagram.metaClassesForShapes
         for (mc : diagram.metaClassesForShapes.filter(mc|mc.hasCreateBehavior)) {
             result += mc.createFeatureClassName.shortName
             if (mc.representedByContainer) {
@@ -195,12 +193,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
                         «ENDIF»
                     «ENDFOR»
                 «ELSEIF cls.representedBy instanceof ConnectionInSpray»
-                    «val connection = cls.representedBy as ConnectionInSpray»
-                        «IF !cls.type.abstract»
-                            if (bo instanceof «cls.javaInterfaceName.shortName») { // 33
-                                return new «cls.updateFeatureClassName.shortName»(this); 
-                            }
-                        «ENDIF»
+                    «IF !cls.type.abstract»
+                        if (bo instanceof «cls.javaInterfaceName.shortName») { // 33
+                            return new «cls.updateFeatureClassName.shortName»(this); 
+                        }
+                    «ENDIF»
                 «ENDIF»
             «ENDFOR»
     //        }

@@ -1,14 +1,9 @@
 package org.eclipselabs.spray.generator.graphiti.templates
 
-import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
-import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
 
 class GuiceModule extends FileGenerator<Diagram> {
-    @Inject extension LayoutExtensions
-    @Inject extension NamingExtensions
     
     override CharSequence generateBaseFile(Diagram modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)

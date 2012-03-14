@@ -1,8 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
@@ -10,7 +8,6 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 
 class PluginActivator extends FileGenerator<Diagram>  {
-    @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     
     override CharSequence generateBaseFile(Diagram modelElement) {
