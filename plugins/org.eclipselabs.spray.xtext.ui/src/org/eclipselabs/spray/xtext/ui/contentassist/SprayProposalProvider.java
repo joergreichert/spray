@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
@@ -28,8 +29,13 @@ import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
+import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
+import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
@@ -40,6 +46,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
+import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
@@ -54,6 +61,7 @@ import com.google.inject.name.Named;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
+@SuppressWarnings("restriction")
 public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @Inject
     private IWorkspaceRoot                root;
@@ -69,6 +77,10 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior");
 
     private IResourceDescriptions         dscriptions       = null;
+    @Inject
+    private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
+    @Inject
+    private ITypesProposalProvider        typeProposalProvider;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -186,5 +198,17 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
             return;
         }
         super.completeKeyword(keyword, contentAssistContext, acceptor);
+    }
+
+    @Override
+    public void completeJvmParameterizedTypeReference_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (EcoreUtil2.getContainerOfType(model, CustomBehavior.class) != null) {
+            final IJvmTypeProvider jvmTypeProvider = jvmTypeProviderFactory.createTypeProvider(model.eResource().getResourceSet());
+            // Graphiti specific
+            final JvmType interfaceToImplement = jvmTypeProvider.findTypeByName(ICustomFeature.class.getName());
+            typeProposalProvider.createSubTypeProposals(interfaceToImplement, this, context, SprayPackage.Literals.BEHAVIOR__REALIZED_BY, TypeMatchFilters.canInstantiate(), acceptor);
+        } else {
+            super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor);
+        }
     }
 }
