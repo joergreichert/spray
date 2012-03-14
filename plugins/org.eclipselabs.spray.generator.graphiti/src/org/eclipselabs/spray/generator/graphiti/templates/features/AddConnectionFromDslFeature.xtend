@@ -116,7 +116,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «connection.connection.name» connection = new «connection.connection.name»();
             «FOR property : connection.propertiesList»
             {
-            	«property.value.propertyAssignmentFunction(metaClass.name, "value")»
+            	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedDomainObject")»
             	connection.set«property.key.simpleName.toFirstUpper»(value);
             }
             «ENDFOR»
@@ -200,11 +200,11 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «ENDIF»
     '''
 
-    def propertyAssignmentFunction(XExpression xexp, String metaClassName, String valueName) '''
-    	«xexp.returnTypeForPropertyAssignment» «valueName» = new Function<«metaClassName», «xexp.returnTypeForPropertyAssignment»>() {
-    		public «xexp.returnTypeForPropertyAssignment» apply(«metaClassName» modelElement) {
+    def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
+    	«returnType» «valueName» = new Function<«metaClassName», «returnType»>() {
+    		public «returnType» apply(«metaClassName» modelElement) {
     			«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
     		}
-    	}.apply(addedDomainObject); 
+    	}.apply(«metaClassAttribute»); 
     '''
 }

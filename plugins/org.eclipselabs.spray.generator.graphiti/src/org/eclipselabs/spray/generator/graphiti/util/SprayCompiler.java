@@ -1,5 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.util;
 
+import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XExpression;
@@ -32,9 +33,10 @@ public class SprayCompiler extends XbaseCompiler {
         return result.toString();
     }
 
-    public String getReturnTypeForPropertyAssignment(XExpression expression) {
-        // JvmTypeReference typeRef = typeProvider.getExpectedType(expression);
-        // TODO: Limitation (just Strings are available). 
+    public String getReturnTypeForPropertyAssignment(JvmFormalParameter key) {
+        if (key != null && key.getParameterType() != null) {
+            return key.getParameterType().getQualifiedName();
+        }
         return "String";
     }
 

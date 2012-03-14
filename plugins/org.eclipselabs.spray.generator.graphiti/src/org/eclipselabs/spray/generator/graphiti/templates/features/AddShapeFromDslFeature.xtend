@@ -114,7 +114,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 «container.shape.name» shape = new «container.shape.name»();
                 «FOR property : container.propertiesList»
                 {
-                	«property.value.propertyAssignmentFunction(metaClass.name, "value")»
+                	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedModelElement")»
                 	shape.set«property.key.simpleName.toFirstUpper»(value);
                 }
                 «ENDFOR»
@@ -134,11 +134,11 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         }
         '''
         
-        def propertyAssignmentFunction(XExpression xexp, String metaClassName, String valueName) '''
-        	«xexp.returnTypeForPropertyAssignment» «valueName» = new Function<«metaClassName», «xexp.returnTypeForPropertyAssignment»>() {
-        		public «xexp.returnTypeForPropertyAssignment» apply(«metaClassName» modelElement) {
+        def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
+        	«returnType» «valueName» = new Function<«metaClassName», «returnType»>() {
+        		public «returnType» apply(«metaClassName» modelElement) {
         			«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
         		}
-        	}.apply(addedModelElement); 
+        	}.apply(«metaClassAttribute»); 
         '''
 }
