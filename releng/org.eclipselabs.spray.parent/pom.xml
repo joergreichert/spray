@@ -105,6 +105,7 @@
 						<encoding>UTF-8</encoding>
 						<source>6.0</source>
 						<target>6.0</target>
+						<verbose>true</verbose>
 					</configuration>
 				</plugin>
 				<!-- enable source bundle generation -->
