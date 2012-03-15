@@ -9,5 +9,5 @@
 package org.eclipselabs.spray.examples.mod4j.diagram;
 
 public class Mod4jDiagramTypeProvider extends Mod4jDiagramTypeProviderBase {
-
+    // this class won't be overridden
 }
