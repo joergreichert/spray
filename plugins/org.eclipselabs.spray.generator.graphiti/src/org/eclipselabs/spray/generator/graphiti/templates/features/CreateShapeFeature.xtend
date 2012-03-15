@@ -133,7 +133,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
         «IF attribute != null»
            // ask user for «metaClass.visibleName» «attribute.name»
-           «IF (attribute.EType as EDataType).EFactoryInterfaceName.matches('java.lang.String')»
+           «IF (attribute.EType as EDataType).instanceClassName.matches('java.lang.String')»
               String new«attribute.name.toFirstUpper» = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
               if (new«attribute.name.toFirstUpper» == null || new«attribute.name.toFirstUpper».trim().length() == 0) {
                  return null;
@@ -141,7 +141,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                  newClass.set«attribute.name.toFirstUpper»(new«attribute.name.toFirstUpper»);
               }
            «ELSE»
-              «val type = (attribute.EType as EDataType).EFactoryInterfaceName» 
+              «val type = (attribute.EType as EDataType).instanceClassName» 
               «val typeName = if("double".matches(type)) "Double" else if("int".matches(type)) "Integer" else "Object"»
               org.eclipse.jface.dialogs.IInputValidator validator = new org.eclipse.jface.dialogs.IInputValidator() {
                  public String isValid(String _newText) {
