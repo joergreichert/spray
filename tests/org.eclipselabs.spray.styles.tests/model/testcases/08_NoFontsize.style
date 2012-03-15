@@ -6,7 +6,7 @@ style NoFontsize {
 	line-style = dash
 	line-width = 2
 	font-color = very-light-gray
-	font-name = "Times New Roman"
+	font-name = "Arial"
 	font-italic = yes
 	font-bold = yes
 }

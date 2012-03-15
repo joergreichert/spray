@@ -6,6 +6,6 @@ style NoFontstyle {
 	line-style = dash-dot-dot
 	line-width = 1
 	font-color = yellow
-	font-name = "Comic Sans MS"
+	font-name = "Arial"
 	font-size = 11
 }

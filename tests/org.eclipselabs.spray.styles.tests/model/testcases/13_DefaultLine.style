@@ -3,7 +3,7 @@ style DefaultLine {
     transparency = 0.95
     background-color = black
     font-color = black
-    font-name = "Tahoma"
+    font-name = "Arial"
     font-size = 10
     font-bold = yes
 }
