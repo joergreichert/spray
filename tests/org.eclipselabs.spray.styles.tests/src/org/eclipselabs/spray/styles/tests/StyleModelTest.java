@@ -4,14 +4,13 @@ import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipselabs.spray.styles.StyleInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Tests for the Styles DSL.
- * Note that the CI server only supports font "Arial". This may lead to unasserted warnings.
- * WARNING at StyleLayout( line 9): The selected font is not installed on the system (default 'Arial' will be taken).
  */
 @RunWith(XtextRunner2.class)
 @InjectWith(StyleInjectorProvider.class)
@@ -21,6 +20,13 @@ public class StyleModelTest extends XtextTest {
     public void before() {
         super.before();
         suppressSerialization();
+    }
+
+    @After
+    public void after() {
+        super.after();
+        // Note that the CI server only supports font "Arial". This may lead to unasserted warnings.
+        assertConstraints(issues.warningsOnly().allOfThemContain("The selected font is not installed on the system (default 'Arial' will be taken)."));
     }
 
     @Test
