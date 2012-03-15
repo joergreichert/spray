@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.xtext.example.fowlerdsl;bundle-version="0.2.0";visib
  org.eclipse.compare
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.xtext.example.fowlerdsl.ui.contentassist.antlr,
  org.eclipse.xtext.example.fowlerdsl.ui.internal,
  org.eclipse.xtext.example.fowlerdsl.ui.contentassist

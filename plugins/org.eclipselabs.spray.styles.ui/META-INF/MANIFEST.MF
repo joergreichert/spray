@@ -35,7 +35,7 @@ Require-Bundle: org.eclipselabs.spray.styles;visibility:=reexport,
  org.eclipse.core.expressions;bundle-version="3.4.300"
 Import-Package: org.apache.commons.logging,
  org.apache.log4j
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.styles.ui,
  org.eclipselabs.spray.styles.ui.contentassist,
  org.eclipselabs.spray.styles.ui.contentassist.antlr,
