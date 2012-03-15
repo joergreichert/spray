@@ -9,7 +9,6 @@ import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.ContainerInSpray
-import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
@@ -18,8 +17,6 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import java.util.Set
-import java.util.HashSet
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -106,11 +103,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «overrideHeader»
         public IAddFeature getAddFeature(IAddContext context) {
             // is object for add request a EClass or EReference?
-            final EObject object = (EObject) context.getNewObject() ;
+            final EObject bo = (EObject) context.getNewObject() ;
             final String reference = (String)context.getProperty(PROPERTY_REFERENCE);
             final String alias = (String)context.getProperty(PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses»
-                if ( object.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») {
+                if ( «generate_metaClassSwitchCondition(cls)») {
                     if ( reference == null ){
                         return new «cls.addFeatureClassName.shortName»(this);
                         «FOR reference : cls.references.filter(ref|ref.representedBy != null)  »
@@ -122,7 +119,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 «IF cls.representedBy instanceof ContainerInSpray»
                     «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                        if( object instanceof «reference.target.EReferenceType.javaInterfaceName.shortName» ){
+                        if( bo instanceof «reference.target.EReferenceType.javaInterfaceName.shortName» ){
                             return new «reference.addReferenceAsListFeatureClassName.shortName»(this);
                         }
                     «ENDFOR»    
@@ -181,7 +178,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 if (bo == null) return null;
             «FOR cls : diagram.metaClasses »
                 «IF ! (cls.representedBy instanceof ConnectionInSpray) »
-                if ( bo.eClass() == «cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») { // 11
+                if ( «generate_metaClassSwitchCondition(cls)») { // 11
                     return new «cls.updateFeatureClassName.shortName»(this); 
                 }
                 «ENDIF»
@@ -197,7 +194,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                     «ENDFOR»
                 «ELSEIF cls.representedBy instanceof ConnectionInSpray»
                     «IF !cls.type.abstract»
-                        if (bo instanceof «cls.javaInterfaceName.shortName») { // 33
+                        if (bo instanceof «cls.javaInterfaceName.shortName» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») { // 33
                             return new «cls.updateFeatureClassName.shortName»(this); 
                         }
                     «ENDIF»
@@ -211,11 +208,12 @@ class FeatureProvider extends FileGenerator<Diagram> {
     def generate_getLayoutFeature (Diagram diagram) '''
         «overrideHeader»
         public ILayoutFeature getLayoutFeature(ILayoutContext context) {
-            PictogramElement pictogramElement = context.getPictogramElement();
-            EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
+            final String alias = (String)context.getProperty(PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
-            if ( bo.eClass()==«cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) {
+            if ( «generate_metaClassSwitchCondition(cls)» ) {
                 return new «cls.layoutFeatureClassName.shortName»(this);
             }
             «ENDFOR»
@@ -281,13 +279,14 @@ class FeatureProvider extends FileGenerator<Diagram> {
     
     def generate_getDeleteFeature (Diagram diagram) '''
         public IDeleteFeature getDeleteFeature(IDeleteContext context) {
-            PictogramElement pictogramElement = context.getPictogramElement();
-            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
-            String reference = peService.getPropertyValue(pictogramElement, ISprayConstants.PROPERTY_REFERENCE);
-    
+            final String reference = peService.getPropertyValue(pictogramElement, ISprayConstants.PROPERTY_REFERENCE);
+            final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
+
             «FOR cls : diagram.metaClasses »
-            if ( bo.eClass()==«cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» ) {
+            if ( «generate_metaClassSwitchCondition(cls)» ) {
                 if( reference == null ){
                     return new DefaultDeleteFeature(this); 
                 «FOR reference : cls.references.filter(ref|ref.representedBy != null)  »
@@ -329,13 +328,15 @@ class FeatureProvider extends FileGenerator<Diagram> {
     def generate_getCustomFeatures (Diagram diagram) '''
         @Override
         public ICustomFeature[] getCustomFeatures(ICustomContext context) {
-            EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
+            final EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
             if (bo == null) return new ICustomFeature[0];
+            final String alias = (String)context.getProperty(PROPERTY_ALIAS);
             «FOR metaClass : diagram.metaClasses »
-                «IF !metaClass.behaviors.isEmpty»
-                    if( bo.eClass()==«metaClass.type.EPackageClassName.shortName».Literals.«metaClass.type.literalConstant» ){
+                «val featureClasses = metaClass.customFeatureClassNames»
+                «IF !featureClasses.isEmpty»
+                    if(«generate_metaClassSwitchCondition(metaClass)»){
                     return new ICustomFeature[]{ 
-                    «FOR featureClass : metaClass.customFeatureClassNames  SEPARATOR  ","»
+                    «FOR featureClass : featureClasses SEPARATOR  ","»
                         new «featureClass.shortName»(this)
                     «ENDFOR»
                     };
@@ -344,5 +345,13 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «ENDFOR»
             return new ICustomFeature[0];
         }
+    '''
+    
+    /**
+     * Produces the condition used in the if-cascaded to switch for the specific features for an EObject
+     * bo.eClass()==BusinessDomainDslPackage.Literals.ASSOCIATION && "Assoc1".equals(alias)
+     */
+    def generate_metaClassSwitchCondition (MetaClass cls) '''
+        bo.eClass()==«cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF»
     '''
 }
