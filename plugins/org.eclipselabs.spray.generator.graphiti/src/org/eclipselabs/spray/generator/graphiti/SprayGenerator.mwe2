@@ -43,6 +43,7 @@ Workflow {
 			path = srcGenDir
 		}
 		outlet = {
+		    outletName ="SRCMAN"
 			path = srcManDir
 		}
 	}
