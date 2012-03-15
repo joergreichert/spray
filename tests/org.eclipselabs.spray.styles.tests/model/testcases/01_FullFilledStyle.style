@@ -6,7 +6,7 @@ style BlackAndWhiteStyle {
 	line-style = solid
     line-width = 1
     font-color = black
-    font-name = "Arial"
+    font-name = "Tahoma"
     font-size = 10
     font-bold = yes
 }
