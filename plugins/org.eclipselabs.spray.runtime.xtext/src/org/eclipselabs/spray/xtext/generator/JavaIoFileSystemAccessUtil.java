@@ -22,7 +22,7 @@ public class JavaIoFileSystemAccessUtil implements IFileSystemAccessUtil {
 
     @Override
     public boolean fileExists(IFileSystemAccess fsa, String outputConfigurationName, String path) {
-        final String fullPath = getOutputConfiguration(outputConfigurationName) + "/" + path;
+        final String fullPath = getOutputConfiguration(outputConfigurationName).getOutputDirectory() + "/" + path;
         final File f = new File(fullPath);
         return f.exists() && f.isFile();
     }
