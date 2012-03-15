@@ -216,8 +216,14 @@ class NamingExtensions {
     //---------------------------------------------------------------------------------------------
     // Class names for Behaviour
     //---------------------------------------------------------------------------------------------
+    /**
+     * Returns the qualified class name of the ICustomFeature represented by a CustomBehavior.
+     */
     def getCustomFeatureClassName (CustomBehavior behavior) {
-        feature_package() + "." + behavior.getCustomFeatureSimpleClassName
+        if (behavior.realizedBy == null)
+            (feature_package() + "." + behavior.getCustomFeatureSimpleClassName)
+        else
+            behavior.realizedBy.type.qualifiedName
     }
     def getCustomFeatureSimpleClassName (CustomBehavior behavior) {
         val diagram = getContainerOfType(behavior, typeof(Diagram))

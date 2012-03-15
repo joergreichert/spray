@@ -9,6 +9,11 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
+import org.eclipselabs.spray.mm.spray.CustomBehavior
+import java.util.Set
+import java.util.TreeSet
+import org.eclipselabs.spray.mm.spray.Behavior
+import java.util.LinkedList
 
 class MetaClassExtensions {
     @Inject extension NamingExtensions 
@@ -44,5 +49,27 @@ class MetaClassExtensions {
      */
     def boolean isRepresentedByConnection (MetaClass mc) {
         mc.representedBy instanceof ConnectionInSpray
+    }
+    
+    /**
+     * Returns the ICustomFeature instances for a MetaClass
+     */
+    def Set<String> getCustomFeatureClassNames (MetaClass mc) {
+        val result = new TreeSet<String>()
+        for (b: mc.allBehaviors.filter(typeof(CustomBehavior))) {
+            result += b.customFeatureClassName.shortName
+        }
+        result
+    }
+    
+    /**
+     * Combines the direct Behaviors with those from the referred BehaviorGroups. 
+     */
+    def Iterable<Behavior> getAllBehaviors (MetaClass mc) {
+        val result = new LinkedList<Behavior> (mc.behaviorsList)
+        for (g: mc.behaviorGroups) {
+            result += g.behaviors
+        }
+        result
     }
 }

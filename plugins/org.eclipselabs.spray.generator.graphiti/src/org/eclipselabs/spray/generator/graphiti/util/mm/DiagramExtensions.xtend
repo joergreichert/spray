@@ -9,8 +9,13 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipse.xtext.EcoreUtil2.*
+import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
+import org.eclipselabs.spray.mm.spray.CustomBehavior
+import com.google.inject.Inject
 
 class DiagramExtensions {
+    @Inject extension MetaClassExtensions 
+    
     def Diagram getDiagram (EObject ctx) {
         getContainerOfType(ctx, typeof(Diagram))
     }
@@ -37,6 +42,13 @@ class DiagramExtensions {
     
     def dispatch Iterable<MetaClass> getElementsForTemplate (Diagram diagram, CreateConnectionFeature template) {
         diagram.metaClasses.filter(mc|mc.representedBy instanceof ConnectionInSpray && mc.behaviors.exists(b|b instanceof CreateBehavior))
+    }
+    
+    /**
+     * Returns all generateable CustomBehavior instances for the diagram. Not generateable are those that are realized by a concrete JVM type
+     */
+    def dispatch Iterable<CustomBehavior> getBehaviorsForTemplate (Diagram diagram, CustomFeature template) {
+        diagram.metaClasses.map(mc|mc.allBehaviors).flatten.toSet.filter(typeof(CustomBehavior)).filter(b|b.realizedBy==null)
     }
     
     

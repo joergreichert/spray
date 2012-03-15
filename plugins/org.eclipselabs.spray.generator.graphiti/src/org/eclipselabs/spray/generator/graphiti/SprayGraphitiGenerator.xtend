@@ -441,11 +441,9 @@ class SprayGraphitiGenerator implements IGenerator {
     }    
     
     def generateCustomFeature(Diagram diagram, JavaGenFile java, CustomFeature cf) {
-        for( metaClass : diagram.metaClasses) {
-            for(CustomBehavior behavior : metaClass.behaviors.filter(typeof(CustomBehavior))) {
-                java.setPackageAndClass(behavior.customFeatureClassName)
-                cf.generate(behavior, java)
-            }
+        for(CustomBehavior behavior : diagram.getBehaviorsForTemplate(cf)) {
+            java.setPackageAndClass(behavior.customFeatureClassName)
+            cf.generate(behavior, java)
         }
     }
 }

@@ -18,6 +18,8 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import java.util.Set
+import java.util.HashSet
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -333,11 +335,8 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 «IF !metaClass.behaviors.isEmpty»
                     if( bo.eClass()==«metaClass.type.EPackageClassName.shortName».Literals.«metaClass.type.literalConstant» ){
                     return new ICustomFeature[]{ 
-                    «val List<String> allnames2 = new ArrayList<String>()»
-                    «FOR behavior : metaClass.behaviors.filter(typeof(CustomBehavior))  SEPARATOR  ","»
-                        «IF ! allnames2.contains(behavior.name)»
-                            new «behavior.customFeatureClassName.shortName»(this) /*«allnames2.add(behavior.name)»*/
-                        «ENDIF»
+                    «FOR featureClass : metaClass.customFeatureClassNames  SEPARATOR  ","»
+                        new «featureClass.shortName»(this)
                     «ENDFOR»
                     };
                     }
