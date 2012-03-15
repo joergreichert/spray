@@ -1,6 +1,5 @@
 package org.eclipselabs.spray.runtime.graphiti.containers;
 
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -187,7 +186,6 @@ public class SprayConceptContainer implements ISprayContainer {
         }
         for (Shape sh : textBox.getChildren()) {
             String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-            String id = Graphiti.getPeService().getPropertyValue(sh, "ID");
             if (textType.equalsIgnoreCase(TEXT)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 Text text = (Text) ga;
@@ -211,7 +209,6 @@ public class SprayConceptContainer implements ISprayContainer {
         if (y > containerGa.getHeight()) {
             containerGa.setHeight(y);
         }
-        IDimension size = gaService.calculateSize(graphicsAlgorithmText, true);
 
         return anythingChanged;
     }

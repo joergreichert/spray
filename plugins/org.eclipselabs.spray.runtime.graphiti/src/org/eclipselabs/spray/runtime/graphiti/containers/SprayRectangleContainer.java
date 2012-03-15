@@ -1,6 +1,5 @@
 package org.eclipselabs.spray.runtime.graphiti.containers;
 
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
@@ -122,7 +121,7 @@ public class SprayRectangleContainer implements ISprayContainer {
         IGaService gaService = Graphiti.getGaService();
         int width = containerGa.getWidth();
         int height = containerGa.getHeight();
-        int leftMargin = 3;
+        //        int leftMargin = 3;
         int y = 0;
 
         Shape shape = SprayContainerService.findTextShape(containerShape);
@@ -132,7 +131,6 @@ public class SprayRectangleContainer implements ISprayContainer {
         ContainerShape textBox = (ContainerShape) shape;
         for (Shape sh : textBox.getChildren()) {
             String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-            String id = Graphiti.getPeService().getPropertyValue(sh, ID);
             if (textType.equalsIgnoreCase(TEXT)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 AbstractText text = (AbstractText) ga;
@@ -161,7 +159,6 @@ public class SprayRectangleContainer implements ISprayContainer {
             }
         }
         graphicsAlgorithm.setHeight(y);
-        IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
         containerGa.setHeight(y);
         return anythingChanged;
     }

@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates;
 
 import java.math.BigDecimal;
 
-import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
@@ -18,8 +17,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(XtextRunner2.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class JavaGenFileTest {
-    @Inject
-    private IFileSystemAccess     fsa;
     @Inject
     private IFileSystemAccessUtil fsaUtil;
 

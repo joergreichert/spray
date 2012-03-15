@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.runtime.graphiti.containers;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -57,7 +56,7 @@ public class SprayPmwRequestContainer implements ISprayContainer {
         int width = context.getWidth() <= 0 ? DEFAULT_WIDTH : context.getWidth();
         int height = context.getHeight() <= 0 ? DEFAULT_HEIGHT : context.getHeight();
         int indent = width / 5;
-        int half = height / 2;
+        //        int half = height / 2;
 
         SprayLayout layout = new SprayLayout(ISprayColorConstants.BLACK, ISprayColorConstants.RED, 1);
         ContainerShape mainShape = createContainerShape(addedModelElement, targetDiagram, context.getX(), context.getY(), width, height, true, layout);
@@ -193,11 +192,11 @@ public class SprayPmwRequestContainer implements ISprayContainer {
         int indent = height / 3;
         int half = height / 2;
         int indentPlus = indent / 2;
-        int downRibbonHeight = height / 5;
-
-        if (!isConcept) {
-            downRibbonHeight = 0;
-        }
+        //        int downRibbonHeight = height / 5;
+        //
+        //        if (!isConcept) {
+        //            downRibbonHeight = 0;
+        //        }
 
         // layout the main outer shape algorithm
         {
@@ -309,7 +308,7 @@ public class SprayPmwRequestContainer implements ISprayContainer {
         // ContainerShape textBox = (ContainerShape) shape;
         for (Shape sh : textBox.getChildren()) {
             String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-            String id = Graphiti.getPeService().getPropertyValue(sh, ID);
+            //            String id = Graphiti.getPeService().getPropertyValue(sh, ID);
             if (textType.equalsIgnoreCase(TEXT)) {
                 GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                 Text text = (Text) ga;
@@ -330,7 +329,7 @@ public class SprayPmwRequestContainer implements ISprayContainer {
                 y += 4;
             }
         }
-        IDimension size = gaService.calculateSize(graphicsAlgorithmText, true);
+        //        IDimension size = gaService.calculateSize(graphicsAlgorithmText, true);
 
         return anythingChanged;
     }

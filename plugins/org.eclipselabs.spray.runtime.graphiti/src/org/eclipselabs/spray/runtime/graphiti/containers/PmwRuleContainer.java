@@ -23,6 +23,7 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IGefService;
 import org.eclipse.graphiti.util.IColorConstant;
 
+@SuppressWarnings({"restriction", "unused"})
 public class PmwRuleContainer implements ISprayContainer {
 
     private static final String   REQUEST_POLYLINE   = "REQUEST_POLYLINE";

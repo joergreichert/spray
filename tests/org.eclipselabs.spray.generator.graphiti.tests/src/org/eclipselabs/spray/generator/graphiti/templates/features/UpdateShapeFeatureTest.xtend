@@ -1,8 +1,15 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EcoreFactory
+import org.eclipse.emf.ecore.plugin.EcorePlugin
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.xbase.XbaseFactory
@@ -11,17 +18,10 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.junit.Test
 import org.junit.After
+import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
-import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
-import org.eclipse.emf.ecore.plugin.EcorePlugin
+
 import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner2))

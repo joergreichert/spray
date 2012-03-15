@@ -1,6 +1,5 @@
 package org.eclipselabs.spray.runtime.graphiti.containers;
 
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
@@ -130,15 +129,11 @@ public class SprayEllipseContainer implements ISprayContainer {
 
         int width = containerGa.getWidth();
         int height = containerGa.getHeight();
-        int blockWidth = width / 3;
         int downRibbonHeight = height / 5;
         int leftMargin = width / 10;
         int y = 5;
 
-        for (Shape shape : containerShape.getChildren()) {
-            GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-            String shapeType = Graphiti.getPeService().getPropertyValue(shape, CONCEPT_SHAPE_KEY);
-
+        for (int i = 0; i < containerShape.getChildren().size(); i++) {
             y = 0;
 
             ContainerShape textBox = SprayContainerService.findTextShape(containerShape);
@@ -151,7 +146,6 @@ public class SprayEllipseContainer implements ISprayContainer {
             // ContainerShape textBox = (ContainerShape) shape;
             for (Shape sh : textBox.getChildren()) {
                 String textType = Graphiti.getPeService().getPropertyValue(sh, CONCEPT_SHAPE_KEY);
-                String id = Graphiti.getPeService().getPropertyValue(sh, ID);
                 if (textType.equalsIgnoreCase(TEXT)) {
                     GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                     Text text = (Text) ga;
@@ -160,7 +154,7 @@ public class SprayEllipseContainer implements ISprayContainer {
                     text.setX(0);
                     text.setY(y);
                     y += TEXT_LINE_HEIGHT;
-                    IDimension size = gaService.calculateSize(text, true);
+                    gaService.calculateSize(text, true);
                 } else if (textType.equalsIgnoreCase(LINE)) {
                     GraphicsAlgorithm ga = sh.getGraphicsAlgorithm();
                     Polyline polyline = (Polyline) ga;
@@ -173,7 +167,7 @@ public class SprayEllipseContainer implements ISprayContainer {
                     y += 4;
                 }
             }
-            IDimension size = gaService.calculateSize(graphicsAlgorithmText, true);
+            gaService.calculateSize(graphicsAlgorithmText, true);
             // IDimension size = gaService.calculateSize(graphicsAlgorithm, true);
         }
         return anythingChanged;

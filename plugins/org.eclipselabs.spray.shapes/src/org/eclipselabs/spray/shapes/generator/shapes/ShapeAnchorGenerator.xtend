@@ -1,16 +1,15 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
 import com.google.inject.Inject
-import java.util.HashMap
+import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator
+import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
+import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper
+import org.eclipselabs.spray.shapes.shapes.AnchorFixPointPosition
+import org.eclipselabs.spray.shapes.shapes.AnchorManual
 import org.eclipselabs.spray.shapes.shapes.AnchorPredefinied
 import org.eclipselabs.spray.shapes.shapes.AnchorPredefiniedEnum
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
-import org.eclipselabs.spray.shapes.shapes.AnchorManual
 import org.eclipselabs.spray.shapes.shapes.AnchorRelativePosition
-import org.eclipselabs.spray.shapes.shapes.AnchorFixPointPosition
-import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
-import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator
-import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper
+import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
 class ShapeAnchorGenerator {
 	

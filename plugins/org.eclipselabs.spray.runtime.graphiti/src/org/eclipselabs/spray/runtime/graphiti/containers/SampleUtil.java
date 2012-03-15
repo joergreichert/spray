@@ -16,7 +16,7 @@
 package org.eclipselabs.spray.runtime.graphiti.containers;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Collections;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -154,11 +154,11 @@ public class SampleUtil {
         IResource file = workspaceRoot.findMember(uri.toPlatformString(true));
         if (file == null || !file.exists()) {
             Resource createResource = rSet.createResource(uri);
-            createResource.save(new HashMap());
+            createResource.save(Collections.emptyMap());
             createResource.setTrackingModification(true);
         }
         final Resource resource = rSet.getResource(uri, true);
         resource.getContents().add(obj);
-        resource.save(new HashMap());
+        resource.save(Collections.emptyMap());
     }
 }
