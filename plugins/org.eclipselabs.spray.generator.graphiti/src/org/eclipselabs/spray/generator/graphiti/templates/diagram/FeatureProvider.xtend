@@ -95,6 +95,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «generate_getRemoveFeature(diagram)»
             «generate_getDeleteFeature(diagram)»
             «generate_getMoveShapeFeature(diagram)»
+            «generate_getCustomFeatures(diagram)»
             «generate_additionalFields(diagram)»
         }
     '''
