@@ -34,4 +34,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.styles.postprocess,
  org.eclipselabs.spray.xtext.builder,
  org.eclipselabs.spray.xtext.generator,
+ org.eclipselabs.spray.xtext.naming,
  org.eclipselabs.spray.xtext.scoping

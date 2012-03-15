@@ -36,6 +36,8 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
@@ -49,6 +51,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IConstants;
+import org.eclipselabs.spray.xtext.naming.EscapeKeywordFunction;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
@@ -81,6 +84,10 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
     @Inject
     private ITypesProposalProvider        typeProposalProvider;
+    @Inject
+    private IQualifiedNameConverter       qnConverter;
+    @Inject
+    private EscapeKeywordFunction         escapeKeywordFunction;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -202,13 +209,22 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
 
     @Override
     public void completeJvmParameterizedTypeReference_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        final ICompletionProposalAcceptor acceptor2 = new ICompletionProposalAcceptor.Delegate(acceptor) {
+            @Override
+            public void accept(ICompletionProposal proposal) {
+                ConfigurableCompletionProposal p = (ConfigurableCompletionProposal) proposal;
+                final QualifiedName qnProposal = qnConverter.toQualifiedName(p.getReplacementString());
+                p.setReplacementString(escapeKeywordFunction.apply(qnProposal).toString());
+                super.accept(p);
+            }
+        };
         if (EcoreUtil2.getContainerOfType(model, CustomBehavior.class) != null) {
             final IJvmTypeProvider jvmTypeProvider = jvmTypeProviderFactory.createTypeProvider(model.eResource().getResourceSet());
             // Graphiti specific
             final JvmType interfaceToImplement = jvmTypeProvider.findTypeByName(ICustomFeature.class.getName());
-            typeProposalProvider.createSubTypeProposals(interfaceToImplement, this, context, SprayPackage.Literals.BEHAVIOR__REALIZED_BY, TypeMatchFilters.canInstantiate(), acceptor);
+            typeProposalProvider.createSubTypeProposals(interfaceToImplement, this, context, SprayPackage.Literals.BEHAVIOR__REALIZED_BY, TypeMatchFilters.canInstantiate(), acceptor2);
         } else {
-            super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor);
+            super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor2);
         }
     }
 }
