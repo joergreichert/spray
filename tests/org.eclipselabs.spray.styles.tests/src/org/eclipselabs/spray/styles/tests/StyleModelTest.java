@@ -24,9 +24,9 @@ public class StyleModelTest extends XtextTest {
 
     @After
     public void after() {
-        super.after();
         // Note that the CI server only supports font "Arial". This may lead to unasserted warnings.
         assertConstraints(issues.warningsOnly().allOfThemContain("The selected font is not installed on the system (default 'Arial' will be taken)."));
+        super.after();
     }
 
     @Test
