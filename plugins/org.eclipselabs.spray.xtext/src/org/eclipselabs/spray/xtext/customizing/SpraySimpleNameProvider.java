@@ -4,7 +4,6 @@ import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider;
 
-@SuppressWarnings("restriction")
 public class SpraySimpleNameProvider extends IdentifiableSimpleNameProvider {
     @Override
     public String getSimpleName(JvmIdentifiableElement element) {

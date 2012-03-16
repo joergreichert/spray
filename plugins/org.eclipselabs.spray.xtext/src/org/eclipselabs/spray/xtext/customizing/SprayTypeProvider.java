@@ -10,7 +10,6 @@ import org.eclipselabs.spray.mm.spray.SprayPackage;
 
 import com.google.inject.Singleton;
 
-@SuppressWarnings("restriction")
 @Singleton
 public class SprayTypeProvider extends XbaseTypeProvider {
     @Override

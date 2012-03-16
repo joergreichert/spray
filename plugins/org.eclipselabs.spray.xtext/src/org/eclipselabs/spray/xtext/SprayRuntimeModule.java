@@ -25,7 +25,6 @@ import com.google.inject.name.Names;
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
-@SuppressWarnings("restriction")
 public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
 
     @Override
@@ -65,4 +64,5 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
     public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
         return SprayScopeProvider.class;
     }
+
 }
