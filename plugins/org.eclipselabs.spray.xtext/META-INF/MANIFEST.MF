@@ -39,6 +39,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.xtext,
  org.eclipselabs.spray.xtext.api,
  org.eclipselabs.spray.xtext.formatting,
+ org.eclipselabs.spray.xtext.customizing;x-friends:="org.eclipselabs.spray.xtext.tests",
  org.eclipselabs.spray.xtext.jvmmodel;x-friends:="org.eclipselabs.spray.xtext.tests",
  org.eclipselabs.spray.xtext.parseTreeConstruction,
  org.eclipselabs.spray.xtext.parser.antlr,

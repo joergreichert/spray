@@ -4,12 +4,14 @@
 package org.eclipselabs.spray.xtext.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.service.SingletonBinding;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
 import org.eclipse.xtext.ui.wizard.IProjectCreator;
+import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalProvider;
 import org.eclipselabs.spray.xtext.ui.syntaxcoloring.SprayHighlightingConfiguration;
 import org.eclipselabs.spray.xtext.ui.syntaxcoloring.SprayTokenToAttributeIdMapper;
 import org.eclipselabs.spray.xtext.ui.validation.SprayJavaUIValidator;
@@ -69,6 +71,11 @@ public class SprayUiModule extends AbstractSprayUiModule {
     @Override
     public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
         return SprayHighlightingConfiguration.class;
+    }
+
+    @Override
+    public Class<? extends ITypesProposalProvider> bindITypesProposalProvider() {
+        return SprayJdtTypesProposalProvider.class;
     }
 
 }

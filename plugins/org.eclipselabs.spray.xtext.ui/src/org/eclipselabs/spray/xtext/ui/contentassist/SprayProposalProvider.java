@@ -37,7 +37,6 @@ import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
-import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
@@ -64,7 +63,6 @@ import com.google.inject.name.Named;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
-@SuppressWarnings("restriction")
 public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @Inject
     private IWorkspaceRoot                root;
@@ -75,6 +73,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private IGlobalScopeProvider          globalScopeProvider;
     @Inject
     private SprayDescriptionLabelProvider descriptionLabelProvider;
+    @SuppressWarnings("unused")
     @Inject
     private SprayGrammarAccess            grammar;
     private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior");
@@ -209,22 +208,13 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
 
     @Override
     public void completeJvmParameterizedTypeReference_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        final ICompletionProposalAcceptor acceptor2 = new ICompletionProposalAcceptor.Delegate(acceptor) {
-            @Override
-            public void accept(ICompletionProposal proposal) {
-                ConfigurableCompletionProposal p = (ConfigurableCompletionProposal) proposal;
-                final QualifiedName qnProposal = qnConverter.toQualifiedName(p.getReplacementString());
-                p.setReplacementString(escapeKeywordFunction.apply(qnProposal).toString());
-                super.accept(p);
-            }
-        };
         if (EcoreUtil2.getContainerOfType(model, CustomBehavior.class) != null) {
             final IJvmTypeProvider jvmTypeProvider = jvmTypeProviderFactory.createTypeProvider(model.eResource().getResourceSet());
             // Graphiti specific
             final JvmType interfaceToImplement = jvmTypeProvider.findTypeByName(ICustomFeature.class.getName());
-            typeProposalProvider.createSubTypeProposals(interfaceToImplement, this, context, SprayPackage.Literals.BEHAVIOR__REALIZED_BY, TypeMatchFilters.canInstantiate(), acceptor2);
+            typeProposalProvider.createSubTypeProposals(interfaceToImplement, this, context, SprayPackage.Literals.BEHAVIOR__REALIZED_BY, TypeMatchFilters.canInstantiate(), acceptor);
         } else {
-            super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor2);
+            super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor);
         }
     }
 }
