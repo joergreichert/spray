@@ -51,7 +51,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
-import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
 import org.eclipselabs.spray.styles.ISprayStyle;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.naming.EscapeKeywordFunction;
@@ -232,7 +231,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         Filter filter = TypeMatchFilters.and(TypeMatchFilters.isPublic(), TypeMatchFilters.canInstantiate());
         if (model instanceof SprayStyleRef) {
             JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
-            proposalProvider.createSubTypeProposals(superType, this, context, ShapesPackage.Literals.SHAPE_STYLE_REF__STYLE, filter, acceptor);
+            proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.SPRAY_STYLE_REF__STYLE, filter, acceptor);
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
     }
