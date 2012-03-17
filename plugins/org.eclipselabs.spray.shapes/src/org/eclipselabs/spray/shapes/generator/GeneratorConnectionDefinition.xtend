@@ -56,9 +56,7 @@ class GeneratorConnectionDefinition {
 			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		    
 			@Override
-			public Connection getConnection(Diagram diagram, ISprayStyle iSprayStyle, Anchor startAnchor, Anchor endAnchor) {
-				Style sprayStyle = iSprayStyle.getStyle(diagram);
-				
+			public Connection getConnection(Diagram diagram, ISprayStyle sprayStyle, Anchor startAnchor, Anchor endAnchor) {
 				«IF c.connectionStyle == null»
 				Connection newConnection = peCreateService.createFreeFormConnection(diagram);
 				«ELSE»
@@ -72,7 +70,7 @@ class GeneratorConnectionDefinition {
 				newConnection.setEnd(endAnchor);
 				
 				Polyline polyline = gaService.createPolyline(newConnection);
-				polyline.setStyle(sprayStyle);
+				polyline.setStyle(sprayStyle.getStyle(diagram));
 
 				// Define general layout of connection
 				«generateStyleForConnection("polyline", c.layout)»

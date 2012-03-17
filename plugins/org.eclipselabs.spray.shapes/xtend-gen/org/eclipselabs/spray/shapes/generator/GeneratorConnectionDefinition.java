@@ -118,12 +118,7 @@ public class GeneratorConnectionDefinition {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("public Connection getConnection(Diagram diagram, ISprayStyle iSprayStyle, Anchor startAnchor, Anchor endAnchor) {");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Style sprayStyle = iSprayStyle.getStyle(diagram);");
-    _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("public Connection getConnection(Diagram diagram, ISprayStyle sprayStyle, Anchor startAnchor, Anchor endAnchor) {");
     _builder.newLine();
     {
       ConnectionStyle _connectionStyle = c.getConnectionStyle();
@@ -164,7 +159,7 @@ public class GeneratorConnectionDefinition {
     _builder.append("Polyline polyline = gaService.createPolyline(newConnection);");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("polyline.setStyle(sprayStyle);");
+    _builder.append("polyline.setStyle(sprayStyle.getStyle(diagram));");
     _builder.newLine();
     _builder.newLine();
     _builder.append("\t\t");

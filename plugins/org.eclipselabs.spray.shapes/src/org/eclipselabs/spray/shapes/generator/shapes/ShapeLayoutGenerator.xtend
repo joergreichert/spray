@@ -7,19 +7,19 @@ class ShapeLayoutGenerator {
 	def generateLayout(ShapeDefinition s) {
 		'''
 		«IF s.shapeLayout.proportional != null»
-		sprayStyle.setProportional(«s.shapeLayout.proportional»);	   
+		sprayStyle.getStyle(diagram).setProportional(«s.shapeLayout.proportional»);	   
 		«ELSE»
-		sprayStyle.setProportional(false);
+		sprayStyle.getStyle(diagram).setProportional(false);
 		«ENDIF»		
 		«IF s.shapeLayout.stretchH != null»
-		sprayStyle.setStretchH(«s.shapeLayout.stretchH»);	   
+		sprayStyle.getStyle(diagram).setStretchH(«s.shapeLayout.stretchH»);	   
 		«ELSE»
-		sprayStyle.setStretchH(false);	   
+		sprayStyle.getStyle(diagram).setStretchH(false);	   
 		«ENDIF»		
 		«IF s.shapeLayout.stretchV != null»
-		sprayStyle.setStretchV(«s.shapeLayout.stretchH»);	   
+		sprayStyle.getStyle(diagram).setStretchV(«s.shapeLayout.stretchH»);	   
 		«ELSE»
-		sprayStyle.setStretchV(false);	   
+		sprayStyle.getStyle(diagram).setStretchV(false);	   
 		«ENDIF»		
 		'''
 	}

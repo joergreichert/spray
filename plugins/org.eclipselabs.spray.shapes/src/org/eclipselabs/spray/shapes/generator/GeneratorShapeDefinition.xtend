@@ -73,9 +73,7 @@ class GeneratorShapeDefinition {
 			}
 
 			@Override
-			public GraphicsAlgorithm getShape(Diagram diagram, PictogramElement pictogramElement, ISprayStyle iSprayStyle) {
-				Style sprayStyle = iSprayStyle.getStyle(diagram);
-
+			public GraphicsAlgorithm getShape(Diagram diagram, PictogramElement pictogramElement, ISprayStyle sprayStyle) {
 				// Define general layout
 				«s.generateLayout»
 				

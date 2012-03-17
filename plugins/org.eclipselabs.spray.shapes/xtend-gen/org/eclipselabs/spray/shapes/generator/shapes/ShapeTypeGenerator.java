@@ -62,6 +62,8 @@ public class ShapeTypeGenerator {
       _builder.newLine();
       _builder.append("GraphicsAlgorithm invisibleRectangle = gaService.createInvisibleRectangle(pictogramElement);");
       _builder.newLine();
+      _builder.append("invisibleRectangle.setStyle(sprayStyle.getStyle(diagram));");
+      _builder.newLine();
       _builder.append("invisibleRectangle.setWidth(");
       int _width = sizeMap.getWidth();
       _builder.append(_width, "");
@@ -73,7 +75,7 @@ public class ShapeTypeGenerator {
       _builder.append(");");
       _builder.newLineIfNotEmpty();
       _builder.newLine();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = s.getStyle();
@@ -88,7 +90,6 @@ public class ShapeTypeGenerator {
           CharSequence _createElement = this.createElement(element, "invisibleRectangle", _operator_plus);
           _builder.append(_createElement, "");
           _builder.newLineIfNotEmpty();
-          _builder.newLine();
         }
       }
       _xblockexpression = (_builder);
@@ -100,7 +101,6 @@ public class ShapeTypeGenerator {
     StringConcatenation _builder = new StringConcatenation();
     {
       for(final Shape element : shapeList) {
-        _builder.newLine();
         CharSequence _createElement = this.createElement(element, attname, shapeStyle);
         _builder.append(_createElement, "");
         _builder.newLineIfNotEmpty();
@@ -158,7 +158,7 @@ public class ShapeTypeGenerator {
       _builder.append(pointListName, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -169,7 +169,7 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
       _builder.newLineIfNotEmpty();
       LineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
@@ -193,7 +193,7 @@ public class ShapeTypeGenerator {
       _builder.append(parentName, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -204,7 +204,7 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
       _builder.newLineIfNotEmpty();
       _builder.append("gaService.setLocationAndSize(");
       _builder.append(attname, "");
@@ -266,7 +266,7 @@ public class ShapeTypeGenerator {
       _builder.append(pointListName, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -277,7 +277,7 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
       _builder.newLineIfNotEmpty();
       PolyLineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
@@ -315,7 +315,7 @@ public class ShapeTypeGenerator {
       _builder.append(pointListName, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -326,7 +326,7 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
       _builder.newLineIfNotEmpty();
       PolyLineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
@@ -358,7 +358,7 @@ public class ShapeTypeGenerator {
       _builder.append(_curveHeight, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -369,7 +369,7 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
       _builder.newLineIfNotEmpty();
       _builder.append("gaService.setLocationAndSize(");
       _builder.append(attname, "");
@@ -422,7 +422,7 @@ public class ShapeTypeGenerator {
       _builder.append(parentName, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -433,7 +433,7 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
       _builder.newLineIfNotEmpty();
       _builder.append("gaService.setLocationAndSize(");
       _builder.append(attname, "");
@@ -499,7 +499,7 @@ public class ShapeTypeGenerator {
           _builder.newLineIfNotEmpty();
         }
       }
-      _builder.append("Style style_");
+      _builder.append("ISprayStyle style_");
       _builder.append(this.element_index, "");
       _builder.append(" = ");
       ShapeStyleRef _style = element.getStyle();
@@ -510,7 +510,12 @@ public class ShapeTypeGenerator {
       _builder.append(attname, "");
       _builder.append(".setStyle(style_");
       _builder.append(this.element_index, "");
-      _builder.append(");");
+      _builder.append(".getStyle(diagram));");
+      _builder.newLineIfNotEmpty();
+      _builder.append(attname, "");
+      _builder.append(".setForeground(style_");
+      _builder.append(this.element_index, "");
+      _builder.append(".getFontColor(diagram));");
       _builder.newLineIfNotEmpty();
       _builder.append("gaService.setLocationAndSize(");
       _builder.append(attname, "");
@@ -652,7 +657,7 @@ public class ShapeTypeGenerator {
       JvmTypeReference _style = s.getStyle();
       String _qualifiedName = _style.getQualifiedName();
       _builder.append(_qualifiedName, "");
-      _builder.append("().getStyle(diagram)");
+      _builder.append("()");
       _xifexpression = _builder;
     } else {
       _xifexpression = styleName;

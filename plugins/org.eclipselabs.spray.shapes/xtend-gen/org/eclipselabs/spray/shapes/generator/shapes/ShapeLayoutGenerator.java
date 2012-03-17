@@ -14,14 +14,14 @@ public class ShapeLayoutGenerator {
       boolean _isProportional = _shapeLayout.isProportional();
       boolean _operator_notEquals = ObjectExtensions.operator_notEquals(Boolean.valueOf(_isProportional), null);
       if (_operator_notEquals) {
-        _builder.append("sprayStyle.setProportional(");
+        _builder.append("sprayStyle.getStyle(diagram).setProportional(");
         ShapeLayout _shapeLayout_1 = s.getShapeLayout();
         boolean _isProportional_1 = _shapeLayout_1.isProportional();
         _builder.append(_isProportional_1, "");
         _builder.append(");\t   ");
         _builder.newLineIfNotEmpty();
       } else {
-        _builder.append("sprayStyle.setProportional(false);");
+        _builder.append("sprayStyle.getStyle(diagram).setProportional(false);");
         _builder.newLine();
       }
     }
@@ -30,14 +30,14 @@ public class ShapeLayoutGenerator {
       boolean _isStretchH = _shapeLayout_2.isStretchH();
       boolean _operator_notEquals_1 = ObjectExtensions.operator_notEquals(Boolean.valueOf(_isStretchH), null);
       if (_operator_notEquals_1) {
-        _builder.append("sprayStyle.setStretchH(");
+        _builder.append("sprayStyle.getStyle(diagram).setStretchH(");
         ShapeLayout _shapeLayout_3 = s.getShapeLayout();
         boolean _isStretchH_1 = _shapeLayout_3.isStretchH();
         _builder.append(_isStretchH_1, "");
         _builder.append(");\t   ");
         _builder.newLineIfNotEmpty();
       } else {
-        _builder.append("sprayStyle.setStretchH(false);\t   ");
+        _builder.append("sprayStyle.getStyle(diagram).setStretchH(false);\t   ");
         _builder.newLine();
       }
     }
@@ -46,14 +46,14 @@ public class ShapeLayoutGenerator {
       boolean _isStretchV = _shapeLayout_4.isStretchV();
       boolean _operator_notEquals_2 = ObjectExtensions.operator_notEquals(Boolean.valueOf(_isStretchV), null);
       if (_operator_notEquals_2) {
-        _builder.append("sprayStyle.setStretchV(");
+        _builder.append("sprayStyle.getStyle(diagram).setStretchV(");
         ShapeLayout _shapeLayout_5 = s.getShapeLayout();
         boolean _isStretchH_2 = _shapeLayout_5.isStretchH();
         _builder.append(_isStretchH_2, "");
         _builder.append(");\t   ");
         _builder.newLineIfNotEmpty();
       } else {
-        _builder.append("sprayStyle.setStretchV(false);\t   ");
+        _builder.append("sprayStyle.getStyle(diagram).setStretchV(false);\t   ");
         _builder.newLine();
       }
     }

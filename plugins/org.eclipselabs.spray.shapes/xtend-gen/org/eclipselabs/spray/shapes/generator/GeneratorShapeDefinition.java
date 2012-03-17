@@ -156,11 +156,7 @@ public class GeneratorShapeDefinition {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("public GraphicsAlgorithm getShape(Diagram diagram, PictogramElement pictogramElement, ISprayStyle iSprayStyle) {");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Style sprayStyle = iSprayStyle.getStyle(diagram);");
-    _builder.newLine();
+    _builder.append("public GraphicsAlgorithm getShape(Diagram diagram, PictogramElement pictogramElement, ISprayStyle sprayStyle) {");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("// Define general layout");

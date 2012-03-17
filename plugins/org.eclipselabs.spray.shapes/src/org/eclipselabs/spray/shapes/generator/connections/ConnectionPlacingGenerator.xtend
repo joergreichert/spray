@@ -39,8 +39,8 @@ class ConnectionPlacingGenerator {
 		'''
 		«createPointList(element.layout.point, plname, x, y)»
 		Polyline «attname» = gaService.createPolyline(«parentName», «plname»);
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
@@ -59,8 +59,8 @@ class ConnectionPlacingGenerator {
 		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));
 		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));
 		Polygon «attname» = gaService.createPolygon(«parentName», «plname»);
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
 		«generateStyleForConnection(attname, element.layout.layout)»
 		}
      	'''
@@ -74,8 +74,8 @@ class ConnectionPlacingGenerator {
 		'''
 		«createPointList(element.layout.point, plname,x,y)»
 		Polygon «attname» = gaService.createPolygon(«parentName», «plname»);
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
@@ -88,8 +88,8 @@ class ConnectionPlacingGenerator {
 		'''
 		«createPointList(element.layout.point, plname,x,y)»
 		Polyline «attname» = gaService.createPolyline(«parentName», «plname»);
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
@@ -108,8 +108,8 @@ class ConnectionPlacingGenerator {
 		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveHeight», «element.layout.curveWidth»);
 		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveWidth», «element.layout.curveHeight»);
 		Polygon «attname» = gaService.createPolygon(«parentName», «plname»);
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
 		«generateStyleForConnection(attname, element.layout.layout)»
 		}
      	'''
@@ -121,8 +121,8 @@ class ConnectionPlacingGenerator {
 		var y = getYPositionforAngle(distance, angle)
 		'''
 		Ellipse «attname» = gaService.createEllipse(«parentName»);
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
@@ -139,8 +139,9 @@ class ConnectionPlacingGenerator {
 		«ELSE»
 		MultiText «attname» = gaService.createMultiText(«parentName»);
 		«ENDIF»
-		Style style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style);
+		ISprayStyle style = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style.getStyle(diagram));
+		«attname».setForeground(style.getFontColor(diagram));
 		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
@@ -181,7 +182,7 @@ class ConnectionPlacingGenerator {
 	
 	def styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {
-			'''new «s.style.qualifiedName»().getStyle(diagram)'''
+			'''new «s.style.qualifiedName»()'''
 		} else {
 			styleName
 		}

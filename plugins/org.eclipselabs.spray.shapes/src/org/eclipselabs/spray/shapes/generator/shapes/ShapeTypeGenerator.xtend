@@ -35,13 +35,13 @@ class ShapeTypeGenerator {
 		'''
 		// Create a Invisible Rectangle Around the Elements
 		GraphicsAlgorithm invisibleRectangle = gaService.createInvisibleRectangle(pictogramElement);
+		invisibleRectangle.setStyle(sprayStyle.getStyle(diagram));
 		invisibleRectangle.setWidth(«sizeMap.width»);
 		invisibleRectangle.setHeight(«sizeMap.heigth»);
 		
-		Style style_«element_index» = «s.style.styleForElement("sprayStyle")»;
+		ISprayStyle style_«element_index» = «s.style.styleForElement("sprayStyle")»;
 		«FOR element : s.shape»
 		«element.createElement("invisibleRectangle", "style_"+element_index)»
-
 		«ENDFOR»
 		'''
 	}
@@ -49,7 +49,6 @@ class ShapeTypeGenerator {
 	def recursiveCreation(EList<Shape> shapeList, String attname, String shapeStyle) {	
 		'''
 		«FOR element : shapeList»
-
 		«element.createElement(attname,shapeStyle)»
       	«ENDFOR»
       	'''
@@ -70,8 +69,8 @@ class ShapeTypeGenerator {
 		'''
 		«createPointList(element.layout.point, pointListName)»
 		Polyline «attname» = gaService.createPolyline(«parentName», «pointListName»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
 		«generateStyleForElement(attname, element.layout.layout)»
      	'''
 	}
@@ -80,8 +79,8 @@ class ShapeTypeGenerator {
 		val attname = nextAttributeName
 		'''
 		Rectangle «attname» = gaService.createRectangle(«parentName»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«generateStyleForElement(attname, element.layout.layout)»
 		«element.shape.recursiveCreation(attname, "style_"+element_index)»
@@ -94,8 +93,8 @@ class ShapeTypeGenerator {
 		'''
 		«createPointList(element.layout.point, pointListName)»
 		Polygon «attname» = gaService.createPolygon(«parentName», «pointListName»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
 		«generateStyleForElement(attname, element.layout.layout)»
 		«element.shape.recursiveCreation(attname, "style_"+element_index)»
      	'''
@@ -107,8 +106,8 @@ class ShapeTypeGenerator {
 		'''
 		«createPointList(element.layout.point, pointListName)»
 		Polyline «attname» = gaService.createPolyline(«parentName», «pointListName»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
 		«generateStyleForElement(attname, element.layout.layout)»
      	'''
 	}
@@ -117,8 +116,8 @@ class ShapeTypeGenerator {
 		val attname = nextAttributeName
 		'''
 		RoundedRectangle «attname» = gaService.createRoundedRectangle(«parentName», «element.layout.curveWidth», «element.layout.curveHeight»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«generateStyleForElement(attname, element.layout.layout)»
 		«element.shape.recursiveCreation(attname, "style_"+element_index)»
@@ -129,8 +128,8 @@ class ShapeTypeGenerator {
 		val attname = nextAttributeName
 		'''
 		Ellipse «attname» = gaService.createEllipse(«parentName»);
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«generateStyleForElement(attname, element.layout.layout)»
 		«element.shape.recursiveCreation(attname, "style_"+element_index)»
@@ -145,8 +144,9 @@ class ShapeTypeGenerator {
 		«ELSE»
 		MultiText «attname» = gaService.createMultiText(«parentName»);
 		«ENDIF»
-		Style style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
+		«attname».setForeground(style_«element_index».getFontColor(diagram));
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
@@ -178,7 +178,7 @@ class ShapeTypeGenerator {
 
 	def styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {
-			'''new «s.style.qualifiedName»().getStyle(diagram)'''
+			'''new «s.style.qualifiedName»()'''
 		} else {
 			styleName
 		}
