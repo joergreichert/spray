@@ -14,10 +14,27 @@ import org.eclipse.graphiti.util.IColorConstant;
 public class DefaultSprayStyle implements ISprayStyle {
 
 	/**
-	 * This is the default Style definition for Spray
+	 * Singleton attribute for Style
+	 */
+	private Style style;
+
+	/**
+	 * Creates a new instance of the Style and resets the style to the old
+	 * singleton again.
 	 */
 	@Override
 	public Style getStyle(Diagram diagram) {
+		if(style == null) {
+			style = newStyle(diagram);
+		}
+		return style;
+	}
+
+	/**
+	 * This is the default Style definition for Spray
+	 */
+	@Override
+	public Style newStyle(Diagram diagram) {
 		IGaService gaService = Graphiti.getGaService();
 
 		// Creating Style with given id and description
@@ -29,20 +46,24 @@ public class DefaultSprayStyle implements ISprayStyle {
 
 		// Setting the background color
 		style.setFilled(true);
-		style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		style.setBackground(gaService.manageColor(diagram,
+				IColorConstant.WHITE));
 
-		// Setting the line attributes (line color is called foreground color)
+		// Setting the line attributes (line color is called foreground
+		// color)
 		style.setLineVisible(true);
-		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+		style.setForeground(gaService.manageColor(diagram,
+				IColorConstant.BLACK));
 		style.setLineWidth(1);
 		style.setLineStyle(LineStyle.SOLID);
 
-		// Managing the font (default values are Arial, size 8, no italic, no
+		// Managing the font (default values are Arial, size 8, no italic,
+		// no
 		// bold)
 		String fontName = "Arial";
 		int fontSize = 8;
-		style.setFont(gaService.manageFont(diagram, fontName, fontSize, false, false));
-
+		style.setFont(gaService.manageFont(diagram, fontName, fontSize,
+				false, false));
 		return style;
 	}
 

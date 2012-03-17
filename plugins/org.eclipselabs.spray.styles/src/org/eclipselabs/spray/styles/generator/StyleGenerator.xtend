@@ -77,16 +77,15 @@ class StyleGenerator implements IGenerator {
 			 * Description: «s.description»
 			 */
 		    @Override
-			public Style getStyle(Diagram diagram) {
+			public Style newStyle(Diagram diagram) {
 				IGaService gaService = Graphiti.getGaService();
 				
 				// Creating Style with given id and description
-				Style style = super.getStyle(diagram);
+				Style style = super.newStyle(diagram);
 				style.setId("«s.name»");
 				style.setDescription("«s.description»");
 				
 				«s.layout.createLayout»
-			    
 				return style;
 			}
 			
@@ -199,11 +198,7 @@ class StyleGenerator implements IGenerator {
     
     def createFontColor(StyleLayout l) {
     	if(l == null || l.fontColor == null) {
- 			if(l == null || l.lineColor == null) {
-				'''return super.getFontColor(diagram);'''
- 			} else {
- 				l.lineColor.createFontColor
- 			}
+ 			'''return super.getFontColor(diagram);'''
     	} else {
     		l.fontColor.createFontColor
     	}

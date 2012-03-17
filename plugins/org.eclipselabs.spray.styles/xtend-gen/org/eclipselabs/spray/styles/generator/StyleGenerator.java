@@ -166,7 +166,7 @@ public class StyleGenerator implements IGenerator {
     _builder.append("@Override");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("public Style getStyle(Diagram diagram) {");
+    _builder.append("public Style newStyle(Diagram diagram) {");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("IGaService gaService = Graphiti.getGaService();");
@@ -177,7 +177,7 @@ public class StyleGenerator implements IGenerator {
     _builder.append("// Creating Style with given id and description");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("Style style = super.getStyle(diagram);");
+    _builder.append("Style style = super.newStyle(diagram);");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("style.setId(\"");
@@ -198,8 +198,6 @@ public class StyleGenerator implements IGenerator {
     CharSequence _createLayout = this.createLayout(_layout);
     _builder.append(_createLayout, "		");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t    ");
-    _builder.newLine();
     _builder.append("\t\t");
     _builder.append("return style;");
     _builder.newLine();
@@ -528,30 +526,13 @@ public class StyleGenerator implements IGenerator {
       _operator_or = BooleanExtensions.operator_or(_operator_equals, _operator_equals_1);
     }
     if (_operator_or) {
-      CharSequence _xifexpression_1 = null;
-      boolean _operator_or_1 = false;
-      boolean _operator_equals_2 = ObjectExtensions.operator_equals(l, null);
-      if (_operator_equals_2) {
-        _operator_or_1 = true;
-      } else {
-        ColorWithTransparency _lineColor = l.getLineColor();
-        boolean _operator_equals_3 = ObjectExtensions.operator_equals(_lineColor, null);
-        _operator_or_1 = BooleanExtensions.operator_or(_operator_equals_2, _operator_equals_3);
-      }
-      if (_operator_or_1) {
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("return super.getFontColor(diagram);");
-        _xifexpression_1 = _builder;
-      } else {
-        ColorWithTransparency _lineColor_1 = l.getLineColor();
-        CharSequence _createFontColor = this.createFontColor(_lineColor_1);
-        _xifexpression_1 = _createFontColor;
-      }
-      _xifexpression = _xifexpression_1;
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("return super.getFontColor(diagram);");
+      _xifexpression = _builder;
     } else {
       Color _fontColor_1 = l.getFontColor();
-      CharSequence _createFontColor_1 = this.createFontColor(_fontColor_1);
-      _xifexpression = _createFontColor_1;
+      CharSequence _createFontColor = this.createFontColor(_fontColor_1);
+      _xifexpression = _createFontColor;
     }
     return _xifexpression;
   }
