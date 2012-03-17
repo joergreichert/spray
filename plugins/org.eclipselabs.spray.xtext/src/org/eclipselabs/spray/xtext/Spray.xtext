@@ -7,8 +7,7 @@ import 'http://www.eclipselabs.org/spray/shapes/Shape' as shapes
 
 Diagram :
     imports+=Import*
-    'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName]
-    
+    'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? 
     
     (
         behaviourGroups += BehaviorGroup
@@ -29,7 +28,7 @@ SprayElement :
     ShapeInSpray | MetaReferenceAsShape;
 
 MetaClass :
-    'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)?
+    'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)? (style=SprayStyleRef)? 
     ':' 
     ( representedBy=ShapeInSpray )
     (
@@ -84,6 +83,9 @@ ShapeFromDsl : { ShapeFromDsl }
         properties+=ShapePropertyAssignment+
     '}')?
 ;
+
+SprayStyleRef:
+	'style' (style=JvmTypeReference);
 
 ShapePropertyAssignment: 
     key=[types::JvmFormalParameter|QualifiedName] OpSingleAssign value=XExpression

@@ -12,6 +12,8 @@
         eType="#//BehaviorGroup" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelType" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//SprayStyleRef"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ShapeInSpray" abstract="true" eSuperTypes="#//SprayElement #//AliasableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="represents" eType="#//MetaClass"
@@ -84,6 +86,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="representedByShape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.ecore#//Shape"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.ecore#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//SprayStyleRef"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaReference" eSuperTypes="#//SprayElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ConnectionInSpray"
@@ -147,6 +151,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ShapePropertyAssignment">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmFormalParameter"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SprayStyleRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

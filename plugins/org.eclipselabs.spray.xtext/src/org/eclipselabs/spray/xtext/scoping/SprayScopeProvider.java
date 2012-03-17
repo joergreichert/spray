@@ -62,6 +62,8 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
+import org.eclipselabs.spray.mm.spray.SprayStyleRef;
+import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
 import com.google.common.base.Function;
@@ -184,6 +186,10 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             if (colorConstant != null) {
                 return getColorConstantTypeScope(colorConstant);
             }
+            SprayStyleRef style = EcoreUtil2.getContainerOfType(context, SprayStyleRef.class);
+            if (style != null) {
+                return scope_ShapeStyleRefScope(style, context, reference);
+            }
         } else if (reference == COLOR_CONSTANT_REF__FIELD) {
             return getColorConstantFieldScope(context);
         } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
@@ -197,6 +203,21 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         //        }
         //        System.out.println("!");
         return scope;
+    }
+
+    /**
+     * Restrict the scope of styles to the Styles implementing ISprayStyle
+     * 
+     * @param style
+     * @param context
+     * @param reference
+     * @return
+     */
+    protected IScope scope_ShapeStyleRefScope(SprayStyleRef style, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
     }
 
     /**
