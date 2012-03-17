@@ -16,6 +16,7 @@ import org.eclipselabs.spray.mm.spray.SprayElement
 import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
 
 
 class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
@@ -24,6 +25,18 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
     @Inject extension NamingExtensions
     @Inject extension SprayElementNameProvider
     @Inject extension DiagramExtensions
+    
+    MetaClass metaClass = null
+    SprayStyleRef styleRef = null
+    
+    def setAttributes(MetaClass cls, SprayStyleRef ssr){
+        metaClass = cls
+        if(metaClass.style != null) {
+        	styleRef = metaClass.style
+        } else if(ssr != null) {
+        	styleRef = ssr
+        }
+    }
     
     override CharSequence generateBaseFile(ContainerInSpray modelElement) {
         mainFile( modelElement as ContainerInSpray, javaGenFile.baseClassName)

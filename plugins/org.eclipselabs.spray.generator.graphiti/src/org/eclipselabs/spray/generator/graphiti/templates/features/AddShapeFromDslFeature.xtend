@@ -9,17 +9,23 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
 
-
-//class AddShapeFromDslFeature extends FileGenerator<Shape>  {
-class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
+class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
+	
     @Inject extension NamingExtensions
     @Inject extension SprayCompiler
     
     MetaClass metaClass = null
+    SprayStyleRef styleRef = null
     
-    def setMetaClass(MetaClass cls){
+    def setAttributes(MetaClass cls, SprayStyleRef ssr){
         metaClass = cls
+        if(metaClass.style != null) {
+        	styleRef = metaClass.style
+        } else if(ssr != null) {
+        	styleRef = ssr
+        }
     }
     
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
@@ -47,8 +53,9 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         «header(this)»
         package «feature_package()»;
         
-        import «metaClass.javaInterfaceName»;
         import org.eclipse.emf.ecore.EObject;
+        import «metaClass.javaInterfaceName»;
+        import com.google.common.base.Function;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -56,13 +63,14 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-        import org.eclipselabs.spray.shapes.ISprayShape;
-        import org.eclipselabs.spray.styles.ISprayStyle;
-        import org.eclipselabs.spray.styles.DefaultSprayStyle;
-        import com.google.common.base.Function;
-
         import org.eclipselabs.spray.shapes.«container.shape.name»;
+        import org.eclipselabs.spray.styles.ISprayStyle;
+        «IF styleRef != null && styleRef.style != null»
+        import «styleRef.style.qualifiedName»;
+        «ELSE»
+        import org.eclipselabs.spray.styles.DefaultSprayStyle;
+        «ENDIF»
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         // MARKER_IMPORT
 
         public class «className» extends AbstractAddFeature {
@@ -92,7 +100,11 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
                 
                 // Diagram targetDiagram = (Diagram) context.getTargetContainer();
+                «IF styleRef != null && styleRef.style != null»
+                ISprayStyle style = new «styleRef.style.simpleName»();
+                «ELSE»
                 ISprayStyle style = new DefaultSprayStyle();
+                «ENDIF»
                 «container.shape.name» shape = new «container.shape.name»();
                 «FOR property : container.propertiesList»
                 {

@@ -176,7 +176,7 @@ class SprayGraphitiGenerator implements IGenerator {
         for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ContainerInSpray)){
             var container = metaClass.representedBy as ContainerInSpray
             java.setPackageAndClass(metaClass.addFeatureClassName)
-            
+            asf.setAttributes(metaClass, diagram.style)
             asf.generate(container, java)
         }
     }
@@ -184,7 +184,7 @@ class SprayGraphitiGenerator implements IGenerator {
         for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl )){
             var container = metaClass.representedBy as ShapeFromDsl
             java.setPackageAndClass(metaClass.addFeatureClassName)
-            asf.setMetaClass(metaClass)
+            asf.setAttributes(metaClass, diagram.style)
             asf.generate(container, java)
         }
     }    
