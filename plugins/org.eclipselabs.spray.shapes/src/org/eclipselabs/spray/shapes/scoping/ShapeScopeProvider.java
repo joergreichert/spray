@@ -7,14 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
+import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
+import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
+
+import com.google.common.base.Predicate;
 
 /**
  * This class contains custom scoping description.
@@ -29,35 +38,35 @@ public class ShapeScopeProvider extends XbaseScopeProvider {
 	 * Gets the Scope of a JvmParametrizedType by refercing to the Shape or the
 	 * Style Interface
 	 */
-//	@Override
-//	public IScope getScope(EObject context, EReference reference) {
-//		if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
+	@Override
+	public IScope getScope(EObject context, EReference reference) {
+		if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
 //			ShapeRef shape = EcoreUtil2.getContainerOfType(context, ShapeRef.class);
-//			ShapeStyleRef style = EcoreUtil2.getContainerOfType(context, ShapeStyleRef.class);
+			ShapeStyleRef style = EcoreUtil2.getContainerOfType(context, ShapeStyleRef.class);
 //			if (shape != null) {
 //				return getShapeTypeScope(shape);
 //			}
-//			if (style != null) {
-//				return getStyleTypeScope(style);
-//			}
-//		}
-//		return super.getScope(context, reference);
-//	}
+			if (style != null) {
+				return getStyleTypeScope(style);
+			}
+		}
+		return super.getScope(context, reference);
+	}
 
 	/**
-	 * Returns the Scope of a Style by referrincing the Style Interface
+	 * Returns the Scope of a Style by referencing the Style Interface
 	 * (ISprayStyle)
 	 * 
 	 * @param style
 	 *            of the ShapeStyleRef context
 	 * @return the restricted IScope
 	 */
-//	protected IScope getStyleTypeScope(ShapeStyleRef style) {
-//		IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-//		Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
-//		IScope result = new FilteringScope(typesScope, stylesFilter);
-//		return result;
-//	}
+	protected IScope getStyleTypeScope(ShapeStyleRef style) {
+		IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+		Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
+		IScope result = new FilteringScope(typesScope, stylesFilter);
+		return result;
+	}
 
 	/**
 	 * Returns the Scope of another Shape by referrincing the Shape Interface
