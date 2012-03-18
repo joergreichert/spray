@@ -10,12 +10,23 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
 
 
 class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
    
     @Inject extension NamingExtensions
     @Inject extension SprayCompiler
+    
+    SprayStyleRef styleRef = null
+    
+    def setAttributes(MetaClass metaClass, SprayStyleRef ssr){
+        if(metaClass.style != null) {
+        	styleRef = metaClass.style
+        } else if(ssr != null) {
+        	styleRef = ssr
+        }
+    }
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -56,9 +67,12 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
-        import org.eclipselabs.spray.shapes.ISprayConnection;
         import org.eclipselabs.spray.styles.ISprayStyle;
+        «IF styleRef != null && styleRef.style != null»
+        import «styleRef.style.qualifiedName»;
+        «ELSE»
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
+        «ENDIF»
         import com.google.common.base.Function;
         
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
@@ -106,8 +120,11 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             IAddConnectionContext addConContext = (IAddConnectionContext) context;
             // TODO: Domain object
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
-
+            «IF styleRef != null && styleRef.style != null»
+            ISprayStyle style = new «styleRef.style.simpleName»();
+            «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
+            «ENDIF»
             «connection.connection.name» connection = new «connection.connection.name»();
             «FOR property : connection.propertiesList»
             {

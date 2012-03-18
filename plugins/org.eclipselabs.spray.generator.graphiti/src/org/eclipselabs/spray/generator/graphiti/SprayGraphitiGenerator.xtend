@@ -199,6 +199,7 @@ class SprayGraphitiGenerator implements IGenerator {
         for( metaClass : diagram.metaClasses.filter(m | (m.representedBy instanceof ConnectionInSpray) && ( (m.representedBy as ConnectionInSpray).connection != null) )){
             //var connection = metaClass.representedBy as Connection
             java.setPackageAndClass(metaClass.addFeatureClassName)
+            addConnectionFromDslFeature.setAttributes(metaClass, diagram.style)
             addConnectionFromDslFeature.generate(metaClass, java)
         }
     }
