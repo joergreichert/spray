@@ -48,8 +48,8 @@ public class ShapeLayoutGenerator {
       if (_operator_notEquals_2) {
         _builder.append("sprayStyle.getStyle(diagram).setStretchV(");
         ShapeLayout _shapeLayout_5 = s.getShapeLayout();
-        boolean _isStretchH_2 = _shapeLayout_5.isStretchH();
-        _builder.append(_isStretchH_2, "");
+        boolean _isStretchV_1 = _shapeLayout_5.isStretchV();
+        _builder.append(_isStretchV_1, "");
         _builder.append(");\t   ");
         _builder.newLineIfNotEmpty();
       } else {

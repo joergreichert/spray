@@ -17,7 +17,7 @@ class ShapeLayoutGenerator {
 		sprayStyle.getStyle(diagram).setStretchH(false);	   
 		«ENDIF»		
 		«IF s.shapeLayout.stretchV != null»
-		sprayStyle.getStyle(diagram).setStretchV(«s.shapeLayout.stretchH»);	   
+		sprayStyle.getStyle(diagram).setStretchV(«s.shapeLayout.stretchV»);	   
 		«ELSE»
 		sprayStyle.getStyle(diagram).setStretchV(false);	   
 		«ENDIF»		
