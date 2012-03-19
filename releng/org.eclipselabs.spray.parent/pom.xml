@@ -128,8 +128,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
-					<!-- We cannot use newer versions, since the EMMA task fails with > 1.3 -->
-					<version>1.3</version>
+					<version>1.7</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
