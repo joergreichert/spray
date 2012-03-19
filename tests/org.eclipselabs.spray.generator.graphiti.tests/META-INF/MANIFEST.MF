@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-SymbolicName: org.eclipselabs.spray.generator.graphiti.tests
-Bundle-Version: 0.4.0.qualifier
+Bundle-Version: 0.4.0.v20120319-1152
 Fragment-Host: org.eclipselabs.spray.generator.graphiti
 Require-Bundle: org.eclipselabs.spray.xtext.tests,
  org.eclipse.xtext.junit4;bundle-version="2.0.1",
