@@ -21,3 +21,4 @@ docs/org.eclipselabs.spray.styles.doc/docs/
 docs/org.eclipselabs.spray.shapes.doc/docs/
 /examples/one/org.eclipselabs.spray.examples.one/src/plugin.xml
 *.ec
+*.zip
