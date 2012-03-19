@@ -7,9 +7,8 @@ Spray is using Maven Tycho for building. You need a Maven 3 installation.
 To build Spray, change to the @/releng/org.eclipselabs.spray.distribution@ directory and enter
 
 bc. 
-mvn clean install
+mvn clean install -Pskip.ui.tests
 
- 
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
 bc.. 
@@ -45,6 +44,10 @@ Spray's Parent POM can be found at @releng/org.eclipselabs.spray.parent/pom.xml@
 h3. Plugin Management
 
 All Maven Plugins that are used in the build are declared in the @<pluginManagement>@ section. Plugin versions are only managed here, module POMs must not specify any plugin version! If a common configuration can be defined for a plugin, this configuration is already added to the plugin in the plugin management section.
+
+To check for possible updates run frequently
+
+bc. mvn versions:display-plugin-updates
 
 h2. Profiles
 
