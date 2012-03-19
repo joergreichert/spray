@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipselabs.spray.runtime.graphiti.zest
-Bundle-Version: 0.4.0.v20120319-1152
+Bundle-Version: 0.5.0.qualifier
 Require-Bundle: org.eclipse.graphiti;bundle-version="0.8.0",
  org.eclipse.zest.layouts;bundle-version="1.1.0",
  org.eclipse.ui;bundle-version="3.7.0",

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.spray.feature.source"
       label="%featureName"
-      version="0.4.0.v20120319-1152"
+      version="0.5.0.qualifier"
       provider-name="%providerName">
 
    <description>
