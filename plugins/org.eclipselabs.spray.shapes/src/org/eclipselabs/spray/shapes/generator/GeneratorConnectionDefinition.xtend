@@ -34,6 +34,7 @@ class GeneratorConnectionDefinition {
 		import java.util.ArrayList;
 		import java.util.List;
 
+		import org.eclipse.graphiti.features.*;
 		import org.eclipse.graphiti.mm.algorithms.*;
 		import org.eclipse.graphiti.mm.algorithms.styles.*;
 		import org.eclipse.graphiti.mm.pictograms.*;
@@ -54,6 +55,10 @@ class GeneratorConnectionDefinition {
 			
 			private IGaService gaService = Graphiti.getGaService();
 			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		    
+		    public «c.className»(IFeatureProvider fp) {
+				super(fp);
+			}
 		    
 			@Override
 			public Connection getConnection(Diagram diagram, ISprayStyle sprayStyle, Anchor startAnchor, Anchor endAnchor) {

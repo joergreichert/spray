@@ -125,7 +125,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
             «ENDIF»
-            «connection.connection.name» connection = new «connection.connection.name»();
+            «connection.connection.name» connection = new «connection.connection.name»(getFeatureProvider());
             «FOR property : connection.propertiesList»
             {
             	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedDomainObject")»
