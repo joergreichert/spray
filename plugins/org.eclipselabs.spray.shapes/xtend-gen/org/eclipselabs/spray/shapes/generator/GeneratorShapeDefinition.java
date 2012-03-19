@@ -78,6 +78,8 @@ public class GeneratorShapeDefinition {
     _builder.append("import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;");
     _builder.newLine();
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.features.*;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.context.IAddContext;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;");
@@ -91,6 +93,7 @@ public class GeneratorShapeDefinition {
     _builder.append("import org.eclipse.graphiti.util.ColorConstant;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.util.IColorConstant;");
+    _builder.newLine();
     _builder.newLine();
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.*;");
@@ -122,7 +125,19 @@ public class GeneratorShapeDefinition {
     _builder.append("\t");
     _builder.append("private IPeCreateService peCreateService = Graphiti.getPeCreateService();");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public ");
+    String _className_1 = this.className(s);
+    _builder.append(_className_1, "	");
+    _builder.append("(IFeatureProvider fp) {");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
+    _builder.append("super(fp);");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
     _builder.newLine();
     _builder.newLine();
     _builder.append("\t");

@@ -479,6 +479,8 @@ public class ShapeTypeGenerator {
     {
       String _nextAttributeName = this.nextAttributeName();
       final String attname = _nextAttributeName;
+      String _operator_plus = StringExtensions.operator_plus("deinfo_", Integer.valueOf(this.element_index));
+      final String editingname = _operator_plus;
       StringConcatenation _builder = new StringConcatenation();
       {
         TextType _texttype = element.getTexttype();
@@ -569,6 +571,21 @@ public class ShapeTypeGenerator {
       ShapestyleLayout _layout_7 = _layout_6.getLayout();
       CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_7);
       _builder.append(_generateStyleForElement, "");
+      _builder.newLineIfNotEmpty();
+      _builder.append("IDirectEditingInfo ");
+      _builder.append(editingname, "");
+      _builder.append(" = getFeatureProvider().getDirectEditingInfo();");
+      _builder.newLineIfNotEmpty();
+      _builder.append(editingname, "");
+      _builder.append(".setMainPictogramElement(pictogramElement);");
+      _builder.newLineIfNotEmpty();
+      _builder.append(editingname, "");
+      _builder.append(".setPictogramElement(pictogramElement);");
+      _builder.newLineIfNotEmpty();
+      _builder.append(editingname, "");
+      _builder.append(".setGraphicsAlgorithm(");
+      _builder.append(attname, "");
+      _builder.append(");");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
     }

@@ -37,6 +37,7 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.mm.algorithms.styles.Point;
 		import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 		
+		import org.eclipse.graphiti.features.*;
 		import org.eclipse.graphiti.features.context.IAddContext;
 		import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 		import org.eclipse.graphiti.services.Graphiti;
@@ -44,6 +45,7 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.services.IPeCreateService;
 		import org.eclipse.graphiti.util.ColorConstant;
 		import org.eclipse.graphiti.util.IColorConstant;
+		
 		
 		import org.eclipse.graphiti.mm.pictograms.*;
 		import org.eclipse.graphiti.mm.algorithms.*;
@@ -60,7 +62,10 @@ class GeneratorShapeDefinition {
 		    
 			private IGaService gaService = Graphiti.getGaService();
 			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
-				
+			
+			public «s.className»(IFeatureProvider fp) {
+				super(fp);
+			}
 
 			@Override
 			public ContainerShape getShape(Diagram diagram, ISprayStyle sprayStyle) {
