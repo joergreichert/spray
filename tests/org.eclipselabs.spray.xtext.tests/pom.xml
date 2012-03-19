@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.eclipselabs.spray</groupId>
@@ -17,8 +16,7 @@
 		<property name="maven.emma.report.xml" value="true" />
 	</properties>
 	<dependencies>
-		<!-- It is important to have JUnit >= 4.7 as dependency to select the right 
-			JUnit Provider see http://maven.apache.org/plugins/maven-surefire-plugin/examples/junit.html -->
+		<!-- It is important to have JUnit >= 4.7 as dependency to select the right JUnit Provider see http://maven.apache.org/plugins/maven-surefire-plugin/examples/junit.html -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -72,46 +70,48 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- EMMA Ant report fails with antrun > 1.3 -->
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>emma</groupId>
-                        <artifactId>emma_ant</artifactId>
-                        <version>2.0.5312</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>emma</groupId>
-                        <artifactId>emma</artifactId>
-                        <version>2.0.5312</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>emma-report</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <taskdef resource="emma_ant.properties" />
-                                <echo>Process emma report...</echo>
-                                <emma enabled="true">
-                                    <report>
-                                        <infileset dir="${project.build.directory}" includes="*.ec,*.em" />
-                                        <txt outfile="${project.build.directory}/coverage.txt" />
-                                        <xml outfile="${project.build.directory}/coverage.xml" />
-                                    </report>
-                                </emma>
-                                <loadfile property="emma.txt" srcFile="${project.build.directory}/coverage.txt" failonerror="false" />
-                                <echo>${emma.txt}</echo>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.3</version>
+				<dependencies>
+					<dependency>
+						<groupId>emma</groupId>
+						<artifactId>emma_ant</artifactId>
+						<version>2.0.5312</version>
+					</dependency>
+					<dependency>
+						<groupId>emma</groupId>
+						<artifactId>emma</artifactId>
+						<version>2.0.5312</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>emma-report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<taskdef resource="emma_ant.properties" />
+								<echo>Process emma report...</echo>
+								<emma enabled="true">
+									<report>
+										<infileset dir="${project.build.directory}" includes="*.ec,*.em" />
+										<txt outfile="${project.build.directory}/coverage.txt" />
+										<xml outfile="${project.build.directory}/coverage.xml" />
+									</report>
+								</emma>
+								<loadfile property="emma.txt" srcFile="${project.build.directory}/coverage.txt" failonerror="false" />
+								<echo>${emma.txt}</echo>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
