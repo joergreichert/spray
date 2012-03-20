@@ -105,7 +105,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 «ELSE»
                 ISprayStyle style = new DefaultSprayStyle();
                 «ENDIF»
-                «container.shape.name» shape = new «container.shape.name»();
+                «container.shape.name» shape = new «container.shape.name»(getFeatureProvider());
                 «FOR property : container.propertiesList»
                 {
                 	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedModelElement")»

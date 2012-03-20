@@ -138,6 +138,7 @@ class ShapeTypeGenerator {
 	
 	def dispatch createElement(Text element, String parentName, String shapeStyle) { 
 		val attname = nextAttributeName
+		val editingname = "deinfo_" + element_index
 		'''
 		«IF element.texttype == TextType::DEFAULT»
 		Text «attname» = gaService.createText(«parentName»);
@@ -152,6 +153,10 @@ class ShapeTypeGenerator {
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
 		«attname».setValue(«element.body.value.bodyForText»);
 		«generateStyleForElement(attname, element.layout.layout)»
+		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
+		«editingname».setMainPictogramElement(pictogramElement);
+		«editingname».setPictogramElement(pictogramElement);
+		«editingname».setGraphicsAlgorithm(«attname»);
      	'''
 	}
 
