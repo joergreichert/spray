@@ -107,6 +107,10 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
 
             // do the add
             addGraphicalRepresentation(context, newClass);
+            
+            // activate direct editing after object creation
+            getFeatureProvider().getDirectEditingInfo().setActive(true);
+            
             // return newly created business object(s)
             return new Object[] { newClass };
         }
