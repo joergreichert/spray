@@ -211,7 +211,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
-            final String alias = (String)context.getProperty(PROPERTY_ALIAS);
+            final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
             if ( «generate_metaClassSwitchCondition(cls)» ) {
                 return new «cls.layoutFeatureClassName.shortName»(this);
