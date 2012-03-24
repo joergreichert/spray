@@ -25,6 +25,7 @@ shape BPMN_EventMail {
 		rectangle {
 			size(width=30, height=20)
 			position(x=10, y=15)
+			style (background-color=yellow)
 			polygon  {
 				point(x=0,y=0)
 				point(x=15,y=10)
