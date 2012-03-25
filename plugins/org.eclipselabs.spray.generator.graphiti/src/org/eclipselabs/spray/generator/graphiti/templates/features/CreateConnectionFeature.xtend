@@ -109,32 +109,32 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
-        «val diagram = metaClass.diagram as Diagram»
         «overrideHeader»
         public Connection create(ICreateConnectionContext context) {
             «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
-            «val modelClassName = containmentRef.EContainingClass.javaInterfaceName.shortName»
             Connection newConnection = null;
     
             // get EClasses which should be connected
-            «from.name» source = get«from.name»(context.getSourceAnchor());
-            «to.name» target = get«to.name»(context.getTargetAnchor());
+            final «from.name» source = get«from.name»(context.getSourceAnchor());
+            final «to.name» target = get«to.name»(context.getTargetAnchor());
     
             if (source != null && target != null) {
                 // create new business object
-                «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
-                «diagram.modelServiceClassName.shortName» modelService = new «diagram.modelServiceClassName.shortName»(getFeatureProvider().getDiagramTypeProvider());
+                final «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
                 // add the element to containment reference
-                «modelClassName» model = modelService.getModel();
                 «IF containmentRef.many»
-                    model.get«containmentRef.name.toFirstUpper»().add(eReference);
+                    source.get«containmentRef.name.toFirstUpper»().add(eReference);
                 «ELSE»
-                    model.set«containmentRef.name.toFirstUpper»(eReference);
+                    source.set«containmentRef.name.toFirstUpper»(eReference);
                 «ENDIF»
                 // add connection for business object
-                AddConnectionContext addContext = new AddConnectionContext(
+                final AddConnectionContext addContext = new AddConnectionContext(
                         context.getSourceAnchor(), context.getTargetAnchor());
                 addContext.setNewObject(eReference);
+                «IF metaClass.alias!=null»
+                // store alias name
+                addContext.putProperty(PROPERTY_ALIAS, "«metaClass.alias»");
+                «ENDIF»
                 newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
             }
     
@@ -192,7 +192,11 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             «IF metaClass.type.EAttributes.exists(att|att.name == "name") »
                 domainObject.setName("new «metaClass.visibleName»");
             «ENDIF»
-            domainObject.set«connection.from.name.toFirstUpper»(source);
+            «IF connection.from.changeable»
+                domainObject.set«connection.from.name.toFirstUpper»(source);
+            «ELSE»
+                // reference '«connection.from.name»' is not settable
+            «ENDIF»
             domainObject.set«connection.to.name.toFirstUpper»(target);
 
             setDoneChanges(true);

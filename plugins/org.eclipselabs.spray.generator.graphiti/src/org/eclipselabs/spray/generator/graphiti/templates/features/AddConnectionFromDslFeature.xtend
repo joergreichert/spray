@@ -137,6 +137,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             // create link and wire it
             peService.setPropertyValue(result , PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
             «IF metaClass.alias!=null»
+            // store alias name
             peService.setPropertyValue(result , PROPERTY_ALIAS, "«metaClass.alias»");
             «ENDIF»
             link(result , addedDomainObject);
