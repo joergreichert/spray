@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<statemachine:Statemachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:statemachine="http://www.eclipse.org/xtext/example/fowlerdsl/Statemachine">
+  <states xsi:type="statemachine:StartState" name="Start"/>
+  <states xsi:type="statemachine:FinishState" name="Ende"/>
+  <states xsi:type="statemachine:NormalState" name="Zustand1"/>
+  <transitions name="new Uebergang"/>
+  <transitions name="new Uebergang"/>
+  <transitions name="new Uebergang" fromState="//@states.0" toState="//@states.2"/>
+  <transitions name="new Uebergang" fromState="//@states.2" toState="//@states.1"/>
+</statemachine:Statemachine>

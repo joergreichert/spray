@@ -1,0 +1,58 @@
+import statemachine.*
+import org.apache.commons.lang.*
+
+diagram statemachine for Statemachine
+
+class StartState alias StartZustand icon "start.gif" : 
+	shape StartNode {
+		precondition = precondition
+	}
+	behavior {
+		create into states palette "Nodes" askFor name;
+	}
+    
+class FinishState alias EndZustand icon "end.gif" : 
+	shape EndNode {
+		postcondition = postcondition
+	}
+	behavior {
+		create into states palette "Nodes" askFor name;
+	}
+	
+class NormalState alias Zustand icon "state.gif" : 
+	shape Node {
+		name = if(check) "Check: " + name else "Activity: " + name
+		desc = description
+	}
+	behavior {
+		create into states palette "Nodes" askFor name;
+	}
+	
+class Transition alias Uebergang icon "connection.gif" :
+	connection StateConnection ( width=3 fill=black bold color=black ) {
+		from fromState;
+		to   toState;
+//		fromText text ( )  { fromState.name };
+//		toText text ( )  { toState.name };
+//		connectionText text ( )  { name + (if(StringUtils::isNotEmpty(event)) ": " + event else "") };
+	}
+	behavior {
+		create into transitions palette "Transitions" askFor name;
+	}
+	
+	
+//class Transition alias Uebergang icon "connection.gif"  style org.eclipselabs.spray.styles.TransitionStyle :
+//	connection  ( width=3 ) {
+//		from fromState;
+//		to   toState;
+//		fromText text ( )  { fromState.name };
+//		toText text ( )  { toState.name };
+//		connectionText text ( )  { name + (if(StringUtils::isNotEmpty(event)) ": " + event else "") };
+//	}
+//	behavior {
+//		create into transitions palette "Transitions" askFor name;
+//	}
+	
+				
+
+
