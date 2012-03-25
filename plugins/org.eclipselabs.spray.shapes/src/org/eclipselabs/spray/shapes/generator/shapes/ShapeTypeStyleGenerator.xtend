@@ -27,7 +27,7 @@ class ShapeTypeStyleGenerator {
 	
 	def createFontAttributes(String attName, ShapestyleLayout l) {
         '''
-		«IF !(l.layout.fontName == null && l.layout.fontSize == Integer::MIN_VALUE && l.layout.fontItalic == YesNoBool::NULL && l.layout.fontItalic == YesNoBool::NULL)»
+		«IF (l.layout.fontName != null || l.layout.fontSize != Integer::MIN_VALUE || l.layout.fontItalic != YesNoBool::NULL || l.layout.fontBold != YesNoBool::NULL)»
 		{
 			Style style = «attName».getStyle();
 			«IF l.layout.fontName == null»
