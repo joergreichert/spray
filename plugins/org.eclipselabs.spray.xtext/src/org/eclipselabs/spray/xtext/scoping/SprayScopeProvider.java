@@ -3,20 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -71,6 +57,20 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+
 /**
  * This class contains custom scoping description.
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
@@ -120,16 +120,23 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return scope_CreateBehavior_ContainmentReference(context, reference);
         } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__FROM) {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
+            // filter derived references
+            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                @Override
+                public boolean apply(EReference input) {
+                    return !input.isDerived();
+                }
+            });
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
             return result;
         } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__TO) {
             final ConnectionInSpray connection = (ConnectionInSpray) context;
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            // filter 'from' from the possible references
+            // filter derived and 'from' from the possible references
             Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
                 @Override
                 public boolean apply(EReference input) {
-                    return input != connection.getFrom();
+                    return input != connection.getFrom() && !input.isDerived();
                 }
             });
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
