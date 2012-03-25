@@ -15,11 +15,11 @@ public class EclipseResourceFileSystemAccessExt extends EclipseResourceFileSyste
     private IProject       project;
 
     @Override
-    public void generateFile(String fileName, CharSequence contents) {
+    public void generateFile(String fileName, String outputName, CharSequence contents) {
         if (javaPostProcessor.accepts(fileName)) {
             contents = javaPostProcessor.process(fileName, contents);
         }
-        super.generateFile(fileName, contents);
+        super.generateFile(fileName, outputName, contents);
     }
 
     @Override
