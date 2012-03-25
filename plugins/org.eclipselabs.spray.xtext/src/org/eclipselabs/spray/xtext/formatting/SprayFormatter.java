@@ -24,6 +24,8 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
     protected void configureFormatting(FormattingConfig c) {
         SprayGrammarAccess f = (SprayGrammarAccess) getGrammarAccess();
 
+        c.setAutoLinewrap(120);
+
         handleImport(c, f);
         handleDiagram(c, f);
         handleBehavior(c, f);
@@ -37,6 +39,7 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
         handleReferences(c, f.findKeywords(".", "::"));
 
         handleComments(c, f);
+
     }
 
     private void handleDiagram(FormattingConfig c, SprayGrammarAccess f) {
@@ -55,7 +58,12 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
     private void handleMetaclass(FormattingConfig c, SprayGrammarAccess f) {
         c.setLinewrap(2).before(f.getMetaClassAccess().getClassKeyword_0());
 
-        c.setIndentationDecrement().after(f.getMetaClassAccess().getRightCurlyBracketKeyword_7_3());
+        //        c.setIndentationDecrement().after(f.getMetaClassAccess().getRightCurlyBracketKeyword_7_3());
+        // indent after opening colon, close after MetaClass rule
+        c.setIndentationIncrement().after(f.getMetaClassAccess().getColonKeyword_5());
+        c.setLinewrap().after(f.getMetaClassAccess().getColonKeyword_5());
+        c.setIndentationDecrement().after(f.getMetaClassRule());
+        c.setLinewrap(2).after(f.getMetaClassRule());
     }
 
     private void handleRGBColor(FormattingConfig c, SprayGrammarAccess f) {
