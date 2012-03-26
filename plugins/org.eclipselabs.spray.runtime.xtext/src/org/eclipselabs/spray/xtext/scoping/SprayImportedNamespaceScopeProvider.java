@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.scoping;
+package org.eclipselabs.spray.xtext.scoping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,12 @@ import org.eclipse.xtext.xbase.scoping.XbaseImportedNamespaceScopeProvider;
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-public class ShapeImportedNamespaceScopeProvider extends XbaseImportedNamespaceScopeProvider {
+@SuppressWarnings("restriction")
+public class SprayImportedNamespaceScopeProvider extends XbaseImportedNamespaceScopeProvider {
     private final List<ImportNormalizer> implicitImports_ignoreCase    = new ArrayList<ImportNormalizer>(2);
     private final List<ImportNormalizer> implicitImports_notignoreCase = new ArrayList<ImportNormalizer>(2);
 
-    public ShapeImportedNamespaceScopeProvider() {
+    public SprayImportedNamespaceScopeProvider() {
         implicitImports_ignoreCase.addAll(super.getImplicitImports(true));
         implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles"), true, true));
         implicitImports_notignoreCase.addAll(super.getImplicitImports(false));

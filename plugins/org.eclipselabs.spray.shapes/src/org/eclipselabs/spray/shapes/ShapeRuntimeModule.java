@@ -4,8 +4,8 @@
 package org.eclipselabs.spray.shapes;
 
 import org.eclipse.xtext.scoping.IScopeProvider;
-import org.eclipselabs.spray.shapes.scoping.ShapeImportedNamespaceScopeProvider;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
+import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 
 /**
  * Use this class to register components to be used at runtime / without the
@@ -22,10 +22,12 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
         return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
     }
 
-    // contributed by
-    // org.eclipse.xtext.generator.scoping.AbstractScopingFragment
+    /**
+     * Implicit imports
+     */
+    @Override
     public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
-        binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(ShapeImportedNamespaceScopeProvider.class);
+        binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(SprayImportedNamespaceScopeProvider.class);
     }
 
     // contributed by
