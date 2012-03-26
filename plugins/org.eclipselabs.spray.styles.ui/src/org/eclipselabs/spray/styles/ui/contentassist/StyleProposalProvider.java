@@ -65,9 +65,11 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
             pickColor.setTextApplier(new ReplacementTextApplier() {
                 @Override
                 public String getActualReplacementString(ConfigurableCompletionProposal proposal) {
-                    Display display = context.getViewer().getTextWidget().getDisplay();
-                    ColorDialog colorDialog = new ColorDialog(display.getActiveShell());
+                    final Display display = context.getViewer().getTextWidget().getDisplay();
+                    final ColorDialog colorDialog = new ColorDialog(display.getActiveShell());
                     RGB newColor = colorDialog.open();
+                    if (newColor == null)
+                        newColor = new RGB(0, 0, 0);
                     return "RGB(" + newColor.red + "," + newColor.green + "," + newColor.blue + ")";
                 }
             });
