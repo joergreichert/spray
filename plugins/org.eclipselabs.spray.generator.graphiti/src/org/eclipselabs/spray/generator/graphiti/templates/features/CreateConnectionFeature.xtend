@@ -92,6 +92,8 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val to = connection.to.EType as EClass»
         «overrideHeader»
         public boolean canCreate(ICreateConnectionContext context) {
+            if (context.getTargetAnchor() == null)
+                return false;
             // return true if both anchors belong to an EClass
             // and those EClasses are not identical
             «from.javaInterfaceName.shortName» source = get«from.name»(context.getSourceAnchor());
@@ -174,7 +176,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
-        «IF from.name != to.name»
+        «IF from.name != to.name» ««« only generate the method if 'to' type is different from 'from' type, since a method for 'from' was already generated
         /**
          * Returns the «to.name» belonging to the anchor, or null if not available.
          */
