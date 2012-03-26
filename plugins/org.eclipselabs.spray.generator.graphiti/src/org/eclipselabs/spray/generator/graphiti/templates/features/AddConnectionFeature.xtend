@@ -142,7 +142,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
             «IF metaClass.alias!=null»
             // store alias name
-            peService.setPropertyValue(result , PROPERTY_ALIAS, "«metaClass.alias»");
+            peService.setPropertyValue(connection , PROPERTY_ALIAS, "«metaClass.alias»");
             «ENDIF»
             decorateConnection (addConContext, connection);
             link(connection, addedDomainObject);
