@@ -173,6 +173,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         } else if (context.eClass() == CREATE_BEHAVIOR && reference == CREATE_BEHAVIOR__ASK_FOR) {
             CreateBehavior createBehavior = (CreateBehavior) context;
             EReference ref = createBehavior.getContainmentReference();
+            if (ref == null)
+                return IScope.NULLSCOPE;
             if (ref.eIsProxy()) {
                 ref = (EReference) EcoreUtil.resolve(ref, context);
                 if (ref.eIsProxy()) {
