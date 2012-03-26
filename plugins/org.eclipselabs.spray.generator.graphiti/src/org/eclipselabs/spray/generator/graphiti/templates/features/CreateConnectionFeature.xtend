@@ -11,11 +11,13 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 
 class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     @Inject extension NamingExtensions
     @Inject extension GenModelHelper
+    @Inject extension MetaClassExtensions
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -60,7 +62,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         
             public «className»(IFeatureProvider fp) {
                 // provide name and description for the UI, e.g. the palette
-                super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
+                super(fp, "«metaClass.uiLabel»", "Create «metaClass.uiLabel»");
                 gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }
         
@@ -74,7 +76,16 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             «generate_additionalFields(metaClass)»
         }
     '''
-    
+    /**
+     * Determine the name that appears in the dialog when asking for the name
+     */
+    def private getUiLabel (MetaClass mc) {
+        if (mc.hasCreateBehavior && mc.createBehavior.label!=null)
+            mc.createBehavior.label
+        else
+            mc.visibleName
+    }
+
     def generate_canCreate (MetaClass metaClass) '''
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
