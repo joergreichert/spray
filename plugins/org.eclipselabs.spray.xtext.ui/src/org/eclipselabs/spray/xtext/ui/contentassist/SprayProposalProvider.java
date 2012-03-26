@@ -79,7 +79,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @SuppressWarnings("unused")
     @Inject
     private SprayGrammarAccess            grammar;
-    private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior");
+    private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
 
     private IResourceDescriptions         dscriptions       = null;
     @Inject
