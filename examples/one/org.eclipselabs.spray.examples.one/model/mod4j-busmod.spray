@@ -6,7 +6,7 @@ diagram mod4j for BusinessDomainModel
 behavior samen {   
     custom doit "Do it" ;
 }    
-       
+           
 class Enumeration :  
   container ()
   {
@@ -29,12 +29,14 @@ class BusinessClass alias FullClass :
           reference businessRules;   // will use name property by default
           line                   (width=2  color=IColorConstant::DARK_BLUE);
           
-//          attribute description; 
           text () "::" + description;    
           line                   (width=1  );
     }   
     references {   
-         superclass : connection(); 
+         superclass : connection( ) {
+         	from model
+         	to superclass
+         }; 
     }
     behavior {
         create into types palette "Shapes"  askFor name ; 
