@@ -94,6 +94,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         // MARKER_IMPORT
         
+        @SuppressWarnings("unused")
         public class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
