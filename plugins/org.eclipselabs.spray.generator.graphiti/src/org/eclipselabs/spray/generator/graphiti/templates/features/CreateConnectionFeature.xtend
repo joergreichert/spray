@@ -124,21 +124,26 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val to = connection.to.EType as EClass»
         «overrideHeader»
         public Connection create(ICreateConnectionContext context) {
-            «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
+            «val containmentRef = metaClass.createBehavior.containmentReference»
             Connection newConnection = null;
     
             // get EClasses which should be connected
             final «from.name» source = get«from.name»(context.getSourceAnchor());
             final «to.name» target = get«to.name»(context.getTargetAnchor());
-    
+            «IF containmentRef.EType==from»
+                final «from.name» container = source;
+            «ELSE»
+                // containment reference is not a feature of source
+                final «containmentRef.EContainingClass.javaInterfaceName.shortName» container = org.eclipse.xtext.EcoreUtil2.getContainerOfType(source, «containmentRef.EContainingClass.name».class);
+            «ENDIF»
             if (source != null && target != null) {
                 // create new business object
                 final «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
                 // add the element to containment reference
                 «IF containmentRef.many»
-                    source.get«containmentRef.name.toFirstUpper»().add(eReference);
+                    container.get«containmentRef.name.toFirstUpper»().add(eReference);
                 «ELSE»
-                    source.set«containmentRef.name.toFirstUpper»(eReference);
+                    container.set«containmentRef.name.toFirstUpper»(eReference);
                 «ENDIF»
                 // add connection for business object
                 final AddConnectionContext addContext = new AddConnectionContext(

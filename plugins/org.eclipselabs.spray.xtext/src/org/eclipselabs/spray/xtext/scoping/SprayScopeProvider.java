@@ -288,14 +288,11 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         };
         // get all containments of EClass contained in this package
         List<EReference> containmentReferences = new ArrayList<EReference>();
-        EClass eClassInAllScope = null;
-        if (diagramModelType.getEPackage() != null) {
-            for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
-                if (classifier instanceof EClass) {
-                    eClassInAllScope = (EClass) classifier;
-                    containmentReferences.addAll(eClassInAllScope.getEAllContainments());
-                }
-            }
+        containmentReferences.addAll(diagramModelType.getEAllContainments());
+        // if the MetaClass is a connection take also the containment dependencies of the source type
+        if (mc.getRepresentedBy() instanceof ConnectionInSpray) {
+            EClass sourceType = (EClass) ((ConnectionInSpray) mc.getRepresentedBy()).getFrom().getEType();
+            containmentReferences.addAll(sourceType.getEAllContainments());
         }
         return Scopes.scopeFor(Iterables.filter(containmentReferences, filter));
     }
