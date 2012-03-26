@@ -11,6 +11,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
 import org.eclipselabs.spray.mm.spray.Behavior;
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
@@ -129,6 +130,13 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
         String name = (element.getType() != null && element.getType().getName() != null) ? element.getType().getName() : element.toString();
         if (!Iterables.filter(element.getBehaviorsList(), createBehaviorFilter).iterator().hasNext()) {
             warning("There is no create behavior defined For class " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
+        }
+    }
+
+    @Check
+    public void checkConnectionFromTo(final ConnectionInSpray connection) {
+        if (connection.getTo() == null) {
+            error("to reference not specified", SprayPackage.Literals.CONNECTION_IN_SPRAY__TO);
         }
     }
 }
