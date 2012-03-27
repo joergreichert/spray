@@ -55,7 +55,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «ENDIF»
         // MARKER_IMPORT
         
-        public class «className» extends AbstractCreateFeature {
+        public abstract class «className» extends AbstractCreateFeature {
             protected static String TITLE = "Create «metaClass.uiLabel»";
             protected static String USER_QUESTION = "Enter new «metaClass.uiLabel» name";
             protected «diagram.modelServiceClassName.shortName» modelService;

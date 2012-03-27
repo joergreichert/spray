@@ -73,7 +73,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         // MARKER_IMPORT
 
-        public class «className» extends AbstractAddFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddFeature {
             protected final static String typeOrAliasName = "«metaClass.visibleName»";
             protected Diagram targetDiagram = null;
         

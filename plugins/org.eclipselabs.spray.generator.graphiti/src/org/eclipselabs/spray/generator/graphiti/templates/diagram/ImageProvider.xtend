@@ -47,7 +47,7 @@ class ImageProvider extends FileGenerator<Diagram> {
         
         import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
         
-        public class «className» extends AbstractImageProvider {
+        public abstract class «className» extends AbstractImageProvider {
             // The prefix for all identifiers of this image provider
             public static final String PREFIX = "«diagram_package()».";
             «generate_additionalFields(diagram)»

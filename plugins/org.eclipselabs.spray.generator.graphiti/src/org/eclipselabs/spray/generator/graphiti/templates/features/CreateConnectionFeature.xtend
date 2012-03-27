@@ -57,7 +57,8 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractCreateConnectionFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractCreateConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {

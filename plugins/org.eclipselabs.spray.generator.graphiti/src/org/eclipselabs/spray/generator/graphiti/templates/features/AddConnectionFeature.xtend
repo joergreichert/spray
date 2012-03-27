@@ -95,7 +95,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
-        public class «className» extends AbstractAddConnectionFeature {
+        public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {

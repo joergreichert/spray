@@ -55,7 +55,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
-        public class «className» extends AbstractUpdateFeature {
+        public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(connection)»
         
             public «className»(IFeatureProvider fp) {

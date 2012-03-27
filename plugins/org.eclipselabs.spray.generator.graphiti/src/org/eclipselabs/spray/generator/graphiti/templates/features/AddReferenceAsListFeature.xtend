@@ -58,7 +58,8 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_STATIC;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddFeature {
             private static final ArrayList<org.eclipse.graphiti.mm.Property> EMPTY_PROPERTIES_LIST = new ArrayList<org.eclipse.graphiti.mm.Property>(0);
             «generate_additionalFields(reference)»
         

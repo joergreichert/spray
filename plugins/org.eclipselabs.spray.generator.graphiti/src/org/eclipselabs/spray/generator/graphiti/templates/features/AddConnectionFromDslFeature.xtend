@@ -79,7 +79,8 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.shapes.«connection.connection.name»;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddConnectionFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {

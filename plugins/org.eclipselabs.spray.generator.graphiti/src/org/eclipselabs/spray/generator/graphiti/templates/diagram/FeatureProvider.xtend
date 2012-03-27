@@ -80,7 +80,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «ENDIF»
         // MARKER_IMPORT
         
-        public class «className» extends DefaultFeatureProvider {
+        public abstract class «className» extends DefaultFeatureProvider {
             «generate_additionalFields(diagram)»
             public «className»(IDiagramTypeProvider dtp) {
                 super(dtp);

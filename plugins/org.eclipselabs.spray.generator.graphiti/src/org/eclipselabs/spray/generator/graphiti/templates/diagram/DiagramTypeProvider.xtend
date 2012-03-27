@@ -25,7 +25,7 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.tb.IToolBehaviorProvider;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractDiagramTypeProvider {
+        public abstract class «className» extends AbstractDiagramTypeProvider {
             private IToolBehaviorProvider[] toolBehaviorProviders;
             «generate_additionalFields(diagram)»
         
