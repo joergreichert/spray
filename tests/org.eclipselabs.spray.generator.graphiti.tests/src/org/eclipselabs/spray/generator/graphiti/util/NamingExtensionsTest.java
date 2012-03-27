@@ -176,27 +176,27 @@ public class NamingExtensionsTest {
     //---------------------------------------------------------------------------------------------
     @Test
     public void test_getAddFeatureClassName_MetaClass() {
-        assertEquals("features.EdiagAddEClassFeature", fixture.getAddFeatureClassName(clsEClass));
+        assertEquals("features.EdiagEClassAddFeature", fixture.getAddFeatureClassName(clsEClass));
     }
 
     @Test
     public void test_getAddFeatureSimpleClassName_MetaClass() {
-        assertEquals("EdiagAddEClassFeature", fixture.getAddFeatureSimpleClassName(clsEClass));
+        assertEquals("EdiagEClassAddFeature", fixture.getAddFeatureSimpleClassName(clsEClass));
     }
 
     @Test
     public void test_getAddFeatureSimpleClassName_AliasedMetaClass() {
-        assertEquals("EdiagAddEcoreClassFeature", fixture.getAddFeatureSimpleClassName(clsEClassAliased));
+        assertEquals("EdiagEcoreClassAddFeature", fixture.getAddFeatureSimpleClassName(clsEClassAliased));
     }
 
     @Test
     public void test_getFeatureClassName_MetaClass_FeatureType() {
-        assertEquals("features.EdiagLayoutEClassFeature", fixture.getFeatureClassName(clsEClass, FeatureType.Layout));
+        assertEquals("features.EdiagEClassLayoutFeature", fixture.getFeatureClassName(clsEClass, FeatureType.Layout));
     }
 
     @Test
     public void test_getFeatureSimpleClassName_MetaClass_FeatureType() {
-        assertEquals("EdiagLayoutEClassFeature", fixture.getFeatureSimpleClassName(clsEClass, FeatureType.Layout));
+        assertEquals("EdiagEClassLayoutFeature", fixture.getFeatureSimpleClassName(clsEClass, FeatureType.Layout));
     }
 
     @Test
@@ -214,32 +214,32 @@ public class NamingExtensionsTest {
     //---------------------------------------------------------------------------------------------
     @Test
     public void test_getCreateFeatureClassName_MetaReference() {
-        assertEquals("features.EdiagCreateEClassEAllOperationsEOperationFeature", fixture.getCreateFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsEOperationCreateFeature", fixture.getCreateFeatureClassName(reference));
     }
 
     @Test
     public void test_getFeatureClassName_MetaReference_String() {
-        assertEquals("features.EdiagLayoutEClassEAllOperationsEOperationFeature", fixture.getFeatureClassName(reference, FeatureType.Layout));
+        assertEquals("features.EdiagEClassEAllOperationsEOperationLayoutFeature", fixture.getFeatureClassName(reference, FeatureType.Layout));
     }
 
     @Test
     public void test_getAddReferenceAsConnectionFeatureClassName() {
-        assertEquals("features.EdiagAddReferenceEClassEAllOperationsFeature", fixture.getAddReferenceAsConnectionFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsReferenceAddFeature", fixture.getAddReferenceAsConnectionFeatureClassName(reference));
     }
 
     @Test
     public void test_getAddReferenceAsConnectionFeatureSimpleClassName() {
-        assertEquals("EdiagAddReferenceEClassEAllOperationsFeature", fixture.getAddReferenceAsConnectionFeatureSimpleClassName(reference));
+        assertEquals("EdiagEClassEAllOperationsReferenceAddFeature", fixture.getAddReferenceAsConnectionFeatureSimpleClassName(reference));
     }
 
     @Test
     public void test_getCreateReferenceAsListFeatureClassName() {
-        assertEquals("features.EdiagCreateEClassEAllOperationsEOperationFeature", fixture.getCreateReferenceAsListFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsEOperationCreateFeature", fixture.getCreateReferenceAsListFeatureClassName(reference));
     }
 
     @Test
     public void test_getCreateReferenceAsListFeatureSimpleClassName() {
-        assertEquals("EdiagCreateEClassEAllOperationsEOperationFeature", fixture.getCreateReferenceAsListFeatureSimpleClassName(reference));
+        assertEquals("EdiagEClassEAllOperationsEOperationCreateFeature", fixture.getCreateReferenceAsListFeatureSimpleClassName(reference));
     }
 
     /**
@@ -247,57 +247,57 @@ public class NamingExtensionsTest {
      */
     @Test
     public void test_getCreateReferenceAsListFeatureClassName_MetaReference_EClass() {
-        assertEquals("features.EdiagCreateEClassifierEPackageEDataTypeFeature", fixture.getCreateReferenceAsListFeatureClassName(reference2, EcorePackage.Literals.EDATA_TYPE));
+        assertEquals("features.EdiagEClassifierEPackageEDataTypeCreateFeature", fixture.getCreateReferenceAsListFeatureClassName(reference2, EcorePackage.Literals.EDATA_TYPE));
     }
 
     @Test
     public void test_getCreateReferenceAsListFeatureSimpleClassName_MetaReference_EClass() {
-        assertEquals("EdiagCreateEClassifierEPackageEDataTypeFeature", fixture.getCreateReferenceAsListFeatureSimpleClassName(reference2, EcorePackage.Literals.EDATA_TYPE));
+        assertEquals("EdiagEClassifierEPackageEDataTypeCreateFeature", fixture.getCreateReferenceAsListFeatureSimpleClassName(reference2, EcorePackage.Literals.EDATA_TYPE));
     }
 
     @Test
     public void test_getAddReferenceAsListFeatureClassName() {
-        assertEquals("features.EdiagAddEClassEAllOperationsListFeature", fixture.getAddReferenceAsListFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsListAddFeature", fixture.getAddReferenceAsListFeatureClassName(reference));
     }
 
     @Test
     public void test_getAddReferenceAsListFeatureSimpleClassName() {
-        assertEquals("EdiagAddEClassEAllOperationsListFeature", fixture.getAddReferenceAsListFeatureSimpleClassName(reference));
+        assertEquals("EdiagEClassEAllOperationsListAddFeature", fixture.getAddReferenceAsListFeatureSimpleClassName(reference));
     }
 
     @Test
     public void test_getUpdateReferenceAsListFeatureClassName() {
-        assertEquals("features.EdiagUpdateEClassEAllOperationsFeature", fixture.getUpdateReferenceAsListFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsUpdateFeature", fixture.getUpdateReferenceAsListFeatureClassName(reference));
     }
 
     @Test
     public void test_getUpdateReferenceAsListFeatureSimpleClassName() {
-        assertEquals("EdiagUpdateEClassEAllOperationsFeature", fixture.getUpdateReferenceAsListFeatureSimpleClassName(reference));
+        assertEquals("EdiagEClassEAllOperationsUpdateFeature", fixture.getUpdateReferenceAsListFeatureSimpleClassName(reference));
     }
 
     @Test
     public void test_getAddReferenceFeatureClassName_MetaReference() {
-        assertEquals("features.EdiagCreateEClassEAllOperationsEOperationFeature", fixture.getCreateFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsEOperationCreateFeature", fixture.getCreateFeatureClassName(reference));
     }
 
     @Test
     public void test_getCreateReferenceAsConnectionFeatureClassName() {
-        assertEquals("features.EdiagCreateEClassEAllOperationsFeature", fixture.getCreateReferenceAsConnectionFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsCreateFeature", fixture.getCreateReferenceAsConnectionFeatureClassName(reference));
     }
 
     @Test
     public void test_getCreateReferenceAsConnectionFeatureSimpleClassName() {
-        assertEquals("EdiagCreateEClassEAllOperationsFeature", fixture.getCreateReferenceAsConnectionFeatureSimpleClassName(reference));
+        assertEquals("EdiagEClassEAllOperationsCreateFeature", fixture.getCreateReferenceAsConnectionFeatureSimpleClassName(reference));
     }
 
     @Test
     public void test_getDeleteReferenceFeatureClassName() {
-        assertEquals("features.EdiagDeleteReferenceEClassEAllOperationsFeature", fixture.getDeleteReferenceFeatureClassName(reference));
+        assertEquals("features.EdiagEClassEAllOperationsReferenceDeleteFeature", fixture.getDeleteReferenceFeatureClassName(reference));
     }
 
     @Test
     public void test_getDeleteReferenceFeatureSimpleClassName() {
-        assertEquals("EdiagDeleteReferenceEClassEAllOperationsFeature", fixture.getDeleteReferenceFeatureSimpleClassName(reference));
+        assertEquals("EdiagEClassEAllOperationsReferenceDeleteFeature", fixture.getDeleteReferenceFeatureSimpleClassName(reference));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -305,12 +305,12 @@ public class NamingExtensionsTest {
     //---------------------------------------------------------------------------------------------
     @Test
     public void test_getCustomFeatureClassName() {
-        assertEquals("features.EdiagCustomSampleBehaviorFeature", fixture.getCustomFeatureClassName((CustomBehavior) behavior));
+        assertEquals("features.EdiagSampleBehaviorCustomFeature", fixture.getCustomFeatureClassName((CustomBehavior) behavior));
     }
 
     @Test
     public void test_getCustomFeatureSimpleClassName() {
-        assertEquals("EdiagCustomSampleBehaviorFeature", fixture.getCustomFeatureSimpleClassName((CustomBehavior) behavior));
+        assertEquals("EdiagSampleBehaviorCustomFeature", fixture.getCustomFeatureSimpleClassName((CustomBehavior) behavior));
     }
 
     //---------------------------------------------------------------------------------------------
