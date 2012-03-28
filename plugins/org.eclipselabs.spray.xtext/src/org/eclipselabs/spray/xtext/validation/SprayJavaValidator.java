@@ -112,7 +112,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
     @Check
     public void checkConnectionReferenceToContainmentFeature(final MetaClass element) {
         for (MetaReference ref : element.getReferences()) {
-            if ((ref.getTarget() != null && ref.getTarget().isContainment()) || ref.getTarget().eIsProxy()) {
+            if ((ref.getTarget() != null && ref.getTarget().isContainment())) {
                 String referenceName = getReferenceName(ref);
                 error("Connection reference to containment reference not supported yet: " + referenceName, element, SprayPackage.Literals.META_CLASS__REFERENCES, IssueCodes.CONTAINMENT_CONNECTION_REFERENCE, referenceName);
             }
@@ -133,9 +133,14 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
         }
     }
 
+    /**
+     * The connection to reference must be specified, except for the case of a MetaReference, since there the reference is already defined as target
+     * 
+     * @param connection
+     */
     @Check
     public void checkConnectionFromTo(final ConnectionInSpray connection) {
-        if (connection.getTo() == null) {
+        if (connection.getTo() == null && !(connection.eContainer() instanceof MetaReference)) {
             error("to reference not specified", SprayPackage.Literals.CONNECTION_IN_SPRAY__TO);
         }
     }
