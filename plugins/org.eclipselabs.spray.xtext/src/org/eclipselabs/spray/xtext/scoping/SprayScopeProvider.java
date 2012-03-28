@@ -4,6 +4,7 @@
 package org.eclipselabs.spray.xtext.scoping;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +36,8 @@ import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
+import org.eclipse.xtext.scoping.impl.ImportNormalizer;
+import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.eclipse.xtext.scoping.impl.SingletonScope;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
@@ -145,7 +148,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             if (context.eContainer().eClass() == META_CLASS) {
                 // non-containment references
                 final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-                Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                final Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
                     @Override
                     public boolean apply(EReference input) {
                         return !input.isContainment();
@@ -302,21 +305,27 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
-        List<EClass> containedTypes = new ArrayList<EClass>();
-        EClass eClassInAllScope = null;
-
-        if (diagramModelType.getEPackage() != null) {
-            for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
-                if (classifier instanceof EClass) {
-                    eClassInAllScope = (EClass) classifier;
-
-                    if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)) {
-                        containedTypes.add(eClassInAllScope);
-                    }
-                }
-            }
+        if (diagramModelType == null || diagramModelType.getEPackage() == null) {
+            return IScope.NULLSCOPE;
         }
-        return Scopes.scopeFor(containedTypes);
+        final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
+            @Override
+            public boolean apply(EClassifier input) {
+                return input instanceof EClass && input != diagramModelType && !((EClass) input).isAbstract();
+            }
+        };
+        final Function<EClassifier, IEObjectDescription> toObjDesc = new Function<EClassifier, IEObjectDescription>() {
+            @Override
+            public IEObjectDescription apply(EClassifier input) {
+                return EObjectDescription.create(qnProvider.apply(input), input);
+            }
+        };
+        // Implicit import of the EPackage of the Diagram Model type 
+        final List<ImportNormalizer> normalizer = Collections.singletonList(new ImportNormalizer(qnProvider.apply(diagramModelType.getEPackage()), true, false));
+        final ImportScope importDiagramTypePackage = new ImportScope(normalizer, delegateGetScope(context, reference), null, null, false);
+        final Iterable<IEObjectDescription> descriptions = Iterables.transform(Iterables.filter(diagramModelType.getEPackage().getEClassifiers(), filter), toObjDesc);
+        // the delegate scope will provide import scopes
+        return MapBasedScope.createScope(importDiagramTypePackage, descriptions);
     }
 
     protected IScope scope_Diagram_ModelType(EObject context, EReference reference) {
