@@ -2,9 +2,11 @@ diagram Statemachine
 extension "diagram"
 import statemachine.*
 
-class State : 
+class State {
 	rectangle (color=black fill=white width=100)
-class Transition : 
+}
+
+class Transition { 
 	connection (width=1) {
 		from source;
 		to target;
@@ -12,3 +14,4 @@ class Transition :
 		toText text () state.name;
 		connectionText text (width=1) event.name;
 	}
+}

@@ -2,6 +2,9 @@
 // Aliased Shape of type Connection
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
-    connection alias shape1 ()
+class Association {
+    connection alias shape1 () {
+        from source
+        to   target
+    }
 }

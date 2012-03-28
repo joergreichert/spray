@@ -60,9 +60,9 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
 
         //        c.setIndentationDecrement().after(f.getMetaClassAccess().getRightCurlyBracketKeyword_7_3());
         // indent after opening colon, close after MetaClass rule
-        c.setIndentationIncrement().after(f.getMetaClassAccess().getColonKeyword_5());
-        c.setLinewrap().after(f.getMetaClassAccess().getColonKeyword_5());
-        c.setIndentationDecrement().after(f.getMetaClassRule());
+        //        c.setIndentationIncrement().after(f.getMetaClassAccess().getColonKeyword_5());
+        //        c.setLinewrap().after(f.getMetaClassAccess().getColonKeyword_5());
+        //        c.setIndentationDecrement().after(f.getMetaClassRule());
         c.setLinewrap(2).after(f.getMetaClassRule());
     }
 

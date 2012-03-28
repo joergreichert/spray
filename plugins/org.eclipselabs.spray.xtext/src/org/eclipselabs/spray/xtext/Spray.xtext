@@ -29,7 +29,7 @@ SprayElement :
 
 MetaClass :
     'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)? (style=SprayStyleRef)? 
-    ':' 
+    '{' 
     ( representedBy=ShapeInSpray )
     (
     'references' '{'
@@ -44,6 +44,7 @@ MetaClass :
            )*
     '}'
     )?
+    '}'
     ;
 
 MetaReference2 returns MetaReference:  
