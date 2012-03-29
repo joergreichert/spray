@@ -53,6 +53,7 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
 
     private void handleBehavior(FormattingConfig c, SprayGrammarAccess f) {
         c.setLinewrap(2).before(f.getBehaviorGroupAccess().getBehaviorKeyword_0());
+        c.setLinewrap().before(f.getBehaviorRule());
     }
 
     private void handleMetaclass(FormattingConfig c, SprayGrammarAccess f) {
