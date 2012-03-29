@@ -8,8 +8,9 @@ class SprayModelGenerator {
     @Inject extension PackageHelper
     
     def doGenerate (SprayProjectInfo info, IFileSystemAccess fsa) {
-        val project = info.projectName
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".spray", info.projectName, generateModel(info))
+        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".shape", info.projectName, generateShapes(info))
+        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".style", info.projectName, generateStyles(info))
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".properties", info.projectName, generateProperties(info))
     }
     
@@ -23,11 +24,10 @@ class SprayModelGenerator {
          *
          * See also «info.getDiagramTypeName».properties to configure generator properties.
          *************************************************************************************/
-        // Add import statements here, e.g.
-        // import «info.modelTypeName.substring(0, info.modelTypeName.lastIndexOf('.'))».*
+        // Add import statements here
         import «getPackage(info.epackageURI, info.modelTypeName)».*
         
-        diagram «info.getDiagramTypeName» for «info.modelTypeName.substring(info.modelTypeName.lastIndexOf('.')+1)»
+        diagram «info.getDiagramTypeName» for «info.modelTypeName.substring(info.modelTypeName.lastIndexOf('.')+1)» style «info.getDiagramTypeName.toFirstUpper»DefaultStyle
         
         
         // Add class mappings here. Refer to EClasses here. Don't forget to configure a
@@ -56,6 +56,50 @@ class SprayModelGenerator {
         //     }
         
         
+    '''
+    
+        def generateShapes (SprayProjectInfo info) '''
+        /*************************************************************************************
+         *
+         * Spray shapes definition
+         * 
+         * This file contains the definition of graphical figures using the Shapes Language.
+         * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+         *************************************************************************************/
+        // Add import statements here, e.g.
+        // import java.util.*
+        
+        // Add definition of shapes here.
+        // shape RectangleShape {
+        //     rectangle {
+        //         position(x=0,y=0)
+        //         size(width=100,height=100)
+        //     }
+        // }
+    '''
+    
+        def generateStyles (SprayProjectInfo info) '''
+        /*************************************************************************************
+         *
+         * Spray styles definition
+         * 
+         * This file contains the definition of style classes using the Styles Language.
+         * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+         *************************************************************************************/
+        
+        // Add definition of styles here.
+        style «info.getDiagramTypeName.toFirstUpper»DefaultStyle {
+            description = "The default style of the «info.getDiagramTypeName» diagram type."
+            // transparency = 0.95
+            // background-color = black
+            // line-color = black
+            // line-style = solid
+            // line-width = 1
+            // font-color = black
+            // font-name = "Tahoma"
+            font-size = 12
+            // font-bold = yes
+        }
     '''
     
     def generateProperties (SprayProjectInfo info) '''
