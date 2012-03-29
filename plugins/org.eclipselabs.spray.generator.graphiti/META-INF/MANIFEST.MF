@@ -36,6 +36,7 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.generator.graphiti,
- org.eclipselabs.spray.generator.graphiti.formatting,
  org.eclipselabs.spray.generator.graphiti.templates,
+ org.eclipselabs.spray.generator.graphiti.templates.diagram,
+ org.eclipselabs.spray.generator.graphiti.templates.features,
  org.eclipselabs.spray.generator.graphiti.util
