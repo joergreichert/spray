@@ -17,6 +17,7 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -60,10 +61,12 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.features.IMoveShapeFeature;
         import org.eclipse.graphiti.features.IUpdateFeature;
         import org.eclipse.graphiti.features.IDeleteFeature;
+        import org.eclipse.graphiti.features.IDirectEditingFeature;
         import org.eclipse.graphiti.features.IRemoveFeature;
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.features.context.ICustomContext;
         import org.eclipse.graphiti.features.context.IDeleteContext;
+        import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.features.context.ILayoutContext;
         import org.eclipse.graphiti.features.context.IMoveShapeContext;
         import org.eclipse.graphiti.features.context.IUpdateContext;
@@ -94,6 +97,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «generate_getRemoveFeature(diagram)»
             «generate_getDeleteFeature(diagram)»
             «generate_getMoveShapeFeature(diagram)»
+            «generate_getDirectEditingFeatures(diagram)»
             «generate_getCustomFeatures(diagram)»
             «generate_additionalMethods(diagram)»
         }
@@ -345,6 +349,23 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «ENDFOR»
             return new ICustomFeature[0];
         }
+    '''
+    
+    def generate_getDirectEditingFeatures(Diagram diagram) '''
+	    @Override
+	    public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
+	    	final PictogramElement pictogramElement = context.getPictogramElement();
+	    	final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
+	    	if (bo == null)
+	    		return null;
+	    	final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
+	    	«FOR metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)»
+	    	if ( «generate_metaClassSwitchCondition(metaClass)» ) {
+	    		return new «metaClass.directEditFeatureClassName.shortName»(this);
+	    	}
+            «ENDFOR»
+	    	return super.getDirectEditingFeature(context);
+	    }
     '''
     
     /**

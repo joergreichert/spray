@@ -304,7 +304,6 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         for (JvmMember member : type.getMembers()) {
             if (member.getSimpleName().equals(className)) {
                 enumType = (JvmEnumerationType) member;
-                System.err.println(member.getSimpleName());
             }
         }
         List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
