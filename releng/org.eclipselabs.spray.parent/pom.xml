@@ -22,7 +22,25 @@
 	</properties>
 
 	<build>
+		<sourceDirectory>src</sourceDirectory>
 		<plugins>
+			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>xtend-gen</directory>
+							<includes>
+								<include>**</include>
+							</includes>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -417,6 +435,12 @@
 				<artifactId>junit</artifactId>
 				<version>${junit-version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-library</artifactId>
+				<version>2.2.1</version>
+				<type>pom</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

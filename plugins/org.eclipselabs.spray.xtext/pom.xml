@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.eclipselabs.spray</groupId>
@@ -14,15 +13,13 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>${project.build.directory}/xtext</directory>
 			</resource>
 		</resources>
 		<plugins>
-			<!-- Copy all Xtext related sources to seperate folder that is registered 
-				as resource folder -->
+			<!-- Copy all Xtext related sources to seperate folder that is registered as resource folder -->
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
@@ -53,38 +50,24 @@
 					<filesets>
 						<fileset>
 							<directory>src-gen</directory>
-							<includes>
-								<include>**</include>
-							</includes>
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
-						<!-- 
 						<fileset>
 							<directory>xtend-gen</directory>
-							<includes>
-								<include>**</include>
-							</includes>
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
-						 -->
 						<fileset>
 							<directory>../${project.artifactId}.ui/src-gen</directory>
-							<includes>
-								<include>**</include>
-							</includes>
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
 						</fileset>
 						<fileset>
 							<directory>../${project.artifactId}.tests/src-gen</directory>
-							<includes>
-								<include>**</include>
-							</includes>
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
@@ -129,6 +112,15 @@
 						</goals>
 					</execution>
 				</executions>
+				<dependencies>
+					<!-- these dependencies are contributed in Eclipse by the "Xtend Library" classpath container -->
+					<dependency>
+						<groupId>org.eclipse.xtend</groupId>
+						<artifactId>xtend-library</artifactId>
+						<version>2.2.1</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

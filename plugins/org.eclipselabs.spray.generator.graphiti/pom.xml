@@ -13,7 +13,6 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.xtend2</groupId>
@@ -25,19 +24,15 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}/xtend-gen</directory>
-							<excludes>
-								<exclude>.gitignore</exclude>
-							</excludes>
-						</fileset>
-					</filesets>
-				</configuration>
+				<dependencies>
+					<!-- these dependencies are contributed in Eclipse by the "Xtend Library" classpath container -->
+					<dependency>
+						<groupId>org.eclipse.xtend</groupId>
+						<artifactId>xtend-library</artifactId>
+						<version>2.2.1</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
