@@ -54,7 +54,6 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «header(this)»
         package «feature_package()»;
         
-        import LanguageWorkbenchCompetition.LWCPipe;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
         import org.eclipse.graphiti.features.context.IAddContext;
@@ -73,12 +72,12 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «ELSE»
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
         «ENDIF»
+        import org.eclipselabs.spray.shapes.ISprayConnection;
         import «connection.connection.qualifiedName»;
         import com.google.common.base.Function;
         
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         import «metaClass.javaInterfaceName»;
-        import org.eclipselabs.spray.examples.lwc2012.Activator;
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
@@ -128,13 +127,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
             «ENDIF»
-            «connection.connection.simpleName» connection = new «connection.connection.simpleName»(getFeatureProvider());
-            «FOR property : connection.propertiesList»
-«««            {
-«««            	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedDomainObject")»
-«««            	connection.set«property.key.simpleName.toFirstUpper»(value);
-«««            }
-            «ENDFOR»
+            ISprayConnection connection = new «connection.connection.simpleName»(getFeatureProvider());
             PictogramElement result = connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
 
             // create link and wire it

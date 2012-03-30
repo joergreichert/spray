@@ -8,10 +8,13 @@ import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipse.xtext.xbase.XExpression
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 
 class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     @Inject extension NamingExtensions
     @Inject extension DiagramExtensions
+    @Inject extension SprayCompiler
     
     override CharSequence generateBaseFile(ConnectionInSpray modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -37,21 +40,24 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     def mainFile(ConnectionInSpray connection, String className) '''
         «header(this)»
         package «feature_package()»;
-
+        
         import org.eclipse.emf.ecore.EObject;
+        import com.google.common.base.Function;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
+        import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
-        import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+        import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
+        import org.eclipselabs.spray.shapes.ISprayShapeConstants;
+        
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
@@ -66,6 +72,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             «generate_canUpdate(connection)»
             «generate_updateNeeded(connection)»
             «generate_update(connection)»
+            «generate_searchChilds(connection)»
             «generate_getValue(connection)»
             «generate_additionalFields(connection)»
         }
@@ -106,9 +113,33 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         public boolean update(IUpdateContext context) {
             PictogramElement pictogramElement = context.getPictogramElement();
             «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
+            
+            if(pictogramElement instanceof Connection) {
+            	Connection conShape = (Connection) pictogramElement;
+            	GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
+            	searchChilds(gAlg, eClass);
+        	}
 
             return true;
         }
+    '''
+    
+	def generate_searchChilds(ConnectionInSpray connection) '''
+    	private void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.name» eClass) {
+    		if(gAlg instanceof Text) {
+    			Text text = (Text) gAlg;
+    			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
+    			«FOR property : connection.properties»
+    			if(id.equals("«property.key.simpleName»")) {
+    				«property.value.propertyAssignmentFunction("value", "String", connection.represents.name, "eClass")»
+    				text.setValue(value);
+    			}
+    			«ENDFOR»
+    		}
+    		for(GraphicsAlgorithm gAlgChild : gAlg.getGraphicsAlgorithmChildren()) {
+    			searchChilds(gAlgChild, eClass);
+    		}
+    	}
     '''
     
     def generate_getValue (ConnectionInSpray connection) '''
@@ -133,5 +164,12 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             return result;
         }
     '''
-    
+   
+	def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
+   		«returnType» «valueName» = new Function<«metaClassName», «returnType»>() {
+   			public «returnType» apply(«metaClassName» modelElement) {
+   				«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+   			}
+   		}.apply(«metaClassAttribute»); 
+	'''
 }
