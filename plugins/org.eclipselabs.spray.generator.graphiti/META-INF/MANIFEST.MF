@@ -28,7 +28,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.2.0,2.3.0)";visibility:=ree
  org.eclipselabs.spray.xtext,
  org.eclipse.xtext.ecore;bundle-version="[2.2.0,2.3.0)",
  org.eclipse.xtext.xbase;bundle-version="[2.2.0,2.3.0)",
- org.eclipselabs.spray.shapes;bundle-version="0.4.0",
+ org.eclipselabs.spray.shapes;bundle-version="0.5.0",
  org.eclipselabs.spray.runtime.xtext
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
@@ -36,6 +36,7 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.generator.graphiti,
- org.eclipselabs.spray.generator.graphiti.formatting,
  org.eclipselabs.spray.generator.graphiti.templates,
+ org.eclipselabs.spray.generator.graphiti.templates.diagram,
+ org.eclipselabs.spray.generator.graphiti.templates.features,
  org.eclipselabs.spray.generator.graphiti.util

@@ -7,13 +7,14 @@ import org.eclipse.graphiti.services.IGaLayoutService;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
 /**
  * Spray specific feature base class.
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature {
+public abstract class AbstractCreateConnectionFeature extends org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature implements ISprayConstants {
     protected IGaCreateService gaCreateService;
     protected IGaLayoutService gaLayoutService;
     protected IGaService       gaService;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipselabs.spray.runtime.xtext.overridingGuiceModule">
+      <module
+            class="org.eclipselabs.spray.generator.graphiti.ext.GeneratorExtensionRuntimeModule"
+            overrides="org.eclipselabs.spray.generator.graphiti.GraphitiGeneratorModule">
+      </module>
+   </extension>
+
+</plugin>

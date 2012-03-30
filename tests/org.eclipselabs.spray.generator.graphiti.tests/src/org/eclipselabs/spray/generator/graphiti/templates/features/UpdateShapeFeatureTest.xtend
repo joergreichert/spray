@@ -606,7 +606,7 @@ class UpdateShapeFeatureTest {
         import ;
         // MARKER_IMPORT
 
-        public class  extends AbstractUpdateFeature {
+        public abstract class  extends AbstractUpdateFeature {
             public (IFeatureProvider fp) {
                 super(fp);
                 gaService = .get(IGaService.class);
@@ -747,7 +747,7 @@ class UpdateShapeFeatureTest {
         import ;
         // MARKER_IMPORT
 
-        public class  extends AbstractUpdateFeature {
+        public abstract class  extends AbstractUpdateFeature {
             public (IFeatureProvider fp) {
                 super(fp);
                 gaService = Activator.get(IGaService.class);
@@ -839,7 +839,7 @@ class UpdateShapeFeatureTest {
         import samplepackage.SampleEClass;
         // MARKER_IMPORT
 
-        public class  extends AbstractUpdateFeature {
+        public abstract class  extends AbstractUpdateFeature {
             public (IFeatureProvider fp) {
                 super(fp);
                 gaService = Activator.get(IGaService.class);

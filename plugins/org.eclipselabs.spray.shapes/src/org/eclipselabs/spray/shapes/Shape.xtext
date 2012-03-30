@@ -4,7 +4,14 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
 generate shapes 'http://www.eclipselabs.org/spray/shapes/Shape'
 
 ShapeContainer:
+    imports+=Import*
 	shapeContainerElement+=ShapeContainerElement*;
+
+Import:
+    'import' importedNamespace=QualifiedNameWithWildCard;
+
+QualifiedNameWithWildCard returns ecore::EString :
+    QualifiedName  ('.' '*')?;
 
 ShapeContainerElement:
 	ShapeDefinition | ConnectionDefinition;
@@ -143,16 +150,16 @@ CommonLayout:
 	);
 
 TextBody:
-	"value" "=" value=TextBodyValue;
+	"id" "=" value=ID; //value=TextBodyValue;
 
-TextBodyValue:
-	TextBodyParameter | TextBodyString;
-
-TextBodyString:
-	param=STRING;
-
-TextBodyParameter:
-	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
+//TextBodyValue:
+//	TextBodyParameter | TextBodyString;
+//
+//TextBodyString:
+//	param=STRING;
+//
+//TextBodyParameter:
+//	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
 
 Point:
 	{Point} ('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','

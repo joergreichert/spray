@@ -10,7 +10,7 @@ StyleContainer:
 Style:
 	{Style}
 	"style" name=ID ("extends" superStyle=JvmTypeReference)? "{"
-	   "description" "=" description=STRING
+	   ("description" "=" description=STRING)?
 	   layout=StyleLayout
 	"}";
 

@@ -65,7 +65,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         import «container?.represents?.javaInterfaceName»;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractUpdateFeature {
+        public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(container)»
             public «className»(IFeatureProvider fp) {
                 super(fp);

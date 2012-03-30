@@ -49,7 +49,7 @@ class LayoutFeature extends FileGenerator<ContainerInSpray> {
         import «util_package()».«containerType»;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractLayoutFeature {
+        public abstract class «className» extends AbstractLayoutFeature {
             protected static final int MIN_HEIGHT = 30;
             protected static final int MIN_WIDTH = 50;
             protected «containerType» container = null;

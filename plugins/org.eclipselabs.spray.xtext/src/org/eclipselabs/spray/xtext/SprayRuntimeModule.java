@@ -16,6 +16,7 @@ import org.eclipselabs.spray.xtext.customizing.SprayQualifiedNameProvider;
 import org.eclipselabs.spray.xtext.customizing.SpraySimpleNameProvider;
 import org.eclipselabs.spray.xtext.customizing.SprayTypeProvider;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
+import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 import org.eclipselabs.spray.xtext.scoping.SprayScopeProvider;
 
 import com.google.common.collect.Sets;
@@ -63,6 +64,14 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
 
     public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
         return SprayScopeProvider.class;
+    }
+
+    /**
+     * Implicit imports
+     */
+    @Override
+    public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
+        binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(SprayImportedNamespaceScopeProvider.class);
     }
 
 }

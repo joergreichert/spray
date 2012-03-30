@@ -4,13 +4,11 @@ import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
-import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.DoubleExtensions;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator;
 import org.eclipselabs.spray.shapes.shapes.CDEllipse;
 import org.eclipselabs.spray.shapes.shapes.CDLine;
@@ -31,9 +29,6 @@ import org.eclipselabs.spray.shapes.shapes.ShapeConnection;
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout;
 import org.eclipselabs.spray.shapes.shapes.TextBody;
-import org.eclipselabs.spray.shapes.shapes.TextBodyParameter;
-import org.eclipselabs.spray.shapes.shapes.TextBodyString;
-import org.eclipselabs.spray.shapes.shapes.TextBodyValue;
 import org.eclipselabs.spray.shapes.shapes.TextLayout;
 import org.eclipselabs.spray.shapes.shapes.TextType;
 import org.eclipselabs.spray.shapes.shapes.VAlign;
@@ -41,7 +36,7 @@ import org.eclipselabs.spray.shapes.shapes.VAlign;
 @SuppressWarnings("all")
 public class ConnectionPlacingGenerator {
   @Inject
-  private ConnectionStyleGenerator styleGenerator;
+  private ConnectionStyleGenerator _connectionStyleGenerator;
   
   public CharSequence generatePlacing(final PlacingDefinition pd) {
     StringConcatenation _builder = new StringConcatenation();
@@ -99,7 +94,7 @@ public class ConnectionPlacingGenerator {
       _builder.newLineIfNotEmpty();
       LineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_2);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_2);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -220,7 +215,7 @@ public class ConnectionPlacingGenerator {
       _builder.newLineIfNotEmpty();
       RectangleEllipseLayout _layout_12 = element.getLayout();
       ShapestyleLayout _layout_13 = _layout_12.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_13);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_13);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
@@ -264,7 +259,7 @@ public class ConnectionPlacingGenerator {
       _builder.newLineIfNotEmpty();
       PolyLineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_2);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_2);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -306,7 +301,7 @@ public class ConnectionPlacingGenerator {
       _builder.newLineIfNotEmpty();
       PolyLineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_2);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_2);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -459,7 +454,7 @@ public class ConnectionPlacingGenerator {
       _builder.newLineIfNotEmpty();
       RoundedRectangleLayout _layout_20 = element.getLayout();
       ShapestyleLayout _layout_21 = _layout_20.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_21);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_21);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
@@ -521,7 +516,7 @@ public class ConnectionPlacingGenerator {
       _builder.newLineIfNotEmpty();
       RectangleEllipseLayout _layout_4 = element.getLayout();
       ShapestyleLayout _layout_5 = _layout_4.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_5);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_5);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -613,17 +608,17 @@ public class ConnectionPlacingGenerator {
       _builder.append(_mapAlignment_1, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
+      _builder.append("peService.setPropertyValue(");
       _builder.append(attname, "");
-      _builder.append(".setValue(");
+      _builder.append(", ISprayShapeConstants.TEXT_ID, TextIds.");
       TextBody _body = element.getBody();
-      TextBodyValue _value = _body.getValue();
-      CharSequence _bodyForText = this.bodyForText(_value);
-      _builder.append(_bodyForText, "");
-      _builder.append(");");
+      String _value = _body.getValue();
+      _builder.append(_value, "");
+      _builder.append(".name());");
       _builder.newLineIfNotEmpty();
       TextLayout _layout_6 = element.getLayout();
       ShapestyleLayout _layout_7 = _layout_6.getLayout();
-      CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection(attname, _layout_7);
+      CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection(attname, _layout_7);
       _builder.append(_generateStyleForConnection, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -677,31 +672,6 @@ public class ConnectionPlacingGenerator {
       }
     }
     return _switchResult;
-  }
-  
-  protected CharSequence _bodyForText(final TextBodyString body) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("\"");
-    String _param = body.getParam();
-    _builder.append(_param, "");
-    _builder.append("\"");
-    return _builder;
-  }
-  
-  protected CharSequence _bodyForText(final TextBodyParameter body) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("(get");
-    JvmIdentifiableElement _param = body.getParam();
-    String _simpleName = _param.getSimpleName();
-    String _firstUpper = StringExtensions.toFirstUpper(_simpleName);
-    _builder.append(_firstUpper, "");
-    _builder.append("() == null)? \"\" : get");
-    JvmIdentifiableElement _param_1 = body.getParam();
-    String _simpleName_1 = _param_1.getSimpleName();
-    String _firstUpper_1 = StringExtensions.toFirstUpper(_simpleName_1);
-    _builder.append(_firstUpper_1, "");
-    _builder.append("().toString()");
-    return _builder;
   }
   
   public CharSequence createPointList(final EList<Point> pointlist, final String plname, final Integer x, final Integer y) {
@@ -993,17 +963,6 @@ public class ConnectionPlacingGenerator {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(element, parentName, shapeStyle, angle, distance).toString());
-    }
-  }
-  
-  public CharSequence bodyForText(final TextBodyValue body) {
-    if (body instanceof TextBodyParameter) {
-      return _bodyForText((TextBodyParameter)body);
-    } else if (body instanceof TextBodyString) {
-      return _bodyForText((TextBodyString)body);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(body).toString());
     }
   }
 }

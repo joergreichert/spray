@@ -25,7 +25,7 @@ in numerical order.
     deleted="false" 
     description="" 
     enabled="true" 
-    name="Add custom behavior">${name} "${label}";</template>
+    name="Add custom behavior">${name} "${label}"</template>
 <template
     id="spray.template.030"
     autoinsert="true" 
@@ -33,7 +33,7 @@ in numerical order.
     deleted="false" 
     description="Adds a text entry to the shape" 
     enabled="true" 
-    name="Add text">text ( )  { ${cursor} };</template>
+    name="Add text">text ( )  { ${cursor} }</template>
 <template 
     id="spray.template.040"
     autoinsert="true" 
@@ -42,7 +42,7 @@ in numerical order.
     description="Add a behavior group with an palette entry" 
     enabled="true" 
     name="Behavior with palette">   behavior {
-        create palette "${PaletteName}";
+        create into ${containmentReference:CrossReference('CreateBehavior.containmentReference')} palette "${PaletteName}" askFor ${attribute:CrossReference('CreateBehavior.askFor')}
     }
 </template>
 <template
@@ -64,14 +64,19 @@ in numerical order.
 autoinsert="true" context="org.eclipselabs.spray.xtext.Spray.kw_class" deleted="false" description="Create a class mapping for a connection" enabled="true" name="Connection node">class ${type:CrossReference('MetaClass.type')}:
     connection  ( )
     {
-        from ${from:CrossReference('Connection.from')};
-        to   ${to:CrossReference('Connection.to')};
-        fromText text ( )  { "" };
-        toText text ( )  { "" };
-        connectionText text ( )  { "" };
+        from ${from:CrossReference('Connection.from')}
+        to   ${to:CrossReference('Connection.to')}
+        fromText text ( )  { "" }
+        toText text ( )  { "" }
+        connectionText text ( )  { "" }
     }
 </template>
 <template 
     id="spray.template.070"
 autoinsert="true" context="org.eclipselabs.spray.xtext.Spray.kw_line" deleted="false" description="Adds a line to a shape" enabled="true" name="Line">line ( color=${black} width=1 );</template>
+<template id="spray.template.080"
+autoinsert="true" context="org.eclipselabs.spray.xtext.Spray.SprayStyleRef" deleted="false" description="Refer to a style" enabled="true" name="Style">style ${name:CrossReference('SprayStyleRef.style')}</template>
+<template id="spray.template.090" autoinsert="true" context="org.eclipselabs.spray.xtext.Spray.kw_custom" deleted="false" description="Inserts a custom behavior" enabled="true" name="Custom Behavior">custom ${name} "${label}"</template>
+<template id="spray.template.100" autoinsert="true" context="org.eclipselabs.spray.xtext.Spray.kw_custom" deleted="false" description="Adds a reference to an existing implementation of CustomFeature" enabled="true" name="Existing Custom Feature">custom ref ${:CrossReference('CustomBehavior.realizedBy')} "${label}"</template>
+
 </templates>

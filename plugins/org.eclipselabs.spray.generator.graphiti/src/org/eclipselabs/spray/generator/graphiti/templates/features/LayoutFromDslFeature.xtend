@@ -46,7 +46,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractLayoutFeature {
+        public abstract class «className» extends AbstractLayoutFeature {
             protected static final int MIN_HEIGHT = 30;
             protected static final int MIN_WIDTH = 50;
             «generate_additionalFields(container)»

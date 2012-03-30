@@ -11,11 +11,13 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 
 class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     @Inject extension NamingExtensions
     @Inject extension GenModelHelper
+    @Inject extension MetaClassExtensions
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -55,12 +57,13 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractCreateConnectionFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractCreateConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {
                 // provide name and description for the UI, e.g. the palette
-                super(fp, "«metaClass.visibleName»", "Create «metaClass.visibleName»");
+                super(fp, "«metaClass.uiLabel»", "Create «metaClass.uiLabel»");
                 gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }
         
@@ -74,13 +77,24 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             «generate_additionalFields(metaClass)»
         }
     '''
-    
+    /**
+     * Determine the name that appears in the dialog when asking for the name
+     */
+    def private getUiLabel (MetaClass mc) {
+        if (mc.hasCreateBehavior && mc.createBehavior.label!=null)
+            mc.createBehavior.label
+        else
+            mc.visibleName
+    }
+
     def generate_canCreate (MetaClass metaClass) '''
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «overrideHeader»
         public boolean canCreate(ICreateConnectionContext context) {
+            if (context.getTargetAnchor() == null)
+                return false;
             // return true if both anchors belong to an EClass
             // and those EClasses are not identical
             «from.javaInterfaceName.shortName» source = get«from.name»(context.getSourceAnchor());
@@ -109,32 +123,37 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
-        «val diagram = metaClass.diagram as Diagram»
         «overrideHeader»
         public Connection create(ICreateConnectionContext context) {
-            «val containmentRef = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head.containmentReference»
-            «val modelClassName = containmentRef.EContainingClass.javaInterfaceName.shortName»
+            «val containmentRef = metaClass.createBehavior.containmentReference»
             Connection newConnection = null;
     
             // get EClasses which should be connected
-            «from.name» source = get«from.name»(context.getSourceAnchor());
-            «to.name» target = get«to.name»(context.getTargetAnchor());
-    
+            final «from.name» source = get«from.name»(context.getSourceAnchor());
+            final «to.name» target = get«to.name»(context.getTargetAnchor());
+            «IF containmentRef.EType==from»
+                final «from.name» container = source;
+            «ELSE»
+                // containment reference is not a feature of source
+                final «containmentRef.EContainingClass.javaInterfaceName.shortName» container = org.eclipse.xtext.EcoreUtil2.getContainerOfType(source, «containmentRef.EContainingClass.name».class);
+            «ENDIF»
             if (source != null && target != null) {
                 // create new business object
-                «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
-                «diagram.modelServiceClassName.shortName» modelService = new «diagram.modelServiceClassName.shortName»(getFeatureProvider().getDiagramTypeProvider());
+                final «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
                 // add the element to containment reference
-                «modelClassName» model = modelService.getModel();
                 «IF containmentRef.many»
-                    model.get«containmentRef.name.toFirstUpper»().add(eReference);
+                    container.get«containmentRef.name.toFirstUpper»().add(eReference);
                 «ELSE»
-                    model.set«containmentRef.name.toFirstUpper»(eReference);
+                    container.set«containmentRef.name.toFirstUpper»(eReference);
                 «ENDIF»
                 // add connection for business object
-                AddConnectionContext addContext = new AddConnectionContext(
+                final AddConnectionContext addContext = new AddConnectionContext(
                         context.getSourceAnchor(), context.getTargetAnchor());
                 addContext.setNewObject(eReference);
+                «IF metaClass.alias!=null»
+                // store alias name
+                addContext.putProperty(PROPERTY_ALIAS, "«metaClass.alias»");
+                «ENDIF»
                 newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
             }
     
@@ -163,7 +182,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
-        «IF from.name != to.name»
+        «IF from.name != to.name» ««« only generate the method if 'to' type is different from 'from' type, since a method for 'from' was already generated
         /**
          * Returns the «to.name» belonging to the anchor, or null if not available.
          */
@@ -192,7 +211,11 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             «IF metaClass.type.EAttributes.exists(att|att.name == "name") »
                 domainObject.setName("new «metaClass.visibleName»");
             «ENDIF»
-            domainObject.set«connection.from.name.toFirstUpper»(source);
+            «IF connection.from.changeable»
+                domainObject.set«connection.from.name.toFirstUpper»(source);
+            «ELSE»
+                // reference '«connection.from.name»' is not settable
+            «ENDIF»
             domainObject.set«connection.to.name.toFirstUpper»(target);
 
             setDoneChanges(true);

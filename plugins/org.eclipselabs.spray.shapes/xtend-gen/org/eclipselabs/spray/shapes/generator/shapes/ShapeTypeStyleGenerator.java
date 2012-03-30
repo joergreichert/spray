@@ -16,7 +16,7 @@ import org.eclipselabs.spray.styles.styles.YesNoBool;
 @SuppressWarnings("all")
 public class ShapeTypeStyleGenerator {
   @Inject
-  private StyleGenerator stylegen;
+  private StyleGenerator _styleGenerator;
   
   public CharSequence generateStyleForElement(final String attName, final ShapestyleLayout ssl) {
     StringConcatenation _builder = new StringConcatenation();
@@ -40,7 +40,7 @@ public class ShapeTypeStyleGenerator {
             _builder.append(".setBackground(gaService.manageColor(diagram,");
             StyleLayout _layout_2 = ssl.getLayout();
             ColorWithTransparency _background_1 = _layout_2.getBackground();
-            CharSequence _createColorValue = this.stylegen.createColorValue(_background_1);
+            CharSequence _createColorValue = this._styleGenerator.createColorValue(_background_1);
             _builder.append(_createColorValue, "");
             _builder.append("));");
             _builder.newLineIfNotEmpty();
@@ -74,38 +74,37 @@ public class ShapeTypeStyleGenerator {
   public CharSequence createFontAttributes(final String attName, final ShapestyleLayout l) {
     StringConcatenation _builder = new StringConcatenation();
     {
-      boolean _operator_and = false;
-      boolean _operator_and_1 = false;
-      boolean _operator_and_2 = false;
+      boolean _operator_or = false;
+      boolean _operator_or_1 = false;
+      boolean _operator_or_2 = false;
       StyleLayout _layout = l.getLayout();
       String _fontName = _layout.getFontName();
-      boolean _operator_equals = ObjectExtensions.operator_equals(_fontName, null);
-      if (!_operator_equals) {
-        _operator_and_2 = false;
+      boolean _operator_notEquals = ObjectExtensions.operator_notEquals(_fontName, null);
+      if (_operator_notEquals) {
+        _operator_or_2 = true;
       } else {
         StyleLayout _layout_1 = l.getLayout();
         int _fontSize = _layout_1.getFontSize();
-        boolean _operator_equals_1 = IntegerExtensions.operator_equals(_fontSize, Integer.MIN_VALUE);
-        _operator_and_2 = BooleanExtensions.operator_and(_operator_equals, _operator_equals_1);
+        boolean _operator_notEquals_1 = IntegerExtensions.operator_notEquals(_fontSize, Integer.MIN_VALUE);
+        _operator_or_2 = BooleanExtensions.operator_or(_operator_notEquals, _operator_notEquals_1);
       }
-      if (!_operator_and_2) {
-        _operator_and_1 = false;
+      if (_operator_or_2) {
+        _operator_or_1 = true;
       } else {
         StyleLayout _layout_2 = l.getLayout();
         YesNoBool _fontItalic = _layout_2.getFontItalic();
-        boolean _operator_equals_2 = ObjectExtensions.operator_equals(_fontItalic, YesNoBool.NULL);
-        _operator_and_1 = BooleanExtensions.operator_and(_operator_and_2, _operator_equals_2);
+        boolean _operator_notEquals_2 = ObjectExtensions.operator_notEquals(_fontItalic, YesNoBool.NULL);
+        _operator_or_1 = BooleanExtensions.operator_or(_operator_or_2, _operator_notEquals_2);
       }
-      if (!_operator_and_1) {
-        _operator_and = false;
+      if (_operator_or_1) {
+        _operator_or = true;
       } else {
         StyleLayout _layout_3 = l.getLayout();
-        YesNoBool _fontItalic_1 = _layout_3.getFontItalic();
-        boolean _operator_equals_3 = ObjectExtensions.operator_equals(_fontItalic_1, YesNoBool.NULL);
-        _operator_and = BooleanExtensions.operator_and(_operator_and_1, _operator_equals_3);
+        YesNoBool _fontBold = _layout_3.getFontBold();
+        boolean _operator_notEquals_3 = ObjectExtensions.operator_notEquals(_fontBold, YesNoBool.NULL);
+        _operator_or = BooleanExtensions.operator_or(_operator_or_1, _operator_notEquals_3);
       }
-      boolean _operator_not = BooleanExtensions.operator_not(_operator_and);
-      if (_operator_not) {
+      if (_operator_or) {
         _builder.append("{");
         _builder.newLine();
         _builder.append("\t");
@@ -116,8 +115,8 @@ public class ShapeTypeStyleGenerator {
         {
           StyleLayout _layout_4 = l.getLayout();
           String _fontName_1 = _layout_4.getFontName();
-          boolean _operator_equals_4 = ObjectExtensions.operator_equals(_fontName_1, null);
-          if (_operator_equals_4) {
+          boolean _operator_equals = ObjectExtensions.operator_equals(_fontName_1, null);
+          if (_operator_equals) {
             _builder.append("\t");
             _builder.append("String fontName = style.getFont().getName();");
             _builder.newLine();
@@ -134,8 +133,8 @@ public class ShapeTypeStyleGenerator {
         {
           StyleLayout _layout_6 = l.getLayout();
           int _fontSize_1 = _layout_6.getFontSize();
-          boolean _operator_equals_5 = IntegerExtensions.operator_equals(_fontSize_1, Integer.MIN_VALUE);
-          if (_operator_equals_5) {
+          boolean _operator_equals_1 = IntegerExtensions.operator_equals(_fontSize_1, Integer.MIN_VALUE);
+          if (_operator_equals_1) {
             _builder.append("\t");
             _builder.append("int fontSize = style.getFont().getSize();");
             _builder.newLine();
@@ -151,9 +150,9 @@ public class ShapeTypeStyleGenerator {
         }
         {
           StyleLayout _layout_8 = l.getLayout();
-          YesNoBool _fontItalic_2 = _layout_8.getFontItalic();
-          boolean _operator_equals_6 = ObjectExtensions.operator_equals(_fontItalic_2, YesNoBool.NULL);
-          if (_operator_equals_6) {
+          YesNoBool _fontItalic_1 = _layout_8.getFontItalic();
+          boolean _operator_equals_2 = ObjectExtensions.operator_equals(_fontItalic_1, YesNoBool.NULL);
+          if (_operator_equals_2) {
             _builder.append("\t");
             _builder.append("boolean fontItalic = style.getFont().isItalic();");
             _builder.newLine();
@@ -161,8 +160,8 @@ public class ShapeTypeStyleGenerator {
             _builder.append("\t");
             _builder.append("boolean fontItalic = ");
             StyleLayout _layout_9 = l.getLayout();
-            YesNoBool _fontItalic_3 = _layout_9.getFontItalic();
-            String _transformYesNoToBoolean = this.stylegen.transformYesNoToBoolean(_fontItalic_3);
+            YesNoBool _fontItalic_2 = _layout_9.getFontItalic();
+            String _transformYesNoToBoolean = this._styleGenerator.transformYesNoToBoolean(_fontItalic_2);
             _builder.append(_transformYesNoToBoolean, "	");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
@@ -170,9 +169,9 @@ public class ShapeTypeStyleGenerator {
         }
         {
           StyleLayout _layout_10 = l.getLayout();
-          YesNoBool _fontBold = _layout_10.getFontBold();
-          boolean _operator_equals_7 = ObjectExtensions.operator_equals(_fontBold, YesNoBool.NULL);
-          if (_operator_equals_7) {
+          YesNoBool _fontBold_1 = _layout_10.getFontBold();
+          boolean _operator_equals_3 = ObjectExtensions.operator_equals(_fontBold_1, YesNoBool.NULL);
+          if (_operator_equals_3) {
             _builder.append("\t");
             _builder.append("boolean fontBold = style.getFont().isBold();");
             _builder.newLine();
@@ -180,8 +179,8 @@ public class ShapeTypeStyleGenerator {
             _builder.append("\t");
             _builder.append("boolean fontBold = ");
             StyleLayout _layout_11 = l.getLayout();
-            YesNoBool _fontBold_1 = _layout_11.getFontBold();
-            String _transformYesNoToBoolean_1 = this.stylegen.transformYesNoToBoolean(_fontBold_1);
+            YesNoBool _fontBold_2 = _layout_11.getFontBold();
+            String _transformYesNoToBoolean_1 = this._styleGenerator.transformYesNoToBoolean(_fontBold_2);
             _builder.append(_transformYesNoToBoolean_1, "	");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
@@ -208,7 +207,7 @@ public class ShapeTypeStyleGenerator {
         _builder.append(".setForeground(gaService.manageColor(diagram,");
         StyleLayout _layout_1 = ssl.getLayout();
         ColorWithTransparency _lineColor_1 = _layout_1.getLineColor();
-        CharSequence _createColorValue = this.stylegen.createColorValue(_lineColor_1);
+        CharSequence _createColorValue = this._styleGenerator.createColorValue(_lineColor_1);
         _builder.append(_createColorValue, "");
         _builder.append("));    \t");
         _builder.newLineIfNotEmpty();

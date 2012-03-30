@@ -54,7 +54,6 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «header(this)»
         package «feature_package()»;
         
-        import «metaClass.javaInterfaceName»;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
         import org.eclipse.graphiti.features.context.IAddContext;
@@ -73,13 +72,16 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «ELSE»
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
         «ENDIF»
+        import org.eclipselabs.spray.shapes.ISprayConnection;
+        import «connection.connection.qualifiedName»;
         import com.google.common.base.Function;
         
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
-        import org.eclipselabs.spray.shapes.«connection.connection.name»;
+        import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddConnectionFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {
@@ -125,23 +127,20 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
             «ENDIF»
-            «connection.connection.name» connection = new «connection.connection.name»(getFeatureProvider());
-            «FOR property : connection.propertiesList»
-            {
-            	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedDomainObject")»
-            	connection.set«property.key.simpleName.toFirstUpper»(value);
-            }
-            «ENDFOR»
+            ISprayConnection connection = new «connection.connection.simpleName»(getFeatureProvider());
             PictogramElement result = connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
 
             // create link and wire it
             peService.setPropertyValue(result , PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
             «IF metaClass.alias!=null»
+            // store alias name
             peService.setPropertyValue(result , PROPERTY_ALIAS, "«metaClass.alias»");
             «ENDIF»
             link(result , addedDomainObject);
 
             setDoneChanges(true);
+           	updatePictogramElement(result);
+            
             return result;
         }
     '''

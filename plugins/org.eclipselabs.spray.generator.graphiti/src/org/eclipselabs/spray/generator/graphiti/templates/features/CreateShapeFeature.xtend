@@ -55,9 +55,9 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «ENDIF»
         // MARKER_IMPORT
         
-        public class «className» extends AbstractCreateFeature {
-            protected static String TITLE = "Create «metaClass.visibleName»";
-            protected static String USER_QUESTION = "Enter new «metaClass.visibleName» name";
+        public abstract class «className» extends AbstractCreateFeature {
+            protected static String TITLE = "Create «metaClass.uiLabel»";
+            protected static String USER_QUESTION = "Enter new «metaClass.uiLabel» name";
             protected «diagram.modelServiceClassName.shortName» modelService;
             protected «metaClass.name» newClass = null;
             «generate_additionalFields(metaClass)»
@@ -77,7 +77,17 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             «generate_additionalFields(metaClass)»
         }
     '''
-    
+    /**
+     * Determine the name that appears in the dialog when asking for the name
+     */
+    def private getUiLabel (MetaClass mc) {
+        if (mc.hasCreateBehavior && mc.createBehavior.label!=null)
+            mc.createBehavior.label
+        else
+            mc.visibleName
+    }
+
+
     def generate_canCreate (MetaClass metaClass) '''
         «overrideHeader()»
         public boolean canCreate(ICreateContext context) {

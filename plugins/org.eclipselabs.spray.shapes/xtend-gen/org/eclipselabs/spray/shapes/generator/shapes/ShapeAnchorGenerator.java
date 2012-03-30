@@ -22,15 +22,15 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
 @SuppressWarnings("all")
 public class ShapeAnchorGenerator {
   @Inject
-  private ShapeSizeCalculator sizeCalculator;
+  private ShapeSizeCalculator _shapeSizeCalculator;
   
   @Inject
-  private ShapeAnchorCalculator anchorCalculator;
+  private ShapeAnchorCalculator _shapeAnchorCalculator;
   
   public CharSequence createAnchorPoints(final ShapeDefinition s) {
     CharSequence _xblockexpression = null;
     {
-      ShapeSizeWrapper _containerSize = this.sizeCalculator.getContainerSize(s);
+      ShapeSizeWrapper _containerSize = this._shapeSizeCalculator.getContainerSize(s);
       ShapeSizeWrapper size = _containerSize;
       StringConcatenation _builder = new StringConcatenation();
       {
@@ -198,7 +198,7 @@ public class ShapeAnchorGenerator {
     _builder.append("ellipse.setX(");
     int _width = shapeSize.getWidth();
     double _xoffset_1 = position.getXoffset();
-    int _calculateCorrection = this.anchorCalculator.calculateCorrection(_width, widthA, _xoffset_1);
+    int _calculateCorrection = this._shapeAnchorCalculator.calculateCorrection(_width, widthA, _xoffset_1);
     _builder.append(_calculateCorrection, "	");
     _builder.append(");");
     _builder.newLineIfNotEmpty();
@@ -206,7 +206,7 @@ public class ShapeAnchorGenerator {
     _builder.append("ellipse.setY(");
     int _heigth = shapeSize.getHeigth();
     double _yoffset_1 = position.getYoffset();
-    int _calculateCorrection_1 = this.anchorCalculator.calculateCorrection(_heigth, heightA, _yoffset_1);
+    int _calculateCorrection_1 = this._shapeAnchorCalculator.calculateCorrection(_heigth, heightA, _yoffset_1);
     _builder.append(_calculateCorrection_1, "	");
     _builder.append(");");
     _builder.newLineIfNotEmpty();
@@ -260,7 +260,7 @@ public class ShapeAnchorGenerator {
     _builder.append("ellipse.setX(");
     int _xcor_1 = position.getXcor();
     int _width = shapeSize.getWidth();
-    int _calculateCorrection = this.anchorCalculator.calculateCorrection(_xcor_1, _width, widthA);
+    int _calculateCorrection = this._shapeAnchorCalculator.calculateCorrection(_xcor_1, _width, widthA);
     _builder.append(_calculateCorrection, "	");
     _builder.append(");");
     _builder.newLineIfNotEmpty();
@@ -268,7 +268,7 @@ public class ShapeAnchorGenerator {
     _builder.append("ellipse.setY(");
     int _ycor_1 = position.getYcor();
     int _heigth = shapeSize.getHeigth();
-    int _calculateCorrection_1 = this.anchorCalculator.calculateCorrection(_ycor_1, _heigth, heightA);
+    int _calculateCorrection_1 = this._shapeAnchorCalculator.calculateCorrection(_ycor_1, _heigth, heightA);
     _builder.append(_calculateCorrection_1, "	");
     _builder.append(");");
     _builder.newLineIfNotEmpty();

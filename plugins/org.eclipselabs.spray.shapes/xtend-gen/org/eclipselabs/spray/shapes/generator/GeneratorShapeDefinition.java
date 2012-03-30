@@ -7,6 +7,7 @@ import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeAnchorGenerator;
+import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator;
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator;
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator;
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
@@ -14,13 +15,16 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
 @SuppressWarnings("all")
 public class GeneratorShapeDefinition {
   @Inject
-  private ShapeTypeGenerator typeGenerator;
+  private ShapeTypeGenerator _shapeTypeGenerator;
   
   @Inject
-  private ShapeLayoutGenerator layoutGenerator;
+  private ShapeLayoutGenerator _shapeLayoutGenerator;
   
   @Inject
-  private ShapeAnchorGenerator anchorGenerator;
+  private ShapeAnchorGenerator _shapeAnchorGenerator;
+  
+  @Inject
+  private ShapeEnumGenerator _shapeEnumGenerator;
   
   public String packageName() {
     return "org.eclipselabs.spray.shapes";
@@ -88,12 +92,13 @@ public class GeneratorShapeDefinition {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.services.IPeService;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IPeCreateService;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.util.ColorConstant;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.util.IColorConstant;");
-    _builder.newLine();
     _builder.newLine();
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.mm.pictograms.*;");
@@ -123,8 +128,17 @@ public class GeneratorShapeDefinition {
     _builder.append("private IGaService gaService = Graphiti.getGaService();");
     _builder.newLine();
     _builder.append("\t");
+    _builder.append("private IPeService peService = Graphiti.getPeService();");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("private IPeCreateService peCreateService = Graphiti.getPeCreateService();");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _generateTextIdsEnum = this._shapeEnumGenerator.generateTextIdsEnum(s);
+    _builder.append(_generateTextIdsEnum, "	");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
@@ -139,6 +153,7 @@ public class GeneratorShapeDefinition {
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("@Override");
@@ -155,7 +170,7 @@ public class GeneratorShapeDefinition {
     _builder.append("// Creating the Anchorpoints");
     _builder.newLine();
     _builder.append("\t\t");
-    CharSequence _createAnchorPoints = this.anchorGenerator.createAnchorPoints(s);
+    CharSequence _createAnchorPoints = this._shapeAnchorGenerator.createAnchorPoints(s);
     _builder.append(_createAnchorPoints, "		");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -177,7 +192,7 @@ public class GeneratorShapeDefinition {
     _builder.append("// Define general layout");
     _builder.newLine();
     _builder.append("\t\t");
-    CharSequence _generateLayout = this.layoutGenerator.generateLayout(s);
+    CharSequence _generateLayout = this._shapeLayoutGenerator.generateLayout(s);
     _builder.append(_generateLayout, "		");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -186,7 +201,7 @@ public class GeneratorShapeDefinition {
     _builder.append("// Creating the different figures");
     _builder.newLine();
     _builder.append("\t\t");
-    CharSequence _generateCascadedElements = this.typeGenerator.generateCascadedElements(s);
+    CharSequence _generateCascadedElements = this._shapeTypeGenerator.generateCascadedElements(s);
     _builder.append(_generateCascadedElements, "		");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");

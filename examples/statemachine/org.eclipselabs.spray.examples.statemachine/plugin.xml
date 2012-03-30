@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Sun Mar 25 13:27:31 CEST 2012 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.diagram.StatemachineDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.examples.statemachine.diagram.StatemachineDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the statemachine diagram type"
+              id="org.eclipselabs.spray.examples.statemachine.diagram.StatemachineDiagramType"
+              name="statemachine Graphiti Diagram Type"
+              type="statemachine">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.diagram.StatemachineDiagramTypeProvider"
+              description="This is my editor for the statemachine diagram type"
+              id="org.eclipselabs.spray.examples.statemachine.diagram.StatemachineDiagramTypeProvider"
+              name="statemachine editor">
+              <diagramType
+                    id="org.eclipselabs.spray.examples.statemachine.diagram.StatemachineDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.examples.statemachine.diagram.StatemachineImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.diagram.StatemachineImageProvider"
+                       id="org.eclipselabs.spray.examples.statemachine.diagram.StatemachineImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="statemachine.PropertyContributor">
+                  <propertyCategory category="statemachineCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="statemachine.PropertyContributor">
+                  <propertyTab label="Main" category="statemachineCategory"
+                      id="statemachine.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="statemachine.PropertyContributor">
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.StartStateNameSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.StartStateFilter"
+           id="statemachine.main.tab.StartState.name">
+          </propertySection>
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.StartStatePreconditionSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.StartStateFilter"
+           afterSection="statemachine.main.tab.StartState.name"
+           id="statemachine.main.tab.StartState.precondition">
+          </propertySection>
+            </propertySections>
+        </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="statemachine.PropertyContributor">
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.FinishStateNameSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.FinishStateFilter"
+           id="statemachine.main.tab.FinishState.name">
+          </propertySection>
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.FinishStatePostconditionSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.FinishStateFilter"
+           afterSection="statemachine.main.tab.FinishState.name"
+           id="statemachine.main.tab.FinishState.postcondition">
+          </propertySection>
+            </propertySections>
+        </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="statemachine.PropertyContributor">
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.NormalStateNameSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.NormalStateFilter"
+           id="statemachine.main.tab.NormalState.name">
+          </propertySection>
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.NormalStateCheckSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.NormalStateFilter"
+           afterSection="statemachine.main.tab.NormalState.name"
+           id="statemachine.main.tab.NormalState.check">
+          </propertySection>
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.NormalStateDescriptionSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.NormalStateFilter"
+           afterSection="statemachine.main.tab.NormalState.check"
+           id="statemachine.main.tab.NormalState.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="statemachine.PropertyContributor">
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.TransitionNameSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.TransitionFilter"
+           id="statemachine.main.tab.Transition.name">
+          </propertySection>
+          <propertySection tab="statemachine.main.tab"
+           class="org.eclipselabs.spray.examples.statemachine.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.statemachine.property.TransitionEventSection"
+           filter="org.eclipselabs.spray.examples.statemachine.property.TransitionFilter"
+           afterSection="statemachine.main.tab.Transition.name"
+           id="statemachine.main.tab.Transition.event">
+          </propertySection>
+            </propertySections>
+        </extension>
+    
+    
+        // Find all clases that are shown as lists in the compartments
+        </plugin>

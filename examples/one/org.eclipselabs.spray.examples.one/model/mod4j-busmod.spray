@@ -6,8 +6,8 @@ diagram mod4j for BusinessDomainModel
 behavior samen {   
     custom doit "Do it" ;
 }    
-       
-class Enumeration :  
+           
+class Enumeration {  
   container ()
   {
           text ( )  { "<<"+eClass.name+">> " + name};
@@ -18,8 +18,9 @@ class Enumeration :
         create into enumerations palette "Shapes" askFor name ;
         custom menuitem "Menu Item";
     }
-  
-class BusinessClass alias FullClass :
+}
+
+class BusinessClass alias FullClass {
       container  ( fill=dark_green ) 
     {
           text ( )  { "<<"+eClass.name+">> " + name};
@@ -29,21 +30,20 @@ class BusinessClass alias FullClass :
           reference businessRules;   // will use name property by default
           line                   (width=2  color=IColorConstant::DARK_BLUE);
           
-//          attribute description; 
           text () "::" + description;    
           line                   (width=1  );
     }   
     references {   
-         superclass : connection(); 
+         superclass : connection( )
     }
     behavior {
         create into types palette "Shapes"  askFor name ; 
         custom doWithBusinessClass "Do It With";  
         group samen ;
     }
-   
+}
  
-class Association icon "connection16.gif":  
+class Association icon "connection16.gif" {
     connection () 
     {  
         from source;
@@ -56,4 +56,4 @@ class Association icon "connection16.gif":
         create into associations palette "Connections"  askFor name;
         group samen;
     }
-
+}

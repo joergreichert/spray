@@ -94,7 +94,8 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddConnectionFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
             public «className»(IFeatureProvider fp) {
@@ -140,6 +141,10 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
 
             // create link and wire it
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
+            «IF metaClass.alias!=null»
+            // store alias name
+            peService.setPropertyValue(connection , PROPERTY_ALIAS, "«metaClass.alias»");
+            «ENDIF»
             decorateConnection (addConContext, connection);
             link(connection, addedDomainObject);
 

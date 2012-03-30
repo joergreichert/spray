@@ -84,7 +84,8 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         import «util_package()».SprayContainerService;
         // MARKER_IMPORT
 
-        public class «className» extends AbstractAddFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddFeature {
             protected final static String typeOrAliasName = "«container.represents.visibleName»";
             protected Diagram targetDiagram = null;
             protected «containerType» container = null;

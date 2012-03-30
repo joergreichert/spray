@@ -16,8 +16,10 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__T
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,6 +33,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmDeclaredType;
+import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
+import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
@@ -49,6 +53,8 @@ import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
+import org.eclipse.xtext.scoping.impl.ImportNormalizer;
+import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.eclipse.xtext.scoping.impl.SingletonScope;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
@@ -63,6 +69,8 @@ import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
+import org.eclipselabs.spray.shapes.scoping.ConnectionScopeRestrictor;
+import org.eclipselabs.spray.shapes.scoping.ShapeScopeRestrictor;
 import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
@@ -120,16 +128,23 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return scope_CreateBehavior_ContainmentReference(context, reference);
         } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__FROM) {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllReferences()));
+            // filter derived references
+            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                @Override
+                public boolean apply(EReference input) {
+                    return !input.isDerived();
+                }
+            });
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
             return result;
         } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__TO) {
             final ConnectionInSpray connection = (ConnectionInSpray) context;
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            // filter 'from' from the possible references
+            // filter derived and 'from' from the possible references
             Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
                 @Override
                 public boolean apply(EReference input) {
-                    return input != connection.getFrom();
+                    return input != connection.getFrom() && !input.isDerived();
                 }
             });
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
@@ -138,7 +153,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             if (context.eContainer().eClass() == META_CLASS) {
                 // non-containment references
                 final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-                Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                final Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
                     @Override
                     public boolean apply(EReference input) {
                         return !input.isContainment();
@@ -166,6 +181,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         } else if (context.eClass() == CREATE_BEHAVIOR && reference == CREATE_BEHAVIOR__ASK_FOR) {
             CreateBehavior createBehavior = (CreateBehavior) context;
             EReference ref = createBehavior.getContainmentReference();
+            if (ref == null)
+                return IScope.NULLSCOPE;
             if (ref.eIsProxy()) {
                 ref = (EReference) EcoreUtil.resolve(ref, context);
                 if (ref.eIsProxy()) {
@@ -190,9 +207,17 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             if (style != null) {
                 return scope_ShapeStyleRefScope(style, context, reference);
             }
+            ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
+            if (shape != null) {
+                return scope_ShapeShapeFromDslScope(shape, context, reference);
+            }
+            ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
+            if (connection != null) {
+                return scope_ShapeConnectionInSprayScope(connection, context, reference);
+            }
         } else if (reference == COLOR_CONSTANT_REF__FIELD) {
             return getColorConstantFieldScope(context);
-        } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
+        } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__KEY) {
             return scope_ShapePropertyAssignment_Key(context, reference);
         }
 
@@ -203,6 +228,36 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         //        }
         //        System.out.println("!");
         return scope;
+    }
+
+    /**
+     * Restrict the scope of shapes to the Shapes implementing ISprayShape
+     * 
+     * @param style
+     * @param context
+     * @param reference
+     * @return
+     */
+    protected IScope scope_ShapeShapeFromDslScope(ShapeFromDsl style, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new ShapeScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    /**
+     * Restrict the scope of connections to the Shapes implementing ISprayConnection
+     * 
+     * @param style
+     * @param context
+     * @param reference
+     * @return
+     */
+    protected IScope scope_ShapeConnectionInSprayScope(ConnectionInSpray style, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new ConnectionScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
     }
 
     /**
@@ -228,36 +283,38 @@ public class SprayScopeProvider extends XbaseScopeProvider {
      * @return
      */
     protected IScope scope_ShapePropertyAssignment_Key(EObject context, EReference reference) {
+        JvmType jvmType = null;
+        final String className = "TextIds";
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
         final ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
         if (shape != null) {
-            final QualifiedName qnShape = qnProvider.getFullyQualifiedName(shape.getShape());
-            if (qnShape != null) {
-                final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
-                    @Override
-                    public boolean apply(IEObjectDescription input) {
-                        return input.getQualifiedName().startsWith(qnShape);
-                    }
-                };
-                final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
-                final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
-                return aliasingScope;
-            }
+            jvmType = shape.getShape().getType();
         } else if (connection != null) {
-            final QualifiedName qnConnection = qnProvider.getFullyQualifiedName(connection.getConnection());
-            if (qnConnection != null) {
-                final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
-                    @Override
-                    public boolean apply(IEObjectDescription input) {
-                        return input.getQualifiedName().startsWith(qnConnection);
-                    }
-                };
-                final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
-                final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
-                return aliasingScope;
+            jvmType = connection.getConnection().getType();
+        }
+        if (jvmType != null && jvmType instanceof JvmGenericType) {
+            return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
+
+    private IScope getEnumerationLiteralsScopeForShape(JvmGenericType type, String className) {
+        JvmEnumerationType enumType = null;
+        for (JvmMember member : type.getMembers()) {
+            if (member.getSimpleName().equals(className)) {
+                enumType = (JvmEnumerationType) member;
+                System.err.println(member.getSimpleName());
             }
         }
-        return IScope.NULLSCOPE;
+        List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
+        if (enumType != null) {
+            for (JvmEnumerationLiteral literal : enumType.getLiterals()) {
+                IEObjectDescription description = EObjectDescription.create(literal.getSimpleName(), literal, null);
+                descrList.add(description);
+            }
+        }
+        return MapBasedScope.createScope(IScope.NULLSCOPE, descrList);
     }
 
     protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {
@@ -279,14 +336,11 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         };
         // get all containments of EClass contained in this package
         List<EReference> containmentReferences = new ArrayList<EReference>();
-        EClass eClassInAllScope = null;
-        if (diagramModelType.getEPackage() != null) {
-            for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
-                if (classifier instanceof EClass) {
-                    eClassInAllScope = (EClass) classifier;
-                    containmentReferences.addAll(eClassInAllScope.getEAllContainments());
-                }
-            }
+        containmentReferences.addAll(diagramModelType.getEAllContainments());
+        // if the MetaClass is a connection take also the containment dependencies of the source type
+        if (mc.getRepresentedBy() instanceof ConnectionInSpray) {
+            EClass sourceType = (EClass) ((ConnectionInSpray) mc.getRepresentedBy()).getFrom().getEType();
+            containmentReferences.addAll(sourceType.getEAllContainments());
         }
         return Scopes.scopeFor(Iterables.filter(containmentReferences, filter));
     }
@@ -296,21 +350,27 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
-        List<EClass> containedTypes = new ArrayList<EClass>();
-        EClass eClassInAllScope = null;
-
-        if (diagramModelType.getEPackage() != null) {
-            for (EClassifier classifier : diagramModelType.getEPackage().getEClassifiers()) {
-                if (classifier instanceof EClass) {
-                    eClassInAllScope = (EClass) classifier;
-
-                    if (!eClassInAllScope.isAbstract() && !eClassInAllScope.equals(diagramModelType)) {
-                        containedTypes.add(eClassInAllScope);
-                    }
-                }
-            }
+        if (diagramModelType == null || diagramModelType.getEPackage() == null) {
+            return IScope.NULLSCOPE;
         }
-        return Scopes.scopeFor(containedTypes);
+        final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
+            @Override
+            public boolean apply(EClassifier input) {
+                return input instanceof EClass && input != diagramModelType && !((EClass) input).isAbstract();
+            }
+        };
+        final Function<EClassifier, IEObjectDescription> toObjDesc = new Function<EClassifier, IEObjectDescription>() {
+            @Override
+            public IEObjectDescription apply(EClassifier input) {
+                return EObjectDescription.create(qnProvider.apply(input), input);
+            }
+        };
+        // Implicit import of the EPackage of the Diagram Model type 
+        final List<ImportNormalizer> normalizer = Collections.singletonList(new ImportNormalizer(qnProvider.apply(diagramModelType.getEPackage()), true, false));
+        final ImportScope importDiagramTypePackage = new ImportScope(normalizer, delegateGetScope(context, reference), null, null, false);
+        final Iterable<IEObjectDescription> descriptions = Iterables.transform(Iterables.filter(diagramModelType.getEPackage().getEClassifiers(), filter), toObjDesc);
+        // the delegate scope will provide import scopes
+        return MapBasedScope.createScope(importDiagramTypePackage, descriptions);
     }
 
     protected IScope scope_Diagram_ModelType(EObject context, EReference reference) {

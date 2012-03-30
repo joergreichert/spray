@@ -19,6 +19,7 @@ public class SprayTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
         layoutKeywords.add("'bold'");
         layoutKeywords.add("'italic'");
         layoutKeywords.add("'icon'");
+        layoutKeywords.add("'shape'");
         //        for (Color color : Color.values()) {
         //            System.out.println(color.getLiteral() + "::" + color.getName());
         //            layoutKeywords.add("'" + color.getName().toLowerCase() + "'");

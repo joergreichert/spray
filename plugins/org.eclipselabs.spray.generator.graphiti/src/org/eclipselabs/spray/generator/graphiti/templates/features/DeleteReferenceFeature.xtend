@@ -51,7 +51,7 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         // MARKER_IMPORT
         
-        public class «className» extends DefaultDeleteFeature {
+        public abstract class «className» extends DefaultDeleteFeature {
             «generate_additionalFields(reference)»
         
             public «className»(IFeatureProvider fp) {

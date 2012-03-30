@@ -40,6 +40,9 @@ class NamingExtensions {
         ref.target.name
     }
     
+    /**
+     * The visible name is the element's alias if set, otherwise the element's name
+     */
     def String getVisibleName (AliasableElement elem) {
         if (elem.alias != null && elem.alias.length > 0)
            return elem.alias

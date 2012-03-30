@@ -2,13 +2,13 @@
 // multiple connection references to not contained as well as to contained features
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessDomainDsl.BusinessRule :
+class BusinessDomainDsl.BusinessRule {
     container () {
         text () { name };
     }
+}
 
-
-class BusinessDomainDsl.BusinessClass :
+class BusinessDomainDsl.BusinessClass {
     container () {
         text () { name };
     }
@@ -16,4 +16,5 @@ class BusinessDomainDsl.BusinessClass :
         superclass : connection ();
         associationsTo : connection ();
         businessRules : connection ();
-    } 
+    }
+}

@@ -1,5 +1,6 @@
 package org.eclipselabs.spray.styles;
 
+import org.eclipse.graphiti.mm.StyleContainer;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -25,9 +26,23 @@ public class DefaultSprayStyle implements ISprayStyle {
     @Override
     public Style getStyle(Diagram diagram) {
         if (style == null) {
+            // style already exists?
+            style = findStyle(diagram, getId());
+        }
+        if (style == null) {
+            // no -> create new one
             style = newStyle(diagram);
         }
         return style;
+    }
+
+    /**
+     * A unique identifier for the style
+     * 
+     * @return By default the method returns the style class simple name
+     */
+    protected String getId() {
+        return getClass().getSimpleName();
     }
 
     /**
@@ -38,7 +53,7 @@ public class DefaultSprayStyle implements ISprayStyle {
         IGaService gaService = Graphiti.getGaService();
 
         // Creating Style with given id and description
-        Style style = gaService.createStyle(diagram, "DefaultSprayStyle");
+        Style style = gaService.createStyle(diagram, getId());
         style.setDescription("This is the default Style definition for Spray");
 
         // Setting the transparency value - default is 1.0
@@ -70,4 +85,13 @@ public class DefaultSprayStyle implements ISprayStyle {
         return gaService.manageColor(diagram, IColorConstant.BLACK);
     }
 
+    protected Style findStyle(StyleContainer container, String id) {
+        if (id == null)
+            return null;
+        for (Style s : container.getStyles()) {
+            if (id.equals(s.getId()))
+                return s;
+        }
+        return null;
+    }
 }

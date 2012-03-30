@@ -14,7 +14,7 @@ behavior samen {
 }
  
 class BusinessClass {
-    container  ( fill=dark_green ) 
+    container  ( fill=yellow ) 
     {
           text ( )  { "<<"+eClass.name+">> " + name}
           line ( color=black width=2)
@@ -23,7 +23,6 @@ class BusinessClass {
           reference businessRules   // will use name property by default
           line                   (width=2  color=IColorConstant::DARK_BLUE)
           
-//          attribute description
           text () "::" + description    
           line                   (width=1  )
     }   

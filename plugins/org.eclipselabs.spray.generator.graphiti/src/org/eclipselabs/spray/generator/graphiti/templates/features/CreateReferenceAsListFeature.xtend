@@ -60,7 +60,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
         import «util_package()».SampleUtil;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractCreateFeature {
+        public abstract class «className» extends AbstractCreateFeature {
             protected static String TITLE = "Create «target.name»";
             protected static String USER_QUESTION = "Enter new «target.name» «reference.labelPropertyName»";
             «generate_additionalFields(reference)»

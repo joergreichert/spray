@@ -11,6 +11,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
 import org.eclipselabs.spray.mm.spray.Behavior;
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
@@ -22,7 +23,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
-@SuppressWarnings("restriction")
 public class SprayJavaValidator extends AbstractSprayJavaValidator {
     @Inject
     private GenModelHelper genModelHelper;
@@ -112,7 +112,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
     @Check
     public void checkConnectionReferenceToContainmentFeature(final MetaClass element) {
         for (MetaReference ref : element.getReferences()) {
-            if ((ref.getTarget() != null && ref.getTarget().isContainment()) || ref.getTarget().eIsProxy()) {
+            if ((ref.getTarget() != null && ref.getTarget().isContainment())) {
                 String referenceName = getReferenceName(ref);
                 error("Connection reference to containment reference not supported yet: " + referenceName, element, SprayPackage.Literals.META_CLASS__REFERENCES, IssueCodes.CONTAINMENT_CONNECTION_REFERENCE, referenceName);
             }
@@ -129,7 +129,19 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
         };
         String name = (element.getType() != null && element.getType().getName() != null) ? element.getType().getName() : element.toString();
         if (!Iterables.filter(element.getBehaviorsList(), createBehaviorFilter).iterator().hasNext()) {
-            warning("There is no create behavior defined For class  " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
+            warning("There is no create behavior defined For class " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
+        }
+    }
+
+    /**
+     * The connection to reference must be specified, except for the case of a MetaReference, since there the reference is already defined as target
+     * 
+     * @param connection
+     */
+    @Check
+    public void checkConnectionFromTo(final ConnectionInSpray connection) {
+        if (connection.getTo() == null && !(connection.eContainer() instanceof MetaReference)) {
+            error("to reference not specified", SprayPackage.Literals.CONNECTION_IN_SPRAY__TO);
         }
     }
 }

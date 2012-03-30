@@ -90,7 +90,8 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         // MARKER_IMPORT
         
-        public class «className» extends AbstractAddConnectionFeature {
+        @SuppressWarnings("unused")
+        public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(reference)»
             
             public «className»(IFeatureProvider fp) {

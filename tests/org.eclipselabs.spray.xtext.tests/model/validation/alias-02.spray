@@ -2,10 +2,12 @@
 // Two classes with same alias name not allowed
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass alias BC1 :
+class BusinessDomainDsl.BusinessClass alias BC1 {
     container () {
     }
+}
 
-class BusinessDomainDsl.BusinessClass alias BC1 :
+class BusinessDomainDsl.BusinessClass alias BC1 {
     container () {
     }
+}

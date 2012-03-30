@@ -23,4 +23,68 @@ After doing this the class is moved to the @src/@ folder. The derived flag is re
 
 If you accidently moved the file to the @src/@ folder and want to let it be generated again, just removed it. With the next generator run it will appear again in the @src-gen/@ folder.
 
+h2. Extending Spray's code generator
+
+Spray's code generator produces a good basis for Graphiti editors. However, it cannot be complete against user requirements and may contain also bugs. The appliance of the Generation Gap Pattern allows to modify the produced classes and change whatever required. But when the changes need to be applied to all produced classes, it would be more efficient to change the generator's production rules. The naive way to do this would be to change the generator's source directly. This will lead to problems, since Spray's generator implementation will evolve and you would need to merge your changes later and may get lost what actually your changes were.
+
+Spray provides a far more better way to change the generator. Instead of changing the source directly it is possible to derive the existing templates and make Spray use the overridden templates instead of the original ones. Spray uses Xtend, which directly compiles to Java, so the templates themselves can be concerned as just Java classes which you could derive from. 
+
+h3. Create plugin project
+To extend the generator you basically need a plugin project. Create one and add the following dependencies:
+
+bc. 
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.0",
+ org.eclipselabs.spray.mm;bundle-version="0.5.0",
+ org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
+ org.eclipselabs.spray.generator.graphiti.ui
+Import-Package: org.eclipse.xtend2.lib,
+ org.eclipse.xtext.xbase.lib
+
+h3. Derive templates
+The templates are inside of the plugin @org.eclipselabs.spray.generator.graphiti@, and you will need to know which template(s) you actually need to override. The header comment in the generated code will name the template from which it origins. You likely have to look at the original template source to make good additions.
+
+Derive the template, e.g. 
+
+bc.. 
+import org.eclipselabs.spray.generator.graphiti.templates.diagram.FeatureProvider
+import org.eclipselabs.spray.mm.spray.Diagram
+
+class FeatureProviderExt extends FeatureProvider { 
+    
+    override generate_additionalMethods(Diagram context) '''
+        // this has been added by a derived template from org.eclipselabs.spray.generator.graphiti.extension
+    '''
+    
+} 
+p. 
+
+h3. Guice Runtime Module
+
+To actually use your derived template class instead of the original one you have to provide a Guice module that binds your class. This looks like follows:
+
+bc.. 
+public class GeneratorExtensionRuntimeModule extends AbstractGenericModule {
+    public Class<? extends FeatureProvider> bindFeatureProviderTemplate() {
+        return FeatureProviderExt.class;
+    }
+}
+p. 
+
+h3. Extension point
+Now open the Manifest editor and go to the Extensions section. Add an extension for extension point @org.eclipselabs.spray.runtime.xtext.overridingGuiceModule@. This extension point requires you to provide the class name (property @class@) of your
+new Guice module and the class name of the module that you want to override (property @overrides@), which is @org.eclipselabs.spray.generator.graphiti.GraphitiGeneratorModule@.
+
+
+!images/extension_5.png!
+
+h3. Done!
+If you deploy your plugin now (it does not work if the plugin is just in the workspace of the diagram plugin that you are developing, of course) Spray will now recognize your module and override configurations that come from its base implementation. Without touching Spray's sources you are now able to customize the generator templates!
+
+bc.. 
+public abstract class MyDiagramFeatureProviderBase extends DefaultFeatureProvider {
+  ...
+      // this has been added by a derived template from org.eclipselabs.spray.generator.graphiti.extension
+}
+p. 
 
