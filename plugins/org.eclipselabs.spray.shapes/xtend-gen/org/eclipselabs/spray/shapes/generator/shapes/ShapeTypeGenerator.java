@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
-import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
@@ -31,9 +30,6 @@ import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout;
 import org.eclipselabs.spray.shapes.shapes.Text;
 import org.eclipselabs.spray.shapes.shapes.TextBody;
-import org.eclipselabs.spray.shapes.shapes.TextBodyParameter;
-import org.eclipselabs.spray.shapes.shapes.TextBodyString;
-import org.eclipselabs.spray.shapes.shapes.TextBodyValue;
 import org.eclipselabs.spray.shapes.shapes.TextLayout;
 import org.eclipselabs.spray.shapes.shapes.TextType;
 import org.eclipselabs.spray.shapes.shapes.VAlign;
@@ -41,10 +37,10 @@ import org.eclipselabs.spray.shapes.shapes.VAlign;
 @SuppressWarnings("all")
 public class ShapeTypeGenerator {
   @Inject
-  private ShapeTypeStyleGenerator styleGenerator;
+  private ShapeTypeStyleGenerator _shapeTypeStyleGenerator;
   
   @Inject
-  private ShapeSizeCalculator sizeCalculator;
+  private ShapeSizeCalculator _shapeSizeCalculator;
   
   private int element_index;
   
@@ -55,7 +51,7 @@ public class ShapeTypeGenerator {
     {
       this.element_index = 0;
       this.plcount = 0;
-      ShapeSizeWrapper _containerSize = this.sizeCalculator.getContainerSize(s);
+      ShapeSizeWrapper _containerSize = this._shapeSizeCalculator.getContainerSize(s);
       ShapeSizeWrapper sizeMap = _containerSize;
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("// Create a Invisible Rectangle Around the Elements");
@@ -173,7 +169,7 @@ public class ShapeTypeGenerator {
       _builder.newLineIfNotEmpty();
       LineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_2);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_2);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -232,7 +228,7 @@ public class ShapeTypeGenerator {
       _builder.newLineIfNotEmpty();
       RectangleEllipseLayout _layout_4 = element.getLayout();
       ShapestyleLayout _layout_5 = _layout_4.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_5);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_5);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       EList<Shape> _shape = element.getShape();
@@ -281,7 +277,7 @@ public class ShapeTypeGenerator {
       _builder.newLineIfNotEmpty();
       PolyLineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_2);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_2);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       EList<Shape> _shape = element.getShape();
@@ -330,7 +326,7 @@ public class ShapeTypeGenerator {
       _builder.newLineIfNotEmpty();
       PolyLineLayout _layout_1 = element.getLayout();
       ShapestyleLayout _layout_2 = _layout_1.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_2);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_2);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       _xblockexpression = (_builder);
@@ -397,7 +393,7 @@ public class ShapeTypeGenerator {
       _builder.newLineIfNotEmpty();
       RoundedRectangleLayout _layout_6 = element.getLayout();
       ShapestyleLayout _layout_7 = _layout_6.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_7);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_7);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       EList<Shape> _shape = element.getShape();
@@ -461,7 +457,7 @@ public class ShapeTypeGenerator {
       _builder.newLineIfNotEmpty();
       RectangleEllipseLayout _layout_4 = element.getLayout();
       ShapestyleLayout _layout_5 = _layout_4.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_5);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_5);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       EList<Shape> _shape = element.getShape();
@@ -559,17 +555,17 @@ public class ShapeTypeGenerator {
       _builder.append(_mapAlignment_1, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
+      _builder.append("peService.setPropertyValue(");
       _builder.append(attname, "");
-      _builder.append(".setValue(");
+      _builder.append(", ISprayShapeConstants.TEXT_ID, TextIds.");
       TextBody _body = element.getBody();
-      TextBodyValue _value = _body.getValue();
-      CharSequence _bodyForText = this.bodyForText(_value);
-      _builder.append(_bodyForText, "");
-      _builder.append(");");
+      String _value = _body.getValue();
+      _builder.append(_value, "");
+      _builder.append(".name());");
       _builder.newLineIfNotEmpty();
       TextLayout _layout_6 = element.getLayout();
       ShapestyleLayout _layout_7 = _layout_6.getLayout();
-      CharSequence _generateStyleForElement = this.styleGenerator.generateStyleForElement(attname, _layout_7);
+      CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_7);
       _builder.append(_generateStyleForElement, "");
       _builder.newLineIfNotEmpty();
       _builder.append("IDirectEditingInfo ");
@@ -640,31 +636,6 @@ public class ShapeTypeGenerator {
     return _switchResult;
   }
   
-  protected CharSequence _bodyForText(final TextBodyString body) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("\"");
-    String _param = body.getParam();
-    _builder.append(_param, "");
-    _builder.append("\"");
-    return _builder;
-  }
-  
-  protected CharSequence _bodyForText(final TextBodyParameter body) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("(get");
-    JvmIdentifiableElement _param = body.getParam();
-    String _simpleName = _param.getSimpleName();
-    String _firstUpper = StringExtensions.toFirstUpper(_simpleName);
-    _builder.append(_firstUpper, "");
-    _builder.append("() == null)? \"\" : get");
-    JvmIdentifiableElement _param_1 = body.getParam();
-    String _simpleName_1 = _param_1.getSimpleName();
-    String _firstUpper_1 = StringExtensions.toFirstUpper(_simpleName_1);
-    _builder.append(_firstUpper_1, "");
-    _builder.append("().toString()");
-    return _builder;
-  }
-  
   public CharSequence styleForElement(final ShapeStyleRef s, final String styleName) {
     CharSequence _xifexpression = null;
     boolean _operator_notEquals = ObjectExtensions.operator_notEquals(s, null);
@@ -722,17 +693,6 @@ public class ShapeTypeGenerator {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(element, parentName, shapeStyle).toString());
-    }
-  }
-  
-  public CharSequence bodyForText(final TextBodyValue body) {
-    if (body instanceof TextBodyParameter) {
-      return _bodyForText((TextBodyParameter)body);
-    } else if (body instanceof TextBodyString) {
-      return _bodyForText((TextBodyString)body);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(body).toString());
     }
   }
 }

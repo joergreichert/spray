@@ -8,13 +8,13 @@ import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
 
 class ConnectionStyleGenerator {
 	
-	@Inject StyleGenerator stylegen 
+	@Inject extension StyleGenerator 
 	
 	def generateStyleForConnection(String attName, ShapestyleLayout csl) {
 		'''
 		«IF(csl != null && csl.layout != null)»
 			«IF(csl.layout.background != null)»
-			«attName».setBackground(gaService.manageColor(diagram,«stylegen.createColorValue(csl.layout.background)»));
+			«attName».setBackground(gaService.manageColor(diagram,«csl.layout.background.createColorValue»));
 			«ENDIF»
 			«IF(csl.layout.transparency != Double::MIN_VALUE)»
 			«attName».setTransparency(«csl.layout.transparency»);		
@@ -43,12 +43,12 @@ class ConnectionStyleGenerator {
 			«IF l.layout.fontItalic == YesNoBool::NULL»
 			boolean fontItalic = style.getFont().isItalic();
 			«ELSE»
-			boolean fontItalic = «stylegen.transformYesNoToBoolean(l.layout.fontItalic)»;
+			boolean fontItalic = «l.layout.fontItalic.transformYesNoToBoolean»;
 			«ENDIF»
 			«IF l.layout.fontBold == YesNoBool::NULL»
 			boolean fontBold = style.getFont().isBold();
 			«ELSE»
-			boolean fontBold = «stylegen.transformYesNoToBoolean(l.layout.fontBold)»;
+			boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;
 			«ENDIF»
 			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 		}
@@ -59,7 +59,7 @@ class ConnectionStyleGenerator {
     def createLineAttributes(String attName, ShapestyleLayout csl){
      	'''
     	«IF(csl.layout.lineColor != null)»
-		«attName».setForeground(gaService.manageColor(diagram,«stylegen.createColorValue(csl.layout.lineColor)»));    	
+		«attName».setForeground(gaService.manageColor(diagram,«csl.layout.lineColor.createColorValue»));    	
     	«ENDIF»
     	«IF(csl.layout.lineStyle != null && csl.layout.lineStyle != LineStyle::NULL)»
   		«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);	

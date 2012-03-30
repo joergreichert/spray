@@ -12,8 +12,8 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
 class ShapeGenerator implements IGenerator {
 
-	@Inject extension GeneratorShapeDefinition shapeGenerator
-	@Inject extension GeneratorConnectionDefinition connectionGenerator 
+	@Inject extension GeneratorShapeDefinition
+	@Inject extension GeneratorConnectionDefinition 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		for(shape : resource.allContents.toIterable.filter(typeof(ShapeDefinition))) {

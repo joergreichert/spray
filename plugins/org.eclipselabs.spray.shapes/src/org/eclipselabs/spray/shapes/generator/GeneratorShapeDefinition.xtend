@@ -5,12 +5,14 @@ import org.eclipselabs.spray.shapes.generator.shapes.ShapeAnchorGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
 
 class GeneratorShapeDefinition {
 	
-	@Inject extension ShapeTypeGenerator typeGenerator
-	@Inject extension ShapeLayoutGenerator layoutGenerator
-	@Inject extension ShapeAnchorGenerator anchorGenerator
+	@Inject extension ShapeTypeGenerator
+	@Inject extension ShapeLayoutGenerator
+	@Inject extension ShapeAnchorGenerator
+	@Inject extension ShapeEnumGenerator
 	
 	def packageName() { "org.eclipselabs.spray.shapes" }
 	def packagePath() { "org/eclipselabs/spray/shapes/" }
@@ -42,10 +44,10 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 		import org.eclipse.graphiti.services.Graphiti;
 		import org.eclipse.graphiti.services.IGaService;
+		import org.eclipse.graphiti.services.IPeService;
 		import org.eclipse.graphiti.services.IPeCreateService;
 		import org.eclipse.graphiti.util.ColorConstant;
 		import org.eclipse.graphiti.util.IColorConstant;
-		
 		
 		import org.eclipse.graphiti.mm.pictograms.*;
 		import org.eclipse.graphiti.mm.algorithms.*;
@@ -61,12 +63,15 @@ class GeneratorShapeDefinition {
 		public class «s.className» extends DefaultSprayShape {
 		    
 			private IGaService gaService = Graphiti.getGaService();
+			private IPeService peService = Graphiti.getPeService();
 			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
+			
+			«s.generateTextIdsEnum»
 			
 			public «s.className»(IFeatureProvider fp) {
 				super(fp);
 			}
-
+			
 			@Override
 			public ContainerShape getShape(Diagram diagram, ISprayStyle sprayStyle) {
 				ContainerShape containerShape = super.getShape(diagram, sprayStyle);

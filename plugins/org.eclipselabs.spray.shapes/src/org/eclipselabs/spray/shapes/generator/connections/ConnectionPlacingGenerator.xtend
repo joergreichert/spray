@@ -13,14 +13,12 @@ import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.CDText
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.TextType
-import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
-import org.eclipselabs.spray.shapes.shapes.TextBodyString
 import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.HAlign
 
 class ConnectionPlacingGenerator {
 
-	@Inject extension ConnectionStyleGenerator styleGenerator
+	@Inject extension ConnectionStyleGenerator
 	
 	def generatePlacing(PlacingDefinition pd) {
 		'''
@@ -145,7 +143,8 @@ class ConnectionPlacingGenerator {
 		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
-		«attname».setValue(«element.body.value.bodyForText»);
+		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
+«««		«attname».setValue(«element.body.value.bodyForText»);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
@@ -166,10 +165,10 @@ class ConnectionPlacingGenerator {
 		}
 	}
 	
-	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
-	def dispatch bodyForText(TextBodyParameter body) { 
-		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
-	}
+//	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
+//	def dispatch bodyForText(TextBodyParameter body) { 
+//		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
+//	}
 
 	def createPointList(EList<Point> pointlist, String plname, Integer x, Integer y) {
 		'''

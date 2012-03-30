@@ -16,7 +16,7 @@ import org.eclipselabs.spray.styles.styles.YesNoBool;
 @SuppressWarnings("all")
 public class ShapeTypeStyleGenerator {
   @Inject
-  private StyleGenerator stylegen;
+  private StyleGenerator _styleGenerator;
   
   public CharSequence generateStyleForElement(final String attName, final ShapestyleLayout ssl) {
     StringConcatenation _builder = new StringConcatenation();
@@ -40,7 +40,7 @@ public class ShapeTypeStyleGenerator {
             _builder.append(".setBackground(gaService.manageColor(diagram,");
             StyleLayout _layout_2 = ssl.getLayout();
             ColorWithTransparency _background_1 = _layout_2.getBackground();
-            CharSequence _createColorValue = this.stylegen.createColorValue(_background_1);
+            CharSequence _createColorValue = this._styleGenerator.createColorValue(_background_1);
             _builder.append(_createColorValue, "");
             _builder.append("));");
             _builder.newLineIfNotEmpty();
@@ -161,7 +161,7 @@ public class ShapeTypeStyleGenerator {
             _builder.append("boolean fontItalic = ");
             StyleLayout _layout_9 = l.getLayout();
             YesNoBool _fontItalic_2 = _layout_9.getFontItalic();
-            String _transformYesNoToBoolean = this.stylegen.transformYesNoToBoolean(_fontItalic_2);
+            String _transformYesNoToBoolean = this._styleGenerator.transformYesNoToBoolean(_fontItalic_2);
             _builder.append(_transformYesNoToBoolean, "	");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
@@ -180,7 +180,7 @@ public class ShapeTypeStyleGenerator {
             _builder.append("boolean fontBold = ");
             StyleLayout _layout_11 = l.getLayout();
             YesNoBool _fontBold_2 = _layout_11.getFontBold();
-            String _transformYesNoToBoolean_1 = this.stylegen.transformYesNoToBoolean(_fontBold_2);
+            String _transformYesNoToBoolean_1 = this._styleGenerator.transformYesNoToBoolean(_fontBold_2);
             _builder.append(_transformYesNoToBoolean_1, "	");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
@@ -207,7 +207,7 @@ public class ShapeTypeStyleGenerator {
         _builder.append(".setForeground(gaService.manageColor(diagram,");
         StyleLayout _layout_1 = ssl.getLayout();
         ColorWithTransparency _lineColor_1 = _layout_1.getLineColor();
-        CharSequence _createColorValue = this.stylegen.createColorValue(_lineColor_1);
+        CharSequence _createColorValue = this._styleGenerator.createColorValue(_lineColor_1);
         _builder.append(_createColorValue, "");
         _builder.append("));    \t");
         _builder.newLineIfNotEmpty();

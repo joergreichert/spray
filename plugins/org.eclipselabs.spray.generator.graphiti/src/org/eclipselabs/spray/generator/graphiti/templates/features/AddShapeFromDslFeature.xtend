@@ -14,7 +14,6 @@ import org.eclipselabs.spray.mm.spray.SprayStyleRef
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
 	
     @Inject extension NamingExtensions
-    @Inject extension SprayCompiler
     
     MetaClass metaClass = null
     SprayStyleRef styleRef = null
@@ -54,23 +53,23 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         package «feature_package()»;
         
         import org.eclipse.emf.ecore.EObject;
-        import «metaClass.javaInterfaceName»;
-        import com.google.common.base.Function;
-        import org.eclipse.graphiti.mm.pictograms.Diagram;
-        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddContext;
+        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+        import org.eclipse.graphiti.mm.pictograms.Diagram;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.shapes.«container.shape.name»;
-        import org.eclipselabs.spray.styles.ISprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
+        import «container.shape.qualifiedName»;
         «IF styleRef != null && styleRef.style != null»
         import «styleRef.style.qualifiedName»;
         «ELSE»
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
         «ENDIF»
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
+        import org.eclipselabs.spray.styles.ISprayStyle;
+        
+        import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
 
         @SuppressWarnings("unused")
@@ -106,12 +105,12 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 «ELSE»
                 ISprayStyle style = new DefaultSprayStyle();
                 «ENDIF»
-                «container.shape.name» shape = new «container.shape.name»(getFeatureProvider());
+                «container.shape.simpleName» shape = new «container.shape.simpleName»(getFeatureProvider());
                 «FOR property : container.propertiesList»
-                {
-                	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedModelElement")»
-                	shape.set«property.key.simpleName.toFirstUpper»(value);
-                }
+«««                {
+«««                	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedModelElement")»
+«««                	shape.set«property.key.simpleName.toFirstUpper»(value);
+«««                }
                 «ENDFOR»
                 ContainerShape conShape = shape.getShape(targetDiagram, style);
                 IGaService gaService = Graphiti.getGaService();
@@ -122,18 +121,11 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 «ENDIF»
 
                 setDoneChanges(true);
+                updatePictogramElement(conShape);
                 
                 return conShape;
             }
             
         }
-        '''
-        
-        def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
-        	«returnType» «valueName» = new Function<«metaClassName», «returnType»>() {
-        		public «returnType» apply(«metaClassName» modelElement) {
-        			«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
-        		}
-        	}.apply(«metaClassAttribute»); 
         '''
 }

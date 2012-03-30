@@ -54,7 +54,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «header(this)»
         package «feature_package()»;
         
-        import «metaClass.javaInterfaceName»;
+        import LanguageWorkbenchCompetition.LWCPipe;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
         import org.eclipse.graphiti.features.context.IAddContext;
@@ -73,10 +73,12 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «ELSE»
         import org.eclipselabs.spray.styles.DefaultSprayStyle;
         «ENDIF»
+        import «connection.connection.qualifiedName»;
         import com.google.common.base.Function;
         
         import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
-        import org.eclipselabs.spray.shapes.«connection.connection.name»;
+        import «metaClass.javaInterfaceName»;
+        import org.eclipselabs.spray.examples.lwc2012.Activator;
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
@@ -126,12 +128,12 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
             «ENDIF»
-            «connection.connection.name» connection = new «connection.connection.name»(getFeatureProvider());
+            «connection.connection.simpleName» connection = new «connection.connection.simpleName»(getFeatureProvider());
             «FOR property : connection.propertiesList»
-            {
-            	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedDomainObject")»
-            	connection.set«property.key.simpleName.toFirstUpper»(value);
-            }
+«««            {
+«««            	«property.value.propertyAssignmentFunction("value", property.key.returnTypeForPropertyAssignment, metaClass.name, "addedDomainObject")»
+«««            	connection.set«property.key.simpleName.toFirstUpper»(value);
+«««            }
             «ENDFOR»
             PictogramElement result = connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
 
@@ -144,6 +146,8 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             link(result , addedDomainObject);
 
             setDoneChanges(true);
+           	updatePictogramElement(result);
+            
             return result;
         }
     '''

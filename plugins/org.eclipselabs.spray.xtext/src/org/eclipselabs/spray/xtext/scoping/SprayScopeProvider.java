@@ -3,6 +3,21 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -18,6 +33,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmDeclaredType;
+import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
+import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
@@ -52,6 +69,8 @@ import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
+import org.eclipselabs.spray.shapes.scoping.ConnectionScopeRestrictor;
+import org.eclipselabs.spray.shapes.scoping.ShapeScopeRestrictor;
 import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
@@ -59,20 +78,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
-
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
 
 /**
  * This class contains custom scoping description.
@@ -202,9 +207,17 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             if (style != null) {
                 return scope_ShapeStyleRefScope(style, context, reference);
             }
+            ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
+            if (shape != null) {
+                return scope_ShapeShapeFromDslScope(shape, context, reference);
+            }
+            ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
+            if (connection != null) {
+                return scope_ShapeConnectionInSprayScope(connection, context, reference);
+            }
         } else if (reference == COLOR_CONSTANT_REF__FIELD) {
             return getColorConstantFieldScope(context);
-        } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
+        } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__KEY) {
             return scope_ShapePropertyAssignment_Key(context, reference);
         }
 
@@ -215,6 +228,36 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         //        }
         //        System.out.println("!");
         return scope;
+    }
+
+    /**
+     * Restrict the scope of shapes to the Shapes implementing ISprayShape
+     * 
+     * @param style
+     * @param context
+     * @param reference
+     * @return
+     */
+    protected IScope scope_ShapeShapeFromDslScope(ShapeFromDsl style, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new ShapeScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    /**
+     * Restrict the scope of connections to the Shapes implementing ISprayConnection
+     * 
+     * @param style
+     * @param context
+     * @param reference
+     * @return
+     */
+    protected IScope scope_ShapeConnectionInSprayScope(ConnectionInSpray style, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new ConnectionScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
     }
 
     /**
@@ -240,36 +283,38 @@ public class SprayScopeProvider extends XbaseScopeProvider {
      * @return
      */
     protected IScope scope_ShapePropertyAssignment_Key(EObject context, EReference reference) {
+        JvmType jvmType = null;
+        final String className = "TextIds";
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
         final ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
         if (shape != null) {
-            final QualifiedName qnShape = qnProvider.getFullyQualifiedName(shape.getShape());
-            if (qnShape != null) {
-                final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
-                    @Override
-                    public boolean apply(IEObjectDescription input) {
-                        return input.getQualifiedName().startsWith(qnShape);
-                    }
-                };
-                final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
-                final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
-                return aliasingScope;
-            }
+            jvmType = shape.getShape().getType();
         } else if (connection != null) {
-            final QualifiedName qnConnection = qnProvider.getFullyQualifiedName(connection.getConnection());
-            if (qnConnection != null) {
-                final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
-                    @Override
-                    public boolean apply(IEObjectDescription input) {
-                        return input.getQualifiedName().startsWith(qnConnection);
-                    }
-                };
-                final IScope scope = new FilteringScope(delegateGetScope(context, reference), filter);
-                final AliasingScope aliasingScope = new AliasingScope(scope, AliasingScope.LAST_SEGMENT);
-                return aliasingScope;
+            jvmType = connection.getConnection().getType();
+        }
+        if (jvmType != null && jvmType instanceof JvmGenericType) {
+            return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
+
+    private IScope getEnumerationLiteralsScopeForShape(JvmGenericType type, String className) {
+        JvmEnumerationType enumType = null;
+        for (JvmMember member : type.getMembers()) {
+            if (member.getSimpleName().equals(className)) {
+                enumType = (JvmEnumerationType) member;
+                System.err.println(member.getSimpleName());
             }
         }
-        return IScope.NULLSCOPE;
+        List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
+        if (enumType != null) {
+            for (JvmEnumerationLiteral literal : enumType.getLiterals()) {
+                IEObjectDescription description = EObjectDescription.create(literal.getSimpleName(), literal, null);
+                descrList.add(description);
+            }
+        }
+        return MapBasedScope.createScope(IScope.NULLSCOPE, descrList);
     }
 
     protected IScope scope_CreateBehavior_ContainmentReference(EObject context, EReference reference) {

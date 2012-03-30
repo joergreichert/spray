@@ -7,6 +7,7 @@ import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerator;
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGenerator;
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator;
 import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
@@ -17,10 +18,13 @@ import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout;
 @SuppressWarnings("all")
 public class GeneratorConnectionDefinition {
   @Inject
-  private ConnectionStyleGenerator styleGenerator;
+  private ConnectionStyleGenerator _connectionStyleGenerator;
   
   @Inject
-  private ConnectionPlacingGenerator placingGenerator;
+  private ConnectionPlacingGenerator _connectionPlacingGenerator;
+  
+  @Inject
+  private ConnectionEnumGenerator _connectionEnumGenerator;
   
   public String packageName() {
     return "org.eclipselabs.spray.shapes";
@@ -86,6 +90,8 @@ public class GeneratorConnectionDefinition {
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IGaService;");
     _builder.newLine();
+    _builder.append("import org.eclipse.graphiti.services.IPeService;");
+    _builder.newLine();
     _builder.append("import org.eclipse.graphiti.services.IPeCreateService;");
     _builder.newLine();
     _builder.append("import org.eclipse.graphiti.util.IColorConstant;");
@@ -112,8 +118,17 @@ public class GeneratorConnectionDefinition {
     _builder.append("private IGaService gaService = Graphiti.getGaService();");
     _builder.newLine();
     _builder.append("\t");
+    _builder.append("private IPeService peService = Graphiti.getPeService();");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.append("private IPeCreateService peCreateService = Graphiti.getPeCreateService();");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    CharSequence _generateTextIdsEnum = this._connectionEnumGenerator.generateTextIdsEnum(c);
+    _builder.append(_generateTextIdsEnum, "	");
+    _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.newLine();
     _builder.append("    ");
@@ -183,7 +198,7 @@ public class GeneratorConnectionDefinition {
     _builder.newLine();
     _builder.append("\t\t");
     ShapestyleLayout _layout = c.getLayout();
-    CharSequence _generateStyleForConnection = this.styleGenerator.generateStyleForConnection("polyline", _layout);
+    CharSequence _generateStyleForConnection = this._connectionStyleGenerator.generateStyleForConnection("polyline", _layout);
     _builder.append(_generateStyleForConnection, "		");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -195,7 +210,7 @@ public class GeneratorConnectionDefinition {
       EList<PlacingDefinition> _placing = c.getPlacing();
       for(final PlacingDefinition place : _placing) {
         _builder.append("\t\t");
-        CharSequence _generatePlacing = this.placingGenerator.generatePlacing(place);
+        CharSequence _generatePlacing = this._connectionPlacingGenerator.generatePlacing(place);
         _builder.append(_generatePlacing, "		");
         _builder.newLineIfNotEmpty();
       }

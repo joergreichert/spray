@@ -150,16 +150,16 @@ CommonLayout:
 	);
 
 TextBody:
-	"value" "=" value=TextBodyValue;
+	"id" "=" value=ID; //value=TextBodyValue;
 
-TextBodyValue:
-	TextBodyParameter | TextBodyString;
-
-TextBodyString:
-	param=STRING;
-
-TextBodyParameter:
-	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
+//TextBodyValue:
+//	TextBodyParameter | TextBodyString;
+//
+//TextBodyString:
+//	param=STRING;
+//
+//TextBodyParameter:
+//	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
 
 Point:
 	{Point} ('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','

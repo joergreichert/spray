@@ -5,11 +5,13 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGenerator
 import org.eclipselabs.spray.shapes.shapes.ConnectionStyle
+import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerator
 
 class GeneratorConnectionDefinition {
 	
-	@Inject extension ConnectionStyleGenerator styleGenerator
-	@Inject extension ConnectionPlacingGenerator placingGenerator
+	@Inject extension ConnectionStyleGenerator
+	@Inject extension ConnectionPlacingGenerator
+	@Inject extension ConnectionEnumGenerator
 	
 	def packageName() { "org.eclipselabs.spray.shapes" }
 	def packagePath() { "org/eclipselabs/spray/shapes/" }
@@ -40,6 +42,7 @@ class GeneratorConnectionDefinition {
 		import org.eclipse.graphiti.mm.pictograms.*;
 		import org.eclipse.graphiti.services.Graphiti;
 		import org.eclipse.graphiti.services.IGaService;
+		import org.eclipse.graphiti.services.IPeService;
 		import org.eclipse.graphiti.services.IPeCreateService;
 		import org.eclipse.graphiti.util.IColorConstant;
 		
@@ -54,7 +57,10 @@ class GeneratorConnectionDefinition {
 		public class «c.className» extends DefaultSprayConnection {
 			
 			private IGaService gaService = Graphiti.getGaService();
+			private IPeService peService = Graphiti.getPeService();
 			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
+			
+			«c.generateTextIdsEnum»
 		    
 		    public «c.className»(IFeatureProvider fp) {
 				super(fp);

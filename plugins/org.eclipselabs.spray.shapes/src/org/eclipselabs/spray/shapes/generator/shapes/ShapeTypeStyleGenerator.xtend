@@ -8,13 +8,13 @@ import org.eclipselabs.spray.styles.generator.StyleGenerator
 
 class ShapeTypeStyleGenerator {
 	
-	@Inject StyleGenerator stylegen 
+	@Inject extension StyleGenerator 
 	
 	def generateStyleForElement(String attName, ShapestyleLayout ssl) {
 	'''
 	«IF(ssl != null && ssl.layout != null)»
 		«IF(ssl.layout.background != null)»
-		«attName».setBackground(gaService.manageColor(diagram,«stylegen.createColorValue(ssl.layout.background)»));
+		«attName».setBackground(gaService.manageColor(diagram,«ssl.layout.background.createColorValue»));
 		«ENDIF»
 		«IF(ssl.layout.transparency != Double::MIN_VALUE)»
 		«attName».setTransparency(«ssl.layout.transparency»);		
@@ -43,12 +43,12 @@ class ShapeTypeStyleGenerator {
 			«IF l.layout.fontItalic == YesNoBool::NULL»
 			boolean fontItalic = style.getFont().isItalic();
 			«ELSE»
-			boolean fontItalic = «stylegen.transformYesNoToBoolean(l.layout.fontItalic)»;
+			boolean fontItalic = «l.layout.fontItalic.transformYesNoToBoolean»;
 			«ENDIF»
 			«IF l.layout.fontBold == YesNoBool::NULL»
 			boolean fontBold = style.getFont().isBold();
 			«ELSE»
-			boolean fontBold = «stylegen.transformYesNoToBoolean(l.layout.fontBold)»;
+			boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;
 			«ENDIF»
 			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 		}
@@ -59,7 +59,7 @@ class ShapeTypeStyleGenerator {
     def createLineAttributes(String attName, ShapestyleLayout ssl){
     	'''
     	«IF(ssl.layout.lineColor != null)»
-			«attName».setForeground(gaService.manageColor(diagram,«stylegen.createColorValue(ssl.layout.lineColor)»));    	
+			«attName».setForeground(gaService.manageColor(diagram,«ssl.layout.lineColor.createColorValue»));    	
     	«ENDIF»
     	«IF(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL)»
   			«attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);	

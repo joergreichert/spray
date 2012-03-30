@@ -13,8 +13,8 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
 class ShapeAnchorGenerator {
 	
-	@Inject extension ShapeSizeCalculator sizeCalculator
-	@Inject extension ShapeAnchorCalculator anchorCalculator
+	@Inject extension ShapeSizeCalculator
+	@Inject extension ShapeAnchorCalculator
 	
 	def createAnchorPoints(ShapeDefinition s){
 		var size = s.getContainerSize

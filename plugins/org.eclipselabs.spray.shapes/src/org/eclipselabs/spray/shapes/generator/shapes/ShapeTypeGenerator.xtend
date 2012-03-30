@@ -14,16 +14,14 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.Text
 import org.eclipselabs.spray.shapes.shapes.TextType
-import org.eclipselabs.spray.shapes.shapes.TextBodyParameter
-import org.eclipselabs.spray.shapes.shapes.TextBodyString
 import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.HAlign
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 
 class ShapeTypeGenerator {
 	
-	@Inject extension ShapeTypeStyleGenerator styleGenerator
-	@Inject extension ShapeSizeCalculator sizeCalculator
+	@Inject extension ShapeTypeStyleGenerator
+	@Inject extension ShapeSizeCalculator
 	
 	int element_index
 	int plcount
@@ -151,7 +149,8 @@ class ShapeTypeGenerator {
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
-		«attname».setValue(«element.body.value.bodyForText»);
+		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
+«««		«attname».setValue(«element.body.value.bodyForText»);
 		«generateStyleForElement(attname, element.layout.layout)»
 		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
 		«editingname».setMainPictogramElement(pictogramElement);
@@ -176,10 +175,10 @@ class ShapeTypeGenerator {
 		}
 	}
 	
-	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
-	def dispatch bodyForText(TextBodyParameter body) { 
-		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
-	}
+//	def dispatch bodyForText(TextBodyString body) { '''"«body.param»"''' }
+//	def dispatch bodyForText(TextBodyParameter body) { 
+//		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
+//	}
 
 	def styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {
