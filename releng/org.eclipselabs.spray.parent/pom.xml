@@ -105,6 +105,7 @@
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho-version}</version>
+						<useUIHarness>false</useUIHarness>
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
