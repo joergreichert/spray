@@ -7,6 +7,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import com.google.inject.Inject
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
+import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment
 
 class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 	
@@ -90,16 +92,11 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 			PictogramElement pe = context.getPictogramElement();
 			«metaclass.name» eClass = («metaclass.name») getBusinessObjectForPictogramElement(pe);
 			«IF metaclass.representedBy instanceof ShapeFromDsl»
-			Text gAlg = (Text) context.getGraphicsAlgorithm();
-			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
-			«FOR property : (metaclass.representedBy as ShapeFromDsl).properties»
-			if(id.equals("«property.key.simpleName»")) {
-				return eClass.get«property.attribute.name.toFirstUpper»();
-			}
-			«ENDFOR»
-			return "";
+			«(metaclass.representedBy as ShapeFromDsl).properties.generate_initialValue»
+			«ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
+			«(metaclass.representedBy as ConnectionInSpray).properties.generate_initialValue»
 			«ELSE»
-			return eClass.getName();
+			return "";
 			«ENDIF»
 		}
     '''
@@ -120,15 +117,9 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 			PictogramElement pe = context.getPictogramElement();
 			«metaclass.name» eClass = («metaclass.name») getBusinessObjectForPictogramElement(pe);
 			«IF metaclass.representedBy instanceof ShapeFromDsl»
-			Text gAlg = (Text) context.getGraphicsAlgorithm();
-			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
-			«FOR property : (metaclass.representedBy as ShapeFromDsl).properties»
-			if(id.equals("«property.key.simpleName»")) {
-				eClass.set«property.attribute.name.toFirstUpper»(value);
-			}
-			«ENDFOR»
-			«ELSE»
-			eClass.setName(value);
+			«(metaclass.representedBy as ShapeFromDsl).properties.generate_setValue»
+			«ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
+			«(metaclass.representedBy as ConnectionInSpray).properties.generate_setValue»
 			«ENDIF»
 			// Explicitly update the shape to display the new value in the diagram
 			// Note, that this might not be necessary in future versions of Graphiti
@@ -138,5 +129,28 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 			updatePictogramElement(pe);
 		}
 	'''   
+	
+	def generate_initialValue(ShapePropertyAssignment[] properties) '''
+		Text gAlg = (Text) context.getGraphicsAlgorithm();
+		String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
+		«FOR property : properties»
+		if(id.equals("«property.key.simpleName»")) {
+			return eClass.get«property.attribute.name.toFirstUpper»();
+		}
+		«ENDFOR»
+		return "";
+	'''
+	
+	def generate_setValue(ShapePropertyAssignment[] properties) '''
+		Text gAlg = (Text) context.getGraphicsAlgorithm();
+		String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
+		«FOR property : properties»
+		if(id.equals("«property.key.simpleName»")) {
+			eClass.set«property.attribute.name.toFirstUpper»(value);
+		}
+		«ENDFOR»
+	'''
+	
+	
 	
 }

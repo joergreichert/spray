@@ -128,6 +128,7 @@ class ConnectionPlacingGenerator {
 	
 	def dispatch createElement(CDText element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
 		val attname = "element"
+		val editingname = "deinfo"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
 		'''
@@ -145,6 +146,10 @@ class ConnectionPlacingGenerator {
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
 		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
 «««		«attname».setValue(«element.body.value.bodyForText»);
+		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
+		«editingname».setMainPictogramElement(newConnection);
+		«editingname».setPictogramElement(newConnection);
+		«editingname».setGraphicsAlgorithm(«attname»);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
 	}
