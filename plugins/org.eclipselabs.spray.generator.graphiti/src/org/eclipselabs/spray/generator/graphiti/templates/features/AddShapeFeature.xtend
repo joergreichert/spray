@@ -142,7 +142,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
                «part.createShape(container.represents)»
             «ENDFOR»
             
-            «generate_additionalFields(container)»
+            «generate_additionalMethods(container)»
         }
         '''
         

@@ -80,7 +80,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             «generate_update(container)»
             «generate_searchChilds(container)»
             «generate_valueMapping(container)»
-            «generate_additionalFields(container)»
+            «generate_additionalMethods(container)»
         }
         '''
         

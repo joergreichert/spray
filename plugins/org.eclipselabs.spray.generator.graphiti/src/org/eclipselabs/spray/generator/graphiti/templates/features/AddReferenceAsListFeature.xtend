@@ -72,7 +72,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
             «generate_add(reference)»
             «generate_createShape(reference)»
             «generate_getText(reference)»
-            «generate_additionalFields(reference)»
+            «generate_additionalMethods(reference)»
         }
     '''
     

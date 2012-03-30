@@ -56,7 +56,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
          
             «generate_canLayout(container)»
             «generate_layout(container)»
-            «generate_additionalFields(container)»
+            «generate_additionalMethods(container)»
         }
         '''
         

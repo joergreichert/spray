@@ -262,6 +262,6 @@ class PropertySection extends FileGenerator<EAttribute>  {
             }
             «ENDIF»
         }
-        «generate_additionalFields(eAttribute)»
+        «generate_additionalMethods(eAttribute)»
     '''
 }

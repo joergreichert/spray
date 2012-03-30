@@ -67,7 +67,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
             «generate_updateNeeded(connection)»
             «generate_update(connection)»
             «generate_getValue(connection)»
-            «generate_additionalFields(connection)»
+            «generate_additionalMethods(connection)»
         }
     '''
 

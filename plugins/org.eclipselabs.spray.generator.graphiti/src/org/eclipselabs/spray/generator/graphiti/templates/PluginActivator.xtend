@@ -80,7 +80,7 @@ class PluginActivator extends FileGenerator<Diagram>  {
             public static final <T> T get(Class<T> type) {
                 return getDefault().getInjector().getInstance(type);
             }
-            «generate_additionalFields(diagram)»
+            «generate_additionalMethods(diagram)»
         }
    '''
 }

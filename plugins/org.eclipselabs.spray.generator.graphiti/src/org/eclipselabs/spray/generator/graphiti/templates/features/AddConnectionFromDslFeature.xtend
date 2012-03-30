@@ -95,7 +95,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «generate_connectionToLabel(metaClass)»
             «generate_connectionLabel(metaClass)»
             «generate_connectionFromLabel(metaClass)»
-            «generate_additionalFields(metaClass)»
+            «generate_additionalMethods(metaClass)»
         }
     '''
     

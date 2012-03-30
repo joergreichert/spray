@@ -67,7 +67,7 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
         
             «generate_canExecute(behavior)»
             «generate_execute(behavior)»
-            «generate_additionalFields(behavior)»
+            «generate_additionalMethods(behavior)»
         }
     '''
     

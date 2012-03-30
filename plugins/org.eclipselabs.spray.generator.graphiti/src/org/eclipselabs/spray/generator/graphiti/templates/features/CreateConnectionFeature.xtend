@@ -71,7 +71,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             «generate_getToTypeForAnchor(metaClass)»
             «generate_createEReference(metaClass)»
             «generate_getCreateImageId(metaClass)»
-            «generate_additionalFields(metaClass)»
+            «generate_additionalMethods(metaClass)»
         }
     '''
     /**

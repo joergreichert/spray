@@ -64,7 +64,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             «generate_getMetaClassForReference(reference)»
             «generate_getReferenceTargetAnchor(reference)»
             «generate_createTargetType(reference)»
-            «generate_additionalFields(reference)»
+            «generate_additionalMethods(reference)»
         
         }
     '''

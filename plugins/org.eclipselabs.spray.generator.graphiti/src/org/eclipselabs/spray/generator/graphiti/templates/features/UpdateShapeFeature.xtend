@@ -76,7 +76,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
             «generate_updateNeeded(container)»
             «generate_update(container)»
             «generate_valueMapping(container)»
-            «generate_additionalFields(container)»
+            «generate_additionalMethods(container)»
         }
         '''
         

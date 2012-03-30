@@ -74,7 +74,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             «generate_createModelElement(metaClass)»
             «generate_getCreateImageId(metaClass)»
             «generate_addGraphicalRepresentation(metaClass)»
-            «generate_additionalFields(metaClass)»
+            «generate_additionalMethods(metaClass)»
         }
     '''
     /**

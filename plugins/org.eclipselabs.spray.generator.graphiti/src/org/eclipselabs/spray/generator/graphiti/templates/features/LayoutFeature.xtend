@@ -64,7 +64,7 @@ class LayoutFeature extends FileGenerator<ContainerInSpray> {
          
             «generate_canLayout(container)»
             «generate_layout(container)»
-            «generate_additionalFields(container)»
+            «generate_additionalMethods(container)»
         }
         '''
         

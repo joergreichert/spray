@@ -64,7 +64,7 @@ class ImageProvider extends FileGenerator<Diagram> {
                 addImageFilePath(«diagram.getImageIdentifier(icon)», "icons/«icon»");
             «ENDFOR»
             }
-            «generate_additionalFields(diagram)»
+            «generate_additionalMethods(diagram)»
         }
     '''
     

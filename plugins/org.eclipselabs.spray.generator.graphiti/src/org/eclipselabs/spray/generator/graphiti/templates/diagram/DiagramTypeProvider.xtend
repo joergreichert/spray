@@ -44,7 +44,7 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
                 return toolBehaviorProviders;
             }
             
-            «generate_additionalFields(diagram)»
+            «generate_additionalMethods(diagram)»
         }
     '''
 

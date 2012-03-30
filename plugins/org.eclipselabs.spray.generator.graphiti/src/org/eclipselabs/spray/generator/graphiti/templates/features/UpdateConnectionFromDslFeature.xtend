@@ -74,7 +74,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             «generate_update(connection)»
             «generate_searchChilds(connection)»
             «generate_getValue(connection)»
-            «generate_additionalFields(connection)»
+            «generate_additionalMethods(connection)»
         }
     '''
 

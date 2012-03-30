@@ -102,7 +102,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             «generate_canAdd(reference)»
             «generate_add(reference)»
             «generate_removeExisting(reference)»
-            «generate_additionalFields(reference)»
+            «generate_additionalMethods(reference)»
         }
     '''
     

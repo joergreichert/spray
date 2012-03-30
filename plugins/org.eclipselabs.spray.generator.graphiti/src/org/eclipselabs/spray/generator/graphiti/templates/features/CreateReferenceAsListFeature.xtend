@@ -68,7 +68,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
             «generate_constructor(reference, className)»
             «generate_canCreate(reference)»
             «generate_create(reference)»
-            «generate_additionalFields(reference)»
+            «generate_additionalMethods(reference)»
         }
     '''
     

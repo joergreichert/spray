@@ -61,7 +61,7 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
             «generate_delete(reference)»
             «generate_deleteReferences(reference)»
             «generate_deleteReference(reference)»
-            «generate_additionalFields(reference)»
+            «generate_additionalMethods(reference)»
         }
     '''
     
