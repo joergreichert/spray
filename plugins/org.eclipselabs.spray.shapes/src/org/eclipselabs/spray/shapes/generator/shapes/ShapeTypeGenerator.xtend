@@ -150,7 +150,7 @@ class ShapeTypeGenerator {
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
 		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
-«««		«attname».setValue(«element.body.value.bodyForText»);
+		«attname».setValue("");
 		«generateStyleForElement(attname, element.layout.layout)»
 		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
 		«editingname».setMainPictogramElement(pictogramElement);

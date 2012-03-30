@@ -563,6 +563,9 @@ public class ShapeTypeGenerator {
       _builder.append(_value, "");
       _builder.append(".name());");
       _builder.newLineIfNotEmpty();
+      _builder.append(attname, "");
+      _builder.append(".setValue(\"\");");
+      _builder.newLineIfNotEmpty();
       TextLayout _layout_6 = element.getLayout();
       ShapestyleLayout _layout_7 = _layout_6.getLayout();
       CharSequence _generateStyleForElement = this._shapeTypeStyleGenerator.generateStyleForElement(attname, _layout_7);

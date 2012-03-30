@@ -528,6 +528,7 @@ public class ConnectionPlacingGenerator {
     CharSequence _xblockexpression = null;
     {
       final String attname = "element";
+      final String editingname = "deinfo";
       int _xPositionforAngle = this.getXPositionforAngle(distance, angle);
       int x = _xPositionforAngle;
       int _yPositionforAngle = this.getYPositionforAngle(distance, angle);
@@ -608,6 +609,9 @@ public class ConnectionPlacingGenerator {
       _builder.append(_mapAlignment_1, "");
       _builder.append(");");
       _builder.newLineIfNotEmpty();
+      _builder.append(attname, "");
+      _builder.append(".setValue(\"\");");
+      _builder.newLineIfNotEmpty();
       _builder.append("peService.setPropertyValue(");
       _builder.append(attname, "");
       _builder.append(", ISprayShapeConstants.TEXT_ID, TextIds.");
@@ -615,6 +619,21 @@ public class ConnectionPlacingGenerator {
       String _value = _body.getValue();
       _builder.append(_value, "");
       _builder.append(".name());");
+      _builder.newLineIfNotEmpty();
+      _builder.append("IDirectEditingInfo ");
+      _builder.append(editingname, "");
+      _builder.append(" = getFeatureProvider().getDirectEditingInfo();");
+      _builder.newLineIfNotEmpty();
+      _builder.append(editingname, "");
+      _builder.append(".setMainPictogramElement(newConnection);");
+      _builder.newLineIfNotEmpty();
+      _builder.append(editingname, "");
+      _builder.append(".setPictogramElement(newConnection);");
+      _builder.newLineIfNotEmpty();
+      _builder.append(editingname, "");
+      _builder.append(".setGraphicsAlgorithm(");
+      _builder.append(attname, "");
+      _builder.append(");");
       _builder.newLineIfNotEmpty();
       TextLayout _layout_6 = element.getLayout();
       ShapestyleLayout _layout_7 = _layout_6.getLayout();

@@ -144,8 +144,8 @@ class ConnectionPlacingGenerator {
 		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
+		«attname».setValue("");
 		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
-«««		«attname».setValue(«element.body.value.bodyForText»);
 		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
 		«editingname».setMainPictogramElement(newConnection);
 		«editingname».setPictogramElement(newConnection);
