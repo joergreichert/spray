@@ -11,7 +11,8 @@ public class ShapeTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 	private HashSet<String> layoutShapeAttribKeywords = new HashSet<String>();
 
 	public ShapeTokenToAttributeIdMapper() {
-		layoutShapeDefinition.add("'shape'");
+        layoutShapeDefinition.add("'import'");
+        layoutShapeDefinition.add("'shape'");
 		layoutShapeDefinition.add("'connection'");
 		layoutShapeKeywords.add("'ellipse'");
 		layoutShapeKeywords.add("'rectangle'");
@@ -34,7 +35,7 @@ public class ShapeTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 		layoutShapeAttribKeywords.add("'curve'");
 		layoutShapeAttribKeywords.add("'align'");
 		layoutShapeAttribKeywords.add("'anchor'");
-		layoutShapeAttribKeywords.add("'value'");
+		layoutShapeAttribKeywords.add("'id'");
 	}
 
 	@Override
