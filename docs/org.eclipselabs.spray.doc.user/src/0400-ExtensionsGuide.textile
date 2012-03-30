@@ -58,6 +58,8 @@ class FeatureProviderExt extends FeatureProvider {
     
 } 
 p. 
+Most templates (those that generate Java classes) are defining two hook template methods @generate_additionalFields(T)@ and @generate_additionalMethods(T)@ (T is the parameter type, since the templates are parametrized). By default, they are empty, and as their name states, by overriding these methods one could produce additional fields or methods for the generated base class.
+
 
 h3. Guice Runtime Module
 
