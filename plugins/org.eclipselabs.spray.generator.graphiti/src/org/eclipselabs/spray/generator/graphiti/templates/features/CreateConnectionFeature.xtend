@@ -152,6 +152,9 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
                 addContext.putProperty(PROPERTY_ALIAS, "«metaClass.alias»");
                 «ENDIF»
                 newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
+                
+                // activate direct editing after object creation
+                getFeatureProvider().getDirectEditingInfo().setActive(true);
             }
     
             return newConnection;

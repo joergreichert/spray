@@ -359,7 +359,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
 	    	if (bo == null)
 	    		return null;
 	    	final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
-	    	«FOR metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)»
+	    	«FOR metaClass : diagram.metaClasses»
 	    	if ( «generate_metaClassSwitchCondition(metaClass)» ) {
 	    		return new «metaClass.directEditFeatureClassName.shortName»(this);
 	    	}
