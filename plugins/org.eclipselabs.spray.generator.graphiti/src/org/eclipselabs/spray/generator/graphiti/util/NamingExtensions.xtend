@@ -129,6 +129,13 @@ class NamingExtensions {
     def getLayoutFeatureSimpleClassName (MetaClass clazz) {
         getFeatureSimpleClassName (clazz, FeatureType::Layout)
     }
+    def getDirectEditFeatureClassName (MetaClass clazz) {
+        getFeatureClassName (clazz, FeatureType::DirectEdit)
+    }
+    def getDirectEditFeatureSimpleClassName (MetaClass clazz) {
+        getFeatureSimpleClassName (clazz, FeatureType::DirectEdit)
+    }
+    
     /**
      * Result example:
      * Diagram = "mod4j", MetaClass = "BusinessClass", featureType="Add" 

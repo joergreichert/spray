@@ -50,6 +50,7 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditEClassFeature
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
@@ -87,6 +88,7 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject Filter filter2
     @Inject CustomFeature customFeature
     @Inject ModelService modelService
+    @Inject DirectEditEClassFeature directEditFeature
     /**
      * This method is a long sequence of calling all templates for the code generation
      */
@@ -131,6 +133,7 @@ class SprayGraphitiGenerator implements IGenerator {
         generateFilter(diagram, java, filter, filter2)
         
         generateCustomFeature(diagram, java, customFeature)
+        generateDirectEditFeature(diagram, java, directEditFeature)
     }
     
 
@@ -445,6 +448,13 @@ class SprayGraphitiGenerator implements IGenerator {
         for(CustomBehavior behavior : diagram.getBehaviorsForTemplate(cf)) {
             java.setPackageAndClass(behavior.customFeatureClassName)
             cf.generate(behavior, java)
+        }
+    }
+    
+    def generateDirectEditFeature(Diagram diagram, JavaGenFile java, DirectEditEClassFeature df) {
+        for( metaClass : diagram.metaClasses){
+            java.setPackageAndClass(metaClass.directEditFeatureClassName)
+            df.generate(metaClass, java)
         }
     }
 }
