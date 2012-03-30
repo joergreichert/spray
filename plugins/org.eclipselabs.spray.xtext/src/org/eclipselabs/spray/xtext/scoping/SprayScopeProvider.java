@@ -16,6 +16,7 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__T
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY;
 
 import java.util.ArrayList;
@@ -198,6 +199,13 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             });
             final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(simpleAttributes));
             return result;
+        } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE) {
+            MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+            if (metaClass != null) {
+                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllAttributes()));
+            } else {
+                return IScope.NULLSCOPE;
+            }
         } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
             ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);
             if (colorConstant != null) {

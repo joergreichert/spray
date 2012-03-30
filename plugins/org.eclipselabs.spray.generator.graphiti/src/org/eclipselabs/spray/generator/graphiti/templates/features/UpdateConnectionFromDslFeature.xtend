@@ -131,8 +131,12 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
     			«FOR property : connection.properties»
     			if(id.equals("«property.key.simpleName»")) {
+    				«IF property.value != null»
     				«property.value.propertyAssignmentFunction("value", "String", connection.represents.name, "eClass")»
     				text.setValue(value);
+    				«ELSE»
+    				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
+    				«ENDIF»
     			}
     			«ENDFOR»
     		}

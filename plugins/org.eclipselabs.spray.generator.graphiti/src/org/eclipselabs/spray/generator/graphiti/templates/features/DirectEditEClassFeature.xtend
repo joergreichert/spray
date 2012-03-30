@@ -6,11 +6,15 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import com.google.inject.Inject
+import org.eclipse.xtext.xbase.XExpression
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 	
 	@Inject extension NamingExtensions
-
+	@Inject extension SprayCompiler
+	
 	override generateExtensionFile(MetaClass modelElement) {
 		modelElement.mainExtensionPointFile(javaGenFile.className);
 	}
@@ -43,6 +47,9 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.services.Graphiti;
+        import org.eclipse.graphiti.services.IPeService;
+        import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
         import «metaclass.javaInterfaceName»;
         
@@ -50,7 +57,9 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
         
         public abstract class «className» extends AbstractDirectEditingFeature {
             «generate_additionalFields(metaclass)»
-        
+            
+            protected IPeService peService = Graphiti.getPeService();
+            
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
@@ -84,7 +93,18 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 			// return the current name of the EClass
 			PictogramElement pe = context.getPictogramElement();
 			«metaclass.name» eClass = («metaclass.name») getBusinessObjectForPictogramElement(pe);
+			«IF metaclass.representedBy instanceof ShapeFromDsl»
+			Text gAlg = (Text) context.getGraphicsAlgorithm();
+			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
+			«FOR property : (metaclass.representedBy as ShapeFromDsl).properties»
+			if(id.equals("«property.key.simpleName»")) {
+				return eClass.get«property.attribute.name.toFirstUpper»();
+			}
+			«ENDFOR»
+			return "";
+			«ELSE»
 			return eClass.getName();
+			«ENDIF»
 		}
     '''
 	
@@ -103,7 +123,17 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 			// set the new name for the MOF class
 			PictogramElement pe = context.getPictogramElement();
 			«metaclass.name» eClass = («metaclass.name») getBusinessObjectForPictogramElement(pe);
+			«IF metaclass.representedBy instanceof ShapeFromDsl»
+			Text gAlg = (Text) context.getGraphicsAlgorithm();
+			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
+			«FOR property : (metaclass.representedBy as ShapeFromDsl).properties»
+			if(id.equals("«property.key.simpleName»")) {
+				eClass.set«property.attribute.name.toFirstUpper»(value);
+			}
+			«ENDFOR»
+			«ELSE»
 			eClass.setName(value);
+			«ENDIF»
 			// Explicitly update the shape to display the new value in the diagram
 			// Note, that this might not be necessary in future versions of Graphiti
 			// (currently in discussion)
@@ -111,5 +141,6 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 			// main shape of the EClass
 			updatePictogramElement(pe);
 		}
-	'''     
+	'''   
+	
 }

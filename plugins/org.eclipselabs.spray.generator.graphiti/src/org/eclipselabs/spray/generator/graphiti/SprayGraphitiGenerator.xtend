@@ -452,7 +452,7 @@ class SprayGraphitiGenerator implements IGenerator {
     }
     
     def generateDirectEditFeature(Diagram diagram, JavaGenFile java, DirectEditEClassFeature df) {
-        for( metaClass : diagram.metaClasses){
+        for(metaClass : diagram.metaClasses) {
             java.setPackageAndClass(metaClass.directEditFeatureClassName)
             df.generate(metaClass, java)
         }

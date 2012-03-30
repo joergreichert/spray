@@ -88,7 +88,7 @@ SprayStyleRef:
 	'style' (style=JvmTypeReference);
 
 ShapePropertyAssignment: 
-    key=[types::JvmEnumerationLiteral|QualifiedName] OpSingleAssign value=XExpression
+    attribute=[ecore::EAttribute] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?
 ;
 
 Layout :
