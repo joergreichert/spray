@@ -7,7 +7,6 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
-
 class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
     @Inject extension NamingExtensions
     

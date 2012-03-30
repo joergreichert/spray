@@ -66,7 +66,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         
         import «container?.represents?.javaInterfaceName»;
-        
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractUpdateFeature {

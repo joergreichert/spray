@@ -8,7 +8,6 @@ import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
-
 class LayoutFeature extends FileGenerator<ContainerInSpray> {
     @Inject extension NamingExtensions
     

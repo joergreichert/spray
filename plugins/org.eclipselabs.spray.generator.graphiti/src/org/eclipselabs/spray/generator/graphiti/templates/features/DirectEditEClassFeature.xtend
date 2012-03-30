@@ -6,14 +6,11 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import com.google.inject.Inject
-import org.eclipse.xtext.xbase.XExpression
-import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 	
 	@Inject extension NamingExtensions
-	@Inject extension SprayCompiler
 	
 	override generateExtensionFile(MetaClass modelElement) {
 		modelElement.mainExtensionPointFile(javaGenFile.className);
@@ -52,7 +49,6 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
         import «metaclass.javaInterfaceName»;
-        
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractDirectEditingFeature {

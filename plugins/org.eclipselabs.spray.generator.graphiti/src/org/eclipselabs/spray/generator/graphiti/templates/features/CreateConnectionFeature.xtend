@@ -5,14 +5,11 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
-import org.eclipselabs.spray.mm.spray.CreateBehavior
-import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
-
 
 class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     @Inject extension NamingExtensions

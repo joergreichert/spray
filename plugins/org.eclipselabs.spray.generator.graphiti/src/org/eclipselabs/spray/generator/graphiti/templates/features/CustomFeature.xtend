@@ -46,6 +46,7 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
         import org.eclipse.graphiti.features.context.ICustomContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCustomFeature;
+        // MARKER_IMPORT
         
         public abstract class «className» extends AbstractCustomFeature {
             «generate_additionalFields(behavior)»
