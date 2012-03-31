@@ -91,45 +91,6 @@ class UpdateShapeFeatureTest {
     '''
     
     @Test
-    def testGenerate_canUpdate__WhenContainerIsNull() {
-        val ContainerInSpray container = null
-        val output = sut.generate_canUpdate(container)
-        val expectedOutput = expectedEmptyOutputGenerate_canUpdate()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_canUpdate__WhenContainerHasNoMetaClass() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val output = sut.generate_canUpdate(container)
-        val expectedOutput = expectedEmptyOutputGenerate_canUpdate()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_canUpdate__WhenMetaClassNoName() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        container.represents = metaClass
-        val output = sut.generate_canUpdate(container)
-        val expectedOutput = expectedEmptyOutputGenerate_canUpdate()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    def expectedEmptyOutputGenerate_canUpdate() '''
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean canUpdate(IUpdateContext context) {
-                // return true, if linked business object is a EClass
-                EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
-                PictogramElement pictogramElement = context.getPictogramElement();
-                return (bo instanceof )&& (!(pictogramElement instanceof Diagram));
-            }
-        '''    
-    
-    @Test
     def testGenerate_canUpdate__WhenMetaClassHasName() {
         val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
         val metaClass = SprayFactory::eINSTANCE.createMetaClass
@@ -153,70 +114,6 @@ class UpdateShapeFeatureTest {
         assertEquals("expected output", expectedOutput.toString, output.toString);
     }       
     
-    @Test
-    def testGenerate_updateNeeded__WhenContainerIsNull() {
-        val ContainerInSpray container = null
-        val output = sut.generate_updateNeeded(container)
-        val expectedOutput = expectedEmptyOutputGenerate_updateNeeded()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_updateNeededWhenContainerHasNoMetaClass() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val output = sut.generate_updateNeeded(container)
-        val expectedOutput = expectedEmptyOutputGenerate_updateNeeded()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_updateNeeded__WhenMetaClassNoName() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        container.represents = metaClass
-        val output = sut.generate_updateNeeded(container)
-        val expectedOutput = expectedEmptyOutputGenerate_updateNeeded()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    def expectedEmptyOutputGenerate_updateNeeded() '''
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public IReason updateNeeded(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof )) {
-                    return Reason.createFalseReason(); 
-                }
-                    eClass = () bo;
-
-                // retrieve name from pictogram model
-                if (pictogramElement instanceof ContainerShape) {
-                    ContainerShape cs = (ContainerShape) pictogramElement;
-                    ContainerShape textBox = SprayContainerService.findTextShape(cs);
-                    for (Shape shape : textBox.getChildren()) {
-                        if (shape.getGraphicsAlgorithm() instanceof Text) {
-                            Text text = (Text) shape.getGraphicsAlgorithm();
-                            String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
-                            String value = getValues(eClass).get(type);
-                            if( value != null){
-                                   String pictogramName = text.getValue();
-
-                                 // update needed, if names are different
-                                boolean updateNameNeeded =((pictogramName == null && value != null) || (pictogramName != null && !pictogramName.equals(value)));
-                                if (updateNameNeeded) {
-                                    return Reason.createTrueReason("Name [" + pictogramName + "] is out of date");
-                                }
-                            }
-                        }
-                    }
-                }
-                return Reason.createFalseReason();
-             }
-        '''    
-        
     @Test
     def testGenerate_updateNeeded__WhenMetaClassHasName() {
         val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
@@ -267,46 +164,6 @@ class UpdateShapeFeatureTest {
     }        
     
     @Test
-    def testGenerate_update__WhenContainerIsNull() {
-        val ContainerInSpray container = null
-        val output = sut.generate_update(container)
-        val expectedOutput = expectedEmptyOutputGenerate_update()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_update__WhenContainerHasNoMetaClass() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val output = sut.generate_update(container)
-        val expectedOutput = expectedEmptyOutputGenerate_update()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_update__WhenMetaClassNoName() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        container.represents = metaClass
-        val output = sut.generate_update(container)
-        val expectedOutput = expectedEmptyOutputGenerate_update()
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }
-    
-    def expectedEmptyOutputGenerate_update() '''
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean update(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                   eClass = () bo;
-                return SprayContainerService.update(pictogramElement, getValues(eClass));
-                
-            }
-    '''
-
-    @Test
     def testGenerate_update__WhenMetaClassHasName() {
         val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
         val metaClass = SprayFactory::eINSTANCE.createMetaClass
@@ -332,54 +189,6 @@ class UpdateShapeFeatureTest {
     }
     
     @Test
-    def testGenerate_valueMapping__WhenContainerIsNull() {
-        val ContainerInSpray container = null
-        val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsNull()
-        val output = sut.generate_valueMapping(container)
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }
-    
-    @Test
-    def testGenerate_valueMapping__WhenContainerIsEmpty() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsNull()
-        val output = sut.generate_valueMapping(container)
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }
-    
-    def expectedOutputGenerate_valueMappingWhenTypeIsNull() '''
-        Map<String, String> values = null; 
-        protected Map<String, String> getValues( eClass) {
-            if (values == null) {
-                values = new HashMap<String, String>();
-                fillValues(eClass);
-            }
-            return values;
-        }
-
-        protected void fillValues( eClass) {
-            String type, value;
-        }
-
-        protected String getValue (String type,  eClass) {
-            throw new IllegalArgumentException(type);
-        }
-    '''        
-    
-    
-    @Test(expected=typeof(NullPointerException))
-    def void testGenerate_valueMapping__WhenTextHasNoFullyQualifiedName__NPEExpected() {
-        val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val text = SprayFactory::eINSTANCE.createTextInSpray
-        val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
-        container.partsList.add(rectangle)
-        container.partsList.add(text)
-        res.contents.add(container)
-        sut.generate_valueMapping(container)
-    }    
-    
-    @Test
     def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameWithoutRepresents() {
         val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
         val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
@@ -396,73 +205,6 @@ class UpdateShapeFeatureTest {
         val output = sut.generate_valueMapping(container)
         assertEquals("expected output", expectedOutput.toString, output.toString);
     }
-    
-    def expectedOutputGenerate_valueMappingWhenTypeIsEmpty() '''
-        Map<String, String> values = null; 
-        protected Map<String, String> getValues( eClass) {
-            if (values == null) {
-                values = new HashMap<String, String>();
-                fillValues(eClass);
-            }
-            return values;
-        }
-
-        protected void fillValues( eClass) {
-            String type, value;
-        type = "";
-        value = getValue(type, eClass);
-        values.put(type, value);
-        }
-
-        protected String getValue (String type,  eClass) {
-        if ("".equals(type)) {
-            
-            return "test";
-        }
-            throw new IllegalArgumentException(type);
-        }
-    '''    
-    
-    @Test
-    def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithNullName() {
-        val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        container.represents = metaClass 
-        val text = SprayFactory::eINSTANCE.createTextInSpray
-        val literal = XbaseFactory::eINSTANCE.createXStringLiteral
-        literal.value = "test"
-        text.value = literal
-        val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
-        container.partsList.add(rectangle)
-        container.partsList.add(text)
-        res.contents.add(container)
-        sut.generate_valueMapping(container)
-        val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsEmpty()
-        val output = sut.generate_valueMapping(container)
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
-    
-    @Test
-    def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithAliasSet() {
-        val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        metaClass.alias = "Alias"
-        container.represents = metaClass 
-        val text = SprayFactory::eINSTANCE.createTextInSpray
-        val literal = XbaseFactory::eINSTANCE.createXStringLiteral
-        literal.value = "test"
-        text.value = literal
-        val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
-        container.partsList.add(rectangle)
-        container.partsList.add(text)
-        res.contents.add(container)
-        sut.generate_valueMapping(container)
-        val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsEmpty()
-        val output = sut.generate_valueMapping(container)
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }    
     
     @Test
     def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithNameSetAndDiagramHasNoName() {
