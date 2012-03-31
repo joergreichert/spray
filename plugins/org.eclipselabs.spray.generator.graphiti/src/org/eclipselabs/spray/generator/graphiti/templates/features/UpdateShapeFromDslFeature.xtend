@@ -65,14 +65,14 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import «util_package()».SprayContainerService;
         import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         
-        import «container?.represents?.javaInterfaceName»;
+        import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(container)»
             public «className»(final IFeatureProvider fp) {
                 super(fp);
-                gaService = «container?.diagram?.activatorClassName?.shortName».get(IGaService.class);
+                gaService = «container.diagram.activatorClassName.shortName».get(IGaService.class);
             }
          
             «generate_canUpdate(container)»
@@ -88,16 +88,10 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             «overrideHeader»
             public boolean canUpdate(final IUpdateContext context) {
                 // return true, if linked business object is a EClass
-<<<<<<< HEAD
-                EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
-                PictogramElement pictogramElement = context.getPictogramElement();
-                
-                return (bo instanceof «container?.represents?.name»)&& (!(pictogramElement instanceof Diagram));
-=======
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final EObject bo =  getBusinessObjectForPictogramElement(pictogramElement);
-                return (bo instanceof «container.represents.name»)&& (!(pictogramElement instanceof Diagram));
->>>>>>> Template refactoring:
+                
+                return (bo instanceof «container.represents.name») && (!(pictogramElement instanceof Diagram));
             }
         '''
         

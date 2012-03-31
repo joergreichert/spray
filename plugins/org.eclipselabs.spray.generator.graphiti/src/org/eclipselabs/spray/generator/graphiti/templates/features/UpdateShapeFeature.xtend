@@ -109,10 +109,10 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
                             final Text text = (Text) shape.getGraphicsAlgorithm();
                             final String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
                             final String value = getValues(eClass).get(type);
-                            if( value != null){
-                                   String pictogramName = text.getValue();
+                            if(value != null){
+                                final String pictogramName = text.getValue();
 
-                                 // update needed, if names are different
+                                // update needed, if names are different
                                 boolean updateNameNeeded =((pictogramName == null && value != null) || (pictogramName != null && !pictogramName.equals(value)));
                                 if (updateNameNeeded) {
                                     return Reason.createTrueReason("Name [" + pictogramName + "] is out of date");
