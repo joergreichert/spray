@@ -117,7 +117,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             if(pictogramElement instanceof Connection) {
                 final Connection conShape = (Connection) pictogramElement;
                 final GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
-                final searchChilds(gAlg, eClass);
+                searchChilds(gAlg, eClass);
             }
 
             return true;
