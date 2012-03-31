@@ -1,9 +1,9 @@
 connection DefaultConnection {
 	placing {
-		position(offset=0.5,radius=0,angle=30)
+		position (offset=0.5, radius=0, angle=30)
 		line {
-			point(x=0,y=0)
-			point(x=10,y=10)
-		}		
+			point (x=0, y=0)
+			point (x=10, y=10)
+		}
 	}
 }

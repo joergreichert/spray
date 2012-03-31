@@ -1,9 +1,9 @@
 connection DefaultConnection {
 	placing {
-		position(offset=0.5,radius=0,angle=30)
+		position (offset=0.5, radius=0, angle=30)
 		text {
-			position(x=0,y=0)
-			size(width=30,height=14)
+			position (x=0, y=0)
+			size (width=30, height=14)
 			value = "Test"
 		}	
 	}

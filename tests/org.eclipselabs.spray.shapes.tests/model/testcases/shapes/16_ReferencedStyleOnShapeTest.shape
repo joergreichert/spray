@@ -1,6 +1,6 @@
 shape ReferencedStyleOnShapeTest style org.eclipselabs.spray.styles.DefaultSprayStyle {
 	ellipse {
-		position(x=0,y=0)
-		size(width=0,height=0)
+		position (x=0, y=0)
+		size (width=0, height=0)
 	}
 }
