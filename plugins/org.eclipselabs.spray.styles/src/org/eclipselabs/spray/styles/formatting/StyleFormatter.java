@@ -3,28 +3,86 @@
  */
 package org.eclipselabs.spray.styles.formatting;
 
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.eclipse.xtext.util.Pair;
+import org.eclipselabs.spray.styles.services.StyleGrammarAccess;
+
+import com.google.inject.Inject;
 
 /**
  * This class contains custom formatting description.
- * 
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#formatting
  * on how and when to use it
- * 
  * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an
  * example
  */
 public class StyleFormatter extends AbstractDeclarativeFormatter {
 
-	@Override
-	protected void configureFormatting(FormattingConfig c) {
-		// It's usually a good idea to activate the following three statements.
-		// They will add and preserve newlines around comments
-		// c.setLinewrap(0, 1,
-		// 2).before(getGrammarAccess().getSL_COMMENTRule());
-		// c.setLinewrap(0, 1,
-		// 2).before(getGrammarAccess().getML_COMMENTRule());
-		// c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
-	}
+    @Inject
+    private StyleGrammarAccess grammar;
+
+    @Override
+    protected void configureFormatting(FormattingConfig c) {
+        c.setLinewrap(0, 1, 2).before(grammar.getSL_COMMENTRule());
+        c.setLinewrap(0, 1, 2).before(grammar.getML_COMMENTRule());
+        c.setLinewrap(0, 1, 1).after(grammar.getML_COMMENTRule());
+
+        c.setAutoLinewrap(120);
+
+        handleBlocks(c);
+
+        for (Pair<Keyword, Keyword> kw : grammar.findKeywordPairs("(", ")")) {
+            c.setSpace(" ").before(kw.getFirst());
+            c.setNoSpace().after(kw.getFirst());
+            c.setNoSpace().before(kw.getSecond());
+        }
+
+        for (Keyword kw : grammar.findKeywords("=")) {
+            c.setSpace(" ").around(kw);
+        }
+
+        // no space before comma, one space after
+        for (Keyword kw : grammar.findKeywords(",")) {
+            c.setNoSpace().before(kw);
+            c.setSpace(" ").after(kw);
+        }
+
+        handleNoSpaceBeforeINT(c);
+
+        handleLineWrapBeforeKeywords(c);
+    }
+
+    protected void handleLineWrapBeforeKeywords(FormattingConfig c) {
+        // line wraps
+        c.setLinewrap(2).before(grammar.getStyleRule());
+        c.setLinewrap().before(grammar.getStyleAccess().getDescriptionKeyword_5_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getTransparencyKeyword_1_0_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getBackgroundColorKeyword_1_1_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineColorKeyword_1_2_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineWidthKeyword_1_3_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineStyleKeyword_1_4_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontNameKeyword_1_5_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontColorKeyword_1_6_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontSizeKeyword_1_7_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontItalicKeyword_1_8_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontBoldKeyword_1_9_0());
+    }
+
+    protected void handleNoSpaceBeforeINT(FormattingConfig c) {
+        // no space before integers
+        c.setNoSpace().before(grammar.getRGBColorAccess().getRedINTTerminalRuleCall_2_0());
+        c.setNoSpace().before(grammar.getRGBColorAccess().getGreenINTTerminalRuleCall_4_0());
+        c.setNoSpace().before(grammar.getRGBColorAccess().getBlueINTTerminalRuleCall_6_0());
+    }
+
+    protected void handleBlocks(FormattingConfig c) {
+        for (Pair<Keyword, Keyword> kw : grammar.findKeywordPairs("{", "}")) {
+            c.setLinewrap().after(kw.getFirst());
+            c.setLinewrap().around(kw.getSecond());
+            c.setIndentation(kw.getFirst(), kw.getSecond());
+        }
+    }
+
 }
