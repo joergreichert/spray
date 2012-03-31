@@ -3,22 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -48,9 +32,6 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.IResourceDescriptions;
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
@@ -80,12 +61,26 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
+
 /**
  * This class contains custom scoping description.
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
  * how and when to use it
  */
-@SuppressWarnings("restriction")
 public class SprayScopeProvider extends XbaseScopeProvider {
     @Inject
     private IJvmModelAssociations      associations;
@@ -96,146 +91,141 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     @Inject
     private IQualifiedNameProvider     qnProvider;
 
-    private IResourceDescriptions      dscriptions = null;
+    @Override
+    public IScope getScope(EObject context, EReference reference) {
+        IScope scope = IScope.NULLSCOPE;
+        if (reference == DIAGRAM__MODEL_TYPE) {
+            scope = scope_Diagram_ModelType(context, reference);
+        } else if (reference == META_CLASS__TYPE) {
+            scope = scope_MetaClass_Type(context, reference);
+        } else if (reference == CREATE_BEHAVIOR__CONTAINMENT_REFERENCE) {
+            scope = scope_CreateBehavior_ContainmentReference(context, reference);
+        } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__FROM) {
+            scope = scope_Connection_from(context);
+        } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__TO) {
+            scope = scope_Connection_to(context);
+        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__TARGET) {
+            scope = scope_MetaReference_target(context, reference);
+        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__LABEL_PROPERTY) {
+            scope = scope_MetaReference_labelProperty(context);
+        } else if (context.eClass() == CREATE_BEHAVIOR && reference == CREATE_BEHAVIOR__ASK_FOR) {
+            scope = scope_CreateBehavior_askFor(context);
+        } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
+            scope = scope_JvmParametrizedTypeReference_type(context, reference);
+        } else if (reference == COLOR_CONSTANT_REF__FIELD) {
+            scope = getColorConstantFieldScope(context);
+        } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE) {
+            return scope_ShapePropertyAssignment_attribute(context);
+        } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
+            scope = scope_ShapePropertyAssignment_Key(context, reference);
+        } else {
+            // not handled specially, delegate to super
+            scope = super.getScope(context, reference);
+        }
+        return scope;
+    }
 
-    public void listVisibleResources() {
-        ResourceDescriptionsProvider serviceProvider = AppInjectedAccess.getit(); // AppInjectedAccess.resourceDescriptionsProvider;
-        dscriptions = serviceProvider.createResourceDescriptions();
-        for (IResourceDescription rd : dscriptions.getAllResourceDescriptions()) {
-            System.out.println("Resource: " + rd.getURI());
-            for (IEObjectDescription od : rd.getExportedObjects()) {
-                if (od.getEClass().getName().startsWith("Shape")) {
-                    System.out.println("Shape scope name : [" + od.getName() + "] qualified [" + od.getQualifiedName() + "]");
-                } else {
-                    //                    System.out.println("Any qualified name : " + od.getName());
-                }
-            }
+    protected IScope scope_ShapePropertyAssignment_attribute(EObject context) {
+        MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        if (metaClass != null) {
+            return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllAttributes()));
+        } else {
+            return IScope.NULLSCOPE;
         }
     }
 
-    @Override
-    public IScope getScope(EObject context, EReference reference) {
-        //        System.out.println("getScope: " + context.toString() + " ref " + reference.toString());
-        //        if (reference == META_CLASS__REPRESENTED_BY_SHAPE) {
-        //            listVisibleResources();
-        //            return super.getScope(context, reference);
-        //        }
-        //
-        if (reference == DIAGRAM__MODEL_TYPE) {
-            return scope_Diagram_ModelType(context, reference);
-        } else if (reference == META_CLASS__TYPE) {
-            return scope_MetaClass_Type(context, reference);
-        } else if (reference == CREATE_BEHAVIOR__CONTAINMENT_REFERENCE) {
-            return scope_CreateBehavior_ContainmentReference(context, reference);
-        } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__FROM) {
-            final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            // filter derived references
-            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-                @Override
-                public boolean apply(EReference input) {
-                    return !input.isDerived();
-                }
-            });
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
-            return result;
-        } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__TO) {
-            final ConnectionInSpray connection = (ConnectionInSpray) context;
-            final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            // filter derived and 'from' from the possible references
-            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-                @Override
-                public boolean apply(EReference input) {
-                    return input != connection.getFrom() && !input.isDerived();
-                }
-            });
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
-            return result;
-        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__TARGET) {
-            if (context.eContainer().eClass() == META_CLASS) {
-                // non-containment references
-                final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-                final Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-                    @Override
-                    public boolean apply(EReference input) {
-                        return !input.isContainment();
-                    }
-                });
-                final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(nonContainmentReferences));
-                return result;
-            } else {
-                final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-                final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
-                return result;
-            }
-        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__LABEL_PROPERTY) {
-            MetaReference metaRef = (MetaReference) context;
-            EReference ref = metaRef.getTarget();
-            if (ref.eIsProxy()) {
-                ref = (EReference) EcoreUtil.resolve(ref, context);
-                if (ref.eIsProxy()) {
-                    // still a proxy?
-                    return IScope.NULLSCOPE;
-                }
-            }
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaRef.getTarget().getEReferenceType().getEAllAttributes()));
-            return result;
-        } else if (context.eClass() == CREATE_BEHAVIOR && reference == CREATE_BEHAVIOR__ASK_FOR) {
-            CreateBehavior createBehavior = (CreateBehavior) context;
-            EReference ref = createBehavior.getContainmentReference();
-            if (ref == null)
-                return IScope.NULLSCOPE;
-            if (ref.eIsProxy()) {
-                ref = (EReference) EcoreUtil.resolve(ref, context);
-                if (ref.eIsProxy()) {
-                    // still a proxy?
-                    return IScope.NULLSCOPE;
-                }
-            }
-            Iterable<EAttribute> simpleAttributes = Iterables.filter(createBehavior.getContainmentReference().getEReferenceType().getEAllAttributes(), new Predicate<EAttribute>() {
-                @Override
-                public boolean apply(EAttribute input) {
-                    return input.getEType() instanceof EDataType;
-                }
-            });
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(simpleAttributes));
-            return result;
-        } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE) {
-            MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            if (metaClass != null) {
-                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllAttributes()));
-            } else {
-                return IScope.NULLSCOPE;
-            }
-        } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
-            ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);
-            if (colorConstant != null) {
-                return getColorConstantTypeScope(colorConstant);
-            }
-            SprayStyleRef style = EcoreUtil2.getContainerOfType(context, SprayStyleRef.class);
-            if (style != null) {
-                return scope_ShapeStyleRefScope(style, context, reference);
-            }
-            ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
-            if (shape != null) {
-                return scope_ShapeShapeFromDslScope(shape, context, reference);
-            }
-            ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
-            if (connection != null) {
-                return scope_ShapeConnectionInSprayScope(connection, context, reference);
-            }
-        } else if (reference == COLOR_CONSTANT_REF__FIELD) {
-            return getColorConstantFieldScope(context);
-        } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__KEY) {
-            return scope_ShapePropertyAssignment_Key(context, reference);
+    protected IScope scope_JvmParametrizedTypeReference_type(EObject context, EReference reference) {
+        ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);
+        if (colorConstant != null) {
+            return getColorConstantTypeScope(colorConstant);
         }
+        SprayStyleRef style = EcoreUtil2.getContainerOfType(context, SprayStyleRef.class);
+        if (style != null) {
+            return scope_ShapeStyleRefScope(style, context, reference);
+        }
+        return IScope.NULLSCOPE;
+    }
 
-        IScope scope = super.getScope(context, reference);
-        //        System.out.print("scope returned: ");
-        //        for (IEObjectDescription od : scope.getAllElements()) {
-        //            System.out.print(od.getName() + ", ");
-        //        }
-        //        System.out.println("!");
-        return scope;
+    protected IScope scope_CreateBehavior_askFor(EObject context) {
+        CreateBehavior createBehavior = (CreateBehavior) context;
+        EReference ref = createBehavior.getContainmentReference();
+        if (ref == null)
+            return IScope.NULLSCOPE;
+        if (ref.eIsProxy()) {
+            ref = (EReference) EcoreUtil.resolve(ref, context);
+            if (ref.eIsProxy()) {
+                // still a proxy?
+                return IScope.NULLSCOPE;
+            }
+        }
+        Iterable<EAttribute> simpleAttributes = Iterables.filter(createBehavior.getContainmentReference().getEReferenceType().getEAllAttributes(), new Predicate<EAttribute>() {
+            @Override
+            public boolean apply(EAttribute input) {
+                return input.getEType() instanceof EDataType;
+            }
+        });
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(simpleAttributes));
+        return result;
+    }
+
+    protected IScope scope_MetaReference_labelProperty(EObject context) {
+        MetaReference metaRef = (MetaReference) context;
+        EReference ref = metaRef.getTarget();
+        if (ref.eIsProxy()) {
+            ref = (EReference) EcoreUtil.resolve(ref, context);
+            if (ref.eIsProxy()) {
+                // still a proxy?
+                return IScope.NULLSCOPE;
+            }
+        }
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaRef.getTarget().getEReferenceType().getEAllAttributes()));
+        return result;
+    }
+
+    protected IScope scope_MetaReference_target(final EObject context, final EReference reference) {
+        if (context.eContainer().eClass() == META_CLASS) {
+            // non-containment references
+            final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+            final Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                @Override
+                public boolean apply(EReference input) {
+                    return !input.isContainment();
+                }
+            });
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(nonContainmentReferences));
+            return result;
+        } else {
+            final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
+            return result;
+        }
+    }
+
+    protected IScope scope_Connection_to(EObject context) {
+        final ConnectionInSpray connection = (ConnectionInSpray) context;
+        final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        // filter derived and 'from' from the possible references
+        Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                return input != connection.getFrom() && !input.isDerived();
+            }
+        });
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        return result;
+    }
+
+    protected IScope scope_Connection_from(EObject context) {
+        final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        // filter derived references
+        Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                return !input.isDerived();
+            }
+        });
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        return result;
     }
 
     /**
