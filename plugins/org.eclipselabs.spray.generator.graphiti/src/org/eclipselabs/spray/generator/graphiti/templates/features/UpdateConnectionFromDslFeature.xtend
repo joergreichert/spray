@@ -31,7 +31,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         }
@@ -64,7 +64,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(connection)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «connection.diagram.activatorClassName.shortName».get(IGaService.class);
             }
@@ -81,10 +81,10 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     def generate_canUpdate (ConnectionInSpray connection) '''
         «val metaClassName = connection.represents.name»
         «overrideHeader()»
-        public boolean canUpdate(IUpdateContext context) {
+        public boolean canUpdate(final IUpdateContext context) {
             // return true, if linked business object is a EClass
-            EObject bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
-            PictogramElement pictogramElement = context.getPictogramElement();
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             return (bo instanceof «metaClassName») && (!(pictogramElement instanceof Diagram));
         }
     '''
@@ -92,16 +92,16 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     def generate_updateNeeded (ConnectionInSpray connection) '''
         «val metaClassName = connection.represents.name»
         «overrideHeader()»
-        public IReason updateNeeded(IUpdateContext context) {
-            PictogramElement pictogramElement = context.getPictogramElement();
-            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+        public IReason updateNeeded(final IUpdateContext context) {
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if ( ! (bo instanceof «metaClassName»)) {
                 return Reason.createFalseReason();
             }
             «metaClassName» eClass = («metaClassName») bo;
 
             if (pictogramElement instanceof FreeFormConnection) {
-                FreeFormConnection free = (FreeFormConnection) pictogramElement;
+                final FreeFormConnection free = (FreeFormConnection) pictogramElement;
             }
             return Reason.createFalseReason();
         }
@@ -111,14 +111,14 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         «val metaClassName = connection.represents.name»
         «overrideHeader()»
         public boolean update(IUpdateContext context) {
-            PictogramElement pictogramElement = context.getPictogramElement();
-            «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
             
             if(pictogramElement instanceof Connection) {
-            	Connection conShape = (Connection) pictogramElement;
-            	GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
-            	searchChilds(gAlg, eClass);
-        	}
+                final Connection conShape = (Connection) pictogramElement;
+                final GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
+                final searchChilds(gAlg, eClass);
+            }
 
             return true;
         }
@@ -147,24 +147,23 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     '''
     
     def generate_getValue (ConnectionInSpray connection) '''
-        protected String getValue(String type, «connection.represents.name» eClass) {
+        protected String getValue(final String type, final «connection.represents.name» eClass) {
             String result = "";
+            «IF connection.fromLabel != null»
             if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
-                «var fromLabel =  connection.fromLabel»
-                «IF fromLabel != null»
                 «valueGenerator(connection.fromLabel, "eClass")»
-                «ENDIF»
             }
+            «ENDIF»
+            «IF connection.toLabel!=null»
             if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
-                «IF connection.toLabel!=null»
                 «valueGenerator(connection.toLabel, "eClass")»
-                «ENDIF»
             }
+            «ENDIF»
+            «IF connection.connectionLabel!=null»
             if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
-                «IF connection.connectionLabel!=null»
                 «valueGenerator(connection.connectionLabel, "eClass")»
-                «ENDIF»
             }
+            «ENDIF»
             return result;
         }
     '''

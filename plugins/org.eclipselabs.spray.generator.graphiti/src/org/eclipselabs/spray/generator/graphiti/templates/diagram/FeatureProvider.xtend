@@ -41,7 +41,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         
         public class «className» extends «className»Base {
         
-            public «className»(IDiagramTypeProvider dtp) {
+            public «className»(final IDiagramTypeProvider dtp) {
                 super(dtp);
             }
         
@@ -85,7 +85,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         
         public abstract class «className» extends DefaultFeatureProvider {
             «generate_additionalFields(diagram)»
-            public «className»(IDiagramTypeProvider dtp) {
+            public «className»(final IDiagramTypeProvider dtp) {
                 super(dtp);
             }
         
@@ -105,7 +105,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     
     def generate_getAddFeature (Diagram diagram) '''
         «overrideHeader»
-        public IAddFeature getAddFeature(IAddContext context) {
+        public IAddFeature getAddFeature(final IAddContext context) {
             // is object for add request a EClass or EReference?
             final EObject bo = (EObject) context.getNewObject() ;
             final String reference = (String)context.getProperty(PROPERTY_REFERENCE);
@@ -174,11 +174,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
     
     def generate_getUpdateFeature (Diagram diagram) '''
         «overrideHeader»
-        public IUpdateFeature getUpdateFeature(IUpdateContext context) {
+        public IUpdateFeature getUpdateFeature(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
         //    if (pictogramElement instanceof ContainerShape) {
-                EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
+                final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
                 if (bo == null) return null;
             «FOR cls : diagram.metaClasses »
                 «IF ! (cls.representedBy instanceof ConnectionInSpray) »
@@ -211,7 +211,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     
     def generate_getLayoutFeature (Diagram diagram) '''
         «overrideHeader»
-        public ILayoutFeature getLayoutFeature(ILayoutContext context) {
+        public ILayoutFeature getLayoutFeature(final ILayoutContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
@@ -229,7 +229,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «overrideHeader»
         public ICreateConnectionFeature[] getCreateConnectionFeatures() {
             return new ICreateConnectionFeature[] {
-                «handleConnections(    getMetaclassesRepresentedByConnections(diagram), getMetaReferencesRepresentedByConnections(diagram))»
+                «handleConnections(getMetaclassesRepresentedByConnections(diagram), getMetaReferencesRepresentedByConnections(diagram))»
             };
         }
     '''
@@ -275,14 +275,14 @@ class FeatureProvider extends FileGenerator<Diagram> {
     
     def generate_getRemoveFeature (Diagram diagram) '''
         «overrideHeader»
-        public IRemoveFeature getRemoveFeature(IRemoveContext context) {
+        public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
             // Spray specific DefaultRemoveFeature
             return new DefaultRemoveFeature(this);
         }
     '''
     
     def generate_getDeleteFeature (Diagram diagram) '''
-        public IDeleteFeature getDeleteFeature(IDeleteContext context) {
+        public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
@@ -319,9 +319,9 @@ class FeatureProvider extends FileGenerator<Diagram> {
          * Ensure that any shape with property {@link ISprayConstants#CAN_MOVE} set to false will not have a move feature.
          */
         @Override
-        public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
-            Shape s = context.getShape();
-            String stat  = peService.getPropertyValue(s, ISprayConstants.PROPERTY_CAN_MOVE);
+        public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
+            final Shape s = context.getShape();
+            final String stat  = peService.getPropertyValue(s, ISprayConstants.PROPERTY_CAN_MOVE);
             if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
                 return null;
             }
@@ -331,7 +331,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     
     def generate_getCustomFeatures (Diagram diagram) '''
         @Override
-        public ICustomFeature[] getCustomFeatures(ICustomContext context) {
+        public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
             if (bo == null) return new ICustomFeature[0];
             final String alias = (String)context.getProperty(PROPERTY_ALIAS);

@@ -17,6 +17,15 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
         mainExtensionPointFile( modelElement, javaGenFile.className)
     }
 
+    def mainExtensionPointFile(Diagram diagram, String className) '''
+        «extensionHeader(this)»
+        package «GeneratorUtil::diagram_package()»;
+         
+        public class «className» extends «className»Base {
+         
+        }
+    '''
+
     def mainFile(Diagram diagram, String className) '''
         «header(this)»
         package «diagram_package()»;
@@ -45,15 +54,6 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
             }
             
             «generate_additionalMethods(diagram)»
-        }
-    '''
-
-    def mainExtensionPointFile(Diagram diagram, String className) '''
-        «extensionHeader(this)»
-        package «GeneratorUtil::diagram_package()»;
-         
-        public class «className» extends «className»Base {
-         
         }
     '''
 

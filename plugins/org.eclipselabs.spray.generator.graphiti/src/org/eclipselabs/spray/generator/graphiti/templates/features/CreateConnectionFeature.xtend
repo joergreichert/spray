@@ -31,7 +31,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
             @Override
@@ -45,6 +45,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     def mainFile (MetaClass metaClass, String className) '''
         «header(this)»
         package «feature_package()»;
+        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateConnectionContext;
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
@@ -54,11 +55,10 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
-        @SuppressWarnings("unused")
         public abstract class «className» extends AbstractCreateConnectionFeature {
             «generate_additionalFields(metaClass)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 // provide name and description for the UI, e.g. the palette
                 super(fp, "«metaClass.uiLabel»", "Create «metaClass.uiLabel»");
                 gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
@@ -89,7 +89,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «overrideHeader»
-        public boolean canCreate(ICreateConnectionContext context) {
+        public boolean canCreate(final ICreateConnectionContext context) {
             if (context.getTargetAnchor() == null)
                 return false;
             // return true if both anchors belong to an EClass
@@ -107,7 +107,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «overrideHeader»
-        public boolean canStartConnection(ICreateConnectionContext context) {
+        public boolean canStartConnection(final ICreateConnectionContext context) {
             // return true if start anchor belongs to a EClass
             if (get«from.name»(context.getSourceAnchor()) != null) {
                 return true;
@@ -121,7 +121,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
         «overrideHeader»
-        public Connection create(ICreateConnectionContext context) {
+        public Connection create(final ICreateConnectionContext context) {
             «val containmentRef = metaClass.createBehavior.containmentReference»
             Connection newConnection = null;
     
@@ -167,11 +167,11 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         /**
          * Returns the «from.name» belonging to the anchor, or null if not available.
          */
-        private «from.name» get«from.name»(Anchor anchor) {
+        private «from.name» get«from.name»(final Anchor anchor) {
             if (anchor != null) {
-                Object object = getBusinessObjectForPictogramElement(anchor.getParent());
-                if (object instanceof «from.name») {
-                    return («from.name») object;
+                final EObject bo = (EObject) getBusinessObjectForPictogramElement(anchor.getParent()); 
+                if (bo instanceof «from.name») {
+                    return («from.name») bo;
                 }
             }
             return null;
@@ -186,11 +186,11 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         /**
          * Returns the «to.name» belonging to the anchor, or null if not available.
          */
-        private «to.name» get«to.name»(Anchor anchor) {
+        private «to.name» get«to.name»(final Anchor anchor) {
             if (anchor != null) {
-                Object object = getBusinessObjectForPictogramElement(anchor.getParent());
-                if (object instanceof «to.name») {
-                    return («to.name») object;
+                final EObject bo = (EObject) getBusinessObjectForPictogramElement(anchor.getParent()); 
+                if (bo instanceof «to.name») {
+                    return («to.name») bo;
                 }
             }
             return null;
@@ -205,9 +205,9 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         /**
          * Creates a EReference between two EClasses.
          */
-        protected «metaClass.name» create«metaClass.name»(«from.name» source, «to.name» target) {
+        protected «metaClass.name» create«metaClass.name»(final «from.name» source, final «to.name» target) {
             // TODO: Domain Object
-            «metaClass.name» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+            final «metaClass.name» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
             «IF metaClass.type.EAttributes.exists(att|att.name == "name") »
                 domainObject.setName("new «metaClass.visibleName»");
             «ENDIF»

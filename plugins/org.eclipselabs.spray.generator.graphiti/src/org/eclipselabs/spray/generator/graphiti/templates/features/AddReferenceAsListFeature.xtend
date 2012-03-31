@@ -27,7 +27,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         }
@@ -63,7 +63,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
             private static final ArrayList<org.eclipse.graphiti.mm.Property> EMPTY_PROPERTIES_LIST = new ArrayList<org.eclipse.graphiti.mm.Property>(0);
             «generate_additionalFields(reference)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }
@@ -83,11 +83,11 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
          * {@inheritDoc}
          */
         @Override
-        public boolean canAdd(IAddContext context) {
-            final Object newObject = context.getNewObject();
+        public boolean canAdd(final IAddContext context) {
+            final EObject newObject = (EObject) context.getNewObject();
             if (newObject instanceof «target.EReferenceType.name») {
                 // check if user wants to add to a diagram
-                Shape target = context.getTargetContainer();
+                final Shape target = context.getTargetContainer();
                 EObject domainObject = getBusinessObjectForPictogramElement(target);
                 if (domainObject instanceof «metaClass.javaInterfaceName.shortName») {
                     return true;
@@ -104,7 +104,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
          * This method very much depends on the structure of the standard rectangle shape.
          */
          @Override
-        public PictogramElement add(IAddContext context) {
+        public PictogramElement add(final IAddContext context) {
             final «target.EReferenceType.javaInterfaceName.shortName» addedModelElement = («target.EReferenceType.name») context.getNewObject();
             final ContainerShape containerShape= (ContainerShape) context.getTargetContainer();
 
@@ -148,7 +148,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
     
     def generate_createShape (MetaReference reference) '''
         protected Shape createShape(final ContainerShape containerShape, int index) {
-            Shape newShape  = PictogramsFactory.eINSTANCE.createShape();
+            final Shape newShape  = PictogramsFactory.eINSTANCE.createShape();
             newShape.getProperties().addAll(EMPTY_PROPERTIES_LIST);
             newShape.setVisible(true);
             newShape.setActive(true);
@@ -161,7 +161,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
         /**
          * Computes the displayed text. Clients may override this method.
          */
-        protected String getText (IAddContext context, «reference.target.EReferenceType.name» bo) {
+        protected String getText (final IAddContext context, «reference.target.EReferenceType.name» bo) {
             return bo.get«reference.labelPropertyName.toFirstUpper»();
         }
     '''

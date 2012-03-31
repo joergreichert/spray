@@ -34,7 +34,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
@@ -67,7 +67,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         
         public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(container)»
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «container?.diagram?.activatorClassName?.shortName».get(IGaService.class);
             }
@@ -82,33 +82,33 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         
         def generate_canUpdate (ContainerInSpray container) '''
             «overrideHeader»
-            public boolean canUpdate(IUpdateContext context) {
+            public boolean canUpdate(final IUpdateContext context) {
                 // return true, if linked business object is a EClass
-                EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
-                PictogramElement pictogramElement = context.getPictogramElement();
-                return (bo instanceof «container?.represents?.name»)&& (!(pictogramElement instanceof Diagram));
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                return (bo instanceof «container.represents.name»)&& (!(pictogramElement instanceof Diagram));
             }
         '''
         
         def generate_updateNeeded (ContainerInSpray container) '''
             «overrideHeader»
-            public IReason updateNeeded(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof «container?.represents?.name»)) {
+            public IReason updateNeeded(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                if ( ! (bo instanceof «container.represents.name»)) {
                     return Reason.createFalseReason(); 
                 }
-                   «container?.represents?.name» eClass = («container?.represents?.name») bo;
+                final «container.represents.name» eClass = («container.represents.name») bo;
 
                 // retrieve name from pictogram model
                 if (pictogramElement instanceof ContainerShape) {
-                    ContainerShape cs = (ContainerShape) pictogramElement;
-                    ContainerShape textBox = SprayContainerService.findTextShape(cs);
-                    for (Shape shape : textBox.getChildren()) {
+                    final ContainerShape cs = (ContainerShape) pictogramElement;
+                    final ContainerShape textBox = SprayContainerService.findTextShape(cs);
+                    for (final Shape shape : textBox.getChildren()) {
                         if (shape.getGraphicsAlgorithm() instanceof Text) {
-                            Text text = (Text) shape.getGraphicsAlgorithm();
-                            String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
-                            String value = getValues(eClass).get(type);
+                            final Text text = (Text) shape.getGraphicsAlgorithm();
+                            final String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
+                            final String value = getValues(eClass).get(type);
                             if( value != null){
                                    String pictogramName = text.getValue();
 
@@ -127,10 +127,10 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         
         def generate_update (ContainerInSpray container) '''
             «overrideHeader»
-            public boolean update(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                  «container?.represents?.name» eClass = («container?.represents?.name») bo;
+            public boolean update(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                final «container.represents.name» eClass = («container.represents.name») bo;
                 return SprayContainerService.update(pictogramElement, getValues(eClass));
                 
             }
@@ -138,7 +138,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         
         def generate_valueMapping (ContainerInSpray container) '''
             Map<String, String> values = null; 
-            protected Map<String, String> getValues(«container?.represents?.name» eClass) {
+            protected Map<String, String> getValues(final «container.represents.name» eClass) {
                 if (values == null) {
                     values = new HashMap<String, String>();
                     fillValues(eClass);
@@ -146,7 +146,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
                 return values;
             }
 
-            protected void fillValues(«container?.represents?.name» eClass) {
+            protected void fillValues(final «container?.represents?.name» eClass) {
                 String type, value;
             «FOR part : if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
                 «IF part instanceof TextInSpray»
@@ -158,7 +158,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
             «ENDFOR»            
             }
             
-            protected String getValue (String type, «container?.represents?.name» eClass) {
+            protected String getValue (final String type, final «container.represents.name» eClass) {
             «FOR part :  if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
                 «IF part instanceof TextInSpray»
                     «var text = part as TextInSpray»

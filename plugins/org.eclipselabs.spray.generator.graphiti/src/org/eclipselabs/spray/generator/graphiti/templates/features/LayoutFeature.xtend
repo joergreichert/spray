@@ -26,7 +26,7 @@ class LayoutFeature extends FileGenerator<ContainerInSpray> {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
@@ -54,7 +54,7 @@ class LayoutFeature extends FileGenerator<ContainerInSpray> {
             protected «containerType» container = null;
             «generate_additionalFields(container)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 container = new «containerType»();
             «IF container.layout.figure.matches(".*Concept.*")»
@@ -70,19 +70,19 @@ class LayoutFeature extends FileGenerator<ContainerInSpray> {
         
         def generate_canLayout (ContainerInSpray container) '''
             «overrideHeader»
-            public boolean canLayout(ILayoutContext context) {
-               PictogramElement pe = context.getPictogramElement();
+            public boolean canLayout(final ILayoutContext context) {
+               final PictogramElement pe = context.getPictogramElement();
                if (!(pe instanceof ContainerShape)) {
                    return false;
                }
-               EList<EObject> businessObjects = pe.getLink().getBusinessObjects();
+               final EList<EObject> businessObjects = pe.getLink().getBusinessObjects();
                return (businessObjects.size() == 1) && (businessObjects.get(0) instanceof «container.represents.type.javaInterfaceName.shortName»);
             }
         '''
         
         def generate_layout (ContainerInSpray container) '''
             «overrideHeader»
-            public boolean layout(ILayoutContext context) {
+            public boolean layout(final ILayoutContext context) {
                 return container.layoutContainer(context);
             }
         '''

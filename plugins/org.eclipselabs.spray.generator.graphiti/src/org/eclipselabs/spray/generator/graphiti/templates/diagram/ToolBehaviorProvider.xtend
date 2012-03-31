@@ -35,7 +35,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.dt.IDiagramTypeProvider;
          
         public class «className» extends «className»Base {
-            public «className»(IDiagramTypeProvider dtp) {
+            public «className»(final IDiagramTypeProvider dtp) {
                 super(dtp);
             }
         }
@@ -55,7 +55,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         public abstract class «className» extends AbstractSprayToolBehaviorProvider {
             «generate_compartmentConstants(diagram)»
             «generate_additionalFields(diagram)»
-            public «className»(IDiagramTypeProvider dtp) {
+            public «className»(final IDiagramTypeProvider dtp) {
                 super(dtp);
             }
         
@@ -128,7 +128,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
 
     def generate_getPaletteCompartmentForFeature(Diagram diagram) '''
         «overrideHeader»
-        protected IPaletteCompartmentEntry getPaletteCompartmentForFeature(IFeature feature) {
+        protected IPaletteCompartmentEntry getPaletteCompartmentForFeature(final IFeature feature) {
             «FOR behavior: diagram.allCreateBehaviors.filter(b|b.paletteCompartment!=null) SEPARATOR "else"»
                 if (feature instanceof «behavior.createFeatureClassName») {
                     return getPaletteCompartment(COMPARTMENT_«behavior.paletteCompartment.toUpperCase»);
@@ -140,7 +140,6 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
     
     def String getCreateFeatureClassName (CreateBehavior behavior) {
         val mc = behavior.getContainerOfType(typeof(MetaClass))
-        
         mc.createFeatureClassName.shortName
     }
     

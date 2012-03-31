@@ -53,7 +53,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         }
@@ -91,14 +91,14 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
             protected «containerType» container = null;
             «generate_additionalFields(container)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 container = new «containerType»();
                 gaService = «container.diagram.activatorClassName.shortName».get(IGaService.class);
             }
         
             «overrideHeader()»
-            public boolean canAdd(IAddContext context) {
+            public boolean canAdd(final IAddContext context) {
                 final EObject newObject = (EObject) context.getNewObject();
                 if (newObject instanceof «container.represents.name») {
                     // check if user wants to add to a diagram
@@ -110,12 +110,12 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
             }
 
             «overrideHeader»
-            public PictogramElement add(IAddContext context) {
+            public PictogramElement add(final IAddContext context) {
                 «container.represents.name» addedModelElement = («container.represents.name») context.getNewObject();
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
         
-                ContainerShape containerShape = container.createContainer(context, addedModelElement);
-                ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);
+                final ContainerShape containerShape = container.createContainer(context, addedModelElement);
+                final ContainerShape textContainer = SprayContainerService.findTextShape(containerShape);
                 «IF container.hasFillColor»
                     textContainer.getGraphicsAlgorithm().setBackground(manageColor(«container.fillColor»));
                 «ENDIF»    
@@ -147,7 +147,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         '''
         
         def dispatch createShape (SprayElement part, MetaClass cls) '''
-            protected void create«part.eClass.name»«part.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void create«part.eClass.name»«part.shapeName» (final IAddContext context, «cls.name» addedModelElement, final ContainerShape containerShape) {
                 System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
             }
         '''
@@ -155,11 +155,11 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         def dispatch createShape (LineInSpray line, MetaClass cls) '''
             «val varname = line.shapeName.toFirstLower»
             // Part is Line
-            protected void createLineInSpray«line.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createLineInSpray«line.shapeName» (final IAddContext context, «cls.name» addedModelElement, final ContainerShape containerShape) {
                 // create shape for line
-                Shape «varname» = peCreateService.createShape(containerShape, false);
+                final Shape «varname» = peCreateService.createShape(containerShape, false);
                 // create and set graphics algorithm
-                Polyline polyline = gaService.createPolyline(«varname», new int[] { 0, 0, 0, 0 });
+                final Polyline polyline = gaService.createPolyline(«varname», new int[] { 0, 0, 0, 0 });
                 polyline.setForeground(manageColor(«line.lineColor» ));
                 polyline.setLineWidth(«line.layout.lineWidth»);
             «IF line.layout.lineWidth == 0»
@@ -173,11 +173,11 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         def dispatch createShape (TextInSpray text, MetaClass cls) '''
             «val varname = text.shapeName.toFirstLower»
             // Part is Text
-            protected void createTextInSpray«text.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
-                String type = "«text.fullyQualifiedName»";
+            protected void createTextInSpray«text.shapeName» (final IAddContext context, «cls.name» addedModelElement, final ContainerShape containerShape) {
+                final String type = "«text.fullyQualifiedName»";
                 // create shape for text and set text graphics algorithm
-                Shape «varname» = peCreateService.createShape(containerShape, false);
-                Text text = gaService.createDefaultText(getDiagram(), «varname»);
+                final Shape «varname» = peCreateService.createShape(containerShape, false);
+                final Text text = gaService.createDefaultText(getDiagram(), «varname»);
                 text.setFont(gaService.manageFont(getDiagram(), text.getFont().getName(), 12, «text.layout.italic», «text.layout.bold»));
                 text.setForeground(manageColor(«text.lineColor»));
                 text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
@@ -193,11 +193,11 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         def dispatch createShape (MetaReference metaRef, MetaClass cls) '''
             «val target = metaRef.target» 
             // Part is reference list
-            protected void createMetaReference«metaRef.shapeName» (IAddContext context, «cls.name» addedModelElement, ContainerShape containerShape) {
+            protected void createMetaReference«metaRef.shapeName» (final IAddContext context, «cls.name» addedModelElement, final ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
-                Shape dummy = peCreateService.createShape(containerShape, false);
+                final Shape dummy = peCreateService.createShape(containerShape, false);
                 peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
-                Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
+                final Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
                 p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 p.setLineWidth(0);
                 p.setLineVisible(false);

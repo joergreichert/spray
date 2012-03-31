@@ -40,7 +40,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         }
@@ -76,13 +76,13 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             protected final static String typeOrAliasName = "«metaClass.visibleName»";
             protected Diagram targetDiagram = null;
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
 
             }
         
             «overrideHeader()»
-            public boolean canAdd(IAddContext context) {
+            public boolean canAdd(final IAddContext context) {
                 final EObject newObject = (EObject) context.getNewObject();
                 if (newObject instanceof «metaClass.name») {
                     // check if user wants to add to a diagram
@@ -94,19 +94,19 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             }
 
             «overrideHeader»
-            public PictogramElement add(IAddContext context) {
-                «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
+            public PictogramElement add(final IAddContext context) {
+                final «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
                 
                 // Diagram targetDiagram = (Diagram) context.getTargetContainer();
                 «IF styleRef != null && styleRef.style != null»
-                ISprayStyle style = new «styleRef.style.simpleName»();
+                final ISprayStyle style = new «styleRef.style.simpleName»();
                 «ELSE»
-                ISprayStyle style = new DefaultSprayStyle();
+                final ISprayStyle style = new DefaultSprayStyle();
                 «ENDIF»
-                ISprayShape shape = new «container.shape.simpleName»(getFeatureProvider());
-                ContainerShape conShape = shape.getShape(targetDiagram, style);
-                IGaService gaService = Graphiti.getGaService();
+                final ISprayShape shape = new «container.shape.simpleName»(getFeatureProvider());
+                final ContainerShape conShape = shape.getShape(targetDiagram, style);
+                final IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
                 link(conShape, addedModelElement);
                 «IF metaClass.alias!=null»

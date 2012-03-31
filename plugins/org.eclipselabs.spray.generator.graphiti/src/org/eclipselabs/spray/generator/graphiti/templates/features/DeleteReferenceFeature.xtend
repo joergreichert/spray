@@ -26,7 +26,7 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
@@ -54,7 +54,7 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
         public abstract class «className» extends DefaultDeleteFeature {
             «generate_additionalFields(reference)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
             
@@ -67,12 +67,12 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
     
     def generate_delete (MetaReference reference) '''
         «overrideHeader»
-        public void delete(IDeleteContext context) {
-            PictogramElement pe = context.getPictogramElement();
-            String reference = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_REFERENCE);
-            String element   = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_TARGETOBJECT);
+        public void delete(final IDeleteContext context) {
+            final PictogramElement pe = context.getPictogramElement();
+            final String reference = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_REFERENCE);
+            final String element   = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_TARGETOBJECT);
 
-            Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
+            final Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
             if (businessObjectsForPictogramElement != null && businessObjectsForPictogramElement.length > 0) {
                 if (!getUserDecision()) {
                     return;
@@ -83,17 +83,16 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
 
             // TRY
             if( pe instanceof Connection) {
-                Connection line = (Connection)pe;
-                AnchorContainer parent = line.getStart().getParent();
+                final Connection line = (Connection)pe;
+                final AnchorContainer parent = line.getStart().getParent();
                 // EObject start = getBusinessObjectForPictogramElement(parent);
-                AnchorContainer child = line.getEnd().getParent();
+                final AnchorContainer child = line.getEnd().getParent();
                 // EObject end = getBusinessObjectForPictogramElement(child);
             }
             //END TRY
 
-            IRemoveContext rc = new RemoveContext(pe);
-            IFeatureProvider featureProvider = getFeatureProvider();
-            IRemoveFeature removeFeature = featureProvider.getRemoveFeature(rc);
+            final IRemoveContext rc = new RemoveContext(pe);
+            final IRemoveFeature removeFeature = getFeatureProvider().getRemoveFeature(rc);
             if (removeFeature != null) {
                 removeFeature.remove(rc);
             }
@@ -111,9 +110,9 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
          * @param businessObjects
          *            the business objects
          */
-        protected void deleteReferences(Object[] businessObjects, String reference, String element) {
+        protected void deleteReferences(final Object[] businessObjects, final String reference, final String element) {
             if (businessObjects != null) {
-                for (Object bo : businessObjects) {
+                for (final Object bo : businessObjects) {
                     deleteReference((EObject)bo, reference, element);
                 }
             }
@@ -128,16 +127,16 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
          * @param bo
          *            the bo
          */
-        protected void deleteReference(EObject bo, String reference, String element) {
+        protected void deleteReference(final EObject bo, final String reference, final String element) {
             if( reference == null){
                 EcoreUtil.delete(bo, true);
             } else {
                 if( bo instanceof «reference.metaClass.javaInterfaceName.shortName» ){
-                    «reference.metaClass.name» object = («reference.metaClass.name» ) bo;
+                    final «reference.metaClass.name» object = («reference.metaClass.name» ) bo;
                     
             «IF target.upperBound != 1»
                     «target.EReferenceType.javaInterfaceName.shortName» toBeRemoved = null;
-                    for («target.EReferenceType.name» rule : object.get«target.name.toFirstUpper»()) {
+                    for (final «target.EReferenceType.name» rule : object.get«target.name.toFirstUpper»()) {
                         if( rule.getName().equals(element)){
                             toBeRemoved = rule;
                         }

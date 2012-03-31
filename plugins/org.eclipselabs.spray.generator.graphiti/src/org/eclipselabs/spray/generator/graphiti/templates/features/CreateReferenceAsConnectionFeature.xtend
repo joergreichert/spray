@@ -28,7 +28,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         //    /**
@@ -71,11 +71,11 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     
     def generate_constructor (MetaReference reference, String className) '''
         «val target = reference.target»
-        public «className»(IFeatureProvider fp) {
+        public «className»(final IFeatureProvider fp) {
             // set name and description of the creation feature
             this(fp, "«target.name»", "Create «target.name»");
         }
-        protected «className»(IFeatureProvider fp, String name, String description) {
+        protected «className»(final IFeatureProvider fp, final String name, final String description) {
             // provide name and description for the UI, e.g. the palette
             super(fp, name, description);
         }
@@ -84,11 +84,11 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_canCreate (MetaReference reference) '''
         «val target = reference.target»
         «overrideHeader»
-        public boolean canCreate(ICreateConnectionContext context) {
+        public boolean canCreate(final ICreateConnectionContext context) {
             // return true if both anchors belong to an EClass
             // and those EClasses are not identical
-            «reference.metaClass.javaInterfaceName.shortName» source = get«reference.metaClass.name»(context.getSourceAnchor());
-            «target.EReferenceType.javaInterfaceName.shortName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
+            final «reference.metaClass.javaInterfaceName.shortName» source = get«reference.metaClass.name»(context.getSourceAnchor());
+            final «target.EReferenceType.javaInterfaceName.shortName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
             if ( (source != null) && (target != null) && (source != target) ) {
                 return true;
             }
@@ -99,9 +99,9 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_canStartConnection (MetaReference reference) '''
         «val target = reference.target»
         «overrideHeader»
-        public boolean canStartConnection(ICreateConnectionContext context) {
+        public boolean canStartConnection(final ICreateConnectionContext context) {
             // return true if start anchor belongs to a EClass
-            «reference.metaClass.name» «reference.metaClass.name.toFirstLower» = («reference.metaClass.name») get«reference.metaClass.name»(context.getSourceAnchor());
+            final «reference.metaClass.name» «reference.metaClass.name.toFirstLower» = («reference.metaClass.name») get«reference.metaClass.name»(context.getSourceAnchor());
             if («reference.metaClass.name.toFirstLower» == null) {
                 return false;
             }
@@ -121,18 +121,18 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_create (MetaReference reference) '''
         «val target = reference.target»
         «overrideHeader»
-        public Connection create(ICreateConnectionContext context) {
+        public Connection create(final ICreateConnectionContext context) {
             Connection newConnection = null;
     
             // get EClasses which should be connected
-            «reference.metaClass.name» source = get«reference.metaClass.name»(context.getSourceAnchor());
-            «target.EReferenceType.name» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
+            final «reference.metaClass.name» source = get«reference.metaClass.name»(context.getSourceAnchor());
+            final «target.EReferenceType.name» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
     
             if (source != null && target != null) {
                 // create new business object
                 set«target.name.toFirstUpper()»(source, target);
                 // add connection for business object
-                AddConnectionContext addContext = new AddConnectionContext( context.getSourceAnchor(), context.getTargetAnchor());
+                final AddConnectionContext addContext = new AddConnectionContext( context.getSourceAnchor(), context.getTargetAnchor());
                 addContext.setNewObject(source);
                 addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, «reference.literalConstant».getName());
                 // TODO: assume that the target object has a Name property
@@ -148,12 +148,10 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         /**
          * Returns the «reference.metaClass.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        protected «reference.metaClass.name» get«reference.metaClass.name»(Anchor anchor) {
-            if (anchor != null) {
-                Object object = getBusinessObjectForPictogramElement(anchor.getParent());
-                if (object instanceof «reference.metaClass.name») {
-                    return («reference.metaClass.name») object;
-                }
+        protected «reference.metaClass.name» get«reference.metaClass.name»(final Anchor anchor) {
+            final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
+            if (anchor != null && bo instanceof «reference.metaClass.name») {
+                return («reference.metaClass.name») bo;
             }
             return null;
         }
@@ -165,12 +163,10 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         /**
          * Returns the «target.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        protected «target.EReferenceType.name» get«target.name.toFirstUpper»(Anchor anchor) {
-            if (anchor != null) {
-                Object object = getBusinessObjectForPictogramElement(anchor.getParent());
-                if (object instanceof «target.EReferenceType.name») {
-                    return («target.EReferenceType.name») object;
-                }
+        protected «target.EReferenceType.name» get«target.name.toFirstUpper»(final Anchor anchor) {
+            final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
+            if (anchor != null && bo instanceof «target.EReferenceType.name») {
+                return («target.EReferenceType.name») bo;
             }
             return null;
         }
@@ -182,7 +178,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         /**
          * Creates a «target.name» .
          */
-        protected void set«target.name.toFirstUpper»(«reference.metaClass.name» source, «target.EReferenceType.name» target) {
+        protected void set«target.name.toFirstUpper»(final «reference.metaClass.name» source, final «target.EReferenceType.name» target) {
             «IF !target.many» 
                 source.set«target.name.toFirstUpper»(target);
             «ELSE»

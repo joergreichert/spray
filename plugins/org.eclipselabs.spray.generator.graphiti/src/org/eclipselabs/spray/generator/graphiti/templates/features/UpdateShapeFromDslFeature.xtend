@@ -33,7 +33,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
@@ -70,7 +70,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         
         public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(container)»
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «container?.diagram?.activatorClassName?.shortName».get(IGaService.class);
             }
@@ -86,21 +86,27 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         
         def generate_canUpdate (ShapeFromDsl container) '''
             «overrideHeader»
-            public boolean canUpdate(IUpdateContext context) {
+            public boolean canUpdate(final IUpdateContext context) {
                 // return true, if linked business object is a EClass
+<<<<<<< HEAD
                 EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
                 PictogramElement pictogramElement = context.getPictogramElement();
                 
                 return (bo instanceof «container?.represents?.name»)&& (!(pictogramElement instanceof Diagram));
+=======
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo =  getBusinessObjectForPictogramElement(pictogramElement);
+                return (bo instanceof «container.represents.name»)&& (!(pictogramElement instanceof Diagram));
+>>>>>>> Template refactoring:
             }
         '''
         
         def generate_updateNeeded (ShapeFromDsl container) '''
             «overrideHeader»
-            public IReason updateNeeded(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof «container?.represents?.name»)) {
+            public IReason updateNeeded(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                if ( ! (bo instanceof «container.represents.name»)) {
                     return Reason.createFalseReason(); 
                 }
                 return Reason.createFalseReason();
@@ -109,14 +115,14 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         
         def generate_update (ShapeFromDsl container) '''
             «overrideHeader»
-            public boolean update(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                «container?.represents?.name» eClass = («container?.represents?.name») bo;
+            public boolean update(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                final «container.represents.name» eClass = («container.represents.name») bo;
                 if(pictogramElement instanceof ContainerShape) {
-                	ContainerShape conShape = (ContainerShape) pictogramElement;
-                	GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
-                	searchChilds(gAlg, eClass);
+                    final ContainerShape conShape = (ContainerShape) pictogramElement;
+                    final GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
+                    searchChilds(gAlg, eClass);
                 }
                 return true; // SprayContainerService.update(pictogramElement, getValues(eClass));
                 
@@ -124,14 +130,14 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
         
     def generate_searchChilds(ShapeFromDsl container) '''
-    	private void searchChilds(GraphicsAlgorithm gAlg, «container?.represents?.name» eClass) {
+    	private void searchChilds(final GraphicsAlgorithm gAlg, final «container.represents.name» eClass) {
     		if(gAlg instanceof Text) {
     			Text text = (Text) gAlg;
     			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
     			«FOR property : container.properties»
     			if(id.equals("«property.key.simpleName»")) {
     				«IF property.value != null»
-    				«property.value.propertyAssignmentFunction("value", "String", container?.represents?.name, "eClass")»
+    				«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
     				text.setValue(value);
     				«ELSE»
     				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
@@ -147,7 +153,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         
     def generate_valueMapping (ShapeFromDsl container) '''
         Map<String, String> values = null; 
-        protected Map<String, String> getValues(«container?.represents?.name» eClass) {
+            protected Map<String, String> getValues(final «container.represents.name» eClass) {
             if (values == null) {
                 values = new HashMap<String, String>();
                 fillValues(eClass);
@@ -155,11 +161,11 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             return values;
         }
 
-        protected void fillValues(«container?.represents?.name» eClass) {
+        protected void fillValues(final «container.represents.name» eClass) {
             String type, value;
         }
         
-        protected String getValue (String type, «container?.represents?.name» eClass) {
+        protected String getValue (final String type, final «container.represents.name» eClass) {
             return "UNKNOWN";
         }
     '''

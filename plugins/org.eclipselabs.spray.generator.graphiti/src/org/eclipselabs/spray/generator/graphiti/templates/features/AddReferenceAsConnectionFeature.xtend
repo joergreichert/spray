@@ -30,19 +30,19 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         //  /**
         //   * {@inheritDoc}
         //   */
         //  @Override
-        //  protected GraphicsAlgorithm createConnectionStartDecorator (IAddConnectionContext context,
-        //          Connection connection) {
-        //      ConnectionDecorator cd = peCreateService.createConnectionDecorator(
+        //  protected GraphicsAlgorithm createConnectionStartDecorator (final IAddConnectionContext context,
+        //          final Connection connection) {
+        //      final ConnectionDecorator cd = peCreateService.createConnectionDecorator(
         //              connection, /* active */false, /* location */0.0, /* isRelative */
         //              true);
-        //      Polyline polyline = gaService.createPolyline(cd, new int[] {
+        //      final Polyline polyline = gaService.createPolyline(cd, new int[] {
         //              -15, 10, 0, 0, -15, -10 });
         //
         //      polyline.setForeground(manageColor(IColorConstant.BLACK));
@@ -56,12 +56,12 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         //   * {@inheritDoc}
         //   */
         //  @Override
-        //  protected GraphicsAlgorithm createConnectionEndDecorator (IAddConnectionContext context,
-        //          Connection connection) {
-        //      ConnectionDecorator cd = peCreateService.createConnectionDecorator(
+        //  protected GraphicsAlgorithm createConnectionEndDecorator (final IAddConnectionContext context,
+        //          final Connection connection) {
+        //      final ConnectionDecorator cd = peCreateService.createConnectionDecorator(
         //              connection, /* active */false, /* location */1.0, /* isRelative */
         //              true);
-        //      Polygon polygon = gaService.createPolygon(cd, new int[] {
+        //      final Polygon polygon = gaService.createPolygon(cd, new int[] {
         //              -12, 8, 0, 0, -12, -8, -12, 8 });
         //
         //      polygon.setForeground(manageColor(IColorConstant.BLACK));
@@ -94,7 +94,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(reference)»
             
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «reference.diagram.activatorClassName.shortName».get(IGaService.class);
             }
@@ -109,26 +109,26 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_add (MetaReference reference) '''
         «val target=reference.target»
         «overrideHeader()»
-        public PictogramElement add(IAddContext context) {
-            IAddConnectionContext addConContext = (IAddConnectionContext) context;
+        public PictogramElement add(final IAddContext context) {
+            final IAddConnectionContext addConContext = (IAddConnectionContext) context;
             «reference.metaClass.type.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.name») context.getNewObject();
         «IF target.upperBound == 1»
             removeExisting(context);
         «ENDIF»        
           
             // CONNECTION WITH POLYLINE
-            Connection connection = peCreateService.createFreeFormConnection(getDiagram());
+            final Connection connection = peCreateService.createFreeFormConnection(getDiagram());
             connection.setStart(addConContext.getSourceAnchor());
             connection.setEnd(addConContext.getTargetAnchor());
      
             // TRY
-            AnchorContainer parent = connection.getStart().getParent();
-            Object start = getBusinessObjectForPictogramElement(parent);
-            AnchorContainer child = connection.getEnd().getParent();
-            Object end = getBusinessObjectForPictogramElement(child);
+            final AnchorContainer parent = connection.getStart().getParent();
+            final EObject start = (EObject) getBusinessObjectForPictogramElement(parent);
+            final AnchorContainer child = connection.getEnd().getParent();
+            final EObject end = (EObject) getBusinessObjectForPictogramElement(child);
             //END TRY
     
-            Polyline polyline = gaService.createPolyline(connection);
+            final Polyline polyline = gaService.createPolyline(connection);
             polyline.setLineWidth(«reference.representedBy.layout.lineWidth»);
             polyline.setForeground(manageColor(«reference.lineColor»));
              
@@ -150,7 +150,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     
     def generate_canAdd (MetaReference reference) '''
         «overrideHeader()»
-        public boolean canAdd(IAddContext context) {
+        public boolean canAdd(final IAddContext context) {
             // return true if given business object is an «reference.metaClass.name»
             // note, that the context must be an instance of IAddConnectionContext
             if (context instanceof IAddConnectionContext
@@ -162,15 +162,14 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     '''
     
     def generate_removeExisting (MetaReference reference) '''
-        protected void removeExisting(IAddContext context) {
-            IAddConnectionContext addConContext = (IAddConnectionContext) context;
+        protected void removeExisting(final IAddContext context) {
+            final IAddConnectionContext addConContext = (IAddConnectionContext) context;
             «reference.metaClass.name» addedDomainObject = («reference.metaClass.name») context.getNewObject();
-            Object[] pictogramElements = peService.getLinkedPictogramElements(new EObject[] { addedDomainObject }, getDiagram());
-            for (Object pict : pictogramElements) {
+            final Object[] pictogramElements = peService.getLinkedPictogramElements(new EObject[] { addedDomainObject }, getDiagram());
+            for (final Object pict : pictogramElements) {
                 if( pict instanceof PictogramElement){
-                    PictogramElement p = (PictogramElement)pict;
-                    String reference = peService.getPropertyValue(p, ISprayConstants.PROPERTY_REFERENCE);
-                    if( "«reference.name»".equals(reference)){
+                    final PictogramElement p = (PictogramElement)pict;
+                    if( "«reference.name»".equals(peService.getPropertyValue(p, ISprayConstants.PROPERTY_REFERENCE))){
                         peService.deletePictogramElement(p) ;
                         setDoneChanges(true);
                     }
@@ -180,8 +179,8 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     '''
     
     def generate_createArrow (MetaReference reference) '''
-        private Polyline createArrow(GraphicsAlgorithmContainer gaContainer) {
-            Polyline polyline = gaCreateService.createPolyline(gaContainer, new int[] { -15, 10, 0, 0, -15, -10 });
+        private Polyline createArrow(final GraphicsAlgorithmContainer gaContainer) {
+            final Polyline polyline = gaCreateService.createPolyline(gaContainer, new int[] { -15, 10, 0, 0, -15, -10 });
     //        polyline.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
             polyline.setLineWidth(«reference.representedBy.layout.lineWidth»);
             polyline.setForeground(manageColor(«reference.lineColor»));

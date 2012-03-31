@@ -35,7 +35,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
@@ -60,7 +60,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         
         public abstract class «className» extends AbstractUpdateFeature {
             «generate_additionalFields(reference)»
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «reference.diagram.activatorClassName.shortName».get(IGaService.class);
             }
@@ -75,23 +75,24 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
     
     def generate_canUpdate (MetaReference reference) '''
         «overrideHeader»
-        public boolean canUpdate(IUpdateContext context) {
+        public boolean canUpdate(final IUpdateContext context) {
             // return true, if linked business object is a EClass
-            EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
+            final EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
             return (bo instanceof «target.javaInterfaceName.shortName»);
         }
     '''
     
     def generate_updateNeeded (MetaReference reference) '''
         «overrideHeader»
-        public IReason updateNeeded(IUpdateContext context) {
+        public IReason updateNeeded(final IUpdateContext context) {
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             // retrieve name from pictogram model
             String pictogramName = null;
-            PictogramElement pictogramElement = context.getPictogramElement();
             if (pictogramElement instanceof Shape) {
-                Shape cs = (Shape) pictogramElement;
+                final Shape cs = (Shape) pictogramElement;
                 if (cs.getGraphicsAlgorithm() instanceof Text) {
-                    Text text = (Text) cs.getGraphicsAlgorithm();
+                    final Text text = (Text) cs.getGraphicsAlgorithm();
                     // peService.getPropertyValue(shape, "REFERENCE");
                     if( pictogramName == null ){
                         pictogramName = text.getValue();
@@ -101,9 +102,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
      
             // retrieve name from business model
             String businessName = null;
-            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo instanceof «target.name») {
-                «target.name» «target.name.toFirstLower» = («target.name») bo;
+                final «target.name» «target.name.toFirstLower» = («target.name») bo;
                 businessName = getText(context, «target.name.toFirstLower»);
             }
      
@@ -122,20 +122,20 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
     def generate_update (MetaReference reference) '''
         «overrideHeader»
         public boolean update(IUpdateContext context) {
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
            // retrieve name from business model
             String businessName = null;
-            PictogramElement pictogramElement = context.getPictogramElement();
-            EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo instanceof «target.name») {
-                «target.name» «target.name.toFirstLower» = («target.name») bo;
+                final «target.name» «target.name.toFirstLower» = («target.name») bo;
                 businessName = getText(context, «target.name.toFirstLower»);
             }
 
             // Set name in pictogram model
             if (pictogramElement instanceof Shape) {
-                Shape cs = (Shape) pictogramElement;
+                final Shape cs = (Shape) pictogramElement;
                 if (cs.getGraphicsAlgorithm() instanceof Text) {
-                    Text text = (Text) cs.getGraphicsAlgorithm();
+                    final Text text = (Text) cs.getGraphicsAlgorithm();
                     text.setValue(businessName);
                     layoutPictogramElement(cs.getContainer().getContainer());
                     return true;
@@ -149,7 +149,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         /**
          * Computes the displayed text. Clients may override this method.
          */
-        protected String getText (IUpdateContext context, «target.name» bo) {
+        protected String getText (final IUpdateContext context, final «target.name» bo) {
             return bo.getName();
         }
     '''

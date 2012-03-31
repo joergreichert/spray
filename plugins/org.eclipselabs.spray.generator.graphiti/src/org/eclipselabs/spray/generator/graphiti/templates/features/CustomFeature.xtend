@@ -25,12 +25,12 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
         import org.eclipse.graphiti.features.context.ICustomContext;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
             @Override
-            public void execute(ICustomContext context, EObject object) {
+            public void execute(final ICustomContext context, final EObject object) {
                 // TODO add code here.
             }
         
@@ -51,7 +51,7 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
         public abstract class «className» extends AbstractCustomFeature {
             «generate_additionalFields(behavior)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         
@@ -73,29 +73,29 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
     
     def generate_canExecute (CustomBehavior behavior) '''
         «overrideHeader»
-        public boolean canExecute(ICustomContext context) {
+        public boolean canExecute(final ICustomContext context) {
             // allow rename if exactly one pictogram element
             // representing an EClass is selected
             boolean ret = true;
-            PictogramElement[] pes = context.getPictogramElements();
+            final PictogramElement[] pes = context.getPictogramElements();
             if (pes != null && pes.length == 1) {
-                EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
+                final EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
                 ret = canExecute (context, bo);
             }
             return ret;
         } 
 
-        protected boolean canExecute(ICustomContext context, EObject bo) {
+        protected boolean canExecute(final ICustomContext context, final EObject bo) {
             return true;
         }
     '''
     
     def generate_execute (CustomBehavior behavior) '''
         «overrideHeader»
-        public void execute(ICustomContext context) {
-            PictogramElement[] pes = context.getPictogramElements();
+        public void execute(final ICustomContext context) {
+            final PictogramElement[] pes = context.getPictogramElements();
             if (pes != null && pes.length == 1) {
-                EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
+                final EObject bo = (EObject) getBusinessObjectForPictogramElement(pes[0]);
                 execute(context, bo);
             }
         }

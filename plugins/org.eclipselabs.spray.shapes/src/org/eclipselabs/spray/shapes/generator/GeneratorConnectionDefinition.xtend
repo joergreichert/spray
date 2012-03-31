@@ -62,25 +62,25 @@ class GeneratorConnectionDefinition {
 			
 			«c.generateTextIdsEnum»
 		    
-		    public «c.className»(IFeatureProvider fp) {
+		    public «c.className»(final IFeatureProvider fp) {
 				super(fp);
 			}
 		    
 			@Override
-			public Connection getConnection(Diagram diagram, ISprayStyle sprayStyle, Anchor startAnchor, Anchor endAnchor) {
+			public Connection getConnection(final Diagram diagram, final ISprayStyle sprayStyle, final Anchor startAnchor, final Anchor endAnchor) {
 				«IF c.connectionStyle == null»
-				Connection newConnection = peCreateService.createFreeFormConnection(diagram);
+				final Connection newConnection = peCreateService.createFreeFormConnection(diagram);
 				«ELSE»
 					«IF c.connectionStyle == ConnectionStyle::FREEFORM»
-					Connection newConnection = peCreateService.createFreeFormConnection(diagram);
+					final Connection newConnection = peCreateService.createFreeFormConnection(diagram);
 					«ELSEIF c.connectionStyle == ConnectionStyle::MANHATTEN»
-					Connection newConnection = peCreateService.createManhattanConnection(diagram);
+					final Connection newConnection = peCreateService.createManhattanConnection(diagram);
 					«ENDIF»
 				«ENDIF»
 				newConnection.setStart(startAnchor);
 				newConnection.setEnd(endAnchor);
 				
-				Polyline polyline = gaService.createPolyline(newConnection);
+				final Polyline polyline = gaService.createPolyline(newConnection);
 				polyline.setStyle(sprayStyle.getStyle(diagram));
 
 				// Define general layout of connection
@@ -101,7 +101,7 @@ class GeneratorConnectionDefinition {
 				return this.«param.name»;
 			}
 			
-			public void set«param.name.toFirstUpper»(«param.parameterType.qualifiedName» «param.name») {
+			public void set«param.name.toFirstUpper»(final «param.parameterType.qualifiedName» «param.name») {
 				this.«param.name» = «param.name»;
 			}
 			«ENDFOR»

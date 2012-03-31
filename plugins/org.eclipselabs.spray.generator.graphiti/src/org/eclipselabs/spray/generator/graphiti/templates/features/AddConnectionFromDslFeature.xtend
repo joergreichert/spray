@@ -84,7 +84,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         public abstract class «className» extends AbstractAddConnectionFeature {
             «generate_additionalFields(metaClass)»
         
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
                 gaService = «metaClass.diagram.activatorClassName.shortName».get(IGaService.class);
             }

@@ -30,7 +30,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.features.IFeatureProvider;
         
         public class «className» extends «className»Base {
-            public «className»(IFeatureProvider fp) {
+            public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
         }
@@ -63,7 +63,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             «generate_additionalFields(metaClass)»
         
         
-            public «className» (IFeatureProvider fp) {
+            public «className» (final IFeatureProvider fp) {
                 // set name and description of the creation feature
                 super(fp, "«metaClass.createFeatureLabel»", "«metaClass.createFeatureDescription»");
                 modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
@@ -90,7 +90,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
 
     def generate_canCreate (MetaClass metaClass) '''
         «overrideHeader()»
-        public boolean canCreate(ICreateContext context) {
+        public boolean canCreate(final ICreateContext context) {
             // TODO: Respect the cardinality of the containment reference
             return context.getTargetContainer() instanceof Diagram;
         }
@@ -124,7 +124,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         /**
          * Creates a new {@link «metaClass.name»} instance and adds it to the containing type.
          */
-        protected «metaClass.name» create«metaClass.visibleName»(ICreateContext context) {
+        protected «metaClass.name» create«metaClass.visibleName»(final ICreateContext context) {
             «handleAskFor(metaClass, createBehavior.askFor)»
             
             «IF containmentRef != null»
@@ -144,7 +144,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     
     def handleAskFor(MetaClass metaClass, EAttribute attribute) '''
         // create «metaClass.name» instance
-        «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+        final «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
         «IF attribute != null»
            // ask user for «metaClass.visibleName» «attribute.name»
            «IF (attribute.EType as EDataType).instanceClassName.matches('java.lang.String')»
@@ -157,8 +157,8 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
            «ELSE»
               «val type = (attribute.EType as EDataType).instanceClassName» 
               «val typeName = if("double".matches(type)) "Double" else if("int".matches(type)) "Integer" else "Object"»
-              org.eclipse.jface.dialogs.IInputValidator validator = new org.eclipse.jface.dialogs.IInputValidator() {
-                 public String isValid(String _newText) {
+              final «"org.eclipse.jface.dialogs.IInputValidator".shortName» validator = new IInputValidator() {
+                 public String isValid(final String _newText) {
                     String message = null;
                     try {
                        «typeName».valueOf(_newText);
@@ -168,8 +168,8 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                     return message;
                  }
               };
-              String new«attribute.name.toFirstUpper»String = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
-              «typeName» new«attribute.name.toFirstUpper» = «typeName».valueOf(new«attribute.name.toFirstUpper»String);    
+              final String new«attribute.name.toFirstUpper»String = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
+              final «typeName» new«attribute.name.toFirstUpper» = «typeName».valueOf(new«attribute.name.toFirstUpper»String);    
               newClass.set«attribute.name.toFirstUpper»(new«attribute.name.toFirstUpper»);
            «ENDIF»
         «ENDIF»
@@ -183,7 +183,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     def generate_addGraphicalRepresentation (MetaClass metaClass) '''
         «IF metaClass.alias!=null»
         «overrideHeader()»
-        protected PictogramElement addGraphicalRepresentation(IAreaContext context, Object newObject) {
+        protected PictogramElement addGraphicalRepresentation(final IAreaContext context, final Object newObject) {
             final AddContext ctx = new AddContext(context, newObject);
             ctx.putProperty(ISprayConstants.PROPERTY_ALIAS, "«metaClass.alias»");
             return getFeatureProvider().addIfPossible(ctx);

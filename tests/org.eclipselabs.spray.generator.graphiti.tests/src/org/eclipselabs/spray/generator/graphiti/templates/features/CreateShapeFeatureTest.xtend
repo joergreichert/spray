@@ -95,9 +95,9 @@ class CreateShapeFeatureTest {
             /**
              * Creates a new {@link SampleClass} instance and adds it to the containing type.
              */
-            protected SampleClass createSampleClass(ICreateContext context) {
+            protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
-                SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
                 // ask user for SampleClass name
                 String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
                 if (newName == null || newName.trim().length() == 0) {
@@ -122,9 +122,9 @@ class CreateShapeFeatureTest {
             /**
              * Creates a new {@link SampleClass} instance and adds it to the containing type.
              */
-            protected SampleClass createSampleClass(ICreateContext context) {
+            protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
-                SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
                 
                 setDoneChanges(true);
                 return newClass;
@@ -143,12 +143,12 @@ class CreateShapeFeatureTest {
             /**
              * Creates a new {@link SampleClass} instance and adds it to the containing type.
              */
-            protected SampleClass createSampleClass(ICreateContext context) {
+            protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
-                SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
                 // ask user for SampleClass id
-                org.eclipse.jface.dialogs.IInputValidator validator = new org.eclipse.jface.dialogs.IInputValidator() {
-                   public String isValid(String _newText) {
+                final IInputValidator validator = new IInputValidator() {
+                   public String isValid(final String _newText) {
                       String message = null;
                       try {
                          Double.valueOf(_newText);
@@ -158,8 +158,8 @@ class CreateShapeFeatureTest {
                       return message;
                    }
                 };
-                String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
-                Double newId = Double.valueOf(newIdString);    
+                final String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
+                final Double newId = Double.valueOf(newIdString);    
                 newClass.setId(newId);
                 
                 setDoneChanges(true);
@@ -179,12 +179,12 @@ class CreateShapeFeatureTest {
             /**
              * Creates a new {@link SampleClass} instance and adds it to the containing type.
              */
-            protected SampleClass createSampleClass(ICreateContext context) {
+            protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
-                SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
                 // ask user for SampleClass id
-                org.eclipse.jface.dialogs.IInputValidator validator = new org.eclipse.jface.dialogs.IInputValidator() {
-                   public String isValid(String _newText) {
+                final IInputValidator validator = new IInputValidator() {
+                   public String isValid(final String _newText) {
                       String message = null;
                       try {
                          Integer.valueOf(_newText);
@@ -194,8 +194,8 @@ class CreateShapeFeatureTest {
                       return message;
                    }
                 };
-                String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
-                Integer newId = Integer.valueOf(newIdString);    
+                final String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
+                final Integer newId = Integer.valueOf(newIdString);    
                 newClass.setId(newId);
                 
                 setDoneChanges(true);
@@ -221,9 +221,9 @@ class CreateShapeFeatureTest {
             /**
              * Creates a new {@link SampleClass} instance and adds it to the containing type.
              */
-            protected SampleClass createSampleClass(ICreateContext context) {
+            protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
-                SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
                 // ask user for SampleClass name
                 String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
                 if (newName == null || newName.trim().length() == 0) {
@@ -258,9 +258,9 @@ class CreateShapeFeatureTest {
             /**
              * Creates a new {@link SampleClass} instance and adds it to the containing type.
              */
-            protected SampleClass createSampleClass(ICreateContext context) {
+            protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
-                SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
                 // ask user for SampleClass name
                 String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
                 if (newName == null || newName.trim().length() == 0) {

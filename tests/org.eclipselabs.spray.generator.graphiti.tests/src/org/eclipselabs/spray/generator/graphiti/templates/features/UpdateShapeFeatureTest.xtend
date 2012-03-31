@@ -53,7 +53,7 @@ class UpdateShapeFeatureTest {
             import org.eclipse.graphiti.features.IFeatureProvider;
 
             public class  extends Base {
-                public (IFeatureProvider fp) {
+                public (final IFeatureProvider fp) {
                     super(fp);
                 }
             
@@ -83,7 +83,7 @@ class UpdateShapeFeatureTest {
             import org.eclipse.graphiti.features.IFeatureProvider;
 
             public class SampleClassName extends SampleClassNameBase {
-                public SampleClassName(IFeatureProvider fp) {
+                public SampleClassName(final IFeatureProvider fp) {
                     super(fp);
                 }
             
@@ -104,10 +104,10 @@ class UpdateShapeFeatureTest {
              * {@inheritDoc}
              */
             @Override
-            public boolean canUpdate(IUpdateContext context) {
+            public boolean canUpdate(final IUpdateContext context) {
                 // return true, if linked business object is a EClass
-                EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
-                PictogramElement pictogramElement = context.getPictogramElement();
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                 return (bo instanceof SampleEClass)&& (!(pictogramElement instanceof Diagram));
             }
         '''
@@ -128,23 +128,23 @@ class UpdateShapeFeatureTest {
              * {@inheritDoc}
              */
             @Override
-            public IReason updateNeeded(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+            public IReason updateNeeded(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
                 if ( ! (bo instanceof SampleEClass)) {
                     return Reason.createFalseReason(); 
                 }
-                   SampleEClass eClass = (SampleEClass) bo;
+                final SampleEClass eClass = (SampleEClass) bo;
 
                 // retrieve name from pictogram model
                 if (pictogramElement instanceof ContainerShape) {
-                    ContainerShape cs = (ContainerShape) pictogramElement;
-                    ContainerShape textBox = SprayContainerService.findTextShape(cs);
-                    for (Shape shape : textBox.getChildren()) {
+                    final ContainerShape cs = (ContainerShape) pictogramElement;
+                    final ContainerShape textBox = SprayContainerService.findTextShape(cs);
+                    for (final Shape shape : textBox.getChildren()) {
                         if (shape.getGraphicsAlgorithm() instanceof Text) {
-                            Text text = (Text) shape.getGraphicsAlgorithm();
-                            String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
-                            String value = getValues(eClass).get(type);
+                            final Text text = (Text) shape.getGraphicsAlgorithm();
+                            final String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
+                            final String value = getValues(eClass).get(type);
                             if( value != null){
                                    String pictogramName = text.getValue();
 
@@ -177,10 +177,10 @@ class UpdateShapeFeatureTest {
              * {@inheritDoc}
              */
             @Override
-            public boolean update(IUpdateContext context) {
-                PictogramElement pictogramElement = context.getPictogramElement();
-                EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                  SampleEClass eClass = (SampleEClass) bo;
+            public boolean update(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                final SampleEClass eClass = (SampleEClass) bo;
                 return SprayContainerService.update(pictogramElement, getValues(eClass));
                 
             }
@@ -348,8 +348,8 @@ class UpdateShapeFeatureTest {
         import ;
         // MARKER_IMPORT
 
-        public abstract class  extends AbstractUpdateFeature {
-            public (IFeatureProvider fp) {
+        public abstract class extends AbstractUpdateFeature {
+            public (final IFeatureProvider fp) {
                 super(fp);
                 gaService = .get(IGaService.class);
             }
@@ -362,10 +362,10 @@ class UpdateShapeFeatureTest {
      * {@inheritDoc}
      */
     @Override
-    public boolean canUpdate(IUpdateContext context) {
+    public boolean canUpdate(final IUpdateContext context) {
         // return true, if linked business object is a EClass
-        EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
         PictogramElement pictogramElement = context.getPictogramElement();
+        EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
         return (bo instanceof )&& (!(pictogramElement instanceof Diagram));
     }
     /**
@@ -373,8 +373,8 @@ class UpdateShapeFeatureTest {
      */
     @Override
     public IReason updateNeeded(IUpdateContext context) {
-        PictogramElement pictogramElement = context.getPictogramElement();
-        EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+        final PictogramElement pictogramElement = context.getPictogramElement();
+        final EObject bo =  getBusinessObjectForPictogramElement(pictogramElement);
         if ( ! (bo instanceof )) {
             return Reason.createFalseReason(); 
         }
