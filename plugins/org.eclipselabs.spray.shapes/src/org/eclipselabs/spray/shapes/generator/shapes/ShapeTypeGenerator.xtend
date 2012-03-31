@@ -27,20 +27,27 @@ class ShapeTypeGenerator {
 	int plcount
 	
 	def generateCascadedElements(ShapeDefinition s) {
-		element_index = 0
+		element_index = -1
 		plcount = 0
 		var sizeMap = s.getContainerSize
+		var containername = "pictogramElement"
+		var attname = containername
+		if(s.shape.size > 1) {
+			attname = nextAttributeName
+		}
 		'''
-		// Create a Invisible Rectangle Around the Elements
-		GraphicsAlgorithm invisibleRectangle = gaService.createInvisibleRectangle(pictogramElement);
-		invisibleRectangle.setStyle(sprayStyle.getStyle(diagram));
-		invisibleRectangle.setWidth(«sizeMap.width»);
-		invisibleRectangle.setHeight(«sizeMap.heigth»);
-		
-		ISprayStyle style_«element_index» = «s.style.styleForElement("sprayStyle")»;
+		«IF s.shape.size > 1»
+		// Invisible rectangle around the elements (because more then one element is on first layer).
+		GraphicsAlgorithm «attname» = gaService.createInvisibleRectangle(«containername»);
+		«attname».setStyle(sprayStyle.getStyle(diagram));
+		«attname».setWidth(«sizeMap.width»);
+		«attname».setHeight(«sizeMap.heigth»);
+		«ENDIF»
 		«FOR element : s.shape»
-		«element.createElement("invisibleRectangle", "style_"+element_index)»
+		«element.createElement(attname, "sprayStyle")»
 		«ENDFOR»
+		
+		return element_0;
 		'''
 	}
 	

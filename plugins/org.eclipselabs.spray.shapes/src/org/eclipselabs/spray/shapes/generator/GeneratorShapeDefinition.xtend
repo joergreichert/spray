@@ -89,8 +89,6 @@ class GeneratorShapeDefinition {
 				
 				// Creating the different figures
 				«s.generateCascadedElements»
-				
-				return invisibleRectangle;
 			}
 			
 			«FOR param : s.param»
