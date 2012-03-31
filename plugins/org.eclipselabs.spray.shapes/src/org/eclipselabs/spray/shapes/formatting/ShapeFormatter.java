@@ -39,7 +39,7 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
             c.setNoSpace().before(kw.getSecond());
         }
         //        c.setSpace(" ").before(grammar.getRoundedRectangleLayoutAccess().getLeftParenthesisKeyword_1_1_1());
-        c.setSpace(" ").before(grammar.getRoundedRectangleLayoutAccess().getCurveKeyword_1_1_0());
+        // c.setSpace(" ").before(grammar.getRoundedRectangleLayoutAccess().getCurveKeyword_1_1_0());
 
         // no space around =, except for text value assignment
         for (Keyword kw : grammar.findKeywords("=")) {

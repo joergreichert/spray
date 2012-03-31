@@ -189,24 +189,6 @@ class UpdateShapeFeatureTest {
     }
     
     @Test
-    def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameWithoutRepresents() {
-        val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val text = SprayFactory::eINSTANCE.createTextInSpray
-        val literal = XbaseFactory::eINSTANCE.createXStringLiteral
-        literal.value = "test"
-        text.value = literal
-        val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
-        container.partsList.add(rectangle)
-        container.partsList.add(text)
-        res.contents.add(container)
-        sut.generate_valueMapping(container)
-        val expectedOutput = expectedOutputGenerate_valueMappingWhenTypeIsEmpty()
-        val output = sut.generate_valueMapping(container)
-        assertEquals("expected output", expectedOutput.toString, output.toString);
-    }
-    
-    @Test
     def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithNameSetAndDiagramHasNoName() {
         val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
         val Diagram diagram = SprayFactory::eINSTANCE.createDiagram

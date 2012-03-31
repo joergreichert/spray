@@ -45,8 +45,6 @@ public class ConnectionModelTest extends XtextTest {
 
     @Test
     public void test_06_DefaultConnection_PL_RoundedRectangle() {
-        // TODO curve keyword must be in new line
-        ignoreFormattingDifferences();
         testFile("testcases/connections/06_DefaultConnection_PL_RoundedRectangle.shape");
     }
 
