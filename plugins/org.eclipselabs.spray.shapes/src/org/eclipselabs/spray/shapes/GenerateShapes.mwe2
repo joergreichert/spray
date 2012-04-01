@@ -37,7 +37,7 @@ Workflow {
         directory = "${runtimeProject}.ui/src-gen"
     }
 
-    component = Generator {
+    component = org.eclipselabs.spray.postprocess.shapes.ShapeExtendedGenerator {
         pathRtProject = runtimeProject
         pathUiProject = "${runtimeProject}.ui"
         pathTestProject = "../../tests/${projectName}.tests"
