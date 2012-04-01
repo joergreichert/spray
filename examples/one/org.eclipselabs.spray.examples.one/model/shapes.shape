@@ -1,5 +1,6 @@
-shape LineShape33 { 
-	line { 
-		point(x=1, y=2) point(x=3, y=4)
+shape LineShape33 {
+	line {
+		point (x=1, y=2)
+		point (x=3, y=4)
 	}
 }     
