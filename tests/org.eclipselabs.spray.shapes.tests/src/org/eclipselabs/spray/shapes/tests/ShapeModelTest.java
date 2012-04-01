@@ -116,4 +116,9 @@ public class ShapeModelTest extends XtextTest {
         testFile("testcases/shapes/18_ReferencedStyleTest.shape");
     }
 
+    @Test
+    public void test_19_TextExampleTest() {
+        testFile("testcases/shapes/19_TextExample.shape");
+    }
+
 }

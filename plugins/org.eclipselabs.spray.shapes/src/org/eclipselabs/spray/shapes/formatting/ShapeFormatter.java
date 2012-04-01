@@ -30,7 +30,6 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
 
         c.setAutoLinewrap(120);
 
-        //        c.setIndentation(beginElement, endElement)
         handleBlocks(c);
 
         for (Pair<Keyword, Keyword> kw : grammar.findKeywordPairs("(", ")")) {
@@ -38,13 +37,16 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
             c.setNoSpace().after(kw.getFirst());
             c.setNoSpace().before(kw.getSecond());
         }
-        //        c.setSpace(" ").before(grammar.getRoundedRectangleLayoutAccess().getLeftParenthesisKeyword_1_1_1());
-        // c.setSpace(" ").before(grammar.getRoundedRectangleLayoutAccess().getCurveKeyword_1_1_0());
 
         // no space around =, except for text value assignment
         for (Keyword kw : grammar.findKeywords("=")) {
-            c.setNoSpace().around(kw);
+            if (kw == grammar.getTextBodyAccess().getEqualsSignKeyword_1()) {
+                c.setSpace(" ").around(kw);
+            } else {
+                c.setNoSpace().around(kw);
+            }
         }
+
         // no space befor comma, one space after
         for (Keyword kw : grammar.findKeywords(",")) {
             c.setNoSpace().before(kw);
@@ -69,9 +71,10 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap().before(grammar.getTextLayoutAccess().getAlignKeyword_1_1_0());
         c.setLinewrap().before(grammar.getTextBodyAccess().getIdKeyword_0());
         c.setLinewrap().before(grammar.getShapestyleLayoutAccess().getStyleKeyword_1_0());
-        for (Keyword kw : grammar.findKeywords("line", "ellipse", "rectangle", "rounded-rectangle", "polyline", "polygon")) {
+        for (Keyword kw : grammar.findKeywords("line", "ellipse", "rectangle", "rounded-rectangle", "polyline", "polygon", "text", "align", "id", "style")) {
             c.setLinewrap().before(kw);
         }
+        c.setLinewrap().before(grammar.getCDTextRule());
     }
 
     protected void handleNoSpaceBeforeINT(FormattingConfig c) {
