@@ -8,12 +8,15 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipselabs.spray.mm.spray.AliasableElement;
 import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
+import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
@@ -23,9 +26,11 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
-public class SprayJavaValidator extends AbstractSprayJavaValidator {
+public class SprayJavaValidator extends AbstractSprayJavaValidator implements IssueCodes {
     @Inject
-    private GenModelHelper genModelHelper;
+    private GenModelHelper           genModelHelper;
+    @Inject
+    private IJvmTypeProvider.Factory typeProviderFactory;
 
     /**
      * Add additional EReferences for type conformance validation of expressions.
@@ -142,6 +147,18 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator {
     public void checkConnectionFromTo(final ConnectionInSpray connection) {
         if (connection.getTo() == null && !(connection.eContainer() instanceof MetaReference)) {
             error("to reference not specified", SprayPackage.Literals.CONNECTION_IN_SPRAY__TO);
+        }
+    }
+
+    @Check
+    public void checkImports(final Import imp) {
+        // don't check wildcard imports
+        if (imp.getImportedNamespace().endsWith(".*"))
+            return;
+        IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(imp.eResource().getResourceSet());
+        JvmType jvmType = typeProvider.findTypeByName(imp.getImportedNamespace());
+        if (jvmType == null) {
+            error("The import " + imp.getImportedNamespace() + " cannot be resolved", SprayPackage.Literals.IMPORT__IMPORTED_NAMESPACE, IMPORT_NOTEXISTS, new String[0]);
         }
     }
 }

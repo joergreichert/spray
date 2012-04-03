@@ -44,4 +44,11 @@ public class ValidationRulesTest extends XtextTest {
         assertConstraints(issues.errorsOnly().theOneAndOnlyContains("Couldn't resolve reference to EReference 'businessRules'"));
         assertConstraints(issues.warningsOnly().sizeIs(2));
     }
+
+    @Test
+    public void test_import_notexists() {
+        testFile("validation/import_notexists.spray", "mod4j/BusinessDomainDsl.ecore");
+        assertConstraints(issues.errorsOnly().sizeIs(1));
+        assertConstraints(issues.theOneAndOnlyContains("The import foo.bar cannot be resolved"));
+    }
 }

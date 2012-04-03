@@ -1,0 +1,4 @@
+// invalid import
+import foo.bar
+
+diagram test for BusinessDomainDsl.BusinessDomainModel

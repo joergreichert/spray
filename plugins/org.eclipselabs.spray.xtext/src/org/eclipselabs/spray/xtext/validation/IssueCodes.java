@@ -12,4 +12,9 @@ public interface IssueCodes {
 
     String CONTAINMENT_CONNECTION_REFERENCE = PREFIX + "CONTAINMENT_CONNECTION_REFERENCE";
     String NO_CREATE_BEHAVIOR               = PREFIX + "NO_CREATE_BEHAVIOR";
+
+    /**
+     * Marks that a non-wildcard import cannot be resolved to a type
+     */
+    String IMPORT_NOTEXISTS                 = PREFIX + "IMPORT_NOT_EXISTS";
 }
