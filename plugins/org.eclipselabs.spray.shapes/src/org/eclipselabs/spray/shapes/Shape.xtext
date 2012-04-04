@@ -17,14 +17,14 @@ ShapeContainerElement:
 	ShapeDefinition | ConnectionDefinition;
 
 ConnectionDefinition:
-	'connection' name=ID ('(' param+=FullJvmFormalParameter ("," param+=FullJvmFormalParameter)* ')')? (style=ShapeStyleRef)? '{'
+	'connection' name=ID (style=ShapeStyleRef)? '{'
 	('connection-type' connectionStyle=ConnectionStyle)?
 	layout=ShapestyleLayout?
 	placing+=PlacingDefinition*
 	'}';
 
 ShapeDefinition:
-	'shape' name=ID ('(' param+=FullJvmFormalParameter ("," param+=FullJvmFormalParameter)* ')')? (style=ShapeStyleRef)? '{'
+	'shape' name=ID (style=ShapeStyleRef)? '{'
 	shapeLayout=ShapeLayout
 	shape+=Shape+
 	anchor=Anchor?

@@ -90,18 +90,17 @@ class GeneratorShapeDefinition {
 				// Creating the different figures
 				«s.generateCascadedElements»
 			}
-			
-			«FOR param : s.param»
-			«param.parameterType.qualifiedName» «param.name»;
-			
-			public «param.parameterType.qualifiedName» get«param.name.toFirstUpper»() {
-				return this.«param.name»;
-			}
-			
-			public void set«param.name.toFirstUpper»(«param.parameterType.qualifiedName» «param.name») {
-				this.«param.name» = «param.name»;
-			}
-			«ENDFOR»
+«««			«FOR param : s.param»
+«««			«param.parameterType.qualifiedName» «param.name»;
+«««			
+«««			public «param.parameterType.qualifiedName» get«param.name.toFirstUpper»() {
+«««				return this.«param.name»;
+«««			}
+«««			
+«««			public void set«param.name.toFirstUpper»(«param.parameterType.qualifiedName» «param.name») {
+«««				this.«param.name» = «param.name»;
+«««			}
+«««			«ENDFOR»
 		}
 		'''
 	}

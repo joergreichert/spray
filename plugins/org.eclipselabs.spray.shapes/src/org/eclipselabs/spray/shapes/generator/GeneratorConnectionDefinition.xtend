@@ -93,19 +93,17 @@ class GeneratorConnectionDefinition {
 				
 				return newConnection;
 			}
-			
-			«FOR param : c.param»
-			«param.parameterType.qualifiedName» «param.name»;
-			
-			public «param.parameterType.qualifiedName» get«param.name.toFirstUpper»() {
-				return this.«param.name»;
-			}
-			
-			public void set«param.name.toFirstUpper»(final «param.parameterType.qualifiedName» «param.name») {
-				this.«param.name» = «param.name»;
-			}
-			«ENDFOR»
-			
+«««			«FOR param : c.param»
+«««			«param.parameterType.qualifiedName» «param.name»;
+«««			
+«««			public «param.parameterType.qualifiedName» get«param.name.toFirstUpper»() {
+«««				return this.«param.name»;
+«««			}
+«««			
+«««			public void set«param.name.toFirstUpper»(final «param.parameterType.qualifiedName» «param.name») {
+«««				this.«param.name» = «param.name»;
+«««			}
+«««			«ENDFOR»
 		}
 		'''
 	}
