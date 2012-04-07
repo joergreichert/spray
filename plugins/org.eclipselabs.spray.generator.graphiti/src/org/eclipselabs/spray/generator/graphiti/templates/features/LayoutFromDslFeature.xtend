@@ -43,15 +43,19 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
+        import org.eclipselabs.spray.shapes.SprayLayoutManager;
+        import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
+        
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractLayoutFeature {
-            protected static final int MIN_HEIGHT = 30;
-            protected static final int MIN_WIDTH = 50;
+        	
+        	SprayLayoutManager layoutManager; 
             «generate_additionalFields(container)»
         
             public «className»(final IFeatureProvider fp) {
                 super(fp);
+                layoutManager =  new «container.shape.simpleName»(fp).getShapeLayout( );
             }
          
             «generate_canLayout(container)»
@@ -75,7 +79,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         def generate_layout (ShapeFromDsl container) '''
             «overrideHeader»
             public boolean layout(final ILayoutContext context) {
-                return true; // container.layoutContainer(context);
+            	return layoutManager.layout(context);
             }
         '''
 }

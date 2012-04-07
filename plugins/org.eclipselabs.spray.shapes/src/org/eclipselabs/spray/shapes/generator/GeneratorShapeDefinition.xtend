@@ -90,6 +90,9 @@ class GeneratorShapeDefinition {
 				// Creating the different figures
 				«s.generateCascadedElements»
 			}
+			
+			«s.generateGetLayoutMethod»
+			
 «««			«FOR param : s.param»
 «««			«param.parameterType.qualifiedName» «param.name»;
 «««			

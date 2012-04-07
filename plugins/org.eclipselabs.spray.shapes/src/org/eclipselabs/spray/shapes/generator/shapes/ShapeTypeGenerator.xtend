@@ -47,6 +47,9 @@ class ShapeTypeGenerator {
 		«element.createElement(attname, "sprayStyle")»
 		«ENDFOR»
 		
+		// Set start values for height and width as properties on the element for Layout Feature
+		SprayLayoutManager.setSizePictogramProperties(pictogramElement);
+		
 		return element_0;
 		'''
 	}

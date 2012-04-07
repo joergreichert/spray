@@ -24,4 +24,40 @@ class ShapeLayoutGenerator {
 		'''
 	}
 	
+		def generateGetLayoutMethod(ShapeDefinition s) {
+		'''
+		public SprayLayoutManager getShapeLayout() {
+			
+			SprayLayoutManager layoutManager = new SprayLayoutManager( );
+			
+			«IF s.shapeLayout.minwidth != 0»
+				layoutManager.setMinSizeWidth(«s.shapeLayout.minwidth»);	   
+			«ELSE»
+				layoutManager.setMinSizeWidth(-1);	
+			«ENDIF»	
+			
+			«IF s.shapeLayout.maxwidth != 0»
+				layoutManager.setMaxSizeWidth(«s.shapeLayout.maxwidth»);	   
+			«ELSE»
+				layoutManager.setMaxSizeWidth(-1);	
+			«ENDIF»	
+			
+			«IF s.shapeLayout.minheight != 0»
+				layoutManager.setMinSizeHeight(«s.shapeLayout.minheight»);	   
+			«ELSE»
+				layoutManager.setMinSizeHeight(-1);	
+			«ENDIF»	
+			
+			«IF s.shapeLayout.maxheight != 0»
+				layoutManager.setMaxSizeHeight(«s.shapeLayout.maxheight»);	   
+			«ELSE»
+				layoutManager.setMaxSizeHeight(-1);	
+			«ENDIF»	
+			
+			
+			return layoutManager;
+		}
+		'''
+	}
+	
 }

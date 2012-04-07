@@ -9,4 +9,5 @@ import org.eclipselabs.spray.styles.ISprayStyle;
 public interface ISprayShape {
 	public ContainerShape getShape(Diagram diagram, ISprayStyle sprayStyle);
 	public GraphicsAlgorithm getShape(Diagram diagram, PictogramElement pictogramElement, ISprayStyle sprayStyle);
+	public SprayLayoutManager getShapeLayout();
 }
