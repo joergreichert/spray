@@ -74,6 +74,7 @@ public class GeneratorExtensionRuntimeModule extends AbstractGenericModule {
 p. 
 
 h3. Extension point
+
 Now open the Manifest editor and go to the Extensions section. Add an extension for extension point @org.eclipselabs.spray.runtime.xtext.overridingGuiceModule@. This extension point requires you to provide the class name (property @class@) of your
 new Guice module and the class name of the module that you want to override (property @overrides@), which is @org.eclipselabs.spray.generator.graphiti.GraphitiGeneratorModule@.
 
@@ -81,6 +82,7 @@ new Guice module and the class name of the module that you want to override (pro
 !images/extension_5.png!
 
 h3. Done!
+
 If you deploy your plugin now (it does not work if the plugin is just in the workspace of the diagram plugin that you are developing, of course) Spray will now recognize your module and override configurations that come from its base implementation. Without touching Spray's sources you are now able to customize the generator templates!
 
 bc.. 
@@ -89,4 +91,5 @@ public abstract class MyDiagramFeatureProviderBase extends DefaultFeatureProvide
       // this has been added by a derived template from org.eclipselabs.spray.generator.graphiti.extension
 }
 p. 
+
 

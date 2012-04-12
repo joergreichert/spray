@@ -104,6 +104,7 @@ class Plugin extends TemplateUtil {
             «ENDFOR»
               </propertySections>
           </extension>
+          
         «ENDFOR»
     
     
@@ -134,6 +135,27 @@ class Plugin extends TemplateUtil {
                 «ENDFOR»
             «ENDIF»
         «ENDFOR»
+            «generate_newDiagramWizard(diagram)»
         </plugin>
+    '''
+    
+    def generate_newDiagramWizard (Diagram diagram) '''
+       <extension
+             point="org.eclipse.ui.newWizards">
+             <category
+                name="«diagram.name»"
+                id="org.eclipselabs.spray.«diagram.name»">
+                </category>
+          <wizard
+                category="org.eclipselabs.spray.«diagram.name»"
+                class="«diagram.extensionFactoryClassName»:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                descriptionImage="icons/«diagram.name»-32.png"
+                icon="icons/«diagram.name»-16.png"
+                id="org.eclipselabs.spray.«diagram.name».NewDiagramWizard"
+                name="New «diagram.name» Diagram"
+                preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                project="false">
+          </wizard>
+       </extension>
     '''
 }
