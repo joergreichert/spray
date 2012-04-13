@@ -77,9 +77,9 @@ class PropertySection extends FileGenerator<EAttribute>  {
         «ENDIF»
         // MARKER_IMPORT
         
-        public class «className» extends GFPropertySection implements ITabbedPropertyConstants {
+        public abstract class «className» extends GFPropertySection implements ITabbedPropertyConstants {
          
-            protected «eClass.name» bc = null;
+            protected «eClass.javaInterfaceName.shortName» bc = null;
             «IF isEnum || isBoolean»        
             protected CCombo «propertyName»Widget;
             «ELSE»
@@ -91,8 +91,8 @@ class PropertySection extends FileGenerator<EAttribute>  {
             public void createControls(Composite parent, TabbedPropertySheetPage tabbedPropertySheetPage) {
                 super.createControls(parent, tabbedPropertySheetPage);
          
-                TabbedPropertySheetWidgetFactory factory = getWidgetFactory();
-                Composite composite = factory.createFlatFormComposite(parent);
+                final TabbedPropertySheetWidgetFactory factory = getWidgetFactory();
+                final Composite composite = factory.createFlatFormComposite(parent);
                 FormData data;
         
             «IF isEnum || isBoolean»        
@@ -119,13 +119,13 @@ class PropertySection extends FileGenerator<EAttribute>  {
             public void refresh() {
                 «propertyName»Widget.removeModifyListener(nameListener);
 
-                PictogramElement pe = getSelectedPictogramElement();
+                final PictogramElement pe = getSelectedPictogramElement();
                 if (pe != null) {
-                    EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+                    final EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
                    // the filter assured, that it is a «eClass.name»
                     if (bo == null)
                         return;
-                    bc = («eClass.name»)bo;
+                    bc = («eClass.javaInterfaceName.shortName»)bo;
                     String value = "";
             «IF eAttribute.EAttributeType.name == "EString"»
                 value = bc.get«propertyName.toFirstUpper»();
@@ -210,14 +210,14 @@ class PropertySection extends FileGenerator<EAttribute>  {
              * @return The string representation of the current value of 'sourceMultiplicity' of the selected Association
              */
             protected String getFeatureAsText() {
-                PictogramElement pe = getSelectedPictogramElement();
+                final PictogramElement pe = getSelectedPictogramElement();
                 if (pe != null) {
-                    EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+                    final EObject bo = (EObject) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
                     // the filter assured, that it is a «eClass.name»
                     if (bo == null) {
                         return "unknown ";
                     }
-                    bc = («eClass.name») bo;
+                    bc = («eClass.javaInterfaceName.shortName») bo;
             «IF isEnum»
                     if( bc.get«eAttribute.name.toFirstUpper»() == null ){
                         return "Null value for «eAttribute.name»";

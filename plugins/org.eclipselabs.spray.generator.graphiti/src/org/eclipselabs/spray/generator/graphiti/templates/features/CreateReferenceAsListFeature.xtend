@@ -92,7 +92,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
         public boolean canCreate(final ICreateContext context) {
             final Shape target = context.getTargetContainer();
             final EObject domainObject = getBusinessObjectForPictogramElement(target);
-            return domainObject instanceof «metaClass.name»;
+            return domainObject instanceof «metaClass.javaInterfaceName.shortName»;
         }
     '''
     
@@ -110,7 +110,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
             }
 
             final Shape target = context.getTargetContainer();
-            final «metaClass.javaInterfaceName.shortName» owner = («metaClass.name») getBusinessObjectForPictogramElement(target);
+            final «metaClass.javaInterfaceName.shortName» owner = («metaClass.javaInterfaceName.shortName») getBusinessObjectForPictogramElement(target);
 
             // create «target.name»
             final «target.javaInterfaceName.shortName» newDomainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«target.name»();

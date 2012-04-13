@@ -126,17 +126,17 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             Connection newConnection = null;
     
             // get EClasses which should be connected
-            final «from.name» source = get«from.name»(context.getSourceAnchor());
-            final «to.name» target = get«to.name»(context.getTargetAnchor());
+            final «from.javaInterfaceName.shortName» source = get«from.name»(context.getSourceAnchor());
+            final «to.javaInterfaceName.shortName» target = get«to.name»(context.getTargetAnchor());
             «IF containmentRef.EType==from»
                 final «from.name» container = source;
             «ELSE»
                 // containment reference is not a feature of source
-                final «containmentRef.EContainingClass.javaInterfaceName.shortName» container = org.eclipse.xtext.EcoreUtil2.getContainerOfType(source, «containmentRef.EContainingClass.name».class);
+                final «containmentRef.EContainingClass.javaInterfaceName.shortName» container = org.eclipse.xtext.EcoreUtil2.getContainerOfType(source, «containmentRef.EContainingClass.javaInterfaceName.shortName».class);
             «ENDIF»
             if (source != null && target != null) {
                 // create new business object
-                final «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.name»(source, target);
+                final «metaClass.javaInterfaceName.shortName» eReference = create«metaClass.type.name»(source, target);
                 // add the element to containment reference
                 «IF containmentRef.many»
                     container.get«containmentRef.name.toFirstUpper»().add(eReference);
@@ -165,13 +165,13 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         /**
-         * Returns the «from.name» belonging to the anchor, or null if not available.
+         * Returns the «from.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        private «from.name» get«from.name»(final Anchor anchor) {
+        private «from.javaInterfaceName.shortName» get«from.name»(final Anchor anchor) {
             if (anchor != null) {
                 final EObject bo = (EObject) getBusinessObjectForPictogramElement(anchor.getParent()); 
-                if (bo instanceof «from.name») {
-                    return («from.name») bo;
+                if (bo instanceof «from.javaInterfaceName.shortName») {
+                    return («from.javaInterfaceName.shortName») bo;
                 }
             }
             return null;
@@ -184,13 +184,13 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val to = connection.to.EType as EClass»
         «IF from.name != to.name» ««« only generate the method if 'to' type is different from 'from' type, since a method for 'from' was already generated
         /**
-         * Returns the «to.name» belonging to the anchor, or null if not available.
+         * Returns the «to.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        private «to.name» get«to.name»(final Anchor anchor) {
+        private «to.javaInterfaceName.shortName» get«to.name»(final Anchor anchor) {
             if (anchor != null) {
                 final EObject bo = (EObject) getBusinessObjectForPictogramElement(anchor.getParent()); 
-                if (bo instanceof «to.name») {
-                    return («to.name») bo;
+                if (bo instanceof «to.javaInterfaceName.shortName») {
+                    return («to.javaInterfaceName.shortName») bo;
                 }
             }
             return null;
@@ -205,9 +205,9 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         /**
          * Creates a EReference between two EClasses.
          */
-        protected «metaClass.name» create«metaClass.name»(final «from.name» source, final «to.name» target) {
+        protected «metaClass.javaInterfaceName.shortName» create«metaClass.type.name»(final «from.javaInterfaceName.shortName» source, final «to.javaInterfaceName.shortName» target) {
             // TODO: Domain Object
-            final «metaClass.name» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+            final «metaClass.javaInterfaceName.shortName» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.type.name»();
             «IF metaClass.type.EAttributes.exists(att|att.name == "name") »
                 domainObject.setName("new «metaClass.visibleName»");
             «ENDIF»

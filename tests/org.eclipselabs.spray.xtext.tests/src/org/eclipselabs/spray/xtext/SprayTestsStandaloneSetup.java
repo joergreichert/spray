@@ -8,7 +8,7 @@ import org.eclipse.xtext.util.Modules2;
 import org.eclipselabs.spray.generator.graphiti.GraphitiGeneratorModule;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiRuntimeModule;
 
-import BusinessDomainDsl.BusinessDomainDslPackage;
+import BusinessDomainDsl.IBusinessDomainDslPackage;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -22,7 +22,7 @@ public class SprayTestsStandaloneSetup extends SprayStandaloneSetup {
     @Override
     public Injector createInjectorAndDoEMFRegistration() {
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(IBusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
         return super.createInjectorAndDoEMFRegistration();
     }
 }

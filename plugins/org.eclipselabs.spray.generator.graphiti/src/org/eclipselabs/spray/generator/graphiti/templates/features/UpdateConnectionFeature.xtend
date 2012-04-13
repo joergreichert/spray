@@ -72,7 +72,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     '''
 
     def generate_canUpdate (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.javaInterfaceName.shortName»
         «overrideHeader()»
         public boolean canUpdate(final IUpdateContext context) {
             // return true, if linked business object is a EClass
@@ -83,7 +83,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     '''
 
     def generate_updateNeeded (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.javaInterfaceName.shortName»
         «overrideHeader()»
         public IReason updateNeeded(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
@@ -110,7 +110,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     '''
 
     def generate_update (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.javaInterfaceName.shortName»
         «overrideHeader()»
         public boolean update(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
@@ -128,7 +128,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     '''
     
     def generate_getValue (ConnectionInSpray connection) '''
-        protected String getValue(final String type, final «connection.represents.name» eClass) {
+        protected String getValue(final String type, final «connection.represents.javaInterfaceName.shortName» eClass) {
             String result = "";
             «IF connection.fromLabel != null»
             if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){

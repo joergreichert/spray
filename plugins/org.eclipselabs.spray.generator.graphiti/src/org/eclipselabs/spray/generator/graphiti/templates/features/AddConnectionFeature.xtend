@@ -123,7 +123,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
          @Override
          public boolean canAdd(final IAddContext context) {
             if (context instanceof IAddConnectionContext
-                && context.getNewObject() instanceof «metaClass.name») {
+                && context.getNewObject() instanceof «metaClass.javaInterfaceName.shortName») {
                 return true;
             }
             return false;
@@ -135,7 +135,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         public PictogramElement add(final IAddContext context) {
             final IAddConnectionContext addConContext = (IAddConnectionContext) context;
             // TODO: Domain object
-            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+            «metaClass.javaInterfaceName.shortName» addedDomainObject = («metaClass.javaInterfaceName.shortName») context.getNewObject();
 
             final Connection connection = createConnectionLine (addConContext);
 
@@ -173,7 +173,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         «IF connection.fromLabel != null»
         «overrideHeader»
         protected GraphicsAlgorithm createConnectionFromLabel (final IAddConnectionContext context, final Connection connection) {
-            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+            «metaClass.javaInterfaceName.shortName» addedDomainObject = («metaClass.javaInterfaceName.shortName») context.getNewObject();
             final ConnectionDecorator fromDecorator = peCreateService.createConnectionDecorator(connection, true, 0.0, true);
             final Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);
             gaLayoutService.setLocation(fromText, 10, 20);
@@ -182,7 +182,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             link(fromDecorator, addedDomainObject);
             return fromText;
         }
-        protected String getFromLabel (final «metaClass.name» addedDomainObject) {
+        protected String getFromLabel (final «metaClass.javaInterfaceName.shortName» addedDomainObject) {
             «valueGenerator(connection.fromLabel, "addedDomainObject")»
         }
         «ENDIF»
@@ -193,7 +193,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         «IF connection.toLabel != null»
         «overrideHeader»
         protected GraphicsAlgorithm createConnectionToLabel (final IAddConnectionContext context, final Connection connection) {
-            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+            final «metaClass.javaInterfaceName.shortName» addedDomainObject = («metaClass.javaInterfaceName.shortName») context.getNewObject();
             final ConnectionDecorator toDecorator = peCreateService.createConnectionDecorator(connection, true, 1.0, true);
             final Text text = gaService.createDefaultText(getDiagram(), toDecorator);
             
@@ -206,7 +206,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             return text;
         }
 
-        protected String getToLabel (final «metaClass.name» addedDomainObject) {
+        protected String getToLabel (final «metaClass.javaInterfaceName.shortName» addedDomainObject) {
             «valueGenerator(connection.toLabel, "addedDomainObject")»
         }
         «ENDIF»
@@ -217,7 +217,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         «IF connection.connectionLabel != null»
         «overrideHeader»
         protected GraphicsAlgorithm createConnectionLabel (final IAddConnectionContext context, final Connection connection) {
-            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+            «metaClass.javaInterfaceName.shortName» addedDomainObject = («metaClass.javaInterfaceName.shortName») context.getNewObject();
             final ConnectionDecorator connectionDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
             final Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);
             gaLayoutService.setLocation(sourceText, 10, 0);
@@ -227,7 +227,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             return sourceText;
         }
 
-        protected String getConnectionLabel (final «metaClass.name» addedDomainObject) {
+        protected String getConnectionLabel (final «metaClass.javaInterfaceName.shortName» addedDomainObject) {
             «valueGenerator(connection.connectionLabel, "addedDomainObject")»
         }
         «ENDIF»

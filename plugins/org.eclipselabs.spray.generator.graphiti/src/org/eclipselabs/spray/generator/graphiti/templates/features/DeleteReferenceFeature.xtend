@@ -132,7 +132,7 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
                 EcoreUtil.delete(bo, true);
             } else {
                 if( bo instanceof «reference.metaClass.javaInterfaceName.shortName» ){
-                    final «reference.metaClass.name» object = («reference.metaClass.name» ) bo;
+                    final «reference.metaClass.javaInterfaceName.shortName» object = («reference.metaClass.javaInterfaceName.shortName» ) bo;
                     
             «IF target.upperBound != 1»
                     «target.EReferenceType.javaInterfaceName.shortName» toBeRemoved = null;

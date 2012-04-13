@@ -102,8 +102,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
      
             // retrieve name from business model
             String businessName = null;
-            if (bo instanceof «target.name») {
-                final «target.name» «target.name.toFirstLower» = («target.name») bo;
+            if (bo instanceof «target.javaInterfaceName.shortName») {
+                final «target.javaInterfaceName.shortName» «target.name.toFirstLower» = («target.javaInterfaceName.shortName») bo;
                 businessName = getText(context, «target.name.toFirstLower»);
             }
      
@@ -126,8 +126,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
             final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
            // retrieve name from business model
             String businessName = null;
-            if (bo instanceof «target.name») {
-                final «target.name» «target.name.toFirstLower» = («target.name») bo;
+            if (bo instanceof «target.javaInterfaceName.shortName») {
+                final «target.javaInterfaceName.shortName» «target.name.toFirstLower» = («target.javaInterfaceName.shortName») bo;
                 businessName = getText(context, «target.name.toFirstLower»);
             }
 
@@ -149,7 +149,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         /**
          * Computes the displayed text. Clients may override this method.
          */
-        protected String getText (final IUpdateContext context, final «target.name» bo) {
+        protected String getText (final IUpdateContext context, final «target.javaInterfaceName.shortName» bo) {
             return bo.getName();
         }
     '''

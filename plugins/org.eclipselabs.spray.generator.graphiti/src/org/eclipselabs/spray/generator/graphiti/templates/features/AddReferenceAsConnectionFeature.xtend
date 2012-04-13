@@ -111,7 +111,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «overrideHeader()»
         public PictogramElement add(final IAddContext context) {
             final IAddConnectionContext addConContext = (IAddConnectionContext) context;
-            «reference.metaClass.type.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.name») context.getNewObject();
+            «reference.metaClass.type.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.javaInterfaceName.shortName») context.getNewObject();
         «IF target.upperBound == 1»
             removeExisting(context);
         «ENDIF»        
@@ -133,7 +133,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             polyline.setForeground(manageColor(«reference.lineColor»));
              
             // create link and wire it
-            peService.setPropertyValue(connection, ISprayConstants.PROPERTY_MODEL_TYPE, "«reference.metaClass.name».«target.name»");
+            peService.setPropertyValue(connection, ISprayConstants.PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
             peService.setPropertyValue(connection, ISprayConstants.PROPERTY_REFERENCE, (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE));
             peService.setPropertyValue(connection, ISprayConstants.PROPERTY_TARGETOBJECT, (String)context.getProperty(ISprayConstants.PROPERTY_TARGETOBJECT));
             link(connection, addedDomainObject);
@@ -151,10 +151,10 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_canAdd (MetaReference reference) '''
         «overrideHeader()»
         public boolean canAdd(final IAddContext context) {
-            // return true if given business object is an «reference.metaClass.name»
+            // return true if given business object is an «reference.metaClass.type.name»
             // note, that the context must be an instance of IAddConnectionContext
             if (context instanceof IAddConnectionContext
-                && context.getNewObject() instanceof «reference.metaClass.name») {
+                && context.getNewObject() instanceof «reference.metaClass.javaInterfaceName.shortName») {
                 return true;
             }
             return false;
@@ -164,12 +164,12 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_removeExisting (MetaReference reference) '''
         protected void removeExisting(final IAddContext context) {
             final IAddConnectionContext addConContext = (IAddConnectionContext) context;
-            «reference.metaClass.name» addedDomainObject = («reference.metaClass.name») context.getNewObject();
+            final «reference.metaClass.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.javaInterfaceName.shortName») context.getNewObject();
             final Object[] pictogramElements = peService.getLinkedPictogramElements(new EObject[] { addedDomainObject }, getDiagram());
             for (final Object pict : pictogramElements) {
                 if( pict instanceof PictogramElement){
                     final PictogramElement p = (PictogramElement)pict;
-                    if( "«reference.name»".equals(peService.getPropertyValue(p, ISprayConstants.PROPERTY_REFERENCE))){
+                    if( "«reference.target.EType.name»".equals(peService.getPropertyValue(p, ISprayConstants.PROPERTY_REFERENCE))){
                         peService.deletePictogramElement(p) ;
                         setDoneChanges(true);
                     }

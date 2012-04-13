@@ -50,9 +50,9 @@ class Filter extends FileGenerator<EClass> {
         public class «className» extends AbstractPropertySectionFilter {
                  
             @Override
-            protected boolean accept(PictogramElement pe) {
+            protected boolean accept(final PictogramElement pe) {
                 final EObject eObject = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
-                if (eObject instanceof «eClass.name») {
+                if (eObject instanceof «eClass.javaInterfaceName.shortName») {
                     return true;
                 }
                 return false;

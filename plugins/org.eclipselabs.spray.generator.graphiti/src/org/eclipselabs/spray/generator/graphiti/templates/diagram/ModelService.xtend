@@ -67,7 +67,7 @@ class ModelService extends FileGenerator<Diagram> {
             protected «modelClassName» createModel () {
                 final Diagram diagram = dtp.getDiagram();
                 try {
-                    «modelClassName» model = «diagram.modelType.EFactoryInterfaceName.shortName».eINSTANCE.create«modelClassName»();
+                    «modelClassName» model = «diagram.modelType.EFactoryInterfaceName.shortName».eINSTANCE.create«diagram.modelType.name»();
                     createModelResourceAndAddModel (model);
                     peService.setPropertyValue(diagram, ISprayConstants.PROPERTY_URI, EcoreUtil.getURI(model).toString());
                     // link the diagram with the model element

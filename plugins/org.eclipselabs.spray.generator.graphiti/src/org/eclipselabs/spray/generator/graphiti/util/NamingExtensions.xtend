@@ -155,7 +155,7 @@ class NamingExtensions {
         property_package() + "." + clazz.getFilterSimpleClassName
     }
     def dispatch getFilterSimpleClassName (MetaClass clazz) {
-        clazz.name+"Filter"
+        clazz.type.name+"Filter"
     }
 
     //---------------------------------------------------------------------------------------------
@@ -172,56 +172,56 @@ class NamingExtensions {
     }
     def getFeatureClassName (MetaReference reference, FeatureType featureType) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        feature_package() + "." + cls.diagram.name.toFirstUpper + featureType + cls.name + reference.name.toFirstUpper + reference.target.EReferenceType.name + "Feature"
+        feature_package() + "." + cls.diagram.name.toFirstUpper + featureType + cls.type.name + reference.target.EType.name.toFirstUpper + reference.target.EReferenceType.name + "Feature"
     }    
     def getAddReferenceAsConnectionFeatureClassName (MetaReference reference) {
         feature_package() + "." + reference.getAddReferenceAsConnectionFeatureSimpleClassName 
     }
     def getAddReferenceAsConnectionFeatureSimpleClassName (MetaReference reference) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "AddReference" + cls.name + reference.name.toFirstUpper + "Feature" 
+        cls.diagram.name.toFirstUpper + "AddReference" + cls.type.name + reference.target.EType.name.toFirstUpper + "Feature" 
     }
     def getCreateReferenceAsListFeatureClassName (MetaReference reference) {
         feature_package() + "." + reference.getCreateReferenceAsListFeatureSimpleClassName
     }
     def getCreateReferenceAsListFeatureSimpleClassName (MetaReference reference) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "Create" + cls.name + reference.name.toFirstUpper + reference.target.EReferenceType.name + "Feature"
+        cls.diagram.name.toFirstUpper + "Create" + cls.type.name + reference.target.name.toFirstUpper + reference.target.EReferenceType.name + "Feature"
     }
     def getUpdateReferenceAsListFeatureClassName (MetaReference reference) {
         feature_package() + "." + reference.getUpdateReferenceAsListFeatureSimpleClassName
     }
     def getUpdateReferenceAsListFeatureSimpleClassName (MetaReference reference) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "Update" + cls.name + reference.name.toFirstUpper + "Feature"
+        cls.diagram.name.toFirstUpper + "Update" + cls.type.name + reference.target.EType.name.toFirstUpper + "Feature"
     }
     def getCreateReferenceAsListFeatureClassName (MetaReference reference, EClass subClass) {
         feature_package() + "." + reference.getCreateReferenceAsListFeatureSimpleClassName(subClass)
     }
     def getCreateReferenceAsListFeatureSimpleClassName (MetaReference reference, EClass subClass) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "Create" + cls.name + reference.name.toFirstUpper + subClass.name + "Feature"
+        cls.diagram.name.toFirstUpper + "Create" + cls.type.name + reference.target.EType.name.toFirstUpper + subClass.name + "Feature"
     }
     def getAddReferenceAsListFeatureClassName (MetaReference reference) {
         feature_package() + "." + reference.getAddReferenceAsListFeatureSimpleClassName 
     }
     def getAddReferenceAsListFeatureSimpleClassName (MetaReference reference) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "Add" + cls.name + reference.name.toFirstUpper + "ListFeature" 
+        cls.diagram.name.toFirstUpper + "Add" + cls.type.name + reference.target.EType.name.toFirstUpper + "ListFeature" 
     }
     def getCreateReferenceAsConnectionFeatureClassName (MetaReference reference) {
         feature_package() + "." + reference.getCreateReferenceAsConnectionFeatureSimpleClassName
     }
     def getCreateReferenceAsConnectionFeatureSimpleClassName (MetaReference reference) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "Create" + cls.name + reference.name.toFirstUpper + "Feature"
+        cls.diagram.name.toFirstUpper + "Create" + cls.type.name + reference.target.EType.name.toFirstUpper + "Feature"
     }
     def getDeleteReferenceFeatureClassName (MetaReference reference) {
         feature_package() + "." +  reference.getDeleteReferenceFeatureSimpleClassName
     }
     def getDeleteReferenceFeatureSimpleClassName (MetaReference reference) {
         val cls = getContainerOfType(reference, typeof(MetaClass))
-        cls.diagram.name.toFirstUpper + "DeleteReference" + cls.name + reference.name.toFirstUpper + "Feature"
+        cls.diagram.name.toFirstUpper + "DeleteReference" + cls.type.name + reference.target.EType.name.toFirstUpper + "Feature"
     }
     //---------------------------------------------------------------------------------------------
     // Class names for Behaviour

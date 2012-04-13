@@ -83,6 +83,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «ENDIF»
         // MARKER_IMPORT
         
+        @SuppressWarnings("unused")
         public abstract class «className» extends DefaultFeatureProvider {
             «generate_additionalFields(diagram)»
             public «className»(final IDiagramTypeProvider dtp) {
@@ -303,7 +304,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                     «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
                         «val target = reference.target» 
-                    if( bo instanceof «target.EReferenceType.name» ){
+                    if( bo instanceof «target.EReferenceType.javaInterfaceName.shortName» ){
                         return new OwnerPropertyDeleteFeature(this);
                     }
                     «ENDFOR»    

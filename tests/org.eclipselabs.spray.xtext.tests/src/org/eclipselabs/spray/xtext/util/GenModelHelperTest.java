@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import BusinessDomainDsl.BusinessDomainDslPackage;
+import BusinessDomainDsl.IBusinessDomainDslPackage;
 
 import com.google.inject.Inject;
 
@@ -37,23 +37,23 @@ public class GenModelHelperTest {
 
     @Test
     public void test_getGenModel() {
-        GenModel genModel = fixture.getGenModel(BusinessDomainDslPackage.Literals.BUSINESS_CLASS);
+        GenModel genModel = fixture.getGenModel(IBusinessDomainDslPackage.Literals.BUSINESS_CLASS);
         assertNotNull(genModel);
     }
 
     @Test
     public void test_getFileExtension() {
-        assertEquals("businessdomaindsl", fixture.getFileExtension(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("businessdomaindsl", fixture.getFileExtension(IBusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getEPackageClassName() {
-        assertEquals("BusinessDomainDsl.BusinessDomainDslPackage", fixture.getEPackageClassName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BusinessDomainDsl.BusinessDomainDslPackage", fixture.getEPackageClassName(IBusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getEFactoryInterfaceName() {
-        assertEquals("BusinessDomainDsl.BusinessDomainDslFactory", fixture.getEFactoryInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BusinessDomainDsl.BusinessDomainDslFactory", fixture.getEFactoryInterfaceName(IBusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     /**
@@ -61,11 +61,11 @@ public class GenModelHelperTest {
      */
     @Test
     public void test_getJavaInterfaceName() {
-        assertEquals("BusinessDomainDsl.BusinessClass", fixture.getJavaInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BusinessDomainDsl.BusinessClass", fixture.getJavaInterfaceName(IBusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getLiteralConstant() {
-        assertEquals("BUSINESS_CLASS", fixture.getLiteralConstant(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BUSINESS_CLASS", fixture.getLiteralConstant(IBusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 }

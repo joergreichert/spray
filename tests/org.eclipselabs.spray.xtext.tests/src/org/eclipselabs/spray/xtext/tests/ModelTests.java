@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import BusinessDomainDsl.BusinessDomainDslPackage;
+import BusinessDomainDsl.IBusinessDomainDslPackage;
 
 @RunWith(XtextRunner2.class)
 @InjectWith(SprayTestsInjectorProvider.class)
@@ -21,7 +21,7 @@ public class ModelTests extends XtextTest {
     @BeforeClass
     public static void init() {
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(IBusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
     }
 
     @Before
