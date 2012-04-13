@@ -30,6 +30,7 @@ Spray's code generator produces a good basis for Graphiti editors. However, it c
 Spray provides a far more better way to change the generator. Instead of changing the source directly it is possible to derive the existing templates and make Spray use the overridden templates instead of the original ones. Spray uses Xtend, which directly compiles to Java, so the templates themselves can be concerned as just Java classes which you could derive from. 
 
 h3. Create plugin project
+
 To extend the generator you basically need a plugin project. Create one and add the following dependencies:
 
 bc. 
@@ -42,6 +43,7 @@ Import-Package: org.eclipse.xtend2.lib,
  org.eclipse.xtext.xbase.lib
 
 h3. Derive templates
+
 The templates are inside of the plugin @org.eclipselabs.spray.generator.graphiti@, and you will need to know which template(s) you actually need to override. The header comment in the generated code will name the template from which it origins. You likely have to look at the original template source to make good additions.
 
 Derive the template, e.g. 
