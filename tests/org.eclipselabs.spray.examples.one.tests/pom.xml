@@ -22,7 +22,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<product>org.eclipse.sdk.ide</product>
-					<argLine>${ui.test.vmargs}</argLine>
+					<argLine>${ui.test.vmargs} ${coverageAgent}</argLine>
 					<product>org.eclipse.sdk.ide</product>
 					<skip>${tycho.surefire.skipUiTest}</skip>
 					<testFailureIgnore>true</testFailureIgnore>
@@ -49,6 +49,7 @@
 						<id>test</id>
 						<phase>test</phase>
 						<configuration>
+							<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${coverageAgent}</argLine>
 							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
 							<excludes>
 								<exclude>**/mod4j/**/*</exclude>

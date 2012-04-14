@@ -12,36 +12,6 @@
 	<version>0.5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Eclipselabs Spray</name>
-	
-			<properties>
-				<jacoco.version>0.5.6.201201232323</jacoco.version>
-
-				<jacoco.propertyName>coverageAgent</jacoco.propertyName>
-				<jacoco.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile>
-				<jacoco.append>true</jacoco.append>
-				<jacoco.includes>org.eclipselabs.spray.*</jacoco.includes>
-				<!--jacoco.excludes>java.*</jacoco.excludes-->
-				<!--jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:MyClassLoader</jacoco.exclClassLoaders-->
-				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
-				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
-				<!--jacoco.output>file</jacoco.output-->
-				<!--jacoco.address>localhost</jacoco.address-->
-				<!--jacoco.port>9999</jacoco.port-->
-
-				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-				<sonar.jacoco.reportPath>${jacoco.destFile}</sonar.jacoco.reportPath>
-				<sonar.jacoco.itReportPath>${jacoco.destFile}</sonar.jacoco.itReportPath>
-				<sonar.java.source>1.6</sonar.java.source>
-				<sonar.java.target>1.6</sonar.java.target>
-
-				<sonar.jdbc.url>jdbc:mysql://ec2-174-129-80-78.compute-1.amazonaws.com:3306/sonar?useUnicode=true&amp;characterEncoding=utf8</sonar.jdbc.url>
-				<sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName>
-				<sonar.jdbc.username>sonar</sonar.jdbc.username>
-				<sonar.jdbc.password>sonar</sonar.jdbc.password>
-				<sonar.host.url>http://ec2-174-129-80-78.compute-1.amazonaws.com:9000</sonar.host.url>
-			</properties> 	
-
 	<modules>
 		<module>../../releng/org.eclipselabs.spray.targetplatform</module>
 		<module>../../releng/org.eclipselabs.spray.parent</module>
@@ -160,5 +130,31 @@
                 <module>../../docs/org.eclipselabs.spray.doc.user</module>
             </modules>
         </profile>
+		<profile>
+			<id>sonarLocal</id>
+			<properties>
+				<sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8</sonar.jdbc.url>
+				<sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName>
+				<sonar.jdbc.username>sonar</sonar.jdbc.username>
+				<sonar.jdbc.password>sonar</sonar.jdbc.password>
+				<sonar.host.url>http://localhost:9000/</sonar.host.url>
+				<sonar.java.source>1.6</sonar.java.source>
+				<sonar.java.target>1.6</sonar.java.target>				
+				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+			</properties> 
+		</profile>
+		<profile>
+			<id>sonarRemote</id>
+			<properties>
+				<sonar.jdbc.url>jdbc:mysql://ec2-174-129-80-78.compute-1.amazonaws.com:3306/sonar?useUnicode=true&amp;characterEncoding=utf8</sonar.jdbc.url>
+				<sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName>
+				<sonar.jdbc.username>sonar</sonar.jdbc.username>
+				<sonar.jdbc.password>sonar</sonar.jdbc.password>
+				<sonar.host.url>http://ec2-174-129-80-78.compute-1.amazonaws.com:9000/</sonar.host.url>
+				<sonar.java.source>1.6</sonar.java.source>
+				<sonar.java.target>1.6</sonar.java.target>				
+				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+			</properties> 
+		</profile>
 	</profiles>
 </project>
