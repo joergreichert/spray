@@ -4,7 +4,7 @@ h1. Spray - A quick way of creating Graphiti
 
 *User Guide*
 
-*Authors:* Jos Warmer, Karsten Thoms, Joerg Reichert
+*Authors:* Jos Warmer, Karsten Thoms, Fabio Filippelli, Joerg Reichert
 
 *Contents*
 
