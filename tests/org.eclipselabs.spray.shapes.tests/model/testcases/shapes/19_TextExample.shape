@@ -1,4 +1,4 @@
-shape ShapeWithText (java.lang.String shapeName) {
+shape ShapeWithText {
 	rectangle {
 		size (width=100, height=200)
 		position (x=0, y=0) text {
@@ -14,7 +14,7 @@ shape ShapeWithText (java.lang.String shapeName) {
 		}
 	}
 }
-connection ConnectionWithText (java.lang.String connectionName) {
+connection ConnectionWithText {
 	placing {
 		position (offset=1.0, radius=0, angle=0)
 		polygon {
