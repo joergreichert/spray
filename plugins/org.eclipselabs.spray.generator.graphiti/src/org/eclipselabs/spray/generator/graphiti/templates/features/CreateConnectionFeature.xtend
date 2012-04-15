@@ -10,11 +10,14 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
+import org.eclipselabs.spray.generator.graphiti.util.AskForHandler
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     @Inject extension NamingExtensions
     @Inject extension GenModelHelper
     @Inject extension MetaClassExtensions
+    @Inject extension AskForHandler
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -53,9 +56,12 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
+        import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractCreateConnectionFeature {
+            protected static String TITLE = "Create «metaClass.uiLabel»";
+            protected static String USER_QUESTION = "Enter new «metaClass.uiLabel» name";
             «generate_additionalFields(metaClass)»
         
             public «className»(final IFeatureProvider fp) {
@@ -202,15 +208,14 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
+        «val createBehavior = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head»
         /**
          * Creates a EReference between two EClasses.
          */
         protected «metaClass.javaInterfaceName.shortName» create«metaClass.type.name»(final «from.javaInterfaceName.shortName» source, final «to.javaInterfaceName.shortName» target) {
             // TODO: Domain Object
-            final «metaClass.javaInterfaceName.shortName» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.type.name»();
-            «IF metaClass.type.EAttributes.exists(att|att.name == "name") »
-                domainObject.setName("new «metaClass.visibleName»");
-            «ENDIF»
+            final «metaClass.javaInterfaceName.shortName» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.javaInterfaceName.shortName»();
+            «handleAskFor(metaClass, "domainObject", createBehavior.askFor)»
             «IF connection.from.changeable»
                 domainObject.set«connection.from.name.toFirstUpper»(source);
             «ELSE»
