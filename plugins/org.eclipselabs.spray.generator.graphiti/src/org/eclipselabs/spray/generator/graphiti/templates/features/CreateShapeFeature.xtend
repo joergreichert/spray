@@ -125,8 +125,8 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
          * Creates a new {@link «metaClass.name»} instance and adds it to the containing type.
          */
         protected «metaClass.name» create«metaClass.visibleName»(final ICreateContext context) {
-        	// create «metaClass.name» instance
-        	final «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+            // create «metaClass.name» instance
+            final «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
             «handleAskFor(metaClass, "newClass", createBehavior.askFor)»
             
             «IF containmentRef != null»
