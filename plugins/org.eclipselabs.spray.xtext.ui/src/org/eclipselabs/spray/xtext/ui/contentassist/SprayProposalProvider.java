@@ -48,9 +48,13 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
+import org.eclipselabs.spray.shapes.ISprayConnection;
+import org.eclipselabs.spray.shapes.ISprayShape;
 import org.eclipselabs.spray.styles.ISprayStyle;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.naming.EscapeKeywordFunction;
@@ -232,6 +236,14 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         if (model instanceof SprayStyleRef) {
             JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
             proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.SPRAY_STYLE_REF__STYLE, filter, acceptor);
+        }
+        if (model instanceof ShapeFromDsl) {
+            JvmType superType = typeProvider.findTypeByName(ISprayShape.class.getName());
+            proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.SHAPE_FROM_DSL__SHAPE, filter, acceptor);
+        }
+        if (model instanceof ConnectionInSpray) {
+            JvmType superType = typeProvider.findTypeByName(ISprayConnection.class.getName());
+            proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.CONNECTION_IN_SPRAY__CONNECTION, filter, acceptor);
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
     }
