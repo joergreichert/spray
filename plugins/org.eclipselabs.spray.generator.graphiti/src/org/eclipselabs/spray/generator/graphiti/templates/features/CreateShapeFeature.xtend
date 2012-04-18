@@ -49,13 +49,11 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «metaClass.javaInterfaceName»;
-        «IF metaClass.alias!=null»
         import org.eclipse.graphiti.features.context.IAreaContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.features.context.impl.AddContext;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-        «ENDIF»
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractCreateFeature {
@@ -98,7 +96,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             if (context.getTargetContainer() instanceof Diagram) {
             	return true;
             } else if (context.getTargetContainer() instanceof ContainerShape){
-            	final Object target = getBusinessObjectForPictogramElement((ContainerShape) context.getTargetContainer());
+            	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
                 «var compartment = behavior as CompartmentBehavior»
                 «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
