@@ -19,7 +19,6 @@
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
 		<platform-version-name>indigo</platform-version-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<coverageAgent></coverageAgent>
 	</properties>
 
 	<build>
@@ -453,6 +452,17 @@
 			</properties> 
 		</profile>
 		<profile>
+			<id>noCodeCoverage</id>
+			<activation>
+				<property>
+					<name>!codeCoverage</name>
+				</property>
+			</activation>
+			<properties>
+				<coverageAgent></coverageAgent>
+			</properties>
+		</profile>
+		<profile>
 			<id>codeCoverage</id>
 			<properties>
 				<jacoco.version>0.5.6.201201232323</jacoco.version>
@@ -462,7 +472,7 @@
 				<jacoco.it.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile>
 				<jacoco.append>true</jacoco.append>
 				<jacoco.includes>org.eclipselabs.spray.*</jacoco.includes>
-				<!--jacoco.excludes>java.*</jacoco.excludes-->
+				<jacoco.excludes>org.eclipse.*|*.internal.*|*.antlr*|*.parseTree*|*Abstract*RuntimeModule.java|*SetupGenerated.java|*Abstract*Validator.java|*GrammarAccess.java|*Abstract*UiModule.java|*Abstract*ProposalProvider.java|*.mm</jacoco.excludes>
 				<jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders>
 				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
 				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
@@ -479,16 +489,42 @@
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>tycho-surefire-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>test</id>
+								<phase>test</phase>
+								<configuration>
+									<argLine>${coverageAgent}</argLine>
+									<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
+									<excludes>
+									</excludes>
+								</configuration>
+								<goals>
+									<goal>test</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>			
+					<!--plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
 						<version>${tycho-version}</version>
 						<configuration>
-							<argLine>${coverageAgent} -Xms512m -Xmx1024m -XX:MaxPermSize=512m</argLine>
+							<argLine>${coverageAgent}</argLine>
 							<useUIHarness>false</useUIHarness>
 							<includes>
 								<include>**/*Test.java</include>
 							</includes>
 							<forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
 						</configuration>
-					</plugin>
+					</plugin-->
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
