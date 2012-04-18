@@ -2,18 +2,20 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
-import org.eclipselabs.spray.generator.graphiti.util.AskForHandler
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EDataType
+import org.eclipselabs.spray.mm.spray.CompartmentBehavior
+import org.eclipse.emf.ecore.EClass
 
 class CreateShapeFeature extends FileGenerator<MetaClass> {
     @Inject extension NamingExtensions
     @Inject extension MetaClassExtensions
-    @Inject extension AskForHandler
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -47,12 +49,11 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import «metaClass.javaInterfaceName»;
-        «IF metaClass.alias!=null»
         import org.eclipse.graphiti.features.context.IAreaContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.features.context.impl.AddContext;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
-        «ENDIF»
+        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractCreateFeature {
@@ -92,7 +93,20 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «overrideHeader()»
         public boolean canCreate(final ICreateContext context) {
             // TODO: Respect the cardinality of the containment reference
-            return context.getTargetContainer() instanceof Diagram;
+            if (context.getTargetContainer() instanceof Diagram) {
+            	return true;
+            } else if (context.getTargetContainer() instanceof ContainerShape){
+            	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+                «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
+                «var compartment = behavior as CompartmentBehavior»
+                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
+                if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+                	return true;
+                }
+                «ENDFOR»
+                «ENDFOR»
+        	}
+            return false;
         }
     '''
     
@@ -125,10 +139,28 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
          * Creates a new {@link «metaClass.name»} instance and adds it to the containing type.
          */
         protected «metaClass.name» create«metaClass.visibleName»(final ICreateContext context) {
-            // create «metaClass.name» instance
-            final «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
-            «handleAskFor(metaClass, "newClass", createBehavior.askFor)»
-            
+            «handleAskFor(metaClass, createBehavior.askFor)»
+            «var int check = 0»
+            Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+            «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
+                «var compartment = behavior as CompartmentBehavior»
+                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
+                «IF Refcompartment == compartment.compartmentReferenceList.get(0)»
+                //«check = 1»
+                if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+                	«(Refcompartment.EType as EClass).javaInterfaceName.shortName» model = («(Refcompartment.EType as EClass).javaInterfaceName.shortName») target;
+                	model.get«Refcompartment.name.toFirstUpper»().add(newClass);
+                }
+                «ELSE»
+                else if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+                	«(Refcompartment.EType as EClass).javaInterfaceName.shortName» model = («(Refcompartment.EType as EClass).javaInterfaceName.shortName») target;
+                	model.get«Refcompartment.name.toFirstUpper»().add(newClass);                	
+                }	
+                «ENDIF»
+                «ENDFOR»
+            «ENDFOR»
+            «IF check == 1»
+            else {
             «IF containmentRef != null»
                // add the element to containment reference
                «modelClassName» model = modelService.getModel();
@@ -136,14 +168,57 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                    model.get«containmentRef.name.toFirstUpper»().add(newClass);
                «ELSE»
                    model.set«containmentRef.name.toFirstUpper»(newClass);
-               «ENDIF»
-               
+               «ENDIF»   
+            «ENDIF»
+            }
+            «ELSE»
+               «IF containmentRef != null»
+               // add the element to containment reference
+               «modelClassName» model = modelService.getModel();
+               «IF containmentRef.many»
+                   model.get«containmentRef.name.toFirstUpper»().add(newClass);
+               «ELSE»
+                   model.set«containmentRef.name.toFirstUpper»(newClass);
+               «ENDIF»   
+            «ENDIF»
             «ENDIF»
             setDoneChanges(true);
             return newClass;
         }
     '''
     
+    def handleAskFor(MetaClass metaClass, EAttribute attribute) '''
+        // create «metaClass.name» instance
+        final «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+        «IF attribute != null»
+           // ask user for «metaClass.visibleName» «attribute.name»
+           «IF (attribute.EType as EDataType).instanceClassName.matches('java.lang.String')»
+              String new«attribute.name.toFirstUpper» = SampleUtil.askString(TITLE, USER_QUESTION, "", null);
+              if (new«attribute.name.toFirstUpper» == null || new«attribute.name.toFirstUpper».trim().length() == 0) {
+                 return null;
+              } else {
+                 newClass.set«attribute.name.toFirstUpper»(new«attribute.name.toFirstUpper»);
+              }
+           «ELSE»
+              «val type = (attribute.EType as EDataType).instanceClassName» 
+              «val typeName = if("double".matches(type)) "Double" else if("int".matches(type)) "Integer" else "Object"»
+              final «"org.eclipse.jface.dialogs.IInputValidator".shortName» validator = new IInputValidator() {
+                 public String isValid(final String _newText) {
+                    String message = null;
+                    try {
+                       «typeName».valueOf(_newText);
+                    } catch(Exception nfe) {
+                       message = _newText + " cannot be cast to «typeName»";
+                    }
+                    return message;
+                 }
+              };
+              final String new«attribute.name.toFirstUpper»String = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
+              final «typeName» new«attribute.name.toFirstUpper» = «typeName».valueOf(new«attribute.name.toFirstUpper»String);    
+              newClass.set«attribute.name.toFirstUpper»(new«attribute.name.toFirstUpper»);
+           «ENDIF»
+        «ENDIF»
+    '''
  
  
     /**

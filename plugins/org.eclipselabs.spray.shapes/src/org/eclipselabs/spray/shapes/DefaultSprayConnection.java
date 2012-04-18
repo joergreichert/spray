@@ -1,18 +1,23 @@
 package org.eclipselabs.spray.shapes;
 
-import org.eclipse.emf.ecore.impl.EReferenceImpl;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.services.IPeService;
 
-//TODO: Remove EObject (just for tests)
-public abstract class DefaultSprayConnection extends EReferenceImpl implements
-		ISprayConnection {
-	private IFeatureProvider featureProvider;
+public abstract class DefaultSprayConnection implements ISprayConnection {
 
-	public DefaultSprayConnection(IFeatureProvider featureProvider) {
-		this.featureProvider = featureProvider;
-	}
+    private IFeatureProvider         featureProvider;
+    protected final IGaService       gaService       = Graphiti.getGaService();
+    protected final IPeService       peService       = Graphiti.getPeService();
+    protected final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 
-	public IFeatureProvider getFeatureProvider() {
-		return featureProvider;
-	}
+    public DefaultSprayConnection(IFeatureProvider featureProvider) {
+        this.featureProvider = featureProvider;
+    }
+
+    public IFeatureProvider getFeatureProvider() {
+        return featureProvider;
+    }
 }

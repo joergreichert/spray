@@ -1,5 +1,8 @@
 package org.eclipselabs.spray.shapes;
 
+import static org.eclipselabs.spray.shapes.ISprayShapeConstants.HEIGHT_KEY;
+import static org.eclipselabs.spray.shapes.ISprayShapeConstants.WIDTH_KEY;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.ILayoutContext;
@@ -21,9 +24,6 @@ public class SprayLayoutManager {
 
 	private int maxSizeWidth;
 	private int maxSizeHeight;
-
-	private static final String WIDTH_KEY = "current-width-shape";
-	private static final String HEIGHT_KEY = "current-height-shape";
 
 	private IGaService gaService;
 
