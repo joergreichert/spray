@@ -355,28 +355,26 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
     protected IScope scope_CreateBehavior_CompartmentReference(EObject context, EReference reference) {
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
+        MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        if (diagram == null || metaClass == null) {
+            return IScope.NULLSCOPE;
+        }
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
         if (diagramModelType == null || diagramModelType.getEPackage() == null) {
             return IScope.NULLSCOPE;
         }
         List<EReference> containmentReferences = new ArrayList<EReference>();
-        //        List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
         for (EClassifier eClassifiers : diagramModelType.getEPackage().getEClassifiers()) {
-
             if (eClassifiers instanceof EClass) {
-                //                for (EReference param : ((EClass) eClassifiers).getEAllContainments()) {
-                //                    String name = param.getEContainingClass().getName() + "." + param.getName();
-                //                    System.err.println(name);
-                //                    IEObjectDescription description = EObjectDescription.create(name, param, null);
-                //                    descrList.add(description);
-                //                }
-
-                containmentReferences.addAll(((EClass) eClassifiers).getEAllContainments());
+                for (EReference ref : ((EClass) eClassifiers).getEAllContainments()) {
+                    if (metaClass.getType().getClass().equals(ref.getEType().getClass())) {
+                        containmentReferences.add(ref);
+                    }
+                }
             }
         }
         return Scopes.scopeFor(containmentReferences);
-        //        return Scopes.scopeFor(descrList);
     }
 
     protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
