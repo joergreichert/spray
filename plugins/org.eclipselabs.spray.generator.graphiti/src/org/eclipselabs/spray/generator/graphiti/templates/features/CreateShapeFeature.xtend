@@ -149,7 +149,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             	«IF containmentRef.many»
             	model.get«Refcompartment.name.toFirstUpper»().add(newClass);
             	«ELSE»
-            	model.set«Refcompartment.name.toFirstUpper»()(newClass);
+            	model.set«Refcompartment.name.toFirstUpper»(newClass);
             	«ENDIF»   
             }
             «ENDFOR»
