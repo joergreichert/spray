@@ -64,7 +64,7 @@ BehaviorGroup:
 ;
 
 Behavior :
-    CreateBehavior | CustomBehavior;
+    CreateBehavior | CustomBehavior | CompartmentBehavior;
 
 CreateBehavior :
     'create' 'into' containmentReference=[ecore::EReference] (label = STRING)? 
@@ -161,3 +161,7 @@ ContainerInSpray returns ContainerInSpray:
     '{'
         (parts+=SprayElement  ';'? )* 
     '}';
+    
+CompartmentBehavior :
+    'containment' compartmentReference+=[ecore::EReference] (',' compartmentReference+=[ecore::EReference])* (label = STRING)?  
+    ;

@@ -4,6 +4,7 @@
 package org.eclipselabs.spray.xtext.scoping;
 
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
@@ -100,6 +101,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             scope = scope_MetaClass_Type(context, reference);
         } else if (reference == CREATE_BEHAVIOR__CONTAINMENT_REFERENCE) {
             scope = scope_CreateBehavior_ContainmentReference(context, reference);
+        } else if (reference == COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE) {
+            scope = scope_CreateBehavior_CompartmentReference(context, reference);
         } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__FROM) {
             scope = scope_Connection_from(context);
         } else if (context.eClass() == CONNECTION_IN_SPRAY && reference == CONNECTION_IN_SPRAY__TO) {
@@ -348,6 +351,32 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             containmentReferences.addAll(sourceType.getEAllContainments());
         }
         return Scopes.scopeFor(Iterables.filter(containmentReferences, filter));
+    }
+
+    protected IScope scope_CreateBehavior_CompartmentReference(EObject context, EReference reference) {
+        Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
+        // all eClasses that are direct containments of context's diagram model type
+        final EClass diagramModelType = diagram.getModelType();
+        if (diagramModelType == null || diagramModelType.getEPackage() == null) {
+            return IScope.NULLSCOPE;
+        }
+        List<EReference> containmentReferences = new ArrayList<EReference>();
+        //        List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
+        for (EClassifier eClassifiers : diagramModelType.getEPackage().getEClassifiers()) {
+
+            if (eClassifiers instanceof EClass) {
+                //                for (EReference param : ((EClass) eClassifiers).getEAllContainments()) {
+                //                    String name = param.getEContainingClass().getName() + "." + param.getName();
+                //                    System.err.println(name);
+                //                    IEObjectDescription description = EObjectDescription.create(name, param, null);
+                //                    descrList.add(description);
+                //                }
+
+                containmentReferences.addAll(((EClass) eClassifiers).getEAllContainments());
+            }
+        }
+        return Scopes.scopeFor(containmentReferences);
+        //        return Scopes.scopeFor(descrList);
     }
 
     protected IScope scope_MetaClass_Type(EObject context, EReference reference) {

@@ -8,6 +8,8 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.SprayStyleRef
+import org.eclipselabs.spray.mm.spray.CompartmentBehavior
+import org.eclipse.emf.ecore.EClass
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
 	
@@ -15,6 +17,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     
     MetaClass metaClass = null
     SprayStyleRef styleRef = null
+    
     
     def setAttributes(MetaClass cls, SprayStyleRef ssr){
         metaClass = cls
@@ -88,6 +91,16 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
                         return true;
+                    } else if (context.getTargetContainer() instanceof ContainerShape) {
+                    	final Object target = getBusinessObjectForPictogramElement((ContainerShape) context.getTargetContainer());
+		                «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
+		                «var compartment = behavior as CompartmentBehavior»
+		                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
+		                if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+		                	return true;
+		                }
+		                «ENDFOR»
+		                «ENDFOR»
                     }
                 }
                 return false;
@@ -96,16 +109,15 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             «overrideHeader»
             public PictogramElement add(final IAddContext context) {
                 final «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
-                targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
-                
-                // Diagram targetDiagram = (Diagram) context.getTargetContainer();
+                //targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
+                final ContainerShape targetContainer = context.getTargetContainer();
                 «IF styleRef != null && styleRef.style != null»
                 final ISprayStyle style = new «styleRef.style.simpleName»();
                 «ELSE»
                 final ISprayStyle style = new DefaultSprayStyle();
                 «ENDIF»
                 final ISprayShape shape = new «container.shape.simpleName»(getFeatureProvider());
-                final ContainerShape conShape = shape.getShape(targetDiagram, style);
+                final ContainerShape conShape = shape.getShape(targetContainer, style);
                 final IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
                 link(conShape, addedModelElement);
