@@ -19,7 +19,6 @@
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
 		<platform-version-name>indigo</platform-version-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<coverageAgent></coverageAgent>
 	</properties>
 
 	<build>
@@ -450,6 +449,12 @@
 				<sonar.java.source>1.6</sonar.java.source>
 				<sonar.java.target>1.6</sonar.java.target>				
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+			</properties> 
+		</profile>
+		<profile>
+			<id>noCodeCoverage</id>
+			<properties>
+				<coverageAgent></coverageAgent>
 			</properties> 
 		</profile>
 		<profile>
