@@ -467,7 +467,7 @@
 				<jacoco.it.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile>
 				<jacoco.append>true</jacoco.append>
 				<jacoco.includes>org.eclipselabs.spray.*</jacoco.includes>
-				<!--jacoco.excludes>java.*</jacoco.excludes-->
+				<jacoco.excludes>**/src-gen/**/*.java,**/org/eclipse/**/*.java,**internal/**,**.antlr**,**.parseTree**,**Abstract**RuntimeModule.java,**SetupGenerated**,**Abstract**Validator.java,**GrammarAccess.java,**Abstract**UiModule.java,**Abstract**ProposalProvider.java,**.mm/**</jacoco.excludes>
 				<jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders>
 				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
 				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
