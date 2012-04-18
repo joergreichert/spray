@@ -62,10 +62,6 @@ class GeneratorShapeDefinition {
 		@SuppressWarnings("all")
 		public class «s.className» extends DefaultSprayShape {
 		    
-			private IGaService gaService = Graphiti.getGaService();
-			private IPeService peService = Graphiti.getPeService();
-			private IPeCreateService peCreateService = Graphiti.getPeCreateService();
-			
 			«s.generateTextIdsEnum»
 			
 			public «s.className»(IFeatureProvider fp) {
@@ -73,24 +69,23 @@ class GeneratorShapeDefinition {
 			}
 			
 			@Override
-			public ContainerShape getShape(Diagram diagram, ISprayStyle sprayStyle) {
-				ContainerShape containerShape = super.getShape(diagram, sprayStyle);
+			public ContainerShape getShape(ContainerShape targetContainer, ISprayStyle sprayStyle) {
+				// Create a ContainerShape for this Shape
+				Diagram diagram = peService.getDiagramForShape(targetContainer);
+				ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
 				
-				// Creating the Anchorpoints
+				// define general layout for ContainerShape
+				«s.generateLayout»
+				
+				// creates the cascaded elements (figures)
+				«s.generateCascadedElements»
+				
+				// creates the anchors
 				«s.createAnchorPoints»
 				
 				return containerShape;
 			}
 
-			@Override
-			public GraphicsAlgorithm getShape(Diagram diagram, PictogramElement pictogramElement, ISprayStyle sprayStyle) {
-				// Define general layout
-				«s.generateLayout»
-				
-				// Creating the different figures
-				«s.generateCascadedElements»
-			}
-			
 			«s.generateGetLayoutMethod»
 			
 «««			«FOR param : s.param»

@@ -30,12 +30,16 @@ class ShapeTypeGenerator {
 		element_index = -1
 		plcount = 0
 		var sizeMap = s.getContainerSize
-		var containername = "pictogramElement"
+		var containername = "containerShape"
 		var attname = containername
 		if(s.shape.size > 1) {
 			attname = nextAttributeName
 		}
 		'''
+		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
+		directEditingInfo.setMainPictogramElement(«containername»);
+		directEditingInfo.setPictogramElement(«containername»);
+		
 		«IF s.shape.size > 1»
 		// Invisible rectangle around the elements (because more then one element is on first layer).
 		GraphicsAlgorithm «attname» = gaService.createInvisibleRectangle(«containername»);
@@ -48,9 +52,7 @@ class ShapeTypeGenerator {
 		«ENDFOR»
 		
 		// Set start values for height and width as properties on the element for Layout Feature
-		SprayLayoutManager.setSizePictogramProperties(pictogramElement);
-		
-		return element_0;
+		SprayLayoutManager.setSizePictogramProperties(«containername»);
 		'''
 	}
 	
@@ -146,7 +148,6 @@ class ShapeTypeGenerator {
 	
 	def dispatch createElement(Text element, String parentName, String shapeStyle) { 
 		val attname = nextAttributeName
-		val editingname = "deinfo_" + element_index
 		'''
 		«IF element.texttype == TextType::DEFAULT»
 		Text «attname» = gaService.createText(«parentName»);
@@ -162,10 +163,7 @@ class ShapeTypeGenerator {
 		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
 		«attname».setValue("");
 		«generateStyleForElement(attname, element.layout.layout)»
-		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
-		«editingname».setMainPictogramElement(pictogramElement);
-		«editingname».setPictogramElement(pictogramElement);
-		«editingname».setGraphicsAlgorithm(«attname»);
+		getFeatureProvider().getDirectEditingInfo().setGraphicsAlgorithm(«attname»);
      	'''
 	}
 
