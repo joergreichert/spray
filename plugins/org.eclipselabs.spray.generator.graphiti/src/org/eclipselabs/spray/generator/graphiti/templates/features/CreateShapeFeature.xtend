@@ -98,8 +98,8 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             } else if (context.getTargetContainer() instanceof ContainerShape){
             	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-                «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.EType instanceof EClass)»
-                if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+                «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
+                if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
                 	return true;
                 }
                 «ENDFOR»
@@ -142,11 +142,11 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             boolean isContainment = false;
             Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-            «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.EType instanceof EClass)»
-            if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+            «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
+            if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
             	isContainment = true;
-            	«(Refcompartment.EType as EClass).javaInterfaceName.shortName» model = («(Refcompartment.EType as EClass).javaInterfaceName.shortName») target;
-            	«IF containmentRef.many»
+            	«(Refcompartment.eContainer as EClass).javaInterfaceName.shortName» model = («(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») target;
+            	«IF Refcompartment.many»
             	model.get«Refcompartment.name.toFirstUpper»().add(newClass);
             	«ELSE»
             	model.set«Refcompartment.name.toFirstUpper»(newClass);
