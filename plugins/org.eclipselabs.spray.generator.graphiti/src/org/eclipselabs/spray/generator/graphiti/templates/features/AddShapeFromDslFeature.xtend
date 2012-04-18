@@ -93,15 +93,14 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                         return true;
                     } else if (context.getTargetContainer() instanceof ContainerShape) {
                     	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
-		                «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-		                «var compartment = behavior as CompartmentBehavior»
-		                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
-		                if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
-		                	return true;
-		                }
-		                «ENDFOR»
-		                «ENDFOR»
-                    }
+                    	«FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
+                    	«FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
+                    	if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
+                    		return true;
+                    	}
+                    	«ENDFOR»
+                    	«ENDFOR»
+        	}
                 }
                 return false;
             }
