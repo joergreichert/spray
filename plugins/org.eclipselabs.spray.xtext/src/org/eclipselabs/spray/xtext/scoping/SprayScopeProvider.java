@@ -368,7 +368,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         for (EClassifier eClassifiers : diagramModelType.getEPackage().getEClassifiers()) {
             if (eClassifiers instanceof EClass) {
                 for (EReference ref : ((EClass) eClassifiers).getEAllContainments()) {
-                    if (metaClass.getType().getClass().equals(ref.getEType().getClass())) {
+                    if (ref.getEType() instanceof EClass && ((EClass) ref.getEType()).isSuperTypeOf(metaClass.getType())) {
                         containmentReferences.add(ref);
                     }
                 }
