@@ -92,7 +92,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                     if (context.getTargetContainer() instanceof Diagram) {
                         return true;
                     } else if (context.getTargetContainer() instanceof ContainerShape) {
-                    	final Object target = getBusinessObjectForPictogramElement((ContainerShape) context.getTargetContainer());
+                    	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
 		                «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
 		                «var compartment = behavior as CompartmentBehavior»
 		                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
