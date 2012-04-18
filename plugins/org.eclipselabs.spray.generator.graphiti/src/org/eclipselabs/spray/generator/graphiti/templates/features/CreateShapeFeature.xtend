@@ -98,8 +98,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             } else if (context.getTargetContainer() instanceof ContainerShape){
             	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-                «var compartment = behavior as CompartmentBehavior»
-                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
+                «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.EType instanceof EClass)»
                 if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
                 	return true;
                 }
@@ -114,7 +113,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «overrideHeader()»
         public Object[] create(final ICreateContext context) {
             newClass = create«metaClass.visibleName»(context);
-        
+
             if (newClass == null ) {
                 return EMPTY;
             }
@@ -140,48 +139,32 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
          */
         protected «metaClass.name» create«metaClass.visibleName»(final ICreateContext context) {
             «handleAskFor(metaClass, createBehavior.askFor)»
-            «var int check = 0»
+            boolean isContainment = false;
             Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-                «var compartment = behavior as CompartmentBehavior»
-                «FOR Refcompartment: compartment.compartmentReference.filter(m | m.EType instanceof EClass)»
-                «IF Refcompartment == compartment.compartmentReferenceList.get(0)»
-                //«check = 1»
-                if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
-                	«(Refcompartment.EType as EClass).javaInterfaceName.shortName» model = («(Refcompartment.EType as EClass).javaInterfaceName.shortName») target;
-                	model.get«Refcompartment.name.toFirstUpper»().add(newClass);
-                }
-                «ELSE»
-                else if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
-                	«(Refcompartment.EType as EClass).javaInterfaceName.shortName» model = («(Refcompartment.EType as EClass).javaInterfaceName.shortName») target;
-                	model.get«Refcompartment.name.toFirstUpper»().add(newClass);                	
-                }	
-                «ENDIF»
-                «ENDFOR»
+            «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.EType instanceof EClass)»
+            if (target instanceof «(Refcompartment.EType as EClass).javaInterfaceName.shortName») {
+            	isContainment = true;
+            	«(Refcompartment.EType as EClass).javaInterfaceName.shortName» model = («(Refcompartment.EType as EClass).javaInterfaceName.shortName») target;
+            	«IF containmentRef.many»
+            	model.get«Refcompartment.name.toFirstUpper»().add(newClass);
+            	«ELSE»
+            	model.set«Refcompartment.name.toFirstUpper»()(newClass);
+            	«ENDIF»   
+            }
             «ENDFOR»
-            «IF check == 1»
-            else {
+            «ENDFOR»
             «IF containmentRef != null»
-               // add the element to containment reference
-               «modelClassName» model = modelService.getModel();
-               «IF containmentRef.many»
-                   model.get«containmentRef.name.toFirstUpper»().add(newClass);
-               «ELSE»
-                   model.set«containmentRef.name.toFirstUpper»(newClass);
-               «ENDIF»   
+            if(!isContainment) {
+            	// add the element to containment reference
+            	«modelClassName» model = modelService.getModel();
+            	«IF containmentRef.many»
+            		model.get«containmentRef.name.toFirstUpper»().add(newClass);
+            	«ELSE»
+            		model.set«containmentRef.name.toFirstUpper»(newClass);
+            	«ENDIF»   
             «ENDIF»
             }
-            «ELSE»
-               «IF containmentRef != null»
-               // add the element to containment reference
-               «modelClassName» model = modelService.getModel();
-               «IF containmentRef.many»
-                   model.get«containmentRef.name.toFirstUpper»().add(newClass);
-               «ELSE»
-                   model.set«containmentRef.name.toFirstUpper»(newClass);
-               «ENDIF»   
-            «ENDIF»
-            «ENDIF»
             setDoneChanges(true);
             return newClass;
         }
