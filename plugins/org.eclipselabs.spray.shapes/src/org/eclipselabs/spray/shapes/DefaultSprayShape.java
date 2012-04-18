@@ -1,37 +1,25 @@
 package org.eclipselabs.spray.shapes;
 
-import org.eclipse.emf.ecore.impl.EClassImpl;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipselabs.spray.styles.ISprayStyle;
+import org.eclipse.graphiti.services.IPeService;
 
-//TODO: Remove EObject (just for tests)
-public abstract class DefaultSprayShape extends EClassImpl implements
-		ISprayShape {
+public abstract class DefaultSprayShape implements ISprayShape {
 
-	private IFeatureProvider featureProvider;
+    protected final IGaService       gaService       = Graphiti.getGaService();
+    protected final IPeService       peService       = Graphiti.getPeService();
+    protected final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 
-	public DefaultSprayShape(IFeatureProvider featureProvider) {
-		this.featureProvider = featureProvider;
-	}
+    private IFeatureProvider featureProvider;
+    
+    public DefaultSprayShape(IFeatureProvider featureProvider) {
+        this.featureProvider = featureProvider;
+    }
 
-	@Override
-	public ContainerShape getShape(Diagram diagram, ISprayStyle sprayStyle) {
-		IPeCreateService peCreateService = Graphiti.getPeCreateService();
-
-		// Create a ContainerShape
-		ContainerShape containerShape = peCreateService.createContainerShape(
-				diagram, true);
-		getShape(diagram, containerShape, sprayStyle);
-
-		return containerShape;
-	}
-
-	public IFeatureProvider getFeatureProvider() {
-		return featureProvider;
-	}
+    public IFeatureProvider getFeatureProvider() {
+        return featureProvider;
+    }
 
 }
