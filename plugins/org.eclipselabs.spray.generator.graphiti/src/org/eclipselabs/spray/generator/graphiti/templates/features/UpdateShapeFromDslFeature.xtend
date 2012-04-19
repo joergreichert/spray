@@ -121,7 +121,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    				String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
 	    				«ENDIF»
 	    				String gAlgorithmValue = text.getValue();
-	    				if(eClassValue != null && gAlgorithmValue != null) {
+	    				if(eClassValue != null) {
 	    					if(!eClassValue.equals(gAlgorithmValue)) {
 	    						return true;
 	    					}
