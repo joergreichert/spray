@@ -99,14 +99,16 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 if(pictogramElement instanceof ContainerShape) {
                     ContainerShape conShape = (ContainerShape) pictogramElement;
                     «container.represents.name» eClass = («container.represents.name») bo;
-                    return checkUpdateNeededRecursively(conShape.getGraphicsAlgorithm(), eClass);
+                    if(checkUpdateNeededRecursively(conShape.getGraphicsAlgorithm(), eClass)) {
+                    	return Reason.createTrueReason();
+                    }
                 }
                 return Reason.createFalseReason();
              }
         '''
         
 		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
-	    	private IReason checkUpdateNeededRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
+	    	private boolean checkUpdateNeededRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
@@ -121,7 +123,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    				String gAlgorithmValue = text.getValue();
 	    				if(eClassValue != null && gAlgorithmValue != null) {
 	    					if(!eClassValue.equals(gAlgorithmValue)) {
-	    						return Reason.createTrueReason();
+	    						return true;
 	    					}
 	    				}
 	    			}
@@ -129,9 +131,11 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    			«ENDIF»
 	    		}
 	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
-	    			return checkUpdateNeededRecursively(gAlgorithmChild, eClass);
+	    			if(checkUpdateNeededRecursively(gAlgorithmChild, eClass)) {
+	    				return true;
+	    			}
 	    		}
-	    		return Reason.createFalseReason();
+	    		return false;
 	    	}
 	    '''
     
