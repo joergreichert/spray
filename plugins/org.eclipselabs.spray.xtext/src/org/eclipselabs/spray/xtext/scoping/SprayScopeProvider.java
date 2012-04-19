@@ -131,7 +131,18 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     protected IScope scope_ShapePropertyAssignment_attribute(EObject context) {
         MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
         if (metaClass != null) {
-            return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllAttributes()));
+            Predicate<EObject> filterPredicate = new Predicate<EObject>() {
+                @Override
+                public boolean apply(EObject input) {
+                    if (input instanceof EAttribute) {
+                        if (((EAttribute) input).getEType().getName().equals("EString")) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(metaClass.getType().getEAllAttributes(), filterPredicate)));
         } else {
             return IScope.NULLSCOPE;
         }
