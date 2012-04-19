@@ -26,9 +26,7 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
         «extensionHeader(this)»
         package «feature_package()»;
         
-        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
-        import org.eclipse.graphiti.features.context.ICustomContext;
         
         public class «className» extends «className»Base {
             public «className»(IFeatureProvider fp) {
