@@ -18,12 +18,15 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension DiagramExtensions
   	@Inject extension SprayCompiler
   	
+  	String sprayShapeConstantsClassName = "org.eclipselabs.spray.shapes.ISprayShapeConstants"
+  	String functionClassName = "com.google.common.base.Function"
+  	
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
-        mainFile( modelElement, javaGenFile.baseClassName)
+        mainFile(modelElement, javaGenFile.baseClassName)
     }
 
     override CharSequence generateExtensionFile(ShapeFromDsl modelElement) {
-            mainExtensionPointFile( modelElement, javaGenFile.className)
+        mainExtensionPointFile(modelElement, javaGenFile.className)
     }
     
     def mainExtensionPointFile(ShapeFromDsl container, String className) '''
@@ -47,8 +50,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import java.util.HashMap;
         import java.util.Map;
         
-        import org.eclipse.emf.ecore.EObject;
-        import com.google.common.base.Function;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
@@ -58,12 +59,8 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-        import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
-        import «util_package()».SprayContainerService;
-        import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         
         import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -77,9 +74,9 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
          
             «generate_canUpdate(container)»
             «generate_updateNeeded(container)»
+            «generate_checkUpdateNeededRecursively(container)»
             «generate_update(container)»
-            «generate_searchChilds(container)»
-            «generate_valueMapping(container)»
+            «generate_updateChildsRecursively(container)»
             «generate_additionalMethods(container)»
         }
         '''
@@ -87,10 +84,9 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         def generate_canUpdate (ShapeFromDsl container) '''
             «overrideHeader»
             public boolean canUpdate(final IUpdateContext context) {
-                // return true, if linked business object is a EClass
+                // return true, if linked business object is a «container.represents.name»
                 final PictogramElement pictogramElement = context.getPictogramElement();
-                final EObject bo =  getBusinessObjectForPictogramElement(pictogramElement);
-                
+                final Object bo = getBusinessObjectForPictogramElement(pictogramElement);
                 return (bo instanceof «container.represents.name») && (!(pictogramElement instanceof Diagram));
             }
         '''
@@ -99,76 +95,92 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             «overrideHeader»
             public IReason updateNeeded(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
-                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof «container.represents.name»)) {
+                final Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+                if (!(bo instanceof «container.represents.name»)) {
                     return Reason.createFalseReason(); 
+                }
+                if(pictogramElement instanceof ContainerShape) {
+                    ContainerShape conShape = (ContainerShape) pictogramElement;
+                    «container.represents.name» eClass = («container.represents.name») bo;
+                    return checkUpdateNeededRecursively(conShape.getGraphicsAlgorithm(), eClass);
                 }
                 return Reason.createFalseReason();
              }
         '''
         
+		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
+	    	private IReason checkUpdateNeededRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
+	    		if(graphicsAlgorithm instanceof Text) {
+	    			«IF !container.properties.empty»
+	    			Text text = (Text) graphicsAlgorithm;
+	    			String id = peService.getPropertyValue(graphicsAlgorithm, «sprayShapeConstantsClassName.shortName».TEXT_ID);
+	    			«FOR property : container.properties»
+	    			if(id.equals("«property.key.simpleName»")) {
+	    				«IF property.value != null»
+	    				«property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
+	    				«ELSE»
+	    				String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
+	    				«ENDIF»
+	    				String gAlgorithmValue = text.getValue();
+	    				if(eClassValue != null && gAlgorithmValue != null) {
+	    					if(!eClassValue.equals(gAlgorithmValue)) {
+	    						return Reason.createTrueReason();
+	    					}
+	    				}
+	    			}
+	    			«ENDFOR»
+	    			«ENDIF»
+	    		}
+	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
+	    			return checkUpdateNeededRecursively(gAlgorithmChild, eClass);
+	    		}
+	    		return Reason.createFalseReason();
+	    	}
+	    '''
+    
         def generate_update (ShapeFromDsl container) '''
             «overrideHeader»
             public boolean update(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
-                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                final «container.represents.name» eClass = («container.represents.name») bo;
+                final «container.represents.name» eClass = («container.represents.name») getBusinessObjectForPictogramElement(pictogramElement);
                 if(pictogramElement instanceof ContainerShape) {
-                    final ContainerShape conShape = (ContainerShape) pictogramElement;
-                    final GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
-                    searchChilds(gAlg, eClass);
+                    ContainerShape conShape = (ContainerShape) pictogramElement;
+                    updateChildsRecursively(conShape.getGraphicsAlgorithm(), eClass);
                 }
-                return true; // SprayContainerService.update(pictogramElement, getValues(eClass));
+                return true;
                 
             }
         '''
+	        
+	    def generate_updateChildsRecursively(ShapeFromDsl container) '''
+	    	private void updateChildsRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
+	    		if(graphicsAlgorithm instanceof Text) {
+	    			«IF !container.properties.empty»
+	    			Text text = (Text) graphicsAlgorithm;
+	    			String id = peService.getPropertyValue(graphicsAlgorithm, «sprayShapeConstantsClassName.shortName».TEXT_ID);
+	    			«FOR property : container.properties»
+	    			if(id.equals("«property.key.simpleName»")) {
+	    				«IF property.value != null»
+	    				«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
+	    				text.setValue(value);
+	    				«ELSE»
+	    				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
+	    				«ENDIF»
+	    			}
+	    			«ENDFOR»
+	    			«ENDIF»
+	    		}
+	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
+	    			updateChildsRecursively(gAlgorithmChild, eClass);
+	    		}
+	    	}
+	    '''
         
-    def generate_searchChilds(ShapeFromDsl container) '''
-    	private void searchChilds(final GraphicsAlgorithm gAlg, final «container.represents.name» eClass) {
-    		if(gAlg instanceof Text) {
-    			Text text = (Text) gAlg;
-    			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
-    			«FOR property : container.properties»
-    			if(id.equals("«property.key.simpleName»")) {
-    				«IF property.value != null»
-    				«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
-    				text.setValue(value);
-    				«ELSE»
-    				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
-    				«ENDIF»
-    			}
-    			«ENDFOR»
-    		}
-    		for(GraphicsAlgorithm gAlgChild : gAlg.getGraphicsAlgorithmChildren()) {
-    			searchChilds(gAlgChild, eClass);
-    		}
-    	}
-       '''
-        
-    def generate_valueMapping (ShapeFromDsl container) '''
-        Map<String, String> values = null; 
-            protected Map<String, String> getValues(final «container.represents.name» eClass) {
-            if (values == null) {
-                values = new HashMap<String, String>();
-                fillValues(eClass);
-            }
-            return values;
-        }
-
-        protected void fillValues(final «container.represents.name» eClass) {
-            String type, value;
-        }
-        
-        protected String getValue (final String type, final «container.represents.name» eClass) {
-            return "UNKNOWN";
-        }
-    '''
-
-   def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
-   		«returnType» «valueName» = new Function<«metaClassName», «returnType»>() {
-   			public «returnType» apply(«metaClassName» modelElement) {
-   				«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
-   			}
-   		}.apply(«metaClassAttribute»); 
-   '''
+	   def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
+	   		«returnType» «valueName» = new «functionClassName.shortName»<«metaClassName», «returnType»>() {
+	   			public «returnType» apply(«metaClassName» modelElement) {
+	   				«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+	   			}
+	   		}.apply(«metaClassAttribute»); 
+	   '''
 }
