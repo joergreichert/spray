@@ -47,9 +47,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         «header(this)»
         package «feature_package()»;
         
-        import java.util.HashMap;
-        import java.util.Map;
-        
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
