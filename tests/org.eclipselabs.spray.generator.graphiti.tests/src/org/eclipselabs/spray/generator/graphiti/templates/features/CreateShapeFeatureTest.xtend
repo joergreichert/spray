@@ -286,8 +286,6 @@ class CreateShapeFeatureTest {
             }
         '''    
         val output = sut.generate_createModelElement(metaClass)
-        System::out.println(output.toString)
-        System::out.println(expectedOutput.toString)
         assertEquals("expected output", expectedOutput.toString, output.toString);
     }    
     
