@@ -105,6 +105,7 @@ class CreateShapeFeatureTest {
                 } else {
                    newClass.setName(newName);
                 }
+                boolean isContainment = false;
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 setDoneChanges(true);
                 return newClass;
@@ -125,6 +126,7 @@ class CreateShapeFeatureTest {
             protected SampleClass createSampleClass(final ICreateContext context) {
                 // create SampleClass instance
                 final SampleClass newClass = SamplePackFactory.eINSTANCE.createSampleClass();
+                boolean isContainment = false;
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 setDoneChanges(true);
                 return newClass;
@@ -161,6 +163,7 @@ class CreateShapeFeatureTest {
                 final String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
                 final Double newId = Double.valueOf(newIdString);    
                 newClass.setId(newId);
+                boolean isContainment = false;
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 setDoneChanges(true);
                 return newClass;
@@ -197,6 +200,7 @@ class CreateShapeFeatureTest {
                 final String newIdString = SampleUtil.askString(TITLE, USER_QUESTION, "", validator);
                 final Integer newId = Integer.valueOf(newIdString);    
                 newClass.setId(newId);
+                boolean isContainment = false;
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 setDoneChanges(true);
                 return newClass;
@@ -231,10 +235,13 @@ class CreateShapeFeatureTest {
                 } else {
                    newClass.setName(newName);
                 }
+                boolean isContainment = false;
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
-                // add the element to containment reference
-                SampleModelRoot model = modelService.getModel();
-                model.setSampleClass(newClass);
+                if (!isContainment) {
+                    // add the element to containment reference
+                    SampleModelRoot model = modelService.getModel();
+                    model.setSampleClass(newClass);
+                }
                 setDoneChanges(true);
                 return newClass;
             }
@@ -267,10 +274,13 @@ class CreateShapeFeatureTest {
                 } else {
                    newClass.setName(newName);
                 }
+                boolean isContainment = false;
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
-                // add the element to containment reference
-                SampleModelRoot model = modelService.getModel();
-                model.getSampleClasses().add(newClass);
+                if (!isContainment) {
+                    // add the element to containment reference
+                    SampleModelRoot model = modelService.getModel();
+                    model.getSampleClasses().add(newClass);
+            	}
                 setDoneChanges(true);
                 return newClass;
             }

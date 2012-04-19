@@ -144,27 +144,27 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
             «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
             if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
-            	isContainment = true;
-            	«(Refcompartment.eContainer as EClass).javaInterfaceName.shortName» model = («(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») target;
-            	«IF Refcompartment.many»
-            	model.get«Refcompartment.name.toFirstUpper»().add(newClass);
-            	«ELSE»
-            	model.set«Refcompartment.name.toFirstUpper»(newClass);
-            	«ENDIF»   
+                isContainment = true;
+                «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName» model = («(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») target;
+                «IF Refcompartment.many»
+                model.get«Refcompartment.name.toFirstUpper»().add(newClass);
+                «ELSE»
+                model.set«Refcompartment.name.toFirstUpper»(newClass);
+                «ENDIF»   
             }
             «ENDFOR»
             «ENDFOR»
             «IF containmentRef != null»
-            if(!isContainment) {
-            	// add the element to containment reference
-            	«modelClassName» model = modelService.getModel();
-            	«IF containmentRef.many»
-            		model.get«containmentRef.name.toFirstUpper»().add(newClass);
-            	«ELSE»
-            		model.set«containmentRef.name.toFirstUpper»(newClass);
+            if (!isContainment) {
+                // add the element to containment reference
+                «modelClassName» model = modelService.getModel();
+                «IF containmentRef.many»
+                	model.get«containmentRef.name.toFirstUpper»().add(newClass);
+                «ELSE»
+                model.set«containmentRef.name.toFirstUpper»(newClass);
             	«ENDIF»   
-            «ENDIF»
             }
+            «ENDIF»
             setDoneChanges(true);
             return newClass;
         }
