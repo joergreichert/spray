@@ -13,9 +13,9 @@ package BusinessDomainDsl;
  * <!-- end-user-doc -->
  *
  *
- * @see BusinessDomainDsl.BusinessDomainDslPackage#getBlobTextProperty()
+ * @see BusinessDomainDsl.IBusinessDomainDslPackage#getBlobTextProperty()
  * @model
  * @generated
  */
-public interface BlobTextProperty extends Property {
-} // BlobTextProperty
+public interface IBlobTextProperty extends IProperty {
+} // IBlobTextProperty

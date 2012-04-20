@@ -6,8 +6,8 @@
  */
 package BusinessDomainDsl.impl;
 
-import BusinessDomainDsl.BlobTextProperty;
-import BusinessDomainDsl.BusinessDomainDslPackage;
+import BusinessDomainDsl.IBlobTextProperty;
+import BusinessDomainDsl.IBusinessDomainDslPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -20,24 +20,24 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class BlobTextPropertyImpl extends PropertyImpl implements BlobTextProperty {
-	/**
+public class BlobTextPropertyImpl extends PropertyImpl implements IBlobTextProperty {
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	protected BlobTextPropertyImpl() {
+    protected BlobTextPropertyImpl() {
         super();
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	@Override
-	protected EClass eStaticClass() {
-        return BusinessDomainDslPackage.Literals.BLOB_TEXT_PROPERTY;
+    @Override
+    protected EClass eStaticClass() {
+        return IBusinessDomainDslPackage.Literals.BLOB_TEXT_PROPERTY;
     }
 
 } //BlobTextPropertyImpl

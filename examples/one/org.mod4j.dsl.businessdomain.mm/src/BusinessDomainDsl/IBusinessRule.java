@@ -13,9 +13,9 @@ package BusinessDomainDsl;
  * <!-- end-user-doc -->
  *
  *
- * @see BusinessDomainDsl.BusinessDomainDslPackage#getBusinessRule()
+ * @see BusinessDomainDsl.IBusinessDomainDslPackage#getBusinessRule()
  * @model
  * @generated
  */
-public interface BusinessRule extends AbstractBusinessRule {
-} // BusinessRule
+public interface IBusinessRule extends IAbstractBusinessRule {
+} // IBusinessRule

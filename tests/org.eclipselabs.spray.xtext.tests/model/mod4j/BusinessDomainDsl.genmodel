@@ -4,7 +4,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.mod4j.dsl.businessdomain.mm/src"
     editDirectory="/org.mod4j.dsl.businessdomain.mm.edit/src" editorDirectory="/org.mod4j.dsl.businessdomain.mm.editor/src"
     modelPluginID="org.mod4j.dsl.businessdomain.mm" modelName="BusinessDomainDsl"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false">
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    interfaceNamePattern="I{0}">
   <foreignModel>BusinessDomainDsl.ecore</foreignModel>
   <genPackages prefix="BusinessDomainDsl" disposableProviderFactory="true" ecorePackage="BusinessDomainDsl.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="BusinessDomainDsl.ecore#//Multiplicity">

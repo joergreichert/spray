@@ -6,8 +6,8 @@
  */
 package BusinessDomainDsl.impl;
 
-import BusinessDomainDsl.BlobBinaryProperty;
-import BusinessDomainDsl.BusinessDomainDslPackage;
+import BusinessDomainDsl.IBlobBinaryProperty;
+import BusinessDomainDsl.IBusinessDomainDslPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -20,24 +20,24 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class BlobBinaryPropertyImpl extends PropertyImpl implements BlobBinaryProperty {
-	/**
+public class BlobBinaryPropertyImpl extends PropertyImpl implements IBlobBinaryProperty {
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	protected BlobBinaryPropertyImpl() {
+    protected BlobBinaryPropertyImpl() {
         super();
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	@Override
-	protected EClass eStaticClass() {
-        return BusinessDomainDslPackage.Literals.BLOB_BINARY_PROPERTY;
+    @Override
+    protected EClass eStaticClass() {
+        return IBusinessDomainDslPackage.Literals.BLOB_BINARY_PROPERTY;
     }
 
 } //BlobBinaryPropertyImpl

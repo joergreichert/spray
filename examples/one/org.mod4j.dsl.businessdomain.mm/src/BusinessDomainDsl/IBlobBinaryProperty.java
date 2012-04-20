@@ -13,9 +13,9 @@ package BusinessDomainDsl;
  * <!-- end-user-doc -->
  *
  *
- * @see BusinessDomainDsl.BusinessDomainDslPackage#getBlobBinaryProperty()
+ * @see BusinessDomainDsl.IBusinessDomainDslPackage#getBlobBinaryProperty()
  * @model
  * @generated
  */
-public interface BlobBinaryProperty extends Property {
-} // BlobBinaryProperty
+public interface IBlobBinaryProperty extends IProperty {
+} // IBlobBinaryProperty
