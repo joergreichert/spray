@@ -4,7 +4,6 @@ import com.google.inject.Inject
 
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.spray.mm.spray.SprayFactory
-import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
 import org.junit.runner.RunWith
@@ -21,6 +20,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EcorePackage
+import org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(SprayTestsInjectorProvider))

@@ -31,6 +31,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferen
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferenceFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditEClassFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
@@ -50,7 +51,6 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditEClassFeature
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
@@ -257,12 +257,12 @@ class SprayGraphitiGenerator implements IGenerator {
     
     def handleTargetType(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
         if( !targetType.abstract ) {
-            println("NOT ABSTRACT: " + targetType.name)
+//            println("NOT ABSTRACT: " + targetType.name)
             java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
             cralf.setTarget(targetType)
             cralf.generate(reference, java)
         } else {
-            println("ABSTRACT: " + targetType.name)
+//            println("ABSTRACT: " + targetType.name)
 //            java.setPackageAndClass(feature_package(), metaClass.diagram.name.toFirstUpper + "Create" + metaClass.name + reference.name + targetType.name + "Feature")
 //            var CreateReferenceAsListFeature ft = new CreateReferenceAsListFeature()
 //            ft.setTarget(targetType)
