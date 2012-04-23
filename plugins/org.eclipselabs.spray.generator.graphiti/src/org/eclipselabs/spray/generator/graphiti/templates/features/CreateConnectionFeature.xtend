@@ -214,7 +214,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
          */
         protected «metaClass.javaInterfaceName.shortName» create«metaClass.type.name»(final «from.javaInterfaceName.shortName» source, final «to.javaInterfaceName.shortName» target) {
             // TODO: Domain Object
-            final «metaClass.javaInterfaceName.shortName» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.javaInterfaceName.shortName»();
+            final «metaClass.javaInterfaceName.shortName» domainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
             «handleAskFor(metaClass, "domainObject", createBehavior.askFor)»
             «IF connection.from.changeable»
                 domainObject.set«connection.from.name.toFirstUpper»(source);

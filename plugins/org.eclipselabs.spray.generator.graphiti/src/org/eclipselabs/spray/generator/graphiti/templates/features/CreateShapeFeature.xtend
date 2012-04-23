@@ -140,7 +140,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         protected «metaClass.javaInterfaceName.shortName» create«metaClass.visibleName»(final ICreateContext context) {
             «handleAskFor(metaClass, createBehavior.askFor)»
             boolean isContainment = false;
-            Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+            final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
             «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
             if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
@@ -172,7 +172,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     
     def handleAskFor(MetaClass metaClass, EAttribute attribute) '''
         // create «metaClass.name» instance
-        final «metaClass.name» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+        final «metaClass.javaInterfaceName.shortName» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
         «IF attribute != null»
            // ask user for «metaClass.visibleName» «attribute.name»
            «IF (attribute.EType as EDataType).instanceClassName.matches('java.lang.String')»
