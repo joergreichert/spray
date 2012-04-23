@@ -6,22 +6,23 @@ import org.eclipse.xtext.ui.wizard.DefaultProjectInfo;
 public class SprayProjectInfo extends DefaultProjectInfo {
     // TODO : Remove mock values
     private String  diagramTypeName;
-    private String  javaMainSrcDir  = "src";
-    private String  javaGenSrcDir   = "src-gen";
-    private String  sprayModelDir   = "model";
-    private String  resourceManDir  = "resource";
-    private String  resourceGenDir  = "resource-gen";
+    private String  javaMainSrcDir        = "src";
+    private String  javaGenSrcDir         = "src-gen";
+    private String  sprayModelDir         = "model";
+    private String  resourceManDir        = "resource";
+    private String  resourceGenDir        = "resource-gen";
     private String  basePackage;
-    private String  diagramPackage  = "diagram";
-    private String  featurePackage  = "features";
-    private String  propertyPackage = "property";
-    private String  stylesPackage   = "styles";
-    private String  shapesPackage   = "shapes";
-    private boolean createTimestamp = true;
+    private String  diagramPackage        = "diagram";
+    private String  featurePackage        = "features";
+    private String  propertyPackage       = "property";
+    private String  stylesPackage         = "styles";
+    private String  shapesPackage         = "shapes";
+    private boolean createTimestamp       = true;
     private String  epackageURI;
     private String  genmodelURI;
     private String  modelTypeName;
     private String  modelFileExtension;
+    private boolean filterSystemEPackages = true;
 
     public void setDiagramTypeName(String diagramTypeName) {
         this.diagramTypeName = diagramTypeName;
@@ -184,5 +185,13 @@ public class SprayProjectInfo extends DefaultProjectInfo {
 
     public void setModelFileExtension(String modelFileExtension) {
         this.modelFileExtension = modelFileExtension;
+    }
+
+    public boolean getFilterSystemEPackages() {
+        return filterSystemEPackages;
+    }
+
+    public void setFilterSystemEPackages(boolean filterSystemEPackages) {
+        this.filterSystemEPackages = filterSystemEPackages;
     }
 }

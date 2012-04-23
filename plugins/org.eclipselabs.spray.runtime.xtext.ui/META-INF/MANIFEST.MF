@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ui
+Bundle-SymbolicName: org.eclipselabs.spray.runtime.xtext.ui;singleton:=true
+Bundle-Version: 0.5.0.qualifier
+Bundle-Activator: org.eclipselabs.spray.runtime.xtext.ui.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.xtext.ui;bundle-version="2.2.1",
+ org.eclipse.xtext.ui.shared;bundle-version="2.2.1",
+ org.eclipse.xtext.builder;bundle-version="2.2.1",
+ org.eclipse.jdt.core;bundle-version="3.7.1",
+ org.eclipse.xtext.common.types.ui;bundle-version="2.2.1",
+ org.eclipse.jdt.launching;bundle-version="3.6.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.log4j

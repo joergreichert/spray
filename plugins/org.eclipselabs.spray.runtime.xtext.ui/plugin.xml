@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.xtext.ui.shared.overridingGuiceModule">
+      <module
+            class="org.eclipselabs.spray.runtime.xtext.ui.SharedModule">
+      </module>
+   </extension>
+
+</plugin>

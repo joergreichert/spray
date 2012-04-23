@@ -3,6 +3,7 @@
  */
 package org.eclipselabs.spray.xtext.ui;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.service.SingletonBinding;
@@ -19,6 +20,7 @@ import org.eclipselabs.spray.xtext.ui.wizard.SprayPluginProjectFactory;
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectCreator;
 import org.eclipselabs.spray.xtext.validation.SprayJavaValidator;
 
+import com.google.common.base.Predicate;
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
@@ -41,6 +43,14 @@ public class SprayUiModule extends AbstractSprayUiModule {
     public void configure(Binder binder) {
         super.configure(binder);
         binder.bind(TokenTypeToStringMapper.class).to(SprayTokenToAttributeIdMapper.class);
+        binder.bind(Predicate.class).annotatedWith(Names.named("ePackageUriFilter")).toInstance(new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                if (input.startsWith("http://www.eclipse.org/emf") && !input.equals(EcorePackage.eNS_URI))
+                    return true;
+                return false;
+            }
+        });
     }
 
     public void configureNewProjectName(Binder binder) {

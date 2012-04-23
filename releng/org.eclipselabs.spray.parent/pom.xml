@@ -362,7 +362,8 @@
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
-				<module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
+                <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
+                <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>

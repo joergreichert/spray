@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,22 +55,28 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 public class MetamodelSelectionComposite extends Composite {
-    private DataBindingContext m_bindingContext;
-    private Text               txtUri;
-    private Text               txtGenmodelUri;
-    private SprayProjectInfo   projectInfo;
+    private DataBindingContext         m_bindingContext;
+    private Text                       txtUri;
+    private Text                       txtGenmodelUri;
+    private SprayProjectInfo           projectInfo;
     @Inject
-    private GenModelHelper     genmodelHelper;
-    private Text               txtModelType;
+    private GenModelHelper             genmodelHelper;
+    private Text                       txtModelType;
     @Inject
-    private ILabelProvider     labelProvider;
-    private Text               txtFileExtension;
+    private ILabelProvider             labelProvider;
+    private Text                       txtFileExtension;
+    @Inject
+    private IQualifiedNameProvider     qnProvider;
+    private Button                     btnFilterSystemEPackages;
+    @Inject
+    private ISprayWizardEPackageFilter ePackageUriFilter;
 
     /**
      * Create the composite.
@@ -96,7 +103,7 @@ public class MetamodelSelectionComposite extends Composite {
         txtUri.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
         Composite composite = new Composite(grpMetamodel, SWT.NONE);
-        composite.setLayout(new RowLayout(SWT.HORIZONTAL));
+        composite.setLayout(new GridLayout(2, false));
         composite.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
 
         Button btnNewButton = new Button(composite, SWT.NONE);
@@ -104,7 +111,19 @@ public class MetamodelSelectionComposite extends Composite {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-                RegisteredPackageDialog registeredPackageDialog = new RegisteredPackageDialog(shell);
+                RegisteredPackageDialog registeredPackageDialog = new RegisteredPackageDialog(shell) {
+                    @Override
+                    protected void setListElements(Object[] elements) {
+                        if (elements == null)
+                            return;
+                        List<String> pckUris = new LinkedList<String>();
+                        for (Object element : elements) {
+                            if (!getProjectInfo().getFilterSystemEPackages() || !ePackageUriFilter.apply(element.toString()))
+                                pckUris.add(element.toString());
+                        }
+                        super.setListElements(pckUris.toArray());
+                    }
+                };
                 registeredPackageDialog.setMultipleSelection(false);
                 registeredPackageDialog.open();
                 Object[] result = registeredPackageDialog.getResult();
@@ -118,6 +137,11 @@ public class MetamodelSelectionComposite extends Composite {
 
         Button btnBrowseWorkspace = new Button(composite, SWT.NONE);
         btnBrowseWorkspace.setText("Browse Workspace...");
+
+        btnFilterSystemEPackages = new Button(composite, SWT.CHECK);
+        btnFilterSystemEPackages.setSelection(true);
+        btnFilterSystemEPackages.setText("Filter System EPackages");
+        new Label(composite, SWT.NONE);
         btnBrowseWorkspace.addSelectionListener(new BrowseResourceSelectionAdapter(txtUri, "ecore"));
 
         Label lblGenmodelUri = new Label(grpMetamodel, SWT.NONE);
@@ -153,7 +177,7 @@ public class MetamodelSelectionComposite extends Composite {
                 dlg.setElements(Iterables.toArray(Iterables.filter(pck.getEClassifiers(), EClass.class), Object.class));
                 if (dlg.open() == Dialog.OK) {
                     EClass cls = (EClass) dlg.getFirstResult();
-                    txtModelType.setText(genmodelHelper.getJavaInterfaceName(cls));
+                    txtModelType.setText(qnProvider.getFullyQualifiedName(cls).toString());
                     txtFileExtension.setText(genmodelHelper.getFileExtension(cls));
                 }
             }
@@ -336,28 +360,6 @@ public class MetamodelSelectionComposite extends Composite {
         }
     }
 
-    protected DataBindingContext initDataBindings() {
-        DataBindingContext bindingContext = new DataBindingContext();
-        //
-        IObservableValue txtUriObserveTextObserveWidget = SWTObservables.observeText(txtUri, SWT.Modify);
-        IObservableValue projectInfoEpackageURIObserveValue = PojoObservables.observeValue(projectInfo, "epackageURI");
-        bindingContext.bindValue(txtUriObserveTextObserveWidget, projectInfoEpackageURIObserveValue, null, null);
-        //
-        IObservableValue txtGenmodelUriObserveTextObserveWidget = SWTObservables.observeText(txtGenmodelUri, SWT.Modify);
-        IObservableValue projectInfoGenmodelURIObserveValue = PojoObservables.observeValue(projectInfo, "genmodelURI");
-        bindingContext.bindValue(txtGenmodelUriObserveTextObserveWidget, projectInfoGenmodelURIObserveValue, null, null);
-        //
-        IObservableValue txtModelTypeObserveTextObserveWidget = SWTObservables.observeText(txtModelType, SWT.Modify);
-        IObservableValue projectInfoModelTypeNameObserveValue = PojoObservables.observeValue(projectInfo, "modelTypeName");
-        bindingContext.bindValue(txtModelTypeObserveTextObserveWidget, projectInfoModelTypeNameObserveValue, null, null);
-        //
-        IObservableValue txtFileExtensionObserveTextObserveWidget = SWTObservables.observeText(txtFileExtension, SWT.Modify);
-        IObservableValue projectInfoModelFileExtensionObserveValue = PojoObservables.observeValue(projectInfo, "modelFileExtension");
-        bindingContext.bindValue(txtFileExtensionObserveTextObserveWidget, projectInfoModelFileExtensionObserveValue, null, null);
-        //
-        return bindingContext;
-    }
-
     public boolean isComplete() {
         if (txtUri.getText().isEmpty())
             return false;
@@ -384,5 +386,31 @@ public class MetamodelSelectionComposite extends Composite {
 
     public Text getTxtFileExtension() {
         return txtFileExtension;
+    }
+
+    protected DataBindingContext initDataBindings() {
+        DataBindingContext bindingContext = new DataBindingContext();
+        //
+        IObservableValue txtUriObserveTextObserveWidget = SWTObservables.observeText(txtUri, SWT.Modify);
+        IObservableValue projectInfoEpackageURIObserveValue = PojoObservables.observeValue(projectInfo, "epackageURI");
+        bindingContext.bindValue(txtUriObserveTextObserveWidget, projectInfoEpackageURIObserveValue, null, null);
+        //
+        IObservableValue txtGenmodelUriObserveTextObserveWidget = SWTObservables.observeText(txtGenmodelUri, SWT.Modify);
+        IObservableValue projectInfoGenmodelURIObserveValue = PojoObservables.observeValue(projectInfo, "genmodelURI");
+        bindingContext.bindValue(txtGenmodelUriObserveTextObserveWidget, projectInfoGenmodelURIObserveValue, null, null);
+        //
+        IObservableValue txtModelTypeObserveTextObserveWidget = SWTObservables.observeText(txtModelType, SWT.Modify);
+        IObservableValue projectInfoModelTypeNameObserveValue = PojoObservables.observeValue(projectInfo, "modelTypeName");
+        bindingContext.bindValue(txtModelTypeObserveTextObserveWidget, projectInfoModelTypeNameObserveValue, null, null);
+        //
+        IObservableValue txtFileExtensionObserveTextObserveWidget = SWTObservables.observeText(txtFileExtension, SWT.Modify);
+        IObservableValue projectInfoModelFileExtensionObserveValue = PojoObservables.observeValue(projectInfo, "modelFileExtension");
+        bindingContext.bindValue(txtFileExtensionObserveTextObserveWidget, projectInfoModelFileExtensionObserveValue, null, null);
+        //
+        IObservableValue btnFilterSystemEPackagesObserveSelectionObserveWidget = SWTObservables.observeSelection(btnFilterSystemEPackages);
+        IObservableValue getProjectInfoFilterSystemEPackagesObserveValue = PojoObservables.observeValue(getProjectInfo(), "filterSystemEPackages");
+        bindingContext.bindValue(btnFilterSystemEPackagesObserveSelectionObserveWidget, getProjectInfoFilterSystemEPackagesObserveValue, null, null);
+        //
+        return bindingContext;
     }
 }
