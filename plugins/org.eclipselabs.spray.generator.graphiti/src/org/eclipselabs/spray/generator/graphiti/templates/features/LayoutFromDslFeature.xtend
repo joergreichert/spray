@@ -72,7 +72,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
                    return false;
                }
                final EList<EObject> businessObjects = pe.getLink().getBusinessObjects();
-               return (businessObjects.size() == 1) && (businessObjects.get(0) instanceof «container.represents.type.javaInterfaceName.shortName»);
+               return (businessObjects.size() == 1) && (businessObjects.get(0) instanceof «container.represents.type.itfName»);
             }
         '''
         

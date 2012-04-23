@@ -79,7 +79,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
         
         public abstract class «className» extends GFPropertySection implements ITabbedPropertyConstants {
          
-            protected «eClass.javaInterfaceName.shortName» bc = null;
+            protected «eClass.itfName» bc = null;
             «IF isEnum || isBoolean»        
             protected CCombo «propertyName»Widget;
             «ELSE»
@@ -125,7 +125,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
                    // the filter assured, that it is a «eClass.name»
                     if (bo == null)
                         return;
-                    bc = («eClass.javaInterfaceName.shortName»)bo;
+                    bc = («eClass.itfName»)bo;
                     String value = "";
             «IF eAttribute.EAttributeType.name == "EString"»
                 value = bc.get«propertyName.toFirstUpper»();
@@ -217,7 +217,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
                     if (bo == null) {
                         return "unknown ";
                     }
-                    bc = («eClass.javaInterfaceName.shortName») bo;
+                    bc = («eClass.itfName») bo;
             «IF isEnum»
                     if( bc.get«eAttribute.name.toFirstUpper»() == null ){
                         return "Null value for «eAttribute.name»";

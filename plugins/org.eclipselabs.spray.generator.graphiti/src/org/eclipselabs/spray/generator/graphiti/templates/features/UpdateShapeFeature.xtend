@@ -86,7 +86,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
                 // return true, if linked business object is a EClass
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                return (bo instanceof «container.represents.javaInterfaceName.shortName»)&& (!(pictogramElement instanceof Diagram));
+                return (bo instanceof «container.represents.itfName»)&& (!(pictogramElement instanceof Diagram));
             }
         '''
         
@@ -95,10 +95,10 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
             public IReason updateNeeded(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof «container.represents.javaInterfaceName.shortName»)) {
+                if ( ! (bo instanceof «container.represents.itfName»)) {
                     return Reason.createFalseReason(); 
                 }
-                final «container.represents.javaInterfaceName.shortName» eClass = («container.represents.javaInterfaceName.shortName») bo;
+                final «container.represents.itfName» eClass = («container.represents.itfName») bo;
 
                 // retrieve name from pictogram model
                 if (pictogramElement instanceof ContainerShape) {
@@ -130,7 +130,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
             public boolean update(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                final «container.represents.javaInterfaceName.shortName» eClass = («container.represents.javaInterfaceName.shortName») bo;
+                final «container.represents.itfName» eClass = («container.represents.itfName») bo;
                 return SprayContainerService.update(pictogramElement, getValues(eClass));
                 
             }
@@ -138,7 +138,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         
         def generate_valueMapping (ContainerInSpray container) '''
             Map<String, String> values = null; 
-            protected Map<String, String> getValues(final «container.represents.javaInterfaceName.shortName» eClass) {
+            protected Map<String, String> getValues(final «container.represents.itfName» eClass) {
                 if (values == null) {
                     values = new HashMap<String, String>();
                     fillValues(eClass);
@@ -146,7 +146,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
                 return values;
             }
 
-            protected void fillValues(final «container.represents.javaInterfaceName.shortName» eClass) {
+            protected void fillValues(final «container.represents.itfName» eClass) {
                 String type, value;
             «FOR part : if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
                 «IF part instanceof TextInSpray»
@@ -158,7 +158,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
             «ENDFOR»            
             }
             
-            protected String getValue (final String type, final «container.represents.javaInterfaceName.shortName» eClass) {
+            protected String getValue (final String type, final «container.represents.itfName» eClass) {
             «FOR part :  if(container?.parts != null) container?.parts else Lists::newArrayList.toArray »
                 «IF part instanceof TextInSpray»
                     «var text = part as TextInSpray»

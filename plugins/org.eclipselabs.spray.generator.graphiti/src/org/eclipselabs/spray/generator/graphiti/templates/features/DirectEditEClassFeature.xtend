@@ -75,7 +75,7 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
         	GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
         	// support direct editing, if it is a EClass, and the user clicked
         	// directly on the text and not somewhere else in the rectangle
-        	if (bo instanceof «metaclass.javaInterfaceName.shortName» && ga instanceof Text) {
+        	if (bo instanceof «metaclass.itfName» && ga instanceof Text) {
         		return true;
         	}
         	// direct editing not supported in all other cases
@@ -88,7 +88,7 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 		public String getInitialValue(IDirectEditingContext context) {
 			// return the current name of the EClass
 			PictogramElement pe = context.getPictogramElement();
-			«metaclass.javaInterfaceName.shortName» eClass = («metaclass.javaInterfaceName.shortName») getBusinessObjectForPictogramElement(pe);
+			«metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
 			«IF metaclass.representedBy instanceof ShapeFromDsl»
 			«(metaclass.representedBy as ShapeFromDsl).properties.generate_initialValue»
 			«ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
@@ -113,7 +113,7 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 		public void setValue(final String value, final IDirectEditingContext context) {
 			// set the new name for the MOF class
 			final PictogramElement pe = context.getPictogramElement();
-			«metaclass.javaInterfaceName.shortName» eClass = («metaclass.javaInterfaceName.shortName») getBusinessObjectForPictogramElement(pe);
+			«metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
 			«IF metaclass.representedBy instanceof ShapeFromDsl»
 			«(metaclass.representedBy as ShapeFromDsl).properties.generate_setValue»
 			«ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»

@@ -123,7 +123,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 «IF cls.representedBy instanceof ContainerInSpray»
                     «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                        if( bo instanceof «reference.target.EReferenceType.javaInterfaceName.shortName» ){
+                        if( bo instanceof «reference.target.EReferenceType.itfName» ){
                             return new «reference.addReferenceAsListFeatureClassName.shortName»(this);
                         }
                     «ENDFOR»    
@@ -191,14 +191,14 @@ class FeatureProvider extends FileGenerator<Diagram> {
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
                         «var eClass = reference.target.EReferenceType » 
                         «IF  eClass.abstract»
-                            if (bo instanceof «eClass.javaInterfaceName.shortName») { // 22
+                            if (bo instanceof «eClass.itfName») { // 22
                                 return new «reference.updateReferenceAsListFeatureClassName.shortName»(this); 
                             }
                         «ENDIF»
                     «ENDFOR»
                 «ELSEIF cls.representedBy instanceof ConnectionInSpray»
                     «IF !cls.type.abstract»
-                        if (bo instanceof «cls.javaInterfaceName.shortName» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») { // 33
+                        if (bo instanceof «cls.itfName» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») { // 33
                             return new «cls.updateFeatureClassName.shortName»(this); 
                         }
                     «ENDIF»
@@ -303,7 +303,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                     «val container = cls.representedBy as ContainerInSpray»
                     «FOR reference : container.parts.filter(typeof(MetaReference))  »
                         «val target = reference.target» 
-                    if( bo instanceof «target.EReferenceType.javaInterfaceName.shortName» ){
+                    if( bo instanceof «target.EReferenceType.itfName» ){
                         return new OwnerPropertyDeleteFeature(this);
                     }
                     «ENDFOR»    

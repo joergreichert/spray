@@ -100,7 +100,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
             «overrideHeader()»
             public boolean canAdd(final IAddContext context) {
                 final EObject newObject = (EObject) context.getNewObject();
-                if (newObject instanceof «container.represents.javaInterfaceName.shortName») {
+                if (newObject instanceof «container.represents.itfName») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
                         return true;
@@ -111,7 +111,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
 
             «overrideHeader»
             public PictogramElement add(final IAddContext context) {
-                «container.represents.javaInterfaceName.shortName» addedModelElement = («container.represents.javaInterfaceName.shortName») context.getNewObject();
+                «container.represents.itfName» addedModelElement = («container.represents.itfName») context.getNewObject();
                 targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
         
                 final ContainerShape containerShape = container.createContainer(context, addedModelElement);
@@ -147,7 +147,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         '''
         
         def dispatch createShape (SprayElement part, MetaClass cls) '''
-            protected void create«part.eClass.name»«part.shapeName» (final IAddContext context, «cls.javaInterfaceName.shortName» addedModelElement, final ContainerShape containerShape) {
+            protected void create«part.eClass.name»«part.shapeName» (final IAddContext context, «cls.itfName» addedModelElement, final ContainerShape containerShape) {
                 System.out.println("Spray: unhandled Container child [«part.getClass().name»]");
             }
         '''
@@ -155,7 +155,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         def dispatch createShape (LineInSpray line, MetaClass cls) '''
             «val varname = line.shapeName.toFirstLower»
             // Part is Line
-            protected void createLineInSpray«line.shapeName» (final IAddContext context, «cls.javaInterfaceName.shortName» addedModelElement, final ContainerShape containerShape) {
+            protected void createLineInSpray«line.shapeName» (final IAddContext context, «cls.itfName» addedModelElement, final ContainerShape containerShape) {
                 // create shape for line
                 final Shape «varname» = peCreateService.createShape(containerShape, false);
                 // create and set graphics algorithm
@@ -173,7 +173,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         def dispatch createShape (TextInSpray text, MetaClass cls) '''
             «val varname = text.shapeName.toFirstLower»
             // Part is Text
-            protected void createTextInSpray«text.shapeName» (final IAddContext context, final «cls.javaInterfaceName.shortName» addedModelElement, final ContainerShape containerShape) {
+            protected void createTextInSpray«text.shapeName» (final IAddContext context, final «cls.itfName» addedModelElement, final ContainerShape containerShape) {
                 final String type = "«text.fullyQualifiedName»";
                 // create shape for text and set text graphics algorithm
                 final Shape «varname» = peCreateService.createShape(containerShape, false);
@@ -193,7 +193,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         def dispatch createShape (MetaReference metaRef, MetaClass cls) '''
             «val target = metaRef.target» 
             // Part is reference list
-            protected void createMetaReference«metaRef.shapeName» (final IAddContext context, final «cls.javaInterfaceName.shortName» addedModelElement, final ContainerShape containerShape) {
+            protected void createMetaReference«metaRef.shapeName» (final IAddContext context, final «cls.itfName» addedModelElement, final ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
                 final Shape dummy = peCreateService.createShape(containerShape, false);
                 peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
@@ -203,11 +203,11 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
                 p.setLineVisible(false);
                 gaService.setLocation(p, 0, 0);
                 peService.setPropertyValue(dummy, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.LINE);
-                for («target.EReferenceType.javaInterfaceName.shortName» prop: addedModelElement.get«target.name.toFirstUpper»()) {
+                for («target.EReferenceType.itfName» prop: addedModelElement.get«target.name.toFirstUpper»()) {
                     
                 }
                 « /* 
-                for («target.EReferenceType.javaInterfaceName.shortName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
+                for («target.EReferenceType.itfName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
                     Shape «varname» = peCreateService.createContainerShape(containerShape, true);
                     peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_STATIC, Boolean.TRUE.toString());
                     peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());

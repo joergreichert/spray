@@ -16,7 +16,7 @@ class ModelService extends FileGenerator<Diagram> {
 
     def mainFile(Diagram diagram, String className) '''
         «header(this)»
-        «val modelClassName = diagram.modelType.javaInterfaceName.shortName»
+        «val modelClassName = diagram.modelType.itfName»
         package «diagram_package()»;
         
         import java.io.IOException;

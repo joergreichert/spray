@@ -78,7 +78,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         public boolean canUpdate(final IUpdateContext context) {
             // return true, if linked business object is a EClass
             final EObject bo =  getBusinessObjectForPictogramElement(context.getPictogramElement());
-            return (bo instanceof «target.javaInterfaceName.shortName»);
+            return (bo instanceof «target.itfName»);
         }
     '''
     
@@ -102,8 +102,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
      
             // retrieve name from business model
             String businessName = null;
-            if (bo instanceof «target.javaInterfaceName.shortName») {
-                final «target.javaInterfaceName.shortName» «target.name.toFirstLower» = («target.javaInterfaceName.shortName») bo;
+            if (bo instanceof «target.itfName») {
+                final «target.itfName» «target.name.toFirstLower» = («target.itfName») bo;
                 businessName = getText(context, «target.name.toFirstLower»);
             }
      
@@ -126,8 +126,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
             final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
            // retrieve name from business model
             String businessName = null;
-            if (bo instanceof «target.javaInterfaceName.shortName») {
-                final «target.javaInterfaceName.shortName» «target.name.toFirstLower» = («target.javaInterfaceName.shortName») bo;
+            if (bo instanceof «target.itfName») {
+                final «target.itfName» «target.name.toFirstLower» = («target.itfName») bo;
                 businessName = getText(context, «target.name.toFirstLower»);
             }
 
@@ -149,7 +149,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         /**
          * Computes the displayed text. Clients may override this method.
          */
-        protected String getText (final IUpdateContext context, final «target.javaInterfaceName.shortName» bo) {
+        protected String getText (final IUpdateContext context, final «target.itfName» bo) {
             return bo.getName();
         }
     '''

@@ -85,11 +85,11 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
         @Override
         public boolean canAdd(final IAddContext context) {
             final EObject newObject = (EObject) context.getNewObject();
-            if (newObject instanceof «target.EReferenceType.javaInterfaceName.shortName») {
+            if (newObject instanceof «target.EReferenceType.itfName») {
                 // check if user wants to add to a diagram
                 final Shape target = context.getTargetContainer();
                 EObject domainObject = getBusinessObjectForPictogramElement(target);
-                if (domainObject instanceof «metaClass.javaInterfaceName.shortName») {
+                if (domainObject instanceof «metaClass.itfName») {
                     return true;
                 }
             }
@@ -105,7 +105,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
          */
          @Override
         public PictogramElement add(final IAddContext context) {
-            final «target.EReferenceType.javaInterfaceName.shortName» addedModelElement = («target.EReferenceType.javaInterfaceName.shortName») context.getNewObject();
+            final «target.EReferenceType.itfName» addedModelElement = («target.EReferenceType.itfName») context.getNewObject();
             final ContainerShape containerShape= (ContainerShape) context.getTargetContainer();
 
             // CONTAINER SHAPE WITH ROUNDED RECTANGLE
@@ -161,7 +161,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
         /**
          * Computes the displayed text. Clients may override this method.
          */
-        protected String getText (final IAddContext context, «reference.target.EReferenceType.javaInterfaceName.shortName» bo) {
+        protected String getText (final IAddContext context, «reference.target.EReferenceType.itfName» bo) {
             return bo.get«reference.labelPropertyName.toFirstUpper»();
         }
     '''

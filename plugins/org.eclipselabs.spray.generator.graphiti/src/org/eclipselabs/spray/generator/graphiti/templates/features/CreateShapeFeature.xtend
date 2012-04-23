@@ -60,7 +60,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             protected static String TITLE = "Create «metaClass.uiLabel»";
             protected static String USER_QUESTION = "Enter new «metaClass.uiLabel» name";
             protected «diagram.modelServiceClassName.shortName» modelService;
-            protected «metaClass.javaInterfaceName.shortName» newClass = null;
+            protected «metaClass.itfName» newClass = null;
             «generate_additionalFields(metaClass)»
         
         
@@ -99,7 +99,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
                 «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
-                if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
+                if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
                 	return true;
                 }
                 «ENDFOR»
@@ -131,21 +131,21 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     
     def generate_createModelElement (MetaClass metaClass) '''
         «val diagram = metaClass.diagram»
-        «val modelClassName = diagram.modelType.javaInterfaceName.shortName»
+        «val modelClassName = diagram.modelType.itfName»
         «val createBehavior = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head»
         «val containmentRef = createBehavior.containmentReference»
         /**
-         * Creates a new {@link «metaClass.javaInterfaceName.shortName»} instance and adds it to the containing type.
+         * Creates a new {@link «metaClass.itfName»} instance and adds it to the containing type.
          */
-        protected «metaClass.javaInterfaceName.shortName» create«metaClass.visibleName»(final ICreateContext context) {
+        protected «metaClass.itfName» create«metaClass.visibleName»(final ICreateContext context) {
             «handleAskFor(metaClass, createBehavior.askFor)»
             boolean isContainment = false;
             final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
             «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
-            if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
+            if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
                 isContainment = true;
-                «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName» model = («(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») target;
+                «(Refcompartment.eContainer as EClass).itfName» model = («(Refcompartment.eContainer as EClass).itfName») target;
                 «IF Refcompartment.many»
                 model.get«Refcompartment.name.toFirstUpper»().add(newClass);
                 «ELSE»
@@ -172,7 +172,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     
     def handleAskFor(MetaClass metaClass, EAttribute attribute) '''
         // create «metaClass.name» instance
-        final «metaClass.javaInterfaceName.shortName» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
+        final «metaClass.itfName» newClass = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«metaClass.name»();
         «IF attribute != null»
            // ask user for «metaClass.visibleName» «attribute.name»
            «IF (attribute.EType as EDataType).instanceClassName.matches('java.lang.String')»

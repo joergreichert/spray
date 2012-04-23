@@ -92,7 +92,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
         public boolean canCreate(final ICreateContext context) {
             final Shape target = context.getTargetContainer();
             final EObject domainObject = getBusinessObjectForPictogramElement(target);
-            return domainObject instanceof «metaClass.javaInterfaceName.shortName»;
+            return domainObject instanceof «metaClass.itfName»;
         }
     '''
     
@@ -110,10 +110,10 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
             }
 
             final Shape target = context.getTargetContainer();
-            final «metaClass.javaInterfaceName.shortName» owner = («metaClass.javaInterfaceName.shortName») getBusinessObjectForPictogramElement(target);
+            final «metaClass.itfName» owner = («metaClass.itfName») getBusinessObjectForPictogramElement(target);
 
             // create «target.name»
-            final «target.javaInterfaceName.shortName» newDomainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«target.name»();
+            final «target.itfName» newDomainObject = «metaClass.EFactoryInterfaceName.shortName».eINSTANCE.create«target.name»();
             newDomainObject.set«ref.labelPropertyName.toFirstUpper»(newName);
             owner.get«ref.name.toFirstUpper»().add(newDomainObject);
 

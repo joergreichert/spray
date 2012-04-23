@@ -87,8 +87,8 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         public boolean canCreate(final ICreateConnectionContext context) {
             // return true if both anchors belong to an EClass
             // and those EClasses are not identical
-            final «reference.metaClass.javaInterfaceName.shortName» source = get«reference.metaClass.type.name»(context.getSourceAnchor());
-            final «target.EReferenceType.javaInterfaceName.shortName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
+            final «reference.metaClass.itfName» source = get«reference.metaClass.type.name»(context.getSourceAnchor());
+            final «target.EReferenceType.itfName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
             if ( (source != null) && (target != null) && (source != target) ) {
                 return true;
             }
@@ -101,17 +101,17 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «overrideHeader»
         public boolean canStartConnection(final ICreateConnectionContext context) {
             // return true if start anchor belongs to a EClass
-            final «reference.metaClass.javaInterfaceName.shortName» «reference.metaClass.javaInterfaceName.shortName.toFirstLower» = («reference.metaClass.javaInterfaceName.shortName») get«reference.metaClass.type.name»(context.getSourceAnchor());
-            if («reference.metaClass.javaInterfaceName.shortName.toFirstLower» == null) {
+            final «reference.metaClass.itfName» «reference.metaClass.itfName.toFirstLower» = («reference.metaClass.itfName») get«reference.metaClass.type.name»(context.getSourceAnchor());
+            if («reference.metaClass.itfName.toFirstLower» == null) {
                 return false;
             }
             «IF target.many && target.upperBound >= 0»
                 // multi-valued reference with fixed upper bound. can only be started if maximum size is not reached yet
                 final int maxSize = «target.upperBound»;
-                return «reference.metaClass.javaInterfaceName.shortName.toFirstLower».get«target.name.toFirstUpper»().size() < maxSize;
+                return «reference.metaClass.itfName.toFirstLower».get«target.name.toFirstUpper»().size() < maxSize;
             «ELSEIF !target.many»
                 // single valued reference. can only be started if the reference is not set yet.
-                return «reference.metaClass.javaInterfaceName.shortName.toFirstLower».get«target.name.toFirstUpper»() == null;
+                return «reference.metaClass.itfName.toFirstLower».get«target.name.toFirstUpper»() == null;
             «ELSE»
                 return true;
             «ENDIF»
@@ -125,8 +125,8 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             Connection newConnection = null;
     
             // get EClasses which should be connected
-            final «reference.metaClass.javaInterfaceName.shortName» source = get«reference.metaClass.type.name»(context.getSourceAnchor());
-            final «target.EReferenceType.javaInterfaceName.shortName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
+            final «reference.metaClass.itfName» source = get«reference.metaClass.type.name»(context.getSourceAnchor());
+            final «target.EReferenceType.itfName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
     
             if (source != null && target != null) {
                 // create new business object
@@ -146,12 +146,12 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
  
     def generate_getMetaClassForReference (MetaReference reference) '''
         /**
-         * Returns the «reference.metaClass.javaInterfaceName.shortName» belonging to the anchor, or <code>null</code> if not available.
+         * Returns the «reference.metaClass.itfName» belonging to the anchor, or <code>null</code> if not available.
          */
-        protected «reference.metaClass.javaInterfaceName.shortName» get«reference.metaClass.type.name»(final Anchor anchor) {
+        protected «reference.metaClass.itfName» get«reference.metaClass.type.name»(final Anchor anchor) {
             final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
-            if (anchor != null && bo instanceof «reference.metaClass.javaInterfaceName.shortName») {
-                return («reference.metaClass.javaInterfaceName.shortName») bo;
+            if (anchor != null && bo instanceof «reference.metaClass.itfName») {
+                return («reference.metaClass.itfName») bo;
             }
             return null;
         }
@@ -163,10 +163,10 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         /**
          * Returns the «target.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        protected «target.EReferenceType.javaInterfaceName.shortName» get«target.name.toFirstUpper»(final Anchor anchor) {
+        protected «target.EReferenceType.itfName» get«target.name.toFirstUpper»(final Anchor anchor) {
             final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
-            if (anchor != null && bo instanceof «target.EReferenceType.javaInterfaceName.shortName») {
-                return («target.EReferenceType.javaInterfaceName.shortName») bo;
+            if (anchor != null && bo instanceof «target.EReferenceType.itfName») {
+                return («target.EReferenceType.itfName») bo;
             }
             return null;
         }
@@ -178,7 +178,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         /**
          * Creates a «target.name» .
          */
-        protected void set«target.name.toFirstUpper»(final «reference.metaClass.javaInterfaceName.shortName» source, final «target.EReferenceType.javaInterfaceName.shortName» target) {
+        protected void set«target.name.toFirstUpper»(final «reference.metaClass.itfName» source, final «target.EReferenceType.itfName» target) {
             «IF !target.many» 
                 source.set«target.name.toFirstUpper»(target);
             «ELSE»

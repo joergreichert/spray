@@ -267,6 +267,19 @@ class NamingExtensions {
     //---------------------------------------------------------------------------------------------
     // Names from GenModel
     //---------------------------------------------------------------------------------------------
+    /**
+     * Computes the qualified Interface name of the EClass and shortens it using the shortName() function.
+     */
+    def String getItfName (MetaClass clazz) {
+        this.getJavaInterfaceName(clazz.type).shortName
+    }
+    /**
+     * Computes the qualified Interface name of the EClass and shortens it using the shortName() function.
+     */
+    def String getItfName (EClass clazz) {
+        this.getJavaInterfaceName(clazz).shortName
+    }
+
     def String getJavaInterfaceName (MetaClass clazz) {
         this.getJavaInterfaceName(clazz.type)
     }

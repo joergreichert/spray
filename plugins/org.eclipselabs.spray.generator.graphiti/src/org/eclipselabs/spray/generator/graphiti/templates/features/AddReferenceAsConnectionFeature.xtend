@@ -111,7 +111,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «overrideHeader()»
         public PictogramElement add(final IAddContext context) {
             final IAddConnectionContext addConContext = (IAddConnectionContext) context;
-            «reference.metaClass.type.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.javaInterfaceName.shortName») context.getNewObject();
+            «reference.metaClass.type.itfName» addedDomainObject = («reference.metaClass.itfName») context.getNewObject();
         «IF target.upperBound == 1»
             removeExisting(context);
         «ENDIF»        
@@ -154,7 +154,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             // return true if given business object is an «reference.metaClass.type.name»
             // note, that the context must be an instance of IAddConnectionContext
             if (context instanceof IAddConnectionContext
-                && context.getNewObject() instanceof «reference.metaClass.javaInterfaceName.shortName») {
+                && context.getNewObject() instanceof «reference.metaClass.itfName») {
                 return true;
             }
             return false;
@@ -164,7 +164,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_removeExisting (MetaReference reference) '''
         protected void removeExisting(final IAddContext context) {
             final IAddConnectionContext addConContext = (IAddConnectionContext) context;
-            final «reference.metaClass.javaInterfaceName.shortName» addedDomainObject = («reference.metaClass.javaInterfaceName.shortName») context.getNewObject();
+            final «reference.metaClass.itfName» addedDomainObject = («reference.metaClass.itfName») context.getNewObject();
             final Object[] pictogramElements = peService.getLinkedPictogramElements(new EObject[] { addedDomainObject }, getDiagram());
             for (final Object pict : pictogramElements) {
                 if( pict instanceof PictogramElement){

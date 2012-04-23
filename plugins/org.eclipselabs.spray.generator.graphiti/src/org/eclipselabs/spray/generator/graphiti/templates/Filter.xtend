@@ -52,7 +52,7 @@ class Filter extends FileGenerator<EClass> {
             @Override
             protected boolean accept(final PictogramElement pe) {
                 final EObject eObject = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
-                if (eObject instanceof «eClass.javaInterfaceName.shortName») {
+                if (eObject instanceof «eClass.itfName») {
                     return true;
                 }
                 return false;
