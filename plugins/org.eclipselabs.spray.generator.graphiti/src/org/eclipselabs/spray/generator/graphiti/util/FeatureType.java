@@ -6,5 +6,7 @@ public enum FeatureType {
     Update,
     Delete,
     Layout,
-    DirectEdit
+    DirectEdit,
+    Copy,
+    Paste
 }

@@ -19,7 +19,7 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
 
     def mainExtensionPointFile(Diagram diagram, String className) '''
         «extensionHeader(this)»
-        package «GeneratorUtil::diagram_package()»;
+        package «diagram_package()»;
          
         public class «className» extends «className»Base {
          

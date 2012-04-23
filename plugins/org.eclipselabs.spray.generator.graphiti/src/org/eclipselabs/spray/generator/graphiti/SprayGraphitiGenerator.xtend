@@ -25,6 +25,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceA
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFromDslFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.CopyEClassFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferenceAsConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferenceAsListFeature
@@ -34,6 +35,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferen
 import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditEClassFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.PasteEClassFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
@@ -89,6 +91,8 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject CustomFeature customFeature
     @Inject ModelService modelService
     @Inject DirectEditEClassFeature directEditFeature
+    @Inject CopyEClassFeature copyFeature
+    @Inject PasteEClassFeature pasteFeature
     /**
      * This method is a long sequence of calling all templates for the code generation
      */
@@ -134,6 +138,9 @@ class SprayGraphitiGenerator implements IGenerator {
         
         generateCustomFeature(diagram, java, customFeature)
         generateDirectEditFeature(diagram, java, directEditFeature)
+        
+        generateCopyFeature(diagram, java, copyFeature)
+        generatePasteFeature(diagram, java, pasteFeature)
     }
     
 
@@ -456,5 +463,16 @@ class SprayGraphitiGenerator implements IGenerator {
             java.setPackageAndClass(metaClass.directEditFeatureClassName)
             df.generate(metaClass, java)
         }
+    }
+    
+    def generateCopyFeature(Diagram diagram, JavaGenFile java, CopyEClassFeature cf) {
+            java.setPackageAndClass(diagram.copyFeatureClassName)
+            cf.generate(diagram, java)
+    }
+    
+    def generatePasteFeature(Diagram diagram, JavaGenFile java, PasteEClassFeature pf) {
+            java.setPackageAndClass(diagram.pasteFeatureClassName)
+            pf.generate(diagram, java)
+        
     }
 }
