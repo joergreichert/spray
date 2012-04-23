@@ -56,23 +56,30 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.features.IAddFeature;
         import org.eclipse.graphiti.features.ICreateConnectionFeature;
         import org.eclipse.graphiti.features.ICreateFeature;
+        import org.eclipse.graphiti.features.ICopyFeature;
         import org.eclipse.graphiti.features.ILayoutFeature;
         import org.eclipse.graphiti.features.IMoveShapeFeature;
+        import org.eclipse.graphiti.features.IPasteFeature;
         import org.eclipse.graphiti.features.IUpdateFeature;
         import org.eclipse.graphiti.features.IDeleteFeature;
         import org.eclipse.graphiti.features.IDirectEditingFeature;
         import org.eclipse.graphiti.features.IRemoveFeature;
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.features.context.ICustomContext;
+        import org.eclipse.graphiti.features.context.ICopyContext;
         import org.eclipse.graphiti.features.context.IDeleteContext;
         import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.features.context.ILayoutContext;
         import org.eclipse.graphiti.features.context.IMoveShapeContext;
         import org.eclipse.graphiti.features.context.IUpdateContext;
+        import org.eclipse.graphiti.features.context.IPasteContext;
         import org.eclipse.graphiti.features.context.IRemoveContext;
         import org.eclipse.graphiti.features.custom.ICustomFeature;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        
+        
+        
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;
@@ -90,6 +97,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             }
         
             «generate_getAddFeature(diagram)»
+            «generate_getCopyFeature(diagram)»
             «generate_getCreateFeatures(diagram)»
             «generate_getCreateConnectionFeatures(diagram)»
             «generate_getUpdateFeature(diagram)»
@@ -97,6 +105,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «generate_getRemoveFeature(diagram)»
             «generate_getDeleteFeature(diagram)»
             «generate_getMoveShapeFeature(diagram)»
+            «generate_getPasteFeature(diagram)»
             «generate_getDirectEditingFeatures(diagram)»
             «generate_getCustomFeatures(diagram)»
             «generate_additionalMethods(diagram)»
@@ -365,6 +374,20 @@ class FeatureProvider extends FileGenerator<Diagram> {
 	    	}
             «ENDFOR»
 	    	return super.getDirectEditingFeature(context);
+	    }
+    '''
+    
+    def generate_getCopyFeature(Diagram diagram) '''
+	    @Override
+	    public ICopyFeature getCopyFeature(ICopyContext context) {
+	    	return new «diagram.copyFeatureClassName.shortName»(this);
+	    }
+    '''
+    
+    def generate_getPasteFeature(Diagram diagram) '''
+	    @Override
+	    public IPasteFeature getPasteFeature(IPasteContext context) {
+	    	return new «diagram.pasteFeatureClassName.shortName»(this);
 	    }
     '''
     

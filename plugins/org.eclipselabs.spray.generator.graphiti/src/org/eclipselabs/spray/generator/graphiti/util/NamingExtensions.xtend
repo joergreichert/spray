@@ -139,6 +139,22 @@ class NamingExtensions {
         getFeatureSimpleClassName (clazz, FeatureType::DirectEdit)
     }
     
+    def getCopyFeatureClassName (Diagram clazz) {
+   		getDiagramClassName(clazz, FeatureType::Copy)
+    }   
+    
+    def getCopyFeatureSimpleClassName (Diagram clazz) {
+    	getDiagramSimpleClassName(clazz, FeatureType::Copy)
+    }
+    
+    def getPasteFeatureClassName (Diagram clazz) {
+    	getDiagramClassName(clazz, FeatureType::Paste)
+    }
+        
+    def getPasteFeatureSimpleClassName (Diagram clazz) {
+		getDiagramSimpleClassName(clazz, FeatureType::Paste)
+    }
+
     /**
      * Result example:
      * Diagram = "mod4j", MetaClass = "BusinessClass", featureType="Add" 
@@ -151,6 +167,15 @@ class NamingExtensions {
     def getFeatureSimpleClassName (MetaClass clazz, FeatureType featureType) {
         clazz.diagram.name.toFirstUpper + featureType + clazz.visibleName + "Feature"
     }
+    
+    def getDiagramClassName (Diagram clazz, FeatureType featureType) {
+    	feature_package() + "." + getDiagramSimpleClassName(clazz, featureType)
+    }
+    
+    def getDiagramSimpleClassName (Diagram clazz, FeatureType featureType) {
+    	clazz.name.toFirstUpper + featureType + "Feature"
+    }
+    
     def dispatch getFilterClassName (MetaClass clazz) {
         property_package() + "." + clazz.getFilterSimpleClassName
     }
