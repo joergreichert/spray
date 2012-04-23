@@ -113,21 +113,23 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
 	    			String id = peService.getPropertyValue(graphicsAlgorithm, «sprayShapeConstantsClassName.shortName».TEXT_ID);
-	    			«FOR property : container.properties»
-	    			if(id.equals("«property.key.simpleName»")) {
-	    				«IF property.value != null»
-	    				«property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
-	    				«ELSE»
-	    				String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
-	    				«ENDIF»
-	    				String gAlgorithmValue = text.getValue();
-	    				if(eClassValue != null) {
-	    					if(!eClassValue.equals(gAlgorithmValue)) {
-	    						return true;
+	    			if(id != null) {
+	    				«FOR property : container.properties»
+	    				if(id.equals("«property.key.simpleName»")) {
+	    					«IF property.value != null»
+	    					«property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
+	    					«ELSE»
+	    					String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
+	    					«ENDIF»
+	    					String gAlgorithmValue = text.getValue();
+	    					if(eClassValue != null) {
+	    						if(!eClassValue.equals(gAlgorithmValue)) {
+	    							return true;
+	    						}
 	    					}
 	    				}
+	    				«ENDFOR»
 	    			}
-	    			«ENDFOR»
 	    			«ENDIF»
 	    		}
 	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
@@ -159,16 +161,18 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
 	    			String id = peService.getPropertyValue(graphicsAlgorithm, «sprayShapeConstantsClassName.shortName».TEXT_ID);
-	    			«FOR property : container.properties»
-	    			if(id.equals("«property.key.simpleName»")) {
-	    				«IF property.value != null»
-	    				«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
-	    				text.setValue(value);
-	    				«ELSE»
-	    				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
-	    				«ENDIF»
+	    			if(id != null) {
+	    				«FOR property : container.properties»
+	    				if(id.equals("«property.key.simpleName»")) {
+	    					«IF property.value != null»
+	    					«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
+	    					text.setValue(value);
+	    					«ELSE»
+	    					text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
+	    					«ENDIF»
+	    				}
+	    				«ENDFOR»
 	    			}
-	    			«ENDFOR»
 	    			«ENDIF»
 	    		}
 	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
