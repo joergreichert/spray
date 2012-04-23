@@ -78,7 +78,7 @@ class PasteEClassFeature extends FileGenerator<Diagram>{
 			for (Object object : fromClipboard) {
 				if (!(object instanceof PictogramElement)) {
 					return false;
-				} else if(!(getBusinessObjectForPictogramElement((PictogramElement) object) instanceof «metaclass.modelType.name»)) {
+				} else if(!(getBusinessObjectForPictogramElement((PictogramElement) object) instanceof «metaclass.modelType.itfName»)) {
 					return false;
 				}
 			}

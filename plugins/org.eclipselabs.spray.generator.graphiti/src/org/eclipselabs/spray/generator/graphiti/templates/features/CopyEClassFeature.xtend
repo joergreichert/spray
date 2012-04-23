@@ -72,7 +72,7 @@ public class CopyEClassFeature extends FileGenerator<Diagram> {
 			// return true, if all selected elements are a EClasses
 			for (PictogramElement pe : pes) {
 				final Object bo = getBusinessObjectForPictogramElement(pe);
-				if (!(bo instanceof «metaclass.modelType.name»)) {
+				if (!(bo instanceof «metaclass.modelType.itfName»)) {
 					return false;
 				}
 			}
