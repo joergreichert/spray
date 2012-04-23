@@ -99,7 +99,11 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
                 «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
+<<<<<<< HEAD
                 if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
+=======
+                if (target instanceof «(Refcompartment.eContainer as EClass).javaInterfaceName.shortName») {
+>>>>>>> 3daaf2864fa3bbb929a156691ed7792e14a6bed6
                 	return true;
                 }
                 «ENDFOR»
@@ -140,7 +144,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         protected «metaClass.itfName» create«metaClass.visibleName»(final ICreateContext context) {
             «handleAskFor(metaClass, createBehavior.askFor)»
             boolean isContainment = false;
-            final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+            Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
             «FOR Refcompartment : (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
             if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
