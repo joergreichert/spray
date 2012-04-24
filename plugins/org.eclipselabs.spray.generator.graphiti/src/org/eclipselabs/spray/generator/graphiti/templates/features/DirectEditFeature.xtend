@@ -10,7 +10,7 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment
 
-class DirectEditEClassFeature extends FileGenerator<MetaClass> {
+class DirectEditFeature extends FileGenerator<MetaClass> {
 	
 	@Inject extension NamingExtensions
 	
@@ -59,7 +59,7 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
-        
+            
             «generate_canDirectEdit(metaclass)»
             «generate_getInitalValue(metaclass)»
             «generate_getEditingType(metaclass)»
@@ -70,61 +70,54 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 	def generate_canDirectEdit (MetaClass metaclass) '''
         «overrideHeader»
         public boolean canDirectEdit(IDirectEditingContext context) {
-        	PictogramElement pe = context.getPictogramElement();
-        	Object bo = getBusinessObjectForPictogramElement(pe);
-        	GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
-        	// support direct editing, if it is a EClass, and the user clicked
-        	// directly on the text and not somewhere else in the rectangle
-        	if (bo instanceof «metaclass.itfName» && ga instanceof Text) {
-        		return true;
-        	}
-        	// direct editing not supported in all other cases
-        	return false;  
-        } 
+            PictogramElement pe = context.getPictogramElement();
+            Object bo = getBusinessObjectForPictogramElement(pe);
+            GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+            // support direct editing, if it is a «metaclass.itfName», and the user clicked
+            // directly on the text and not somewhere else in the rectangle
+            if (bo instanceof «metaclass.itfName» && ga instanceof Text) {
+                return true;
+            }
+            // direct editing not supported in all other cases
+            return false;
+        }
     '''
 
 	def generate_getInitalValue(MetaClass metaclass)'''
 		«overrideHeader»
 		public String getInitialValue(IDirectEditingContext context) {
-			// return the current name of the EClass
-			PictogramElement pe = context.getPictogramElement();
-			«metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
-			«IF metaclass.representedBy instanceof ShapeFromDsl»
-			«(metaclass.representedBy as ShapeFromDsl).properties.generate_initialValue»
-			«ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
-			«(metaclass.representedBy as ConnectionInSpray).properties.generate_initialValue»
-			«ELSE»
-			return "";
-			«ENDIF»
+		    // return the initial value of the clicked text on the «metaclass.itfName»
+		    PictogramElement pe = context.getPictogramElement();
+		    «metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
+		    «IF metaclass.representedBy instanceof ShapeFromDsl»
+		    «(metaclass.representedBy as ShapeFromDsl).properties.generate_initialValue»
+		    «ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
+		    «(metaclass.representedBy as ConnectionInSpray).properties.generate_initialValue»
+		    «ELSE»
+		    return "";
+		    «ENDIF»
 		}
     '''
 	
 	def generate_getEditingType(MetaClass metaclass)'''
 		«overrideHeader»
 		public int getEditingType() {
-			// there are several possible editor-types supported:
-			// text-field, checkbox, color-chooser, combobox, ...
-			return TYPE_TEXT;
+		    return TYPE_TEXT;
 		}
     '''
     
     def generate_setValue(MetaClass metaclass)'''
 		«overrideHeader»
 		public void setValue(final String value, final IDirectEditingContext context) {
-			// set the new name for the MOF class
-			final PictogramElement pe = context.getPictogramElement();
-			«metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
-			«IF metaclass.representedBy instanceof ShapeFromDsl»
-			«(metaclass.representedBy as ShapeFromDsl).properties.generate_setValue»
-			«ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
-			«(metaclass.representedBy as ConnectionInSpray).properties.generate_setValue»
-			«ENDIF»
-			// Explicitly update the shape to display the new value in the diagram
-			// Note, that this might not be necessary in future versions of Graphiti
-			// (currently in discussion)
-			// we know, that pe is the Shape of the Text, so its container is the
-			// main shape of the EClass
-			updatePictogramElement(pe);
+		    // set the new value on the «metaclass.itfName»
+		    final PictogramElement pe = context.getPictogramElement();
+		    «metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
+		    «IF metaclass.representedBy instanceof ShapeFromDsl»
+		    «(metaclass.representedBy as ShapeFromDsl).properties.generate_setValue»
+		    «ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
+		    «(metaclass.representedBy as ConnectionInSpray).properties.generate_setValue»
+		    «ENDIF»
+		    updatePictogramElement(pe);
 		}
 	'''   
 	
@@ -133,7 +126,7 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 		String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
 		«FOR property : properties»
 		if(id.equals("«property.key.simpleName»")) {
-			return eClass.get«property.attribute.name.toFirstUpper»();
+		    return eClass.get«property.attribute.name.toFirstUpper»();
 		}
 		«ENDFOR»
 		return "";
@@ -144,11 +137,9 @@ class DirectEditEClassFeature extends FileGenerator<MetaClass> {
 		String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
 		«FOR property : properties»
 		if(id.equals("«property.key.simpleName»")) {
-			eClass.set«property.attribute.name.toFirstUpper»(value);
+		    eClass.set«property.attribute.name.toFirstUpper»(value);
 		}
 		«ENDFOR»
 	'''
-	
-	
 	
 }

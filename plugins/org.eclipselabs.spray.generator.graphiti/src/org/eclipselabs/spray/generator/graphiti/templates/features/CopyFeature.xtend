@@ -7,7 +7,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.Diagram
 
-public class CopyEClassFeature extends FileGenerator<Diagram> {
+public class CopyFeature extends FileGenerator<Diagram> {
 
     @Inject extension NamingExtensions
         
@@ -23,7 +23,6 @@ public class CopyEClassFeature extends FileGenerator<Diagram> {
         «extensionHeader(this)»
         package «feature_package()»;
         
-        import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICustomContext;
         
@@ -65,26 +64,28 @@ public class CopyEClassFeature extends FileGenerator<Diagram> {
 	def generate_canCopy(Diagram metaclass)'''
 		«overrideHeader»
 		public boolean canCopy(ICopyContext context) {
-			final PictogramElement[] pes = context.getPictogramElements();
-			if (pes == null || pes.length == 0) {  // nothing selected
-				return false;
-			}
-			// return true, if all selected elements are a EClasses
-			for (PictogramElement pe : pes) {
-				final Object bo = getBusinessObjectForPictogramElement(pe);
-				if (!(bo instanceof «metaclass.modelType.itfName»)) {
-					return false;
-				}
-			}
-			return true;
+		    final PictogramElement[] pes = context.getPictogramElements();
+		    // nothing selected
+		    if (pes == null || pes.length == 0) {
+		        return false;
+		    }
+		    // return true, if all selected elements are a subtypes of «metaclass.modelType.itfName»
+		    for (PictogramElement pe : pes) {
+		        final Object bo = getBusinessObjectForPictogramElement(pe);
+		        if (!(bo instanceof «metaclass.modelType.itfName»)) {
+		            return false;
+		        }
+		    }
+		    return true;
 		}
     '''
     
     def generate_copy(Diagram metaclass)'''
 		«overrideHeader»
 		public void copy(ICopyContext context) {
-			PictogramElement[] pes = context.getPictogramElements();
-			putToClipboard(pes);
+		    // Copy PictogramElements instead of Objects because of the properties on Shapes.
+		    PictogramElement[] pes = context.getPictogramElements();
+		    putToClipboard(pes);
 		}
     '''
 }
