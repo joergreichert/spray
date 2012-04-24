@@ -48,7 +48,6 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
-        import «metaclass.javaInterfaceName»;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractDirectEditingFeature {

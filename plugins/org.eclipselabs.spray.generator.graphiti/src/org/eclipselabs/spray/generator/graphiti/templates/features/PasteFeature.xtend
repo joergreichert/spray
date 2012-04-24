@@ -23,7 +23,6 @@ class PasteFeature extends FileGenerator<Diagram>{
         package «feature_package()»;
         
         import org.eclipse.graphiti.features.IFeatureProvider;
-        import org.eclipse.graphiti.features.context.ICustomContext;
         
         public class «className» extends «className»Base {
             public «className»(IFeatureProvider fp) {
@@ -42,10 +41,7 @@ class PasteFeature extends FileGenerator<Diagram>{
         import org.eclipse.graphiti.mm.Property;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
-        import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.services.IPeService;
         import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
-        import «metaclass.modelType.javaInterfaceName»;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractPasteFeature  {
