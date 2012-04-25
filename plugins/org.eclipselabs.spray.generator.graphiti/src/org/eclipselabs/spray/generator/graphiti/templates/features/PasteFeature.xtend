@@ -5,6 +5,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
+import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 class PasteFeature extends FileGenerator<Diagram>{
 	
@@ -31,32 +33,39 @@ class PasteFeature extends FileGenerator<Diagram>{
         }
     '''
 
-    def mainFile(Diagram metaclass, String className) '''
+    def mainFile(Diagram diagram, String className) '''
         «header(this)» 
         package «feature_package()»;
         
+        import org.eclipse.emf.ecore.util.EcoreUtil;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IPasteContext;
         import org.eclipse.graphiti.features.context.impl.AddContext;
         import org.eclipse.graphiti.mm.Property;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
+        import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractPasteFeature  {
-            «generate_additionalFields(metaclass)»
+            «generate_additionalFields(diagram)»
+            
+            protected «diagram.modelServiceClassName.shortName» modelService;
             
             public «className»(IFeatureProvider fp) {
                 super(fp);
+                modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
             }
             
-            «generate_canPaste(metaclass)»
-            «generate_paste(metaclass)»
+            «generate_canPaste(diagram)»
+            «generate_paste(diagram)»
+            «generate_addBusinessObjectToContainer(diagram)»
         }
     '''
 
-	def generate_canPaste(Diagram metaclass)'''
+	def generate_canPaste(Diagram diagram)'''
 		«overrideHeader»
 		public boolean canPaste(IPasteContext context) {
 		    // TODO: only support pasting directly in the diagram
@@ -64,7 +73,7 @@ class PasteFeature extends FileGenerator<Diagram>{
 		    if (pes.length != 1 || !(pes[0] instanceof Diagram)) {
 		        return false;
 		    }
-		    // can paste, if all objects on the clipboard are PictogramElements with link on subclasses of «metaclass.modelType.itfName»
+		    // can paste, if all objects on the clipboard are PictogramElements with link on subclasses of «diagram.modelType.itfName»
 		    Object[] fromClipboard = getFromClipboard();
 		    if (fromClipboard == null || fromClipboard.length == 0) {
 		        return false;
@@ -72,7 +81,7 @@ class PasteFeature extends FileGenerator<Diagram>{
 		    for (Object object : fromClipboard) {
 		        if (!(object instanceof PictogramElement)) {
 		            return false;
-		        } else if(!(getBusinessObjectForPictogramElement((PictogramElement) object) instanceof «metaclass.modelType.itfName»)) {
+		        } else if(!(getBusinessObjectForPictogramElement((PictogramElement) object) instanceof «diagram.modelType.itfName»)) {
 		            return false;
 		        }
 		    }
@@ -80,7 +89,7 @@ class PasteFeature extends FileGenerator<Diagram>{
 		}
     '''
     
-    def generate_paste(Diagram metaclass)'''
+    def generate_paste(Diagram diagram)'''
 		«overrideHeader»
 		public void paste(IPasteContext context) {
 			// already verified, that pasting is allowed just directly in the diagram
@@ -91,7 +100,10 @@ class PasteFeature extends FileGenerator<Diagram>{
 			Object[] objects = getFromClipboard();
 			for (Object object : objects) {
 			    PictogramElement pictogramElement = (PictogramElement) object;
-			    Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+			    «diagram.modelType.itfName» boRef = («diagram.modelType.itfName») getBusinessObjectForPictogramElement(pictogramElement);
+			    «diagram.modelType.itfName» bo = EcoreUtil.copy(boRef);
+			    addBusinessObjectToContainer(bo, pictogramElement);
+			    
 			    // create a new AddContext for the creation of a new shape.
 			    AddContext ac = new AddContext(new AddContext(), bo);
 			    ac.setLocation(0, 0); // for simplicity paste at (0, 0)
@@ -104,4 +116,27 @@ class PasteFeature extends FileGenerator<Diagram>{
 			}
 		}
     '''
+    
+    def generate_addBusinessObjectToContainer(Diagram diagram) {
+    '''
+        private void addBusinessObjectToContainer(«diagram.modelType.itfName» bo, PictogramElement pe) {
+            final «diagram.modelType.itfName» model = modelService.getModel();
+            final String alias = Graphiti.getPeService().getPropertyValue(pe, ISprayConstants.PROPERTY_ALIAS);
+            «FOR cls : diagram.metaClasses»
+            if(«generate_metaClassSwitchCondition(cls)») {
+                «val containmentRef = (cls.behaviorsList.filter(typeof(CreateBehavior)).head).containmentReference»
+                «IF containmentRef.many»
+                    model.get«containmentRef.name.toFirstUpper»().add(bo);
+                «ELSE»
+                    model.set«containmentRef.name.toFirstUpper»(bo);
+                «ENDIF»   
+            }
+            «ENDFOR»
+        }
+    '''
+    }
+    
+    def generate_metaClassSwitchCondition(MetaClass cls) 
+        '''bo.eClass() == «cls.type.literalConstant» && «IF cls.alias==null»alias == null«ELSE»"«cls.alias»".equals(alias)«ENDIF»'''
+    
 }

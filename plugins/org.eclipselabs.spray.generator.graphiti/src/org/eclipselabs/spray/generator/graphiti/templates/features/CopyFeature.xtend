@@ -47,8 +47,6 @@ public class CopyFeature extends FileGenerator<Diagram> {
         public abstract class «className» extends AbstractCopyFeature  {
             «generate_additionalFields(metaclass)»
             
-            protected IPeService peService = Graphiti.getPeService();
-            
             public «className»(IFeatureProvider fp) {
                 super(fp);
             }
