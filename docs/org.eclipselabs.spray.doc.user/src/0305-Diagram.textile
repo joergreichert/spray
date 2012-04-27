@@ -15,7 +15,7 @@ h3. Diagram
 
 The beginning of a Spray model is introduced by the @diagram@ keyword, followed by an identifier for the diagram. This is the name of the diagram type specified by the Spray model, and its name will be reflected in the generated code.
 
-The diagram name is followed by the specification of a model root element, prefixed by the keyword @for@. This is the name of the EClass that is the root element a diagram represents. All other elements on the diagram must be insertable into a containment reference of the model root type.
+The diagram name is followed by the specification of a model root element, prefixed by the keyword @for@. This is the name of the EClass that is the root element a diagram represents. All other elements on the diagram must be insertable into containment references of the model root type.
 
 bc.. 
 import BusinessDomainDsl.*

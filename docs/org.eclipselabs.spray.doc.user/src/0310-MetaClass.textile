@@ -40,6 +40,7 @@ p.
 This example above allows the creation of instances of type _BusinessClass_ to be created. The containment reference is named _types_, which is defined by the Diagram model root type _BusinessDomainModel_. The label in the tool palette is "Business Class", and the creation tool is inserted into the palette group named "Shapes". Both the label and palette are optional. If left out, the label is the EClass name, and the creation tool is inserted into a generic palette group.
 
 h3. Class Icon
+
 Following the referenced EClass name an icon representing the class can be defined with the @icon@ keyword. The path to the icon is quoted as a string.
 
 bc. 

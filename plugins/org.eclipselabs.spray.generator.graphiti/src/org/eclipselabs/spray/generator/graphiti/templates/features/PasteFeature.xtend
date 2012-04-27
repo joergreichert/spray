@@ -126,15 +126,18 @@ class PasteFeature extends FileGenerator<Diagram>{
             if(«generate_metaClassSwitchCondition(cls)») {
                 «val containmentRef = (cls.behaviorsList.filter(typeof(CreateBehavior)).head).containmentReference»
                 «IF containmentRef.many»
-                    model.get«containmentRef.name.toFirstUpper»().add(bo);
+                    model.get«containmentRef.name.toFirstUpper»().add((«cls.getCast()») bo);
                 «ELSE»
-                    model.set«containmentRef.name.toFirstUpper»(bo);
+                    model.set«containmentRef.name.toFirstUpper»((List<«cls.getCast()»>) bo);
                 «ENDIF»   
             }
             «ENDFOR»
         }
     '''
     }
+    
+    def getCast(MetaClass cls) '''«cls.type.itfName»'''
+    
     
     def generate_metaClassSwitchCondition(MetaClass cls) 
         '''bo.eClass() == «cls.type.literalConstant» && «IF cls.alias==null»alias == null«ELSE»"«cls.alias»".equals(alias)«ENDIF»'''
