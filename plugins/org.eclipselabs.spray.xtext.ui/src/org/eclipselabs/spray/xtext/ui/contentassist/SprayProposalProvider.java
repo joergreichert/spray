@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
@@ -20,9 +21,20 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
@@ -66,7 +78,6 @@ import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
@@ -77,38 +88,32 @@ import com.google.inject.name.Named;
  */
 public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @Inject
-    private IWorkspaceRoot                                root;
+    private IWorkspaceRoot                root;
     @Inject
     @Named(IConstants.NAME_VALID_ICON_FILE_EXTENSIONS)
-    private Set                                           validIconFileExtensions;
+    private Set                           validIconFileExtensions;
     @Inject
-    private IGlobalScopeProvider                          globalScopeProvider;
+    private IGlobalScopeProvider          globalScopeProvider;
     @Inject
-    private SprayDescriptionLabelProvider                 descriptionLabelProvider;
+    private SprayDescriptionLabelProvider descriptionLabelProvider;
     @SuppressWarnings("unused")
     @Inject
-    private SprayGrammarAccess                            grammar;
-    private static final Set<String>                      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
+    private SprayGrammarAccess            grammar;
+    private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
 
-    private IResourceDescriptions                         dscriptions       = null;
+    private IResourceDescriptions         dscriptions       = null;
     @Inject
-    private IJvmTypeProvider.Factory                      jvmTypeProviderFactory;
+    private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
     @Inject
-    private ITypesProposalProvider                        typeProposalProvider;
+    private ITypesProposalProvider        typeProposalProvider;
     @Inject
-    private IQualifiedNameConverter                       qnConverter;
+    private IQualifiedNameConverter       qnConverter;
     @Inject
-    private EscapeKeywordFunction                         escapeKeywordFunction;
+    private EscapeKeywordFunction         escapeKeywordFunction;
     @Inject
-    ITypesProposalProvider                                proposalProvider;
+    ITypesProposalProvider                proposalProvider;
     @Inject
-    IJvmTypeProvider.Factory                              typeProviderFactory;
-
-    @Inject
-    private ResourceDescriptionsProvider                  resourceDescriptionsProvider;
-
-    @Inject
-    private org.eclipse.xtext.resource.IContainer.Manager containerManager;
+    IJvmTypeProvider.Factory              typeProviderFactory;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -261,18 +266,34 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
 
     @Override
     public void completeImport_ImportedNamespace(EObject model, Assignment assignment, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        IResourceDescriptions rsds = resourceDescriptionsProvider.createResourceDescriptions();
+        Set<Entry<String, Object>> packages = EPackage.Registry.INSTANCE.entrySet();
         EObject container = model.eContainer();
-        List<String> alreadyImported = getAlreadyImported(container);
-        final IContainer project = getProject(model);
+        IJavaProject project = getJavaProject(model);
         if (project != null) {
-            Iterable<IEObjectDescription> exportedEObjects = null;
-            for (IResourceDescription rd : rsds.getAllResourceDescriptions()) {
-                final org.eclipse.xtext.resource.IContainer xtextContainer = containerManager.getContainer(rd, rsds);
-                exportedEObjects = getExportedObjects(xtextContainer, project);
-                createImportProposals(context, acceptor, alreadyImported, exportedEObjects);
+            List<String> alreadyImported = getAlreadyImported(container);
+            List<EPackage> ePackages = getEPackages(packages);
+            createImportProposals(context, acceptor, project, alreadyImported, ePackages);
+        }
+    }
+
+    private List<EPackage> getEPackages(Set<Entry<String, Object>> packages) {
+        List<EPackage> ePackages = new ArrayList<EPackage>();
+        Object packageObj = null;
+        EPackage.Descriptor ePackageDescriptor = null;
+        EPackage ePackage = null;
+        for (Entry<String, Object> entry : packages) {
+            packageObj = entry.getValue();
+            if (packageObj instanceof EPackage) {
+                ePackages.add((EPackage) packageObj);
+            } else if (packageObj instanceof EPackage.Descriptor) {
+                ePackageDescriptor = (EPackage.Descriptor) packageObj;
+                ePackage = ePackageDescriptor.getEPackage();
+                if (ePackage != null) {
+                    ePackages.add(ePackage);
+                }
             }
         }
+        return ePackages;
     }
 
     private List<String> getAlreadyImported(EObject container) {
@@ -287,26 +308,79 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         return alreadyImported;
     }
 
-    private Iterable<IEObjectDescription> getExportedObjects(final org.eclipse.xtext.resource.IContainer xtextContainer, final IContainer project) {
-        Iterable<IEObjectDescription> unfiltered = xtextContainer.getExportedObjects();
-        return Iterables.filter(unfiltered, new Predicate<IEObjectDescription>() {
-            public boolean apply(IEObjectDescription input) {
-                URI resourceURI = input.getEObjectURI().trimFragment();
-                return resourceURI.devicePath().contains(project.getFullPath().toString() + "/");
-            }
-        });
+    private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, IJavaProject javaProject, List<String> alreadyImported, List<EPackage> ePackages) {
+        List<EPackage> filteredEPackages = filterAccessibleEPackages(javaProject, ePackages);
+        for (EPackage ePackage : filteredEPackages) {
+            createImportProposals(context, acceptor, alreadyImported, ePackage);
+        }
     }
 
-    private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, List<String> alreadyImported, Iterable<IEObjectDescription> exportedEObjects) {
-        ConfigurableCompletionProposal proposal;
-        String name;
-        for (IEObjectDescription eo : exportedEObjects) {
-            name = eo.getName() + ".*";
-            if (!alreadyImported.contains(name)) {
-                proposal = (ConfigurableCompletionProposal) createCompletionProposal(name, context);
-                acceptor.accept(proposal);
+    private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, List<String> alreadyImported, EPackage ePackage) {
+        String name = ePackage.getName() + ".*";
+        if (!alreadyImported.contains(name)) {
+            ConfigurableCompletionProposal proposal = (ConfigurableCompletionProposal) createCompletionProposal(name, context);
+            String displayString = ePackage.getName() + " (" + ePackage.getNsURI() + ")";
+            proposal.setDisplayString(displayString);
+            acceptor.accept(proposal);
+        }
+    }
+
+    private List<EPackage> filterAccessibleEPackages(IJavaProject javaProject, List<EPackage> ePackages) {
+        List<EPackage> filteredEPackages = new ArrayList<EPackage>();
+        try {
+            GenPackage genPackage = null;
+            String fullqualifiedPackageClassName = null;
+            IType type = null;
+            for (EPackage ePackage : ePackages) {
+                genPackage = getGenPackage(ePackage);
+                if (genPackage != null) {
+                    fullqualifiedPackageClassName = genPackage.getClassPackageName() + "." + genPackage.getPackageClassName();
+                    type = javaProject.findType(fullqualifiedPackageClassName);
+                    if (type != null) {
+                        filteredEPackages.add(ePackage);
+                    }
+                }
+            }
+        } catch (JavaModelException e) {
+            e.printStackTrace();
+        }
+        return filteredEPackages;
+    }
+
+    public GenPackage getGenPackage(EPackage pack) {
+        URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(pack.getNsURI());
+        if (genModelLoc == null) {
+            throw new IllegalStateException("No genmodel found for package URI " + pack.getNsURI() + ". If you are running in stanalone mode make sure register the genmodel file.");
+        }
+        ResourceSet rs = new ResourceSetImpl();
+        Resource genModelResource;
+        try {
+            genModelResource = rs.getResource(genModelLoc, true);
+            for (GenModel g : Iterables.filter(genModelResource.getContents(), GenModel.class)) {
+                for (GenPackage genPack : g.getGenPackages()) {
+                    if (genPack.getEcorePackage().getNsURI().equals(pack.getNsURI()) && genPack.getEcorePackage().getName().equals(pack.getName())) {
+                        return genPack;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            if (e instanceof java.io.FileNotFoundException) {
+                System.err.println(e.getMessage());
+            } else {
+                e.printStackTrace();
             }
         }
+        return null;
+    }
+
+    private IJavaProject getJavaProject(EObject model) {
+        IJavaProject javaProject = null;
+        IContainer container = getProject(model);
+        if (container instanceof IProject) {
+            IProject project = (IProject) container;
+            javaProject = JavaCore.create(project);
+        }
+        return javaProject;
     }
 
     private IContainer getProject(EObject model) {

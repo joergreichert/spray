@@ -208,17 +208,23 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         if (context.eContainer().eClass() == META_CLASS) {
             // non-containment references
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            final Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-                @Override
-                public boolean apply(EReference input) {
-                    return !input.isContainment();
-                }
-            });
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(nonContainmentReferences));
+            IScope result = IScope.NULLSCOPE;
+            if (metaClass != null && metaClass.getType() != null) {
+                final Iterable<EReference> nonContainmentReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                    @Override
+                    public boolean apply(EReference input) {
+                        return !input.isContainment();
+                    }
+                });
+                result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(nonContainmentReferences));
+            }
             return result;
         } else {
             final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-            final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
+            IScope result = IScope.NULLSCOPE;
+            if (metaClass != null && metaClass.getType() != null) {
+                result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(metaClass.getType().getEAllContainments()));
+            }
             return result;
         }
     }
@@ -359,7 +365,9 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         // if the MetaClass is a connection take also the containment dependencies of the source type
         if (mc.getRepresentedBy() instanceof ConnectionInSpray) {
             EClass sourceType = (EClass) ((ConnectionInSpray) mc.getRepresentedBy()).getFrom().getEType();
-            containmentReferences.addAll(sourceType.getEAllContainments());
+            if (sourceType != null) {
+                containmentReferences.addAll(sourceType.getEAllContainments());
+            }
         }
         return Scopes.scopeFor(Iterables.filter(containmentReferences, filter));
     }
