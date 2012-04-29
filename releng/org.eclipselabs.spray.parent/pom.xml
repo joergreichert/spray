@@ -492,9 +492,9 @@
 				<jacoco.propertyName>coverageAgent</jacoco.propertyName>
 				<jacoco.destFile>${basedir}/code-coverage/jacoco.exec</jacoco.destFile>
 				<jacoco.it.destFile>${basedir}/code-coverage/jacoco_it.exec</jacoco.it.destFile>
-				<!--jacoco.append>true</jacoco.append-->
-				<!--jacoco.includes>org.eclipselabs.spray.*</jacoco.includes-->
-				<jacoco.excludes>BusinessDomainDsl:org.eclipse.*:*.internal.*:*.antlr*:*.parseTree*:*Abstract*RuntimeModule:*SetupGenerated*:*Abstract*Validator*:*GrammarAccess*:*Abstract*UiModule*:*Abstract*ProposalProvider*:*.mm.*:org.eclipselabs.spray.shapes.shapes.*:org.eclipselabs.spray.styles.styles.*:*Abstract*SemanticSequencer*:*com.google*</jacoco.excludes>
+				<jacoco.append>true</jacoco.append>
+				<jacoco.includes>*</jacoco.includes>
+				<jacoco.excludes>BusinessDomainDsl:org.eclipse.*:*.internal.*:*.antlr*:*.parseTree*:*SetupGenerated*:*Abstract*:*GrammarAccess*:*.mm.*:org.eclipselabs.spray.shapes.shapes.*:org.eclipselabs.spray.styles.styles.*:*com.google*</jacoco.excludes>
 				<jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders>
 				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
 				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->

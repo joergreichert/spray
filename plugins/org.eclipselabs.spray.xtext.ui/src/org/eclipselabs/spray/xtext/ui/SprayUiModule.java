@@ -87,5 +87,4 @@ public class SprayUiModule extends AbstractSprayUiModule {
     public Class<? extends ITypesProposalProvider> bindITypesProposalProvider() {
         return SprayJdtTypesProposalProvider.class;
     }
-
 }

@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -50,6 +53,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
+import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
@@ -62,6 +66,7 @@ import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
@@ -72,32 +77,38 @@ import com.google.inject.name.Named;
  */
 public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @Inject
-    private IWorkspaceRoot                root;
+    private IWorkspaceRoot                                root;
     @Inject
     @Named(IConstants.NAME_VALID_ICON_FILE_EXTENSIONS)
-    private Set                           validIconFileExtensions;
+    private Set                                           validIconFileExtensions;
     @Inject
-    private IGlobalScopeProvider          globalScopeProvider;
+    private IGlobalScopeProvider                          globalScopeProvider;
     @Inject
-    private SprayDescriptionLabelProvider descriptionLabelProvider;
+    private SprayDescriptionLabelProvider                 descriptionLabelProvider;
     @SuppressWarnings("unused")
     @Inject
-    private SprayGrammarAccess            grammar;
-    private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
+    private SprayGrammarAccess                            grammar;
+    private static final Set<String>                      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
 
-    private IResourceDescriptions         dscriptions       = null;
+    private IResourceDescriptions                         dscriptions       = null;
     @Inject
-    private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
+    private IJvmTypeProvider.Factory                      jvmTypeProviderFactory;
     @Inject
-    private ITypesProposalProvider        typeProposalProvider;
+    private ITypesProposalProvider                        typeProposalProvider;
     @Inject
-    private IQualifiedNameConverter       qnConverter;
+    private IQualifiedNameConverter                       qnConverter;
     @Inject
-    private EscapeKeywordFunction         escapeKeywordFunction;
+    private EscapeKeywordFunction                         escapeKeywordFunction;
     @Inject
-    ITypesProposalProvider                proposalProvider;
+    ITypesProposalProvider                                proposalProvider;
     @Inject
-    IJvmTypeProvider.Factory              typeProviderFactory;
+    IJvmTypeProvider.Factory                              typeProviderFactory;
+
+    @Inject
+    private ResourceDescriptionsProvider                  resourceDescriptionsProvider;
+
+    @Inject
+    private org.eclipse.xtext.resource.IContainer.Manager containerManager;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -246,5 +257,75 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
             proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.CONNECTION_IN_SPRAY__CONNECTION, filter, acceptor);
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
+    }
+
+    @Override
+    public void completeImport_ImportedNamespace(EObject model, Assignment assignment, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        IResourceDescriptions rsds = resourceDescriptionsProvider.createResourceDescriptions();
+        EObject container = model.eContainer();
+        List<String> alreadyImported = getAlreadyImported(container);
+        final IContainer project = getProject(model);
+        if (project != null) {
+            Iterable<IEObjectDescription> exportedEObjects = null;
+            for (IResourceDescription rd : rsds.getAllResourceDescriptions()) {
+                final org.eclipse.xtext.resource.IContainer xtextContainer = containerManager.getContainer(rd, rsds);
+                exportedEObjects = getExportedObjects(xtextContainer, project);
+                createImportProposals(context, acceptor, alreadyImported, exportedEObjects);
+            }
+        }
+    }
+
+    private List<String> getAlreadyImported(EObject container) {
+        Import ni;
+        List<String> alreadyImported = new ArrayList<String>();
+        for (EObject child : container.eContents()) {
+            if (child instanceof Import) {
+                ni = (Import) child;
+                alreadyImported.add(ni.getImportedNamespace());
+            }
+        }
+        return alreadyImported;
+    }
+
+    private Iterable<IEObjectDescription> getExportedObjects(final org.eclipse.xtext.resource.IContainer xtextContainer, final IContainer project) {
+        Iterable<IEObjectDescription> unfiltered = xtextContainer.getExportedObjects();
+        return Iterables.filter(unfiltered, new Predicate<IEObjectDescription>() {
+            public boolean apply(IEObjectDescription input) {
+                URI resourceURI = input.getEObjectURI().trimFragment();
+                return resourceURI.devicePath().contains(project.getFullPath().toString() + "/");
+            }
+        });
+    }
+
+    private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, List<String> alreadyImported, Iterable<IEObjectDescription> exportedEObjects) {
+        ConfigurableCompletionProposal proposal;
+        String name;
+        for (IEObjectDescription eo : exportedEObjects) {
+            name = eo.getName() + ".*";
+            if (!alreadyImported.contains(name)) {
+                proposal = (ConfigurableCompletionProposal) createCompletionProposal(name, context);
+                acceptor.accept(proposal);
+            }
+        }
+    }
+
+    private IContainer getProject(EObject model) {
+        String fileStr = model.eResource().getURI().toPlatformString(true);
+        if (fileStr == null) {
+            return null;
+        }
+        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromOSString(fileStr));
+        return getProject(file);
+    }
+
+    private IContainer getProject(IResource res) {
+        IContainer parent = res.getParent();
+        if (parent == null) {
+            parent = null;
+        }
+        if (!(parent instanceof IProject)) {
+            parent = getProject(parent);
+        }
+        return parent;
     }
 }
