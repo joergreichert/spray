@@ -204,7 +204,7 @@
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>2.9.1</version>
 					<configuration>
-						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**|**/parseTree**|**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**|**Abstract**SemanticSequencer**</excludes>
+						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**:**/parseTree**:**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**:**Abstract**SemanticSequencer**</excludes>
 					</configuration>
 				</plugin>				
 				<plugin>
@@ -228,7 +228,7 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-pmd-plugin</artifactId>
 					<configuration>
-						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**|**/parseTree**|**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**|**Abstract**SemanticSequencer**</excludes>
+						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**:**/parseTree**:**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**:**Abstract**SemanticSequencer**</excludes>
 					</configuration>
 				</plugin>				
 				<plugin>
@@ -494,8 +494,8 @@
 				<jacoco.it.destFile>${basedir}/code-coverage/jacoco_it.exec</jacoco.it.destFile>
 				<!--jacoco.append>true</jacoco.append-->
 				<!--jacoco.includes>org.eclipselabs.spray.*</jacoco.includes-->
-				<jacoco.excludes>BusinessDomainDsl|org.eclipse.*|*.internal.*|*.antlr*|*.parseTree*|*Abstract*RuntimeModule|*SetupGenerated|*Abstract*Validator|*GrammarAccess|*Abstract*UiModule|*Abstract*ProposalProvider|*.mm.*|org.eclipselabs.spray.shapes.shapes.*|org.eclipselabs.spray.styles.styles.*|*Abstract*SemanticSequencer</jacoco.excludes>
-				<!--jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders-->
+				<jacoco.excludes>BusinessDomainDsl:org.eclipse.*:*.internal.*:*.antlr*:*.parseTree*:*Abstract*RuntimeModule:*SetupGenerated*:*Abstract*Validator*:*GrammarAccess*:*Abstract*UiModule*:*Abstract*ProposalProvider*:*.mm.*:org.eclipselabs.spray.shapes.shapes.*:org.eclipselabs.spray.styles.styles.*:*Abstract*SemanticSequencer*:*com.google*</jacoco.excludes>
+				<jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders>
 				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
 				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
 				<!--jacoco.output>file</jacoco.output-->
