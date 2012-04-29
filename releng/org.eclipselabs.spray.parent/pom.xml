@@ -490,8 +490,8 @@
 				<jacoco.version>0.5.6.201201232323</jacoco.version>
 
 				<jacoco.propertyName>coverageAgent</jacoco.propertyName>
-				<!--jacoco.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile-->
-				<!--jacoco.it.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile-->
+				<jacoco.destFile>${basedir}/code-coverage/jacoco.exec</jacoco.destFile>
+				<jacoco.it.destFile>${basedir}/code-coverage/jacoco_it.exec</jacoco.it.destFile>
 				<!--jacoco.append>true</jacoco.append-->
 				<!--jacoco.includes>org.eclipselabs.spray.*</jacoco.includes-->
 				<jacoco.excludes>BusinessDomainDsl|org.eclipse.*|*.internal.*|*.antlr*|*.parseTree*|*Abstract*RuntimeModule|*SetupGenerated|*Abstract*Validator|*GrammarAccess|*Abstract*UiModule|*Abstract*ProposalProvider|*.mm.*|org.eclipselabs.spray.shapes.shapes.*|org.eclipselabs.spray.styles.styles.*|*Abstract*SemanticSequencer</jacoco.excludes>
