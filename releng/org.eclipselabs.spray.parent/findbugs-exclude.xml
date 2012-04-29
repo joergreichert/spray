@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+       <Match>
+                <Package name="BusinessDomainDsl" />
+       </Match>
+       <Match>
+                <Package name="org/eclipse.**" />
+       </Match>
+       <Match>
+                <Package name="**.internal.**" />
+       </Match>
+       <Match>
+                <Package name="**antlr**" />
+       </Match>
+       <Match>
+                <Package name="**parseTree**" />
+       </Match>
+       <Match>
+                <Package name="**.mm**" />
+       </Match>
+       <Match>
+                <Package name="**.shapes.shapes**" />
+       </Match>
+       <Match>
+                <Package name="**.styles.styles**" />
+       </Match>
+       <Match>
+				<Class name="*Abstract*RuntimeModule*" />
+       </Match>
+       <Match>
+				<Class name="*SetupGenerated*" />
+       </Match>
+       <Match>
+				<Class name="*Abstract*Validator*" />
+       </Match>
+       <Match>
+				<Class name="*GrammarAccess*" />
+       </Match>
+       <Match>
+				<Class name="*Abstract*UiModule*" />
+       </Match>
+       <Match>
+				<Class name="*Abstract*ProposalProvider*" />
+       </Match>
+       <Match>
+				<Class name="*Abstract*SemanticSequencer*" />
+       </Match>
+</FindBugsFilter>

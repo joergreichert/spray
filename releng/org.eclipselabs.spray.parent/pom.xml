@@ -19,6 +19,7 @@
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
 		<platform-version-name>indigo</platform-version-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<build>
@@ -113,6 +114,8 @@
 					<version>${tycho-version}</version>
 					<configuration>
 						<encoding>UTF-8</encoding>
+						<meminitial>128m</meminitial>
+						<maxmem>1024m</maxmem>
 						<source>6.0</source>
 						<target>6.0</target>
 						<verbose>true</verbose>
@@ -197,12 +200,21 @@
 				</plugin>
 				<!-- OTHER PLUGINS -->
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.9.1</version>
+					<configuration>
+						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**|**/parseTree**|**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**|**Abstract**SemanticSequencer**</excludes>
+					</configuration>
+				</plugin>				
+				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>
 					<version>2.4.0</version>
 					<configuration>
 						<findbugsXmlOutput>true</findbugsXmlOutput>
 						<failOnError>false</failOnError>
+						<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
 					</configuration>
 					<executions>
 						<execution>
@@ -212,6 +224,13 @@
 						</execution>
 					</executions>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<configuration>
+						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**|**/parseTree**|**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**|**Abstract**SemanticSequencer**</excludes>
+					</configuration>
+				</plugin>				
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
@@ -437,6 +456,7 @@
 				<sonar.java.source>1.6</sonar.java.source>
 				<sonar.java.target>1.6</sonar.java.target>				
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+				<sonar.skippedModules>org.eclipselabs.spray.targetplatform,org.eclipselabs.spray.parent,org.eclipselabs.spray.mm,org.mod4j.dsl.businessdomain.mm,org.eclipselabs.spray.testhelper</sonar.skippedModules>				
 			</properties> 
 		</profile>
 		<profile>
@@ -450,6 +470,7 @@
 				<sonar.java.source>1.6</sonar.java.source>
 				<sonar.java.target>1.6</sonar.java.target>				
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+				<sonar.skippedModules>org.eclipselabs.spray.targetplatform,org.eclipselabs.spray.parent,org.eclipselabs.spray.mm,org.mod4j.dsl.businessdomain.mm,org.eclipselabs.spray.testhelper</sonar.skippedModules>				
 			</properties> 
 		</profile>
 		<profile>
@@ -469,12 +490,12 @@
 				<jacoco.version>0.5.6.201201232323</jacoco.version>
 
 				<jacoco.propertyName>coverageAgent</jacoco.propertyName>
-				<jacoco.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile>
-				<jacoco.it.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile>
-				<jacoco.append>true</jacoco.append>
-				<jacoco.includes>org.eclipselabs.spray.*</jacoco.includes>
-				<jacoco.excludes>org.eclipse.*|*.internal.*|*.antlr*|*.parseTree*|*Abstract*RuntimeModule.java|*SetupGenerated.java|*Abstract*Validator.java|*GrammarAccess.java|*Abstract*UiModule.java|*Abstract*ProposalProvider.java|*.mm</jacoco.excludes>
-				<jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders>
+				<!--jacoco.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile-->
+				<!--jacoco.it.destFile>../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile-->
+				<!--jacoco.append>true</jacoco.append-->
+				<!--jacoco.includes>org.eclipselabs.spray.*</jacoco.includes-->
+				<jacoco.excludes>BusinessDomainDsl|org.eclipse.*|*.internal.*|*.antlr*|*.parseTree*|*Abstract*RuntimeModule|*SetupGenerated|*Abstract*Validator|*GrammarAccess|*Abstract*UiModule|*Abstract*ProposalProvider|*.mm.*|org.eclipselabs.spray.shapes.shapes.*|org.eclipselabs.spray.styles.styles.*|*Abstract*SemanticSequencer</jacoco.excludes>
+				<!--jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders-->
 				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
 				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
 				<!--jacoco.output>file</jacoco.output-->
@@ -502,7 +523,7 @@
 								<id>test</id>
 								<phase>test</phase>
 								<configuration>
-									<argLine>${coverageAgent}</argLine>
+									<argLine>${coverageAgent} -Xms256m -Xmx512m -XX:MaxPermSize=512m</argLine>
 									<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
 									<excludes>
 									</excludes>
