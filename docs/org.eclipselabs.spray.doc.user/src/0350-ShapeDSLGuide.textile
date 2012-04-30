@@ -1,12 +1,12 @@
 h1. Shape DSL Guide
 
-this chapter describes how to define global graphiti shapes for a spray project.
+This chapter describes how to define global graphiti shapes for a Spray project.
 
-The shape DSL is a geometric description for the visual representation of a figure. A figure  mostly consists of at least one or more geometric forms which are implemented in graphiti the graphiti framework. If a more complex figure is needed basic forms can be nested together.       
+The Shape DSL is a geometric description for the visual representation of a figure. A figure mostly consists of at least one or more geometric forms which are implemented with the Graphiti framework. If a more complex figure is needed basic forms can be nested together.
 
-h2. An example for a shape
+h2. Shape examples
 
-bc.. shape Usecase (java.lang.String textline) style org.eclipselabs.spray.styles.NoTransparency 
+bc.. shape Usecase (String textline) style org.eclipselabs.spray.styles.NoTransparency 
 	{
 	size-min(width=100, height=100)	
 	size-max(width=200, height=200)
@@ -25,34 +25,37 @@ bc.. shape Usecase (java.lang.String textline) style org.eclipselabs.spray.style
 	}
 }
 
+p. 
+!images/shapes_bpmn_eventmail.png!
+
 h2. Shape Key Facts
 
 bc. shape Usecase
 
-A shape definition starts with the keyword "shape" for every figure. After the keyword a unique name (id) will be set, which identify the shape for the whole project. Shapes with the same name are not valid and will be displayed as error. The name of a figure will be the name for the generated java class.
+A shape definition starts with the keyword @shape@ for every figure. After the keyword a unique name (id) will be set, which identify the shape for the whole project. Shapes with the same name are not valid and will be displayed as error. The name of a figure will be the name for the generated java class.
 
 bc. 
 public class Usecase implements ISprayShape
 
-for ever defined shape a Java class will be generated. The interface ISprayShape provide one method
-which will be define for every class. 
+For every defined shape a Java class will be generated. The interface ISprayShape provides one method
+which will be defined for every class.
 
 bc. 
 public ContainerShape getShape(Diagram diagram);
 
-The implemented method getShape returns a ContainerShape (@org.eclipse.graphiti.mm.pictograms.ContainerShape@) this container comprised all elements of the defined figure/shape.   
+The implemented method @getShape()@ returns a ContainerShape (@org.eclipse.graphiti.mm.pictograms.ContainerShape@) which is comprised of all elements of the defined figure/shape.
 
 
 h2. Shape Visualisation 
 
 bc. shape Usecase style BlackAndWhiteStyle
 
-Every shape definition can reference a custom style for their visual behavior. The style will be inherited to the nested shape elements. If a custom style on a nested shape is needed a separate style can be referenced too.
+Every shape definition can reference a custom style for their visual behavior. The style will be inherited to the nested shape elements. If a custom style on a nested shape is needed a separate style can be referenced, too.
 
 bc. shape Usecase style BlackAndWhiteStyle { 
 		ellipse { style(background-color=blue line-color=red) } }
 
-The nested style only affects the referenced shape without inheritance. If element values are not set, the graphiti default value will be set.
+The nested style only affects the referenced shape without inheritance. If element values are not set, the Graphiti default value will be set.
 
 h2. Shape Elements
 
@@ -60,11 +63,11 @@ A complex figure could have multiple level for their visualisation. The brackets
 
 bc. shape Usecase { ellipse {} }
 
-If elements are at the same level like a ellipse and a text there will be defined among each other, so shapes can be multiple nested. 
+If elements are at the same level like an ellipse and a text they will be defined among each other, so shapes can be multiple nested. 
 
 bc. shape Usecase { ellipse {} text {} }
 
-Every figure got the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ got an attribute for @horizinal@ and @vertical@ stretching of the figure. @proportional@ handles if the resize proportion between height and width is kept or not.
+Every figure have the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ has an attribute for @horizinal@ and @vertical@ stretching of the figure. @proportional@ handles whether the resize proportion between height and width is kept or not.
 
 bc.. shape Usecase (java.lang.String textline) 
 	{
@@ -74,18 +77,18 @@ bc.. shape Usecase (java.lang.String textline)
 	proportional=true
 }
 
-
 h3. Anchor
 
-Every shape has the ability to place different types of anchors with the keyword @anchor@. An anchor is specified at the first level of an shape and give the shape the possibility place a connection. There are four options to place an anchor. The first 2 options are dynamic and can be set with a keyword @anchor = center@ or @anchor = corners@. Does not matter what kind of shape is chosen the anchor will be placed in the center or at the corners where the shape is drawn onto. If an @ellipse@ is defined, this shape will be drawn on a invisible rectangle so the corners of the @anchor@ are the one from the rectangle.      
-There are two more options to define an @anchor@ a relative and fix one. A relative anchor type can look like this.
+Every shape has the ability to place different types of anchors with the keyword @anchor@. An anchor is specified at the first level of a shape and gives the shape the possibility to place a connection. There are four options to place an anchor. The first 2 options are dynamic and can be set with a keyword @anchor = center@ or @anchor = corners@. It does not matter what kind of shape is chosen, the anchor will be placed in the center or at the corners where the shape is drawn onto. If an @ellipse@ is defined, this shape will be drawn on an invisible rectangle thus the corners of the @anchor@ are the one from the rectangle.
+
+There are two more options to define an @anchor@: a relative and a fixed one. A relative anchor type looks like this:
 
 bc. anchor {
 		position(xoffset=0.1,yoffset=0.0)
 		position(xoffset=0.8,yoffset=1.0)
 	}
 
-Every position entry represent a anchor point for a connection.In this case the @anchor@ got an attribute @position@ with two values @xoffset@ and @yoffset@. The @xoffset@/ @yoffset@ is the distance from the upper left corner to given value.
+Every position entry represent an anchor point for a connection. In this case the @anchor@ has an attribute @position@ with two values @xoffset@ and @yoffset@. The @xoffset@/ @yoffset@ is the distance from the upper left corner to given value.
 
 bc. anchor {
 		position(x=5, y=10)
@@ -94,9 +97,11 @@ bc. anchor {
 	
 This example defines a fixed anchor, where the coordinates for the position are with a fixed value.
 
+!images/anchors.svg!
+
 h2. Shape Default Values
 
-If the user doesn't specify any value for one or more attribute the *default values* will be gained. The default values are.
+If the user doesn't specify any value for one or more attribute the *default values* will be gained. The default values are:
 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 | proportional	     			| boolean     | yes or no            | false (no)      	| 
@@ -122,17 +127,17 @@ line/polyline/polygon
 | position 		- x		    	| integer     | >= 0             	 | 0            	|
 | position		- y		    	| integer     | >= 0             	 | 0             	|
 
-RoundedRectangl
+RoundedRectangle
 | curve 		- width	    	| integer     | >= 0             	 | 0            	|
 | curve 		- height    	| integer     | >= 0             	 | 0             	|
 
 h3. Text
 
-The keyword @text@ represents a shape element which 
+The keyword @text@ represents a shape element which renders a string.
 
-bc. text { 
+bc. text { ... }
 
-A text field has one obligatory and one optional attribute. The first attribute is the alignment(@align@) separated in @horizontal@ and @vertical@. For both values are enumeration values referenced. The First value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The optional attribute can set the @"text"@ value of the shape.
+A text field has one obligatory and one optional attribute. The first attribute is the alignment (@align@), which can have the value @horizontal@ or @vertical@. For both values enumeration values are referenced. The first value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The optional attribute can set the @"text"@ value of the shape.
 
 bc. text {
 		align(horizontal=center,vertical=bottom)
@@ -140,11 +145,11 @@ bc. text {
 
 h3. Line
 
-The keyword @line@ represents a line shape element
+The keyword @line@ represents a line shape element.
 
 bc. line { 
 
-This shape needs a pair of @point@ which define the startpoint and an endpoint of a line. Each point has their @x=@/ @y=@ coordinates.
+This shape needs a pair of @point@ which define the start point and the end point of a line. Each point has their @x=@/ @y=@ coordinates.
 
 bc. line {
 		point(x=25,y=20)
@@ -152,11 +157,11 @@ bc. line {
 
 h3. Polyline
 
-The keyword @polyline@ represents a polyline shape element
+The keyword @polyline@ represents a polyline shape element.
 
 bc. polyline { }
 
-A polyline definition required a set of @point@ to specify every start and end of a route. Each point has their @x=@/ @y=@ coordinates.
+A polyline definition requires a set of @point@ to specify every start and end of a route. Each point has their @x=@/ @y=@ coordinates.
 
 bc. polyline {
 		point(x=50,y=0)
@@ -165,11 +170,11 @@ bc. polyline {
 
 h3. 2D Shape
 
-All 2d shape definitions have two obligatory attributes @size@ and @position@. The @size@ defines the @width@ and @height@ of a 2d shape. The @position@ defines the @x@ and @y@ coordinate where the figure is displayed.
+All 2d shape definitions have two obligatory attributes @size@ and @position@. The @size@ defines the @width@ and @height@ of a 2d shape. The @position@ defines the @x@ and @y@ coordinates where the figure is displayed.
 
 h3. Ellipse
 
-The keyword @ellipse@ represents a ellipse shape element.
+The keyword @ellipse@ represents an ellipse shape element.
 
 bc. ellipse  { }
 
@@ -181,7 +186,7 @@ bc. ellipse  {
 
 h3. Rectangle
 
-The keyword @rectangle@ represents a rectangle shape element
+The keyword @rectangle@ represents a rectangle shape element.
 
 bc. rectangle { }
 
@@ -189,28 +194,31 @@ The rectangle can present all types of rectangles and also squares, when the @wi
 
 bc. rectangle {
 		size(width=100, height=100)
-		position(x=0,y=0) 
+		position(x=0,y=0)
+		...
+}
 
-h3. RoundedRectangle
+h3. Rounded Rectangle
 
 The keyword @roundedrectangle@ represents a roundedrectangle shape element
 
-bc. roundedrectangle { 
+bc. roundedrectangle { ... }
 
-The roundedrectangle definition is similar to the rectangle definition. There is just one optional attribute named @curve@ which set the curve of the corners
+The @roundedrectangle@ definition is similar to the rectangle definition. There is just one optional attribute named @curve@ which set the curve of the corners
 
 bc. roundedrectangle {
 		size(width=100, height=100)
 		position(x=0,y=0)
-		curve(width=30, height=30 
+		curve(width=30, height=30)
+}
 
 h3. Polygon
 
-The keyword @polygon@ represents a polygon shape element
+The keyword @polygon@ represents a polygon shape element.
 
 bc. polygon { 
 
-A polygon is shape with n-sides. This figure is bounded by a closed path, this mean the startpoint is connected to the end point. Every side is defines by two @point@ with there @x@ and @y@ coordinates.
+A polygon is a shape with n sides. This figure is bounded by a closed path, this means the start point is connected to the end point. Every side is defined by two @point@ with there @x@ and @y@ coordinates.
 
 bc. polygon {
 		size(width=100, height=100)
@@ -220,13 +228,13 @@ bc. polygon {
 		point(x=60,y=10) 
 }
 
-h2. Practise Examples 
+h2. Practice Examples 
 
 To get more experience in defining some complex figures, we set up some examples figures from UML (Unified Modeling Language) and BPMN (Business Process Model and Notation). 
 
 h3. UML - Example
 
-This example shows how to create an actor with the shape dsl. At first we need to define a shape with the name @UML_UC_Actor@. After that we will define the geometric from of this figure and add an @ellipse@. This @ellipse@ is a circle, because the value for @width@ and @height@ are the same. The circle represents the head of the actor and is displayed at top of the shape.    
+This example shows how to create an actor with the Shape dsl. At first we need to define a shape with the name @UML_UC_Actor@. After that we will define the geometric from of this figure and add an @ellipse@. This @ellipse@ is a circle, because the value for @width@ and @height@ are the same. The circle represents the head of the actor and is displayed at top of the shape.    
 
 bc. shape UML_UC_Actor {
 	ellipse { // Head
