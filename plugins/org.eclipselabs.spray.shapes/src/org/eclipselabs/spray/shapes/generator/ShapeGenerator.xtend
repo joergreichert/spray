@@ -12,17 +12,19 @@ import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
 class ShapeGenerator implements IGenerator {
 
-	@Inject extension GeneratorShapeDefinition
-	@Inject extension GeneratorConnectionDefinition 
+	@Inject GeneratorShapeDefinition shapeDefinition
+    @Inject GeneratorConnectionDefinition connectionDefinition 
+    @Inject GeneratorSVGDefinition svgDefinition 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		for(shape : resource.allContents.toIterable.filter(typeof(ShapeDefinition))) {
     		// create the Shapes
-	  		fsa.generateFile(shape.filepath, shape.compile)
+            fsa.generateFile(shapeDefinition.filepath(shape), shapeDefinition.compile(shape))
+            fsa.generateFile(svgDefinition.filepath(shape), svgDefinition.compile(shape))
    		}
    		for(connection : resource.allContents.toIterable.filter(typeof(ConnectionDefinition))) {
       		// create the connections
-   			fsa.generateFile(connection.filepath, connection.compile)
+   			fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
    		}
 	}
 	
