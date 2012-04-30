@@ -14,7 +14,7 @@ Workflow {
 
     component = org.eclipse.xtext.ecore.EcoreSupport{}
 
-	component = org.eclipselabs.spray.generator.graphiti.util.ReaderExt {
+	component = org.eclipselabs.spray.xtext.util.ReaderExt {
 		// lookup all resources on the classpath
 		// useJavaClassPath = true
 
