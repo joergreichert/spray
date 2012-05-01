@@ -22,7 +22,7 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<product>org.eclipse.sdk.ide</product>
-					<argLine>${ui.test.vmargs} ${coverageAgent}</argLine>
+					<argLine>${ui.test.vmargs} ${it.coverage.argLine}</argLine>
 					<product>org.eclipse.sdk.ide</product>
 					<skip>${tycho.surefire.skipUiTest}</skip>
 					<testFailureIgnore>true</testFailureIgnore>

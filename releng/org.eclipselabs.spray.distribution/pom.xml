@@ -162,6 +162,7 @@
 			<id>codeCoverage</id>
 			<properties>
 				<jacoco.version>0.5.6.201201232323</jacoco.version>
+				<jacoco.append>true</jacoco.append>
 				<jacoco.destFile>${project.basedir}/../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile>
 				<jacoco.it.destFile>${project.basedir}/../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile>
 				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
