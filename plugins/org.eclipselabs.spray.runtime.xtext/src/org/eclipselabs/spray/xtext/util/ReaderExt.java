@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.util;
+package org.eclipselabs.spray.xtext.util;
 
 import org.eclipse.xtext.mwe.Reader;
 

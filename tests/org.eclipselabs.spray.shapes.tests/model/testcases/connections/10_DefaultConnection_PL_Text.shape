@@ -4,7 +4,7 @@ connection DefaultConnection {
 		text {
 			position (x=0, y=0)
 			size (width=30, height=14)
-			value = "Test"
+			id = text1
 		}	
 	}
 }

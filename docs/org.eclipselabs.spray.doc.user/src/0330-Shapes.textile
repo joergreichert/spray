@@ -1,5 +1,18 @@
 h2. Shapes
 
+A metaclass can be either mapped to a shape by defining it in-place in the .spray file, or a Shape defined with the Shapes DSL can be referenced. The latter is the more flexible way.
+
+h3. External Shape
+
+A shape defined with the Shape DSL can be referred to by using the @shape@ keyword.
+
+bc.. 
+class MyMetaclass {
+  shape MyCustomShape { ... }
+}
+
+
+
 h3. Container
 
 A Container Shape is a container for other shapes.

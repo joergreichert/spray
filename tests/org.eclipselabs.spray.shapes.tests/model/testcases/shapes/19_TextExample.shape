@@ -1,15 +1,21 @@
 shape ShapeWithText {
 	rectangle {
+		position (x=0, y=0)
 		size (width=100, height=200)
-		position (x=0, y=0) text {
+		text {
+			position (x=0, y=30)
 			size (width=100, height=30)
+			id = shapeName
+		}
+		text {
 			position (x=0, y=0)
+			size (width=100, height=30)
 			align (horizontal=center, vertical=middle)
 			id = text1
 		}
 		text {
-			size (width=100, height=30)
 			position (x=0, y=30)
+			size (width=100, height=30)
 			id = text2
 		}
 	}
