@@ -495,9 +495,10 @@
 				<!--jacoco.output>file</jacoco.output-->
 				<!--jacoco.address>localhost</jacoco.address-->
 				<!--jacoco.port>9999</jacoco.port-->
-
 				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 				<sonar.jacoco.reportPath>${jacoco.destFile}</sonar.jacoco.reportPath>
+				<sonar.surefire.reportsPath>../${project.artifactId}.tests/target/surefire-reports/</sonar.surefire.reportsPath>
 				<sonar.jacoco.itReportPath>${jacoco.it.destFile}</sonar.jacoco.itReportPath>
 			</properties> 
 			<build>
@@ -508,9 +509,21 @@
 						<version>${jacoco.version}</version>
 						<executions>
 							<execution>
+								<id>pre-unit-test</id>
 								<goals>
 									<goal>prepare-agent</goal>
 								</goals>
+							</execution>
+							<execution>
+								<id>pre-integration-test</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<destFile>${jacoco.it.destFile}</destFile>
+									<propertyName>it.coverage.argLine</propertyName>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
