@@ -336,5 +336,13 @@
             extensions="shape">
     </provider>
   </extension>
+  <extension
+        point="org.eclipse.ui.views">
+     <view
+           class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipselabs.spray.shapes.ui.view.ShapePreviewView"
+           id="org.eclipselabs.spray.shapes.ui.view.ShapePreviewView"
+           name="Shape Previe">
+     </view>
+  </extension>
 
 </plugin>

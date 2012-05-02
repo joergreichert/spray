@@ -4,9 +4,11 @@
 package org.eclipselabs.spray.shapes.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.shapes.ui.outline.ShapeOutlinePage;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeHighlightingConfiguration;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeTokenToAttributeIdMapper;
 
@@ -16,11 +18,11 @@ import com.google.inject.Binder;
  * Use this class to register components to be used within the IDE.
  */
 public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShapeUiModule {
-	public ShapeUiModule(AbstractUIPlugin plugin) {
-		super(plugin);
-	}
-	
-	public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
+    public ShapeUiModule(AbstractUIPlugin plugin) {
+        super(plugin);
+    }
+
+    public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
         return ShapeTokenToAttributeIdMapper.class;
     }
 
@@ -30,8 +32,13 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
         binder.bind(TokenTypeToStringMapper.class).to(ShapeTokenToAttributeIdMapper.class);
     }
 
-	
-	public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration () {
-	    return ShapeHighlightingConfiguration.class;
-	  }
+    public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
+        return ShapeHighlightingConfiguration.class;
+    }
+
+    @Override
+    public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
+        return ShapeOutlinePage.class;
+    }
+
 }
