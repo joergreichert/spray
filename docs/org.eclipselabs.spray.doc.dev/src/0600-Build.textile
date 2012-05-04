@@ -7,7 +7,7 @@ Spray is using Maven Tycho for building. You need a Maven 3 installation.
 To build Spray, change to the @/releng/org.eclipselabs.spray.distribution@ directory and enter
 
 bc. 
-mvn clean install -Pskip.ui.tests
+mvn clean install -Pskip.ui.tests,modules-all
 
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
