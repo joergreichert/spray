@@ -17,6 +17,10 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipselabs.spray.shapes.shapes.AnchorFixPointPosition
 import static java.lang.Math.*
 import org.eclipselabs.spray.shapes.shapes.Shape
+import org.eclipselabs.spray.styles.styles.LineStyle
+import org.eclipselabs.spray.styles.styles.StyleLayout
+import org.eclipselabs.spray.shapes.shapes.Polyline
+import org.eclipselabs.spray.shapes.shapes.Polygon
 
 class LayoutExtensions {
     def dispatch int width (ShapeDefinition shapeDef) {
@@ -69,6 +73,30 @@ class LayoutExtensions {
     def int y1 (Line shape) { shape.eContainer.y + shape.layout.point.get(0).ycor }
     def int x2 (Line shape) { shape.eContainer.x + shape.layout.point.get(1).xcor }
     def int y2 (Line shape) { shape.eContainer.y + shape.layout.point.get(1).ycor }
+    
+    def dispatch String lineStyle (Line shape) {
+        lineStyle(shape.layout?.layout?.layout)
+    }
+    def dispatch String lineStyle (Polyline shape) {
+        lineStyle(shape.layout?.layout?.layout)
+    }
+    def dispatch String lineStyle (Polygon shape) {
+        lineStyle(shape.layout?.layout?.layout)
+    }
+    
+    // no dispatch here, since the dispatcher methods will delegate to this here
+    // with the fixed argument type
+    def String lineStyle (StyleLayout layout) {
+        if (layout == null)
+            return ""
+        switch (layout.lineStyle) {
+            case LineStyle::DOT: 'stroke-dasharray="2,2"' 
+            case LineStyle::DASH: 'stroke-dasharray="8,6"' 
+            case LineStyle::DASHDOT: 'stroke-dasharray="8,4,2,4"' 
+            case LineStyle::DASHDOTDOT: 'stroke-dasharray="8,4,2,4,2,4"' 
+            default: ""
+        }
+    }
     
     // Anchors
     def dispatch int x (AnchorFixPointPosition pos) { pos.xcor }

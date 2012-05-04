@@ -17,6 +17,9 @@ import org.eclipselabs.spray.shapes.shapes.AnchorPredefinied
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.PolyLineLayout
 
+/**
+ * Generator for SVG representations of ShapeDefinitions.
+ */
 class SVGShapeGenerator {
     @Inject extension LayoutExtensions
 
@@ -31,11 +34,11 @@ class SVGShapeGenerator {
     '''
     
     def dispatch generateShape (Line shape) '''
-        <line x1="«shape.x1»" y1="«shape.y1»" x2="«shape.x2»" y2="«shape.y2»"/>
+        <line x1="«shape.x1»" y1="«shape.y1»" x2="«shape.x2»" y2="«shape.y2»" «shape.lineStyle»/>
     '''
 
     def dispatch generateShape (Polyline shape) '''
-        <polyline points="«shape.points»" «shape.layout.styleAttribute»/>
+        <polyline points="«shape.points»" «shape.layout.styleAttribute» «shape.lineStyle»/>
     '''
     
     def points (Polyline pl) '''
@@ -43,7 +46,7 @@ class SVGShapeGenerator {
     '''
 
     def dispatch generateShape (Polygon shape) '''
-        <polygon points="«shape.points»"/>
+        <polygon points="«shape.points»" «shape.lineStyle»/>
         «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»
     '''
 
@@ -72,7 +75,7 @@ class SVGShapeGenerator {
     '''
 
     def dispatch generateShape (Text shape) '''
-        <text x="«shape.x»" y="«shape.y»">«IF shape.body.value != null»&lt;«shape.body.value»&gt;«ELSE»&lt;TEXT&gt;«ENDIF»</text>
+        <text x="«shape.x»" y="«shape.y»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
     '''
     
     def positionAndSize (Shape shape) '''x="«shape.x»" y="«shape.y»" width="«shape.width»" height="«shape.height»"'''
@@ -80,7 +83,7 @@ class SVGShapeGenerator {
     // ANCHOR
     def dispatch generateAnchor (AnchorManual anchor) '''
         «FOR ap: anchor.position»
-        <use x="«ap.pos.x»" y="«ap.pos.y»" xlink:href="#anchor" />
+        <use x="«ap.pos.x»" y="«ap.pos.y»" xlink:href="#anchor"/>
         «ENDFOR»
     '''
     def dispatch generateAnchor (AnchorPredefinied anchor) '''
