@@ -25,6 +25,7 @@ class ShapeGenerator implements IGenerator {
    		for(connection : resource.allContents.toIterable.filter(typeof(ConnectionDefinition))) {
       		// create the connections
    			fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
+            fsa.generateFile(svgDefinition.filepath(connection), svgDefinition.compile(connection))
    		}
 	}
 	

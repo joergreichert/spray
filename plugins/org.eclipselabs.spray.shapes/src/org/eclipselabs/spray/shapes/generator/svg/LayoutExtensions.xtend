@@ -21,6 +21,16 @@ import org.eclipselabs.spray.styles.styles.LineStyle
 import org.eclipselabs.spray.styles.styles.StyleLayout
 import org.eclipselabs.spray.shapes.shapes.Polyline
 import org.eclipselabs.spray.shapes.shapes.Polygon
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.shapes.CDRectangle
+import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
+import org.eclipselabs.spray.shapes.shapes.CDEllipse
+import org.eclipselabs.spray.shapes.shapes.CDText
+import org.eclipselabs.spray.shapes.shapes.CDLine
+import org.eclipselabs.spray.shapes.shapes.CDPolyline
+import org.eclipselabs.spray.shapes.shapes.CDPolygon
+import org.eclipselabs.spray.shapes.shapes.ShapeConnection
+import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
 
 class LayoutExtensions {
     def dispatch int width (ShapeDefinition shapeDef) {
@@ -30,6 +40,9 @@ class LayoutExtensions {
         }
         w
     }
+    def dispatch int width (ConnectionDefinition shapeDef) { 100 }
+    def dispatch int width (PlacingDefinition shape) { shape.shapeCon.width }
+
     def dispatch int height (ShapeDefinition shapeDef) {
         var h = 0;
         for (shape : shapeDef.eAllContents.toIterable.filter(typeof(Shape))) {
@@ -37,6 +50,20 @@ class LayoutExtensions {
         }
         h
     }
+    def dispatch int height (ConnectionDefinition shapeDef) { 30 }
+    def dispatch int height (PlacingDefinition shape) { shape.shapeCon.height }
+
+    // OFFSETS
+    def dispatch int xoffset (EObject other) { 0 }
+    def dispatch int xoffset (ConnectionDefinition shape) { 10 }
+    def dispatch int xoffset (PlacingDefinition shape) { shape.eContainer.xoffset + shape.offset*shape.eContainer.width }
+    def dispatch int xoffset (ShapeConnection shape) { shape.eContainer.xoffset }
+    def dispatch int yoffset (EObject other) { 0 }
+    def dispatch int yoffset (ConnectionDefinition shape) { 10 }
+    def dispatch int yoffset (PlacingDefinition shape) { shape.eContainer.yoffset + shape.offset*shape.eContainer.width }
+    def dispatch int yoffset (ShapeConnection shape) { shape.eContainer.yoffset }
+    
+
     def dispatch int x (EObject other) { 0 }
     def dispatch int y (EObject other) { 0 }
     def dispatch int width (EObject other) { 0 }
@@ -47,6 +74,10 @@ class LayoutExtensions {
     def dispatch int y (Rectangle shape) { shape.layout.common.ycor }
     def dispatch width (Rectangle shape) { shape.layout.common.width }
     def dispatch height (Rectangle shape) { shape.layout.common.heigth }
+    def dispatch int x (CDRectangle shape) { shape.layout.common.xcor }
+    def dispatch int y (CDRectangle shape) { shape.layout.common.ycor }
+    def dispatch width (CDRectangle shape) { shape.layout.common.width }
+    def dispatch height (CDRectangle shape) { shape.layout.common.heigth }
 
     // RoundedRectangle
     def dispatch int x (RoundedRectangle shape) { shape.eContainer.x + shape.layout.common.xcor }
@@ -55,6 +86,12 @@ class LayoutExtensions {
     def dispatch height (RoundedRectangle shape) { shape.layout.common.heigth }
     def rx (RoundedRectangle shape) { shape.layout.curveWidth }
     def ry (RoundedRectangle shape) { shape.layout.curveHeight }
+    def dispatch int x (CDRoundedRectangle shape) { shape.xoffset + shape.layout.common.xcor }
+    def dispatch int y (CDRoundedRectangle shape) { shape.yoffset + shape.layout.common.ycor }
+    def dispatch width (CDRoundedRectangle shape) { shape.layout.common.width }
+    def dispatch height (CDRoundedRectangle shape) { shape.layout.common.heigth }
+    def rx (CDRoundedRectangle shape) { shape.layout.curveWidth }
+    def ry (CDRoundedRectangle shape) { shape.layout.curveHeight }
 
 	// Ellipse
     def dispatch int x (Ellipse shape) { shape.eContainer.x + shape.layout.common.xcor + shape.rx }
@@ -62,25 +99,48 @@ class LayoutExtensions {
     def rx (Ellipse shape) { shape.layout.common.width/2 }
     def ry (Ellipse shape) { shape.layout.common.heigth/2 }
     def isCircle (Ellipse shape) { shape.rx==shape.ry }
+    def dispatch int x (CDEllipse shape) { shape.xoffset + shape.layout.common.xcor + shape.rx }
+    def dispatch int y (CDEllipse shape) { shape.yoffset + shape.layout.common.ycor + shape.ry}
+    def rx (CDEllipse shape) { shape.layout.common.width/2 }
+    def ry (CDEllipse shape) { shape.layout.common.heigth/2 }
+    def isCircle (CDEllipse shape) { shape.rx==shape.ry }
     
     // Text
     // in SVG x/y is left-bottom for text
     def dispatch int x (Text shape) { shape.eContainer.x + shape.layout.common.xcor }
     def dispatch int y (Text shape) { shape.eContainer.y + shape.layout.common.ycor + shape.layout.common.heigth }
+    def dispatch int x (CDText shape) { shape.xoffset + shape.layout.common.xcor }
+    def dispatch int y (CDText shape) { shape.yoffset + shape.layout.common.ycor + shape.layout.common.heigth }
 
     // Line
     def int x1 (Line shape) { shape.eContainer.x + shape.layout.point.get(0).xcor }
     def int y1 (Line shape) { shape.eContainer.y + shape.layout.point.get(0).ycor }
     def int x2 (Line shape) { shape.eContainer.x + shape.layout.point.get(1).xcor }
     def int y2 (Line shape) { shape.eContainer.y + shape.layout.point.get(1).ycor }
+    def int x1 (CDLine shape) { shape.xoffset + shape.layout.point.get(0).xcor }
+    def int y1 (CDLine shape) { shape.yoffset + shape.layout.point.get(0).ycor }
+    def int x2 (CDLine shape) { shape.xoffset + shape.layout.point.get(1).xcor }
+    def int y2 (CDLine shape) { shape.yoffset + shape.layout.point.get(1).ycor }
     
+    def dispatch String lineStyle (ConnectionDefinition shape) {
+        lineStyle(shape.layout?.layout)
+    }
     def dispatch String lineStyle (Line shape) {
+        lineStyle(shape.layout?.layout?.layout)
+    }
+    def dispatch String lineStyle (CDLine shape) {
         lineStyle(shape.layout?.layout?.layout)
     }
     def dispatch String lineStyle (Polyline shape) {
         lineStyle(shape.layout?.layout?.layout)
     }
+    def dispatch String lineStyle (CDPolyline shape) {
+        lineStyle(shape.layout?.layout?.layout)
+    }
     def dispatch String lineStyle (Polygon shape) {
+        lineStyle(shape.layout?.layout?.layout)
+    }
+    def dispatch String lineStyle (CDPolygon shape) {
         lineStyle(shape.layout?.layout?.layout)
     }
     

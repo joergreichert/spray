@@ -3,19 +3,20 @@ package org.eclipselabs.spray.shapes.generator
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.generator.svg.SVGShapeGenerator
 import com.google.inject.Inject
+import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 
 class GeneratorSVGDefinition {
     @Inject SVGShapeGenerator shapeGenerator
     
     def packagePath() { "org/eclipselabs/spray/shapes/" }
-	def filepath(ShapeDefinition s) { packagePath + s.name.toFirstUpper + ".svg" }
-	def compile(ShapeDefinition s) '''
+	def filepath(ShapeContainerElement s) { packagePath + s.name.toFirstUpper + ".svg" }
+	def compile(ShapeContainerElement s) '''
      «s.head»
      «s.body»
      «s.tail»
      '''
     
-    def head (ShapeDefinition s) '''
+    def head (ShapeContainerElement s) '''
     <?xml version="1.0" standalone="no" ?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
         "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
@@ -24,15 +25,15 @@ class GeneratorSVGDefinition {
         «s.metadata»
     '''
 
-    def tail (ShapeDefinition s) '''
+    def tail (ShapeContainerElement s) '''
     </svg>
     '''
 
-    def body (ShapeDefinition s) '''
+    def body (ShapeContainerElement s) '''
         «shapeGenerator.generate(s)»
     '''
     
-    def metadata (ShapeDefinition s) '''
+    def metadata (ShapeContainerElement s) '''
         <metadata>
             <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
