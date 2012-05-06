@@ -57,6 +57,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+        import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.Graphiti;
@@ -123,6 +124,12 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 «IF metaClass.alias!=null»
                 peService.setPropertyValue(conShape , PROPERTY_ALIAS, "«metaClass.alias»");
                 «ENDIF»
+                for(Shape childShape : conShape.getChildren()) {
+                	link(childShape, addedModelElement);
+                	«IF metaClass.alias!=null»
+                	peService.setPropertyValue(childShape, PROPERTY_ALIAS, "«metaClass.alias»");
+                	«ENDIF»
+                }
 
                 setDoneChanges(true);
                 updatePictogramElement(conShape);

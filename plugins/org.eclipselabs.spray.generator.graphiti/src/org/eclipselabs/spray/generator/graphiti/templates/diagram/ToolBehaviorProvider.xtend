@@ -49,6 +49,11 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.features.IFeature;
         import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
         import org.eclipselabs.spray.runtime.graphiti.tb.AbstractSprayToolBehaviorProvider;
+        import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.emf.common.util.EList;
+        import org.eclipselabs.spray.shapes.ISprayShapeConstants;
+        import org.eclipse.graphiti.services.Graphiti;
         
         import com.google.common.collect.Lists;
         // MARKER_IMPORT
@@ -59,6 +64,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
                 super(dtp);
             }
         
+        	«generate_getSelectionBorder(diagram)»
             «generate_buildCreationTools(diagram)»
             «generate_buildPaletteCompartments(diagram)»
             «generate_getPaletteCompartmentForFeature(diagram)»
@@ -66,6 +72,21 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         }
     '''
     
+    def generate_getSelectionBorder(Diagram diagram) { '''
+    	«overrideHeader»
+		public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
+			String propertyValue = Graphiti.getPeService().getPropertyValue(pe.getGraphicsAlgorithm(), ISprayShapeConstants.IS_SHAPE_FROM_DSL);
+			if (propertyValue != null && propertyValue.equals(ISprayShapeConstants.IS_SHAPE_FROM_DSL_VALUE)) {
+				GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();
+				EList<GraphicsAlgorithm> graphicsAlgorithmChildren = invisible.getGraphicsAlgorithmChildren();
+				if (!graphicsAlgorithmChildren.isEmpty()) {
+					return graphicsAlgorithmChildren.get(0);
+				}
+			}
+			return super.getSelectionBorder(pe);
+		}
+    '''
+    }
     
     def List<CreateBehavior> getAllCreateBehaviors (Diagram diagram) {
         diagram.eAllOfType(typeof(CreateBehavior))
@@ -103,7 +124,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
             «ENDFOR»
         }
     '''
-    
+        
     def Iterable<String> getAllCreateFeatureNames (Diagram diagram) {
         val result = new ArrayList<String>()
         result += diagram.allCreateBehaviors.map(b|b.createFeatureClassName)

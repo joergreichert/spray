@@ -54,6 +54,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+        import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
@@ -102,6 +103,11 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                     if(checkUpdateNeededRecursively(conShape.getGraphicsAlgorithm(), eClass)) {
                     	return Reason.createTrueReason();
                     }
+                    for(Shape childShape : conShape.getChildren()) {
+                    	if(checkUpdateNeededRecursively(childShape.getGraphicsAlgorithm(), eClass)) {
+                    		return Reason.createTrueReason();
+                    	}
+                    }
                 }
                 return Reason.createFalseReason();
              }
@@ -149,6 +155,9 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 if(pictogramElement instanceof ContainerShape) {
                     ContainerShape conShape = (ContainerShape) pictogramElement;
                     updateChildsRecursively(conShape.getGraphicsAlgorithm(), eClass);
+                    for(Shape childShape : conShape.getChildren()) {
+                    	updateChildsRecursively(childShape.getGraphicsAlgorithm(), eClass);
+                    }
                 }
                 return true;
                 

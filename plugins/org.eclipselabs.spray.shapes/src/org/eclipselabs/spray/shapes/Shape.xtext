@@ -4,14 +4,14 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
 generate shapes 'http://www.eclipselabs.org/spray/shapes/Shape'
 
 ShapeContainer:
-    imports+=Import*
+	imports+=Import*
 	shapeContainerElement+=ShapeContainerElement*;
 
 Import:
-    'import' importedNamespace=QualifiedNameWithWildCard;
+	'import' importedNamespace=QualifiedNameWithWildCard;
 
-QualifiedNameWithWildCard returns ecore::EString :
-    QualifiedName  ('.' '*')?;
+QualifiedNameWithWildCard returns ecore::EString:
+	QualifiedName ('.' '*')?;
 
 ShapeContainerElement:
 	ShapeDefinition | ConnectionDefinition;
@@ -27,6 +27,7 @@ ShapeDefinition:
 	'shape' name=ID (style=ShapeStyleRef)? '{'
 	shapeLayout=ShapeLayout
 	shape+=Shape+
+	description=Description?
 	anchor=Anchor?
 	'}';
 
@@ -108,6 +109,13 @@ Ellipse:
 Text:
 	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
 	//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
+Description:
+	{Description} (
+	'description' (style=ShapeStyleRef)? '{'
+		('align' '(' ('horizontal' '=' hAlign=HAlign ',' 'vertical' '=' vAlign=VAlign)? ')')?
+		body=TextBody
+	'}');
+
 ShapeLayout:
 	{ShapeLayout}
 	(('size-min' '(' 'width' '=' minwidth=INT ',' 'height' '=' minheight=INT ')')?
@@ -144,10 +152,8 @@ ShapeStyleRef:
 	'style' (style=JvmTypeReference);
 
 CommonLayout:
-	{CommonLayout} (
-		('position' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT ')' )? & 
-		('size' '(' 'width' '=' width=INT ',' 'height' '=' heigth=INT ')' )
-	);
+	{CommonLayout} (('position' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT ')')? &
+	('size' '(' 'width' '=' width=INT ',' 'height' '=' heigth=INT ')'));
 
 TextBody:
 	"id" "=" value=ID; //value=TextBodyValue;
@@ -160,7 +166,6 @@ TextBody:
 //
 //TextBodyParameter:
 //	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
-
 Point:
 	{Point} ('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','
 	'curveAfter' '=' curveAfter=INT)? ')');

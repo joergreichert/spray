@@ -17,6 +17,7 @@ import org.eclipselabs.spray.shapes.shapes.TextType
 import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.HAlign
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
+import org.eclipselabs.spray.shapes.shapes.Description
 
 class ShapeTypeGenerator {
 	
@@ -31,25 +32,34 @@ class ShapeTypeGenerator {
 		plcount = 0
 		var sizeMap = s.getContainerSize
 		var containername = "containerShape"
-		var attname = containername
+		var attname = nextAttributeName
+		var attname2 = attname
 		if(s.shape.size > 1) {
-			attname = nextAttributeName
+			attname2 = nextAttributeName
 		}
 		'''
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(«containername»);
 		directEditingInfo.setPictogramElement(«containername»);
 		
-		«IF s.shape.size > 1»
-		// Invisible rectangle around the elements (because more then one element is on first layer).
 		GraphicsAlgorithm «attname» = gaService.createInvisibleRectangle(«containername»);
 		«attname».setStyle(sprayStyle.getStyle(diagram));
-		«attname».setWidth(«sizeMap.width»);
-		«attname».setHeight(«sizeMap.heigth»);
+		peService.setPropertyValue(«attname», ISprayShapeConstants.IS_SHAPE_FROM_DSL, ISprayShapeConstants.IS_SHAPE_FROM_DSL_VALUE);
+		gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);
+		
+		«IF s.shape.size > 1»
+		// Invisible rectangle around the elements (because more then one element is on first layer).
+		GraphicsAlgorithm «attname2» = gaService.createRectangle(«attname»);
+		«attname2».setStyle(sprayStyle.getStyle(diagram));
+		«attname2».setFilled(false);
+		«attname2».setLineVisible(false);
+		gaService.setLocationAndSize(«attname2», 0, 0, «sizeMap.width», «sizeMap.heigth»);
 		«ENDIF»
 		«FOR element : s.shape»
-		«element.createElement(attname, "sprayStyle")»
+		«element.createElement(attname2, "sprayStyle")»
 		«ENDFOR»
+		
+		«s.description?.generateDescription(containername, "sprayStyle", sizeMap.heigth, sizeMap.width)»
 		
 		// Set start values for height and width as properties on the element for Layout Feature
 		SprayLayoutManager.setSizePictogramProperties(«containername»);
@@ -165,6 +175,23 @@ class ShapeTypeGenerator {
 		«generateStyleForElement(attname, element.layout.layout)»
 		getFeatureProvider().getDirectEditingInfo().setGraphicsAlgorithm(«attname»);
      	'''
+	}
+
+	def generateDescription(Description d, String containerName, String styleName, int y, int width) {
+		val shapeName = nextAttributeName
+		val attname = nextAttributeName
+		'''
+		Shape «shapeName» = peCreateService.createShape(«containerName», false);
+		Text «attname» = gaService.createText(«shapeName»);
+		ISprayStyle style_«element_index» = «d.style.styleForElement(styleName)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));
+		«attname».setForeground(style_1.getFontColor(diagram));
+		gaService.setLocationAndSize(«attname», 0, «y», «width», 20);
+		«attname».setHorizontalAlignment(Orientation.«d.HAlign.mapAlignment»);
+		«attname».setVerticalAlignment(Orientation.«d.VAlign.mapAlignment»);
+		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«d.body.value».name());
+		«attname».setValue("");
+		'''
 	}
 
 	def mapAlignment(VAlign align) {

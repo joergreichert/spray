@@ -37,6 +37,9 @@ class ShapeEnumGenerator {
 				ids.addAll(shape.searchTextIds);
 			}
 		}
+		if (s.description != null) {
+			ids.add(s.description.body.value)
+		}
 		ids
 	}
 	
