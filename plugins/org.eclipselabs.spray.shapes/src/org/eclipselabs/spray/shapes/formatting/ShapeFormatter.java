@@ -71,7 +71,7 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap().before(grammar.getTextLayoutAccess().getAlignKeyword_1_1_0());
         c.setLinewrap().before(grammar.getTextBodyAccess().getIdKeyword_0());
         c.setLinewrap().before(grammar.getShapestyleLayoutAccess().getStyleKeyword_1_0());
-        for (Keyword kw : grammar.findKeywords("line", "ellipse", "rectangle", "rounded-rectangle", "polyline", "polygon", "text", "align", "id")) {
+        for (Keyword kw : grammar.findKeywords("line", "ellipse", "rectangle", "rounded-rectangle", "polyline", "polygon", "text", "description", "align", "id")) {
             c.setLinewrap().before(kw);
         }
 
