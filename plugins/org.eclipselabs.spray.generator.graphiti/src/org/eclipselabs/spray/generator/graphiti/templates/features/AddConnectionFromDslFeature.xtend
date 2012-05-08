@@ -66,13 +66,13 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
-        import org.eclipselabs.spray.styles.ISprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
         «IF styleRef != null && styleRef.style != null»
         import «styleRef.style.qualifiedName»;
         «ELSE»
-        import org.eclipselabs.spray.styles.DefaultSprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         «ENDIF»
-        import org.eclipselabs.spray.shapes.ISprayConnection;
+        import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
         import «connection.connection.qualifiedName»;
         import com.google.common.base.Function;
         

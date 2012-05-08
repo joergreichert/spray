@@ -44,7 +44,7 @@ class ShapeTypeGenerator {
 		
 		GraphicsAlgorithm «attname» = gaService.createInvisibleRectangle(«containername»);
 		«attname».setStyle(sprayStyle.getStyle(diagram));
-		peService.setPropertyValue(«attname», ISprayShapeConstants.IS_SHAPE_FROM_DSL, ISprayShapeConstants.IS_SHAPE_FROM_DSL_VALUE);
+		peService.setPropertyValue(«attname», ISprayConstants.IS_SHAPE_FROM_DSL, ISprayConstants.IS_SHAPE_FROM_DSL_VALUE);
 		gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);
 		
 		«IF s.shape.size > 1»
@@ -170,7 +170,7 @@ class ShapeTypeGenerator {
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
-		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
+		peService.setPropertyValue(«attname», ISprayConstants.TEXT_ID, TextIds.«element.body.value».name());
 		«attname».setValue("");
 		«generateStyleForElement(attname, element.layout.layout)»
 		getFeatureProvider().getDirectEditingInfo().setGraphicsAlgorithm(«attname»);
@@ -189,7 +189,7 @@ class ShapeTypeGenerator {
 		gaService.setLocationAndSize(«attname», 0, «y», «width», 20);
 		«attname».setHorizontalAlignment(Orientation.«d.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«d.VAlign.mapAlignment»);
-		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«d.body.value».name());
+		peService.setPropertyValue(«attname», ISprayConstants.TEXT_ID, TextIds.«d.body.value».name());
 		«attname».setValue("");
 		directEditingInfo.setPictogramElement(«shapeName»);
 		directEditingInfo.setGraphicsAlgorithm(«attname»);

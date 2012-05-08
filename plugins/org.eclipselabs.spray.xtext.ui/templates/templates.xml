@@ -52,11 +52,12 @@ in numerical order.
     deleted="false" 
     description="Create a class mapping for a node" 
     enabled="true" 
-    name="Class node">class ${type:CrossReference('MetaClass.type')}:
-    container  ( )
-    {
+    name="Class node">class ${type:CrossReference('MetaClass.type')} {
+        container  ( )
+        {
         // add content here
         
+        }
     }
 </template>
 <template 

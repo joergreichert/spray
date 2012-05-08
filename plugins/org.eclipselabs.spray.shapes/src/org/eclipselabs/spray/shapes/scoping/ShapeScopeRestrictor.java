@@ -3,7 +3,7 @@ package org.eclipselabs.spray.shapes.scoping;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipselabs.spray.shapes.ISprayShape;
+import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
 
 import com.google.common.base.Predicate;
 

@@ -52,7 +52,6 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.emf.common.util.EList;
-        import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         import org.eclipse.graphiti.services.Graphiti;
         
         import com.google.common.collect.Lists;
@@ -75,8 +74,8 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
     def generate_getSelectionBorder(Diagram diagram) { '''
     	«overrideHeader»
 		public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
-			String propertyValue = Graphiti.getPeService().getPropertyValue(pe.getGraphicsAlgorithm(), ISprayShapeConstants.IS_SHAPE_FROM_DSL);
-			if (propertyValue != null && propertyValue.equals(ISprayShapeConstants.IS_SHAPE_FROM_DSL_VALUE)) {
+			String propertyValue = Graphiti.getPeService().getPropertyValue(pe.getGraphicsAlgorithm(), IS_SHAPE_FROM_DSL);
+			if (propertyValue != null && propertyValue.equals(IS_SHAPE_FROM_DSL_VALUE)) {
 				GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();
 				EList<GraphicsAlgorithm> graphicsAlgorithmChildren = invisible.getGraphicsAlgorithmChildren();
 				if (!graphicsAlgorithmChildren.isEmpty()) {

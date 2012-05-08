@@ -1,5 +1,14 @@
 h1. Build Management
 
+h2. Built within Eclipse
+
+After a clean checkout it is required to run the workflows to produce implementation code in a specific order:
+
+* org.eclipselabs.spray.styles/GenerateStyles.mwe2.launch
+* org.eclipselabs.spray.shapes/GenerateShapes.mwe2.launch
+* org.eclipselabs.spray.mm/GenerateSprayMM.mwe2.launch
+* org.eclipselabs.spray.xtext/GenerateSpray.mwe2.launch
+
 h2. Spray Maven Build
 
 Spray is using Maven Tycho for building. You need a Maven 3 installation.

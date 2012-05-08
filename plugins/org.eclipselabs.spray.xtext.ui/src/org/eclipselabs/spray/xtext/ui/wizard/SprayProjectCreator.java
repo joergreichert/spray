@@ -128,12 +128,12 @@ public class SprayProjectCreator extends AbstractPluginProjectCreator {
 
     @Override
     protected List<String> getImportedPackages() {
-        return Lists.newArrayList("org.apache.log4j", "org.apache.commons.logging", "org.eclipse.xtext.xbase.lib", "org.eclipse.xtext.xtend2.lib");
+        return Lists.newArrayList("org.apache.log4j", "org.apache.commons.logging", "org.eclipse.xtext.xbase.lib", "org.eclipse.xtext.xtend2.lib", "org.eclipse.xtext.service", "org.eclipse.xtext.ui.editor", "org.eclipse.xtext.ui.guice", "org.eclipse.xtext.ui.resource", "org.eclipse.xtext.util");
     }
 
     @Override
     protected List<String> getRequiredBundles() {
-        List<String> result = Lists.newArrayList("org.eclipse.ui", "org.eclipse.core.runtime", "org.eclipse.emf.ecore", "org.eclipse.graphiti;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.mm;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.pattern;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.ui;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.ui.capabilities;bundle-version=\"0.8.0\"", "org.eclipselabs.spray.runtime.graphiti", "org.eclipse.ui.views.properties.tabbed;bundle-version=\"3.5.200\"", "org.eclipse.emf;bundle-version=\"2.6.0\"", "org.eclipse.emf.transaction;bundle-version=\"1.4.0\"", "org.eclipselabs.spray.xtext", "org.eclipse.xtext.ui", "org.eclipselabs.spray.shapes", "org.eclipselabs.spray.shapes.ui", "org.eclipselabs.spray.styles", "org.eclipselabs.spray.styles.ui");
+        List<String> result = Lists.newArrayList("org.eclipse.ui", "org.eclipse.core.runtime", "org.eclipse.emf.ecore", "org.eclipse.graphiti;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.mm;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.pattern;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.ui;bundle-version=\"0.8.0\"", "org.eclipse.graphiti.ui.capabilities;bundle-version=\"0.8.0\"", "org.eclipselabs.spray.runtime.graphiti", "org.eclipse.ui.views.properties.tabbed;bundle-version=\"3.5.200\"", "org.eclipse.emf;bundle-version=\"2.6.0\"", "org.eclipse.emf.transaction;bundle-version=\"1.4.0\"", "com.google.guava;bundle-version=\"10.0.1\"", "com.google.inject;bundle-version=\"3.0.0\"", "javax.inject;bundle-version=\"1.0.0\"");
         String mmBundle = getProjectInfo().getMetamodelBundleName();
         if (mmBundle != null && !result.contains(mmBundle)) {
             result.add(mmBundle);

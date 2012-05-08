@@ -19,7 +19,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
-import org.eclipselabs.spray.styles.ISprayStyle;
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 import org.eclipselabs.spray.styles.styles.Style;
 import org.eclipselabs.spray.styles.styles.StyleLayout;
 import org.eclipselabs.spray.styles.styles.StylesPackage;

@@ -22,7 +22,8 @@ import org.eclipse.graphiti.mm.pictograms.*;
 import org.eclipse.graphiti.mm.algorithms.*;
 import org.eclipse.graphiti.mm.algorithms.styles.*;
 
-import org.eclipselabs.spray.styles.ISprayStyle;
+import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape;
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 
 @SuppressWarnings("all")
 public class Node extends DefaultSprayShape {

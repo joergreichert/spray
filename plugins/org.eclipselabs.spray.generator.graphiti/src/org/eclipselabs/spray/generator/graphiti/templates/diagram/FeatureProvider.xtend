@@ -78,9 +78,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         
-        
-        
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultRemoveFeature;
@@ -295,7 +292,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
             if (bo == null) return null;
-            final String reference = peService.getPropertyValue(pictogramElement, ISprayConstants.PROPERTY_REFERENCE);
+            final String reference = peService.getPropertyValue(pictogramElement, PROPERTY_REFERENCE);
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
 
             «FOR cls : diagram.metaClasses »
@@ -330,7 +327,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         @Override
         public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
             final Shape s = context.getShape();
-            final String stat  = peService.getPropertyValue(s, ISprayConstants.PROPERTY_CAN_MOVE);
+            final String stat  = peService.getPropertyValue(s, PROPERTY_CAN_MOVE);
             if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
                 return null;
             }

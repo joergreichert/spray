@@ -18,7 +18,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension DiagramExtensions
   	@Inject extension SprayCompiler
   	
-  	String sprayShapeConstantsClassName = "org.eclipselabs.spray.shapes.ISprayShapeConstants"
   	String functionClassName = "com.google.common.base.Function"
   	
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
@@ -59,6 +58,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
+        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         
         import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -118,7 +118,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, «sprayShapeConstantsClassName.shortName».TEXT_ID);
+	    			String id = peService.getPropertyValue(graphicsAlgorithm, ISprayConstants.TEXT_ID);
 	    			if(id != null) {
 	    				«FOR property : container.properties»
 	    				if(id.equals("«property.key.simpleName»")) {
@@ -169,7 +169,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, «sprayShapeConstantsClassName.shortName».TEXT_ID);
+	    			String id = peService.getPropertyValue(graphicsAlgorithm, ISprayConstants.TEXT_ID);
 	    			if(id != null) {
 	    				«FOR property : container.properties»
 	    				if(id.equals("«property.key.simpleName»")) {

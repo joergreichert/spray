@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.styles;
+package org.eclipselabs.spray.runtime.graphiti.styles;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;

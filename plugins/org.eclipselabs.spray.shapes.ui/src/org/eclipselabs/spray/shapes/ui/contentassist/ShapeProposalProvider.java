@@ -12,9 +12,9 @@ import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
-import org.eclipselabs.spray.styles.ISprayStyle;
 
 import com.google.inject.Inject;
 

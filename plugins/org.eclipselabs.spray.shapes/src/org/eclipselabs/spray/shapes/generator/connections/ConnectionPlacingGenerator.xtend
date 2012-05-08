@@ -145,7 +145,7 @@ class ConnectionPlacingGenerator {
 		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
 		«attname».setValue("");
-		peService.setPropertyValue(«attname», ISprayShapeConstants.TEXT_ID, TextIds.«element.body.value».name());
+		peService.setPropertyValue(«attname», ISprayConstants.TEXT_ID, TextIds.«element.body.value».name());
 		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
 		«editingname».setMainPictogramElement(newConnection);
 		«editingname».setPictogramElement(newConnection);

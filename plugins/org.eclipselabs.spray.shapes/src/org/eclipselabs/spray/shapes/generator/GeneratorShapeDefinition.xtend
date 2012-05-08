@@ -53,7 +53,10 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.mm.algorithms.*;
 		import org.eclipse.graphiti.mm.algorithms.styles.*;
 		
-		import org.eclipselabs.spray.styles.ISprayStyle;
+		import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+		import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape;
+		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
+		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		'''
 	 }
 	 

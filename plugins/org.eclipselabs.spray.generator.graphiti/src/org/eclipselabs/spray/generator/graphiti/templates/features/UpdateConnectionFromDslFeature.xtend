@@ -56,7 +56,6 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
-        import org.eclipselabs.spray.shapes.ISprayShapeConstants;
         
         import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -128,7 +127,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     	private void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.name» eClass) {
     		if(gAlg instanceof Text) {
     			Text text = (Text) gAlg;
-    			String id = peService.getPropertyValue(gAlg, ISprayShapeConstants.TEXT_ID);
+    			String id = peService.getPropertyValue(gAlg, ISprayConstants.TEXT_ID);
     			«FOR property : connection.properties»
     			if(id.equals("«property.key.simpleName»")) {
     				«IF property.value != null»

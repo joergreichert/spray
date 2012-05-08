@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.xtext.api;
+package org.eclipselabs.spray.runtime.graphiti;
 
 public interface IColorConstantTypeProvider {
     /**

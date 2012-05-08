@@ -16,6 +16,7 @@ import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -27,7 +28,7 @@ import com.google.common.collect.Maps;
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-public abstract class AbstractSprayToolBehaviorProvider extends org.eclipse.graphiti.tb.DefaultToolBehaviorProvider {
+public abstract class AbstractSprayToolBehaviorProvider extends org.eclipse.graphiti.tb.DefaultToolBehaviorProvider implements ISprayConstants {
     protected final Map<String, IPaletteCompartmentEntry> paletteCompartments              = Maps.newHashMap();
     /** Key for the default palette compartment */
     protected static final String                         COMPARTMENT_DEFAULT              = "Other";

@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes;
+package org.eclipselabs.spray.runtime.graphiti.shape;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.services.Graphiti;

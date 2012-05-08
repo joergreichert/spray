@@ -1,5 +1,10 @@
 package org.eclipselabs.spray.runtime.graphiti;
 
+/**
+ * The ISprayConstants define constants used by Spray framework classes and generated code.
+ * 
+ * @author Karsten Thoms (karsten.thoms@itemis.de)
+ */
 public interface ISprayConstants {
     // KEYS used for IPeService#setPropertyValue()
     String PROPERTY_MODEL_TYPE                       = "MODEL_TYPE";
@@ -15,4 +20,12 @@ public interface ISprayConstants {
      */
     String PROPERTY_URI                              = "URI";
     String PROPERTY_CAN_MOVE                         = "CAN_MOVE";
+
+    // CONSTANTS used by shapes
+    String TEXT_ID                                   = "SHAPEDSL_TEXT_ID";
+    String IS_SHAPE_FROM_DSL                         = "IS_SHAPE_FROM_DSL";
+    String IS_SHAPE_FROM_DSL_VALUE                   = "true";
+    String WIDTH_KEY                                 = "current-width-shape";
+    String HEIGHT_KEY                                = "current-height-shape";
+
 }

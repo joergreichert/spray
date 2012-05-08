@@ -7,10 +7,12 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.CreateBehavior
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 class PasteFeature extends FileGenerator<Diagram>{
 	
 	@Inject extension NamingExtensions
+	@Inject extension MetaClassExtensions
         
     override generateExtensionFile(Diagram modelElement) {
 		modelElement.mainExtensionPointFile(javaGenFile.className);
@@ -124,12 +126,16 @@ class PasteFeature extends FileGenerator<Diagram>{
             final String alias = Graphiti.getPeService().getPropertyValue(pe, ISprayConstants.PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses»
             if(«generate_metaClassSwitchCondition(cls)») {
-                «val containmentRef = (cls.behaviorsList.filter(typeof(CreateBehavior)).head).containmentReference»
-                «IF containmentRef.many»
-                    model.get«containmentRef.name.toFirstUpper»().add((«cls.getCast()») bo);
-                «ELSE»
-                    model.set«containmentRef.name.toFirstUpper»((List<«cls.getCast()»>) bo);
-                «ENDIF»   
+            	«IF cls.hasCreateBehavior»
+	                «val containmentRef = cls.createBehavior.containmentReference»
+	                «IF containmentRef.many»
+	                    model.get«containmentRef.name.toFirstUpper»().add((«cls.getCast()») bo);
+	                «ELSE»
+	                    model.set«containmentRef.name.toFirstUpper»((List<«cls.getCast()»>) bo);
+	                «ENDIF»
+	            «ELSE»
+	                throw new UnsupportedOperationException("No create behavior defined");
+	            «ENDIF»
             }
             «ENDFOR»
         }

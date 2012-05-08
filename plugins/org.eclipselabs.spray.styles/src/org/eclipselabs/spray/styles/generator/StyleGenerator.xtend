@@ -104,7 +104,7 @@ class StyleGenerator implements IGenerator {
 	}
 
 	def createSuperStyle(Style s) {
-		if(s.superStyle == null) "DefaultSprayStyle" else s.superStyle.simpleName
+		if(s.superStyle == null) "org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle" else s.superStyle.simpleName
 	}
 
 	def getStyle(Style s) {

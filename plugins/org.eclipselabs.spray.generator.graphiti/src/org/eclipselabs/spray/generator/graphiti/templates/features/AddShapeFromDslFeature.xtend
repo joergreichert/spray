@@ -63,14 +63,14 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-        import org.eclipselabs.spray.shapes.ISprayShape;
+        import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
         import «container.shape.qualifiedName»;
         «IF styleRef != null && styleRef.style != null»
         import «styleRef.style.qualifiedName»;
         «ELSE»
-        import org.eclipselabs.spray.styles.DefaultSprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         «ENDIF»
-        import org.eclipselabs.spray.styles.ISprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
         
         import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT

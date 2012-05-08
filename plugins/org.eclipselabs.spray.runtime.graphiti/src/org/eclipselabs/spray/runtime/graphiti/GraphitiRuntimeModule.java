@@ -16,7 +16,6 @@ import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.xtext.service.AbstractGenericModule;
 import org.eclipselabs.spray.runtime.graphiti.services.SprayGaService;
-import org.eclipselabs.spray.xtext.api.IColorConstantTypeProvider;
 
 import com.google.inject.Binder;
 import com.google.inject.Scopes;
