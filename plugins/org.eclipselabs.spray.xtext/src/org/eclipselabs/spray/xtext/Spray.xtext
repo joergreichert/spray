@@ -80,7 +80,7 @@ ShapeInSpray :
 
 ShapeFromDsl : { ShapeFromDsl }
     'shape' shape = JvmTypeReference ('{'
-        properties+=ShapePropertyAssignment+
+        properties+=ShapePropertyAssignment*
     '}')?
 ;
 
