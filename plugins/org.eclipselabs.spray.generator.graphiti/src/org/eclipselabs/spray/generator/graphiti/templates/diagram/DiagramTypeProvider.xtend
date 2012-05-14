@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
-import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil
 import org.eclipselabs.spray.mm.spray.Diagram
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
