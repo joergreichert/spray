@@ -47,7 +47,7 @@ class PasteFeature extends FileGenerator<Diagram>{
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractPasteFeature;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractPasteFeature  {
