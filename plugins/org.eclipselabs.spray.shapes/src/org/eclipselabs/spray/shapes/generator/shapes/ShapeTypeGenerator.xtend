@@ -185,7 +185,7 @@ class ShapeTypeGenerator {
 		Text «attname» = gaService.createText(«shapeName»);
 		ISprayStyle style_«element_index» = «d.style.styleForElement(styleName)»;
 		«attname».setStyle(style_«element_index».getStyle(diagram));
-		«attname».setForeground(style_1.getFontColor(diagram));
+		«attname».setForeground(style_«element_index».getFontColor(diagram));
 		gaService.setLocationAndSize(«attname», 0, «y», «width», 20);
 		«attname».setHorizontalAlignment(Orientation.«d.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(Orientation.«d.VAlign.mapAlignment»);
