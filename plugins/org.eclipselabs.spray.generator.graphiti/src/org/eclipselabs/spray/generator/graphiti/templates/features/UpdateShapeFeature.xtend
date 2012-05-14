@@ -59,7 +59,6 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import «util_package()».SprayContainerService;
         import «container?.represents?.javaInterfaceName»;
@@ -107,7 +106,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
                     for (final Shape shape : textBox.getChildren()) {
                         if (shape.getGraphicsAlgorithm() instanceof Text) {
                             final Text text = (Text) shape.getGraphicsAlgorithm();
-                            final String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
+                            final String type = peService.getPropertyValue(shape, PROPERTY_MODEL_TYPE);
                             final String value = getValues(eClass).get(type);
                             if(value != null){
                                 final String pictogramName = text.getValue();

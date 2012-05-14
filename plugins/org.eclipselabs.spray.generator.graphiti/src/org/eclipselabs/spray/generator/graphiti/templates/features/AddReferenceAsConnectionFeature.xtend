@@ -86,7 +86,6 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         // MARKER_IMPORT
         
@@ -133,9 +132,9 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             polyline.setForeground(manageColor(«reference.lineColor»));
              
             // create link and wire it
-            peService.setPropertyValue(connection, ISprayConstants.PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
-            peService.setPropertyValue(connection, ISprayConstants.PROPERTY_REFERENCE, (String)context.getProperty(ISprayConstants.PROPERTY_REFERENCE));
-            peService.setPropertyValue(connection, ISprayConstants.PROPERTY_TARGETOBJECT, (String)context.getProperty(ISprayConstants.PROPERTY_TARGETOBJECT));
+            peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
+            peService.setPropertyValue(connection, PROPERTY_REFERENCE, (String)context.getProperty(PROPERTY_REFERENCE));
+            peService.setPropertyValue(connection, PROPERTY_TARGETOBJECT, (String)context.getProperty(PROPERTY_TARGETOBJECT));
             link(connection, addedDomainObject);
     
             // add static graphical decorator
@@ -169,7 +168,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             for (final Object pict : pictogramElements) {
                 if( pict instanceof PictogramElement){
                     final PictogramElement p = (PictogramElement)pict;
-                    if( "«reference.target.EType.name»".equals(peService.getPropertyValue(p, ISprayConstants.PROPERTY_REFERENCE))){
+                    if( "«reference.target.EType.name»".equals(peService.getPropertyValue(p, PROPERTY_REFERENCE))){
                         peService.deletePictogramElement(p) ;
                         setDoneChanges(true);
                     }

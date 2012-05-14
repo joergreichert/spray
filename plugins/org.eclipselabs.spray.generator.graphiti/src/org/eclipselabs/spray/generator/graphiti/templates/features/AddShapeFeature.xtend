@@ -78,7 +78,6 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import «util_package()».ISprayContainer;
         import «util_package()».«containerType»;
         import «util_package()».SprayContainerService;
@@ -183,7 +182,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
                 text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
                 text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
                 gaService.setLocationAndSize(text, 0, 0, 0, 0);
-                peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_MODEL_TYPE, type);
+                peService.setPropertyValue(«varname», PROPERTY_MODEL_TYPE, type);
                 peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                 // create link and wire it
                 link(«varname», addedModelElement);
@@ -196,7 +195,7 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
             protected void createMetaReference«metaRef.shapeName» (final IAddContext context, final «cls.itfName» addedModelElement, final ContainerShape containerShape) {
                 // Create a dummy invisible line to have an anchor point for adding new elements to the list
                 final Shape dummy = peCreateService.createShape(containerShape, false);
-                peService.setPropertyValue(dummy, ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
+                peService.setPropertyValue(dummy, PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
                 final Polyline p = gaService.createPolyline(dummy, new int[] { 0, 0, 0, 0 });
                 p.setForeground(manageColor(«typeof(IColorConstant).shortName».BLACK));
                 p.setLineWidth(0);
@@ -209,8 +208,8 @@ class AddShapeFeature extends FileGenerator<ContainerInSpray>  {
                 « /* 
                 for («target.EReferenceType.itfName» prop : addedModelElement.get«target.name.toFirstUpper»()) {
                     Shape «varname» = peCreateService.createContainerShape(containerShape, true);
-                    peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_STATIC, Boolean.TRUE.toString());
-                    peService.setPropertyValue(«varname», ISprayConstants.PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
+                    peService.setPropertyValue(«varname», PROPERTY_STATIC, Boolean.TRUE.toString());
+                    peService.setPropertyValue(«varname», PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
                     peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
                     // create and set text graphics algorithm
                     Text text = gaService.createDefaultText(getDiagram(), «varname», prop.get«metaRef.labelPropertyName.toFirstUpper»());

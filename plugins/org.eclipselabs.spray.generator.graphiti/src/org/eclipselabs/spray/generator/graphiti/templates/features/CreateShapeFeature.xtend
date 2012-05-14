@@ -52,7 +52,6 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.features.context.IAreaContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.features.context.impl.AddContext;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         // MARKER_IMPORT
         
@@ -213,7 +212,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «overrideHeader()»
         protected PictogramElement addGraphicalRepresentation(final IAreaContext context, final Object newObject) {
             final AddContext ctx = new AddContext(context, newObject);
-            ctx.putProperty(ISprayConstants.PROPERTY_ALIAS, "«metaClass.alias»");
+            ctx.putProperty(PROPERTY_ALIAS, "«metaClass.alias»");
             return getFeatureProvider().addIfPossible(ctx);
         }
         «ENDIF»

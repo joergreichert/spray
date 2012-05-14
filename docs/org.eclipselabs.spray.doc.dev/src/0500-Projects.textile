@@ -4,7 +4,7 @@ Things to consider when developing Spray projects.
 
 h2. Naming 
 
-Base package / Bundle ID Prefix: @org.ecliselabs.spray@
+Base package / Bundle ID Prefix: @org.eclipselabs.spray@
 
 h2. Source Management
 
@@ -88,7 +88,7 @@ h2. Dependency Management
 
 h3. Imported Packages
 
-Require Bundle is sometimes a too tight dependency binding. It does not allow to exchange the implementing bundle, which sometimes might be desired. The following packages should imported instead of adding its bundles to the Required Bundles:
+Required Bundle is sometimes a too tight dependency binding. It does not allow to exchange the implementing bundle, which sometimes might be desired. The following packages should imported instead of adding its bundles to the Required Bundles:
 
 * org.eclipse.xtext.xbase.lib
 * org.eclipse.xtext.xtend2.lib

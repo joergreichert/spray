@@ -50,7 +50,6 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         // MARKER_IMPORT
         
@@ -134,7 +133,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
                 // add connection for business object
                 final AddConnectionContext addContext = new AddConnectionContext( context.getSourceAnchor(), context.getTargetAnchor());
                 addContext.setNewObject(source);
-                addContext.putProperty(ISprayConstants.PROPERTY_REFERENCE, «reference.literalConstant».getName());
+                addContext.putProperty(PROPERTY_REFERENCE, «reference.literalConstant».getName());
                 // TODO: assume that the target object has a Name property
         //        addContext.putProperty("TARGETOBJECT", target.getName());
                 newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);

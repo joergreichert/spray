@@ -3,19 +3,17 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EClass
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipselabs.spray.generator.graphiti.util.AskForHandler
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
+import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
-import org.eclipselabs.spray.generator.graphiti.util.AskForHandler
-import org.eclipselabs.spray.mm.spray.CreateBehavior
 
 class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     @Inject extension NamingExtensions
-    @Inject extension GenModelHelper
     @Inject extension MetaClassExtensions
     @Inject extension AskForHandler
     

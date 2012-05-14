@@ -54,8 +54,6 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
         import «util_package()».SprayContainerService;
         import «util_package()».ISprayColorConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_MODEL_TYPE;
-        import static org.eclipselabs.spray.runtime.graphiti.ISprayConstants.PROPERTY_STATIC;
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")

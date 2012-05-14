@@ -46,7 +46,6 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
         // MARKER_IMPORT
         
@@ -122,7 +121,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 	
 	def generate_initialValue(ShapePropertyAssignment[] properties) '''
 		Text gAlg = (Text) context.getGraphicsAlgorithm();
-		String id = peService.getPropertyValue(gAlg, ISprayConstants.TEXT_ID);
+		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
 		if(id.equals("«property.key.simpleName»")) {
 		    return eClass.get«property.attribute.name.toFirstUpper»();
@@ -133,7 +132,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 	
 	def generate_setValue(ShapePropertyAssignment[] properties) '''
 		Text gAlg = (Text) context.getGraphicsAlgorithm();
-		String id = peService.getPropertyValue(gAlg, ISprayConstants.TEXT_ID);
+		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
 		if(id.equals("«property.key.simpleName»")) {
 		    eClass.set«property.attribute.name.toFirstUpper»(value);

@@ -9,13 +9,14 @@ import org.eclipse.graphiti.services.IGaLayoutService;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
 /**
  * Spray specific feature base class.
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-public abstract class AbstractUpdateFeature extends org.eclipse.graphiti.features.impl.AbstractUpdateFeature {
+public abstract class AbstractUpdateFeature extends org.eclipse.graphiti.features.impl.AbstractUpdateFeature implements ISprayConstants {
     protected IGaCreateService gaCreateService;
     protected IGaLayoutService gaLayoutService;
     protected IGaService       gaService;

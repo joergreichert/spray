@@ -4,8 +4,9 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
-public abstract class AbstractAddConnectionFeature extends AbstractAddFeature {
+public abstract class AbstractAddConnectionFeature extends AbstractAddFeature implements ISprayConstants {
     public AbstractAddConnectionFeature(IFeatureProvider fp) {
         super(fp);
     }

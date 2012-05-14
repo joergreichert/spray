@@ -1,19 +1,19 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.mm.spray.CreateBehavior
-import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
+
+import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 class PasteFeature extends FileGenerator<Diagram>{
 	
 	@Inject extension NamingExtensions
 	@Inject extension MetaClassExtensions
-        
+
     override generateExtensionFile(Diagram modelElement) {
 		modelElement.mainExtensionPointFile(javaGenFile.className);
 	}
@@ -48,7 +48,6 @@ class PasteFeature extends FileGenerator<Diagram>{
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractPasteFeature  {
@@ -123,7 +122,7 @@ class PasteFeature extends FileGenerator<Diagram>{
     '''
         private void addBusinessObjectToContainer(«diagram.modelType.itfName» bo, PictogramElement pe) {
             final «diagram.modelType.itfName» model = modelService.getModel();
-            final String alias = Graphiti.getPeService().getPropertyValue(pe, ISprayConstants.PROPERTY_ALIAS);
+            final String alias = Graphiti.getPeService().getPropertyValue(pe, PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses»
             if(«generate_metaClassSwitchCondition(cls)») {
             	«IF cls.hasCreateBehavior»

@@ -4,13 +4,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 
 /**
  * Spray specific feature base class.
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-public abstract class AbstractCustomFeature extends org.eclipse.graphiti.features.custom.AbstractCustomFeature {
+public abstract class AbstractCustomFeature extends org.eclipse.graphiti.features.custom.AbstractCustomFeature implements ISprayConstants {
     protected boolean doneChanges;
 
     public AbstractCustomFeature(IFeatureProvider fp) {

@@ -41,7 +41,7 @@ class ModelService extends FileGenerator<Diagram> {
          * On first access, a new resource will be created to which the model
          * is added.
          */
-        public class «className» {
+        public class «className» implements ISprayConstants {
             public static final String FILE_EXTENSION = "«diagram.modelFileExtension»";
             protected IPeService peService;
             protected IDiagramTypeProvider dtp;
@@ -69,7 +69,7 @@ class ModelService extends FileGenerator<Diagram> {
                 try {
                     «modelClassName» model = «diagram.modelType.EFactoryInterfaceName.shortName».eINSTANCE.create«diagram.modelType.name»();
                     createModelResourceAndAddModel (model);
-                    peService.setPropertyValue(diagram, ISprayConstants.PROPERTY_URI, EcoreUtil.getURI(model).toString());
+                    peService.setPropertyValue(diagram, PROPERTY_URI, EcoreUtil.getURI(model).toString());
                     // link the diagram with the model element
                     dtp.getFeatureProvider().link(diagram, model);
                     return model;

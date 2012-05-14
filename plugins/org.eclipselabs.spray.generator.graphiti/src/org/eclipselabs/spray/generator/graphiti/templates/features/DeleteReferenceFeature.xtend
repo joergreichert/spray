@@ -47,7 +47,6 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
         import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         // MARKER_IMPORT
         
@@ -69,8 +68,8 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
         «overrideHeader»
         public void delete(final IDeleteContext context) {
             final PictogramElement pe = context.getPictogramElement();
-            final String reference = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_REFERENCE);
-            final String element   = peService.getPropertyValue(pe, ISprayConstants.PROPERTY_TARGETOBJECT);
+            final String reference = peService.getPropertyValue(pe, PROPERTY_REFERENCE);
+            final String element   = peService.getPropertyValue(pe, PROPERTY_TARGETOBJECT);
 
             final Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
             if (businessObjectsForPictogramElement != null && businessObjectsForPictogramElement.length > 0) {

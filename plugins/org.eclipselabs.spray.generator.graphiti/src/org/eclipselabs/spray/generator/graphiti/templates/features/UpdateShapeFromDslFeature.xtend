@@ -58,7 +58,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         
         import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -118,7 +117,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, ISprayConstants.TEXT_ID);
+	    			String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
 	    			if(id != null) {
 	    				«FOR property : container.properties»
 	    				if(id.equals("«property.key.simpleName»")) {
@@ -169,7 +168,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, ISprayConstants.TEXT_ID);
+	    			String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
 	    			if(id != null) {
 	    				«FOR property : container.properties»
 	    				if(id.equals("«property.key.simpleName»")) {

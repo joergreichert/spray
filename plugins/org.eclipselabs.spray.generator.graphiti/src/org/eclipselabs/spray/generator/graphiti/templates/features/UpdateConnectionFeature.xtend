@@ -48,7 +48,6 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipse.xtext.xbase.lib.ObjectExtensions;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
@@ -96,7 +95,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
             if (pictogramElement instanceof FreeFormConnection) {
                 final FreeFormConnection free = (FreeFormConnection) pictogramElement;
                 for (final ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                    final String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
+                    final String type = peService.getPropertyValue(decorator, PROPERTY_MODEL_TYPE);
                     final String value = getValue(type, eClass);
                     final Text text = (Text) decorator.getGraphicsAlgorithm();
                     final String current = text.getValue();
@@ -118,7 +117,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
 
             final FreeFormConnection free = (FreeFormConnection) pictogramElement;
             for (final ConnectionDecorator decorator : free.getConnectionDecorators()) {
-                final String type = peService.getPropertyValue(decorator, ISprayConstants.PROPERTY_MODEL_TYPE);
+                final String type = peService.getPropertyValue(decorator, PROPERTY_MODEL_TYPE);
                 final String value = getValue(type, eClass);
                 final Text text = (Text) decorator.getGraphicsAlgorithm();
                 text.setValue(value);
@@ -131,17 +130,17 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
         protected String getValue(final String type, final «connection.represents.itfName» eClass) {
             String result = "";
             «IF connection.fromLabel != null»
-            if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
+            if(PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
                 «valueGenerator(connection.fromLabel, "eClass")»
             }
             «ENDIF»
             «IF connection.toLabel!=null»
-            if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
+            if(PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
                 «valueGenerator(connection.toLabel, "eClass")»
             }
             «ENDIF»
             «IF connection.connectionLabel!=null»
-            if(ISprayConstants.PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
+            if(PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
                 «valueGenerator(connection.connectionLabel, "eClass")»
             }
             «ENDIF»
