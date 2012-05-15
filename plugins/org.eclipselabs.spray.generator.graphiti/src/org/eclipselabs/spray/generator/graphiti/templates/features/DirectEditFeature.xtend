@@ -46,7 +46,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
-        import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractDirectEditingFeature;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractDirectEditingFeature {
