@@ -33,7 +33,7 @@ ShapeDefinition:
 
 PlacingDefinition:
 	'placing' '{'
-	'position' '(' 'offset' '=' offset=DOUBLE ',' 'radius' '=' distance=INT ',' 'angle' '=' angle=INT ')'
+	'position' '(' 'offset' '=' offset=DOUBLE ( ',' 'radius' '=' distance=INT)? (',' 'angle' '=' angle=INT)? ')'
 	shapeCon=ShapeConnection
 	'}';
 
@@ -109,6 +109,7 @@ Ellipse:
 Text:
 	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
 	//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
+
 Description:
 	{Description} (
 	'description' (style=ShapeStyleRef)? '{'
