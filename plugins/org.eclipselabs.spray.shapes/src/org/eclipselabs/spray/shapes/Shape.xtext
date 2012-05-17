@@ -33,7 +33,7 @@ ShapeDefinition:
 
 PlacingDefinition:
 	'placing' '{'
-	'position' '(' 'offset' '=' offset=DOUBLE ( ',' 'radius' '=' distance=INT)? (',' 'angle' '=' angle=INT)? ')'
+	'position' '(' 'offset' '=' offset=DOUBLE (',' 'radius' '=' distance=INT ',' 'angle' '=' angle=INT)? ')'
 	shapeCon=ShapeConnection
 	'}';
 
