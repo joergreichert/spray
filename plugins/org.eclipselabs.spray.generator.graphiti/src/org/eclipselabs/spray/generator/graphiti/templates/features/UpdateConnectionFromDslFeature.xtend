@@ -50,8 +50,8 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.algorithms.Text;
         import org.eclipse.graphiti.mm.pictograms.Connection;
+        import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
-        import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
@@ -98,10 +98,10 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             }
             «metaClassName» eClass = («metaClassName») bo;
 
-            if (pictogramElement instanceof FreeFormConnection) {
-                final FreeFormConnection free = (FreeFormConnection) pictogramElement;
+            if (pictogramElement instanceof Connection) {
+                final Connection free = (Connection) pictogramElement;
             }
-            return Reason.createFalseReason();
+            return Reason.createTrueReason();
         }
     '''
 
@@ -114,8 +114,10 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             
             if(pictogramElement instanceof Connection) {
                 final Connection conShape = (Connection) pictogramElement;
-                final GraphicsAlgorithm gAlg = conShape.getGraphicsAlgorithm();
-                searchChilds(gAlg, eClass);
+                for(ConnectionDecorator dec : conShape.getConnectionDecorators()) {
+                    final GraphicsAlgorithm gAlg = dec.getGraphicsAlgorithm();
+                    searchChilds(gAlg, eClass);
+                }
             }
 
             return true;

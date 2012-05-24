@@ -126,7 +126,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             ISprayStyle style = new DefaultSprayStyle();
             «ENDIF»
             ISprayConnection connection = new «connection.connection.simpleName»(getFeatureProvider());
-            PictogramElement result = connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
+            Connection result = (Connection) connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
 
             // create link and wire it
             peService.setPropertyValue(result , PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
@@ -135,7 +135,10 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             peService.setPropertyValue(result , PROPERTY_ALIAS, "«metaClass.alias»");
             «ENDIF»
             link(result , addedDomainObject);
-
+            for(ConnectionDecorator conDecorator : result.getConnectionDecorators()) {
+                link(conDecorator, addedDomainObject);
+            }
+            
             setDoneChanges(true);
            	updatePictogramElement(result);
             

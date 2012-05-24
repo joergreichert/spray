@@ -148,7 +148,7 @@ class ConnectionPlacingGenerator {
 		peService.setPropertyValue(«attname», ISprayConstants.TEXT_ID, TextIds.«element.body.value».name());
 		IDirectEditingInfo «editingname» = getFeatureProvider().getDirectEditingInfo();
 		«editingname».setMainPictogramElement(newConnection);
-		«editingname».setPictogramElement(newConnection);
+		«editingname».setPictogramElement(decorator);
 		«editingname».setGraphicsAlgorithm(«attname»);
 		«generateStyleForConnection(attname, element.layout.layout)»
      	'''
