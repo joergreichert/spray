@@ -24,15 +24,15 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 	@Inject
 	ShapeSizeCalculator sizeCalculator;
 
-	public int maxWidth = 0;
-	public int maxHeight = 0;
-	public int sumWidth = 0;
-	public int sumHeight = 0;
+	private int maxWidth = 0;
+	private int maxHeight = 0;
+	private int sumWidth = 0;
+	private int sumHeight = 0;
 
-	int maxXtotal = 0;
-	int minXtotal = 0;
-	int maxYtotal = 0;
-	int minYtotal = 0;
+	private int maxXtotal = 0;
+	private int minXtotal = 0;
+	private int maxYtotal = 0;
+	private int minYtotal = 0;
 
 	@Check
 	public void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
@@ -44,7 +44,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 		calculateSize(shapeDefinition.getShape());
 	}
 
-	public void findMaxMinPoint(int x, int y) {
+	private void findMaxMinPoint(int x, int y) {
 		if (maxXtotal < x)
 			maxXtotal = x;
 		if (maxYtotal < y)
@@ -55,7 +55,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 			minYtotal = y;
 	}
 
-	public void calculateSize(EList<Shape> eList) {
+	private void calculateSize(EList<Shape> eList) {
 		for (Shape s : eList) {
 			if (s instanceof Line) {
 				Line rr = (Line) s;
