@@ -1,5 +1,8 @@
 package org.eclipselabs.spray.shapes.validation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
@@ -33,6 +36,50 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 	private int minXtotal = 0;
 	private int maxYtotal = 0;
 	private int minYtotal = 0;
+	
+	private List<String> ids = new ArrayList<String>();
+	
+	@Check
+	public void checkShapeDefinitionSameId(ShapeDefinition shapeDefinition) {
+		ShapeSizeWrapper shapeSizeWrapper = sizeCalculator
+				.getContainerSize(shapeDefinition);
+
+		checkId(shapeDefinition.getShape());
+	}	
+	
+	private void checkId(EList<Shape> eList) {
+		for (Shape s : eList) {
+			if (s instanceof Text) {
+				String id = ((Text) s).getBody().getValue();
+				
+				System.out.println(id);
+//				if(!ids.contains(id)) {
+//					ids.add(id);
+//				} else {
+//					warning("same id is used by an other text element.",
+//							ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT,
+//							ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+//							String.valueOf(id));
+//				}
+			}
+			if (s instanceof Rectangle) {
+				Rectangle rr = (Rectangle) s;
+				checkId(rr.getShape());
+			}
+			if (s instanceof RoundedRectangle) {
+				RoundedRectangle rr = (RoundedRectangle) s;
+				checkId(rr.getShape());
+			}
+			if (s instanceof Polygon) {
+				Polygon rr = (Polygon) s;
+				checkId(rr.getShape());
+			}
+			if (s instanceof Ellipse) {
+				Ellipse rr = (Ellipse) s;
+				checkId(rr.getShape());
+			}
+		}
+	}
 
 	@Check
 	public void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
