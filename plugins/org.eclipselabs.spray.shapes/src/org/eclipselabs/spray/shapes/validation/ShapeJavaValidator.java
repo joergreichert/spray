@@ -8,17 +8,23 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator;
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper;
+import org.eclipselabs.spray.shapes.shapes.CommonLayout;
 import org.eclipselabs.spray.shapes.shapes.Ellipse;
 import org.eclipselabs.spray.shapes.shapes.Line;
+import org.eclipselabs.spray.shapes.shapes.LineLayout;
 import org.eclipselabs.spray.shapes.shapes.Point;
+import org.eclipselabs.spray.shapes.shapes.PolyLineLayout;
 import org.eclipselabs.spray.shapes.shapes.Polygon;
 import org.eclipselabs.spray.shapes.shapes.Polyline;
 import org.eclipselabs.spray.shapes.shapes.Rectangle;
 import org.eclipselabs.spray.shapes.shapes.RoundedRectangle;
+import org.eclipselabs.spray.shapes.shapes.RoundedRectangleLayout;
 import org.eclipselabs.spray.shapes.shapes.Shape;
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
 import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
 import org.eclipselabs.spray.shapes.shapes.Text;
+import org.eclipselabs.spray.shapes.shapes.TextBody;
+import org.eclipselabs.spray.shapes.shapes.TextLayout;
 
 import com.google.inject.Inject;
 
@@ -38,49 +44,93 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 	private int minYtotal = 0;
 	
 	private List<String> ids = new ArrayList<String>();
-	
-	@Check
-	public void checkShapeDefinitionSameId(ShapeDefinition shapeDefinition) {
-		ShapeSizeWrapper shapeSizeWrapper = sizeCalculator
-				.getContainerSize(shapeDefinition);
 
-		checkId(shapeDefinition.getShape());
-	}	
-	
-	private void checkId(EList<Shape> eList) {
-		for (Shape s : eList) {
-			if (s instanceof Text) {
-				String id = ((Text) s).getBody().getValue();
-				
-				System.out.println(id);
-//				if(!ids.contains(id)) {
-//					ids.add(id);
-//				} else {
-//					warning("same id is used by an other text element.",
-//							ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT,
-//							ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-//							String.valueOf(id));
-//				}
-			}
-			if (s instanceof Rectangle) {
-				Rectangle rr = (Rectangle) s;
-				checkId(rr.getShape());
-			}
-			if (s instanceof RoundedRectangle) {
-				RoundedRectangle rr = (RoundedRectangle) s;
-				checkId(rr.getShape());
-			}
-			if (s instanceof Polygon) {
-				Polygon rr = (Polygon) s;
-				checkId(rr.getShape());
-			}
-			if (s instanceof Ellipse) {
-				Ellipse rr = (Ellipse) s;
-				checkId(rr.getShape());
-			}
+	@Check void checkShapeRoundedRectangleCurve(RoundedRectangleLayout roundrec) {
+		int curveh = roundrec.getCurveHeight();
+		if(curveh == 0) {
+			warning("if the curveheight parameter 0 the rounding have no effect",
+					ShapesPackage.Literals.ROUNDED_RECTANGLE_LAYOUT__CURVE_HEIGHT,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf(curveh));
+		}
+		
+		int curvew = roundrec.getCurveWidth();
+		if(curvew == 0) {
+			warning("if a curvewidth parameter 0 the rounding have no effect",
+					ShapesPackage.Literals.ROUNDED_RECTANGLE_LAYOUT__CURVE_WIDTH,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf(curvew));
 		}
 	}
+	
+	@Check void checkShapeCommonNullSize(CommonLayout layout) {
+		int height = layout.getHeigth();
+		if(height == 0) {
+			warning("the height should not be 0 ",
+					ShapesPackage.Literals.COMMON_LAYOUT__HEIGTH,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf(height));
+		}
+		
+		int width = layout.getWidth();
+		if(width == 0) {
+			warning("the width should not be 0 ",
+					ShapesPackage.Literals.COMMON_LAYOUT__WIDTH,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf(width));
+		}
+	}
+	
+	@Check void checkShapeLineNullSize(LineLayout line) {
+		Point start = line.getPoint().get(0);
+		Point end = line.getPoint().get(1);
+		int diffx = Math.abs(start.getXcor() - end.getXcor());
+		int diffy = Math.abs(start.getYcor() - end.getYcor());
 
+		if( diffx == 0 && diffy == 0) {
+			warning("the start and end point should have different x/y coordinates",
+					ShapesPackage.Literals.LINE_LAYOUT__LAYOUT,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf("(" + start.getXcor() + " " + end.getXcor() + ") (" + start.getXcor() + " " + end.getXcor() + ")"));
+		}
+	}
+	
+	@Check void checkShapePolylineNullSize(PolyLineLayout polyline) {
+		int maxX = 0, minX = 0, maxY = 0, minY = 0;
+		for (Point e : polyline.getPoint()) {
+			if (minX > e.getXcor())
+				minX = e.getXcor();
+			if (minY > e.getYcor())
+				minY = e.getYcor();
+			if (maxX < e.getXcor())
+				maxX = e.getXcor();
+			if (maxY < e.getYcor())
+				maxY = e.getYcor();
+		}
+		int diffx = Math.abs(minX - maxX);
+		int diffy = Math.abs(minY - maxY);
+		
+		if( diffx == 0 && diffy == 0) {
+			warning("all points should have different x/y coordinates",
+					ShapesPackage.Literals.POLY_LINE_LAYOUT__LAYOUT,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf("(" + minX + " " + maxX + ") (" + minY + " " + maxY + ")"));
+		}
+	}
+	
+	@Check
+	public void checkShapeTextSameId(Text body) {
+		String id = body.getBody().getValue();
+		if(!ids.contains(id)) {
+			ids.add(id);
+		} else {
+			warning("same id is used by an other text element.",
+					ShapesPackage.Literals.TEXT__BODY,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf(id));
+		}
+	}	
+	
 	@Check
 	public void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
 		ShapeSizeWrapper shapeSizeWrapper = sizeCalculator
@@ -171,7 +221,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 
 		if (maxHeight < sumHeight) {
 			warning("The height of all subelements is bigger than max_height of the shape.",
-					ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT,
+					ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE,
 					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
 					String.valueOf(sumHeight));
 		}
