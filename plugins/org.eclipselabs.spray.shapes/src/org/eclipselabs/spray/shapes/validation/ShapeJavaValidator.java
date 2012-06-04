@@ -43,6 +43,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 
 	private List<String> ids = new ArrayList<String>();
 
+	// check the curve parameter of a rounded rectangle
 	@Check
 	void checkShapeRoundedRectangleCurve(RoundedRectangleLayout roundrec) {
 		int curveh = roundrec.getCurveHeight();
@@ -62,6 +63,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 		}
 	}
 
+	// check the height and width of the common layout consists of size/position
 	@Check
 	void checkShapeCommonNullSize(CommonLayout layout) {
 		int height = layout.getHeigth();
@@ -81,6 +83,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 		}
 	}
 
+	// checks if the x and y distance is above 0 
 	@Check
 	void checkShapeLineNullSize(LineLayout line) {
 		Point start = line.getPoint().get(0);
@@ -98,6 +101,8 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 		}
 	}
 
+	
+	// checks if the x and y distance of all points is above 0 
 	@Check
 	void checkShapePolylineNullSize(PolyLineLayout polyline) {
 		int maxX = 0, minX = 0, maxY = 0, minY = 0;
@@ -123,6 +128,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 		}
 	}
 
+	// checks if the textfields has the same id`s
 	@Check
 	public void checkShapeTextSameId(Text body) {
 		String id = body.getBody().getValue();
@@ -136,6 +142,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 		}
 	}
 
+	// checks if the inner elements fit to the outer elementsize
 	@Check
 	public void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
 		ShapeSizeWrapper shapeSizeWrapper = sizeCalculator
