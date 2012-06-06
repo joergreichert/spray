@@ -9,6 +9,8 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
@@ -19,7 +21,9 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+import org.eclipselabs.spray.styles.styles.Gradient;
 import org.eclipselabs.spray.styles.styles.Style;
 import org.eclipselabs.spray.styles.styles.StyleLayout;
 import org.eclipselabs.spray.styles.styles.StylesPackage;
@@ -38,6 +42,12 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
 
     @Inject
     IJvmTypeProvider.Factory typeProviderFactory;
+    
+    @Inject
+    private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
+    
+    @Inject
+    private ITypesProposalProvider        typeProposalProvider;
 
     /**
      * Completes the JvmTypeReference, that matchs just on public, instanceable subtypes
@@ -50,6 +60,12 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
         if (model instanceof Style) {
             JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
             proposalProvider.createSubTypeProposals(superType, this, context, StylesPackage.Literals.STYLE__SUPER_STYLE, filter, acceptor);
+            proposalProvider.createSubTypeProposals(superType, this, context, StylesPackage.Literals.GRADIENT_REF__GRADIENT_REF, filter, acceptor);
+            
+        }
+        if (model instanceof Gradient) {
+            JvmType superType = typeProvider.findTypeByName(ISprayGradient.class.getName());
+            proposalProvider.createSubTypeProposals(superType, this, context, StylesPackage.Literals.GRADIENT_REF__GRADIENT_REF, filter, acceptor);
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
     }
@@ -130,5 +146,18 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
         }
         return styleType;
     }
+    
+    public void completeJvmParameterizedTypeReference_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+   
+    	if (EcoreUtil2.getContainerOfType(model, Style.class) != null) {
+            final IJvmTypeProvider jvmTypeProvider = jvmTypeProviderFactory.createTypeProvider(model.eResource().getResourceSet());
+            // Graphiti specific
+            final JvmType interfaceToImplement = jvmTypeProvider.findTypeByName(ISprayGradient.class.getName());
+            typeProposalProvider.createSubTypeProposals(interfaceToImplement, this, context, StylesPackage.Literals.GRADIENT_REF__GRADIENT_REF, TypeMatchFilters.canInstantiate(), acceptor);
+        } else {
+            super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor);
+        }
+    }
+
 
 }

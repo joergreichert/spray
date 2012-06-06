@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.runtime.graphiti.styles;
 
 import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -33,6 +34,7 @@ public class DefaultSprayStyle implements ISprayStyle {
             // no -> create new one
             style = newStyle(diagram);
         }
+        
         return style;
     }
 
@@ -86,12 +88,23 @@ public class DefaultSprayStyle implements ISprayStyle {
     }
 
     protected Style findStyle(StyleContainer container, String id) {
+    	
+    	IGaService gaService = Graphiti.getGaService();
+    	
         if (id == null)
             return null;
         for (Style s : container.getStyles()) {
             if (id.equals(s.getId()))
+            	// Update Rendering Style 
+                gaService.setRenderingStyle(s, getColorSchema());
                 return s;
         }
         return null;
     }
+
+	@Override
+	public AdaptedGradientColoredAreas getColorSchema() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

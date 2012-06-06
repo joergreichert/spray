@@ -39,6 +39,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.formatting,
  org.eclipselabs.spray.styles.generator,
+ org.eclipselabs.spray.styles.generator.util,
  org.eclipselabs.spray.styles.jvmmodel,
  org.eclipselabs.spray.styles.parser.antlr,
  org.eclipselabs.spray.styles.parser.antlr.internal,

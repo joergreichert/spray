@@ -17,10 +17,22 @@ import org.eclipselabs.spray.styles.styles.RGBColor
 import org.eclipselabs.spray.styles.styles.ColorWithTransparency
 import org.eclipselabs.spray.styles.styles.YesNoBool
 import org.eclipselabs.spray.styles.styles.LineStyle
+import com.google.inject.Inject
+import org.eclipselabs.spray.styles.styles.Gradient
+import org.eclipselabs.spray.styles.styles.GradientAllignment
+import org.eclipselabs.spray.styles.styles.GradientRef
+import org.eclipselabs.spray.styles.styles.Color
+import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+
 
 class StyleGenerator implements IGenerator {
 	
+	@Inject extension GradientGenerator
+	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
+      		fsa.generateFile(gradient.filepath, gradient.compile)
+   		}
 		for(style : resource.allContents.toIterable.filter(typeof(Style))) {
       		fsa.generateFile(style.filepath, style.compile)
    		}
@@ -40,6 +52,7 @@ class StyleGenerator implements IGenerator {
 	}
 	
 	def head(Style s) {
+
 		'''
 		/**
 		 * This is a generated Style class for Spray.
@@ -60,6 +73,12 @@ class StyleGenerator implements IGenerator {
 		«ELSE»
 		import «s.superStyle.qualifiedName»;
 		«ENDIF»
+		import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+		import org.eclipse.graphiti.util.IGradientType;
+		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
+		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
+		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+
 		'''
 	}
 	
@@ -98,6 +117,14 @@ class StyleGenerator implements IGenerator {
 			public Color getFontColor(Diagram diagram) {
 				«s.layout.createFontColor»
 			}
+	
+			 /**
+			 * This method returns Color Schema of the Style
+			 */
+			public AdaptedGradientColoredAreas getColorSchema() {
+				«s.layout.createStyleColorSchema»
+			}
+			
 			
 		}	
 		'''
@@ -116,13 +143,20 @@ class StyleGenerator implements IGenerator {
 
     def createLayout(StyleLayout l) {
         '''
-        «l.createTransparencyAttributes»
-
-        «l.createBackgroundAttributes»
-        
+        «l.createTransparencyAttributes»		
+		
+		«IF l.checkColorSchemaNecessary == false»
+        	«l.createBackgroundAttributes»
+        «ENDIF»
+		
         «l.createLineAttributes»
 
         «l.createFontAttributes»
+		
+        «IF l.checkColorSchemaNecessary»
+        	«setColorSchema»
+        «ENDIF»
+		
         '''
     }
 
@@ -144,6 +178,8 @@ class StyleGenerator implements IGenerator {
         style.setBackground(null);
         «ELSE»
         style.setFilled(true);
+«««        «var ColorWithTransparency color = l.background»
+«««        style.setBackground(gaService.manageColor(diagram, «color.createColorValue»));
         style.setBackground(gaService.manageColor(diagram, «l.background.createColorValue»));
         «ENDIF»
         '''    
@@ -215,5 +251,89 @@ class StyleGenerator implements IGenerator {
     def dispatch createColorValue(Transparent c) { '''null''' }
     def dispatch createColorValue(ColorConstantRef c) { '''IColorConstant.«c.value.name»''' }
 	def dispatch createColorValue(RGBColor c) { '''new ColorConstant(«c.red», «c.green», «c.blue»)''' }
+	
+	def createStyleColorSchema(StyleLayout l){
+		
+		var gradientOrientation = l.gradient_orientation.mapGradientOrientation
+		
+		'''
+		«IF l.checkColorSchemaNecessary == false»
+			return null;	
+        «ELSE»
+			final AdaptedGradientColoredAreas agca =
+			StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+			agca.setDefinedStyleId("«l.createStyleGradientID»");
+			agca.setGradientType(«gradientOrientation»);
+			agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
+														«l.background.gradientColoredAreas»);
+														
+			«IF l.highlighting != null»
+				«IF l.highlighting.selected != null»
+					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
+																«l.highlighting.selected.gradientColoredAreas»);
+				«ENDIF»
+				«IF l.highlighting.multiselected != null»
+					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED,
+																«l.highlighting.multiselected.gradientColoredAreas»);
+				«ENDIF»
+				«IF l.highlighting.allowed != null»
+					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED,
+																«l.highlighting.allowed.gradientColoredAreas»);
+				«ENDIF»
+				«IF l.highlighting.unallowed != null»
+					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN,
+																«l.highlighting.unallowed.gradientColoredAreas»);
+				«ENDIF»
+			«ENDIF»
+			return agca;
+        «ENDIF»
+		'''
+	}
+	
+	def mapGradientOrientation(GradientAllignment ga){
+		if(ga == null){
+			'''IGradientType.«GradientAllignment::VERTICAL.name»'''
+		}
+		else{
+		 if (ga == GradientAllignment::HORIZONTAL){
+		 	'''IGradientType.«GradientAllignment::HORIZONTAL.name»'''
+		 }
+		 else{
+		 	'''IGradientType.«GradientAllignment::VERTICAL.name»'''
+		 }
+	   }
+	}
+	
+	def checkColorSchemaNecessary(StyleLayout l){
+		if((l.highlighting == null) && !(l.background instanceof GradientRef)){
+			return false
+		}
+		else{
+			return true
+		}
+	}
+	
+	def createStyleGradientID(StyleLayout l){
+		'''LWC2012CorporateStyle_Color_Schema_ID'''
+	}
+	
+	def setColorSchema(){
+		'''gaService.setRenderingStyle(style, getColorSchema());'''
+	}
+	
+	def dispatch gradientColoredAreas(GradientRef cg){
+			'''new «cg.gradientRef.qualifiedName»().getGradientColoredAreas( )'''	
+	}
+	
+	def dispatch gradientColoredAreas(Color cg){
+		'''GradientUtilClass.getOneColorGradient("«cg.createColorHexValue»")'''
+	}
+	
+	def dispatch gradientColoredAreas(Transparent cg){
+		'''GradientUtilClass.getOneColorGradient(«cg»)'''
+	}
+	
+	def dispatch createColorHexValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c)»''' }
+	def dispatch createColorHexValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c)»''' }
 	
 }

@@ -12,8 +12,11 @@ public class StyleTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
     public StyleTokenToAttributeIdMapper() {
         layoutStyleDefinition.add("'style'");
         layoutStyleDefinition.add("'extends'");
+        layoutStyleDefinition.add("'gradient'");
         layoutStyleAttribKeywords.add("'description'");
         layoutStyleAttribKeywords.add("'background-color'");
+        layoutStyleAttribKeywords.add("'gradient-orientation'");
+        layoutStyleAttribKeywords.add("'highlighting'");
         layoutStyleAttribKeywords.add("'transparency'");
         layoutStyleAttribKeywords.add("'line-style'");
         layoutStyleAttribKeywords.add("'line-width'");
@@ -23,6 +26,7 @@ public class StyleTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
         layoutStyleAttribKeywords.add("'font-color'");
         layoutStyleAttribKeywords.add("'font-size'");
         layoutStyleAttribKeywords.add("'font-bold'");
+        layoutStyleAttribKeywords.add("'area'");
     }
 
     @Override

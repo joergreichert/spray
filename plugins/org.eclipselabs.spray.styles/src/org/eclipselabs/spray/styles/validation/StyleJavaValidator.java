@@ -60,7 +60,7 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
     public void checkShortDescription(Style style) {
         String description = style.getDescription();
         if (description != null && description.length() < 20) {
-            warning("The description should have more than 20 characters.", StylesPackage.Literals.STYLE__DESCRIPTION, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, style.getDescription());
+            warning("The description should have more than 20 characters.", StylesPackage.Literals.STYLE_CONTAINER_ELEMENT__DESCRIPTION, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, style.getDescription());
         }
     }
 

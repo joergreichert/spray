@@ -170,7 +170,7 @@ class SVGShapeGenerator {
         «IF(ssl != null && ssl.layout != null)»
             style="
             «IF(ssl.layout.background != null)»
-                fill:«ssl.layout.background.color»;
+«««                fill:«ssl.layout.background.color»;
             «ENDIF»
             «IF(ssl.hasTransparency)»
                 opacity:«ssl.transparency»;

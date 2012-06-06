@@ -60,14 +60,16 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap().before(grammar.getStyleAccess().getDescriptionKeyword_5_0());
         c.setLinewrap().before(grammar.getStyleLayoutAccess().getTransparencyKeyword_1_0_0());
         c.setLinewrap().before(grammar.getStyleLayoutAccess().getBackgroundColorKeyword_1_1_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineColorKeyword_1_2_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineWidthKeyword_1_3_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineStyleKeyword_1_4_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontNameKeyword_1_5_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontColorKeyword_1_6_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontSizeKeyword_1_7_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontItalicKeyword_1_8_0());
-        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontBoldKeyword_1_9_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getGradientOrientationKeyword_1_2_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getHighlightingKeyword_1_3_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineColorKeyword_1_4_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineWidthKeyword_1_5_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getLineStyleKeyword_1_6_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontNameKeyword_1_7_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontColorKeyword_1_8_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontSizeKeyword_1_9_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontItalicKeyword_1_10_0());
+        c.setLinewrap().before(grammar.getStyleLayoutAccess().getFontBoldKeyword_1_11_0());
     }
 
     protected void handleNoSpaceBeforeINT(FormattingConfig c) {
