@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray2.xtext/src-gen"
+    editDirectory="/org.eclipselabs.spray2.xtext.edit/src" editorDirectory="/org.eclipselabs.spray2.xtext.editor/src"
+    modelPluginID="org.eclipselabs.spray2.xtext" forceOverwrite="true" modelName="Spray2"
+    updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.eclipselabs.spray2.xtext.edit"
+    editorPluginID="org.eclipselabs.spray2.xtext.editor" usedGenPackages="../../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../../../../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
+  <genPackages prefix="Spray2" basePackage="org.eclipselabs.spray2.xtext" disposableProviderFactory="true"
+      ecorePackage="Spray2.ecore#/">
+    <genClasses ecoreClass="Spray2.ecore#//Diagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//Diagram/imports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Spray2.ecore#//Diagram/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Spray2.ecore#//Diagram/modelType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//Diagram/style"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//Diagram/sprayElements"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Spray2.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//SprayStyleRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//SprayStyleRef/style"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//SprayElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Spray2.ecore#//SprayElement/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Spray2.ecore#//SprayElement/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//SprayElement/style"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Spray2.ecore#//SprayElement/tooling"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Spray2.ecore#//SprayElement/behavior"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//NodeElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//NodeElement/figure"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//EdgeElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//EdgeElement/figure"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//NodeFigureSection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//NodeFigureSection/shapeRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//NodeFigureSection/textProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//NodeFigureSection/compartmentProperties"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//EdgeFigureSection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//EdgeFigureSection/shapeRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//EdgeFigureSection/textProperties"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//TextPropertyAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Spray2.ecore#//TextPropertyAssignment/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Spray2.ecore#//TextPropertyAssignment/attribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//TextPropertyAssignment/editable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Spray2.ecore#//TextPropertyAssignment/format"/>
+    </genClasses>
+    <genClasses ecoreClass="Spray2.ecore#//CompartmentPropertyAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Spray2.ecore#//CompartmentPropertyAssignment/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Spray2.ecore#//CompartmentPropertyAssignment/attribute"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
