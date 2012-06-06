@@ -10,6 +10,9 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator;
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper;
+import org.eclipselabs.spray.shapes.shapes.AnchorFixPointPosition;
+import org.eclipselabs.spray.shapes.shapes.AnchorPositionPos;
+import org.eclipselabs.spray.shapes.shapes.AnchorRelativePosition;
 import org.eclipselabs.spray.shapes.shapes.CDText;
 import org.eclipselabs.spray.shapes.shapes.CommonLayout;
 import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
@@ -47,6 +50,51 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
     private int         maxYtotal = 0;
     private int         minYtotal = 0;
 
+    
+    // check if an anchor is in the defined shape area
+    @Check
+    void checkShapeAnchorPosition(AnchorPositionPos pos) {
+    	EObject eObject = pos.eContainer();
+        while (!(eObject instanceof ShapeDefinition)) {
+            eObject = eObject.eContainer();
+        }
+        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
+
+        if(pos instanceof AnchorFixPointPosition) {
+        	AnchorFixPointPosition positionFix = (AnchorFixPointPosition) pos;
+        	checkAreaFix(shapeDefinition,positionFix);
+        }
+        
+        if(pos instanceof AnchorRelativePosition) {
+        	AnchorRelativePosition positionRel = (AnchorRelativePosition) pos;
+        	checkAreaRelative(shapeDefinition,positionRel);
+        }
+    }
+    
+    private void checkAreaFix(ShapeDefinition s, AnchorFixPointPosition pos) {
+    	ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(s);
+        maxWidth = shapeSizeWrapper.getWidth();
+        maxHeight = shapeSizeWrapper.getHeigth();
+    	
+        if( pos.getXcor() > maxWidth) {
+        	warning("the x coordinate from anchor is specified out of the shape area", ShapesPackage.Literals.ANCHOR_FIX_POINT_POSITION__XCOR, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getXcor()));
+        }
+        
+        if( pos.getYcor() > maxHeight) {
+        	warning("the y coordinate from anchor is specified out of the shape area", ShapesPackage.Literals.ANCHOR_FIX_POINT_POSITION__YCOR, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getYcor()));
+        }
+	}
+    
+    private void checkAreaRelative(ShapeDefinition s, AnchorRelativePosition pos) {
+        if( pos.getXoffset() > 1.0) {
+        	warning("the x offset from anchor is specified out of the shape area", ShapesPackage.Literals.ANCHOR_RELATIVE_POSITION__XOFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getXoffset()));
+        }
+        
+        if( pos.getYoffset() > 1.0) {
+        	warning("the y offset from anchor is specified out of the shape area", ShapesPackage.Literals.ANCHOR_RELATIVE_POSITION__YOFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getYoffset()));
+        }
+	}
+    
     // check the curve parameter of a rounded rectangle
     @Check
     void checkShapeRoundedRectangleCurve(RoundedRectangleLayout roundrec) {
