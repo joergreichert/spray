@@ -1,4 +1,3 @@
-
 h1. Style DSL Guide
 
 This chapter describes how to define global Graphiti styles for an Spray Project.
@@ -21,6 +20,8 @@ style BlackAndWhiteStyle {
     font-italic = yes
     font-bold = no
 }
+
+!images/styles_example.png!
 
 
 h2. Style Key Facts
@@ -140,3 +141,13 @@ font-bold = no
 
 The font style @italic@ and @bold@ can be set with the attributes @font-italic@ and @font-bold@. Therefore a *yes* or *no* boolean can be used. "*yes*" defines the the font will be drawn with this style, "*no*" defines that this style will not be got.
 
+
+h3. Gradients
+
+Graphiti provides a definition of gradients to support highlighting on elements.Every gradient definition starts with the keyword @gradient@ followed by a unique name. A @gradient@ definition consists out of @area@ attributes, who define the @color@ and the @offset@ of each section. The @color@ can be defined like a @font-color@ with colorname(@blue@) or an RGB color(@RGB(130,200,25)@) value. The @offset@ determines each gradient section with a percentage value. A gradient also can be defined as a background-color and could look like this.
+
+!images/styles_gradients_plain.png!
+
+Those gradient definition can now be used in the style language with @gradient-orientation@ and @highlighting@ options. The orientation can be @vertical@ or @horizontal@ to set the direction of the gradient. The highlighting option can be parametrised with @selected@, @multiselected@, @allowed@ and @unallowed@ where gradients for the behavior can be specified. An example could look like that.
+
+!images/styles_gradients.png!

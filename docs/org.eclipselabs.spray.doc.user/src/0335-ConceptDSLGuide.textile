@@ -1,0 +1,7 @@
+h1. Concept of a Model Driven Graphical Editor 
+
+Spray is providing three different kinds of DSL (Domain Specific Languages) Spray Core, Shape and Style as shown in the following graphic. The first is the Core language which is responsible for the mapping between metamodel to shapes, styles and behavior. The second language is used to define more complex shapes and connection decorator from primitive figure like ellipse or rectangle. It also handles their placing, resizing policy and nesting. The last DSL is focusing the color and format behavior of an shape. Therefore it is possible to define individual styles like CSS relates to HTML.  
+
+!images/shapes_concept.png!
+
+If any of these model is changed the Model Generation Process is executed and  Java, XML and Properties will be generated for the Eclipse Plug-In.
