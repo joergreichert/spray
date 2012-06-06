@@ -22,6 +22,9 @@ public class SprayLayoutManager implements ISprayConstants {
 
     private int        maxSizeWidth;
     private int        maxSizeHeight;
+    
+    private boolean stretchVertical;
+	private boolean stretchHorizontal;
 
     private IGaService gaService;
 
@@ -284,5 +287,21 @@ public class SprayLayoutManager implements ISprayConstants {
         setMaxWidthPictorgramProperty(pe, maxWidth);
 
     }
+
+	public boolean isStretchVertical() {
+		return stretchVertical;
+	}
+
+	public void setStretchVertical(boolean stretchVertical) {
+		this.stretchVertical = stretchVertical;
+	}
+
+	public boolean isStretchHorizontal() {
+		return stretchHorizontal;
+	}
+
+	public void setStretchHorizontal(boolean stretchHorizontal) {
+		this.stretchHorizontal = stretchHorizontal;
+	}
 
 }

@@ -154,6 +154,13 @@ class NamingExtensions {
     def getPasteFeatureSimpleClassName (Diagram clazz) {
 		getDiagramSimpleClassName(clazz, FeatureType::Paste)
     }
+    
+    def getResizeFeatureClassName (MetaClass clazz) {
+        getFeatureClassName (clazz, FeatureType::Resize)
+    }
+    def getResizeFeatureSimpleClassName (MetaClass clazz) {
+        getFeatureSimpleClassName (clazz, FeatureType::Resize)
+    }
 
     /**
      * Result example:

@@ -48,6 +48,16 @@ class ShapeLayoutGenerator {
 			«ELSE»
 				layoutManager.setMaxSizeHeight(-1);	
 			«ENDIF»	
+			«IF s.shapeLayout.stretchH != null»
+				layoutManager.setStretchHorizontal(«s.shapeLayout.stretchH»); 
+			«ELSE»
+				layoutManager.setStretchHorizontal(true);		   
+			«ENDIF»		
+			«IF s.shapeLayout.stretchV != null»
+				layoutManager.setStretchVertical(«s.shapeLayout.stretchV»);	   
+			«ELSE»
+				layoutManager.setStretchHorizontal(true);	   
+			«ENDIF»		
 			return layoutManager;
 		}
 		'''

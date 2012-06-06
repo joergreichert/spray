@@ -8,5 +8,6 @@ public enum FeatureType {
     Layout,
     DirectEdit,
     Copy,
-    Paste
+    Paste,
+    Resize
 }

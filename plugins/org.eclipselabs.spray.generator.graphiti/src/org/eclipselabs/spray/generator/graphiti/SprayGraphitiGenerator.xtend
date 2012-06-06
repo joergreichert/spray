@@ -53,6 +53,7 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.templates.features.ResizeFeature
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
@@ -93,6 +94,7 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject DirectEditFeature directEditFeature
     @Inject CopyFeature copyFeature
     @Inject PasteFeature pasteFeature
+    @Inject ResizeFeature resizeFeature
     /**
      * This method is a long sequence of calling all templates for the code generation
      */
@@ -141,6 +143,7 @@ class SprayGraphitiGenerator implements IGenerator {
         
         generateCopyFeature(diagram, java, copyFeature)
         generatePasteFeature(diagram, java, pasteFeature)
+        generateResizeFeature(diagram, java, resizeFeature)
     }
     
 
@@ -474,5 +477,15 @@ class SprayGraphitiGenerator implements IGenerator {
             java.setPackageAndClass(diagram.pasteFeatureClassName)
             pf.generate(diagram, java)
         
+    }
+    
+    def generateResizeFeature(Diagram diagram, JavaGenFile java, ResizeFeature lf) {
+    	for(metaClass : diagram.metaClasses) {
+    		if( (metaClass.representedBy instanceof ShapeFromDsl) || (metaClass.representedBy instanceof ContainerInSpray)){
+    			val container = metaClass.representedBy as ShapeFromDsl
+                java.setPackageAndClass(metaClass.resizeFeatureClassName)
+        		lf.generate(container, java)
+    		}
+    	} 	
     }
 }

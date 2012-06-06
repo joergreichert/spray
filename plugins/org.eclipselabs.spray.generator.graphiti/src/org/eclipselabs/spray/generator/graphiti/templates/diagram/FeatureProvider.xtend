@@ -64,6 +64,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.features.IDeleteFeature;
         import org.eclipse.graphiti.features.IDirectEditingFeature;
         import org.eclipse.graphiti.features.IRemoveFeature;
+        import org.eclipse.graphiti.features.IResizeShapeFeature;
         import org.eclipse.graphiti.features.context.IAddContext;
         import org.eclipse.graphiti.features.context.ICustomContext;
         import org.eclipse.graphiti.features.context.ICopyContext;
@@ -74,6 +75,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.context.IPasteContext;
         import org.eclipse.graphiti.features.context.IRemoveContext;
+        import org.eclipse.graphiti.features.context.IResizeShapeContext;
         import org.eclipse.graphiti.features.custom.ICustomFeature;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -105,6 +107,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             «generate_getPasteFeature(diagram)»
             «generate_getDirectEditingFeatures(diagram)»
             «generate_getCustomFeatures(diagram)»
+            «generate_getResizeFeatures(diagram)»
             «generate_additionalMethods(diagram)»
         }
     '''
@@ -386,6 +389,23 @@ class FeatureProvider extends FileGenerator<Diagram> {
 	    public IPasteFeature getPasteFeature(IPasteContext context) {
 	    	return new «diagram.pasteFeatureClassName.shortName»(this);
 	    }
+    '''
+    
+    def generate_getResizeFeatures(Diagram diagram) '''
+    	@Override
+    	public IResizeShapeFeature getResizeShapeFeature (IResizeShapeContext context) {
+    		final PictogramElement pictogramElement = context.getPictogramElement();
+    		final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
+    		if (bo == null)
+    			return null;
+    		final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
+    		«FOR crs : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
+    		if(«generate_metaClassSwitchCondition(crs)»){
+    			return new «crs.resizeFeatureClassName.shortName»(this);    
+    		}
+            «ENDFOR»
+    	return super.getResizeShapeFeature(context);
+    }
     '''
     
     /**
