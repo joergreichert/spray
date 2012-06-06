@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.shapes.validation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -119,12 +120,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
         String currentId = body.getBody().getValue();
         List<String> textElements = getTextIdsForShapeDefinition(shapeDefinition);
-        int count = 0;
-        for (String idInList : textElements) {
-            if (idInList.equals(currentId)) {
-                count++;
-            }
-        }
+        int count = Collections.frequency(textElements, currentId);
         if (count > 1) {
             error("The same id is already been used by an other element.", ShapesPackage.Literals.DESCRIPTION__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
         }
@@ -140,12 +136,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
         String currentId = body.getBody().getValue();
         List<String> textElements = getTextIdsForShapeDefinition(shapeDefinition);
-        int count = 0;
-        for (String idInList : textElements) {
-            if (idInList.equals(currentId)) {
-                count++;
-            }
-        }
+        int count = Collections.frequency(textElements, currentId);
         if (count > 1) {
             error("The same id is already been used by an other element.", ShapesPackage.Literals.TEXT__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
         }
@@ -160,12 +151,15 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
         ConnectionDefinition connectionDefinition = (ConnectionDefinition) eObject;
         String currentId = body.getBody().getValue();
+        List<String> textElements = new ArrayList<String>();
         for (PlacingDefinition placingDefinition : connectionDefinition.getPlacing()) {
             if (placingDefinition.getShapeCon() instanceof CDText) {
-                if (((CDText) placingDefinition.getShapeCon()).getBody().getValue().equals(currentId)) {
-                    error("The same id is already been used by an other element.", ShapesPackage.Literals.CD_TEXT__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
-                }
+                textElements.add(((CDText) placingDefinition.getShapeCon()).getBody().getValue());
             }
+        }
+        int count = Collections.frequency(textElements, currentId);
+        if (count > 1) {
+            error("The same id is already been used by an other element.", ShapesPackage.Literals.CD_TEXT__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
         }
     }
 
