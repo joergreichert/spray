@@ -2,7 +2,7 @@ h1. Style DSL Guide
 
 This chapter describes how to define global Graphiti styles for an Spray Project.
 
-A style describes the referenced figures generally. Attributes like background color and line style can be set and they will be finally mapped with a name. Afterwards the styles can be referenced with their name. The reference will be possible in one hand globally for the whole spray project and can be overwritten in the other hand from a class, a shape and/or a shape element (as ellipse, rectangle, ...). If the style will not be referenced at all the default spray style will be taken. The style helps to generate a nice graphiti editor for a given color schema and supports to adjust all element styles as your own necessity.
+A style describes the referenced figures generally. Attributes like background color and line style can be set and they will finally be mapped with a name. Afterwards the styles can be referenced with their name. The reference will be possible in one hand globally for the whole spray project and can be overwritten in the other hand from a class, a shape and/or a shape element (as ellipse, rectangle, ...). If no style at all will be referenced an DefaultSprayStyle will be taken. The style approach helps to generate a nice Graphiti Editor for a given color schema and supports to adjust all element styles as your own necessity.
 
 h2. An example for a style
 
@@ -144,7 +144,7 @@ The font style @italic@ and @bold@ can be set with the attributes @font-italic@ 
 
 h3. Gradients
 
-Graphiti provides a definition of gradients to support highlighting on elements.Every gradient definition starts with the keyword @gradient@ followed by a unique name. A @gradient@ definition consists out of @area@ attributes, who define the @color@ and the @offset@ of each section. The @color@ can be defined like a @font-color@ with colorname(@blue@) or an RGB color(@RGB(130,200,25)@) value. The @offset@ determines each gradient section with a percentage value. A gradient also can be defined as a background-color and could look like this.
+Spray provides a definition of gradients to support highlighting on elements. Every gradient definition starts with the keyword @gradient@ followed by a unique name. A @gradient@ definition consists out of @area@ attributes, who define the @color@ and the @offset@ of each section. The @color@ can be defined like a @font-color@ with predefined colors (@blue@) or the RGB structure (@RGB(130,200,25)@). The @offset@ determines each gradient section with a percentage value. A gradient also can be defined as a background-color and could look like this.
 
 !images/styles_gradients_plain.png!
 

@@ -1,9 +1,8 @@
 h1. Shape DSL Guide
 
-this chapter describes how to define global graphiti shapes for a spray project.
+This chapter describes how to define global Graphiti shapes for a Spray project.
 
-The shape DSL is a geometric description for the visual representation of a figure. A figure  mostly consists of at least one or more geometric forms which are implemented in graphiti the graphiti framework. If a more complex figure is needed basic forms can be nested together.  
-     
+The Shape DSL is a geometric description for the visual representation of a figure. A figure mostly consists of at least one or more geometric forms which are implemented in the Graphiti framework. If a more complex figure is needed basic forms can be nested together.  
 
 h2. An example for a shape
 
@@ -34,8 +33,7 @@ A shape definition starts with the keyword "shape" for every figure. After the k
 bc. 
 public class Usecase implements ISprayShape
 
-for ever defined shape a Java class will be generated. The interface ISprayShape provide one method
-which will be define for every class. 
+For ever defined shape a Java class will be generated. The interface ISprayShape provide one method which will be define for every class. 
 
 bc. 
 public ContainerShape getShape(Diagram diagram);
@@ -52,11 +50,11 @@ Every shape definition can reference a custom style for their visual behavior. T
 bc. shape Usecase style BlackAndWhiteStyle { 
 		ellipse { style(background-color=blue line-color=red) } }
 
-The nested style only affects the referenced shape without inheritance. If element values are not set, the graphiti default value will be set.
+The nested style only affects the referenced shape without inheritance. If element values are not set, the Graphiti default value will be set.
 
 h2. Shape Elements
 
-A complex figure could have multiple level for their visualisation. The brackets "{ }" represents a separator for each level of a figure.   
+A complex figure could have multiple level for their visualization. The brackets "{ }" represents a separator for each level of a figure.   
 
 bc. shape Usecase { ellipse {} }
 
@@ -64,7 +62,7 @@ If elements are at the same level like a ellipse and a text there will be define
 
 bc. shape Usecase { ellipse {} text {} }
 
-Every figure got the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ got an attribute for @horizinal@ and @vertical@ stretching of the figure. @proportional@ handles if the resize proportion between height and width is kept or not.
+Every figure got the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ got an attribute for @horizontal@ and @vertical@ stretching of the figure. @proportional@ handles if the resize proportion between height and width is kept or not.
 
 bc.. shape Usecase (java.lang.String textline) 
 	{
@@ -109,22 +107,22 @@ If the user doesn't specify any value for one or more attribute the *default val
 | size-min   	- height  		| integer     | >= 0 				 | ???				|      
 | size-max   	- height  		| integer     | >= 0                 | ???            	|
 
-textfield
+Text/Wrapped-Text
 | align 		- horizontal    | boolean     | yes or no            | false (no)     	| 
 | align 		- vertical 		| boolean     | yes or no			 | true  (yes)     	|
 | (textvalue) 					| String	  | -					 | ""			   	|
 
-line/polyline/polygon
+Line/Polyline/Polygon
 | point 		- x  			| integer     | >= 0           		 | 0             	| 
 | point 		- y  			| integer     | >= 0            	 | 0            	| 
 
-2d shapes
+Ellipse/Rectangle/RoundedRectangle
 | size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
 | size 			- height    	| integer     | >= 0             	 | 0            	|
 | position 		- x		    	| integer     | >= 0             	 | 0            	|
 | position		- y		    	| integer     | >= 0             	 | 0             	|
 
-RoundedRectangl
+Additionally on RoundedRectangle
 | curve 		- width	    	| integer     | >= 0             	 | 0            	|
 | curve 		- height    	| integer     | >= 0             	 | 0             	|
 

@@ -40,7 +40,9 @@ bc..
   line (); // width 1 pixel, black 
   line (width=2);
   line (color=blue width=2);
+
 p. 
+
 h3. Alias names
 
 Each shape allows to specify an alias name. The alias name is reflected in generated code and will be used for variable and method names when referring to a specific shape. If not specified, the shape name will be computed from the containment hierarchy and types of used shapes.
@@ -50,3 +52,4 @@ bc.
       container alias rootContainer () {
         line alias line1 ();
       }
+
