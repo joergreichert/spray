@@ -49,9 +49,11 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
     private int         minXtotal = 0;
     private int         maxYtotal = 0;
     private int         minYtotal = 0;
-
     
-    // check if an anchor is in the defined shape area
+    /**
+     * check if an anchor is in the defined shape area
+     * @param pos
+     */
     @Check
     void checkShapeAnchorPosition(AnchorPositionPos pos) {
     	EObject eObject = pos.eContainer();
@@ -95,7 +97,10 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
 	}
     
-    // check the curve parameter of a rounded rectangle
+    /**
+     * check the curve parameter of a rounded rectangle
+     * @param roundrec
+     */
     @Check
     void checkShapeRoundedRectangleCurve(RoundedRectangleLayout roundrec) {
         int curveh = roundrec.getCurveHeight();
@@ -109,7 +114,10 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
     }
 
-    // check the height and width of the common layout consists of size/position
+    /**
+     * check the height and width of the common layout consists of size/position
+     * @param layout
+     */
     @Check
     void checkShapeCommonNullSize(CommonLayout layout) {
         int height = layout.getHeigth();
@@ -123,7 +131,10 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
     }
 
-    // checks if the x and y distance is above 0 
+    /**
+     * checks if the x and y distance is above 0 
+     * @param line
+     */
     @Check
     void checkShapeLineNullSize(LineLayout line) {
         Point start = line.getPoint().get(0);
@@ -158,7 +169,10 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
     }
 
-    // checks if the id of the description field has been already used
+    /**
+     * checks if the id of the description field has been already used
+     * @param body
+     */
     @Check
     public void checkShapeTextSameId(Description body) {
         EObject eObject = body.eContainer();
@@ -190,7 +204,10 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
     }
 
-    // checks if the textfields has the same id`s
+    /**
+     * checks if the textfields has the same id`s
+     * @param body
+     */
     @Check
     public void checkShapeTextSameId(CDText body) {
         EObject eObject = body.eContainer();
@@ -246,11 +263,111 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         return textElements;
     }
 
-    // checks if the inner elements fit to the outer elementsize
+    /**
+     * checks if the inner shape fit to his parent shape (special case polygon)
+     * @param polygon
+     */
+    @Check
+    public void checkShapePolygonSize(Polygon polygon) {
+    	EObject eObject = polygon.eContainer();
+        while (!(eObject instanceof ShapeDefinition)) {
+            eObject = eObject.eContainer();
+        }
+        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
+        ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
+        maxWidth = shapeSizeWrapper.getWidth();
+        maxHeight = shapeSizeWrapper.getHeigth();
+ 
+    	int width = 0;
+    	int height = 0;
+
+        int maxX = 0, minX = 0, maxY = 0, minY = 0;
+        for (Point e : polygon.getLayout().getPoint()) {
+            if (minX > e.getXcor())
+                minX = e.getXcor();
+            if (minY > e.getYcor())
+                minY = e.getYcor();
+            if (maxX < e.getXcor())
+                maxX = e.getXcor();
+            if (maxY < e.getYcor())
+                maxY = e.getYcor();
+        }
+            
+        width = Math.abs(maxX - minX);                
+        height = Math.abs(maxY - minY);
+    	
+    	if (maxWidth < width) {
+           	warning("The width of the polygon is bigger than the parent shape.", ShapesPackage.Literals.POLYGON__LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(width));
+        }
+
+        if (maxHeight < height) {
+       		warning("The height of the polygon is bigger than the parent shape.", ShapesPackage.Literals.POLYGON__LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(height));
+        }
+    }
+    
+    /**
+     * checks if the inner shape fit to his parent shape
+     * @param layout
+     */
+    @Check
+    public void checkShapeSize(CommonLayout layout) {
+    	EObject eObject = layout.eContainer();
+        while (!(eObject instanceof ShapeDefinition)) {
+            eObject = eObject.eContainer();
+        }
+        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
+        ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
+        maxWidth = shapeSizeWrapper.getWidth();
+        maxHeight = shapeSizeWrapper.getHeigth();
+        eObject = layout.eContainer();
+    	while (!(eObject instanceof Shape)) {
+            eObject = eObject.eContainer();
+        }
+    	Shape shape = (Shape) eObject;
+    	checkShape(shape, maxWidth, maxHeight);
+    }
+    
+    private void checkShape(Shape shape, int maxWidth, int maxHeight) {
+    	int width = 0;
+    	int height = 0;
+    	String shapeName = "";
+    	
+    	if (shape instanceof Rectangle) {
+            Rectangle rectangle = (Rectangle) shape;
+            width = rectangle.getLayout().getCommon().getXcor() + rectangle.getLayout().getCommon().getWidth();                
+            height = rectangle.getLayout().getCommon().getYcor() + rectangle.getLayout().getCommon().getHeigth();
+            shapeName = "rectangle";
+    	}
+        if (shape instanceof RoundedRectangle) {
+            RoundedRectangle roundedrectangle = (RoundedRectangle) shape;
+            width = roundedrectangle.getLayout().getCommon().getXcor() + roundedrectangle.getLayout().getCommon().getWidth();                
+            height = roundedrectangle.getLayout().getCommon().getYcor() + roundedrectangle.getLayout().getCommon().getHeigth();
+            shapeName = "rounded-rectangle";
+        }
+        if (shape instanceof Ellipse) {
+            Ellipse ellipse = (Ellipse) shape;
+            width = ellipse.getLayout().getCommon().getXcor() + ellipse.getLayout().getCommon().getWidth();                
+            height = ellipse.getLayout().getCommon().getYcor() + ellipse.getLayout().getCommon().getHeigth();
+            shapeName = "ellipse";
+        }
+ 
+        if (maxWidth < width) {
+            warning("The width of the shape (" + shapeName + ") is bigger than the parent shape.", ShapesPackage.Literals.COMMON_LAYOUT__WIDTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(""));
+        }
+
+        if (maxHeight < height) {
+        	warning("The height of the shape (" + shapeName + ") is bigger than the parent shape.", ShapesPackage.Literals.COMMON_LAYOUT__HEIGTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(height));
+        	
+        }
+	}
+
+	/**
+	 * checks if the inner elements (Text, Line, Polyline) fit to the outer elementsize
+	 * @param shapeDefinition
+	 */
     @Check
     public void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
         ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
-
         maxWidth = shapeSizeWrapper.getWidth();
         maxHeight = shapeSizeWrapper.getHeigth();
         calculateSize(shapeDefinition.getShape());
@@ -330,7 +447,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
 
         if (maxHeight < sumHeight) {
-            warning("The height of all subelements is bigger than max_height of the shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumHeight));
+            warning("The height of all subelements is bigger than max_height of the shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumHeight));
         }
 
         sumWidth = 0;
