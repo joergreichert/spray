@@ -6,12 +6,11 @@ The Shape DSL is a geometric description for the visual representation of a figu
 
 h2. An example for a shape
 
-bc. shape Usecase (java.lang.String textline) style org.eclipselabs.spray.styles.NoTransparency 
+bc. shape Usecase style org.eclipselabs.spray.styles.NoTransparency 
 	{
 	size-min(width=100, height=100)	
 	size-max(width=200, height=200)
 	stretching(horizontal=true, vertical=true)
-	proportional=true
 	ellipse  {
 		size(width=200, heigth=100)
 		position(x=5,y=5)
@@ -19,7 +18,7 @@ bc. shape Usecase (java.lang.String textline) style org.eclipselabs.spray.styles
 		text {
 			align(horizontal=center,vertical=bottom)
 			style(font-color=black)
-			"Paul"
+			id = TextId
 		}
 	}
 }
@@ -64,12 +63,11 @@ bc. shape Usecase { ellipse {} text {} }
 
 Every figure got the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ got an attribute for @horizontal@ and @vertical@ stretching of the figure. @proportional@ handles if the resize proportion between height and width is kept or not.
 
-bc.. shape Usecase (java.lang.String textline) 
+bc.. shape Usecase 
 	{
 	size-min(width=100, height=100)	
 	size-max(width=200, height=200)
 	stretching(horizontal=true, vertical=true)
-	proportional=true
 }
 
 
@@ -81,14 +79,14 @@ There are two more options to define an @anchor@ a relative and fix one. A relat
 bc. anchor {
 		position(xoffset=0.1,yoffset=0.0)
 		position(xoffset=0.8,yoffset=1.0)
-	}
+}
 
 Every position entry represent a anchor point for a connection.In this case the @anchor@ got an attribute @position@ with two values @xoffset@ and @yoffset@. The @xoffset@/ @yoffset@ is the distance from the upper left corner to given value.
 
 bc. anchor {
 		position(x=5, y=10)
 		position(x=50, y=100)
-	}
+}
 	
 !images/shapes_anchors.png!
 	
@@ -99,56 +97,58 @@ h2. Shape Default Values
 If the user doesn't specify any value for one or more attribute the *default values* will be gained. The default values are.
 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
-| proportional	     			| boolean     | yes or no            | false (no)      	| 
+
 | stretching 	- vertical  	| boolean     | yes or no			 | true (yes)      	|
 | stretching 	- horizontal  	| boolean     | yes or no			 | true (yes)     	|
-| size-min   	- width   		| integer     | >= 0 				 | ???				|      
-| size-max   	- width   		| integer     | >= 0                 | ???            	| 
-| size-min   	- height  		| integer     | >= 0 				 | ???				|      
-| size-max   	- height  		| integer     | >= 0                 | ???            	|
-
-Text/Wrapped-Text
-| align 		- horizontal    | boolean     | yes or no            | false (no)     	| 
-| align 		- vertical 		| boolean     | yes or no			 | true  (yes)     	|
-| (textvalue) 					| String	  | -					 | ""			   	|
-
-Line/Polyline/Polygon
-| point 		- x  			| integer     | >= 0           		 | 0             	| 
-| point 		- y  			| integer     | >= 0            	 | 0            	| 
-
-Ellipse/Rectangle/RoundedRectangle
-| size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
-| size 			- height    	| integer     | >= 0             	 | 0            	|
-| position 		- x		    	| integer     | >= 0             	 | 0            	|
-| position		- y		    	| integer     | >= 0             	 | 0             	|
-
-Additionally on RoundedRectangle
-| curve 		- width	    	| integer     | >= 0             	 | 0            	|
-| curve 		- height    	| integer     | >= 0             	 | 0             	|
+| size-min   	- width   		| integer     | >= 0 				 | 0				|      
+| size-max   	- width   		| integer     | >= 0                 | 0            	| 
+| size-min   	- height  		| integer     | >= 0 				 | 0				|      
+| size-max   	- height  		| integer     | >= 0                 | 0            	|
 
 h3. Text
 
 The keyword @text@ represents a shape element which 
 
-bc. text { 
+bc. text { }
 
-A text field has one obligatory and one optional attribute. The first attribute is the alignment(@align@) separated in @horizontal@ and @vertical@. For both values are enumeration values referenced. The First value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The optional attribute can set the @"text"@ value of the shape.
+A text field has four different attributes that can be set. The first two attributes @position@ and @size@ are come from the CommonLayoutDefinition. This layout definition is also used for @ellipse@, @rectangle@ and @rounded-rectangle@. The @position@ defines the start position of the element with the corresponding @x@ and @y@ value. For the specific size of the element the @with@ and @height@ can be set. For the alignment the keyword @align@ is used and separated in @horizontal@ and @vertical@. For both values are enumeration values referenced. The First value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The last attribute @id@ is responsible for the text value which is used to reference the value for directediting and updating.
 
 bc. text {
-		align(horizontal=center,vertical=bottom)
-		"text" 
+			position (x=0, y=5)
+			size (width=50, height=20)
+			align (horizontal=center, vertical=middle)
+			id = shapeName
+}
+
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - Text/Wrapped-Text**
+| size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
+| size 			- height    	| integer     | >= 0             	 | 0            	|
+| position 		- x		    	| integer     | >= 0             	 | 0            	|
+| position		- y		    	| integer     | >= 0             	 | 0             	|
+| id		 					| String	  | -					 | ""			   	|
+
 
 h3. Line
 
 The keyword @line@ represents a line shape element
 
-bc. line { 
+bc. line { }
 
 This shape needs a pair of @point@ which define the startpoint and an endpoint of a line. Each point has their @x=@/ @y=@ coordinates.
 
 bc. line {
 		point(x=25,y=20)
-		point(x=25,y=20) 
+		point(x=25,y=20)
+}
+
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - Line**
+| point 		- x  			| integer     | >= 0           		 | 0             	| 
+| point 		- y  			| integer     | >= 0            	 | 0            	| 
+
 
 h3. Polyline
 
@@ -161,7 +161,15 @@ A polyline definition required a set of @point@ to specify every start and end o
 bc. polyline {
 		point(x=50,y=0)
 		point(x=50,y=10)
-		point(x=60,y=10) 
+		point(x=60,y=10)
+}
+		
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - Polyline**
+| point 		- x  			| integer     | >= 0           		 | 0             	| 
+| point 		- y  			| integer     | >= 0            	 | 0            	| 
+
 
 h3. 2D Shape
 
@@ -178,10 +186,20 @@ An ellipse element is able to represent every kind of ellipses and also circles,
 bc. ellipse  {
 		size(width=200, height=100)
 		position(x=5,y=5)
+}
+
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - Ellipse**
+| size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
+| size 			- height    	| integer     | >= 0             	 | 0            	|
+| position 		- x		    	| integer     | >= 0             	 | 0            	|
+| position		- y		    	| integer     | >= 0             	 | 0             	|
+
 
 h3. Rectangle
 
-The keyword @rectangle@ represents a rectangle shape element
+The keyword @rectangle@ represents a rectangle shape element.
 
 bc. rectangle { }
 
@@ -189,38 +207,84 @@ The rectangle can present all types of rectangles and also squares, when the @wi
 
 bc. rectangle {
 		size(width=100, height=100)
-		position(x=0,y=0) 
+		position(x=0,y=0)
+}
+
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - Rectangle**
+| size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
+| size 			- height    	| integer     | >= 0             	 | 0            	|
+| position 		- x		    	| integer     | >= 0             	 | 0            	|
+| position		- y		    	| integer     | >= 0             	 | 0             	|
+
 
 h3. RoundedRectangle
 
-The keyword @roundedrectangle@ represents a roundedrectangle shape element
+The keyword @rounded-rectangle@ represents a rounded rectangle shape element.
 
-bc. roundedrectangle { 
+bc. rounded-rectangle { 
 
-The roundedrectangle definition is similar to the rectangle definition. There is just one optional attribute named @curve@ which set the curve of the corners
+The @rounded-rectangle@ definition is similar to the rectangle definition. There is just one optional attribute named @curve@ which set the curve of the corners.
 
-bc. roundedrectangle {
+bc. rounded-rectangle {
 		size(width=100, height=100)
 		position(x=0,y=0)
-		curve(width=30, height=30 
+		curve(width=30, height=30)
+}
+
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - RoundedRectangle**
+| size 			- width	    	| integer     | >= 0             	 | 0           	 	| 
+| size 			- height    	| integer     | >= 0             	 | 0            	|
+| position 		- x		    	| integer     | >= 0             	 | 0            	|
+| position		- y		    	| integer     | >= 0             	 | 0             	|
+| curve 		- width	    	| integer     | >= 0             	 | 0            	|
+| curve 		- height    	| integer     | >= 0             	 | 0             	|
+
 
 h3. Polygon
 
-The keyword @polygon@ represents a polygon shape element
+The keyword @polygon@ represents a polygon shape element.
 
-bc. polygon { 
+bc. polygon { }
 
 A polygon is shape with n-sides. This figure is bounded by a closed path, this mean the startpoint is connected to the end point. Every side is defines by two @point@ with there @x@ and @y@ coordinates.
 
 bc. polygon {
-		size(width=100, height=100)
-		position(x=0,y=0)
 		point(x=50,y=0)
 		point(x=50,y=10)
 		point(x=60,y=10) 
 }
 
+|_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
+
+**Default Value - Polygon**
+| point 		- x  			| integer     | >= 0           		 | 0             	| 
+| point 		- y  			| integer     | >= 0            	 | 0            	| 
+
+
 h2. Practise Examples 
+
+In this chapter some examples will be explained and described in detail.
+
+h3. Cure - Example
+
+The rounding options are used for the distance on the line before and after the point begins. In our example we defined, that 40 pixels before the bottom-right point the rounding starts and 20 pixels after the bottom-right point the rounding ends.
+
+bc. polygon {
+		point(x=50,y=0)
+		point(x=0,y=50, curveBefore=40, curveAfter=20)
+		point(x=100,y=50, curveBefore=40, curveAfter=20) 
+}
+
+This rounding options only be specified for Shapes (Polygons and Polylines).
+
+!images/shape_curve_options.png!
+
+
+**Complex Example**
 
 To get more experience in defining some complex figures, we set up some examples figures from UML (Unified Modeling Language) and BPMN (Business Process Model and Notation). 
 
@@ -235,6 +299,8 @@ bc. shape UML_UC_Actor {
 	}
 }
 
+!images/shape_uml_actor_head.png!
+
 Then we add two @line@-shapes for the body and the hands of the actor. The coordinates starts from left upper corner (@x@=0/ @y@=0) to the right bottom corner. We want to place the body below the head so we need to set @50@ (length of the head) for the @y@ values and 25 (middle of the head) for first @x@ value. The length of the body part will be decided by the distance between the both @y@-point values which is @50@. The second line defines the hands of the actor which is displayed @20@ beneath the body starts. The length of the hands are equal to the size of the head.    
 
 bc. shape UML_UC_Actor {
@@ -246,6 +312,8 @@ bc. shape UML_UC_Actor {
 	line {point(x=0,y=70) point(x=50,y=70)} // Hands
 }
 
+!images/shape_uml_actor_head_body_arms.png!
+
 The last step will complete our actor. Therefore we need to define a polyline for the feet. We also want to place the feet below the body so we need to add the @y@-values first. This mid point has  @100@ (y-head + y-body) as @y@-value and @25@ (middle of head) as @x@-value which is the boundary point between the body and feet. The two other points of the polyline are connected to boundary point and decide the length of the feet which is the square root of @50@. The start and the end of the polyline is based on the headsize in this example from @x@=0 to @x@=50.
 
 bc. shape UML_UC_Actor {
@@ -255,8 +323,11 @@ bc. shape UML_UC_Actor {
 	}
 	line {point(x=25,y=50) point(x=25,y=100)} // Body 
 	line {point(x=0,y=70) point(x=50,y=70)} // Hands
+	line {point(x=50,y=70) point(x=100,y=70)} // Hands
 	polyline {point(x=0,y=150) point(x=25,y=100) point(x=50,y=150)} // Feet
 }
+
+!images/shape_uml_actor_full.png!
 
 h3. BPMN - Example 
 
