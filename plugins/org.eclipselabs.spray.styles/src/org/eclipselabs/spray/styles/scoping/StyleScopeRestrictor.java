@@ -14,7 +14,7 @@ public class StyleScopeRestrictor implements Predicate<IEObjectDescription> {
     @Override
     public boolean apply(IEObjectDescription input) {
         if (input.getEObjectOrProxy() instanceof JvmGenericType) {
-            return true;//isStyle((JvmGenericType) input.getEObjectOrProxy());
+            return isStyle((JvmGenericType) input.getEObjectOrProxy());
         } else {
             return false;
         }

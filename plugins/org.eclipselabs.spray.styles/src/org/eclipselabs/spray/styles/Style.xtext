@@ -19,8 +19,8 @@ Style:
 
 Gradient:
 	{Gradient}
-	"gradient" name=ID ("extends" superGradient=JvmTypeReference)? "{"
-		("description" "=" description =STRING)?
+	"gradient" name=ID "{"
+		("description" "=" description=STRING)?
 		layout = GradientLayout		
 	"}";
 

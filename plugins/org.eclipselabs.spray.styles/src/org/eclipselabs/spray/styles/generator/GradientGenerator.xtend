@@ -39,13 +39,6 @@ class GradientGenerator {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 		import org.eclipse.graphiti.util.PredefinedColoredAreas;
-		
-««««««		import org.eclipselabs.spray.styles.ISprayStyle;
-«««		«IF g.superGradient == null»
-««««««		import org.eclipselabs.spray.styles.DefaultSprayStyle;
-«««		«ELSE»
-«««		import «g.superGradient.qualifiedName»;
-«««		«ENDIF»
 		'''
 	}
 	
@@ -54,34 +47,25 @@ class GradientGenerator {
 		/**
 		 * Description: «g.description»
 		 */
-		 
 		@SuppressWarnings("all")
 		public class «g.className» extends PredefinedColoredAreas implements ISprayGradient {
 		    
 		    /**
-			 * This method returns the gradient color area.
-			 * Description: «g.description»
-			 */
-		    
-			public GradientColoredAreas getGradientColoredAreas( ) {
-				
-				// Create Gradient
-				final GradientColoredAreas gradientColoredAreas = 
-					StylesFactory.eINSTANCE.createGradientColoredAreas();
-
-				final EList<GradientColoredArea> gcas =
-					gradientColoredAreas.getGradientColor();
-				
-				«g.layout.createColourAreas»
-				return gradientColoredAreas;
-			}
-			
-		}	
+		     * This method returns the gradient color area.
+		     * Description: «g.description»
+		     */
+		     public GradientColoredAreas getGradientColoredAreas( ) {
+		         final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
+		         final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
+		         «g.layout.createColorAreas»
+		         return gradientColoredAreas;
+		     }
+		
+		}
 		'''
 	}
 
-	def createColourAreas(GradientLayout l) {
-		
+	def createColorAreas(GradientLayout l) {
 		l.area.sortBy(entity | entity.offset)
 		elementIndex = -1
 		'''
@@ -89,26 +73,19 @@ class GradientGenerator {
 			«IF(increaseCounter < l.area.size - 1)»
 			«createArea(element,l.area.get(elementIndex+1))»
 			«ELSEIF(l.area.size == 1)»
-				
+			
 			«ENDIF»
-«««			«elementIndex = elementIndex + 1»
       	«ENDFOR»
       	'''	
 	}
 	
 	def createArea(GradientColorArea first, GradientColorArea second){
-		
 		var offset_1 = (first.offset*100).intValue
 		var offset_2 = (second.offset*100).intValue  
-		
-		'''
-			addGradientColoredArea(gcas,"«first.color.createColorValue»",«offset_1»,LocationType.LOCATION_TYPE_RELATIVE,
-										"«second.color.createColorValue»",«offset_2»,LocationType.LOCATION_TYPE_RELATIVE);
-		'''
-		
+		'''addGradientColoredArea(gcas,"«first.color.createColorValue»",«offset_1»,LocationType.LOCATION_TYPE_RELATIVE, "«second.color.createColorValue»",«offset_2»,LocationType.LOCATION_TYPE_RELATIVE);'''
 	}
 	
 	def dispatch createColorValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c)»''' }
 	def dispatch createColorValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c)»''' }
-	def increaseCounter( ){ elementIndex = elementIndex + 1}
+	def increaseCounter(){ elementIndex = elementIndex + 1 }
 }

@@ -4,7 +4,6 @@ import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient;
-import org.eclipselabs.spray.styles.styles.StylesPackage;
 
 import com.google.common.base.Predicate;
 
