@@ -9,6 +9,7 @@ Diagram :
     imports+=Import*
     'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? 
     (sprayElements += SprayElement)*
+    (paletteDefinition = PaletteDefinition)?
 ;
 
 Import:
@@ -49,7 +50,13 @@ EdgeFigureSection: 'figure' shapeRef=JvmTypeReference ('{'
     '}')?
 ;
 
-ToolingSection: 'tooling';
+ToolingSection: {ToolingSection} ('tooling' '{'
+        ( 'palette' paletteCompartment=STRING )?
+        ( 'icon' icon=STRING )?
+        ( 'tooltip' tooltipExp=XExpression )?
+        ( 'rapid-buttons' rapidButtons+=RapidButtonDefinition ("," rapidButtons+=RapidButtonDefinition)*)? 
+    '}')
+;
 
 BehaviorSection: 'behavior';
 
@@ -62,3 +69,20 @@ TextPropertyAssignment:
 
 CompartmentPropertyAssignment: 
     'compartment' key=[types::JvmEnumerationLiteral|QualifiedName] 'for' attribute=[ecore::EAttribute];
+
+RapidButtonDefinition: edge=[EdgeElement] ('to' node=[NodeElement])?;
+
+PaletteDefinition: 
+    'palette' '{'
+        category+=PaletteCategory+
+    '}'    
+;
+
+PaletteCategory: 'category' name=STRING '{'
+        paletteElements+=PaletteElement (',' paletteElements+=PaletteElement)*
+    '}'
+;
+
+PaletteElement: PaletteNodeElement | PaletteEdgeElement | PaletteCategory;
+PaletteNodeElement: 'node' node=[NodeElement];
+PaletteEdgeElement: 'edge' edge=[EdgeElement];

@@ -3,15 +3,26 @@
  */
 package org.eclipselabs.spray2.xtext;
 
+import java.util.Set;
+
+import org.eclipselabs.spray2.xtext.api.IConstants;
 import org.eclipselabs.spray2.xtext.scoping.Spray2ScopeProvider;
+
+import com.google.common.collect.Sets;
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class Spray2RuntimeModule extends org.eclipselabs.spray2.xtext.AbstractSpray2RuntimeModule {
 
+    @Override
     public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
         return Spray2ScopeProvider.class;
     }
-
+    
+    public void configureValidIconFileExtensions(Binder binder) {
+        binder.bind(Set.class).annotatedWith(Names.named(IConstants.NAME_VALID_ICON_FILE_EXTENSIONS)).toInstance(Sets.newHashSet("gif", "png", "bmp", "ico"));
+    }
 }

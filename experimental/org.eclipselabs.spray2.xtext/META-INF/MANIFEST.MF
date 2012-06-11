@@ -25,6 +25,7 @@ Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipselabs.spray2.xtext,
+ org.eclipselabs.spray2.xtext.api,
  org.eclipselabs.spray2.xtext.services,
  org.eclipselabs.spray2.xtext.spray2,
  org.eclipselabs.spray2.xtext.spray2.impl,
@@ -35,3 +36,4 @@ Export-Package: org.eclipselabs.spray2.xtext,
  org.eclipselabs.spray2.xtext.validation,
  org.eclipselabs.spray2.xtext.formatting,
  org.eclipselabs.spray2.xtext.jvmmodel
+
