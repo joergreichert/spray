@@ -58,7 +58,13 @@ ToolingSection: {ToolingSection} ('tooling' '{'
     '}')
 ;
 
-BehaviorSection: 'behavior';
+BehaviorSection: {BehaviorSection} ('behavior' '{'
+	('creatable-in' compartmentReference+=[ecore::EReference] (',' compartmentReference+=[ecore::EReference])* (label=STRING))?	
+	('edit-on-create' askFor=[ecore::EAttribute])?
+	('drill-down' )?
+	('custom' name = ID | 'ref' (realizedBy=JvmTypeReference) (label=STRING))?
+	'}')
+;
 
 TextPropertyAssignment: 
     'text' key=[types::JvmEnumerationLiteral|QualifiedName] 'for' attribute=[ecore::EAttribute] (
