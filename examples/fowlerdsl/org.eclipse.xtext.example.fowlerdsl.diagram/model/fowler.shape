@@ -1,0 +1,8 @@
+shape RectangleShape {
+	rectangle {
+		size (width=100, height=20)
+	}
+	description {
+		id = descriptionField
+	}
+}

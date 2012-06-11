@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.htwg.2012.bpmn.mm/src"
+    modelPluginID="de.htwg.2012.bpmn.mm" modelName="Bpmn" importerID="org.eclipse.emf.importer.ecore"
+    copyrightFields="false">
+  <foreignModel>bpmn.ecore</foreignModel>
+  <genPackages prefix="BPMN" disposableProviderFactory="true" ecorePackage="bpmn.ecore#/">
+    <genClasses ecoreClass="bpmn.ecore#//BPMNModelElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bpmn.ecore#//BPMNModelElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bpmn.ecore#//BPMNModelElement/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNModelElement/modelElements"/>
+    </genClasses>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventStartDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEndDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEndUsed"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMail"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMailDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMailDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMailDoubleDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMailInvertDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMailInvertBold"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventTimerDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventTimerDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventTimerDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventTimerDoubleDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEskalationStart"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEskalationDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEskalationDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEskalationDoubelDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEskalationDoubelInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventEskalationBoldInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventIfDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventIfDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventIfDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventIfDoubleDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventLinkEntered"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventLinkTriggerd"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventErrorDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventErrorDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventErrorBoldInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventCancelDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventCancelBoldInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventCompensationDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventCompensationDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventCompensationDoubleInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventCompensationBoldInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventSignalDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventSignalDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventSignalDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventSignalDoubleDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventSignalDoubleInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventSignalBoldInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMultiDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMultiDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMultiDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMultiDoubleDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMultiDoubleInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventMultiBoldInvert"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventParallelDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventParallelDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventParallelDouble"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventParallelDoubleDash"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNEventTermination"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNActivityTask"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNActivityTransaction"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNActivityEventSubProcess"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNActivityCallActivity"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayXOR1"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayXOR2"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayEvent"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayAnd"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayOR"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayComplex"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayXEvent"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNGatewayAndEvent"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNConversationDefault"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNConversationBold"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNOneData"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNListData"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNDataStorage"/>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNSequenceFlow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNSequenceFlow/formElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNSequenceFlow/toElement"/>
+    </genClasses>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNDefaultFlow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNDefaultFlow/formElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNDefaultFlow/toElement"/>
+    </genClasses>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNConditionalFlow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNConditionalFlow/formElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNConditionalFlow/toElement"/>
+    </genClasses>
+    <genClasses ecoreClass="bpmn.ecore#//BPMNDataAssoziation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNDataAssoziation/formElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bpmn.ecore#//BPMNDataAssoziation/toElement"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

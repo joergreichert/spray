@@ -1,0 +1,44 @@
+import LanguageWorkbenchCompetition.*
+import org.eclipselabs.spray.shapes.*
+
+diagram lwc for LWCModelElement
+
+node LWC for LWCHeatExchanger {
+	figure LWC_HeatExchanger {
+		text shapeName for name		
+	}
+	tooling {
+		palette "test"
+		icon "connection16.gif"
+		tooltip ""
+		rapid-buttons LWCEdge1 to LWC, LWCEdge3 to LWC2
+	}
+}
+
+node LWC2 for LWCValve {
+	figure LWC_Valve {
+		text shapeName for name
+	}
+	tooling {
+		palette "test"
+		icon "connection16.gif"
+		tooltip ""
+		rapid-buttons LWCEdge1 to LWC, LWCEdge3 to LWC2
+	}
+}
+
+edge LWCEdge1 for LWCPipe {
+	
+}
+
+edge LWCEdge2 for LWCPipe {
+	
+}
+
+edge LWCEdge3 for LWCPipe {
+	
+}
+
+edge LWCEdge4 for LWCPipe {
+	
+}

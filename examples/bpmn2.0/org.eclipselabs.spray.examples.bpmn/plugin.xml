@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Sat May 12 08:27:53 CEST 2012 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.diagram.BpmnDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.examples.bpmn.diagram.BpmnDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the bpmn diagram type"
+              id="org.eclipselabs.spray.examples.bpmn.diagram.BpmnDiagramType"
+              name="bpmn Graphiti Diagram Type"
+              type="bpmn">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.diagram.BpmnDiagramTypeProvider"
+              description="This is my editor for the bpmn diagram type"
+              id="org.eclipselabs.spray.examples.bpmn.diagram.BpmnDiagramTypeProvider"
+              name="bpmn editor">
+              <diagramType
+                    id="org.eclipselabs.spray.examples.bpmn.diagram.BpmnDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.examples.bpmn.diagram.BpmnImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.diagram.BpmnImageProvider"
+                       id="org.eclipselabs.spray.examples.bpmn.diagram.BpmnImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="bpmn.PropertyContributor">
+                  <propertyCategory category="bpmnCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="bpmn.PropertyContributor">
+                  <propertyTab label="Main" category="bpmnCategory"
+                      id="bpmn.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityCallActivityNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityCallActivityFilter"
+           id="bpmn.main.tab.BPMNActivityCallActivity.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityCallActivityDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityCallActivityFilter"
+           afterSection="bpmn.main.tab.BPMNActivityCallActivity.name"
+           id="bpmn.main.tab.BPMNActivityCallActivity.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityEventSubProcessNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityEventSubProcessFilter"
+           id="bpmn.main.tab.BPMNActivityEventSubProcess.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityEventSubProcessDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityEventSubProcessFilter"
+           afterSection="bpmn.main.tab.BPMNActivityEventSubProcess.name"
+           id="bpmn.main.tab.BPMNActivityEventSubProcess.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTaskNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTaskFilter"
+           id="bpmn.main.tab.BPMNActivityTask.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTaskDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTaskFilter"
+           afterSection="bpmn.main.tab.BPMNActivityTask.name"
+           id="bpmn.main.tab.BPMNActivityTask.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTransactionNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTransactionFilter"
+           id="bpmn.main.tab.BPMNActivityTransaction.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTransactionDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNActivityTransactionFilter"
+           afterSection="bpmn.main.tab.BPMNActivityTransaction.name"
+           id="bpmn.main.tab.BPMNActivityTransaction.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNConversationBoldNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNConversationBoldFilter"
+           id="bpmn.main.tab.BPMNConversationBold.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNConversationBoldDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNConversationBoldFilter"
+           afterSection="bpmn.main.tab.BPMNConversationBold.name"
+           id="bpmn.main.tab.BPMNConversationBold.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNConversationDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNConversationDefaultFilter"
+           id="bpmn.main.tab.BPMNConversationDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNConversationDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNConversationDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNConversationDefault.name"
+           id="bpmn.main.tab.BPMNConversationDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNDataStorageNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNDataStorageFilter"
+           id="bpmn.main.tab.BPMNDataStorage.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNDataStorageDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNDataStorageFilter"
+           afterSection="bpmn.main.tab.BPMNDataStorage.name"
+           id="bpmn.main.tab.BPMNDataStorage.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelBoldInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelBoldInvertFilter"
+           id="bpmn.main.tab.BPMNEventCancelBoldInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelBoldInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelBoldInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventCancelBoldInvert.name"
+           id="bpmn.main.tab.BPMNEventCancelBoldInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelDoubleFilter"
+           id="bpmn.main.tab.BPMNEventCancelDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCancelDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventCancelDouble.name"
+           id="bpmn.main.tab.BPMNEventCancelDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationBoldInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationBoldInvertFilter"
+           id="bpmn.main.tab.BPMNEventCompensationBoldInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationBoldInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationBoldInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventCompensationBoldInvert.name"
+           id="bpmn.main.tab.BPMNEventCompensationBoldInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDefaultFilter"
+           id="bpmn.main.tab.BPMNEventCompensationDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventCompensationDefault.name"
+           id="bpmn.main.tab.BPMNEventCompensationDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleFilter"
+           id="bpmn.main.tab.BPMNEventCompensationDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventCompensationDouble.name"
+           id="bpmn.main.tab.BPMNEventCompensationDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleInvertFilter"
+           id="bpmn.main.tab.BPMNEventCompensationDoubleInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventCompensationDoubleInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventCompensationDoubleInvert.name"
+           id="bpmn.main.tab.BPMNEventCompensationDoubleInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndDefaultFilter"
+           id="bpmn.main.tab.BPMNEventEndDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventEndDefault.name"
+           id="bpmn.main.tab.BPMNEventEndDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndUsedNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndUsedFilter"
+           id="bpmn.main.tab.BPMNEventEndUsed.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndUsedDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEndUsedFilter"
+           afterSection="bpmn.main.tab.BPMNEventEndUsed.name"
+           id="bpmn.main.tab.BPMNEventEndUsed.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorBoldInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorBoldInvertFilter"
+           id="bpmn.main.tab.BPMNEventErrorBoldInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorBoldInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorBoldInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventErrorBoldInvert.name"
+           id="bpmn.main.tab.BPMNEventErrorBoldInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDefaultFilter"
+           id="bpmn.main.tab.BPMNEventErrorDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventErrorDefault.name"
+           id="bpmn.main.tab.BPMNEventErrorDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDoubleFilter"
+           id="bpmn.main.tab.BPMNEventErrorDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventErrorDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventErrorDouble.name"
+           id="bpmn.main.tab.BPMNEventErrorDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationBoldInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationBoldInvertFilter"
+           id="bpmn.main.tab.BPMNEventEskalationBoldInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationBoldInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationBoldInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventEskalationBoldInvert.name"
+           id="bpmn.main.tab.BPMNEventEskalationBoldInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDashFilter"
+           id="bpmn.main.tab.BPMNEventEskalationDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventEskalationDash.name"
+           id="bpmn.main.tab.BPMNEventEskalationDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelDashFilter"
+           id="bpmn.main.tab.BPMNEventEskalationDoubelDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventEskalationDoubelDash.name"
+           id="bpmn.main.tab.BPMNEventEskalationDoubelDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelInvertFilter"
+           id="bpmn.main.tab.BPMNEventEskalationDoubelInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubelInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventEskalationDoubelInvert.name"
+           id="bpmn.main.tab.BPMNEventEskalationDoubelInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubleFilter"
+           id="bpmn.main.tab.BPMNEventEskalationDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventEskalationDouble.name"
+           id="bpmn.main.tab.BPMNEventEskalationDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationStartNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationStartFilter"
+           id="bpmn.main.tab.BPMNEventEskalationStart.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationStartDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventEskalationStartFilter"
+           afterSection="bpmn.main.tab.BPMNEventEskalationStart.name"
+           id="bpmn.main.tab.BPMNEventEskalationStart.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDashFilter"
+           id="bpmn.main.tab.BPMNEventIfDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventIfDash.name"
+           id="bpmn.main.tab.BPMNEventIfDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDefaultFilter"
+           id="bpmn.main.tab.BPMNEventIfDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventIfDefault.name"
+           id="bpmn.main.tab.BPMNEventIfDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleFilter"
+           id="bpmn.main.tab.BPMNEventIfDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventIfDouble.name"
+           id="bpmn.main.tab.BPMNEventIfDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleDashFilter"
+           id="bpmn.main.tab.BPMNEventIfDoubleDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventIfDoubleDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventIfDoubleDash.name"
+           id="bpmn.main.tab.BPMNEventIfDoubleDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkEnteredNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkEnteredFilter"
+           id="bpmn.main.tab.BPMNEventLinkEntered.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkEnteredDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkEnteredFilter"
+           afterSection="bpmn.main.tab.BPMNEventLinkEntered.name"
+           id="bpmn.main.tab.BPMNEventLinkEntered.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkTriggerdNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkTriggerdFilter"
+           id="bpmn.main.tab.BPMNEventLinkTriggerd.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkTriggerdDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventLinkTriggerdFilter"
+           afterSection="bpmn.main.tab.BPMNEventLinkTriggerd.name"
+           id="bpmn.main.tab.BPMNEventLinkTriggerd.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailFilter"
+           id="bpmn.main.tab.BPMNEventMail.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailFilter"
+           afterSection="bpmn.main.tab.BPMNEventMail.name"
+           id="bpmn.main.tab.BPMNEventMail.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDashFilter"
+           id="bpmn.main.tab.BPMNEventMailDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventMailDash.name"
+           id="bpmn.main.tab.BPMNEventMailDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleFilter"
+           id="bpmn.main.tab.BPMNEventMailDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventMailDouble.name"
+           id="bpmn.main.tab.BPMNEventMailDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleDashFilter"
+           id="bpmn.main.tab.BPMNEventMailDoubleDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailDoubleDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventMailDoubleDash.name"
+           id="bpmn.main.tab.BPMNEventMailDoubleDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailInvertBoldNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailInvertBoldFilter"
+           id="bpmn.main.tab.BPMNEventMailInvertBold.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailInvertBoldDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMailInvertBoldFilter"
+           afterSection="bpmn.main.tab.BPMNEventMailInvertBold.name"
+           id="bpmn.main.tab.BPMNEventMailInvertBold.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiBoldInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiBoldInvertFilter"
+           id="bpmn.main.tab.BPMNEventMultiBoldInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiBoldInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiBoldInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventMultiBoldInvert.name"
+           id="bpmn.main.tab.BPMNEventMultiBoldInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDashFilter"
+           id="bpmn.main.tab.BPMNEventMultiDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventMultiDash.name"
+           id="bpmn.main.tab.BPMNEventMultiDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDefaultFilter"
+           id="bpmn.main.tab.BPMNEventMultiDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventMultiDefault.name"
+           id="bpmn.main.tab.BPMNEventMultiDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleFilter"
+           id="bpmn.main.tab.BPMNEventMultiDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventMultiDouble.name"
+           id="bpmn.main.tab.BPMNEventMultiDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleDashFilter"
+           id="bpmn.main.tab.BPMNEventMultiDoubleDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventMultiDoubleDash.name"
+           id="bpmn.main.tab.BPMNEventMultiDoubleDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleInvertFilter"
+           id="bpmn.main.tab.BPMNEventMultiDoubleInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventMultiDoubleInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventMultiDoubleInvert.name"
+           id="bpmn.main.tab.BPMNEventMultiDoubleInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDashFilter"
+           id="bpmn.main.tab.BPMNEventParallelDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventParallelDash.name"
+           id="bpmn.main.tab.BPMNEventParallelDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDefaultFilter"
+           id="bpmn.main.tab.BPMNEventParallelDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventParallelDefault.name"
+           id="bpmn.main.tab.BPMNEventParallelDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleFilter"
+           id="bpmn.main.tab.BPMNEventParallelDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventParallelDouble.name"
+           id="bpmn.main.tab.BPMNEventParallelDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleDashFilter"
+           id="bpmn.main.tab.BPMNEventParallelDoubleDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventParallelDoubleDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventParallelDoubleDash.name"
+           id="bpmn.main.tab.BPMNEventParallelDoubleDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalBoldInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalBoldInvertFilter"
+           id="bpmn.main.tab.BPMNEventSignalBoldInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalBoldInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalBoldInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventSignalBoldInvert.name"
+           id="bpmn.main.tab.BPMNEventSignalBoldInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDashFilter"
+           id="bpmn.main.tab.BPMNEventSignalDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventSignalDash.name"
+           id="bpmn.main.tab.BPMNEventSignalDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDefaultFilter"
+           id="bpmn.main.tab.BPMNEventSignalDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventSignalDefault.name"
+           id="bpmn.main.tab.BPMNEventSignalDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleFilter"
+           id="bpmn.main.tab.BPMNEventSignalDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventSignalDouble.name"
+           id="bpmn.main.tab.BPMNEventSignalDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleDashFilter"
+           id="bpmn.main.tab.BPMNEventSignalDoubleDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventSignalDoubleDash.name"
+           id="bpmn.main.tab.BPMNEventSignalDoubleDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleInvertNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleInvertFilter"
+           id="bpmn.main.tab.BPMNEventSignalDoubleInvert.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleInvertDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventSignalDoubleInvertFilter"
+           afterSection="bpmn.main.tab.BPMNEventSignalDoubleInvert.name"
+           id="bpmn.main.tab.BPMNEventSignalDoubleInvert.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventStartDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventStartDefaultFilter"
+           id="bpmn.main.tab.BPMNEventStartDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventStartDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventStartDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventStartDefault.name"
+           id="bpmn.main.tab.BPMNEventStartDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTerminationNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTerminationFilter"
+           id="bpmn.main.tab.BPMNEventTermination.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTerminationDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTerminationFilter"
+           afterSection="bpmn.main.tab.BPMNEventTermination.name"
+           id="bpmn.main.tab.BPMNEventTermination.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDashFilter"
+           id="bpmn.main.tab.BPMNEventTimerDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventTimerDash.name"
+           id="bpmn.main.tab.BPMNEventTimerDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDefaultNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDefaultFilter"
+           id="bpmn.main.tab.BPMNEventTimerDefault.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDefaultDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDefaultFilter"
+           afterSection="bpmn.main.tab.BPMNEventTimerDefault.name"
+           id="bpmn.main.tab.BPMNEventTimerDefault.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleFilter"
+           id="bpmn.main.tab.BPMNEventTimerDouble.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleFilter"
+           afterSection="bpmn.main.tab.BPMNEventTimerDouble.name"
+           id="bpmn.main.tab.BPMNEventTimerDouble.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleDashNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleDashFilter"
+           id="bpmn.main.tab.BPMNEventTimerDoubleDash.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleDashDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNEventTimerDoubleDashFilter"
+           afterSection="bpmn.main.tab.BPMNEventTimerDoubleDash.name"
+           id="bpmn.main.tab.BPMNEventTimerDoubleDash.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndFilter"
+           id="bpmn.main.tab.BPMNGatewayAnd.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndFilter"
+           afterSection="bpmn.main.tab.BPMNGatewayAnd.name"
+           id="bpmn.main.tab.BPMNGatewayAnd.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndEventNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndEventFilter"
+           id="bpmn.main.tab.BPMNGatewayAndEvent.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndEventDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayAndEventFilter"
+           afterSection="bpmn.main.tab.BPMNGatewayAndEvent.name"
+           id="bpmn.main.tab.BPMNGatewayAndEvent.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayComplexNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayComplexFilter"
+           id="bpmn.main.tab.BPMNGatewayComplex.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayComplexDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayComplexFilter"
+           afterSection="bpmn.main.tab.BPMNGatewayComplex.name"
+           id="bpmn.main.tab.BPMNGatewayComplex.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayEventNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayEventFilter"
+           id="bpmn.main.tab.BPMNGatewayEvent.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayEventDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayEventFilter"
+           afterSection="bpmn.main.tab.BPMNGatewayEvent.name"
+           id="bpmn.main.tab.BPMNGatewayEvent.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayORNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayORFilter"
+           id="bpmn.main.tab.BPMNGatewayOR.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayORDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayORFilter"
+           afterSection="bpmn.main.tab.BPMNGatewayOR.name"
+           id="bpmn.main.tab.BPMNGatewayOR.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXEventNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXEventFilter"
+           id="bpmn.main.tab.BPMNGatewayXEvent.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXEventDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXEventFilter"
+           afterSection="bpmn.main.tab.BPMNGatewayXEvent.name"
+           id="bpmn.main.tab.BPMNGatewayXEvent.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR1NameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR1Filter"
+           id="bpmn.main.tab.BPMNGatewayXOR1.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR1DescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR1Filter"
+           afterSection="bpmn.main.tab.BPMNGatewayXOR1.name"
+           id="bpmn.main.tab.BPMNGatewayXOR1.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR2NameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR2Filter"
+           id="bpmn.main.tab.BPMNGatewayXOR2.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR2DescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNGatewayXOR2Filter"
+           afterSection="bpmn.main.tab.BPMNGatewayXOR2.name"
+           id="bpmn.main.tab.BPMNGatewayXOR2.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNListDataNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNListDataFilter"
+           id="bpmn.main.tab.BPMNListData.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNListDataDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNListDataFilter"
+           afterSection="bpmn.main.tab.BPMNListData.name"
+           id="bpmn.main.tab.BPMNListData.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNOneDataNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNOneDataFilter"
+           id="bpmn.main.tab.BPMNOneData.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNOneDataDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNOneDataFilter"
+           afterSection="bpmn.main.tab.BPMNOneData.name"
+           id="bpmn.main.tab.BPMNOneData.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNSequenceFlowNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNSequenceFlowFilter"
+           id="bpmn.main.tab.BPMNSequenceFlow.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNSequenceFlowDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNSequenceFlowFilter"
+           afterSection="bpmn.main.tab.BPMNSequenceFlow.name"
+           id="bpmn.main.tab.BPMNSequenceFlow.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNDefaultFlowNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNDefaultFlowFilter"
+           id="bpmn.main.tab.BPMNDefaultFlow.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNDefaultFlowDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNDefaultFlowFilter"
+           afterSection="bpmn.main.tab.BPMNDefaultFlow.name"
+           id="bpmn.main.tab.BPMNDefaultFlow.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNDataAssoziationNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNDataAssoziationFilter"
+           id="bpmn.main.tab.BPMNDataAssoziation.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNDataAssoziationDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNDataAssoziationFilter"
+           afterSection="bpmn.main.tab.BPMNDataAssoziation.name"
+           id="bpmn.main.tab.BPMNDataAssoziation.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="bpmn.PropertyContributor">
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNConditionalFlowNameSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNConditionalFlowFilter"
+           id="bpmn.main.tab.BPMNConditionalFlow.name">
+          </propertySection>
+          <propertySection tab="bpmn.main.tab"
+           class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.bpmn.property.BPMNConditionalFlowDescriptionSection"
+           filter="org.eclipselabs.spray.examples.bpmn.property.BPMNConditionalFlowFilter"
+           afterSection="bpmn.main.tab.BPMNConditionalFlow.name"
+           id="bpmn.main.tab.BPMNConditionalFlow.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+    
+    
+        // Find all clases that are shown as lists in the compartments
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="bpmn"
+                     id="org.eclipselabs.spray.bpmn">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.bpmn"
+                     class="org.eclipselabs.spray.examples.bpmn.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     descriptionImage="icons/bpmn-32.png"
+                     icon="icons/bpmn-16.png"
+                     id="org.eclipselabs.spray.bpmn.NewDiagramWizard"
+                     name="New bpmn Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+        </plugin>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Fri May 11 21:25:58 CEST 2012 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.diagram.LWCDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.examples.lwc2012.diagram.LWCDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the LWC diagram type"
+              id="org.eclipselabs.spray.examples.lwc2012.diagram.LWCDiagramType"
+              name="LWC Graphiti Diagram Type"
+              type="LWC">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.diagram.LWCDiagramTypeProvider"
+              description="This is my editor for the LWC diagram type"
+              id="org.eclipselabs.spray.examples.lwc2012.diagram.LWCDiagramTypeProvider"
+              name="LWC editor">
+              <diagramType
+                    id="org.eclipselabs.spray.examples.lwc2012.diagram.LWCDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.examples.lwc2012.diagram.LWCImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.diagram.LWCImageProvider"
+                       id="org.eclipselabs.spray.examples.lwc2012.diagram.LWCImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="LWC.PropertyContributor">
+                  <propertyCategory category="LWCCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="LWC.PropertyContributor">
+                  <propertyTab label="Main" category="LWCCategory"
+                      id="LWC.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCVesselHorizontalNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCVesselHorizontalFilter"
+           id="LWC.main.tab.LWCVesselHorizontal.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCVesselHorizontalDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCVesselHorizontalFilter"
+           afterSection="LWC.main.tab.LWCVesselHorizontal.name"
+           id="LWC.main.tab.LWCVesselHorizontal.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCVesselVerticalNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCVesselVerticalFilter"
+           id="LWC.main.tab.LWCVesselVertical.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCVesselVerticalDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCVesselVerticalFilter"
+           afterSection="LWC.main.tab.LWCVesselVertical.name"
+           id="LWC.main.tab.LWCVesselVertical.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCHeatExchangerNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCHeatExchangerFilter"
+           id="LWC.main.tab.LWCHeatExchanger.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCHeatExchangerDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCHeatExchangerFilter"
+           afterSection="LWC.main.tab.LWCHeatExchanger.name"
+           id="LWC.main.tab.LWCHeatExchanger.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCJointNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCJointFilter"
+           id="LWC.main.tab.LWCJoint.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCJointDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCJointFilter"
+           afterSection="LWC.main.tab.LWCJoint.name"
+           id="LWC.main.tab.LWCJoint.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationNoLineNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationNoLineFilter"
+           id="LWC.main.tab.LWCLocationNoLine.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationNoLineDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationNoLineFilter"
+           afterSection="LWC.main.tab.LWCLocationNoLine.name"
+           id="LWC.main.tab.LWCLocationNoLine.description">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationNoLineValueSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationNoLineFilter"
+           afterSection="LWC.main.tab.LWCLocationNoLine.description"
+           id="LWC.main.tab.LWCLocationNoLine.value">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationSolidLineNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationSolidLineFilter"
+           id="LWC.main.tab.LWCLocationSolidLine.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationSolidLineDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationSolidLineFilter"
+           afterSection="LWC.main.tab.LWCLocationSolidLine.name"
+           id="LWC.main.tab.LWCLocationSolidLine.description">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationSolidLineValueSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationSolidLineFilter"
+           afterSection="LWC.main.tab.LWCLocationSolidLine.description"
+           id="LWC.main.tab.LWCLocationSolidLine.value">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationDashLineNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationDashLineFilter"
+           id="LWC.main.tab.LWCLocationDashLine.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationDashLineDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationDashLineFilter"
+           afterSection="LWC.main.tab.LWCLocationDashLine.name"
+           id="LWC.main.tab.LWCLocationDashLine.description">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCLocationDashLineValueSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCLocationDashLineFilter"
+           afterSection="LWC.main.tab.LWCLocationDashLine.description"
+           id="LWC.main.tab.LWCLocationDashLine.value">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCPumpNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCPumpFilter"
+           id="LWC.main.tab.LWCPump.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCPumpDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCPumpFilter"
+           afterSection="LWC.main.tab.LWCPump.name"
+           id="LWC.main.tab.LWCPump.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCPumpVacuumNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCPumpVacuumFilter"
+           id="LWC.main.tab.LWCPumpVacuum.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCPumpVacuumDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCPumpVacuumFilter"
+           afterSection="LWC.main.tab.LWCPumpVacuum.name"
+           id="LWC.main.tab.LWCPumpVacuum.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCValveNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCValveFilter"
+           id="LWC.main.tab.LWCValve.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCValveDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCValveFilter"
+           afterSection="LWC.main.tab.LWCValve.name"
+           id="LWC.main.tab.LWCValve.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCValveControlNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCValveControlFilter"
+           id="LWC.main.tab.LWCValveControl.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCValveControlDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCValveControlFilter"
+           afterSection="LWC.main.tab.LWCValveControl.name"
+           id="LWC.main.tab.LWCValveControl.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCValveManuelNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCValveManuelFilter"
+           id="LWC.main.tab.LWCValveManuel.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCValveManuelDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCValveManuelFilter"
+           afterSection="LWC.main.tab.LWCValveManuel.name"
+           id="LWC.main.tab.LWCValveManuel.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCSystemEndNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCSystemEndFilter"
+           id="LWC.main.tab.LWCSystemEnd.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCSystemEndDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCSystemEndFilter"
+           afterSection="LWC.main.tab.LWCSystemEnd.name"
+           id="LWC.main.tab.LWCSystemEnd.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCPipeNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCPipeFilter"
+           id="LWC.main.tab.LWCPipe.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCPipeDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCPipeFilter"
+           afterSection="LWC.main.tab.LWCPipe.name"
+           id="LWC.main.tab.LWCPipe.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustStartNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustStartFilter"
+           id="LWC.main.tab.LWCSourceExhaustStart.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustStartDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustStartFilter"
+           afterSection="LWC.main.tab.LWCSourceExhaustStart.name"
+           id="LWC.main.tab.LWCSourceExhaustStart.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="LWC.PropertyContributor">
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustEndNameSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustEndFilter"
+           id="LWC.main.tab.LWCSourceExhaustEnd.name">
+          </propertySection>
+          <propertySection tab="LWC.main.tab"
+           class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustEndDescriptionSection"
+           filter="org.eclipselabs.spray.examples.lwc2012.property.LWCSourceExhaustEndFilter"
+           afterSection="LWC.main.tab.LWCSourceExhaustEnd.name"
+           id="LWC.main.tab.LWCSourceExhaustEnd.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+    
+    
+        // Find all clases that are shown as lists in the compartments
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="LWC"
+                     id="org.eclipselabs.spray.LWC">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.LWC"
+                     class="org.eclipselabs.spray.examples.lwc2012.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     descriptionImage="icons/LWC-32.png"
+                     icon="icons/LWC-16.png"
+                     id="org.eclipselabs.spray.LWC.NewDiagramWizard"
+                     name="New LWC Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+        </plugin>
