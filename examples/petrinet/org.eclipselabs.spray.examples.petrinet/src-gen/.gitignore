@@ -1,0 +1,4 @@
+/org
+[^.]*
+
+plugin.xml
