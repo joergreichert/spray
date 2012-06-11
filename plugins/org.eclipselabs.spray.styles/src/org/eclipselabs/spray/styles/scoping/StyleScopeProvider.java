@@ -11,6 +11,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
+import org.eclipselabs.spray.styles.styles.GradientRef;
 import org.eclipselabs.spray.styles.styles.Style;
 
 import com.google.common.base.Predicate;
@@ -25,6 +26,10 @@ public class StyleScopeProvider extends AbstractDeclarativeScopeProvider {
     @Override
     public IScope getScope(EObject context, EReference reference) {
         if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
+            GradientRef gradientRef = EcoreUtil2.getContainerOfType(context, GradientRef.class);
+            if (gradientRef != null) {
+                return getGradientTypeScope(gradientRef);
+            }
             Style style = EcoreUtil2.getContainerOfType(context, Style.class);
             if (style != null) {
                 return getStyleTypeScope(style);
@@ -37,6 +42,13 @@ public class StyleScopeProvider extends AbstractDeclarativeScopeProvider {
         IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
         Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
         IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    protected IScope getGradientTypeScope(GradientRef gradientRef) {
+        IScope typesScope = delegateGetScope(gradientRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> gradientFilter = new GradientScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, gradientFilter);
         return result;
     }
 
