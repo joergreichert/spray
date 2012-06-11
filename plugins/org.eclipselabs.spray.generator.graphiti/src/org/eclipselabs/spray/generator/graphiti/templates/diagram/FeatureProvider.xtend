@@ -17,6 +17,7 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -399,7 +400,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     		if (bo == null)
     			return null;
     		final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
-    		«FOR crs : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
+    		«FOR crs : diagram.metaClasses.filter(m |(m.representedBy instanceof ShapeFromDsl) || (m.representedBy instanceof ContainerInSpray))  »
     		if(«generate_metaClassSwitchCondition(crs)»){
     			return new «crs.resizeFeatureClassName.shortName»(this);    
     		}
