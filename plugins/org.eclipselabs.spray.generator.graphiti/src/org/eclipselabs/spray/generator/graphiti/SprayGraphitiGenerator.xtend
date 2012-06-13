@@ -480,12 +480,10 @@ class SprayGraphitiGenerator implements IGenerator {
     }
     
     def generateResizeFeature(Diagram diagram, JavaGenFile java, ResizeFeature lf) {
-    	for(metaClass : diagram.metaClasses) {
-    		if( (metaClass.representedBy instanceof ShapeFromDsl) || (metaClass.representedBy instanceof ContainerInSpray)){
-    			val container = metaClass.representedBy as ShapeFromDsl
-                java.setPackageAndClass(metaClass.resizeFeatureClassName)
-        		lf.generate(container, java)
-    		}
+    	for(metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)) {
+    		val container = metaClass.representedBy as ShapeFromDsl
+            java.setPackageAndClass(metaClass.resizeFeatureClassName)
+        	lf.generate(container, java)
     	} 	
     }
 }

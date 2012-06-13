@@ -400,7 +400,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     		if (bo == null)
     			return null;
     		final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
-    		«FOR crs : diagram.metaClasses.filter(m |(m.representedBy instanceof ShapeFromDsl) || (m.representedBy instanceof ContainerInSpray))  »
+    		«FOR crs : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)»
     		if(«generate_metaClassSwitchCondition(crs)»){
     			return new «crs.resizeFeatureClassName.shortName»(this);    
     		}

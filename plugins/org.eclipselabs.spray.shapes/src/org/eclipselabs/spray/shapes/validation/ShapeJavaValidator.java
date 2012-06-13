@@ -40,36 +40,140 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
     @Inject
     ShapeSizeCalculator sizeCalculator;
 
-    private int         maxWidth  = 0;
-    private int         maxHeight = 0;
-    private int         sumWidth  = 0;
-    private int         sumHeight = 0;
+    boolean             recursion   = false;
+    private int         g_maxWidth  = 0;
+    private int         g_maxHeight = 0;
+    private int         maxWidth    = 0;
+    private int         maxHeight   = 0;
+    private int         sumWidth    = 0;
+    private int         sumHeight   = 0;
 
-    private int         maxXtotal = 0;
-    private int         minXtotal = 0;
-    private int         maxYtotal = 0;
-    private int         minYtotal = 0;
+    private int         maxXtotal   = 0;
+    private int         minXtotal   = 0;
+    private int         maxYtotal   = 0;
+    private int         minYtotal   = 0;
 
-    /**
-     * check if an anchor is in the defined shape area
-     * 
-     * @param pos
-     */
-    @Check
-    void checkShapeAnchorPosition(AnchorPositionPos pos) {
-        EObject eObject = pos.eContainer();
-        while (!(eObject instanceof ShapeDefinition)) {
-            eObject = eObject.eContainer();
+    private void calculateBasicCase(CommonLayout commonLayout) {
+        findMaxMinPoint(commonLayout.getXcor(), commonLayout.getYcor());
+        findMaxMinPoint(commonLayout.getXcor() + commonLayout.getWidth(), commonLayout.getYcor() + commonLayout.getHeigth());
+    }
+
+    private void calculatePoly(int maxX, int minX, int maxY, int minY, EList<Point> points) {
+        for (Point e : points) {
+            if (minX > e.getXcor())
+                minX = e.getXcor();
+            if (minY > e.getYcor())
+                minY = e.getYcor();
+            if (maxX < e.getXcor())
+                maxX = e.getXcor();
+            if (maxY < e.getYcor())
+                maxY = e.getYcor();
         }
-        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
-        if (pos instanceof AnchorFixPointPosition) {
-            AnchorFixPointPosition positionFix = (AnchorFixPointPosition) pos;
-            checkAreaFix(shapeDefinition, positionFix);
+        findMaxMinPoint(minX, minY);
+        findMaxMinPoint(maxX, maxY);
+    }
+
+    private void calculateSize(EList<Shape> eList) {
+        for (Shape s : eList) {
+            if (s instanceof Line) {
+                Line rr = (Line) s;
+                EList<Point> p = rr.getLayout().getPoint();
+                Point p2 = (Point) p.get(0);
+                Point p3 = (Point) p.get(1);
+                findMaxMinPoint(p2.getXcor(), p2.getYcor());
+                findMaxMinPoint(p3.getXcor(), p3.getYcor());
+            }
+            if (s instanceof Polyline) {
+                Polyline polyline = (Polyline) s;
+                int maxX = 0, minX = 0, maxY = 0, minY = 0;
+                EList<Point> points = polyline.getLayout().getPoint();
+                calculatePoly(maxX, minX, maxY, minY, points);
+            }
+
+            if (s instanceof Polygon) {
+                Polygon polygon = (Polygon) s;
+                int maxX = 0, minX = 0, maxY = 0, minY = 0;
+                EList<Point> points = polygon.getLayout().getPoint();
+                calculatePoly(maxX, minX, maxY, minY, points);
+            }
+
+            if (s instanceof Text) {
+                Text text = (Text) s;
+                CommonLayout commonLayout = text.getLayout().getCommon();
+
+                int minX = commonLayout.getXcor();
+                int minY = commonLayout.getYcor();
+                int maxX = commonLayout.getWidth() + commonLayout.getXcor();
+                int maxY = commonLayout.getHeigth() + commonLayout.getYcor();
+                findMaxMinPoint(minX, minY);
+                findMaxMinPoint(maxX, maxY);
+            }
+
+            if (s instanceof Rectangle) {
+                Rectangle rectangle = (Rectangle) s;
+                CommonLayout commonLayout = rectangle.getLayout().getCommon();
+                if (rectangle.getShape().size() > 0) {
+                    recursion = true;
+                    maxWidth = commonLayout.getXcor() + commonLayout.getWidth();
+                    maxHeight = commonLayout.getYcor() + commonLayout.getHeigth();
+                    calculateSize(rectangle.getShape());
+                } else {
+                    calculateBasicCase(commonLayout);
+                }
+
+            }
+            if (s instanceof RoundedRectangle) {
+                RoundedRectangle roundedrectangle = (RoundedRectangle) s;
+                CommonLayout commonLayout = roundedrectangle.getLayout().getCommon();
+                if (roundedrectangle.getShape().size() > 0) {
+                    recursion = true;
+                    maxWidth = commonLayout.getXcor() + commonLayout.getWidth();
+                    maxHeight = commonLayout.getYcor() + commonLayout.getHeigth();
+                    calculateSize(roundedrectangle.getShape());
+                } else {
+                    calculateBasicCase(commonLayout);
+                }
+            }
+
+            if (s instanceof Ellipse) {
+                Ellipse ellipse = (Ellipse) s;
+                CommonLayout commonLayout = ellipse.getLayout().getCommon();
+                if (ellipse.getShape().size() > 0) {
+                    recursion = true;
+                    maxWidth = commonLayout.getXcor() + commonLayout.getWidth();
+                    maxHeight = commonLayout.getYcor() + commonLayout.getHeigth();
+                    calculateSize(ellipse.getShape());
+                } else {
+                    calculateBasicCase(commonLayout);
+                }
+            }
+            sumWidth = maxXtotal - minXtotal;
+            sumHeight = maxYtotal - minYtotal;
         }
-        if (pos instanceof AnchorRelativePosition) {
-            AnchorRelativePosition positionRel = (AnchorRelativePosition) pos;
-            checkAreaRelative(shapeDefinition, positionRel);
+
+        if (maxWidth < sumWidth) {
+            warning("The width of all subelements is bigger than max_width of the shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumWidth));
         }
+
+        if (maxHeight < sumHeight) {
+            warning("The height of all subelements is bigger than max_height of the shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumHeight));
+        }
+
+        if (g_maxWidth < maxWidth && recursion) {
+            warning("The width of all subelements is bigger than global width of the complete shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumWidth));
+        }
+
+        if (g_maxHeight < maxHeight && recursion) {
+            warning("The height of all subelements is bigger than global width of the complete shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumHeight));
+        }
+
+        recursion = false;
+        sumWidth = 0;
+        sumHeight = 0;
+        maxXtotal = 0;
+        minXtotal = 0;
+        maxYtotal = 0;
+        minYtotal = 0;
     }
 
     private void checkAreaFix(ShapeDefinition s, AnchorFixPointPosition pos) {
@@ -94,19 +198,20 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
     }
 
     /**
-     * check the curve parameter of a rounded rectangle
+     * check if an anchor is in the defined shape area
      * 
-     * @param roundrec
+     * @param pos
      */
     @Check
-    void checkShapeRoundedRectangleCurve(RoundedRectangleLayout roundrec) {
-        int curveh = roundrec.getCurveHeight();
-        int curvew = roundrec.getCurveWidth();
-        if (curveh == 0) {
-            warning("A curve parameter of 0 doesn't have any effect on the rounding of a shape.", ShapesPackage.Literals.ROUNDED_RECTANGLE_LAYOUT__CURVE_HEIGHT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(curveh));
+    void checkShapeAnchorPosition(AnchorPositionPos pos) {
+        ShapeDefinition shapeDefinition = fetchShapeDefinitionForEObject(pos);
+        if (pos instanceof AnchorFixPointPosition) {
+            AnchorFixPointPosition positionFix = (AnchorFixPointPosition) pos;
+            checkAreaFix(shapeDefinition, positionFix);
         }
-        if (curvew == 0) {
-            warning("A curve parameter of 0 doesn't have any effect on the rounding of a shape.", ShapesPackage.Literals.ROUNDED_RECTANGLE_LAYOUT__CURVE_WIDTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(curvew));
+        if (pos instanceof AnchorRelativePosition) {
+            AnchorRelativePosition positionRel = (AnchorRelativePosition) pos;
+            checkAreaRelative(shapeDefinition, positionRel);
         }
     }
 
@@ -125,6 +230,22 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         if (height == 0) {
             warning("The height should not be 0.", ShapesPackage.Literals.COMMON_LAYOUT__HEIGTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(height));
         }
+    }
+
+    /**
+     * checks if the inner elements fit to the outer element size
+     * 
+     * @param shapeDefinition
+     */
+    @Check
+    void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
+        //        ShapeDefinition shapeDefinition = fetchShapeDefinitionForEObject(shape);
+        ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
+        g_maxWidth = shapeSizeWrapper.getWidth();
+        g_maxHeight = shapeSizeWrapper.getHeigth();
+        maxWidth = g_maxWidth;
+        maxHeight = g_maxWidth;
+        calculateSize(shapeDefinition.getShape());
     }
 
     /**
@@ -166,53 +287,30 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
     }
 
     /**
-     * checks if the id of the description field has been already used
+     * check the curve parameter of a rounded rectangle
      * 
-     * @param body
+     * @param roundrec
      */
     @Check
-    public void checkShapeTextSameId(Description body) {
-        EObject eObject = body.eContainer();
-        while (!(eObject instanceof ShapeDefinition)) {
-            eObject = eObject.eContainer();
+    void checkShapeRoundedRectangleCurve(RoundedRectangleLayout roundrec) {
+        int curveh = roundrec.getCurveHeight();
+        int curvew = roundrec.getCurveWidth();
+        if (curveh == 0) {
+            warning("A curve parameter of 0 doesn't have any effect on the rounding of a shape.", ShapesPackage.Literals.ROUNDED_RECTANGLE_LAYOUT__CURVE_HEIGHT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(curveh));
         }
-        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
-        String currentId = body.getBody().getValue();
-        List<String> textElements = getTextIdsForShapeDefinition(shapeDefinition);
-        int count = Collections.frequency(textElements, currentId);
-        if (count > 1) {
-            error("The same id is already been used by an other element.", ShapesPackage.Literals.DESCRIPTION__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
-        }
-    }
-
-    // checks if the id of the text field has been already used
-    @Check
-    public void checkShapeTextSameId(Text body) {
-        EObject eObject = body.eContainer();
-        while (!(eObject instanceof ShapeDefinition)) {
-            eObject = eObject.eContainer();
-        }
-        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
-        String currentId = body.getBody().getValue();
-        List<String> textElements = getTextIdsForShapeDefinition(shapeDefinition);
-        int count = Collections.frequency(textElements, currentId);
-        if (count > 1) {
-            error("The same id is already been used by an other element.", ShapesPackage.Literals.TEXT__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
+        if (curvew == 0) {
+            warning("A curve parameter of 0 doesn't have any effect on the rounding of a shape.", ShapesPackage.Literals.ROUNDED_RECTANGLE_LAYOUT__CURVE_WIDTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(curvew));
         }
     }
 
     /**
-     * checks if the textfields has the same id`s
+     * checks if the text fields have the same id
      * 
      * @param body
      */
     @Check
     public void checkShapeTextSameId(CDText body) {
-        EObject eObject = body.eContainer();
-        while (!(eObject instanceof ConnectionDefinition)) {
-            eObject = eObject.eContainer();
-        }
-        ConnectionDefinition connectionDefinition = (ConnectionDefinition) eObject;
+        ConnectionDefinition connectionDefinition = fetchConnectionDefinitionForEObject(body);
         String currentId = body.getBody().getValue();
         List<String> textElements = new ArrayList<String>();
         for (PlacingDefinition placingDefinition : connectionDefinition.getPlacing()) {
@@ -224,6 +322,67 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         if (count > 1) {
             error("The same id is already been used by an other element.", ShapesPackage.Literals.CD_TEXT__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
         }
+    }
+
+    /**
+     * checks if the id of the description field has been already used
+     * 
+     * @param body
+     */
+    @Check
+    void checkShapeTextSameId(Description body) {
+        ShapeDefinition shapeDefinition = fetchShapeDefinitionForEObject(body);
+        String currentId = body.getBody().getValue();
+        List<String> textElements = getTextIdsForShapeDefinition(shapeDefinition);
+        int count = Collections.frequency(textElements, currentId);
+        if (count > 1) {
+            error("The same id is already been used by an other element.", ShapesPackage.Literals.DESCRIPTION__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
+        }
+    }
+
+    /**
+     * checks if the id of the text field has been already used
+     * 
+     * @param body
+     */
+    @Check
+    void checkShapeTextSameId(Text body) {
+        ShapeDefinition shapeDefinition = fetchShapeDefinitionForEObject(body);
+        String currentId = body.getBody().getValue();
+        List<String> textElements = getTextIdsForShapeDefinition(shapeDefinition);
+        int count = Collections.frequency(textElements, currentId);
+        if (count > 1) {
+            error("The same id is already been used by an other element.", ShapesPackage.Literals.TEXT__BODY, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(currentId));
+        }
+    }
+
+    private ConnectionDefinition fetchConnectionDefinitionForEObject(EObject startObject) {
+        EObject eObject = startObject.eContainer();
+        while (!(eObject instanceof ConnectionDefinition)) {
+            eObject = eObject.eContainer();
+        }
+        ConnectionDefinition connectionDefinition = (ConnectionDefinition) eObject;
+        return connectionDefinition;
+    }
+
+    private ShapeDefinition fetchShapeDefinitionForEObject(EObject startObject) {
+        EObject eObject = startObject.eContainer();
+        while (!(eObject instanceof ShapeDefinition)) {
+            eObject = eObject.eContainer();
+        }
+        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
+        return shapeDefinition;
+    }
+
+    private void findMaxMinPoint(int x, int y) {
+        if (maxXtotal < x)
+            maxXtotal = x;
+        if (maxYtotal < y)
+            maxYtotal = y;
+        if (minXtotal > x)
+            minXtotal = x;
+        if (minYtotal > y)
+            minYtotal = y;
     }
 
     private List<String> getTextIdsForShapeDefinition(ShapeDefinition shapeDefinition) {
@@ -259,203 +418,5 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
             }
         }
         return textElements;
-    }
-
-    /**
-     * checks if the inner shape fit to his parent shape (special case polygon)
-     * 
-     * @param polygon
-     */
-    @Check
-    public void checkShapePolygonSize(Polygon polygon) {
-        EObject eObject = polygon.eContainer();
-        while (!(eObject instanceof ShapeDefinition)) {
-            eObject = eObject.eContainer();
-        }
-        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
-        ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
-        maxWidth = shapeSizeWrapper.getWidth();
-        maxHeight = shapeSizeWrapper.getHeigth();
-
-        int width = 0;
-        int height = 0;
-
-        int maxX = 0, minX = 0, maxY = 0, minY = 0;
-        for (Point e : polygon.getLayout().getPoint()) {
-            if (minX > e.getXcor())
-                minX = e.getXcor();
-            if (minY > e.getYcor())
-                minY = e.getYcor();
-            if (maxX < e.getXcor())
-                maxX = e.getXcor();
-            if (maxY < e.getYcor())
-                maxY = e.getYcor();
-        }
-
-        width = Math.abs(maxX - minX);
-        height = Math.abs(maxY - minY);
-
-        if (maxWidth < width) {
-            warning("The width of the polygon is bigger than the parent shape.", ShapesPackage.Literals.POLYGON__LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(width));
-        }
-
-        if (maxHeight < height) {
-            warning("The height of the polygon is bigger than the parent shape.", ShapesPackage.Literals.POLYGON__LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(height));
-        }
-    }
-
-    /**
-     * checks if the inner shape fit to his parent shape
-     * 
-     * @param layout
-     */
-    @Check
-    public void checkShapeSize(CommonLayout layout) {
-        EObject eObject = layout.eContainer();
-        while (!(eObject instanceof ShapeDefinition)) {
-            eObject = eObject.eContainer();
-        }
-        ShapeDefinition shapeDefinition = (ShapeDefinition) eObject;
-        ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
-        maxWidth = shapeSizeWrapper.getWidth();
-        maxHeight = shapeSizeWrapper.getHeigth();
-        eObject = layout.eContainer();
-        while (!(eObject instanceof Shape)) {
-            eObject = eObject.eContainer();
-        }
-        Shape shape = (Shape) eObject;
-        checkShape(shape, maxWidth, maxHeight);
-    }
-
-    private void checkShape(Shape shape, int maxWidth, int maxHeight) {
-        int width = 0;
-        int height = 0;
-        String shapeName = "";
-
-        if (shape instanceof Rectangle) {
-            Rectangle rectangle = (Rectangle) shape;
-            width = rectangle.getLayout().getCommon().getXcor() + rectangle.getLayout().getCommon().getWidth();
-            height = rectangle.getLayout().getCommon().getYcor() + rectangle.getLayout().getCommon().getHeigth();
-            shapeName = "rectangle";
-        }
-        if (shape instanceof RoundedRectangle) {
-            RoundedRectangle roundedrectangle = (RoundedRectangle) shape;
-            width = roundedrectangle.getLayout().getCommon().getXcor() + roundedrectangle.getLayout().getCommon().getWidth();
-            height = roundedrectangle.getLayout().getCommon().getYcor() + roundedrectangle.getLayout().getCommon().getHeigth();
-            shapeName = "rounded-rectangle";
-        }
-        if (shape instanceof Ellipse) {
-            Ellipse ellipse = (Ellipse) shape;
-            width = ellipse.getLayout().getCommon().getXcor() + ellipse.getLayout().getCommon().getWidth();
-            height = ellipse.getLayout().getCommon().getYcor() + ellipse.getLayout().getCommon().getHeigth();
-            shapeName = "ellipse";
-        }
-
-        if (maxWidth < width) {
-            warning("The width of the shape (" + shapeName + ") is bigger than the parent shape.", ShapesPackage.Literals.COMMON_LAYOUT__WIDTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(""));
-        }
-
-        if (maxHeight < height) {
-            warning("The height of the shape (" + shapeName + ") is bigger than the parent shape.", ShapesPackage.Literals.COMMON_LAYOUT__HEIGTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(height));
-
-        }
-    }
-
-    /**
-     * checks if the inner elements (Text, Line, Polyline) fit to the outer elementsize
-     * 
-     * @param shapeDefinition
-     */
-    @Check
-    public void checkShapeDefinitionSize(ShapeDefinition shapeDefinition) {
-        ShapeSizeWrapper shapeSizeWrapper = sizeCalculator.getContainerSize(shapeDefinition);
-        maxWidth = shapeSizeWrapper.getWidth();
-        maxHeight = shapeSizeWrapper.getHeigth();
-        calculateSize(shapeDefinition.getShape());
-    }
-
-    private void findMaxMinPoint(int x, int y) {
-        if (maxXtotal < x)
-            maxXtotal = x;
-        if (maxYtotal < y)
-            maxYtotal = y;
-        if (minXtotal > x)
-            minXtotal = x;
-        if (minYtotal > y)
-            minYtotal = y;
-    }
-
-    private void calculateSize(EList<Shape> eList) {
-        for (Shape s : eList) {
-            if (s instanceof Line) {
-                Line rr = (Line) s;
-                EList<Point> p = rr.getLayout().getPoint();
-                Point p2 = (Point) p.get(0);
-                Point p3 = (Point) p.get(1);
-                findMaxMinPoint(p2.getXcor(), p2.getYcor());
-                findMaxMinPoint(p3.getXcor(), p3.getYcor());
-            }
-            if (s instanceof Polyline) {
-                Polyline rr = (Polyline) s;
-                int maxX = 0, minX = 0, maxY = 0, minY = 0;
-
-                for (Point e : rr.getLayout().getPoint()) {
-                    if (minX > e.getXcor())
-                        minX = e.getXcor();
-                    if (minY > e.getYcor())
-                        minY = e.getYcor();
-                    if (maxX < e.getXcor())
-                        maxX = e.getXcor();
-                    if (maxY < e.getYcor())
-                        maxY = e.getYcor();
-                }
-                findMaxMinPoint(minX, minY);
-                findMaxMinPoint(maxY, maxY);
-            }
-            if (s instanceof Text) {
-                Text text = (Text) s;
-                int minX = text.getLayout().getCommon().getXcor();
-                int minY = text.getLayout().getCommon().getYcor();
-                int maxX = text.getLayout().getCommon().getWidth() + text.getLayout().getCommon().getXcor();
-                int maxY = text.getLayout().getCommon().getHeigth() + text.getLayout().getCommon().getYcor();
-                findMaxMinPoint(minX, minY);
-                findMaxMinPoint(maxX, maxY);
-            }
-
-            if (s instanceof Rectangle) {
-                Rectangle rr = (Rectangle) s;
-                calculateSize(rr.getShape());
-            }
-            if (s instanceof RoundedRectangle) {
-                RoundedRectangle rr = (RoundedRectangle) s;
-                calculateSize(rr.getShape());
-            }
-            if (s instanceof Polygon) {
-                Polygon rr = (Polygon) s;
-                calculateSize(rr.getShape());
-            }
-            if (s instanceof Ellipse) {
-                Ellipse rr = (Ellipse) s;
-                calculateSize(rr.getShape());
-            }
-        }
-
-        sumWidth = maxXtotal - minXtotal;
-        sumHeight = maxYtotal - minYtotal;
-
-        if (maxWidth < sumWidth) {
-            warning("The width of all subelements is bigger than width of the whole shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumWidth));
-        }
-
-        if (maxHeight < sumHeight) {
-            warning("The height of all subelements is bigger than height of the whole shape.", ShapesPackage.Literals.SHAPE_DEFINITION__SHAPE_LAYOUT, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(sumHeight));
-        }
-
-        sumWidth = 0;
-        sumHeight = 0;
-        maxXtotal = 0;
-        minXtotal = 0;
-        maxYtotal = 0;
-        minYtotal = 0;
     }
 }
