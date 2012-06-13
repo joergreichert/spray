@@ -59,8 +59,8 @@ ToolingSection: {ToolingSection} ('tooling' '{'
 ;
 
 BehaviorSection: {BehaviorSection} ('behavior' '{'
-	('creatable-in' compartmentReference+=[ecore::EReference] (',' compartmentReference+=[ecore::EReference])* (label=STRING))?	
-	('edit-on-create' askFor=[ecore::EAttribute])?
+	('creatable-in' creatableIn+=[ecore::EReference] (',' creatableIn+=[ecore::EReference])* (label=STRING)?)?	
+	('edit-on-create' editOnCreate=[ecore::EAttribute])?
 	('drill-down' )?
 	('custom' name = ID | 'ref' (realizedBy=JvmTypeReference) (label=STRING))?
 	'}')

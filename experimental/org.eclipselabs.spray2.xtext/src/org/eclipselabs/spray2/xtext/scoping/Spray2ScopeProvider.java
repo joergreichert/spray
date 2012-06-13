@@ -61,6 +61,12 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
             return scope_TextPropertyAssignment_Attribute(context);
         } else if (reference == Spray2Package.Literals.TEXT_PROPERTY_ASSIGNMENT__KEY) {
             scope = scope_TextPropertyAssignment_Key(context, reference);
+        } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__CREATABLE_IN) {
+            scope = scope_BehaviorSectionCompartment_Reference(context, reference);
+        } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__EDIT_ON_CREATE) {
+        	scope = scope_editOnCreate(context);
+        } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__REALIZED_BY) {
+        	
         } else {
             scope = super.getScope(context, reference);
         }
@@ -200,5 +206,54 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
             }
         }
         return MapBasedScope.createScope(IScope.NULLSCOPE, descrList);
+    }
+    
+    protected IScope scope_BehaviorSectionCompartment_Reference(EObject context, EReference reference) {
+        Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
+        NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
+        if (diagram == null || nodeElement == null) {
+            return IScope.NULLSCOPE;
+        }
+        // all eClasses that are direct containments of context's diagram model type
+        final EClass diagramModelType = diagram.getModelType();
+        if (diagramModelType == null || diagramModelType.getEPackage() == null) {
+            return IScope.NULLSCOPE;
+        }
+        List<EReference> containmentReferences = new ArrayList<EReference>();
+        for (EClassifier eClassifiers : diagramModelType.getEPackage().getEClassifiers()) {
+            if (eClassifiers instanceof EClass) {
+                for (EReference ref : ((EClass) eClassifiers).getEAllContainments()) {
+                    if (ref.getEType() instanceof EClass && ((EClass) ref.getEType()).isSuperTypeOf(nodeElement.getType())) {
+                        containmentReferences.add(ref);
+                    }
+                }
+            }
+        }
+        return Scopes.scopeFor(containmentReferences);
+    }
+    
+    protected IScope scope_editOnCreate(EObject context) {
+        NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
+        EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
+        if (nodeElement != null || edgeElement != null) {
+            Predicate<EObject> filterPredicate = new Predicate<EObject>() {
+                @Override
+                public boolean apply(EObject input) {
+                    if (input instanceof EAttribute) {
+                        if (((EAttribute) input).getEType().getName().equals("EString")) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            if (nodeElement != null) {
+                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(nodeElement.getType().getEAllAttributes(), filterPredicate)));
+            } else {
+                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(edgeElement.getType().getEAllAttributes(), filterPredicate)));
+            }
+        } else {
+            return IScope.NULLSCOPE;
+        }
     }
 }
