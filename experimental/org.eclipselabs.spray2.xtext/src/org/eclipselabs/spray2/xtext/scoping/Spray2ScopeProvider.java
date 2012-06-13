@@ -36,6 +36,7 @@ import org.eclipselabs.spray2.xtext.spray2.NodeElement;
 import org.eclipselabs.spray2.xtext.spray2.NodeFigureSection;
 import org.eclipselabs.spray2.xtext.spray2.Spray2Package;
 import org.eclipselabs.spray2.xtext.spray2.SprayStyleRef;
+import org.eclipselabs.spray2.xtext.util.CustomFeatureRestrictor;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -64,9 +65,9 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
         } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__CREATABLE_IN) {
             scope = scope_BehaviorSectionCompartment_Reference(context, reference);
         } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__EDIT_ON_CREATE) {
-        	scope = scope_editOnCreate(context);
+        	scope = scope_BehaviorSectionEditOnCreate(context, reference);
         } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__REALIZED_BY) {
-        	
+            scope = scope_BehaviorSectionCustomRealizedBy(context, reference);
         } else {
             scope = super.getScope(context, reference);
         }
@@ -128,6 +129,13 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
         return IScope.NULLSCOPE;
     }
 
+    protected IScope scope_BehaviorSectionCustomRealizedBy(EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(context, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new CustomFeatureRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+    
     protected IScope scope_ShapeStyleRefScope(SprayStyleRef styleRef, EObject context, EReference reference) {
         IScope typesScope = delegateGetScope(styleRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
         Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
@@ -232,7 +240,7 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
         return Scopes.scopeFor(containmentReferences);
     }
     
-    protected IScope scope_editOnCreate(EObject context) {
+    protected IScope scope_BehaviorSectionEditOnCreate(EObject context, EReference reference) {
         NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
         EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
         if (nodeElement != null || edgeElement != null) {
