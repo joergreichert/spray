@@ -7,8 +7,8 @@
 package PetriNet.impl;
 
 import PetriNet.PetriNetPackage;
-import PetriNet.Place;
-import PetriNet.Token;
+import PetriNet.PlaceEClass;
+import PetriNet.TokenEClass;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -20,18 +20,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Place</b></em>'.
+ * An implementation of the model object '<em><b>Place EClass</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link PetriNet.impl.PlaceImpl#getToken <em>Token</em>}</li>
+ *   <li>{@link PetriNet.impl.PlaceEClassImpl#getToken <em>Token</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PlaceImpl extends PetriNodeImpl implements Place {
+public class PlaceEClassImpl extends PetriNodeImpl implements PlaceEClass {
 	/**
 	 * The cached value of the '{@link #getToken() <em>Token</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -40,14 +40,14 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 * @generated
 	 * @ordered
 	 */
-	protected Token token;
+	protected TokenEClass token;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PlaceImpl() {
+	protected PlaceEClassImpl() {
 		super();
 	}
 
@@ -57,7 +57,7 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return PetriNetPackage.Literals.PLACE;
+		return PetriNetPackage.Literals.PLACE_ECLASS;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Token getToken() {
+	public TokenEClass getToken() {
 		return token;
 	}
 
@@ -74,11 +74,11 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetToken(Token newToken, NotificationChain msgs) {
-		Token oldToken = token;
+	public NotificationChain basicSetToken(TokenEClass newToken, NotificationChain msgs) {
+		TokenEClass oldToken = token;
 		token = newToken;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PetriNetPackage.PLACE__TOKEN, oldToken, newToken);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PetriNetPackage.PLACE_ECLASS__TOKEN, oldToken, newToken);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -89,18 +89,18 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setToken(Token newToken) {
+	public void setToken(TokenEClass newToken) {
 		if (newToken != token) {
 			NotificationChain msgs = null;
 			if (token != null)
-				msgs = ((InternalEObject)token).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PetriNetPackage.PLACE__TOKEN, null, msgs);
+				msgs = ((InternalEObject)token).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PetriNetPackage.PLACE_ECLASS__TOKEN, null, msgs);
 			if (newToken != null)
-				msgs = ((InternalEObject)newToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PetriNetPackage.PLACE__TOKEN, null, msgs);
+				msgs = ((InternalEObject)newToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PetriNetPackage.PLACE_ECLASS__TOKEN, null, msgs);
 			msgs = basicSetToken(newToken, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PetriNetPackage.PLACE__TOKEN, newToken, newToken));
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriNetPackage.PLACE_ECLASS__TOKEN, newToken, newToken));
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PetriNetPackage.PLACE__TOKEN:
+			case PetriNetPackage.PLACE_ECLASS__TOKEN:
 				return basicSetToken(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -123,7 +123,7 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PetriNetPackage.PLACE__TOKEN:
+			case PetriNetPackage.PLACE_ECLASS__TOKEN:
 				return getToken();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -136,8 +136,8 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PetriNetPackage.PLACE__TOKEN:
-				setToken((Token)newValue);
+			case PetriNetPackage.PLACE_ECLASS__TOKEN:
+				setToken((TokenEClass)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -150,8 +150,8 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PetriNetPackage.PLACE__TOKEN:
-				setToken((Token)null);
+			case PetriNetPackage.PLACE_ECLASS__TOKEN:
+				setToken((TokenEClass)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -164,10 +164,10 @@ public class PlaceImpl extends PetriNodeImpl implements Place {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PetriNetPackage.PLACE__TOKEN:
+			case PetriNetPackage.PLACE_ECLASS__TOKEN:
 				return token != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //PlaceImpl
+} //PlaceEClassImpl

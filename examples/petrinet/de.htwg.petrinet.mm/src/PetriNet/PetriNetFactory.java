@@ -35,40 +35,40 @@ public interface PetriNetFactory extends EFactory {
 	PetriNode createPetriNode();
 
 	/**
-	 * Returns a new object of class '<em>Place</em>'.
+	 * Returns a new object of class '<em>Place EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Place</em>'.
+	 * @return a new object of class '<em>Place EClass</em>'.
 	 * @generated
 	 */
-	Place createPlace();
+	PlaceEClass createPlaceEClass();
 
 	/**
-	 * Returns a new object of class '<em>Token</em>'.
+	 * Returns a new object of class '<em>Token EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Token</em>'.
+	 * @return a new object of class '<em>Token EClass</em>'.
 	 * @generated
 	 */
-	Token createToken();
+	TokenEClass createTokenEClass();
 
 	/**
-	 * Returns a new object of class '<em>Transition</em>'.
+	 * Returns a new object of class '<em>Transition EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Transition</em>'.
+	 * @return a new object of class '<em>Transition EClass</em>'.
 	 * @generated
 	 */
-	Transition createTransition();
+	TransitionEClass createTransitionEClass();
 
 	/**
-	 * Returns a new object of class '<em>Arc</em>'.
+	 * Returns a new object of class '<em>Arc EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Arc</em>'.
+	 * @return a new object of class '<em>Arc EClass</em>'.
 	 * @generated
 	 */
-	Arc createArc();
+	ArcEClass createArcEClass();
 
 	/**
 	 * Returns a new object of class '<em>Petri Model</em>'.

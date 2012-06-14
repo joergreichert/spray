@@ -14,7 +14,7 @@ import org.eclipselabs.spray.styles.*
 
 diagram petrinet for PetriModel style PetrinetDefaultStyle
 
-class Place {
+class PlaceEClass alias Place {
 	shape PlaceShape {
 		name into placeDescription
 	}
@@ -23,7 +23,7 @@ class Place {
 	}
 }
 
-class Transition {
+class TransitionEClass alias Transition {
 	shape TransitionShape {
 		name into transitionShapeDescription
 	}
@@ -32,7 +32,7 @@ class Transition {
 	}
 }
 
-class Transition alias EmptyTransition {
+class TransitionEClass alias EmptyTransition {
 	shape EmptyTransitionShape {
 		name into transitionShapeDescription
 	}
@@ -41,7 +41,7 @@ class Transition alias EmptyTransition {
 	}
 }
 
-class Token {
+class TokenEClass alias Token {
 	shape TokenShape
 	behavior {
 		create into petriModels palette "Token"
@@ -50,7 +50,7 @@ class Token {
 	}
 }
 
-class Arc {
+class ArcEClass alias Arc {
 	connection ArcConnection () {
 		from petriFrom
 		to petriTo

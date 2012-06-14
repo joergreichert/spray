@@ -7,26 +7,26 @@
 package PetriNet.impl;
 
 import PetriNet.PetriNetPackage;
-import PetriNet.Token;
+import PetriNet.TransitionEClass;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Token</b></em>'.
+ * An implementation of the model object '<em><b>Transition EClass</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class TokenImpl extends PetriNodeImpl implements Token {
+public class TransitionEClassImpl extends PetriNodeImpl implements TransitionEClass {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TokenImpl() {
+	protected TransitionEClassImpl() {
 		super();
 	}
 
@@ -36,7 +36,7 @@ public class TokenImpl extends PetriNodeImpl implements Token {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return PetriNetPackage.Literals.TOKEN;
+		return PetriNetPackage.Literals.TRANSITION_ECLASS;
 	}
 
-} //TokenImpl
+} //TransitionEClassImpl

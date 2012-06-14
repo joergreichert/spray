@@ -94,35 +94,35 @@ public class PetriNetSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PetriNetPackage.PLACE: {
-				Place place = (Place)theEObject;
-				Object result = casePlace(place);
-				if (result == null) result = casePetriNode(place);
-				if (result == null) result = casePetriModel(place);
+			case PetriNetPackage.PLACE_ECLASS: {
+				PlaceEClass placeEClass = (PlaceEClass)theEObject;
+				Object result = casePlaceEClass(placeEClass);
+				if (result == null) result = casePetriNode(placeEClass);
+				if (result == null) result = casePetriModel(placeEClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PetriNetPackage.TOKEN: {
-				Token token = (Token)theEObject;
-				Object result = caseToken(token);
-				if (result == null) result = casePetriNode(token);
-				if (result == null) result = casePetriModel(token);
+			case PetriNetPackage.TOKEN_ECLASS: {
+				TokenEClass tokenEClass = (TokenEClass)theEObject;
+				Object result = caseTokenEClass(tokenEClass);
+				if (result == null) result = casePetriNode(tokenEClass);
+				if (result == null) result = casePetriModel(tokenEClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PetriNetPackage.TRANSITION: {
-				Transition transition = (Transition)theEObject;
-				Object result = caseTransition(transition);
-				if (result == null) result = casePetriNode(transition);
-				if (result == null) result = casePetriModel(transition);
+			case PetriNetPackage.TRANSITION_ECLASS: {
+				TransitionEClass transitionEClass = (TransitionEClass)theEObject;
+				Object result = caseTransitionEClass(transitionEClass);
+				if (result == null) result = casePetriNode(transitionEClass);
+				if (result == null) result = casePetriModel(transitionEClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PetriNetPackage.ARC: {
-				Arc arc = (Arc)theEObject;
-				Object result = caseArc(arc);
-				if (result == null) result = casePetriEdge(arc);
-				if (result == null) result = casePetriModel(arc);
+			case PetriNetPackage.ARC_ECLASS: {
+				ArcEClass arcEClass = (ArcEClass)theEObject;
+				Object result = caseArcEClass(arcEClass);
+				if (result == null) result = casePetriEdge(arcEClass);
+				if (result == null) result = casePetriModel(arcEClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -159,62 +159,62 @@ public class PetriNetSwitch {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Place</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Place EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Place</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Place EClass</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePlace(Place object) {
+	public Object casePlaceEClass(PlaceEClass object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Token</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Token EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Token</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Token EClass</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseToken(Token object) {
+	public Object caseTokenEClass(TokenEClass object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Transition</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Transition EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Transition</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Transition EClass</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseTransition(Transition object) {
+	public Object caseTransitionEClass(TransitionEClass object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Arc</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Arc EClass</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Arc</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Arc EClass</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseArc(Arc object) {
+	public Object caseArcEClass(ArcEClass object) {
 		return null;
 	}
 

@@ -7,16 +7,14 @@
   <foreignModel>PetriNet.ecore</foreignModel>
   <genPackages prefix="PetriNet" disposableProviderFactory="true" ecorePackage="PetriNet.ecore#/">
     <genClasses ecoreClass="PetriNet.ecore#//PetriNode"/>
-    <genClasses ecoreClass="PetriNet.ecore#//Place">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PetriNet.ecore#//Place/token"/>
+    <genClasses ecoreClass="PetriNet.ecore#//PlaceEClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PetriNet.ecore#//PlaceEClass/token"/>
     </genClasses>
-    <genClasses ecoreClass="PetriNet.ecore#//Token"/>
-    <genClasses ecoreClass="PetriNet.ecore#//Transition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PetriNet.ecore#//Transition/test"/>
-    </genClasses>
-    <genClasses ecoreClass="PetriNet.ecore#//Arc">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PetriNet.ecore#//Arc/petriFrom"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PetriNet.ecore#//Arc/petriTo"/>
+    <genClasses ecoreClass="PetriNet.ecore#//TokenEClass"/>
+    <genClasses ecoreClass="PetriNet.ecore#//TransitionEClass"/>
+    <genClasses ecoreClass="PetriNet.ecore#//ArcEClass">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PetriNet.ecore#//ArcEClass/petriFrom"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PetriNet.ecore#//ArcEClass/petriTo"/>
     </genClasses>
     <genClasses ecoreClass="PetriNet.ecore#//PetriModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PetriNet.ecore#//PetriModel/name"/>

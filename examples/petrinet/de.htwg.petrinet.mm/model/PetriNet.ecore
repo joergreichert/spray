@@ -4,16 +4,13 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PetriNet"
     nsURI="http://de.htwg.petrinet.mm/" nsPrefix="PetriNet">
   <eClassifiers xsi:type="ecore:EClass" name="PetriNode" eSuperTypes="#//PetriModel"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Place" eSuperTypes="#//PetriNode">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="token" eType="#//Token"
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceEClass" eSuperTypes="#//PetriNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="token" eType="#//TokenEClass"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Token" eSuperTypes="#//PetriNode"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//PetriNode">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="test" eType="#//PetriNode"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Arc" eSuperTypes="#//PetriEdge">
+  <eClassifiers xsi:type="ecore:EClass" name="TokenEClass" eSuperTypes="#//PetriNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionEClass" eSuperTypes="#//PetriNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArcEClass" eSuperTypes="#//PetriEdge">
     <eStructuralFeatures xsi:type="ecore:EReference" name="petriFrom" eType="#//PetriNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="petriTo" eType="#//PetriNode"/>
   </eClassifiers>

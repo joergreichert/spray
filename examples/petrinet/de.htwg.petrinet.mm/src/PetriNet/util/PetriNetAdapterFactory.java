@@ -73,17 +73,17 @@ public class PetriNetAdapterFactory extends AdapterFactoryImpl {
 			public Object casePetriNode(PetriNode object) {
 				return createPetriNodeAdapter();
 			}
-			public Object casePlace(Place object) {
-				return createPlaceAdapter();
+			public Object casePlaceEClass(PlaceEClass object) {
+				return createPlaceEClassAdapter();
 			}
-			public Object caseToken(Token object) {
-				return createTokenAdapter();
+			public Object caseTokenEClass(TokenEClass object) {
+				return createTokenEClassAdapter();
 			}
-			public Object caseTransition(Transition object) {
-				return createTransitionAdapter();
+			public Object caseTransitionEClass(TransitionEClass object) {
+				return createTransitionEClassAdapter();
 			}
-			public Object caseArc(Arc object) {
-				return createArcAdapter();
+			public Object caseArcEClass(ArcEClass object) {
+				return createArcEClassAdapter();
 			}
 			public Object casePetriModel(PetriModel object) {
 				return createPetriModelAdapter();
@@ -124,58 +124,58 @@ public class PetriNetAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link PetriNet.Place <em>Place</em>}'.
+	 * Creates a new adapter for an object of class '{@link PetriNet.PlaceEClass <em>Place EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see PetriNet.Place
+	 * @see PetriNet.PlaceEClass
 	 * @generated
 	 */
-	public Adapter createPlaceAdapter() {
+	public Adapter createPlaceEClassAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link PetriNet.Token <em>Token</em>}'.
+	 * Creates a new adapter for an object of class '{@link PetriNet.TokenEClass <em>Token EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see PetriNet.Token
+	 * @see PetriNet.TokenEClass
 	 * @generated
 	 */
-	public Adapter createTokenAdapter() {
+	public Adapter createTokenEClassAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link PetriNet.Transition <em>Transition</em>}'.
+	 * Creates a new adapter for an object of class '{@link PetriNet.TransitionEClass <em>Transition EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see PetriNet.Transition
+	 * @see PetriNet.TransitionEClass
 	 * @generated
 	 */
-	public Adapter createTransitionAdapter() {
+	public Adapter createTransitionEClassAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link PetriNet.Arc <em>Arc</em>}'.
+	 * Creates a new adapter for an object of class '{@link PetriNet.ArcEClass <em>Arc EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see PetriNet.Arc
+	 * @see PetriNet.ArcEClass
 	 * @generated
 	 */
-	public Adapter createArcAdapter() {
+	public Adapter createArcEClassAdapter() {
 		return null;
 	}
 

@@ -6,7 +6,7 @@
  */
 package PetriNet.impl;
 
-import PetriNet.Arc;
+import PetriNet.ArcEClass;
 import PetriNet.PetriNetPackage;
 import PetriNet.PetriNode;
 
@@ -19,19 +19,19 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Arc</b></em>'.
+ * An implementation of the model object '<em><b>Arc EClass</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link PetriNet.impl.ArcImpl#getPetriFrom <em>Petri From</em>}</li>
- *   <li>{@link PetriNet.impl.ArcImpl#getPetriTo <em>Petri To</em>}</li>
+ *   <li>{@link PetriNet.impl.ArcEClassImpl#getPetriFrom <em>Petri From</em>}</li>
+ *   <li>{@link PetriNet.impl.ArcEClassImpl#getPetriTo <em>Petri To</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ArcImpl extends PetriEdgeImpl implements Arc {
+public class ArcEClassImpl extends PetriEdgeImpl implements ArcEClass {
 	/**
 	 * The cached value of the '{@link #getPetriFrom() <em>Petri From</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -57,7 +57,7 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ArcImpl() {
+	protected ArcEClassImpl() {
 		super();
 	}
 
@@ -67,7 +67,7 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return PetriNetPackage.Literals.ARC;
+		return PetriNetPackage.Literals.ARC_ECLASS;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 			petriFrom = (PetriNode)eResolveProxy(oldPetriFrom);
 			if (petriFrom != oldPetriFrom) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriNetPackage.ARC__PETRI_FROM, oldPetriFrom, petriFrom));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriNetPackage.ARC_ECLASS__PETRI_FROM, oldPetriFrom, petriFrom));
 			}
 		}
 		return petriFrom;
@@ -105,7 +105,7 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 		PetriNode oldPetriFrom = petriFrom;
 		petriFrom = newPetriFrom;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PetriNetPackage.ARC__PETRI_FROM, oldPetriFrom, petriFrom));
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriNetPackage.ARC_ECLASS__PETRI_FROM, oldPetriFrom, petriFrom));
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 			petriTo = (PetriNode)eResolveProxy(oldPetriTo);
 			if (petriTo != oldPetriTo) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriNetPackage.ARC__PETRI_TO, oldPetriTo, petriTo));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriNetPackage.ARC_ECLASS__PETRI_TO, oldPetriTo, petriTo));
 			}
 		}
 		return petriTo;
@@ -143,7 +143,7 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 		PetriNode oldPetriTo = petriTo;
 		petriTo = newPetriTo;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PetriNetPackage.ARC__PETRI_TO, oldPetriTo, petriTo));
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriNetPackage.ARC_ECLASS__PETRI_TO, oldPetriTo, petriTo));
 	}
 
 	/**
@@ -153,10 +153,10 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PetriNetPackage.ARC__PETRI_FROM:
+			case PetriNetPackage.ARC_ECLASS__PETRI_FROM:
 				if (resolve) return getPetriFrom();
 				return basicGetPetriFrom();
-			case PetriNetPackage.ARC__PETRI_TO:
+			case PetriNetPackage.ARC_ECLASS__PETRI_TO:
 				if (resolve) return getPetriTo();
 				return basicGetPetriTo();
 		}
@@ -170,10 +170,10 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PetriNetPackage.ARC__PETRI_FROM:
+			case PetriNetPackage.ARC_ECLASS__PETRI_FROM:
 				setPetriFrom((PetriNode)newValue);
 				return;
-			case PetriNetPackage.ARC__PETRI_TO:
+			case PetriNetPackage.ARC_ECLASS__PETRI_TO:
 				setPetriTo((PetriNode)newValue);
 				return;
 		}
@@ -187,10 +187,10 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PetriNetPackage.ARC__PETRI_FROM:
+			case PetriNetPackage.ARC_ECLASS__PETRI_FROM:
 				setPetriFrom((PetriNode)null);
 				return;
-			case PetriNetPackage.ARC__PETRI_TO:
+			case PetriNetPackage.ARC_ECLASS__PETRI_TO:
 				setPetriTo((PetriNode)null);
 				return;
 		}
@@ -204,12 +204,12 @@ public class ArcImpl extends PetriEdgeImpl implements Arc {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PetriNetPackage.ARC__PETRI_FROM:
+			case PetriNetPackage.ARC_ECLASS__PETRI_FROM:
 				return petriFrom != null;
-			case PetriNetPackage.ARC__PETRI_TO:
+			case PetriNetPackage.ARC_ECLASS__PETRI_TO:
 				return petriTo != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ArcImpl
+} //ArcEClassImpl

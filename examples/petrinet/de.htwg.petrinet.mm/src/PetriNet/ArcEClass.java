@@ -9,22 +9,22 @@ package PetriNet;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Arc</b></em>'.
+ * A representation of the model object '<em><b>Arc EClass</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link PetriNet.Arc#getPetriFrom <em>Petri From</em>}</li>
- *   <li>{@link PetriNet.Arc#getPetriTo <em>Petri To</em>}</li>
+ *   <li>{@link PetriNet.ArcEClass#getPetriFrom <em>Petri From</em>}</li>
+ *   <li>{@link PetriNet.ArcEClass#getPetriTo <em>Petri To</em>}</li>
  * </ul>
  * </p>
  *
- * @see PetriNet.PetriNetPackage#getArc()
+ * @see PetriNet.PetriNetPackage#getArcEClass()
  * @model
  * @generated
  */
-public interface Arc extends PetriEdge {
+public interface ArcEClass extends PetriEdge {
 	/**
 	 * Returns the value of the '<em><b>Petri From</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -35,14 +35,14 @@ public interface Arc extends PetriEdge {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Petri From</em>' reference.
 	 * @see #setPetriFrom(PetriNode)
-	 * @see PetriNet.PetriNetPackage#getArc_PetriFrom()
+	 * @see PetriNet.PetriNetPackage#getArcEClass_PetriFrom()
 	 * @model
 	 * @generated
 	 */
 	PetriNode getPetriFrom();
 
 	/**
-	 * Sets the value of the '{@link PetriNet.Arc#getPetriFrom <em>Petri From</em>}' reference.
+	 * Sets the value of the '{@link PetriNet.ArcEClass#getPetriFrom <em>Petri From</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Petri From</em>' reference.
@@ -61,14 +61,14 @@ public interface Arc extends PetriEdge {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Petri To</em>' reference.
 	 * @see #setPetriTo(PetriNode)
-	 * @see PetriNet.PetriNetPackage#getArc_PetriTo()
+	 * @see PetriNet.PetriNetPackage#getArcEClass_PetriTo()
 	 * @model
 	 * @generated
 	 */
 	PetriNode getPetriTo();
 
 	/**
-	 * Sets the value of the '{@link PetriNet.Arc#getPetriTo <em>Petri To</em>}' reference.
+	 * Sets the value of the '{@link PetriNet.ArcEClass#getPetriTo <em>Petri To</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Petri To</em>' reference.
@@ -77,4 +77,4 @@ public interface Arc extends PetriEdge {
 	 */
 	void setPetriTo(PetriNode value);
 
-} // Arc
+} // ArcEClass

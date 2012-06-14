@@ -6,15 +6,15 @@
  */
 package PetriNet.impl;
 
-import PetriNet.Arc;
+import PetriNet.ArcEClass;
 import PetriNet.PetriEdge;
 import PetriNet.PetriModel;
 import PetriNet.PetriNetFactory;
 import PetriNet.PetriNetPackage;
 import PetriNet.PetriNode;
-import PetriNet.Place;
-import PetriNet.Token;
-import PetriNet.Transition;
+import PetriNet.PlaceEClass;
+import PetriNet.TokenEClass;
+import PetriNet.TransitionEClass;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -42,28 +42,28 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass placeEClass = null;
+	private EClass placeEClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass tokenEClass = null;
+	private EClass tokenEClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass transitionEClass = null;
+	private EClass transitionEClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass arcEClass = null;
+	private EClass arcEClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -154,8 +154,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPlace() {
-		return placeEClass;
+	public EClass getPlaceEClass() {
+		return placeEClassEClass;
 	}
 
 	/**
@@ -163,8 +163,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPlace_Token() {
-		return (EReference)placeEClass.getEStructuralFeatures().get(0);
+	public EReference getPlaceEClass_Token() {
+		return (EReference)placeEClassEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -172,8 +172,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getToken() {
-		return tokenEClass;
+	public EClass getTokenEClass() {
+		return tokenEClassEClass;
 	}
 
 	/**
@@ -181,8 +181,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTransition() {
-		return transitionEClass;
+	public EClass getTransitionEClass() {
+		return transitionEClassEClass;
 	}
 
 	/**
@@ -190,8 +190,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTransition_Test() {
-		return (EReference)transitionEClass.getEStructuralFeatures().get(0);
+	public EClass getArcEClass() {
+		return arcEClassEClass;
 	}
 
 	/**
@@ -199,8 +199,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getArc() {
-		return arcEClass;
+	public EReference getArcEClass_PetriFrom() {
+		return (EReference)arcEClassEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -208,17 +208,8 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getArc_PetriFrom() {
-		return (EReference)arcEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getArc_PetriTo() {
-		return (EReference)arcEClass.getEStructuralFeatures().get(1);
+	public EReference getArcEClass_PetriTo() {
+		return (EReference)arcEClassEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -296,17 +287,16 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 		// Create classes and their features
 		petriNodeEClass = createEClass(PETRI_NODE);
 
-		placeEClass = createEClass(PLACE);
-		createEReference(placeEClass, PLACE__TOKEN);
+		placeEClassEClass = createEClass(PLACE_ECLASS);
+		createEReference(placeEClassEClass, PLACE_ECLASS__TOKEN);
 
-		tokenEClass = createEClass(TOKEN);
+		tokenEClassEClass = createEClass(TOKEN_ECLASS);
 
-		transitionEClass = createEClass(TRANSITION);
-		createEReference(transitionEClass, TRANSITION__TEST);
+		transitionEClassEClass = createEClass(TRANSITION_ECLASS);
 
-		arcEClass = createEClass(ARC);
-		createEReference(arcEClass, ARC__PETRI_FROM);
-		createEReference(arcEClass, ARC__PETRI_TO);
+		arcEClassEClass = createEClass(ARC_ECLASS);
+		createEReference(arcEClassEClass, ARC_ECLASS__PETRI_FROM);
+		createEReference(arcEClassEClass, ARC_ECLASS__PETRI_TO);
 
 		petriModelEClass = createEClass(PETRI_MODEL);
 		createEAttribute(petriModelEClass, PETRI_MODEL__NAME);
@@ -341,26 +331,25 @@ public class PetriNetPackageImpl extends EPackageImpl implements PetriNetPackage
 
 		// Add supertypes to classes
 		petriNodeEClass.getESuperTypes().add(this.getPetriModel());
-		placeEClass.getESuperTypes().add(this.getPetriNode());
-		tokenEClass.getESuperTypes().add(this.getPetriNode());
-		transitionEClass.getESuperTypes().add(this.getPetriNode());
-		arcEClass.getESuperTypes().add(this.getPetriEdge());
+		placeEClassEClass.getESuperTypes().add(this.getPetriNode());
+		tokenEClassEClass.getESuperTypes().add(this.getPetriNode());
+		transitionEClassEClass.getESuperTypes().add(this.getPetriNode());
+		arcEClassEClass.getESuperTypes().add(this.getPetriEdge());
 		petriEdgeEClass.getESuperTypes().add(this.getPetriModel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(petriNodeEClass, PetriNode.class, "PetriNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(placeEClass, Place.class, "Place", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPlace_Token(), this.getToken(), null, "token", null, 0, 1, Place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(placeEClassEClass, PlaceEClass.class, "PlaceEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPlaceEClass_Token(), this.getTokenEClass(), null, "token", null, 0, 1, PlaceEClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(tokenEClass, Token.class, "Token", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(tokenEClassEClass, TokenEClass.class, "TokenEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTransition_Test(), this.getPetriNode(), null, "test", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(transitionEClassEClass, TransitionEClass.class, "TransitionEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(arcEClass, Arc.class, "Arc", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getArc_PetriFrom(), this.getPetriNode(), null, "petriFrom", null, 0, 1, Arc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getArc_PetriTo(), this.getPetriNode(), null, "petriTo", null, 0, 1, Arc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(arcEClassEClass, ArcEClass.class, "ArcEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getArcEClass_PetriFrom(), this.getPetriNode(), null, "petriFrom", null, 0, 1, ArcEClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getArcEClass_PetriTo(), this.getPetriNode(), null, "petriTo", null, 0, 1, ArcEClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(petriModelEClass, PetriModel.class, "PetriModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPetriModel_Name(), ecorePackage.getEString(), "name", null, 0, 1, PetriModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

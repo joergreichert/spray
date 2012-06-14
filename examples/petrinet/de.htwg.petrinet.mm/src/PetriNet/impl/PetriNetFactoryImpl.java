@@ -60,10 +60,10 @@ public class PetriNetFactoryImpl extends EFactoryImpl implements PetriNetFactory
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case PetriNetPackage.PETRI_NODE: return createPetriNode();
-			case PetriNetPackage.PLACE: return createPlace();
-			case PetriNetPackage.TOKEN: return createToken();
-			case PetriNetPackage.TRANSITION: return createTransition();
-			case PetriNetPackage.ARC: return createArc();
+			case PetriNetPackage.PLACE_ECLASS: return createPlaceEClass();
+			case PetriNetPackage.TOKEN_ECLASS: return createTokenEClass();
+			case PetriNetPackage.TRANSITION_ECLASS: return createTransitionEClass();
+			case PetriNetPackage.ARC_ECLASS: return createArcEClass();
 			case PetriNetPackage.PETRI_MODEL: return createPetriModel();
 			case PetriNetPackage.PETRI_EDGE: return createPetriEdge();
 			default:
@@ -86,9 +86,9 @@ public class PetriNetFactoryImpl extends EFactoryImpl implements PetriNetFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Place createPlace() {
-		PlaceImpl place = new PlaceImpl();
-		return place;
+	public PlaceEClass createPlaceEClass() {
+		PlaceEClassImpl placeEClass = new PlaceEClassImpl();
+		return placeEClass;
 	}
 
 	/**
@@ -96,9 +96,9 @@ public class PetriNetFactoryImpl extends EFactoryImpl implements PetriNetFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Token createToken() {
-		TokenImpl token = new TokenImpl();
-		return token;
+	public TokenEClass createTokenEClass() {
+		TokenEClassImpl tokenEClass = new TokenEClassImpl();
+		return tokenEClass;
 	}
 
 	/**
@@ -106,9 +106,9 @@ public class PetriNetFactoryImpl extends EFactoryImpl implements PetriNetFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Transition createTransition() {
-		TransitionImpl transition = new TransitionImpl();
-		return transition;
+	public TransitionEClass createTransitionEClass() {
+		TransitionEClassImpl transitionEClass = new TransitionEClassImpl();
+		return transitionEClass;
 	}
 
 	/**
@@ -116,9 +116,9 @@ public class PetriNetFactoryImpl extends EFactoryImpl implements PetriNetFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Arc createArc() {
-		ArcImpl arc = new ArcImpl();
-		return arc;
+	public ArcEClass createArcEClass() {
+		ArcEClassImpl arcEClass = new ArcEClassImpl();
+		return arcEClass;
 	}
 
 	/**

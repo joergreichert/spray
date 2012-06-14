@@ -152,14 +152,14 @@ public interface PetriNetPackage extends EPackage {
 	int PETRI_NODE_FEATURE_COUNT = PETRI_MODEL_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link PetriNet.impl.PlaceImpl <em>Place</em>}' class.
+	 * The meta object id for the '{@link PetriNet.impl.PlaceEClassImpl <em>Place EClass</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see PetriNet.impl.PlaceImpl
-	 * @see PetriNet.impl.PetriNetPackageImpl#getPlace()
+	 * @see PetriNet.impl.PlaceEClassImpl
+	 * @see PetriNet.impl.PetriNetPackageImpl#getPlaceEClass()
 	 * @generated
 	 */
-	int PLACE = 1;
+	int PLACE_ECLASS = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -168,7 +168,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE__NAME = PETRI_NODE__NAME;
+	int PLACE_ECLASS__NAME = PETRI_NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -177,7 +177,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE__DESCRIPTION = PETRI_NODE__DESCRIPTION;
+	int PLACE_ECLASS__DESCRIPTION = PETRI_NODE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Petri Models</b></em>' containment reference list.
@@ -186,7 +186,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE__PETRI_MODELS = PETRI_NODE__PETRI_MODELS;
+	int PLACE_ECLASS__PETRI_MODELS = PETRI_NODE__PETRI_MODELS;
 
 	/**
 	 * The feature id for the '<em><b>Token</b></em>' containment reference.
@@ -195,26 +195,26 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE__TOKEN = PETRI_NODE_FEATURE_COUNT + 0;
+	int PLACE_ECLASS__TOKEN = PETRI_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Place</em>' class.
+	 * The number of structural features of the '<em>Place EClass</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE_FEATURE_COUNT = PETRI_NODE_FEATURE_COUNT + 1;
+	int PLACE_ECLASS_FEATURE_COUNT = PETRI_NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link PetriNet.impl.TokenImpl <em>Token</em>}' class.
+	 * The meta object id for the '{@link PetriNet.impl.TokenEClassImpl <em>Token EClass</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see PetriNet.impl.TokenImpl
-	 * @see PetriNet.impl.PetriNetPackageImpl#getToken()
+	 * @see PetriNet.impl.TokenEClassImpl
+	 * @see PetriNet.impl.PetriNetPackageImpl#getTokenEClass()
 	 * @generated
 	 */
-	int TOKEN = 2;
+	int TOKEN_ECLASS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -223,7 +223,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN__NAME = PETRI_NODE__NAME;
+	int TOKEN_ECLASS__NAME = PETRI_NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -232,7 +232,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN__DESCRIPTION = PETRI_NODE__DESCRIPTION;
+	int TOKEN_ECLASS__DESCRIPTION = PETRI_NODE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Petri Models</b></em>' containment reference list.
@@ -241,26 +241,26 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN__PETRI_MODELS = PETRI_NODE__PETRI_MODELS;
+	int TOKEN_ECLASS__PETRI_MODELS = PETRI_NODE__PETRI_MODELS;
 
 	/**
-	 * The number of structural features of the '<em>Token</em>' class.
+	 * The number of structural features of the '<em>Token EClass</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_FEATURE_COUNT = PETRI_NODE_FEATURE_COUNT + 0;
+	int TOKEN_ECLASS_FEATURE_COUNT = PETRI_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link PetriNet.impl.TransitionImpl <em>Transition</em>}' class.
+	 * The meta object id for the '{@link PetriNet.impl.TransitionEClassImpl <em>Transition EClass</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see PetriNet.impl.TransitionImpl
-	 * @see PetriNet.impl.PetriNetPackageImpl#getTransition()
+	 * @see PetriNet.impl.TransitionEClassImpl
+	 * @see PetriNet.impl.PetriNetPackageImpl#getTransitionEClass()
 	 * @generated
 	 */
-	int TRANSITION = 3;
+	int TRANSITION_ECLASS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -269,7 +269,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__NAME = PETRI_NODE__NAME;
+	int TRANSITION_ECLASS__NAME = PETRI_NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -278,7 +278,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__DESCRIPTION = PETRI_NODE__DESCRIPTION;
+	int TRANSITION_ECLASS__DESCRIPTION = PETRI_NODE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Petri Models</b></em>' containment reference list.
@@ -287,25 +287,16 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__PETRI_MODELS = PETRI_NODE__PETRI_MODELS;
+	int TRANSITION_ECLASS__PETRI_MODELS = PETRI_NODE__PETRI_MODELS;
 
 	/**
-	 * The feature id for the '<em><b>Test</b></em>' containment reference.
+	 * The number of structural features of the '<em>Transition EClass</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__TEST = PETRI_NODE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSITION_FEATURE_COUNT = PETRI_NODE_FEATURE_COUNT + 1;
+	int TRANSITION_ECLASS_FEATURE_COUNT = PETRI_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link PetriNet.impl.PetriEdgeImpl <em>Petri Edge</em>}' class.
@@ -354,14 +345,14 @@ public interface PetriNetPackage extends EPackage {
 	int PETRI_EDGE_FEATURE_COUNT = PETRI_MODEL_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link PetriNet.impl.ArcImpl <em>Arc</em>}' class.
+	 * The meta object id for the '{@link PetriNet.impl.ArcEClassImpl <em>Arc EClass</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see PetriNet.impl.ArcImpl
-	 * @see PetriNet.impl.PetriNetPackageImpl#getArc()
+	 * @see PetriNet.impl.ArcEClassImpl
+	 * @see PetriNet.impl.PetriNetPackageImpl#getArcEClass()
 	 * @generated
 	 */
-	int ARC = 4;
+	int ARC_ECLASS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -370,7 +361,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARC__NAME = PETRI_EDGE__NAME;
+	int ARC_ECLASS__NAME = PETRI_EDGE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -379,7 +370,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARC__DESCRIPTION = PETRI_EDGE__DESCRIPTION;
+	int ARC_ECLASS__DESCRIPTION = PETRI_EDGE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Petri Models</b></em>' containment reference list.
@@ -388,7 +379,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARC__PETRI_MODELS = PETRI_EDGE__PETRI_MODELS;
+	int ARC_ECLASS__PETRI_MODELS = PETRI_EDGE__PETRI_MODELS;
 
 	/**
 	 * The feature id for the '<em><b>Petri From</b></em>' reference.
@@ -397,7 +388,7 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARC__PETRI_FROM = PETRI_EDGE_FEATURE_COUNT + 0;
+	int ARC_ECLASS__PETRI_FROM = PETRI_EDGE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Petri To</b></em>' reference.
@@ -406,16 +397,16 @@ public interface PetriNetPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARC__PETRI_TO = PETRI_EDGE_FEATURE_COUNT + 1;
+	int ARC_ECLASS__PETRI_TO = PETRI_EDGE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Arc</em>' class.
+	 * The number of structural features of the '<em>Arc EClass</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARC_FEATURE_COUNT = PETRI_EDGE_FEATURE_COUNT + 2;
+	int ARC_ECLASS_FEATURE_COUNT = PETRI_EDGE_FEATURE_COUNT + 2;
 
 
 	/**
@@ -429,88 +420,77 @@ public interface PetriNetPackage extends EPackage {
 	EClass getPetriNode();
 
 	/**
-	 * Returns the meta object for class '{@link PetriNet.Place <em>Place</em>}'.
+	 * Returns the meta object for class '{@link PetriNet.PlaceEClass <em>Place EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Place</em>'.
-	 * @see PetriNet.Place
+	 * @return the meta object for class '<em>Place EClass</em>'.
+	 * @see PetriNet.PlaceEClass
 	 * @generated
 	 */
-	EClass getPlace();
+	EClass getPlaceEClass();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link PetriNet.Place#getToken <em>Token</em>}'.
+	 * Returns the meta object for the containment reference '{@link PetriNet.PlaceEClass#getToken <em>Token</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Token</em>'.
-	 * @see PetriNet.Place#getToken()
-	 * @see #getPlace()
+	 * @see PetriNet.PlaceEClass#getToken()
+	 * @see #getPlaceEClass()
 	 * @generated
 	 */
-	EReference getPlace_Token();
+	EReference getPlaceEClass_Token();
 
 	/**
-	 * Returns the meta object for class '{@link PetriNet.Token <em>Token</em>}'.
+	 * Returns the meta object for class '{@link PetriNet.TokenEClass <em>Token EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Token</em>'.
-	 * @see PetriNet.Token
+	 * @return the meta object for class '<em>Token EClass</em>'.
+	 * @see PetriNet.TokenEClass
 	 * @generated
 	 */
-	EClass getToken();
+	EClass getTokenEClass();
 
 	/**
-	 * Returns the meta object for class '{@link PetriNet.Transition <em>Transition</em>}'.
+	 * Returns the meta object for class '{@link PetriNet.TransitionEClass <em>Transition EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Transition</em>'.
-	 * @see PetriNet.Transition
+	 * @return the meta object for class '<em>Transition EClass</em>'.
+	 * @see PetriNet.TransitionEClass
 	 * @generated
 	 */
-	EClass getTransition();
+	EClass getTransitionEClass();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link PetriNet.Transition#getTest <em>Test</em>}'.
+	 * Returns the meta object for class '{@link PetriNet.ArcEClass <em>Arc EClass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Test</em>'.
-	 * @see PetriNet.Transition#getTest()
-	 * @see #getTransition()
+	 * @return the meta object for class '<em>Arc EClass</em>'.
+	 * @see PetriNet.ArcEClass
 	 * @generated
 	 */
-	EReference getTransition_Test();
+	EClass getArcEClass();
 
 	/**
-	 * Returns the meta object for class '{@link PetriNet.Arc <em>Arc</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Arc</em>'.
-	 * @see PetriNet.Arc
-	 * @generated
-	 */
-	EClass getArc();
-
-	/**
-	 * Returns the meta object for the reference '{@link PetriNet.Arc#getPetriFrom <em>Petri From</em>}'.
+	 * Returns the meta object for the reference '{@link PetriNet.ArcEClass#getPetriFrom <em>Petri From</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Petri From</em>'.
-	 * @see PetriNet.Arc#getPetriFrom()
-	 * @see #getArc()
+	 * @see PetriNet.ArcEClass#getPetriFrom()
+	 * @see #getArcEClass()
 	 * @generated
 	 */
-	EReference getArc_PetriFrom();
+	EReference getArcEClass_PetriFrom();
 
 	/**
-	 * Returns the meta object for the reference '{@link PetriNet.Arc#getPetriTo <em>Petri To</em>}'.
+	 * Returns the meta object for the reference '{@link PetriNet.ArcEClass#getPetriTo <em>Petri To</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Petri To</em>'.
-	 * @see PetriNet.Arc#getPetriTo()
-	 * @see #getArc()
+	 * @see PetriNet.ArcEClass#getPetriTo()
+	 * @see #getArcEClass()
 	 * @generated
 	 */
-	EReference getArc_PetriTo();
+	EReference getArcEClass_PetriTo();
 
 	/**
 	 * Returns the meta object for class '{@link PetriNet.PetriModel <em>Petri Model</em>}'.
@@ -598,14 +578,14 @@ public interface PetriNetPackage extends EPackage {
 		EClass PETRI_NODE = eINSTANCE.getPetriNode();
 
 		/**
-		 * The meta object literal for the '{@link PetriNet.impl.PlaceImpl <em>Place</em>}' class.
+		 * The meta object literal for the '{@link PetriNet.impl.PlaceEClassImpl <em>Place EClass</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see PetriNet.impl.PlaceImpl
-		 * @see PetriNet.impl.PetriNetPackageImpl#getPlace()
+		 * @see PetriNet.impl.PlaceEClassImpl
+		 * @see PetriNet.impl.PetriNetPackageImpl#getPlaceEClass()
 		 * @generated
 		 */
-		EClass PLACE = eINSTANCE.getPlace();
+		EClass PLACE_ECLASS = eINSTANCE.getPlaceEClass();
 
 		/**
 		 * The meta object literal for the '<em><b>Token</b></em>' containment reference feature.
@@ -613,45 +593,37 @@ public interface PetriNetPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PLACE__TOKEN = eINSTANCE.getPlace_Token();
+		EReference PLACE_ECLASS__TOKEN = eINSTANCE.getPlaceEClass_Token();
 
 		/**
-		 * The meta object literal for the '{@link PetriNet.impl.TokenImpl <em>Token</em>}' class.
+		 * The meta object literal for the '{@link PetriNet.impl.TokenEClassImpl <em>Token EClass</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see PetriNet.impl.TokenImpl
-		 * @see PetriNet.impl.PetriNetPackageImpl#getToken()
+		 * @see PetriNet.impl.TokenEClassImpl
+		 * @see PetriNet.impl.PetriNetPackageImpl#getTokenEClass()
 		 * @generated
 		 */
-		EClass TOKEN = eINSTANCE.getToken();
+		EClass TOKEN_ECLASS = eINSTANCE.getTokenEClass();
 
 		/**
-		 * The meta object literal for the '{@link PetriNet.impl.TransitionImpl <em>Transition</em>}' class.
+		 * The meta object literal for the '{@link PetriNet.impl.TransitionEClassImpl <em>Transition EClass</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see PetriNet.impl.TransitionImpl
-		 * @see PetriNet.impl.PetriNetPackageImpl#getTransition()
+		 * @see PetriNet.impl.TransitionEClassImpl
+		 * @see PetriNet.impl.PetriNetPackageImpl#getTransitionEClass()
 		 * @generated
 		 */
-		EClass TRANSITION = eINSTANCE.getTransition();
+		EClass TRANSITION_ECLASS = eINSTANCE.getTransitionEClass();
 
 		/**
-		 * The meta object literal for the '<em><b>Test</b></em>' containment reference feature.
+		 * The meta object literal for the '{@link PetriNet.impl.ArcEClassImpl <em>Arc EClass</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see PetriNet.impl.ArcEClassImpl
+		 * @see PetriNet.impl.PetriNetPackageImpl#getArcEClass()
 		 * @generated
 		 */
-		EReference TRANSITION__TEST = eINSTANCE.getTransition_Test();
-
-		/**
-		 * The meta object literal for the '{@link PetriNet.impl.ArcImpl <em>Arc</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see PetriNet.impl.ArcImpl
-		 * @see PetriNet.impl.PetriNetPackageImpl#getArc()
-		 * @generated
-		 */
-		EClass ARC = eINSTANCE.getArc();
+		EClass ARC_ECLASS = eINSTANCE.getArcEClass();
 
 		/**
 		 * The meta object literal for the '<em><b>Petri From</b></em>' reference feature.
@@ -659,7 +631,7 @@ public interface PetriNetPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ARC__PETRI_FROM = eINSTANCE.getArc_PetriFrom();
+		EReference ARC_ECLASS__PETRI_FROM = eINSTANCE.getArcEClass_PetriFrom();
 
 		/**
 		 * The meta object literal for the '<em><b>Petri To</b></em>' reference feature.
@@ -667,7 +639,7 @@ public interface PetriNetPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ARC__PETRI_TO = eINSTANCE.getArc_PetriTo();
+		EReference ARC_ECLASS__PETRI_TO = eINSTANCE.getArcEClass_PetriTo();
 
 		/**
 		 * The meta object literal for the '{@link PetriNet.impl.PetriModelImpl <em>Petri Model</em>}' class.

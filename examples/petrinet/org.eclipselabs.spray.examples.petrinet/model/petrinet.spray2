@@ -14,7 +14,7 @@ import org.eclipselabs.spray.styles.*
 
 diagram petrinet for PetriModel style PetrinetDefaultStyle
 
-node Place for Place {
+node Place for PlaceEClass {
 	figure PlaceShape {
 		text placeDescription for name
 	}
@@ -27,7 +27,7 @@ node Place for Place {
 	}
 }
 
-node Transition for Transition {
+node Transition for TransitionEClass {
 	figure TransitionShape {
 		text transitionShapeDescription for name
 	}
@@ -40,7 +40,7 @@ node Transition for Transition {
 	}
 }
 
-node EmptyTransition for Transition {
+node EmptyTransition for TransitionEClass {
 	figure EmptyTransitionShape {
 		text transitionShapeDescription for name
 	}
@@ -53,7 +53,7 @@ node EmptyTransition for Transition {
 	}
 }
 
-node Token for Token {
+node Token for TokenEClass {
 	figure TokenShape
 	tooling {}
 	behavior {
@@ -62,7 +62,7 @@ node Token for Token {
 	}
 }
 
-edge Arc for Arc {
+edge Arc for ArcEClass {
 	figure ArcConnection {}
 	tooling {}
 	behavior {
@@ -73,7 +73,7 @@ edge Arc for Arc {
 	}
 }
 
-edge SecondArc for Arc {
+edge SecondArc for ArcEClass {
 	figure ArcConnection {}
 	tooling {}
 	behavior {
