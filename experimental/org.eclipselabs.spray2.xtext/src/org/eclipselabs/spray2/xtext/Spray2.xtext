@@ -29,14 +29,14 @@ NodeElement:
     'node' name=ID 'for' type=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? '{'
         ( figure=NodeFigureSection )?
         ( tooling=ToolingSection )?
-        ( behavior=BehaviorSection )?
+        ( behavior=NodeBehaviorSection )?
     '}' 
 ;
 EdgeElement: 
     'edge' name=ID 'for' type=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? '{'
-        ( figure=EdgeFigureSection )?
-        ( tooling=ToolingSection )?
-        ( behavior=BehaviorSection )?
+        ( figure=EdgeFigureSection )
+        ( tooling=ToolingSection )
+        ( behavior=EdgeBehaviorSection )
     '}'
 ;
 
@@ -58,12 +58,23 @@ ToolingSection: {ToolingSection} ('tooling' '{'
     '}')
 ;
 
-BehaviorSection: {BehaviorSection} ('behavior' '{'
-	('creatable-in' creatableIn+=[ecore::EReference] (',' creatableIn+=[ecore::EReference])*)?	
-	('edit-on-create' editOnCreate=[ecore::EAttribute])?
-    //	('drill-down')?
-	('custom' name = ID | 'ref' (realizedBy=JvmTypeReference) (label=STRING))?
-	'}')
+NodeBehaviorSection: {NodeBehaviorSection} ('behavior' '{'
+    ('creatable-in' creatableIn+=[ecore::EReference] (',' creatableIn+=[ecore::EReference])*)
+    ('edit-on-create' editOnCreate=[ecore::EAttribute])?
+    //  ('drill-down')?
+    ('custom' (name = ID | 'ref' (realizedBy=JvmTypeReference) (label=STRING)))?
+    '}')
+;
+
+
+EdgeBehaviorSection: {EdgeBehaviorSection} ('behavior' '{'
+    ('creatable-in' creatableIn=[ecore::EReference]) 
+    ('source' source=[ecore::EReference])
+    ('target' target=[ecore::EReference])
+    ('edit-on-create' editOnCreate=[ecore::EAttribute])?
+    //  ('drill-down')?
+    ('custom' name = ID | 'ref' (realizedBy=JvmTypeReference) (label=STRING))?
+    '}')
 ;
 
 TextPropertyAssignment: 

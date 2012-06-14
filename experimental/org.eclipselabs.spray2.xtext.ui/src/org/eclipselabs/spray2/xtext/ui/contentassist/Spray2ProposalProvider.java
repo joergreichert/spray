@@ -35,8 +35,9 @@ import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
 import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 import org.eclipselabs.spray2.xtext.api.IConstants;
-import org.eclipselabs.spray2.xtext.spray2.BehaviorSection;
+import org.eclipselabs.spray2.xtext.spray2.EdgeBehaviorSection;
 import org.eclipselabs.spray2.xtext.spray2.EdgeFigureSection;
+import org.eclipselabs.spray2.xtext.spray2.NodeBehaviorSection;
 import org.eclipselabs.spray2.xtext.spray2.NodeFigureSection;
 import org.eclipselabs.spray2.xtext.spray2.Spray2Package;
 import org.eclipselabs.spray2.xtext.spray2.SprayStyleRef;
@@ -75,7 +76,7 @@ public class Spray2ProposalProvider extends AbstractSpray2ProposalProvider {
             JvmType superType = typeProvider.findTypeByName(ISprayConnection.class.getName());
             proposalProvider.createSubTypeProposals(superType, this, context, Spray2Package.Literals.EDGE_FIGURE_SECTION__SHAPE_REF, filter, acceptor);
         }
-        if (model instanceof BehaviorSection) {
+        if (model instanceof NodeBehaviorSection || model instanceof EdgeBehaviorSection) {
             JvmType superType = typeProvider.findTypeByName(ICustomFeature.class.getName());
             proposalProvider.createSubTypeProposals(superType, this, context, Spray2Package.Literals.NODE_FIGURE_SECTION__SHAPE_REF, filter, acceptor);
         }

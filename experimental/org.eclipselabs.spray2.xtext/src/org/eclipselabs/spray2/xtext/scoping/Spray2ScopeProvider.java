@@ -30,6 +30,7 @@ import org.eclipselabs.spray.shapes.scoping.ConnectionScopeRestrictor;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeRestrictor;
 import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 import org.eclipselabs.spray2.xtext.spray2.Diagram;
+import org.eclipselabs.spray2.xtext.spray2.EdgeBehaviorSection;
 import org.eclipselabs.spray2.xtext.spray2.EdgeElement;
 import org.eclipselabs.spray2.xtext.spray2.EdgeFigureSection;
 import org.eclipselabs.spray2.xtext.spray2.NodeElement;
@@ -62,19 +63,74 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
             return scope_TextPropertyAssignment_Attribute(context);
         } else if (reference == Spray2Package.Literals.TEXT_PROPERTY_ASSIGNMENT__KEY) {
             scope = scope_TextPropertyAssignment_Key(context, reference);
-        } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__CREATABLE_IN) {
-            scope = scope_BehaviorSectionCompartment_Reference(context, reference);
-        } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__EDIT_ON_CREATE) {
-        	scope = scope_BehaviorSectionEditOnCreate(context, reference);
-        } else if (reference == Spray2Package.Literals.BEHAVIOR_SECTION__REALIZED_BY) {
+        } else if (reference == Spray2Package.Literals.NODE_BEHAVIOR_SECTION__CREATABLE_IN) {
+            scope = scope_NodeBehaviorSectionCreateableIn(context, reference);
+        } else if (reference == Spray2Package.Literals.EDGE_BEHAVIOR_SECTION__CREATABLE_IN) {
+            scope = scope_EdgeBehaviorSectionCreateableIn(context, reference);
+        } else if (reference == Spray2Package.Literals.NODE_BEHAVIOR_SECTION__EDIT_ON_CREATE || reference == Spray2Package.Literals.EDGE_BEHAVIOR_SECTION__EDIT_ON_CREATE) {
+            scope = scope_BehaviorSectionEditOnCreate(context, reference);
+        } else if (reference == Spray2Package.Literals.NODE_BEHAVIOR_SECTION__REALIZED_BY || reference == Spray2Package.Literals.EDGE_BEHAVIOR_SECTION__REALIZED_BY) {
             scope = scope_BehaviorSectionCustomRealizedBy(context, reference);
+        } else if (reference == Spray2Package.Literals.EDGE_BEHAVIOR_SECTION__SOURCE) {
+            scope = scope_EdgeBehaviorSection_source(context, reference);
+        } else if (reference == Spray2Package.Literals.EDGE_BEHAVIOR_SECTION__TARGET) {
+            scope = scope_EdgeBehaviorSection_target(context, reference);
         } else {
             scope = super.getScope(context, reference);
         }
         return scope;
     }
 
-    protected IScope scope_Diagram_ModelType(EObject context, EReference reference) {
+    private IScope getEnumerationLiteralsScopeForShape(JvmGenericType type, String className) {
+        JvmEnumerationType enumType = null;
+        for (JvmMember member : type.getMembers()) {
+            if (member.getSimpleName().equals(className)) {
+                enumType = (JvmEnumerationType) member;
+            }
+        }
+        List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
+        if (enumType != null) {
+            for (JvmEnumerationLiteral literal : enumType.getLiterals()) {
+                IEObjectDescription description = EObjectDescription.create(literal.getSimpleName(), literal, null);
+                descrList.add(description);
+            }
+        }
+        return MapBasedScope.createScope(IScope.NULLSCOPE, descrList);
+    }
+
+    private IScope scope_BehaviorSectionCustomRealizedBy(EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(context, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new CustomFeatureRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    private IScope scope_BehaviorSectionEditOnCreate(EObject context, EReference reference) {
+        NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
+        EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
+        if (nodeElement != null || edgeElement != null) {
+            Predicate<EObject> filterPredicate = new Predicate<EObject>() {
+                @Override
+                public boolean apply(EObject input) {
+                    if (input instanceof EAttribute) {
+                        if (((EAttribute) input).getEType().getName().equals("EString")) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            if (nodeElement != null) {
+                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(nodeElement.getType().getEAllAttributes(), filterPredicate)));
+            } else {
+                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(edgeElement.getType().getEAllAttributes(), filterPredicate)));
+            }
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
+
+    private IScope scope_Diagram_ModelType(EObject context, EReference reference) {
         // filter out types with URL schema qualified names
         final IScope scope = delegateGetScope(context, reference);
         final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
@@ -86,7 +142,85 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
         return new FilteringScope(scope, filter);
     }
 
-    protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
+    private IScope scope_EdgeBehaviorSection_source(EObject context, EReference reference) {
+        final EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
+        // filter derived and 'from' from the possible references
+        Iterable<EReference> targetReferences = Iterables.filter(edgeElement.getType().getEAllReferences(), new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                return !input.isDerived();
+            }
+        });
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        return result;
+    }
+
+    private IScope scope_EdgeBehaviorSection_target(EObject context, EReference reference) {
+        final EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
+        final EdgeBehaviorSection edgeBehaviorSection = EcoreUtil2.getContainerOfType(context, EdgeBehaviorSection.class);
+        // filter derived references
+        Iterable<EReference> targetReferences = Iterables.filter(edgeElement.getType().getEAllReferences(), new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                return input != edgeBehaviorSection.getSource() && !input.isDerived();
+            }
+        });
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        return result;
+    }
+
+    private IScope scope_EdgeBehaviorSectionCreateableIn(EObject context, EReference reference) {
+        final Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
+        final EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
+        if (diagram == null || edgeElement == null) {
+            return IScope.NULLSCOPE;
+        }
+        final EClass diagramModelType = diagram.getModelType();
+        Predicate<EReference> filter = new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                boolean superType = false;
+                if (edgeElement != null && edgeElement.getType() != null) {
+                    superType = input.getEReferenceType().isSuperTypeOf(edgeElement.getType());
+                }
+                return superType;
+            }
+        };
+        // get all containments of EClass contained in this package
+        List<EReference> containmentReferences = new ArrayList<EReference>();
+        containmentReferences.addAll(diagramModelType.getEAllContainments());
+        //        // if the MetaClass is a connection take also the containment dependencies of the source type
+        //        EClass sourceType = (EClass) ((EdgeBehaviorSection) edgeElement.getBehavior()).getSource().getEType();
+        //        if (sourceType != null) {
+        //            containmentReferences.addAll(sourceType.getEAllContainments());
+        //        }
+        return Scopes.scopeFor(Iterables.filter(containmentReferences, filter));
+    }
+
+    private IScope scope_EdgeFigureSectionRefScope(EdgeFigureSection edgeFigSec, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(edgeFigSec, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new ConnectionScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    private IScope scope_JvmParametrizedTypeReference_type(EObject context, EReference reference) {
+        SprayStyleRef styleRef = EcoreUtil2.getContainerOfType(context, SprayStyleRef.class);
+        if (styleRef != null) {
+            return scope_ShapeStyleRefScope(styleRef, context, reference);
+        }
+        NodeFigureSection nodeFigSec = EcoreUtil2.getContainerOfType(context, NodeFigureSection.class);
+        if (nodeFigSec != null) {
+            return scope_NodeFigureSectionRefScope(nodeFigSec, context, reference);
+        }
+        EdgeFigureSection edgeFigSec = EcoreUtil2.getContainerOfType(context, EdgeFigureSection.class);
+        if (edgeFigSec != null) {
+            return scope_EdgeFigureSectionRefScope(edgeFigSec, context, reference);
+        }
+        return IScope.NULLSCOPE;
+    }
+
+    private IScope scope_MetaClass_Type(EObject context, EReference reference) {
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
@@ -113,110 +247,7 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
         return MapBasedScope.createScope(importDiagramTypePackage, descriptions);
     }
 
-    protected IScope scope_JvmParametrizedTypeReference_type(EObject context, EReference reference) {
-        SprayStyleRef styleRef = EcoreUtil2.getContainerOfType(context, SprayStyleRef.class);
-        if (styleRef != null) {
-            return scope_ShapeStyleRefScope(styleRef, context, reference);
-        }
-        NodeFigureSection nodeFigSec = EcoreUtil2.getContainerOfType(context, NodeFigureSection.class);
-        if (nodeFigSec != null) {
-            return scope_NodeFigureSectionRefScope(nodeFigSec, context, reference);
-        }
-        EdgeFigureSection edgeFigSec = EcoreUtil2.getContainerOfType(context, EdgeFigureSection.class);
-        if (edgeFigSec != null) {
-            return scope_EdgeFigureSectionRefScope(edgeFigSec, context, reference);
-        }
-        return IScope.NULLSCOPE;
-    }
-
-    protected IScope scope_BehaviorSectionCustomRealizedBy(EObject context, EReference reference) {
-        IScope typesScope = delegateGetScope(context, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-        Predicate<IEObjectDescription> stylesFilter = new CustomFeatureRestrictor();
-        IScope result = new FilteringScope(typesScope, stylesFilter);
-        return result;
-    }
-    
-    protected IScope scope_ShapeStyleRefScope(SprayStyleRef styleRef, EObject context, EReference reference) {
-        IScope typesScope = delegateGetScope(styleRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-        Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
-        IScope result = new FilteringScope(typesScope, stylesFilter);
-        return result;
-    }
-
-    protected IScope scope_NodeFigureSectionRefScope(NodeFigureSection nodeFigSec, EObject context, EReference reference) {
-        IScope typesScope = delegateGetScope(nodeFigSec, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-        Predicate<IEObjectDescription> stylesFilter = new ShapeScopeRestrictor();
-        IScope result = new FilteringScope(typesScope, stylesFilter);
-        return result;
-    }
-
-    protected IScope scope_EdgeFigureSectionRefScope(EdgeFigureSection edgeFigSec, EObject context, EReference reference) {
-        IScope typesScope = delegateGetScope(edgeFigSec, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-        Predicate<IEObjectDescription> stylesFilter = new ConnectionScopeRestrictor();
-        IScope result = new FilteringScope(typesScope, stylesFilter);
-        return result;
-    }
-
-    protected IScope scope_TextPropertyAssignment_Attribute(EObject context) {
-        NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
-        EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
-        if (nodeElement != null || edgeElement != null) {
-            Predicate<EObject> filterPredicate = new Predicate<EObject>() {
-                @Override
-                public boolean apply(EObject input) {
-                    if (input instanceof EAttribute) {
-                        if (((EAttribute) input).getEType().getName().equals("EString")) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            };
-            if (nodeElement != null) {
-                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(nodeElement.getType().getEAllAttributes(), filterPredicate)));
-            } else {
-                return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(edgeElement.getType().getEAllAttributes(), filterPredicate)));
-            }
-        } else {
-            return IScope.NULLSCOPE;
-        }
-    }
-
-    protected IScope scope_TextPropertyAssignment_Key(EObject context, EReference reference) {
-        JvmType jvmType = null;
-        final String className = "TextIds";
-        final NodeFigureSection nodeFigSec = EcoreUtil2.getContainerOfType(context, NodeFigureSection.class);
-        final EdgeFigureSection edgeFigSec = EcoreUtil2.getContainerOfType(context, EdgeFigureSection.class);
-        if (nodeFigSec != null) {
-            jvmType = nodeFigSec.getShapeRef().getType();
-        } else if (edgeFigSec != null) {
-            jvmType = edgeFigSec.getShapeRef().getType();
-        }
-        if (jvmType != null && jvmType instanceof JvmGenericType) {
-            return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
-        } else {
-            return IScope.NULLSCOPE;
-        }
-    }
-
-    private IScope getEnumerationLiteralsScopeForShape(JvmGenericType type, String className) {
-        JvmEnumerationType enumType = null;
-        for (JvmMember member : type.getMembers()) {
-            if (member.getSimpleName().equals(className)) {
-                enumType = (JvmEnumerationType) member;
-            }
-        }
-        List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
-        if (enumType != null) {
-            for (JvmEnumerationLiteral literal : enumType.getLiterals()) {
-                IEObjectDescription description = EObjectDescription.create(literal.getSimpleName(), literal, null);
-                descrList.add(description);
-            }
-        }
-        return MapBasedScope.createScope(IScope.NULLSCOPE, descrList);
-    }
-    
-    protected IScope scope_BehaviorSectionCompartment_Reference(EObject context, EReference reference) {
+    private IScope scope_NodeBehaviorSectionCreateableIn(EObject context, EReference reference) {
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
         if (diagram == null || nodeElement == null) {
@@ -239,8 +270,22 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
         }
         return Scopes.scopeFor(containmentReferences);
     }
-    
-    protected IScope scope_BehaviorSectionEditOnCreate(EObject context, EReference reference) {
+
+    private IScope scope_NodeFigureSectionRefScope(NodeFigureSection nodeFigSec, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(nodeFigSec, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new ShapeScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    private IScope scope_ShapeStyleRefScope(SprayStyleRef styleRef, EObject context, EReference reference) {
+        IScope typesScope = delegateGetScope(styleRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    private IScope scope_TextPropertyAssignment_Attribute(EObject context) {
         NodeElement nodeElement = EcoreUtil2.getContainerOfType(context, NodeElement.class);
         EdgeElement edgeElement = EcoreUtil2.getContainerOfType(context, EdgeElement.class);
         if (nodeElement != null || edgeElement != null) {
@@ -260,6 +305,23 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
             } else {
                 return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(edgeElement.getType().getEAllAttributes(), filterPredicate)));
             }
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
+
+    private IScope scope_TextPropertyAssignment_Key(EObject context, EReference reference) {
+        JvmType jvmType = null;
+        final String className = "TextIds";
+        final NodeFigureSection nodeFigSec = EcoreUtil2.getContainerOfType(context, NodeFigureSection.class);
+        final EdgeFigureSection edgeFigSec = EcoreUtil2.getContainerOfType(context, EdgeFigureSection.class);
+        if (nodeFigSec != null) {
+            jvmType = nodeFigSec.getShapeRef().getType();
+        } else if (edgeFigSec != null) {
+            jvmType = edgeFigSec.getShapeRef().getType();
+        }
+        if (jvmType != null && jvmType instanceof JvmGenericType) {
+            return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
         } else {
             return IScope.NULLSCOPE;
         }
