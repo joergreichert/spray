@@ -1,0 +1,85 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also petrinet.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import PetriNet.*
+import org.eclipselabs.spray.shapes.*
+import org.eclipselabs.spray.styles.*
+
+diagram petrinet for PetriModel style PetrinetDefaultStyle
+
+node Place for Place {
+	figure PlaceShape {
+		text placeDescription for name
+	}
+	tooling {
+		rapid-buttons Arc to Transition, Arc to EmptyTransition, SecondArc to Transition, Arc to EmptyTransition 
+	}
+	behavior {
+		creatable-in petriModels
+		edit-on-create name
+	}
+}
+
+node Transition for Transition {
+	figure TransitionShape {
+		text transitionShapeDescription for name
+	}
+	tooling {
+		rapid-buttons Arc to Place, SecondArc to Place
+	}
+	behavior {
+		creatable-in petriModels
+		edit-on-create name
+	}
+}
+
+node EmptyTransition for Transition {
+	figure EmptyTransitionShape {
+		text transitionShapeDescription for name
+	}
+	tooling {
+		rapid-buttons Arc to Place, SecondArc to Place
+	}
+	behavior {
+		creatable-in petriModels
+		edit-on-create name
+	}
+}
+
+node Token for Token {
+	figure TokenShape
+	tooling {}
+	behavior {
+		creatable-in petriModels, token
+		edit-on-create name
+	}
+}
+
+edge Arc for Arc {
+	figure ArcConnection {}
+	tooling {}
+	behavior {
+		creatable-in petriModels
+		source petriFrom
+		target petriTo
+		edit-on-create name
+	}
+}
+
+edge SecondArc for Arc {
+	figure ArcConnection {}
+	tooling {}
+	behavior {
+		creatable-in petriModels
+		source petriFrom
+		target petriTo
+		edit-on-create name
+	}
+}
