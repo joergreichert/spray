@@ -2,6 +2,6 @@
 // Aliased Shape of type Line
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
+class BusinessDomainDsl.BusinessClass {
     line alias shape1 ()
 }

@@ -4,6 +4,6 @@ import org.eclipse.graphiti.util.IColorConstant
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
 
-class BusinessClass {
+class BusinessDomainDsl.BusinessClass {
     container  ( fill=IColorConstant::WHITE) {}
 }

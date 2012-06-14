@@ -2,7 +2,7 @@
 // multiple connection references to not contained features
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
+class BusinessDomainDsl.BusinessClass {
     container () {
         text () { name }
     }

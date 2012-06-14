@@ -30,7 +30,7 @@ public class ValidationRulesTest extends XtextTest {
         assertConstraints(issues.oneOfThemContains("Duplicate alias name BC1"));
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void test_connection_01() {
         testFile("validation/connection-01.spray", "mod4j/BusinessDomainDsl.ecore");

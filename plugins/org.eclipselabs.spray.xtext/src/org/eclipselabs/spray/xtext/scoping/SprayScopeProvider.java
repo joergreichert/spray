@@ -3,17 +3,36 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
+
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
@@ -35,8 +54,6 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
-import org.eclipse.xtext.scoping.impl.ImportNormalizer;
-import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.eclipse.xtext.scoping.impl.SingletonScope;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
@@ -61,22 +78,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
-
 /**
  * This class contains custom scoping description.
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
@@ -91,6 +92,10 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     private IColorConstantTypeProvider colorConstantTypeProvider;
     @Inject
     private IQualifiedNameProvider     qnProvider;
+    @Inject
+    private PackageSelector            packageSelector;
+
+    private static final Logger        LOGGER = Logger.getLogger(SprayScopeProvider.class);
 
     @Override
     public IScope getScope(EObject context, EReference reference) {
@@ -354,7 +359,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             public boolean apply(EReference input) {
                 boolean superType = false;
                 if (mc != null && mc.getType() != null) {
-                    superType = input.getEReferenceType().isSuperTypeOf(mc.getType());
+                    superType = isSuperType(input.getEReferenceType(), mc.getType());
                 }
                 return superType;
             }
@@ -387,7 +392,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         for (EClassifier eClassifiers : diagramModelType.getEPackage().getEClassifiers()) {
             if (eClassifiers instanceof EClass) {
                 for (EReference ref : ((EClass) eClassifiers).getEAllContainments()) {
-                    if (ref.getEType() instanceof EClass && ((EClass) ref.getEType()).isSuperTypeOf(metaClass.getType())) {
+                    if (ref.getEType() instanceof EClass && isSuperType((EClass) ref.getEType(), metaClass.getType())) {
                         containmentReferences.add(ref);
                     }
                 }
@@ -396,9 +401,31 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         return Scopes.scopeFor(containmentReferences);
     }
 
+    /**
+     * @param equals
+     * @return
+     */
+    private boolean isSuperType(EClass eClass1, EClass eClass2) {
+        boolean superType = eClass1.isSuperTypeOf(eClass2);
+        if (!superType) {
+            if (eClass1.getName().equals(eClass2.getName())) {
+                superType = true;
+            } else {
+                for (EClass st : eClass2.getESuperTypes()) {
+                    superType = isSuperType(eClass1, st);
+                }
+            }
+        }
+        return superType;
+    }
+
+    @SuppressWarnings("unchecked")
     protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
         // TODO Restrict to containment types
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
+        if (diagram == null) {
+            return IScope.NULLSCOPE;
+        }
         // all eClasses that are direct containments of context's diagram model type
         final EClass diagramModelType = diagram.getModelType();
         if (diagramModelType == null || diagramModelType.getEPackage() == null) {
@@ -407,33 +434,154 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
             @Override
             public boolean apply(EClassifier input) {
-                return input instanceof EClass && input != diagramModelType && !((EClass) input).isAbstract();
+                return input instanceof EClass && equalClasses((EClass) input, diagramModelType) && !((EClass) input).isAbstract() && isAContainmentReferenceType(diagramModelType, (EClass) input);
+            }
+
+            private boolean equalClasses(EClass input, EClass diagramModelType) {
+                boolean equals = input.equals(diagramModelType);
+                if (!equals) {
+                    EPackage inputPack = input.getEPackage();
+                    EPackage diagramModelTypePack = diagramModelType.getEPackage();
+                    boolean packEquals = false;
+                    if (inputPack != null) {
+                        if (diagramModelTypePack != null) {
+                            packEquals = inputPack.getName() != null && inputPack.getName().equals(diagramModelTypePack.getName()) && inputPack.getNsURI() != null && inputPack.getNsURI().equals(diagramModelTypePack.getNsURI());
+                        }
+                    } else if (diagramModelTypePack == null) {
+                        packEquals = true;
+                    }
+                    if (packEquals) {
+                        if (inputPack.getName() != null && inputPack.getName().equals(diagramModelType.getName())) {
+                            equals = true;
+                        }
+                    }
+                }
+                return equals;
             }
         };
-        final Function<EClassifier, IEObjectDescription> toObjDesc = new Function<EClassifier, IEObjectDescription>() {
-            @Override
-            public IEObjectDescription apply(EClassifier input) {
-                return EObjectDescription.create(qnProvider.apply(input), input);
-            }
-        };
-        // Implicit import of the EPackage of the Diagram Model type 
-        final List<ImportNormalizer> normalizer = Collections.singletonList(new ImportNormalizer(qnProvider.apply(diagramModelType.getEPackage()), true, false));
-        final ImportScope importDiagramTypePackage = new ImportScope(normalizer, delegateGetScope(context, reference), null, null, false);
-        final Iterable<IEObjectDescription> descriptions = Iterables.transform(Iterables.filter(diagramModelType.getEPackage().getEClassifiers(), filter), toObjDesc);
-        // the delegate scope will provide import scopes
-        return MapBasedScope.createScope(importDiagramTypePackage, descriptions);
+        return scopeEClasses(context, filter);
     }
 
+    private boolean isAContainmentReferenceType(EClass diagramModelType, EClass input) {
+        for (EReference containment : diagramModelType.getEAllContainments()) {
+            if (input != null && containment.getEReferenceType() != null && isSuperType(input, containment.getEReferenceType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
     protected IScope scope_Diagram_ModelType(EObject context, EReference reference) {
-        // filter out types with URL schema qualified names
-        final IScope scope = delegateGetScope(context, reference);
-        final Predicate<IEObjectDescription> filter = new Predicate<IEObjectDescription>() {
+        final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
             @Override
-            public boolean apply(IEObjectDescription input) {
-                return !input.getQualifiedName().toString().startsWith("http://");
+            public boolean apply(EClassifier input) {
+                return input instanceof EClass && ((EClass) input).getEAllReferences().size() > 0;
             }
         };
-        return new FilteringScope(scope, filter);
+        return scopeEClasses(context, filter);
+    }
+
+    @SuppressWarnings("unchecked")
+    private IScope scopeEClasses(EObject context, final Predicate<EClassifier>... filters) {
+        List<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
+        List<EPackage> importedEPackages = getImportedPackages(context);
+        Set<EClassifier> eClassifiers = new HashSet<EClassifier>();
+        for (EPackage pack : ePackages) {
+            iteratePackage(pack, eClassifiers);
+        }
+        return createScope(eClassifiers, importedEPackages);
+    }
+
+    private List<EPackage> getImportedPackages(EObject context) {
+        List<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
+        List<EPackage> importedEPackages = new ArrayList<EPackage>();
+        List<String> alreadyImported = packageSelector.getAlreadyImportedForElement(context);
+        String name;
+        for (EPackage pack : ePackages) {
+            name = pack.getName() + ".*";
+            if (alreadyImported.contains(name)) {
+                importedEPackages.add(pack);
+            }
+        }
+        return importedEPackages;
+    }
+
+    private IScope createScope(final Set<EClassifier> eClassifiers, final List<EPackage> ePackages, final Predicate<EClassifier>... filters) {
+        Function<EPackage, IEObjectDescription> packageToObjDesc = new Function<EPackage, IEObjectDescription>() {
+            @Override
+            public IEObjectDescription apply(EPackage from) {
+                return EObjectDescription.create(from.getName(), from);
+            }
+        };
+        Function<EClassifier, IEObjectDescription> qnClassToObjDesc = new Function<EClassifier, IEObjectDescription>() {
+            @Override
+            public IEObjectDescription apply(EClassifier from) {
+                if (from.getEPackage() != null && from.getEPackage().getName() != null) {
+                    return EObjectDescription.create(QualifiedName.create(from.getEPackage().getName(), from.getName()), from);
+                } else {
+                    return EObjectDescription.create(from.getName(), from);
+                }
+            }
+        };
+        Function<EClassifier, IEObjectDescription> classToObjDesc = new Function<EClassifier, IEObjectDescription>() {
+            @Override
+            public IEObjectDescription apply(EClassifier from) {
+                if (containsPackage(ePackages, from.getEPackage())) {
+                    return EObjectDescription.create(from.getName(), from);
+                } else {
+                    if (from.getEPackage() != null && from.getEPackage().getName() != null) {
+                        return EObjectDescription.create(QualifiedName.create(from.getEPackage().getName(), from.getName()), from);
+                    } else {
+                        return EObjectDescription.create(from.getName(), from);
+                    }
+                }
+            }
+
+            private boolean containsPackage(List<EPackage> ePackages, EPackage ePackage) {
+                for (EPackage p : ePackages) {
+                    if (p.getName() != null && p.getName().equals(ePackage.getName()) && p.getNsURI() != null && p.getNsURI().equals(ePackage.getNsURI())) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+        final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
+            @Override
+            public boolean apply(EClassifier input) {
+                boolean filter = true;
+                for (Predicate<EClassifier> f : filters) {
+                    filter = filter && f.apply(input);
+                }
+                return filter;
+            }
+        };
+        Iterable<IEObjectDescription> packages = Iterables.transform(ePackages, packageToObjDesc);
+        Iterable<EClassifier> filtered = Iterables.filter(eClassifiers, filter);
+        Iterable<IEObjectDescription> qnClassifiers = Iterables.transform(filtered, qnClassToObjDesc);
+        List<IEObjectDescription> global = new ArrayList<IEObjectDescription>();
+        for (IEObjectDescription pack : packages) {
+            global.add(pack);
+        }
+        for (IEObjectDescription qnClassifier : qnClassifiers) {
+            global.add(qnClassifier);
+        }
+        final IScope packageScope = MapBasedScope.createScope(IScope.NULLSCOPE, global);
+        return MapBasedScope.createScope(packageScope, Iterables.transform(filtered, classToObjDesc));
+    }
+
+    public void iteratePackage(EPackage pack, Set<EClassifier> eClassifiers) {
+        List<EObject> contents = pack.eContents();
+        EClass eclass;
+        for (EObject o : contents) {
+            if (o instanceof EClass) {
+                eclass = (EClass) o;
+                eClassifiers.add(eclass);
+            } else if (o instanceof EPackage) {
+                iteratePackage((EPackage) o, eClassifiers);
+            }
+        }
     }
 
     protected IScope getColorConstantTypeScope(ColorConstantRef colorConstantRef) {

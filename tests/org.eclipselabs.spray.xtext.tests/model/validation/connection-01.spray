@@ -2,7 +2,7 @@
 // multiple connection references of the same feature are not allowed
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass :
+class BusinessDomainDsl.BusinessClass {
     container () {
         text () { name };
     }
@@ -10,3 +10,4 @@ class BusinessDomainDsl.BusinessClass :
         associationsTo : connection ();
         associationsTo : connection ();
     } 
+}    

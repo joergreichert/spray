@@ -2,12 +2,12 @@
 // Aliased MetaClass
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
+class BusinessDomainDsl.BusinessClass {
     container  () {
     }
 }
 
-class BusinessClass alias BC1 {
+class BusinessDomainDsl.BusinessClass alias BC1 {
     container  () {
     }
 }

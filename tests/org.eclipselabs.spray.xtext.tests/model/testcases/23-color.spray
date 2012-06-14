@@ -1,6 +1,6 @@
 // Referring to implicit Color Constant
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
+class BusinessDomainDsl.BusinessClass {
     container  ( fill=white) {}
 }

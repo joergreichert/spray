@@ -6,35 +6,23 @@ package org.eclipselabs.spray.xtext.ui.contentassist;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
@@ -65,7 +53,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
-import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
@@ -75,6 +62,7 @@ import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.naming.EscapeKeywordFunction;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
+import org.eclipselabs.spray.xtext.scoping.PackageSelector;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
 
@@ -96,7 +84,6 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private IGlobalScopeProvider          globalScopeProvider;
     @Inject
     private SprayDescriptionLabelProvider descriptionLabelProvider;
-    @SuppressWarnings("unused")
     @Inject
     private SprayGrammarAccess            grammar;
     private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
@@ -114,6 +101,8 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     ITypesProposalProvider                proposalProvider;
     @Inject
     IJvmTypeProvider.Factory              typeProviderFactory;
+    @Inject
+    private PackageSelector               packageSelector;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -167,7 +156,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     protected Image getImage(IPath path) {
         URL url = null;
         try {
-            url = path.toFile().toURL();
+            url = path.toFile().toURI().toURL();
         } catch (MalformedURLException e) {
             return null;
         }
@@ -266,50 +255,18 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
 
     @Override
     public void completeImport_ImportedNamespace(EObject model, Assignment assignment, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        Set<Entry<String, Object>> packages = EPackage.Registry.INSTANCE.entrySet();
         EObject container = model.eContainer();
-        IJavaProject project = getJavaProject(model);
+        IJavaProject project = packageSelector.getJavaProject(model);
+        Set<EPackage> ePackages = new HashSet<EPackage>();
         if (project != null) {
-            List<String> alreadyImported = getAlreadyImported(container);
-            List<EPackage> ePackages = getEPackages(packages);
-            createImportProposals(context, acceptor, project, alreadyImported, ePackages);
+            List<String> alreadyImported = packageSelector.getAlreadyImported(container);
+            ePackages.addAll(packageSelector.getEPackages());
+            createImportProposals(context, acceptor, project, alreadyImported, new ArrayList<EPackage>(ePackages));
         }
-    }
-
-    private List<EPackage> getEPackages(Set<Entry<String, Object>> packages) {
-        List<EPackage> ePackages = new ArrayList<EPackage>();
-        Object packageObj = null;
-        EPackage.Descriptor ePackageDescriptor = null;
-        EPackage ePackage = null;
-        for (Entry<String, Object> entry : packages) {
-            packageObj = entry.getValue();
-            if (packageObj instanceof EPackage) {
-                ePackages.add((EPackage) packageObj);
-            } else if (packageObj instanceof EPackage.Descriptor) {
-                ePackageDescriptor = (EPackage.Descriptor) packageObj;
-                ePackage = ePackageDescriptor.getEPackage();
-                if (ePackage != null) {
-                    ePackages.add(ePackage);
-                }
-            }
-        }
-        return ePackages;
-    }
-
-    private List<String> getAlreadyImported(EObject container) {
-        Import ni;
-        List<String> alreadyImported = new ArrayList<String>();
-        for (EObject child : container.eContents()) {
-            if (child instanceof Import) {
-                ni = (Import) child;
-                alreadyImported.add(ni.getImportedNamespace());
-            }
-        }
-        return alreadyImported;
     }
 
     private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, IJavaProject javaProject, List<String> alreadyImported, List<EPackage> ePackages) {
-        List<EPackage> filteredEPackages = filterAccessibleEPackages(javaProject, ePackages);
+        List<EPackage> filteredEPackages = packageSelector.filterAccessibleEPackages(javaProject, ePackages);
         for (EPackage ePackage : filteredEPackages) {
             createImportProposals(context, acceptor, alreadyImported, ePackage);
         }
@@ -323,83 +280,5 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
             proposal.setDisplayString(displayString);
             acceptor.accept(proposal);
         }
-    }
-
-    private List<EPackage> filterAccessibleEPackages(IJavaProject javaProject, List<EPackage> ePackages) {
-        List<EPackage> filteredEPackages = new ArrayList<EPackage>();
-        try {
-            GenPackage genPackage = null;
-            String fullqualifiedPackageClassName = null;
-            IType type = null;
-            for (EPackage ePackage : ePackages) {
-                genPackage = getGenPackage(ePackage);
-                if (genPackage != null) {
-                    fullqualifiedPackageClassName = genPackage.getClassPackageName() + "." + genPackage.getPackageClassName();
-                    type = javaProject.findType(fullqualifiedPackageClassName);
-                    if (type != null) {
-                        filteredEPackages.add(ePackage);
-                    }
-                }
-            }
-        } catch (JavaModelException e) {
-            e.printStackTrace();
-        }
-        return filteredEPackages;
-    }
-
-    public GenPackage getGenPackage(EPackage pack) {
-        URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(pack.getNsURI());
-        if (genModelLoc == null) {
-            throw new IllegalStateException("No genmodel found for package URI " + pack.getNsURI() + ". If you are running in stanalone mode make sure register the genmodel file.");
-        }
-        ResourceSet rs = new ResourceSetImpl();
-        Resource genModelResource;
-        try {
-            genModelResource = rs.getResource(genModelLoc, true);
-            for (GenModel g : Iterables.filter(genModelResource.getContents(), GenModel.class)) {
-                for (GenPackage genPack : g.getGenPackages()) {
-                    if (genPack.getEcorePackage().getNsURI().equals(pack.getNsURI()) && genPack.getEcorePackage().getName().equals(pack.getName())) {
-                        return genPack;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            if (e instanceof java.io.FileNotFoundException) {
-                System.err.println(e.getMessage());
-            } else {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    private IJavaProject getJavaProject(EObject model) {
-        IJavaProject javaProject = null;
-        IContainer container = getProject(model);
-        if (container instanceof IProject) {
-            IProject project = (IProject) container;
-            javaProject = JavaCore.create(project);
-        }
-        return javaProject;
-    }
-
-    private IContainer getProject(EObject model) {
-        String fileStr = model.eResource().getURI().toPlatformString(true);
-        if (fileStr == null) {
-            return null;
-        }
-        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromOSString(fileStr));
-        return getProject(file);
-    }
-
-    private IContainer getProject(IResource res) {
-        IContainer parent = res.getParent();
-        if (parent == null) {
-            parent = null;
-        }
-        if (!(parent instanceof IProject)) {
-            parent = getProject(parent);
-        }
-        return parent;
     }
 }

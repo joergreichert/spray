@@ -2,6 +2,6 @@
 // Aliased Shape of type Text
 diagram test for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
+class BusinessDomainDsl.BusinessClass {
     text alias shape1 () ""
 }
