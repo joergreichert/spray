@@ -106,7 +106,7 @@ class UpdateShapeFeature extends FileGenerator<ContainerInSpray>  {
                     for (final Shape shape : textBox.getChildren()) {
                         if (shape.getGraphicsAlgorithm() instanceof Text) {
                             final Text text = (Text) shape.getGraphicsAlgorithm();
-                            final String type = peService.getPropertyValue(shape, ISprayConstants.PROPERTY_MODEL_TYPE);
+                            final String type = peService.getPropertyValue(shape, PROPERTY_MODEL_TYPE);
                             final String value = getValues(eClass).get(type);
                             if(value != null){
                                 final String pictogramName = text.getValue();
