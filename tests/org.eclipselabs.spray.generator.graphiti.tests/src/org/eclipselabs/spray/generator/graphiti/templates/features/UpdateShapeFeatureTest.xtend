@@ -339,7 +339,6 @@ class UpdateShapeFeatureTest {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import org.eclipselabs.spray.runtime.containers.SprayContainerService;
         import samplepackage.SampleEClass;
