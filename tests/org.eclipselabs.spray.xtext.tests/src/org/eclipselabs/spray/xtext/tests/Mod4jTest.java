@@ -21,6 +21,7 @@ public class Mod4jTest extends XtextTest {
     public void before() {
         super.before();
         suppressSerialization();
+		EPackage.Registry.INSTANCE.put(IBusinessDomainDslPackage.eNS_URI, IBusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
 
         EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(IBusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
