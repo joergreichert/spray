@@ -9,5 +9,8 @@ class BusinessDomainDsl.BusinessClass {
     references {
         associationsTo : connection ();
         associationsTo : connection ();
-    } 
+    }
+    behavior {
+        create into types palette "Shapes"  askFor name ; 
+    }
 }    
