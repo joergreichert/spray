@@ -42,15 +42,9 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.features.context.ILayoutContext;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-<<<<<<< HEAD
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
         import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
         import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
-=======
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
-        import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
-        import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
->>>>>>> eclipse_juno
         
         // MARKER_IMPORT
         

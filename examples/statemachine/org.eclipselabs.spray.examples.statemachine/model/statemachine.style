@@ -1,4 +1,4 @@
-style BoldStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+style BoldStyle extends org.eclipselabs.spray.styles.DefaultSprayStyle {
 	description = "styling applying to all kind of special nodes"
 	font-size = 8
 	font-bold = yes	
@@ -11,12 +11,12 @@ style EndNodeStyle extends org.eclipselabs.spray.styles.BoldStyle {
 	description = "styles a ending node"
 }
 
-style NormalNodeStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+style NormalNodeStyle extends org.eclipselabs.spray.styles.DefaultSprayStyle {
 	description = "styles a normal state node"
 	background-color = RGB(0,64,128)
 }
 
-style TransitionStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+style TransitionStyle extends org.eclipselabs.spray.styles.DefaultSprayStyle {
 	description = "styles a state transition line"
 	line-style = solid 
 	line-width = 3
@@ -27,7 +27,7 @@ style NodeNameStyle extends org.eclipselabs.spray.styles.BoldStyle {
 	description = "styles the label of a normal state"
 }
 
-style NodeDescStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+style NodeDescStyle extends org.eclipselabs.spray.styles.DefaultSprayStyle {
 	description = "styles the description of a normal state"
 	font-size = 6
 	font-bold = no

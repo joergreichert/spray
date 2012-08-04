@@ -52,7 +52,6 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     def mainFile(ShapeFromDsl container, String className) '''
         «header(this)»
         package «feature_package()»;
-<<<<<<< HEAD
         
         import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
@@ -76,31 +75,6 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
 
-=======
-        
-        import org.eclipse.emf.ecore.EObject;
-        import org.eclipse.graphiti.features.IFeatureProvider;
-        import org.eclipse.graphiti.features.context.IAddContext;
-        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-        import org.eclipse.graphiti.mm.pictograms.Shape;
-        import org.eclipse.graphiti.mm.pictograms.Diagram;
-        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-        import org.eclipse.graphiti.services.Graphiti;
-        import org.eclipse.graphiti.services.IGaService;
-        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-        import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
-        import «container.shape.qualifiedName»;
-        «IF styleRef != null && styleRef.style != null»
-        import «styleRef.style.qualifiedName»;
-        «ELSE»
-        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
-        «ENDIF»
-        import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
-        
-        import «metaClass.javaInterfaceName»;
-        // MARKER_IMPORT
-
->>>>>>> eclipse_juno
         @SuppressWarnings("unused")
         public abstract class «className» extends AbstractAddFeature {
             protected final static String typeOrAliasName = "«metaClass.visibleName»";

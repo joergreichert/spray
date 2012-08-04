@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -23,29 +22,3 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PetriEdge" eSuperTypes="#//PetriModel"/>
 </ecore:EPackage>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PetriNet"
-    nsURI="http://de.htwg.petrinet.mm/" nsPrefix="PetriNet">
-  <eClassifiers xsi:type="ecore:EClass" name="PetriNode" eSuperTypes="#//PetriModel"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PlaceEClass" eSuperTypes="#//PetriNode">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="token" eType="#//TokenEClass"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TokenEClass" eSuperTypes="#//PetriNode"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TransitionEClass" eSuperTypes="#//PetriNode"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ArcEClass" eSuperTypes="#//PetriEdge">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="petriFrom" eType="#//PetriNode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="petriTo" eType="#//PetriNode"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PetriModel">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="petriModels" upperBound="-1"
-        eType="#//PetriModel" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PetriEdge" eSuperTypes="#//PetriModel"/>
-</ecore:EPackage>
->>>>>>> eclipse_juno

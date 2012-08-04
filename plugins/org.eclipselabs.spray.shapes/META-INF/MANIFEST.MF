@@ -28,15 +28,9 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.3.0,2.4.0)";visibility:=ree
  org.eclipse.graphiti.mm,
  org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.ui,
-<<<<<<< HEAD
- org.eclipse.xtend2.lib;bundle-version="2.2.0",
- org.eclipselabs.spray.runtime.xtext,
- org.eclipselabs.spray.runtime.graphiti
-=======
  org.eclipselabs.spray.runtime.xtext,
  org.eclipse.xtext.xbase.lib,
  org.eclipselabs.spray.runtime.graphiti;bundle-version="0.5.0"
->>>>>>> eclipse_juno
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib

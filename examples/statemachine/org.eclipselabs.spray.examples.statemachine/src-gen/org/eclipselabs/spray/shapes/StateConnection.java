@@ -15,8 +15,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 
-import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection;
-import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+import org.eclipselabs.spray.styles.ISprayStyle;
 
 
 @SuppressWarnings("all")

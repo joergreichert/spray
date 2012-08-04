@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -42,48 +41,3 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="toElement" eType="#//LWCSystemEnd"/>
   </eClassifiers>
 </ecore:EPackage>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="LanguageWorkbenchCompetition"
-    nsURI="http://de.htwg.2012.lwc" nsPrefix="lwc">
-  <eClassifiers xsi:type="ecore:EClass" name="LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElements" upperBound="-1"
-        eType="#//LWCModelElement" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCHeatExchanger" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCPipe" eSuperTypes="#//LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fromElement" eType="#//LWCModelElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toElement" eType="#//LWCModelElement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCSourceExhaustStart" eSuperTypes="#//LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fromElement" eType="#//LWCSystemEnd"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toElement" eType="#//LWCModelElement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCVesselVertical" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCVesselHorizontal" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCValve" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCValveManuel" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCValveControl" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCPump" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCPumpVacuum" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCSystemEnd" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCJoint" eSuperTypes="#//LWCModelElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCLocationNoLine" eSuperTypes="#//LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCLocationSolidLine" eSuperTypes="#//LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCLocationDashLine" eSuperTypes="#//LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LWCSourceExhaustEnd" eSuperTypes="#//LWCModelElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fromElement" eType="#//LWCModelElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toElement" eType="#//LWCSystemEnd"/>
-  </eClassifiers>
-</ecore:EPackage>
->>>>>>> eclipse_juno

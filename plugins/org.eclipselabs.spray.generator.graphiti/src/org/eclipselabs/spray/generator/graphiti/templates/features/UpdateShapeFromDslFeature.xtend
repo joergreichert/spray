@@ -16,17 +16,10 @@ import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension NamingExtensions
     @Inject extension DiagramExtensions
-<<<<<<< HEAD
   	@Inject extension SprayCompiler
   	
   	String functionClassName = "com.google.common.base.Function"
   	
-=======
-  	@Inject extension SprayCompiler
-  	
-  	String functionClassName = "com.google.common.base.Function"
-  	
->>>>>>> eclipse_juno
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
         mainFile(modelElement, javaGenFile.baseClassName)
     }
@@ -118,7 +111,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 return Reason.createFalseReason();
              }
         '''
-<<<<<<< HEAD
         
 		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
 	    	private boolean checkUpdateNeededRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
@@ -153,42 +145,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    		return false;
 	    	}
 	    '''
-=======
-        
-		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
-	    	private boolean checkUpdateNeededRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
-	    		if(graphicsAlgorithm instanceof Text) {
-	    			«IF !container.properties.empty»
-	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
-	    			if(id != null) {
-	    				«FOR property : container.properties»
-	    				if(id.equals("«property.key.simpleName»")) {
-	    					«IF property.value != null»
-	    					«property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
-	    					«ELSE»
-	    					String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
-	    					«ENDIF»
-	    					String gAlgorithmValue = text.getValue();
-	    					if(eClassValue != null) {
-	    						if(!eClassValue.equals(gAlgorithmValue)) {
-	    							return true;
-	    						}
-	    					}
-	    				}
-	    				«ENDFOR»
-	    			}
-	    			«ENDIF»
-	    		}
-	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
-	    			if(checkUpdateNeededRecursively(gAlgorithmChild, eClass)) {
-	    				return true;
-	    			}
-	    		}
-	    		return false;
-	    	}
-	    '''
->>>>>>> eclipse_juno
     
         def generate_update (ShapeFromDsl container) '''
             «overrideHeader»
@@ -206,7 +162,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 
             }
         '''
-<<<<<<< HEAD
 	        
 	    def generate_updateChildsRecursively(ShapeFromDsl container) '''
 	    	private void updateChildsRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
@@ -233,34 +188,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    		}
 	    	}
 	    '''
-=======
-	        
-	    def generate_updateChildsRecursively(ShapeFromDsl container) '''
-	    	private void updateChildsRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
-	    		if(graphicsAlgorithm instanceof Text) {
-	    			«IF !container.properties.empty»
-	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
-	    			if(id != null) {
-	    				«FOR property : container.properties»
-	    				if(id.equals("«property.key.simpleName»")) {
-	    					«IF property.value != null»
-	    					«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
-	    					text.setValue(value);
-	    					«ELSE»
-	    					text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
-	    					«ENDIF»
-	    				}
-	    				«ENDFOR»
-	    			}
-	    			«ENDIF»
-	    		}
-	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
-	    			updateChildsRecursively(gAlgorithmChild, eClass);
-	    		}
-	    	}
-	    '''
->>>>>>> eclipse_juno
         
 	   def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
 	   		«returnType» «valueName» = new «functionClassName.shortName»<«metaClassName», «returnType»>() {

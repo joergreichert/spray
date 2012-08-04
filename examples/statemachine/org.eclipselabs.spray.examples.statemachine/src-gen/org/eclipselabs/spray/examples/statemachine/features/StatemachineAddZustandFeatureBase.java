@@ -19,9 +19,9 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.shapes.Node;
+import org.eclipselabs.spray.styles.ISprayStyle;
+import org.eclipselabs.spray.styles.DefaultSprayStyle;
 import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
-import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
-import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 
 
 public class StatemachineAddZustandFeatureBase extends AbstractAddFeature {

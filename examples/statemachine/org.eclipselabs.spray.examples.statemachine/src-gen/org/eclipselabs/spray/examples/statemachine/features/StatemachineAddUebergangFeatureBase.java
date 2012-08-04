@@ -21,7 +21,7 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
-import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+import org.eclipselabs.spray.styles.ISprayStyle;
 import org.eclipselabs.spray.styles.TransitionStyle;
 import com.google.common.base.Function;
 

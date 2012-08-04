@@ -355,7 +355,6 @@ class UpdateShapeFeatureTest {
                 gaService = Activator.get(IGaService.class);
             }
          
-<<<<<<< HEAD
             /**
              * {@inheritDoc}
              */
@@ -430,80 +429,4 @@ class UpdateShapeFeatureTest {
             }
         }
     '''
-=======
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean canUpdate(final IUpdateContext context) {
-                // return true, if linked business object is a EClass
-                final PictogramElement pictogramElement = context.getPictogramElement();
-                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                return (bo instanceof SampleEClass)&& (!(pictogramElement instanceof Diagram));
-            }
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public IReason updateNeeded(final IUpdateContext context) {
-                final PictogramElement pictogramElement = context.getPictogramElement();
-                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if ( ! (bo instanceof SampleEClass)) {
-                    return Reason.createFalseReason(); 
-                }
-                final SampleEClass eClass = (SampleEClass) bo;
-            
-                // retrieve name from pictogram model
-                if (pictogramElement instanceof ContainerShape) {
-                    final ContainerShape cs = (ContainerShape) pictogramElement;
-                    final ContainerShape textBox = SprayContainerService.findTextShape(cs);
-                    for (final Shape shape : textBox.getChildren()) {
-                        if (shape.getGraphicsAlgorithm() instanceof Text) {
-                            final Text text = (Text) shape.getGraphicsAlgorithm();
-                            final String type = peService.getPropertyValue(shape, PROPERTY_MODEL_TYPE);
-                            final String value = getValues(eClass).get(type);
-                            if(value != null){
-                                final String pictogramName = text.getValue();
-            
-                                // update needed, if names are different
-                                boolean updateNameNeeded =((pictogramName == null && value != null) || (pictogramName != null && !pictogramName.equals(value)));
-                                if (updateNameNeeded) {
-                                    return Reason.createTrueReason("Name [" + pictogramName + "] is out of date");
-                                }
-                            }
-                        }
-                    }
-                }
-                return Reason.createFalseReason();
-             }
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public boolean update(final IUpdateContext context) {
-                final PictogramElement pictogramElement = context.getPictogramElement();
-                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-                final SampleEClass eClass = (SampleEClass) bo;
-                return SprayContainerService.update(pictogramElement, getValues(eClass));
-                
-            }
-            Map<String, String> values = null; 
-            protected Map<String, String> getValues(final SampleEClass eClass) {
-                if (values == null) {
-                    values = new HashMap<String, String>();
-                    fillValues(eClass);
-                }
-                return values;
-            }
-            
-            protected void fillValues(final SampleEClass eClass) {
-                String type, value;
-            }
-            
-            protected String getValue (final String type, final SampleEClass eClass) {
-                throw new IllegalArgumentException(type);
-            }
-        }
-    '''
->>>>>>> eclipse_juno
 }

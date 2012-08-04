@@ -11,7 +11,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
+import org.eclipselabs.spray.styles.DefaultSprayStyle;
 
 /**
  * This is a generated Style class for Spray.

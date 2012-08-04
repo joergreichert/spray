@@ -2,11 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray.examples.lwc2012
 Bundle-Vendor: My Company
-<<<<<<< HEAD
-Bundle-Version: 1.0.0.qualifier
-=======
 Bundle-Version: 0.5.0.qualifier
->>>>>>> eclipse_juno
 Bundle-SymbolicName: org.eclipselabs.spray.examples.lwc2012;singleton:=true
 Bundle-Activator: org.eclipselabs.spray.examples.lwc2012.Activator
 Bundle-ActivationPolicy: lazy
@@ -19,30 +15,19 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.graphiti.ui;bundle-version="0.8.0",
  org.eclipse.graphiti.ui.capabilities;bundle-version="0.8.0",
  org.eclipselabs.spray.runtime.graphiti,
-<<<<<<< HEAD
-=======
  org.eclipselabs.spray.generator.graphiti,
->>>>>>> eclipse_juno
  org.eclipse.ui.views.properties.tabbed;bundle-version="3.5.200",
  org.eclipse.emf;bundle-version="2.6.0",
  org.eclipse.emf.transaction;bundle-version="1.4.0",
  org.eclipselabs.spray.xtext,
  org.eclipse.xtext.ui,
-<<<<<<< HEAD
- org.eclipselabs.spray.shapes.ui,
-=======
  org.eclipselabs.spray.shapes,
  org.eclipselabs.spray.shapes.ui,
  org.eclipselabs.spray.styles,
->>>>>>> eclipse_juno
  org.eclipselabs.spray.styles.ui,
  de.htwg.2012.lwc.mm
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib,
-<<<<<<< HEAD
- org.eclipse.xtext.xtend2.lib
-=======
  org.eclipse.xtend2.lib
->>>>>>> eclipse_juno
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
