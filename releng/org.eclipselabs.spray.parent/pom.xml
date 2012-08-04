@@ -17,8 +17,7 @@
 		<junit-version>4.8.1</junit-version>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository/</orbit-site>
-		<!-- <spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository> -->
-		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-juno/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
+		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
 		<platform-version-name>juno</platform-version-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
