@@ -4,10 +4,12 @@ import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XFeatureCall;
 import org.eclipse.xtext.xbase.compiler.IAppendable;
 import org.eclipse.xtext.xbase.compiler.ImportManager;
-import org.eclipse.xtext.xbase.compiler.StringBuilderBasedAppendable;
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
+import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
+import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
 import org.eclipselabs.spray.mm.spray.TextInSpray;
 
@@ -21,14 +23,14 @@ public class SprayCompiler extends XbaseCompiler {
     private String        metaClassVariable;
 
     public String compile(TextInSpray operation, ImportManager importManager) {
-        StringBuilderBasedAppendable appendable = new StringBuilderBasedAppendable(importManager);
+        ITreeAppendable appendable = new FakeTreeAppendable(importManager);
         IAppendable result = compile(operation.getValue(), appendable, typeProvider.getExpectedType(operation.getValue()));
         return result.toString();
     }
 
     public String compileForPropertyAssignement(XExpression expression, String valueName, String metaClassVariable) {
         setMetaClassVariable(metaClassVariable);
-        StringBuilderBasedAppendable appendable = new StringBuilderBasedAppendable(new ImportManager(false));
+        ITreeAppendable appendable = new FakeTreeAppendable(new ImportManager(false));
         IAppendable result = compile(expression, appendable, typeProvider.getExpectedType(expression));
         return result.toString();
     }
@@ -41,7 +43,7 @@ public class SprayCompiler extends XbaseCompiler {
     }
 
     @Override
-    protected boolean isVariableDeclarationRequired(XExpression expr, IAppendable b) {
+    protected boolean isVariableDeclarationRequired(XExpression expr, ITreeAppendable b) {
         if (expr instanceof XAbstractFeatureCall && ((XAbstractFeatureCall) expr).getFeature() instanceof JvmGenericType) {
             return false;
         }
@@ -49,11 +51,21 @@ public class SprayCompiler extends XbaseCompiler {
     }
 
     @Override
-    protected String getVarName(Object ex, IAppendable appendable) {
+    protected String getVarName(Object ex, ITreeAppendable appendable) {
         if (ex instanceof JvmGenericType) {
             return metaClassVariable != null ? metaClassVariable : "this";
         }
         return super.getVarName(ex, appendable);
+    }
+
+    @Override
+    protected String getReferenceName(XExpression expr, ITreeAppendable b) {
+        if (expr instanceof XFeatureCall) {
+            if (((XFeatureCall) expr).getFeature() instanceof JvmGenericType) {
+                return metaClassVariable != null ? metaClassVariable : "this";
+            }
+        }
+        return super.getReferenceName(expr, b);
     }
 
     public String getMetaClassVariable() {

@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.mm.spray.Diagram
 
+=======
+package org.eclipselabs.spray.generator.graphiti.templates.diagram
+
+import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipselabs.spray.mm.spray.Diagram
+
+>>>>>>> eclipse_juno
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 

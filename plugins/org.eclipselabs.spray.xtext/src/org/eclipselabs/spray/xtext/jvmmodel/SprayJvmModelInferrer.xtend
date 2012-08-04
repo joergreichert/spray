@@ -1,11 +1,10 @@
 package org.eclipselabs.spray.xtext.jvmmodel
 
 import com.google.inject.Inject
-import org.eclipse.xtext.common.types.JvmDeclaredType
 import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.naming.IQualifiedNameConverter
-import org.eclipse.xtext.util.IAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
+import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.xtext.util.GenModelHelper
@@ -25,7 +24,7 @@ class SprayJvmModelInferrer extends AbstractModelInferrer {
     @Inject extension JvmTypesBuilder
     @Inject IQualifiedNameConverter converter
 
-    def dispatch infer(MetaClass clazz, IAcceptor<JvmDeclaredType> acceptor, boolean prelinkingPhase) {
+    def dispatch void infer(MetaClass clazz, IJvmDeclaredTypeAcceptor acceptor, boolean prelinkingPhase) {
         if (clazz.type==null || clazz.type.eIsProxy) return;
         try {
             clazz.type.javaInterfaceName
@@ -40,12 +39,11 @@ class SprayJvmModelInferrer extends AbstractModelInferrer {
         }
         
         val clazzName = if (clazz.alias == null) clazz.type.name else clazz.alias
-        acceptor.accept(
-            clazz.toClass(converter.toQualifiedName("org.eclipselabs.spray."+clazz.type.EPackage.name+"."+clazzName)) [
+        val infered = clazz.toClass(converter.toQualifiedName("org.eclipselabs.spray."+clazz.type.EPackage.name+"."+clazzName)) [
                 members += toField("ecoreClass", eClassJvmType)
                 members += toGetter("ecoreClass", eClassJvmType)
             ]
-        )
+        acceptor.accept(infered);
     }
 
 }

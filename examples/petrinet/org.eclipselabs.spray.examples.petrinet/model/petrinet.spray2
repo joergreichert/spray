@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*************************************************************************************
  *
  * Spray diagram definition
@@ -82,4 +83,90 @@ edge SecondArc for ArcEClass {
 		target petriTo
 		edit-on-create name
 	}
+=======
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also petrinet.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import PetriNet.*
+import org.eclipselabs.spray.shapes.*
+import org.eclipselabs.spray.styles.*
+
+diagram petrinet for PetriModel style PetrinetDefaultStyle
+
+node Place for PlaceEClass {
+	figure PlaceShape {
+		text placeDescription for name
+	}
+	tooling {
+		rapid-buttons Arc to Transition, Arc to EmptyTransition, SecondArc to Transition, Arc to EmptyTransition 
+	}
+	behavior {
+		creatable-in petriModels
+		edit-on-create name
+	}
+}
+
+node Transition for TransitionEClass {
+	figure TransitionShape {
+		text transitionShapeDescription for name
+	}
+	tooling {
+		rapid-buttons Arc to Place, SecondArc to Place
+	}
+	behavior {
+		creatable-in petriModels
+		edit-on-create name
+	}
+}
+
+node EmptyTransition for TransitionEClass {
+	figure EmptyTransitionShape {
+		text transitionShapeDescription for name
+	}
+	tooling {
+		rapid-buttons Arc to Place, SecondArc to Place
+	}
+	behavior {
+		creatable-in petriModels
+		edit-on-create name
+	}
+}
+
+node Token for TokenEClass {
+	figure TokenShape
+	tooling {}
+	behavior {
+		creatable-in petriModels, token
+		edit-on-create name
+	}
+}
+
+edge Arc for ArcEClass {
+	figure ArcConnection {}
+	tooling {}
+	behavior {
+		creatable-in petriModels
+		source petriFrom
+		target petriTo
+		edit-on-create name
+	}
+}
+
+edge SecondArc for ArcEClass {
+	figure ArcConnection {}
+	tooling {}
+	behavior {
+		creatable-in petriModels
+		source petriFrom
+		target petriTo
+		edit-on-create name
+	}
+>>>>>>> eclipse_juno
 }

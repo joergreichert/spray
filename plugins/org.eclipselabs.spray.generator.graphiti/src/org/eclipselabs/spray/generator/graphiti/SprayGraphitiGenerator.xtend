@@ -53,9 +53,15 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+<<<<<<< HEAD
 import org.eclipselabs.spray.generator.graphiti.templates.features.ResizeFeature
 
 class SprayGraphitiGenerator implements IGenerator {
+=======
+import org.eclipselabs.spray.generator.graphiti.templates.features.ResizeFeature
+
+class SprayGraphitiGenerator implements IGenerator {
+>>>>>>> eclipse_juno
     @Inject Provider<JavaGenFile> genFileProvider
     @Inject extension NamingExtensions naming
     @Inject extension DiagramExtensions diagramExtensions
@@ -94,6 +100,7 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject DirectEditFeature directEditFeature
     @Inject CopyFeature copyFeature
     @Inject PasteFeature pasteFeature
+<<<<<<< HEAD
     @Inject ResizeFeature resizeFeature
     /**
      * This method is a long sequence of calling all templates for the code generation
@@ -103,6 +110,17 @@ class SprayGraphitiGenerator implements IGenerator {
         //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
         ProjectProperties::setModelUri(resource.URI)
 
+=======
+    @Inject ResizeFeature resizeFeature
+    /**
+     * This method is a long sequence of calling all templates for the code generation
+     */
+    override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
+        //var String modelPath = resource.getURI().devicePath;
+        //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
+        ProjectProperties::setModelUri(resource.URI)
+
+>>>>>>> eclipse_juno
         val JavaGenFile java = genFileProvider.get()
         java.access = fsa
         var Diagram diagram = resource.contents.head as Diagram
@@ -143,6 +161,7 @@ class SprayGraphitiGenerator implements IGenerator {
         
         generateCopyFeature(diagram, java, copyFeature)
         generatePasteFeature(diagram, java, pasteFeature)
+<<<<<<< HEAD
         generateResizeFeature(diagram, java, resizeFeature)
     }
     
@@ -186,6 +205,51 @@ class SprayGraphitiGenerator implements IGenerator {
     
     def generateAddShapeFeatures(Diagram diagram, JavaGenFile java, AddShapeFeature asf) {
         // Generate for all Container Shapes
+=======
+        generateResizeFeature(diagram, java, resizeFeature)
+    }
+    
+
+
+    def generatePluginXml(Diagram diagram, IFileSystemAccess fsa) {
+        fsa.generateFile("plugin.xml", plugin.generate(diagram))
+    }
+    
+    def generatePluginActivator(Diagram diagram, JavaGenFile java, PluginActivator activator) {
+        java.hasExtensionPoint = false
+        java.setPackageAndClass(diagram.activatorClassName)
+        activator.generate(diagram, java)
+    }
+    
+    def generateExectuableExtensionFactory(Diagram diagram, JavaGenFile java) {
+        java.setPackageAndClass(diagram.extensionFactoryClassName)
+        executableExtensionFactory.generate(diagram, java)
+    }
+    
+    def generateModelService(Diagram diagram, JavaGenFile java) {
+        java.setPackageAndClass(diagram.modelServiceClassName)
+        modelService.generate(diagram, java)
+    }
+    
+    def generateGuiceModule(Diagram diagram, JavaGenFile java) {
+        java.hasExtensionPoint = true
+        java.setPackageAndClass(diagram.guiceModuleClassName)
+        guiceModule.generate(diagram, java)
+    }
+    
+    def generateDiagramTypeProvider(Diagram diagram, JavaGenFile java, DiagramTypeProvider diagramTypeProvider) {
+        java.setPackageAndClass(diagram.diagramTypeProviderClassName)
+        diagramTypeProvider.generate(diagram, java)
+    }
+    
+    def generateFeatureProvider(Diagram diagram, JavaGenFile java, FeatureProvider featureProvider) {
+        java.setPackageAndClass(diagram.featureProviderClassName)
+        featureProvider.generate(diagram, java)
+    }
+    
+    def generateAddShapeFeatures(Diagram diagram, JavaGenFile java, AddShapeFeature asf) {
+        // Generate for all Container Shapes
+>>>>>>> eclipse_juno
         for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ContainerInSpray)){
             var container = metaClass.representedBy as ContainerInSpray
             java.setPackageAndClass(metaClass.addFeatureClassName)
@@ -266,7 +330,7 @@ class SprayGraphitiGenerator implements IGenerator {
     }
     
     def handleTargetType(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
-        if( !targetType.abstract ) {
+        if( !targetType.^abstract ) {
 //            println("NOT ABSTRACT: " + targetType.name)
             java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
             cralf.setTarget(targetType)
@@ -283,7 +347,7 @@ class SprayGraphitiGenerator implements IGenerator {
     
     def handleTargetTypeSubClasses(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
         for( subclass : targetType.getSubclasses() ){
-            if( ! subclass.abstract ){
+            if( ! subclass.^abstract ){
                 println("NOT ABSTRACT subclass: " + subclass.name)
                 java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
                 cralf.setTarget(subclass)
@@ -485,5 +549,10 @@ class SprayGraphitiGenerator implements IGenerator {
             java.setPackageAndClass(metaClass.resizeFeatureClassName)
         	lf.generate(container, java)
     	} 	
+<<<<<<< HEAD
     }
 }
+=======
+    }
+}
+>>>>>>> eclipse_juno

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*************************************************************************************
  *
  * Spray diagram definition
@@ -13,6 +14,23 @@ import BPMN.*
 import org.eclipselabs.spray.shapes.*
 import org.eclipselabs.spray.styles.*
 
+=======
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also bpmn.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here, e.g.
+// import BPMN.*
+import BPMN.*
+import org.eclipselabs.spray.shapes.*
+import org.eclipselabs.spray.styles.*
+
+>>>>>>> eclipse_juno
 diagram bpmn for BPMNModelElement style BpmnDefaultStyle
 
 class BPMNActivityCallActivity {
@@ -467,4 +485,8 @@ class BPMNConditionalFlow {
 	behavior {
 		create into modelElements palette "Connections";
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> eclipse_juno

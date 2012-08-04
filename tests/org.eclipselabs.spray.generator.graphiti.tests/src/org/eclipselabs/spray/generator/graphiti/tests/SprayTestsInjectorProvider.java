@@ -12,7 +12,8 @@ import com.google.inject.Injector;
 public class SprayTestsInjectorProvider extends SprayInjectorProvider {
     private Injector injector;
 
-    public Injector getInjector() {
+    @Override
+    public Injector internalCreateInjector() {
         if (injector == null) {
             this.injector = new SprayTestsStandaloneSetup().createInjectorAndDoEMFRegistration();
         }

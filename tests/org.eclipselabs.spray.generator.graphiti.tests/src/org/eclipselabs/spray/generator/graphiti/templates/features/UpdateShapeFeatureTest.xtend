@@ -29,7 +29,16 @@ import org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider
 class UpdateShapeFeatureTest {
     @Inject
     UpdateShapeFeature sut
-    
+    @Inject
+    SprayFactory factory
+    @Inject
+    EcoreFactory ecoreFactory
+    @Inject
+    XbaseFactory xbaseFactory 
+    @Inject
+    GenModelFactory genmodelFactory
+    @Inject
+    private ResourceSet resourceSet
     
     @Test
     def testMainExtensionPointFile__WhenClassNameIsNotNull() {
@@ -63,9 +72,9 @@ class UpdateShapeFeatureTest {
     
     @Test
     def testGenerate_canUpdate__WhenMetaClassHasName() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val ContainerInSpray container = factory.createContainerInSpray
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = "SampleEClass"
         metaClass.type = eClass 
         container.represents = metaClass
@@ -87,9 +96,9 @@ class UpdateShapeFeatureTest {
     
     @Test
     def testGenerate_updateNeeded__WhenMetaClassHasName() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val ContainerInSpray container = factory.createContainerInSpray
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = "SampleEClass"
         metaClass.type = eClass 
         container.represents = metaClass
@@ -136,9 +145,9 @@ class UpdateShapeFeatureTest {
     
     @Test
     def testGenerate_update__WhenMetaClassHasName() {
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val ContainerInSpray container = factory.createContainerInSpray
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = "SampleEClass"
         metaClass.type = eClass 
         container.represents = metaClass
@@ -162,19 +171,19 @@ class UpdateShapeFeatureTest {
     @Test
     def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithNameSetAndDiagramHasNoName() {
         val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-        val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+        val Diagram diagram = factory.createDiagram
         // without the diagram name set, the qualified name of text cannot be calculated and the type in the generated code will be empty
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = "SampleEClass"
         metaClass.type = eClass 
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
+        val ContainerInSpray container = factory.createContainerInSpray
         metaClass.representedBy = container // have to be contained
-        val text = SprayFactory::eINSTANCE.createTextInSpray
-        val literal = XbaseFactory::eINSTANCE.createXStringLiteral
+        val text = factory.createTextInSpray
+        val literal = xbaseFactory.createXStringLiteral
         literal.value = "test"
         text.value = literal
-        val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
+        val rectangle = factory.createRectangleInSpray
         container.partsList.add(rectangle)
         container.partsList.add(text)
         diagram.metaClassesList.add(metaClass)
@@ -214,19 +223,19 @@ class UpdateShapeFeatureTest {
     @Test
     def testGenerate_valueMapping__WhenTextWithFullyQualifiedNameAndRepresentsWithNameSetAndDiagramHasName() {
         val Resource res = new ResourceImpl() // expression compiler needs Eobject in resource
-        val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+        val Diagram diagram = factory.createDiagram
         diagram.name = "SampleDiagram"
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = "SampleEClass"
         metaClass.type = eClass 
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray
+        val ContainerInSpray container = factory.createContainerInSpray
         metaClass.representedBy = container // have to be contained
-        val text = SprayFactory::eINSTANCE.createTextInSpray
-        val literal = XbaseFactory::eINSTANCE.createXStringLiteral
+        val text = factory.createTextInSpray
+        val literal = xbaseFactory.createXStringLiteral
         literal.value = "test"
         text.value = literal
-        val rectangle = SprayFactory::eINSTANCE.createRectangleInSpray
+        val rectangle = factory.createRectangleInSpray
         container.partsList.add(rectangle)
         container.partsList.add(text)
         diagram.metaClassesList.add(metaClass)
@@ -260,29 +269,25 @@ class UpdateShapeFeatureTest {
         val output = sut.generate_valueMapping(container)
         assertEquals("expected output", expectedOutput.toString, output.toString);
     }
-
-    
-    @Inject
-    private ResourceSet resourceSet
     
     @Test
     def testMainFile__WhenContainerHasMetaClassName() {
-        val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
+        val Diagram diagram = factory.createDiagram
         diagram.name = "SampleDiagram"
-        val metaClass = SprayFactory::eINSTANCE.createMetaClass
-        val eClass = EcoreFactory::eINSTANCE.createEClass
+        val metaClass = factory.createMetaClass
+        val eClass = ecoreFactory.createEClass
         eClass.name = "SampleEClass"
-        val ePackage = EcoreFactory::eINSTANCE.createEPackage
+        val ePackage = ecoreFactory.createEPackage
         ePackage.name = "samplepackage"
         ePackage.nsURI = "test.xmi"
         val URI genModelUri = URI::createURI("gentest.genmodel")
         EcorePlugin::getEPackageNsURIToGenModelLocationMap().put(ePackage.nsURI, genModelUri)
-        val GenModel genModel = GenModelFactory::eINSTANCE.createGenModel()
+        val GenModel genModel = genmodelFactory.createGenModel()
         ePackage.getEClassifiers().add(eClass)
         metaClass.type = eClass 
-        val GenClass genClass = GenModelFactory::eINSTANCE.createGenClass()
+        val GenClass genClass = genmodelFactory.createGenClass()
         genClass.ecoreClass = eClass
-        val GenPackage genPackage = GenModelFactory::eINSTANCE.createGenPackage()
+        val GenPackage genPackage = genmodelFactory.createGenPackage()
         genPackage.genClasses.add(genClass)
         genPackage.ecorePackage = ePackage
         genModel.genPackages.add(genPackage)        
@@ -296,7 +301,7 @@ class UpdateShapeFeatureTest {
         assertNotNull("Gen model resource expected to be not null", genRes)
         genRes.contents.add(genModel)
         genRes.save(null)
-        val ContainerInSpray container = SprayFactory::eINSTANCE.createContainerInSpray()
+        val ContainerInSpray container = factory.createContainerInSpray()
         metaClass.representedBy = container // have to be contained
         diagram.metaClassesList.add(metaClass)
         val String className = "MyUpdateFeature"
@@ -350,6 +355,7 @@ class UpdateShapeFeatureTest {
                 gaService = Activator.get(IGaService.class);
             }
          
+<<<<<<< HEAD
             /**
              * {@inheritDoc}
              */
@@ -424,4 +430,80 @@ class UpdateShapeFeatureTest {
             }
         }
     '''
+=======
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public boolean canUpdate(final IUpdateContext context) {
+                // return true, if linked business object is a EClass
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                return (bo instanceof SampleEClass)&& (!(pictogramElement instanceof Diagram));
+            }
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public IReason updateNeeded(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                if ( ! (bo instanceof SampleEClass)) {
+                    return Reason.createFalseReason(); 
+                }
+                final SampleEClass eClass = (SampleEClass) bo;
+            
+                // retrieve name from pictogram model
+                if (pictogramElement instanceof ContainerShape) {
+                    final ContainerShape cs = (ContainerShape) pictogramElement;
+                    final ContainerShape textBox = SprayContainerService.findTextShape(cs);
+                    for (final Shape shape : textBox.getChildren()) {
+                        if (shape.getGraphicsAlgorithm() instanceof Text) {
+                            final Text text = (Text) shape.getGraphicsAlgorithm();
+                            final String type = peService.getPropertyValue(shape, PROPERTY_MODEL_TYPE);
+                            final String value = getValues(eClass).get(type);
+                            if(value != null){
+                                final String pictogramName = text.getValue();
+            
+                                // update needed, if names are different
+                                boolean updateNameNeeded =((pictogramName == null && value != null) || (pictogramName != null && !pictogramName.equals(value)));
+                                if (updateNameNeeded) {
+                                    return Reason.createTrueReason("Name [" + pictogramName + "] is out of date");
+                                }
+                            }
+                        }
+                    }
+                }
+                return Reason.createFalseReason();
+             }
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public boolean update(final IUpdateContext context) {
+                final PictogramElement pictogramElement = context.getPictogramElement();
+                final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
+                final SampleEClass eClass = (SampleEClass) bo;
+                return SprayContainerService.update(pictogramElement, getValues(eClass));
+                
+            }
+            Map<String, String> values = null; 
+            protected Map<String, String> getValues(final SampleEClass eClass) {
+                if (values == null) {
+                    values = new HashMap<String, String>();
+                    fillValues(eClass);
+                }
+                return values;
+            }
+            
+            protected void fillValues(final SampleEClass eClass) {
+                String type, value;
+            }
+            
+            protected String getValue (final String type, final SampleEClass eClass) {
+                throw new IllegalArgumentException(type);
+            }
+        }
+    '''
+>>>>>>> eclipse_juno
 }

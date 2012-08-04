@@ -114,10 +114,10 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
             // Compartments
             «FOR reference: diagram.listReferences.toSet»
                 «val target = reference.target »  
-                «IF ! target.EReferenceType.abstract»
+                «IF ! target.EReferenceType.^abstract»
                     buildCreationTool(new «reference.createFeatureClassName.shortName»(this.getFeatureProvider()));
                 «ENDIF»
-                «FOR subclass : target.EReferenceType.getSubclasses().filter(c|!c.abstract) »
+                «FOR subclass : target.EReferenceType.getSubclasses().filter(c|!c.^abstract) »
                         buildCreationTool(new «reference.getCreateReferenceAsListFeatureClassName(subclass).shortName»(this.getFeatureProvider()));
                 «ENDFOR»
             «ENDFOR»

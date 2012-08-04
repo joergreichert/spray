@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*************************************************************************************
  *
  * Spray shapes definition
@@ -7,6 +8,17 @@
  *************************************************************************************/
 // Add import statements here, e.g.
 // import java.util.*
+=======
+/*************************************************************************************
+ *
+ * Spray shapes definition
+ * 
+ * This file contains the definition of graphical figures using the Shapes Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+// Add import statements here, e.g.
+// import java.util.*
+>>>>>>> eclipse_juno
 shape PlaceShape {
 	ellipse {
 		size (width=30, height=30)

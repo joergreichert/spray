@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
@@ -14,3 +15,21 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
+=======
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: de.htwg.2012.lwc.mm;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Eclipse-RegisterBuddy: de.htwg.2012.lwc
+Export-Package: LanguageWorkbenchCompetition,
+ LanguageWorkbenchCompetition.impl,
+ LanguageWorkbenchCompetition.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport
+Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
+>>>>>>> eclipse_juno

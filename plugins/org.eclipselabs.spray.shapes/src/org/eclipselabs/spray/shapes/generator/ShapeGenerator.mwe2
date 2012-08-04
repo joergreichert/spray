@@ -1,9 +1,10 @@
-module org.eclipselabs.spray.shapes.ShapeGenerator
+module org.eclipselabs.spray.shapes.generator.ShapeGenerator
 
 import org.eclipse.emf.mwe.utils.*
 
 var srcGenDir = "src-gen"
 var srcManDir = "src"
+var clean = "true"
 var modelPath
 
 Workflow {
@@ -32,8 +33,11 @@ Workflow {
 		}
 	}
 
-	component = DirectoryCleaner {
-		directory = srcGenDir
+	component = org.eclipse.emf.mwe.core.container.IfComponent {
+		cond = clean
+		component = DirectoryCleaner {
+			directory = srcGenDir
+		}
 	}
 
 	component = org.eclipse.xtext.generator.GeneratorComponent {
@@ -42,9 +46,9 @@ Workflow {
 		outlet = {
 			path = srcGenDir
 		}
-		outlet = {
-		    outletName ="SRCMAN"
-			path = srcManDir
-		}
+//		outlet = {
+//		    outletName ="SRCMAN"
+//			path = srcManDir
+//		}
 	}
 }

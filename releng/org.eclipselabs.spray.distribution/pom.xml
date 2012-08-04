@@ -39,6 +39,8 @@
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
+				<module>../../examples/petrinet/de.htwg.petrinet.mm</module>
+				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
@@ -47,6 +49,48 @@
  				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>withoutExamplesAndTestProjects</id>
+			<activation>
+				<property>
+					<name>withoutExamplesAndTestProjects</name>
+				</property>
+			</activation>
+			<modules>
+				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
+				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
+				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
+				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
+                <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
+                <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.xtext</module>
+				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+			</modules>
+		</profile>		
+		<profile>
+			<id>onlyExamplesAndTests</id>
+			<activation>
+				<property>
+					<name>onlyExamplesAndTests</name>
+				</property>
+			</activation>
+			<modules>
+				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
+				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
+				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
+				<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>
+ 				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
+ 				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
+			</modules>
+		</profile>	
 		<profile>
 			<id>modules-targetplatform</id>
 			<activation>

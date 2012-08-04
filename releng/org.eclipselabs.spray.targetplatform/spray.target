@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target includeMode="feature" name="Spray Target Platform" sequenceNumber="61">
+<target includeMode="feature" name="Spray Target Platform - Eclipse 3.7" sequenceNumber="61">
 <locations>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sdk.ide" version="3.7.1.M20110909-1335"/>

@@ -23,9 +23,14 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>spray.target</file>
+									<file>spray-indigo.target</file>
 									<type>target</type>
-									<classifier>spray</classifier>
+									<classifier>spray-indigo</classifier>
+								</artifact>
+								<artifact>
+									<file>spray-juno.target</file>
+									<type>target</type>
+									<classifier>spray-juno</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>

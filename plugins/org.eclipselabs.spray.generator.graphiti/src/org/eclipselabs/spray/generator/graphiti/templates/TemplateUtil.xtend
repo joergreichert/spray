@@ -2,11 +2,11 @@ package org.eclipselabs.spray.generator.graphiti.templates
 
 import com.google.inject.Inject
 import org.eclipse.xtext.xbase.compiler.ImportManager
-import org.eclipse.xtext.xtend2.lib.StringConcatenation
 import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipse.xtend2.lib.StringConcatenation
 
 class TemplateUtil extends Object {
     @Inject SprayCompiler compiler
@@ -42,7 +42,7 @@ class TemplateUtil extends Object {
     '''
 
     /**
-     * Generate the fulle expression to calculate the  value of a Text, existing of string literals and navigation expressions
+     * Generate the full expression to calculate the value of a Text, existing of string literals and navigation expressions
      */
     def CharSequence valueGenerator(TextInSpray text, String metaClassVariable)    {
         try {

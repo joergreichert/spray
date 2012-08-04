@@ -13,11 +13,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.14.1</tycho-version>
+		<tycho-version>0.15.0</tycho-version>
 		<junit-version>4.8.1</junit-version>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
-		<platform-version-name>indigo</platform-version-name>
+		<platform-version-name>juno</platform-version-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -41,7 +41,7 @@
 							<groupId>org.eclipselabs.spray</groupId>
 							<artifactId>org.eclipselabs.spray.targetplatform</artifactId>
 							<version>${project.version}</version>
-							<classifier>spray</classifier>
+							<classifier>spray-${platform-version-name}</classifier>
 						</artifact>
 					</target>
 					<environments>
@@ -228,17 +228,44 @@
 					<version>3.3.0</version>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.xtend2</groupId>
+					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
-					<version>2.2.1</version>
+					<version>2.3.0</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
 						<!-- need to prefix by basedir to generate to currently built module -->
 						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 					</configuration>
+					<dependencies>
+						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" 
+							classpath container -->
+						<dependency>
+							<groupId>org.eclipse.xtend</groupId>
+							<artifactId>xtend-library</artifactId>
+							<version>2.3.0</version>
+							<type>pom</type>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
+	<repositories>
+		<repository>
+			<id>maven.eclipse.org</id>
+			<url>http://maven.eclipse.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>xtend</id>
+			<url>http://build.eclipse.org/common/xtend/maven/</url>
+		</repository>
+	</repositories>	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>sonatype</id>
@@ -273,12 +300,12 @@
 			<activation>
 				<property>
 					<name>platform-version-name</name>
-					<value>indigo</value>
+					<value>juno</value>
 				</property>
 			</activation>
 			<properties>
-				<eclipse-site>http://download.eclipse.org/releases/indigo</eclipse-site>
-				<platform-version>[3.7,3.8)</platform-version>
+				<eclipse-site>http://download.eclipse.org/releases/juno</eclipse-site>
+				<platform-version>[3.8,4.3)</platform-version>
 			</properties>
 		</profile>
 		<profile>

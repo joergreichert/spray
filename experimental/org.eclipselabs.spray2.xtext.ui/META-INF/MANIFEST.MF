@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray2.xtext.ui
@@ -27,3 +28,34 @@ Export-Package: org.eclipselabs.spray2.xtext.ui.contentassist,
  org.eclipselabs.spray2.xtext.ui.contentassist.antlr,
  org.eclipselabs.spray2.xtext.ui.internal
 Bundle-Activator: org.eclipselabs.spray2.xtext.ui.internal.Spray2Activator
+=======
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipselabs.spray2.xtext.ui
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0
+Bundle-SymbolicName: org.eclipselabs.spray2.xtext.ui; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipselabs.spray2.xtext;visibility:=reexport,
+ org.eclipse.xtext.ui,
+ org.eclipse.ui.editors;bundle-version="3.5.0",
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.ui,
+ org.eclipse.xtext.builder,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types.ui,
+ org.eclipse.xtext.xbase.ui,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.compare,
+ org.eclipselabs.spray.runtime.graphiti,
+ org.eclipselabs.spray.runtime.xtext,
+ org.eclipse.graphiti
+Import-Package: org.apache.log4j,
+ org.apache.commons.logging
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipselabs.spray2.xtext.ui.contentassist,
+ org.eclipselabs.spray2.xtext.ui.contentassist.antlr,
+ org.eclipselabs.spray2.xtext.ui.internal
+Bundle-Activator: org.eclipselabs.spray2.xtext.ui.internal.Spray2Activator
+>>>>>>> eclipse_juno

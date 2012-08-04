@@ -1,5 +1,7 @@
 package org.eclipselabs.spray.xtext;
 
+import org.eclipse.xtext.junit4.GlobalRegistries;
+
 import com.google.inject.Injector;
 
 /**
@@ -11,7 +13,9 @@ public class SprayTestsInjectorProvider extends SprayInjectorProvider {
 
 	public Injector getInjector() {
 		if (injector == null) {
+			stateBeforeInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
 			this.injector = new SprayTestsStandaloneSetup().createInjectorAndDoEMFRegistration();
+			stateAfterInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
 		}
 		return injector;
 	}

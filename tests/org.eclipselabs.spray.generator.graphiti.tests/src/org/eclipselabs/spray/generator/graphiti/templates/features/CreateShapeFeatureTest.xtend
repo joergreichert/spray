@@ -1,26 +1,26 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EcorePackage
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.xtext.junit4.InjectWith
+import org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider
+import org.eclipselabs.spray.mm.spray.CreateBehavior
+import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.After
-import org.junit.runner.RunWith
-import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
-import static org.junit.Assert.*
 import org.junit.Test
-import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.mm.spray.CreateBehavior
-import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EDataType
-import org.eclipse.emf.ecore.EcorePackage
-import org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider
+import org.junit.runner.RunWith
+
+import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(SprayTestsInjectorProvider))

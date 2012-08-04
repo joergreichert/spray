@@ -56,11 +56,11 @@ class LayoutExtensions {
     // OFFSETS
     def dispatch int xoffset (EObject other) { 0 }
     def dispatch int xoffset (ConnectionDefinition shape) { 10 }
-    def dispatch int xoffset (PlacingDefinition shape) { shape.eContainer.xoffset + shape.offset*shape.eContainer.width }
+    def dispatch int xoffset (PlacingDefinition shape) { (shape.eContainer.xoffset + shape.offset*shape.eContainer.width).intValue }
     def dispatch int xoffset (ShapeConnection shape) { shape.eContainer.xoffset }
     def dispatch int yoffset (EObject other) { 0 }
     def dispatch int yoffset (ConnectionDefinition shape) { 10 }
-    def dispatch int yoffset (PlacingDefinition shape) { shape.eContainer.yoffset + shape.offset*shape.eContainer.width }
+    def dispatch int yoffset (PlacingDefinition shape) { (shape.eContainer.yoffset + shape.offset*shape.eContainer.width).intValue }
     def dispatch int yoffset (ShapeConnection shape) { shape.eContainer.yoffset }
     
 

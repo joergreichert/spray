@@ -53,6 +53,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «header(this)»
         package «feature_package()»;
+<<<<<<< HEAD
         
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IAddConnectionContext;
@@ -76,6 +77,31 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import com.google.common.base.Function;
         
         import «metaClass.javaInterfaceName»;
+=======
+        
+        import org.eclipse.graphiti.features.IFeatureProvider;
+        import org.eclipse.graphiti.features.context.IAddConnectionContext;
+        import org.eclipse.graphiti.features.context.IAddContext;
+        import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.pictograms.Connection;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+        import org.eclipse.graphiti.mm.algorithms.Polyline;
+        import org.eclipse.graphiti.services.IGaService;
+        import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
+        import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+        «IF styleRef != null && styleRef.style != null»
+        import «styleRef.style.qualifiedName»;
+        «ELSE»
+        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
+        «ENDIF»
+        import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
+        import «connection.connection.qualifiedName»;
+        import com.google.common.base.Function;
+        
+        import «metaClass.javaInterfaceName»;
+>>>>>>> eclipse_juno
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
@@ -134,6 +160,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             // store alias name
             peService.setPropertyValue(result , PROPERTY_ALIAS, "«metaClass.alias»");
             «ENDIF»
+<<<<<<< HEAD
             link(result , addedDomainObject);
             for(ConnectionDecorator conDecorator : result.getConnectionDecorators()) {
                 link(conDecorator, addedDomainObject);
@@ -141,6 +168,15 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             
             setDoneChanges(true);
            	updatePictogramElement(result);
+=======
+            link(result , addedDomainObject);
+            for(ConnectionDecorator conDecorator : result.getConnectionDecorators()) {
+                link(conDecorator, addedDomainObject);
+            }
+            
+            setDoneChanges(true);
+           	updatePictogramElement(result);
+>>>>>>> eclipse_juno
             
             return result;
         }

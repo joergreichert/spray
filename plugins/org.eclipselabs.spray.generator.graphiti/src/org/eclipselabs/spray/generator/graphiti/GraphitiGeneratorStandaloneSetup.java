@@ -19,6 +19,7 @@ public class GraphitiGeneratorStandaloneSetup extends SprayStandaloneSetup {
 
     @Override
     public Injector createInjector() {
-        return Guice.createInjector(Modules2.mixin(new SprayRuntimeModule(), new GraphitiRuntimeModule(), new GraphitiGeneratorModule()));
+        Injector injector = Guice.createInjector(Modules2.mixin(new SprayRuntimeModule(), new GraphitiRuntimeModule(), new GraphitiGeneratorModule()));
+        return injector;
     }
 }

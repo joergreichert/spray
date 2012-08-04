@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.generator.graphiti.util.XtendProperties
+import static extension org.eclipselabs.spray.generator.graphiti.util.XtendProperties.*
 import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
@@ -87,7 +87,7 @@ class Plugin extends TemplateUtil {
               </propertyTabs>
           </extension>
         «FOR cls : diagram.metaClasses »
-          «XtendProperties::setValue("PreviousSection", null)»
+          «setValue("PreviousSection", null)»
           <extension
               point="org.eclipse.ui.views.properties.tabbed.propertySections">
               <propertySections contributorId="«diagramName».PropertyContributor">
@@ -95,11 +95,11 @@ class Plugin extends TemplateUtil {
                   <propertySection tab="«diagramName».main.tab"
                    class="«diagram.extensionFactoryClassName»:«cls.type.getPropertySectionClassName(property)»"
                    filter="«cls.filterClassName»"
-                   «IF XtendProperties::getValue("PreviousSection") != null»
-                   afterSection="«XtendProperties::getValue("PreviousSection")»"
+                   «IF getValue("PreviousSection") != null»
+                   afterSection="«getValue("PreviousSection")»"
                    «ENDIF»
-                   «XtendProperties::setValue("PreviousSection", diagramName + ".main.tab." + cls.getName + "." + property.name)»
-                   id="«XtendProperties::getValue("PreviousSection")»">
+                   «setValue("PreviousSection", diagramName + ".main.tab." + cls.getName + "." + property.name)»
+                   id="«getValue("PreviousSection")»">
                   </propertySection>
             «ENDFOR»
               </propertySections>
@@ -113,9 +113,9 @@ class Plugin extends TemplateUtil {
             «IF cls.representedBy instanceof ContainerInSpray»
                 «var container = (cls.representedBy as ContainerInSpray) »
                 «FOR ref :  container.parts.filter(typeof(MetaReference)) »  
-                    «XtendProperties::setValue("refName", ref.name)» 
+                    «setValue("refName", ref.name)» 
                     «val target = ref.target»
-                      «XtendProperties::setValue("PreviousSection", null)»
+                      «setValue("PreviousSection", null)»
                     <extension
                       point="org.eclipse.ui.views.properties.tabbed.propertySections">
                       <propertySections contributorId="«diagramName».PropertyContributor">
@@ -123,11 +123,11 @@ class Plugin extends TemplateUtil {
                           <propertySection tab="«diagramName».main.tab"           
                            class="«diagram.extensionFactoryClassName»:«GeneratorUtil::property_package()».«target.EReferenceType.name»«attribute.name.toFirstUpper»Section"
                            filter="«GeneratorUtil::property_package()».«target.EReferenceType.name»Filter"
-                          «IF XtendProperties::getValue("PreviousSection") != null»
-                           afterSection="«XtendProperties::getValue("PreviousSection")»"
+                          «IF getValue("PreviousSection") != null»
+                           afterSection="«getValue("PreviousSection")»"
                           «ENDIF»
-                           «XtendProperties::setValue("PreviousSection", diagramName + ".main.tab." + target.EReferenceType.name + "." + attribute.name)»
-                           id="«XtendProperties::getValue("PreviousSection")»">
+                           «setValue("PreviousSection", diagramName + ".main.tab." + target.EReferenceType.name + "." + attribute.name)»
+                           id="«getValue("PreviousSection")»">
                           </propertySection>
                     «ENDFOR»
                       </propertySections>

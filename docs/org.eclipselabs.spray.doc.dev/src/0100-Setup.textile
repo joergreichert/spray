@@ -12,11 +12,11 @@ h2. Developer IDE
 
 h3. IDE
 
-Download latest Eclipse Indigo Classic appropriate for your platform: "http://www.eclipse.org/downloads/packages/eclipse-classic-371/indigosr1":http://www.eclipse.org/downloads/packages/eclipse-classic-371/indigosr1
+Download latest Eclipse Juno Classic appropriate for your platform: "http://www.eclipse.org/downloads/packages/eclipse-classic-42-m6/junom6":http://www.eclipse.org/downloads/packages/eclipse-classic-42-m6/junom6
 
 h3. Update Sites
 
-The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 3.7 distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. When you already cloned the Spray repository, then choose the file
+The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 4.2 distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. When you already cloned the Spray repository, then choose the file
 
 bc. <path to your locally cloned Spray Git repository>/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
 
@@ -30,20 +30,37 @@ h3. Features to Install
 
 Choose now _Help -> Install New Software_. Choose the following update site in "Work with": Spray Development Environment, this will install
 
-* MWE SDK 1.2.1
-* MWE 2 language SDK 2.2.0
-* MWE 2 runtime SDK 2.2.0
-* EMF - Eclipse Modeling Framework SDK 2.7.0
-* Graphiti SDK 0.8.1
-* Xtext Antlr 2.0.0
-* SWT Bot
-* xtext-utils unittesting
-* Xtext SDK 2.2.1
-* EclEmma Java Code Coverage 1.5.3
-* Mylyn 3.6.2
-* EGit 1.1.0
-* Zest SDK 1.3.0
-* Mylyn Connector for Google Code
+* http://download.eclipse.org/releases/juno
+** Eclipse SDK 3.8.0 (org.eclipse.sdk.feature.group)
+** PDE 3.8.0 (org.eclipse.pde.feature.group)
+** MWE SDK 1.2.1 (org.eclipse.emf.mwe.sdk.feature.group)
+** MWE 2 language SDK 2.3.0 (org.eclipse.emf.mwe2.language.sdk.feature.group,org.eclipse.emf.mwe2.language.sdk.source.feature.group)
+** MWE 2 runtime SDK 2.3.0 (org.eclipse.emf.mwe2.runtime.sdk.feature.group,org.eclipse.emf.mwe2.runtime.sdk.source.feature.group)(org.eclipse.emf.mwe2.runtime.sdk.feature.group,org.eclipse.emf.mwe2.runtime.sdk.source.feature.group)
+** EMF - Eclipse Modeling Framework SDK 2.8.0 (org.eclipse.emf.sdk.feature.group)
+** Xtext SDK 2.3.0 (org.eclipse.xtext.sdk.feature.group,org.eclipse.xtext.sdk.source.feature.group)
+** Xtend SDK 2.3.0 (org.eclipse.xtext.xtend2.sdk.feature.group,org.eclipse.xtext.xtend2.sdk.source.feature.group)
+** Graphiti SDK 0.9.0 (org.eclipse.graphiti.sdk.plus.feature.feature.group)
+** Mylyn 3.7.0 (org.eclipse.mylyn.ide.ui)
+** Mylyn Builds 0.9.0 (org.eclipse.mylyn.builds.sdk.feature.group)
+** EGit 1.3.0 (org.eclipse.egit.feature.group)
+** m2e 1.1.0 (org.eclipse.m2e.feature.feature.group)
+** Zest SDK 1.3.0 (org.eclipse.zest.sdk.feature.group)
+** SWT Designer (org.eclipse.wb.rcp.feature.feature.group,org.eclipse.wb.swt.feature.feature.group)
+** Window Builder (org.eclipse.wb.core.feature.feature.group,org.eclipse.wb.doc.user.feature.feature.group,org.eclipse.wb.core.ui.feature.feature.group)
+* http://download.itemis.com/updates/releases/2.0.0/
+** Xtext Antlr 2.0.0 (de.itemis.xtext.antlr.sdk.feature.group,de.itemis.xtext.antlr.sdk.source.feature.group)
+* http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site
+** SWT Bot 2.0.5 (org.eclipse.swtbot.ide.feature.group)
+* http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
+** xtext-utils unittesting (org.eclipselabs.xtext.utils.unittesting.feature.feature.group)
+* http://update.eclemma.org
+** EclEmma Java Code Coverage 1.5.3 (com.mountainminds.eclemma.feature.feature.group)
+* http://knittig.de/googlecode-mylyn-connector/update/
+** Mylyn Connector for Google Code 0.1.0 (com.googlecode.mylyn.feature.group)
+
+h3. Installing through P2 director launch config
+
+For convenience there is a launch config @install-devenv-4.2.launch@ in project org.eclipselabs.spray.devenv. Right-click this launch config, then choose _Run As / install-devenv-4.2_. Choose the base directory of your Eclipse 4.2 installation. You must not start the config from the Eclipse instance you want to update, take any other Eclipse.
 
 h3. Troubleshooting
 

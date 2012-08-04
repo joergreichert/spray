@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*************************************************************************************
  *
  * Spray diagram definition
@@ -8,6 +9,18 @@
  * See also mydiagram.properties to configure generator properties.
  *************************************************************************************/
 // Add import statements here, e.g.
+=======
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also mydiagram.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here, e.g.
+>>>>>>> eclipse_juno
 import LanguageWorkbenchCompetition.*
 import org.eclipselabs.spray.shapes.*
 import org.eclipselabs.spray.styles.*
@@ -15,7 +28,11 @@ diagram LWC for LWCModelElement style LWC2012CorporateStyle
 
 class LWCVesselHorizontal alias Horizontal {
 	shape LWC_Vessel_Horizontal {
+<<<<<<< HEAD
 		name into shapeName
+=======
+		name into shapeName
+>>>>>>> eclipse_juno
 		description into descriptionName
 	}
 	behavior {
@@ -125,9 +142,15 @@ class LWCSystemEnd alias SystemEnd {
 	}
 }
 
+<<<<<<< HEAD
 class LWCPipe { // alias Pipe {
 	connection LWC_Pipe {
 		name into pipeText
+=======
+class LWCPipe { // alias Pipe {
+	connection LWC_Pipe {
+		name into pipeText
+>>>>>>> eclipse_juno
 	}( ) {
 		from fromElement;
 		to toElement;
@@ -137,7 +160,11 @@ class LWCPipe { // alias Pipe {
 	}
 }
 
+<<<<<<< HEAD
 class LWCSourceExhaustStart { // alias StartSourceExhaust {
+=======
+class LWCSourceExhaustStart { // alias StartSourceExhaust {
+>>>>>>> eclipse_juno
 	connection LWC_Source_Exhaust {
 		name into connectionName
 	}
@@ -150,13 +177,21 @@ class LWCSourceExhaustStart { // alias StartSourceExhaust {
 	}
 }
 
+<<<<<<< HEAD
 class LWCSourceExhaustEnd { //alias EndSourceExhaust {
+=======
+class LWCSourceExhaustEnd { //alias EndSourceExhaust {
+>>>>>>> eclipse_juno
 	connection LWC_Source_Exhaust {
 		name into connectionName
 	}
 	( ) {
 		from fromElement;
+<<<<<<< HEAD
 		to toElement;
+=======
+		to toElement;
+>>>>>>> eclipse_juno
 	}
 	behavior {
 		create into modelElements palette "Connections"

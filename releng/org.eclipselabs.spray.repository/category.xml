@@ -1,77 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.pde_3.7.1.r37x_v20110810-0800-7b7qFVtFEx2XnmZ4jlM5mjM.jar" id="org.eclipse.pde" version="3.7.1.r37x_v20110810-0800-7b7qFVtFEx2XnmZ4jlM5mjM">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/de.itemis.xtext.antlr.sdk_2.0.0.v201108011202.jar" id="de.itemis.xtext.antlr.sdk" version="2.0.0.v201108011202">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.draw2d.sdk_3.7.1.v20110830-1143-7A7I18yF5F18FCD4HAF849E78x42.jar" id="org.eclipse.draw2d.sdk" version="3.7.1.v20110830-1143-7A7I18yF5F18FCD4HAF849E78x42">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.mwe2.language.sdk_2.2.0.v201112071250.jar" id="org.eclipse.emf.mwe2.language.sdk" version="2.2.0.v201112071250">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.mwe2.language.sdk.source_2.2.0.v201112071250.jar" id="org.eclipse.emf.mwe2.language.sdk.source" version="2.2.0.v201112071250">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.mwe2.runtime.sdk_2.2.0.v201112070431.jar" id="org.eclipse.emf.mwe2.runtime.sdk" version="2.2.0.v201112070431">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.mwe2.runtime.sdk.source_2.2.0.v201112070431.jar" id="org.eclipse.emf.mwe2.runtime.sdk.source" version="2.2.0.v201112070431">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.sdk_2.7.1.v20110913-1526.jar" id="org.eclipse.emf.sdk" version="2.7.1.v20110913-1526">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.transaction.sdk_1.5.1.v20110823-1800-777T19A_WsXmjNatPxcrPm1rOKlH.jar" id="org.eclipse.emf.transaction.sdk" version="1.5.1.v20110823-1800-777T19A_WsXmjNatPxcrPm1rOKlH">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.emf.workspace_1.5.1.v20110823-1800-37708s734D3C7D3CCC1.jar" id="org.eclipse.emf.workspace" version="1.5.1.v20110823-1800-37708s734D3C7D3CCC1">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.gef.sdk_3.7.1.v20110830-1143-7G7W2A5WNgEQNgNXBJgcPLWZeMNI.jar" id="org.eclipse.gef.sdk" version="3.7.1.v20110830-1143-7G7W2A5WNgEQNgNXBJgcPLWZeMNI">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.gef.source_3.7.1.v20110830-1143-777D181B3Bz06C853D8863365.jar" id="org.eclipse.gef.source" version="3.7.1.v20110830-1143-777D181B3Bz06C853D8863365">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.graphiti.sdk.feature_0.8.1.v20110912-1027.jar" id="org.eclipse.graphiti.sdk.feature" version="0.8.1.v20110912-1027">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.graphiti.source.feature_0.8.1.v20110907-0857.jar" id="org.eclipse.graphiti.source.feature" version="0.8.1.v20110907-0857">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.swtbot_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot" version="2.0.5.20111003_1754-3676ac8-dev-e36">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.swtbot.eclipse_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse" version="2.0.5.20111003_1754-3676ac8-dev-e36">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.swtbot.eclipse.gef_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.0.5.20111003_1754-3676ac8-dev-e36">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.swtbot.eclipse.test.junit4_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse.test.junit4" version="2.0.5.20111003_1754-3676ac8-dev-e36">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.swtbot.forms_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.forms" version="2.0.5.20111003_1754-3676ac8-dev-e36">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.zest.sdk_1.3.0.v20110425-2050-67C08COMOGAKRUKGP_ULXbePP8ZT.jar" id="org.eclipse.zest.sdk" version="1.3.0.v20110425-2050-67C08COMOGAKRUKGP_ULXbePP8ZT">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipselabs.xtext.utils.unittesting.feature_0.9.3.jar" id="org.eclipselabs.xtext.utils.unittesting.feature" version="0.9.3">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.sdk_3.7.1.r37x_v20110728-7Q7xAEDDePtVvBAYYD3z-il0ox7CoGe6mz-B8FDdVn0YR.jar" id="org.eclipse.sdk" version="3.7.1.r37x_v20110728-7Q7xAEDDePtVvBAYYD3z-il0ox7CoGe6mz-B8FDdVn0YR">
-      <category name="3rdparty"/>
-   </feature>
-   <feature url="features/org.eclipse.xtext.sdk_2.2.1.v201112130541.jar" id="org.eclipse.xtext.sdk" version="2.2.1.v201112130541">
-      <category name="3rdparty"/>
-   </feature>
-   <category-def name="3rdparty" label="Third Party">
-      <description>
-         Dependent features to work with Spray.
-      </description>
-   </category-def>
+	<feature url="features/org.eclipse.emf.eef.codegen.ecore-feature_1.1.1.201206051542.jar" id="org.eclipse.emf.eef.codegen.ecore-feature" version="1.1.1.201206051542">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/de.itemis.xtext.antlr.sdk_2.0.0.v201108011202.jar" id="de.itemis.xtext.antlr.sdk" version="2.0.0.v201108011202">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/de.itemis.xtext.antlr.feature_2.0.0.v201108011202.jar" id="de.itemis.xtext.antlr.feature" version="2.0.0.v201108011202">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.swtbot.eclipse_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.swtbot.eclipse.test.junit4_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse.test.junit4" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.sdk_4.2.0.v20120528-1648-7T7oDFDPz-3FepgRqG6kkFFY0UF4_otgmt0XcoU3Zh27X.jar" id="org.eclipse.sdk" version="4.2.0.v20120528-1648-7T7oDFDPz-3FepgRqG6kkFFY0UF4_otgmt0XcoU3Zh27X">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.pde_3.8.0.v20120525-1249-7c7vFitFFt6Zr5a12MM4IKMFZ.jar" id="org.eclipse.pde" version="3.8.0.v20120525-1249-7c7vFitFFt6Zr5a12MM4IKMFZ">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.emf.sdk_2.8.0.v20120608-0554.jar" id="org.eclipse.emf.sdk" version="2.8.0.v20120608-0554">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.emf.transaction.sdk_1.6.0.v20120328-0001-777Z-9A_WsZmcPluNecyPkvrPKlH.jar" id="org.eclipse.emf.transaction.sdk" version="1.6.0.v20120328-0001-777Z-9A_WsZmcPluNecyPkvrPKlH">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.gef.sdk_3.8.0.201206112118.jar" id="org.eclipse.gef.sdk" version="3.8.0.201206112118">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.zest.sdk_1.4.0.201206112118.jar" id="org.eclipse.zest.sdk" version="1.4.0.201206112118">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.graphiti.sdk.plus.feature_0.9.0.v20120613-0805.jar" id="org.eclipse.graphiti.sdk.plus.feature" version="0.9.0.v20120613-0805">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.emf.mwe2.language.sdk_2.3.0.v201206120758.jar" id="org.eclipse.emf.mwe2.language.sdk" version="2.3.0.v201206120758">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.emf.mwe2.runtime.sdk_2.3.0.v201206110920.jar" id="org.eclipse.emf.mwe2.runtime.sdk" version="2.3.0.v201206110920">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.xtext.sdk_2.3.0.v201206120633.jar" id="org.eclipse.xtext.sdk" version="2.3.0.v201206120633">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.xtend.sdk_2.3.0.v201206120633.jar" id="org.eclipse.xtend.sdk" version="2.3.0.v201206120633">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipselabs.xtext.utils.unittesting.feature_0.9.3.201204261440.jar" id="org.eclipselabs.xtext.utils.unittesting.feature" version="0.9.3.201204261440">
+		<category name="3rdparty"/>
+	</feature>
+	<category-def name="3rdparty" label="Third Party">
+		<description>Spray Target Platform - Eclipse 4.2</description>
+	</category-def>
 </site>

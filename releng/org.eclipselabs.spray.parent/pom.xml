@@ -13,19 +13,22 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.14.1</tycho-version>
+		<tycho-version>0.15.0</tycho-version>
 		<junit-version>4.8.1</junit-version>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
-		<platform-version-name>indigo</platform-version-name>
+		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository/</orbit-site>
+		<!-- <spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository> -->
+		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-juno/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
+		<platform-version-name>juno</platform-version-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
+			<!-- By default clean xtend-gen if exists, the sources will be produced 
+				by xtend-plugin -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
@@ -56,7 +59,8 @@
 					<resolver>p2</resolver>
 					<pomDependencies>consider</pomDependencies>
 					<!-- <target> <artifact> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.targetplatform</artifactId> 
-						<version>0.5.0-SNAPSHOT</version> <classifier>spray</classifier> </artifact> </target> -->
+						<version>0.5.0-SNAPSHOT</version> <classifier>spray</classifier> </artifact> 
+						</target> -->
 					<environments>
 						<environment>
 							<os>win32</os>
@@ -204,9 +208,10 @@
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>2.9.1</version>
 					<configuration>
-						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**:**/parseTree**:**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**:**Abstract**SemanticSequencer**</excludes>
+						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**:**/parseTree**:**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**,
+							**GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**:**Abstract**SemanticSequencer**</excludes>
 					</configuration>
-				</plugin>				
+				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>
@@ -228,9 +233,10 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-pmd-plugin</artifactId>
 					<configuration>
-						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**:**/parseTree**:**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**, **GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**:**Abstract**SemanticSequencer**</excludes>
+						<excludes>**BusinessDomainDsl**,**org/eclipse.**,**/internal/**,**antlr**:**/parseTree**:**Abstract**RuntimeModule**,**SetupGenerated**,**Abstract**Validator**,
+							**GrammarAccess**,**Abstract**UiModule**,**Abstract**ProposalProvider**,**/mm/**,**/shapes/shapes/**,**/styles/styles/**:**Abstract**SemanticSequencer**</excludes>
 					</configuration>
-				</plugin>				
+				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
@@ -264,17 +270,44 @@
 					<version>3.3.0</version>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.xtend2</groupId>
+					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
-					<version>2.2.2</version>
+					<version>2.3.0</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
 						<!-- need to prefix by basedir to generate to currently built module -->
 						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 					</configuration>
+					<dependencies>
+						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" 
+							classpath container -->
+						<dependency>
+							<groupId>org.eclipse.xtend</groupId>
+							<artifactId>org.eclipse.xtend.lib</artifactId>
+							<version>2.3.0</version>
+							<type>pom</type>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
+	<repositories>
+		<repository>
+			<id>maven.eclipse.org</id>
+			<url>http://maven.eclipse.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>xtend</id>
+			<url>http://build.eclipse.org/common/xtend/maven/</url>
+		</repository>
+	</repositories>		
 	<pluginRepositories>
 		<pluginRepository>
 			<id>sonatype</id>
@@ -330,7 +363,7 @@
 				<repository>
 					<id>spray-dependencies</id>
 					<layout>p2</layout>
-					<url>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
+					<url>${spray-ci-targetrepository}</url>
 				</repository>
 			</repositories>
 		</profile>
@@ -349,7 +382,8 @@
 				</repository>
 			</repositories>
 		</profile>
-		<!-- The release profile lists all modules. The modules seem to have to be in the parent POM to make the org.eclipse.tycho:tycho-versions-plugin:set-version 
+		<!-- The release profile lists all modules. The modules seem to have to 
+			be in the parent POM to make the org.eclipse.tycho:tycho-versions-plugin:set-version 
 			goal work properly -->
 		<profile>
 			<id>release</id>
@@ -381,8 +415,8 @@
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
-                <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
-                <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
+				<module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>
@@ -454,10 +488,10 @@
 				<sonar.jdbc.password>sonar</sonar.jdbc.password>
 				<sonar.host.url>http://localhost:9000/</sonar.host.url>
 				<sonar.java.source>1.6</sonar.java.source>
-				<sonar.java.target>1.6</sonar.java.target>				
+				<sonar.java.target>1.6</sonar.java.target>
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-				<sonar.skippedModules>org.eclipselabs.spray.targetplatform,org.eclipselabs.spray.parent,org.eclipselabs.spray.mm,org.mod4j.dsl.businessdomain.mm,org.eclipselabs.spray.testhelper</sonar.skippedModules>				
-			</properties> 
+				<sonar.skippedModules>org.eclipselabs.spray.targetplatform,org.eclipselabs.spray.parent,org.eclipselabs.spray.mm,org.mod4j.dsl.businessdomain.mm,org.eclipselabs.spray.testhelper</sonar.skippedModules>
+			</properties>
 		</profile>
 		<profile>
 			<id>sonarRemote</id>
@@ -468,10 +502,10 @@
 				<sonar.jdbc.password>sonar</sonar.jdbc.password>
 				<sonar.host.url>http://ec2-174-129-80-78.compute-1.amazonaws.com:9000/sonar</sonar.host.url>
 				<sonar.java.source>1.6</sonar.java.source>
-				<sonar.java.target>1.6</sonar.java.target>				
+				<sonar.java.target>1.6</sonar.java.target>
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-				<sonar.skippedModules>org.eclipselabs.spray.targetplatform,org.eclipselabs.spray.parent,org.eclipselabs.spray.mm,org.mod4j.dsl.businessdomain.mm,org.eclipselabs.spray.testhelper</sonar.skippedModules>				
-			</properties> 
+				<sonar.skippedModules>org.eclipselabs.spray.targetplatform,org.eclipselabs.spray.parent,org.eclipselabs.spray.mm,org.mod4j.dsl.businessdomain.mm,org.eclipselabs.spray.testhelper</sonar.skippedModules>
+			</properties>
 		</profile>
 		<profile>
 			<id>noCodeCoverage</id>
@@ -488,20 +522,20 @@
 			<id>codeCoverage</id>
 			<properties>
 				<jacoco.version>0.5.6.201201232323</jacoco.version>
-				<jacoco.append>true</jacoco.append>				
+				<jacoco.append>true</jacoco.append>
 				<jacoco.destFile>${project.basedir}/../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile>
 				<jacoco.it.destFile>${project.basedir}/../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile>
-				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
-				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
-				<!--jacoco.output>file</jacoco.output-->
-				<!--jacoco.address>localhost</jacoco.address-->
-				<!--jacoco.port>9999</jacoco.port-->
+				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId -->
+				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit -->
+				<!--jacoco.output>file</jacoco.output -->
+				<!--jacoco.address>localhost</jacoco.address -->
+				<!--jacoco.port>9999</jacoco.port -->
 				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 				<sonar.jacoco.reportPath>${jacoco.destFile}</sonar.jacoco.reportPath>
 				<sonar.surefire.reportsPath>../${project.artifactId}.tests/target/surefire-reports/</sonar.surefire.reportsPath>
 				<sonar.jacoco.itReportPath>${jacoco.it.destFile}</sonar.jacoco.itReportPath>
-			</properties> 
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -530,9 +564,22 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>				
+		</profile>
+		<profile>
+			<id>yourkit-profile</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<argLine>-agentpath:"${yourkit.home}\bin\win32\yjpagent.dll"</argLine>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
-
 
 	<dependencyManagement>
 		<dependencies>
@@ -544,8 +591,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.xtend</groupId>
-				<artifactId>xtend-library</artifactId>
-				<version>2.2.1</version>
+				<artifactId>org.eclipse.xtend.lib</artifactId>
+				<version>2.3.0</version>
 				<type>pom</type>
 			</dependency>
 		</dependencies>

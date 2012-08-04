@@ -1,8 +1,7 @@
 package org.eclipselabs.spray.shapes.jvmmodel
 
-import org.eclipse.xtext.common.types.JvmDeclaredType
-import org.eclipse.xtext.util.IAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
+import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipselabs.spray.shapes.shapes.ShapeContainer
 
 /**
@@ -27,7 +26,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
      * @param isPreLinkingPhase - whether the method is called in a pre linking phase, i.e. when the global index isn't fully updated. You
      *        must not rely on linking using the index if iPrelinkingPhase is <code>true</code>
      */
-       def dispatch void infer(ShapeContainer element, IAcceptor<JvmDeclaredType> acceptor, boolean isPrelinkingPhase) {
+       def dispatch void infer(ShapeContainer element, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
            
            // Here you explain how your model is mapped to Java elements, by writing the actual translation code.
            // An example based on the initial hellow world example could look like this:
