@@ -1,0 +1,17 @@
+module org.eclipselabs.spray.examples.lwc2012.StylesGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+		registerGeneratedEPackage = "LanguageWorkbenchCompetition.LanguageWorkbenchCompetitionPackage"
+		registerGenModelFile = "platform:/resource/de.htwg.2012.lwc.mm/model/LWC.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
+		clean = "false"
+		modelPath = "model,../de.htwg.2012.lwc.mm/model"
+	}
+}
