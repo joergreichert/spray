@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
+<booleanAttribute key="append.args" value="true"/>
+<stringAttribute key="application" value="org.eclipse.equinox.p2.director"/>
+<booleanAttribute key="askclear" value="true"/>
+<booleanAttribute key="automaticAdd" value="true"/>
+<booleanAttribute key="automaticValidate" value="false"/>
+<stringAttribute key="bootstrap" value=""/>
+<stringAttribute key="checked" value="[NONE]"/>
+<booleanAttribute key="clearConfig" value="false"/>
+<booleanAttribute key="clearws" value="false"/>
+<booleanAttribute key="clearwslog" value="false"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/install-devenv-4.2"/>
+<booleanAttribute key="default" value="true"/>
+<booleanAttribute key="includeOptional" value="true"/>
+<stringAttribute key="location" value="${workspace_loc}/../runtime-p2"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog&#10;-destination ${folder_prompt:Enter Eclipse 4.2 location}&#10;-repository http://download.eclipse.org/releases/juno,http://download.eclipse.org/eclipse/updates/4.2,http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/,http://download.itemis.com/updates/releases/2.0.0/,http://knittig.de/googlecode-mylyn-connector/update/,http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x,http://update.eclemma.org,http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site,http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository/&#10;-installIU org.eclipse.egit.feature.group,org.eclipse.xtext.sdk.feature.group/2.3.0.v201203201034,org.eclipse.xtext.sdk.source.feature.group/2.3.0.v201203201034,org.eclipse.xtext.xtend2.sdk.feature.group/2.3.0.v201203201034,org.eclipse.xtext.xtend2.sdk.source.feature.group/2.3.0.v201203201034,org.eclipse.graphiti.sdk.plus.feature.feature.group,org.eclipse.emf.mwe.sdk.feature.group,org.eclipse.emf.mwe2.language.sdk.feature.group,org.eclipse.emf.mwe2.language.sdk.source.feature.group,org.eclipse.emf.mwe2.runtime.sdk.feature.group,org.eclipse.emf.mwe2.runtime.sdk.source.feature.group,org.eclipse.zest.sdk.feature.group,org.eclipse.emf.sdk.feature.group,org.eclipse.mylyn.builds.sdk.feature.group,org.eclipse.mylyn.ide.ui,de.itemis.xtext.antlr.sdk.feature.group,de.itemis.xtext.antlr.sdk.source.feature.group,com.googlecode.mylyn.feature.group,com.mountainminds.eclemma.feature.feature.group,org.eclipse.m2e.feature.feature.group,org.eclipse.wb.rcp.feature.feature.group,org.eclipse.wb.swt.feature.feature.group,org.eclipse.wb.core.feature.feature.group,org.eclipse.wb.doc.user.feature.feature.group,org.eclipse.wb.core.ui.feature.feature.group,org.eclipselabs.xtext.utils.unittesting.feature.feature.group,org.eclipse.swtbot.ide.feature.group,org.eclipse.pde.feature.group,org.eclipse.sdk.feature.group"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m -XX:MaxPermSize=128m"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<stringAttribute key="product" value="org.eclipse.sdk.ide"/>
+<booleanAttribute key="show_selected_only" value="false"/>
+<stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>
+<booleanAttribute key="tracing" value="false"/>
+<booleanAttribute key="useCustomFeatures" value="false"/>
+<booleanAttribute key="useDefaultConfig" value="true"/>
+<booleanAttribute key="useDefaultConfigArea" value="true"/>
+<booleanAttribute key="useProduct" value="false"/>
+</launchConfiguration>
