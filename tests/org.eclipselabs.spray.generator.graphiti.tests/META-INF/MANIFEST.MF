@@ -7,7 +7,7 @@ Bundle-Version: 0.5.0.qualifier
 Fragment-Host: org.eclipselabs.spray.generator.graphiti
 Require-Bundle: org.eclipselabs.spray.xtext.tests,
  org.eclipse.xtext.junit4;bundle-version="2.0.1",
- org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.2",
+ org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.3",
  org.eclipse.xtext.xtend2.lib;bundle-version="2.1.1",
  org.eclipselabs.spray.testhelper;bundle-version="0.0.4"
 Import-Package: org.junit;version="4.8.2",
