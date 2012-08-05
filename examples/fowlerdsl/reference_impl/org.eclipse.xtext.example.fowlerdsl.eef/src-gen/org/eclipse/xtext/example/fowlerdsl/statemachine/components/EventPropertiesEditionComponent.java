@@ -5,20 +5,31 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.components;
 
 // Start of user code for imports
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.context.PropertiesEditingContext;
+
 import org.eclipse.emf.eef.runtime.impl.components.SinglePartPropertiesEditingComponent;
+
 import org.eclipse.emf.eef.runtime.impl.utils.EEFConverterUtil;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.Event;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.StatemachinePackage;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.EventPropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
 
@@ -34,6 +45,7 @@ public class EventPropertiesEditionComponent extends SinglePartPropertiesEditing
 	
 	public static String BASE_PART = "Base"; //$NON-NLS-1$
 
+	
 	
 	/**
 	 * Default constructor
@@ -61,10 +73,10 @@ public class EventPropertiesEditionComponent extends SinglePartPropertiesEditing
 			final EventPropertiesEditionPart basePart = (EventPropertiesEditionPart)editingPart;
 			// init values
 			if (event.getName() != null && isAccessible(StatemachineViewsRepository.Event.Properties.name))
-				basePart.setName(EEFConverterUtil.convertToString(EcorePackage.eINSTANCE.getEString(), event.getName()));
+				basePart.setName(EEFConverterUtil.convertToString(EcorePackage.Literals.ESTRING, event.getName()));
 			
 			if (event.getCode() != null && isAccessible(StatemachineViewsRepository.Event.Properties.code))
-				basePart.setCode(EEFConverterUtil.convertToString(EcorePackage.eINSTANCE.getEString(), event.getCode()));
+				basePart.setCode(EEFConverterUtil.convertToString(EcorePackage.Literals.ESTRING, event.getCode()));
 			
 			// init filters
 			
@@ -83,16 +95,30 @@ public class EventPropertiesEditionComponent extends SinglePartPropertiesEditing
 
 	/**
 	 * {@inheritDoc}
+	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#associatedFeature(java.lang.Object)
+	 */
+	public EStructuralFeature associatedFeature(Object editorKey) {
+		if (editorKey == StatemachineViewsRepository.Event.Properties.name) {
+			return StatemachinePackage.eINSTANCE.getEvent_Name();
+		}
+		if (editorKey == StatemachineViewsRepository.Event.Properties.code) {
+			return StatemachinePackage.eINSTANCE.getEvent_Code();
+		}
+		return super.associatedFeature(editorKey);
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updateSemanticModel(org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent)
 	 * 
 	 */
-	public void updateSemanticModel(final IPropertiesEditionEvent eevent) {
-		Event event = (Event)semanticObject;
-		if (StatemachineViewsRepository.Event.Properties.name == eevent.getAffectedEditor()) {
-			event.setName((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.eINSTANCE.getEString(), (String)eevent.getNewValue()));
+	public void updateSemanticModel(final IPropertiesEditionEvent event) {
+		Event event_ = (Event)semanticObject;
+		if (StatemachineViewsRepository.Event.Properties.name == event.getAffectedEditor()) {
+			event_.setName((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.Literals.ESTRING, (String)event.getNewValue()));
 		}
-		if (StatemachineViewsRepository.Event.Properties.code == eevent.getAffectedEditor()) {
-			event.setCode((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.eINSTANCE.getEString(), (String)eevent.getNewValue()));
+		if (StatemachineViewsRepository.Event.Properties.code == event.getAffectedEditor()) {
+			event_.setCode((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.Literals.ESTRING, (String)event.getNewValue()));
 		}
 	}
 
@@ -101,18 +127,18 @@ public class EventPropertiesEditionComponent extends SinglePartPropertiesEditing
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updatePart(org.eclipse.emf.common.notify.Notification)
 	 */
 	public void updatePart(Notification msg) {
-		if (editingPart.isVisible()) {	
+		if (editingPart.isVisible()) {
 			EventPropertiesEditionPart basePart = (EventPropertiesEditionPart)editingPart;
 			if (StatemachinePackage.eINSTANCE.getEvent_Name().equals(msg.getFeature()) && basePart != null && isAccessible(StatemachineViewsRepository.Event.Properties.name)) {
 				if (msg.getNewValue() != null) {
-					basePart.setName(EcoreUtil.convertToString(EcorePackage.eINSTANCE.getEString(), msg.getNewValue()));
+					basePart.setName(EcoreUtil.convertToString(EcorePackage.Literals.ESTRING, msg.getNewValue()));
 				} else {
 					basePart.setName("");
 				}
 			}
 			if (StatemachinePackage.eINSTANCE.getEvent_Code().equals(msg.getFeature()) && basePart != null && isAccessible(StatemachineViewsRepository.Event.Properties.code)) {
 				if (msg.getNewValue() != null) {
-					basePart.setCode(EcoreUtil.convertToString(EcorePackage.eINSTANCE.getEString(), msg.getNewValue()));
+					basePart.setCode(EcoreUtil.convertToString(EcorePackage.Literals.ESTRING, msg.getNewValue()));
 				} else {
 					basePart.setCode("");
 				}
@@ -135,14 +161,14 @@ public class EventPropertiesEditionComponent extends SinglePartPropertiesEditing
 				if (StatemachineViewsRepository.Event.Properties.name == event.getAffectedEditor()) {
 					Object newValue = event.getNewValue();
 					if (newValue instanceof String) {
-						newValue = EcoreUtil.createFromString(StatemachinePackage.eINSTANCE.getEvent_Name().getEAttributeType(), (String)newValue);
+						newValue = EEFConverterUtil.createFromString(StatemachinePackage.eINSTANCE.getEvent_Name().getEAttributeType(), (String)newValue);
 					}
 					ret = Diagnostician.INSTANCE.validate(StatemachinePackage.eINSTANCE.getEvent_Name().getEAttributeType(), newValue);
 				}
 				if (StatemachineViewsRepository.Event.Properties.code == event.getAffectedEditor()) {
 					Object newValue = event.getNewValue();
 					if (newValue instanceof String) {
-						newValue = EcoreUtil.createFromString(StatemachinePackage.eINSTANCE.getEvent_Code().getEAttributeType(), (String)newValue);
+						newValue = EEFConverterUtil.createFromString(StatemachinePackage.eINSTANCE.getEvent_Code().getEAttributeType(), (String)newValue);
 					}
 					ret = Diagnostician.INSTANCE.validate(StatemachinePackage.eINSTANCE.getEvent_Code().getEAttributeType(), newValue);
 				}

@@ -5,12 +5,23 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.providers;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.context.PropertiesEditingContext;
+
+import org.eclipse.emf.eef.runtime.impl.utils.EEFUtils;
+
 import org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider;
+
 import org.eclipse.emf.eef.runtime.providers.impl.PropertiesEditingProviderImpl;
+
+import org.eclipse.jface.viewers.IFilter;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.StatemachinePackage;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.Transition;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.components.TransitionPropertiesEditionComponent;
 
 /**
@@ -41,7 +52,7 @@ public class TransitionPropertiesEditionProvider extends PropertiesEditingProvid
 	 */
 	public boolean provides(PropertiesEditingContext editingContext) {
 		return (editingContext.getEObject() instanceof Transition) 
-					&& (StatemachinePackage.eINSTANCE.getTransition() == editingContext.getEObject().eClass());
+					&& (StatemachinePackage.Literals.TRANSITION == editingContext.getEObject().eClass());
 	}
 
 	/**
@@ -58,7 +69,7 @@ public class TransitionPropertiesEditionProvider extends PropertiesEditingProvid
 	 * @see org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider#provides(org.eclipse.emf.eef.runtime.context.PropertiesEditingContext, java.lang.Class)
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public boolean provides(PropertiesEditingContext editingContext, java.lang.Class refinement) {
 		return (editingContext.getEObject() instanceof Transition) && (refinement == TransitionPropertiesEditionComponent.class);
 	}
@@ -68,7 +79,7 @@ public class TransitionPropertiesEditionProvider extends PropertiesEditingProvid
 	 * @see org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider#provides(org.eclipse.emf.eef.runtime.context.PropertiesEditingContext, java.lang.String, java.lang.Class)
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public boolean provides(PropertiesEditingContext editingContext, String part, java.lang.Class refinement) {
 		return (editingContext.getEObject() instanceof Transition) && ((TransitionPropertiesEditionComponent.BASE_PART.equals(part) && refinement == TransitionPropertiesEditionComponent.class));
 	}
@@ -102,7 +113,7 @@ public class TransitionPropertiesEditionProvider extends PropertiesEditingProvid
 	 * {@inheritDoc}
 	 * @see org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider#getPropertiesEditingComponent(org.eclipse.emf.eef.runtime.context.PropertiesEditingContext, java.lang.String, java.lang.String, java.lang.Class)
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public IPropertiesEditionComponent getPropertiesEditingComponent(PropertiesEditingContext editingContext, String mode, String part, java.lang.Class refinement) {
 		if (editingContext.getEObject() instanceof Transition) {
 			if (TransitionPropertiesEditionComponent.BASE_PART.equals(part)
@@ -110,6 +121,23 @@ public class TransitionPropertiesEditionProvider extends PropertiesEditingProvid
 				return new TransitionPropertiesEditionComponent(editingContext, editingContext.getEObject(), mode);
 		}
 		return super.getPropertiesEditingComponent(editingContext, mode, part, refinement);
+	}
+
+	/**
+	 * Provides the filter used by the plugin.xml to assign part forms.
+	 */
+	public static class EditionFilter implements IFilter {
+		
+		/**
+		 * {@inheritDoc}
+		 * 
+		 * @see org.eclipse.jface.viewers.IFilter#select(java.lang.Object)
+		 */
+		public boolean select(Object toTest) {
+			EObject eObj = EEFUtils.resolveSemanticObject(toTest);
+			return eObj != null && StatemachinePackage.Literals.TRANSITION == eObj.eClass();
+		}
+		
 	}
 
 }

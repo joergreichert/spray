@@ -4,34 +4,53 @@
 package org.eclipse.xtext.example.fowlerdsl.statemachine.components;
 
 // Start of user code for imports
-import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.context.PropertiesEditingContext;
+
 import org.eclipse.emf.eef.runtime.context.impl.EObjectPropertiesEditionContext;
 import org.eclipse.emf.eef.runtime.context.impl.EReferencePropertiesEditionContext;
+
 import org.eclipse.emf.eef.runtime.impl.components.SinglePartPropertiesEditingComponent;
+
 import org.eclipse.emf.eef.runtime.impl.filters.EObjectFilter;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.impl.utils.EEFConverterUtil;
+
 import org.eclipse.emf.eef.runtime.policies.PropertiesEditingPolicy;
+
 import org.eclipse.emf.eef.runtime.policies.impl.CreateEditingPolicy;
+
 import org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableSettings;
+
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+
+import org.eclipse.xtext.example.fowlerdsl.statemachine.Command;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.State;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.StatemachinePackage;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.Transition;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatePropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
 
@@ -51,12 +70,13 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 	/**
 	 * Settings for actions ReferencesTable
 	 */
-	private	ReferencesTableSettings actionsSettings;
+	private ReferencesTableSettings actionsSettings;
 	
 	/**
 	 * Settings for transitions ReferencesTable
 	 */
 	protected ReferencesTableSettings transitionsSettings;
+	
 	
 	/**
 	 * Default constructor
@@ -84,7 +104,7 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 			final StatePropertiesEditionPart basePart = (StatePropertiesEditionPart)editingPart;
 			// init values
 			if (state.getName() != null && isAccessible(StatemachineViewsRepository.State.Properties.name))
-				basePart.setName(EEFConverterUtil.convertToString(EcorePackage.eINSTANCE.getEString(), state.getName()));
+				basePart.setName(EEFConverterUtil.convertToString(EcorePackage.Literals.ESTRING, state.getName()));
 			
 			if (isAccessible(StatemachineViewsRepository.State.Properties.actions)) {
 				actionsSettings = new ReferencesTableSettings(state, StatemachinePackage.eINSTANCE.getState_Actions());
@@ -96,26 +116,27 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 			}
 			// init filters
 			
-			basePart.addFilterToActions(new ViewerFilter() {
-			
-				/**
-				 * {@inheritDoc}
-				 * 
-				 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-				 */
-				public boolean select(Viewer viewer, Object parentElement, Object element) {
-					if (element instanceof EObject)
-						return (!basePart.isContainedInActionsTable((EObject)element));
-					return element instanceof Resource;
-				}
-			
-			});
-			basePart.addFilterToActions(new EObjectFilter(StatemachinePackage.eINSTANCE.getCommand()));
-			// Start of user code for additional businessfilters for actions
-			// End of user code
-			
-			basePart.addFilterToTransitions(new ViewerFilter() {
-			
+			if (isAccessible(StatemachineViewsRepository.State.Properties.actions)) {
+				basePart.addFilterToActions(new ViewerFilter() {
+				
+					/**
+					 * {@inheritDoc}
+					 * 
+					 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+					 */
+					public boolean select(Viewer viewer, Object parentElement, Object element) {
+						if (element instanceof EObject)
+							return (!basePart.isContainedInActionsTable((EObject)element));
+						return element instanceof Resource;
+					}
+				
+				});
+				basePart.addFilterToActions(new EObjectFilter(StatemachinePackage.Literals.COMMAND));
+				// Start of user code for additional businessfilters for actions
+				// End of user code
+			}
+			if (isAccessible(StatemachineViewsRepository.State.Properties.transitions)) {
+				basePart.addFilterToTransitions(new ViewerFilter() {
 					/**
 					 * {@inheritDoc}
 					 * 
@@ -125,10 +146,10 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 						return (element instanceof String && element.equals("")) || (element instanceof Transition); //$NON-NLS-1$ 
 					}
 			
-			});
-			// Start of user code for additional businessfilters for transitions
-			// End of user code
-			
+				});
+				// Start of user code for additional businessfilters for transitions
+				// End of user code
+			}
 			// init values for referenced views
 			
 			// init filters for referenced views
@@ -144,13 +165,30 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 
 	/**
 	 * {@inheritDoc}
+	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#associatedFeature(java.lang.Object)
+	 */
+	public EStructuralFeature associatedFeature(Object editorKey) {
+		if (editorKey == StatemachineViewsRepository.State.Properties.name) {
+			return StatemachinePackage.eINSTANCE.getState_Name();
+		}
+		if (editorKey == StatemachineViewsRepository.State.Properties.actions) {
+			return StatemachinePackage.eINSTANCE.getState_Actions();
+		}
+		if (editorKey == StatemachineViewsRepository.State.Properties.transitions) {
+			return StatemachinePackage.eINSTANCE.getState_Transitions();
+		}
+		return super.associatedFeature(editorKey);
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updateSemanticModel(org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent)
 	 * 
 	 */
 	public void updateSemanticModel(final IPropertiesEditionEvent event) {
 		State state = (State)semanticObject;
 		if (StatemachineViewsRepository.State.Properties.name == event.getAffectedEditor()) {
-			state.setName((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.eINSTANCE.getEString(), (String)event.getNewValue()));
+			state.setName((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.Literals.ESTRING, (String)event.getNewValue()));
 		}
 		if (StatemachineViewsRepository.State.Properties.actions == event.getAffectedEditor()) {
 			if (event.getKind() == PropertiesEditionEvent.ADD) {
@@ -158,7 +196,9 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 					actionsSettings.addToReference((EObject) event.getNewValue());
 				}
 			} else if (event.getKind() == PropertiesEditionEvent.REMOVE) {
-					actionsSettings.removeFromReference((EObject) event.getNewValue());
+				actionsSettings.removeFromReference((EObject) event.getNewValue());
+			} else if (event.getKind() == PropertiesEditionEvent.MOVE) {
+				actionsSettings.move(event.getNewIndex(), (Command) event.getNewValue());
 			}
 		}
 		if (StatemachineViewsRepository.State.Properties.transitions == event.getAffectedEditor()) {
@@ -181,7 +221,9 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 					}
 				}
 			} else if (event.getKind() == PropertiesEditionEvent.REMOVE) {
-					transitionsSettings.removeFromReference((EObject) event.getNewValue());
+				transitionsSettings.removeFromReference((EObject) event.getNewValue());
+			} else if (event.getKind() == PropertiesEditionEvent.MOVE) {
+				transitionsSettings.move(event.getNewIndex(), (Transition) event.getNewValue());
 			}
 		}
 	}
@@ -191,11 +233,11 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updatePart(org.eclipse.emf.common.notify.Notification)
 	 */
 	public void updatePart(Notification msg) {
-		if (editingPart.isVisible()) {	
+		if (editingPart.isVisible()) {
 			StatePropertiesEditionPart basePart = (StatePropertiesEditionPart)editingPart;
 			if (StatemachinePackage.eINSTANCE.getState_Name().equals(msg.getFeature()) && basePart != null && isAccessible(StatemachineViewsRepository.State.Properties.name)) {
 				if (msg.getNewValue() != null) {
-					basePart.setName(EcoreUtil.convertToString(EcorePackage.eINSTANCE.getEString(), msg.getNewValue()));
+					basePart.setName(EcoreUtil.convertToString(EcorePackage.Literals.ESTRING, msg.getNewValue()));
 				} else {
 					basePart.setName("");
 				}
@@ -222,7 +264,7 @@ public class StatePropertiesEditionComponent extends SinglePartPropertiesEditing
 				if (StatemachineViewsRepository.State.Properties.name == event.getAffectedEditor()) {
 					Object newValue = event.getNewValue();
 					if (newValue instanceof String) {
-						newValue = EcoreUtil.createFromString(StatemachinePackage.eINSTANCE.getState_Name().getEAttributeType(), (String)newValue);
+						newValue = EEFConverterUtil.createFromString(StatemachinePackage.eINSTANCE.getState_Name().getEAttributeType(), (String)newValue);
 					}
 					ret = Diagnostician.INSTANCE.validate(StatemachinePackage.eINSTANCE.getState_Name().getEAttributeType(), newValue);
 				}

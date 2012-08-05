@@ -5,30 +5,43 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl;
 
 // Start of user code for imports
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.api.parts.ISWTPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.impl.parts.CompositePropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.ui.parts.PartComposer;
+
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.BindingCompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionStep;
+
 import org.eclipse.emf.eef.runtime.ui.utils.EditingUtils;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.SWTUtils;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.EventPropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
 // End of user code
 
@@ -118,8 +131,8 @@ public class EventPropertiesEditionPartImpl extends CompositePropertiesEditionPa
 
 	
 	protected Composite createNameText(Composite parent) {
-		SWTUtils.createPartLabel(parent, StatemachineMessages.EventPropertiesEditionPart_NameLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.Event.Properties.name, StatemachineViewsRepository.SWT_KIND));
-		name = new Text(parent, SWT.BORDER);
+		createDescription(parent, StatemachineViewsRepository.Event.Properties.name, StatemachineMessages.EventPropertiesEditionPart_NameLabel);
+		name = SWTUtils.createScrollableText(parent, SWT.BORDER);
 		GridData nameData = new GridData(GridData.FILL_HORIZONTAL);
 		name.setLayoutData(nameData);
 		name.addFocusListener(new FocusAdapter() {
@@ -164,8 +177,8 @@ public class EventPropertiesEditionPartImpl extends CompositePropertiesEditionPa
 
 	
 	protected Composite createCodeText(Composite parent) {
-		SWTUtils.createPartLabel(parent, StatemachineMessages.EventPropertiesEditionPart_CodeLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.Event.Properties.code, StatemachineViewsRepository.SWT_KIND));
-		code = new Text(parent, SWT.BORDER);
+		createDescription(parent, StatemachineViewsRepository.Event.Properties.code, StatemachineMessages.EventPropertiesEditionPart_CodeLabel);
+		code = SWTUtils.createScrollableText(parent, SWT.BORDER);
 		GridData codeData = new GridData(GridData.FILL_HORIZONTAL);
 		code.setLayoutData(codeData);
 		code.addFocusListener(new FocusAdapter() {
@@ -209,7 +222,6 @@ public class EventPropertiesEditionPartImpl extends CompositePropertiesEditionPa
 	}
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -246,7 +258,6 @@ public class EventPropertiesEditionPartImpl extends CompositePropertiesEditionPa
 		}
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -270,7 +281,6 @@ public class EventPropertiesEditionPartImpl extends CompositePropertiesEditionPa
 			code.setText(""); //$NON-NLS-1$
 		}
 	}
-
 
 
 

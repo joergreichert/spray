@@ -9,44 +9,64 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.api.parts.ISWTPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.context.impl.EObjectPropertiesEditionContext;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.impl.parts.CompositePropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.policies.PropertiesEditingPolicy;
+
 import org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider;
+
 import org.eclipse.emf.eef.runtime.ui.parts.PartComposer;
+
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.BindingCompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionStep;
+
 import org.eclipse.emf.eef.runtime.ui.utils.EditingUtils;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ReferencesTable;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ReferencesTable.ReferencesTableListener;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.SWTUtils;
 import org.eclipse.emf.eef.runtime.ui.widgets.TabElementTreeSelectionDialog;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableContentProvider;
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableSettings;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatePropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
 // End of user code
 
@@ -60,9 +80,9 @@ public class StatePropertiesEditionPartImpl extends CompositePropertiesEditionPa
 	protected ReferencesTable actions;
 	protected List<ViewerFilter> actionsBusinessFilters = new ArrayList<ViewerFilter>();
 	protected List<ViewerFilter> actionsFilters = new ArrayList<ViewerFilter>();
-protected ReferencesTable transitions;
-protected List<ViewerFilter> transitionsBusinessFilters = new ArrayList<ViewerFilter>();
-protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
+	protected ReferencesTable transitions;
+	protected List<ViewerFilter> transitionsBusinessFilters = new ArrayList<ViewerFilter>();
+	protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 
 
 
@@ -145,8 +165,8 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 
 	
 	protected Composite createNameText(Composite parent) {
-		SWTUtils.createPartLabel(parent, StatemachineMessages.StatePropertiesEditionPart_NameLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.State.Properties.name, StatemachineViewsRepository.SWT_KIND));
-		name = new Text(parent, SWT.BORDER);
+		createDescription(parent, StatemachineViewsRepository.State.Properties.name, StatemachineMessages.StatePropertiesEditionPart_NameLabel);
+		name = SWTUtils.createScrollableText(parent, SWT.BORDER);
 		GridData nameData = new GridData(GridData.FILL_HORIZONTAL);
 		name.setLayoutData(nameData);
 		name.addFocusListener(new FocusAdapter() {
@@ -193,7 +213,8 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 	 * 
 	 */
 	protected Composite createActionsAdvancedReferencesTable(Composite parent) {
-		this.actions = new ReferencesTable(StatemachineMessages.StatePropertiesEditionPart_ActionsLabel, new ReferencesTableListener() {
+		String label = getDescription(StatemachineViewsRepository.State.Properties.actions, StatemachineMessages.StatePropertiesEditionPart_ActionsLabel);		 
+		this.actions = new ReferencesTable(label, new ReferencesTableListener() {
 			public void handleAdd() { addActions(); }
 			public void handleEdit(EObject element) { editActions(element); }
 			public void handleMove(EObject element, int oldIndex, int newIndex) { moveActions(element, oldIndex, newIndex); }
@@ -275,7 +296,7 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 	 * 
 	 */
 	protected Composite createTransitionsAdvancedTableComposition(Composite parent) {
-		this.transitions = new ReferencesTable(StatemachineMessages.StatePropertiesEditionPart_TransitionsLabel, new ReferencesTableListener() {
+		this.transitions = new ReferencesTable(getDescription(StatemachineViewsRepository.State.Properties.transitions, StatemachineMessages.StatePropertiesEditionPart_TransitionsLabel), new ReferencesTableListener() {
 			public void handleAdd() { 
 				propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(StatePropertiesEditionPartImpl.this, StatemachineViewsRepository.State.Properties.transitions, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.ADD, null, null));
 				transitions.refresh();
@@ -319,7 +340,6 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 	}
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -355,7 +375,6 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 			name.setText(""); //$NON-NLS-1$
 		}
 	}
-
 
 
 
@@ -414,7 +433,6 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -470,7 +488,6 @@ protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 	public boolean isContainedInTransitionsTable(EObject element) {
 		return ((ReferencesTableSettings)transitions.getInput()).contains(element);
 	}
-
 
 
 

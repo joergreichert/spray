@@ -5,33 +5,48 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl;
 
 // Start of user code for imports
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.api.parts.ISWTPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.impl.parts.CompositePropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.ui.parts.PartComposer;
+
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.BindingCompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionStep;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ButtonsModeEnum;
 import org.eclipse.emf.eef.runtime.ui.widgets.EObjectFlatComboViewer;
 import org.eclipse.emf.eef.runtime.ui.widgets.SWTUtils;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.eobjflatcombo.EObjectFlatComboSettings;
+
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.TransitionPropertiesEditionPart;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
 // End of user code
 
@@ -124,7 +139,7 @@ public class TransitionPropertiesEditionPartImpl extends CompositePropertiesEdit
 	 * 
 	 */
 	protected Composite createEventFlatComboViewer(Composite parent) {
-		SWTUtils.createPartLabel(parent, StatemachineMessages.TransitionPropertiesEditionPart_EventLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.Transition.Properties.event, StatemachineViewsRepository.SWT_KIND));
+		createDescription(parent, StatemachineViewsRepository.Transition.Properties.event, StatemachineMessages.TransitionPropertiesEditionPart_EventLabel);
 		event = new EObjectFlatComboViewer(parent, !propertiesEditionComponent.isRequired(StatemachineViewsRepository.Transition.Properties.event, StatemachineViewsRepository.SWT_KIND));
 		event.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
@@ -147,7 +162,7 @@ public class TransitionPropertiesEditionPartImpl extends CompositePropertiesEdit
 	 * 
 	 */
 	protected Composite createStateFlatComboViewer(Composite parent) {
-		SWTUtils.createPartLabel(parent, StatemachineMessages.TransitionPropertiesEditionPart_StateLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.Transition.Properties.state, StatemachineViewsRepository.SWT_KIND));
+		createDescription(parent, StatemachineViewsRepository.Transition.Properties.state, StatemachineMessages.TransitionPropertiesEditionPart_StateLabel);
 		state = new EObjectFlatComboViewer(parent, !propertiesEditionComponent.isRequired(StatemachineViewsRepository.Transition.Properties.state, StatemachineViewsRepository.SWT_KIND));
 		state.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
@@ -164,7 +179,6 @@ public class TransitionPropertiesEditionPartImpl extends CompositePropertiesEdit
 		SWTUtils.createHelpButton(parent, propertiesEditionComponent.getHelpContent(StatemachineViewsRepository.Transition.Properties.state, StatemachineViewsRepository.SWT_KIND), null); //$NON-NLS-1$
 		return parent;
 	}
-
 
 
 	/**
@@ -249,7 +263,6 @@ public class TransitionPropertiesEditionPartImpl extends CompositePropertiesEdit
 		event.addBusinessRuleFilter(filter);
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -319,7 +332,6 @@ public class TransitionPropertiesEditionPartImpl extends CompositePropertiesEdit
 	public void addBusinessFilterToState(ViewerFilter filter) {
 		state.addBusinessRuleFilter(filter);
 	}
-
 
 
 

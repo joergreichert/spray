@@ -4,8 +4,8 @@
 package org.eclipse.xtext.example.fowlerdsl.statemachine.providers;
 
 import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.util.StatemachineAdapterFactory;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.util.StatemachineAdapterFactory;
 
 /**
  * 

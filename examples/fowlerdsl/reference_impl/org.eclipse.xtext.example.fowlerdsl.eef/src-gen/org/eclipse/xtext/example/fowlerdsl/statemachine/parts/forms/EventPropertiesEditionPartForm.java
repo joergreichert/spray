@@ -5,33 +5,47 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms;
 
 // Start of user code for imports
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.api.parts.IFormPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
-import org.eclipse.emf.eef.runtime.impl.parts.CompositePropertiesEditionPart;
+
+import org.eclipse.emf.eef.runtime.part.impl.SectionPropertiesEditingPart;
+
 import org.eclipse.emf.eef.runtime.ui.parts.PartComposer;
+
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.BindingCompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionStep;
+
 import org.eclipse.emf.eef.runtime.ui.utils.EditingUtils;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.FormUtils;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.EventPropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
 // End of user code
 
@@ -39,12 +53,17 @@ import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMe
  * 
  * 
  */
-public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPart implements IFormPropertiesEditionPart, EventPropertiesEditionPart {
+public class EventPropertiesEditionPartForm extends SectionPropertiesEditingPart implements IFormPropertiesEditionPart, EventPropertiesEditionPart {
 
 	protected Text name;
 	protected Text code;
 
 
+
+	/**
+	 * For {@link ISection} use only.
+	 */
+	public EventPropertiesEditionPartForm() { super(); }
 
 	/**
 	 * Default constructor
@@ -95,10 +114,10 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 					return createPropertiesGroup(widgetFactory, parent);
 				}
 				if (key == StatemachineViewsRepository.Event.Properties.name) {
-					return 		createNameText(widgetFactory, parent);
+					return createNameText(widgetFactory, parent);
 				}
 				if (key == StatemachineViewsRepository.Event.Properties.code) {
-					return 		createCodeText(widgetFactory, parent);
+					return createCodeText(widgetFactory, parent);
 				}
 				return parent;
 			}
@@ -124,7 +143,7 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 
 	
 	protected Composite createNameText(FormToolkit widgetFactory, Composite parent) {
-		FormUtils.createPartLabel(widgetFactory, parent, StatemachineMessages.EventPropertiesEditionPart_NameLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.Event.Properties.name, StatemachineViewsRepository.FORM_KIND));
+		createDescription(parent, StatemachineViewsRepository.Event.Properties.name, StatemachineMessages.EventPropertiesEditionPart_NameLabel);
 		name = widgetFactory.createText(parent, ""); //$NON-NLS-1$
 		name.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 		widgetFactory.paintBordersFor(parent);
@@ -138,8 +157,33 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 			@Override
 			@SuppressWarnings("synthetic-access")
 			public void focusLost(FocusEvent e) {
-				if (propertiesEditionComponent != null)
-					propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(EventPropertiesEditionPartForm.this, StatemachineViewsRepository.Event.Properties.name, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.SET, null, name.getText()));
+				if (propertiesEditionComponent != null) {
+					propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(
+							EventPropertiesEditionPartForm.this,
+							StatemachineViewsRepository.Event.Properties.name,
+							PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.SET, null, name.getText()));
+					propertiesEditionComponent
+							.firePropertiesChanged(new PropertiesEditionEvent(
+									EventPropertiesEditionPartForm.this,
+									StatemachineViewsRepository.Event.Properties.name,
+									PropertiesEditionEvent.FOCUS_CHANGED, PropertiesEditionEvent.FOCUS_LOST,
+									null, name.getText()));
+				}
+			}
+
+			/**
+			 * @see org.eclipse.swt.events.FocusAdapter#focusGained(org.eclipse.swt.events.FocusEvent)
+			 */
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (propertiesEditionComponent != null) {
+					propertiesEditionComponent
+							.firePropertiesChanged(new PropertiesEditionEvent(
+									EventPropertiesEditionPartForm.this,
+									null,
+									PropertiesEditionEvent.FOCUS_CHANGED, PropertiesEditionEvent.FOCUS_GAINED,
+									null, null));
+				}
 			}
 		});
 		name.addKeyListener(new KeyAdapter() {
@@ -164,7 +208,7 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 
 	
 	protected Composite createCodeText(FormToolkit widgetFactory, Composite parent) {
-		FormUtils.createPartLabel(widgetFactory, parent, StatemachineMessages.EventPropertiesEditionPart_CodeLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.Event.Properties.code, StatemachineViewsRepository.FORM_KIND));
+		createDescription(parent, StatemachineViewsRepository.Event.Properties.code, StatemachineMessages.EventPropertiesEditionPart_CodeLabel);
 		code = widgetFactory.createText(parent, ""); //$NON-NLS-1$
 		code.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 		widgetFactory.paintBordersFor(parent);
@@ -178,8 +222,33 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 			@Override
 			@SuppressWarnings("synthetic-access")
 			public void focusLost(FocusEvent e) {
-				if (propertiesEditionComponent != null)
-					propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(EventPropertiesEditionPartForm.this, StatemachineViewsRepository.Event.Properties.code, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.SET, null, code.getText()));
+				if (propertiesEditionComponent != null) {
+					propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(
+							EventPropertiesEditionPartForm.this,
+							StatemachineViewsRepository.Event.Properties.code,
+							PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.SET, null, code.getText()));
+					propertiesEditionComponent
+							.firePropertiesChanged(new PropertiesEditionEvent(
+									EventPropertiesEditionPartForm.this,
+									StatemachineViewsRepository.Event.Properties.code,
+									PropertiesEditionEvent.FOCUS_CHANGED, PropertiesEditionEvent.FOCUS_LOST,
+									null, code.getText()));
+				}
+			}
+
+			/**
+			 * @see org.eclipse.swt.events.FocusAdapter#focusGained(org.eclipse.swt.events.FocusEvent)
+			 */
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (propertiesEditionComponent != null) {
+					propertiesEditionComponent
+							.firePropertiesChanged(new PropertiesEditionEvent(
+									EventPropertiesEditionPartForm.this,
+									null,
+									PropertiesEditionEvent.FOCUS_CHANGED, PropertiesEditionEvent.FOCUS_GAINED,
+									null, null));
+				}
 			}
 		});
 		code.addKeyListener(new KeyAdapter() {
@@ -201,7 +270,6 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 		FormUtils.createHelpButton(widgetFactory, parent, propertiesEditionComponent.getHelpContent(StatemachineViewsRepository.Event.Properties.code, StatemachineViewsRepository.FORM_KIND), null); //$NON-NLS-1$
 		return parent;
 	}
-
 
 
 	/**
@@ -240,7 +308,6 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 		}
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -264,6 +331,8 @@ public class EventPropertiesEditionPartForm extends CompositePropertiesEditionPa
 			code.setText(""); //$NON-NLS-1$
 		}
 	}
+
+
 
 
 

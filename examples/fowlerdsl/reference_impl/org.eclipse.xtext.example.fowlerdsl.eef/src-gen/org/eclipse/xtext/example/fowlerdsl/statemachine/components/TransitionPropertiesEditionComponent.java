@@ -5,27 +5,47 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.components;
 
 // Start of user code for imports
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.context.PropertiesEditingContext;
+
 import org.eclipse.emf.eef.runtime.context.impl.EObjectPropertiesEditionContext;
+
 import org.eclipse.emf.eef.runtime.impl.components.SinglePartPropertiesEditingComponent;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
+
+import org.eclipse.emf.eef.runtime.impl.utils.EEFConverterUtil;
+
 import org.eclipse.emf.eef.runtime.policies.PropertiesEditingPolicy;
+
 import org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ButtonsModeEnum;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.eobjflatcombo.EObjectFlatComboSettings;
+
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.Event;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.State;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.StatemachineFactory;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.StatemachinePackage;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.Transition;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.TransitionPropertiesEditionPart;
 
@@ -45,12 +65,13 @@ public class TransitionPropertiesEditionComponent extends SinglePartPropertiesEd
 	/**
 	 * Settings for event EObjectFlatComboViewer
 	 */
-	private	EObjectFlatComboSettings eventSettings;
+	private EObjectFlatComboSettings eventSettings;
 	
 	/**
 	 * Settings for state EObjectFlatComboViewer
 	 */
-	private	EObjectFlatComboSettings stateSettings;
+	private EObjectFlatComboSettings stateSettings;
+	
 	
 	/**
 	 * Default constructor
@@ -92,36 +113,38 @@ public class TransitionPropertiesEditionComponent extends SinglePartPropertiesEd
 				basePart.setStateButtonMode(ButtonsModeEnum.BROWSE);
 			}
 			// init filters
-			basePart.addFilterToEvent(new ViewerFilter() {
-			
-			/**
-			 * {@inheritDoc}
-			 * 
-			 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-			 */
-			public boolean select(Viewer viewer, Object parentElement, Object element) {
-				return (element instanceof String && element.equals("")) || (element instanceof Event); //$NON-NLS-1$ 
-				}
-			
-			});
-			// Start of user code for additional businessfilters for event
-			// End of user code
-			
-			basePart.addFilterToState(new ViewerFilter() {
-			
-			/**
-			 * {@inheritDoc}
-			 * 
-			 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-			 */
-			public boolean select(Viewer viewer, Object parentElement, Object element) {
-				return (element instanceof String && element.equals("")) || (element instanceof State); //$NON-NLS-1$ 
-				}
-			
-			});
-			// Start of user code for additional businessfilters for state
-			// End of user code
-			
+			if (isAccessible(StatemachineViewsRepository.Transition.Properties.event)) {
+				basePart.addFilterToEvent(new ViewerFilter() {
+				
+					/**
+					 * {@inheritDoc}
+					 * 
+					 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+					 */
+					public boolean select(Viewer viewer, Object parentElement, Object element) {
+						return (element instanceof String && element.equals("")) || (element instanceof Event); //$NON-NLS-1$ 
+					}
+					
+				});
+				// Start of user code for additional businessfilters for event
+				// End of user code
+			}
+			if (isAccessible(StatemachineViewsRepository.Transition.Properties.state)) {
+				basePart.addFilterToState(new ViewerFilter() {
+				
+					/**
+					 * {@inheritDoc}
+					 * 
+					 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+					 */
+					public boolean select(Viewer viewer, Object parentElement, Object element) {
+						return (element instanceof String && element.equals("")) || (element instanceof State); //$NON-NLS-1$ 
+					}
+					
+				});
+				// Start of user code for additional businessfilters for state
+				// End of user code
+			}
 			// init values for referenced views
 			
 			// init filters for referenced views
@@ -133,6 +156,20 @@ public class TransitionPropertiesEditionComponent extends SinglePartPropertiesEd
 
 
 
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#associatedFeature(java.lang.Object)
+	 */
+	public EStructuralFeature associatedFeature(Object editorKey) {
+		if (editorKey == StatemachineViewsRepository.Transition.Properties.event) {
+			return StatemachinePackage.eINSTANCE.getTransition_Event();
+		}
+		if (editorKey == StatemachineViewsRepository.Transition.Properties.state) {
+			return StatemachinePackage.eINSTANCE.getTransition_State();
+		}
+		return super.associatedFeature(editorKey);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -180,7 +217,7 @@ public class TransitionPropertiesEditionComponent extends SinglePartPropertiesEd
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updatePart(org.eclipse.emf.common.notify.Notification)
 	 */
 	public void updatePart(Notification msg) {
-		if (editingPart.isVisible()) {	
+		if (editingPart.isVisible()) {
 			TransitionPropertiesEditionPart basePart = (TransitionPropertiesEditionPart)editingPart;
 			if (StatemachinePackage.eINSTANCE.getTransition_Event().equals(msg.getFeature()) && basePart != null && isAccessible(StatemachineViewsRepository.Transition.Properties.event))
 				basePart.setEvent((EObject)msg.getNewValue());

@@ -4,22 +4,24 @@
 package org.eclipse.xtext.example.fowlerdsl.statemachine.providers;
 
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.parts.IPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.api.providers.IPropertiesEditionPartProvider;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.CommandPropertiesEditionPartForm;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.EventPropertiesEditionPartForm;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.StatePropertiesEditionPartForm;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.StatemachinePropertiesEditionPartForm;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.TransitionPropertiesEditionPartForm;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl.CommandPropertiesEditionPartImpl;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl.EventPropertiesEditionPartImpl;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl.StatePropertiesEditionPartImpl;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl.StatemachinePropertiesEditionPartImpl;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.impl.TransitionPropertiesEditionPartImpl;
-
-
-
 
 /**
  * 

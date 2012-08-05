@@ -5,20 +5,31 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.components;
 
 // Start of user code for imports
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.context.PropertiesEditingContext;
+
 import org.eclipse.emf.eef.runtime.impl.components.SinglePartPropertiesEditingComponent;
+
 import org.eclipse.emf.eef.runtime.impl.utils.EEFConverterUtil;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.Command;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.StatemachinePackage;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.CommandPropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
 
@@ -34,6 +45,7 @@ public class CommandPropertiesEditionComponent extends SinglePartPropertiesEditi
 	
 	public static String BASE_PART = "Base"; //$NON-NLS-1$
 
+	
 	
 	/**
 	 * Default constructor
@@ -61,10 +73,10 @@ public class CommandPropertiesEditionComponent extends SinglePartPropertiesEditi
 			final CommandPropertiesEditionPart basePart = (CommandPropertiesEditionPart)editingPart;
 			// init values
 			if (command.getName() != null && isAccessible(StatemachineViewsRepository.Command.Properties.name))
-				basePart.setName(EEFConverterUtil.convertToString(EcorePackage.eINSTANCE.getEString(), command.getName()));
+				basePart.setName(EEFConverterUtil.convertToString(EcorePackage.Literals.ESTRING, command.getName()));
 			
 			if (command.getCode() != null && isAccessible(StatemachineViewsRepository.Command.Properties.code))
-				basePart.setCode(EEFConverterUtil.convertToString(EcorePackage.eINSTANCE.getEString(), command.getCode()));
+				basePart.setCode(EEFConverterUtil.convertToString(EcorePackage.Literals.ESTRING, command.getCode()));
 			
 			// init filters
 			
@@ -83,16 +95,30 @@ public class CommandPropertiesEditionComponent extends SinglePartPropertiesEditi
 
 	/**
 	 * {@inheritDoc}
+	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#associatedFeature(java.lang.Object)
+	 */
+	public EStructuralFeature associatedFeature(Object editorKey) {
+		if (editorKey == StatemachineViewsRepository.Command.Properties.name) {
+			return StatemachinePackage.eINSTANCE.getCommand_Name();
+		}
+		if (editorKey == StatemachineViewsRepository.Command.Properties.code) {
+			return StatemachinePackage.eINSTANCE.getCommand_Code();
+		}
+		return super.associatedFeature(editorKey);
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updateSemanticModel(org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent)
 	 * 
 	 */
 	public void updateSemanticModel(final IPropertiesEditionEvent event) {
 		Command command = (Command)semanticObject;
 		if (StatemachineViewsRepository.Command.Properties.name == event.getAffectedEditor()) {
-			command.setName((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.eINSTANCE.getEString(), (String)event.getNewValue()));
+			command.setName((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.Literals.ESTRING, (String)event.getNewValue()));
 		}
 		if (StatemachineViewsRepository.Command.Properties.code == event.getAffectedEditor()) {
-			command.setCode((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.eINSTANCE.getEString(), (String)event.getNewValue()));
+			command.setCode((java.lang.String)EEFConverterUtil.createFromString(EcorePackage.Literals.ESTRING, (String)event.getNewValue()));
 		}
 	}
 
@@ -101,18 +127,18 @@ public class CommandPropertiesEditionComponent extends SinglePartPropertiesEditi
 	 * @see org.eclipse.emf.eef.runtime.impl.components.StandardPropertiesEditionComponent#updatePart(org.eclipse.emf.common.notify.Notification)
 	 */
 	public void updatePart(Notification msg) {
-		if (editingPart.isVisible()) {	
+		if (editingPart.isVisible()) {
 			CommandPropertiesEditionPart basePart = (CommandPropertiesEditionPart)editingPart;
 			if (StatemachinePackage.eINSTANCE.getCommand_Name().equals(msg.getFeature()) && basePart != null && isAccessible(StatemachineViewsRepository.Command.Properties.name)) {
 				if (msg.getNewValue() != null) {
-					basePart.setName(EcoreUtil.convertToString(EcorePackage.eINSTANCE.getEString(), msg.getNewValue()));
+					basePart.setName(EcoreUtil.convertToString(EcorePackage.Literals.ESTRING, msg.getNewValue()));
 				} else {
 					basePart.setName("");
 				}
 			}
 			if (StatemachinePackage.eINSTANCE.getCommand_Code().equals(msg.getFeature()) && basePart != null && isAccessible(StatemachineViewsRepository.Command.Properties.code)) {
 				if (msg.getNewValue() != null) {
-					basePart.setCode(EcoreUtil.convertToString(EcorePackage.eINSTANCE.getEString(), msg.getNewValue()));
+					basePart.setCode(EcoreUtil.convertToString(EcorePackage.Literals.ESTRING, msg.getNewValue()));
 				} else {
 					basePart.setCode("");
 				}
@@ -135,14 +161,14 @@ public class CommandPropertiesEditionComponent extends SinglePartPropertiesEditi
 				if (StatemachineViewsRepository.Command.Properties.name == event.getAffectedEditor()) {
 					Object newValue = event.getNewValue();
 					if (newValue instanceof String) {
-						newValue = EcoreUtil.createFromString(StatemachinePackage.eINSTANCE.getCommand_Name().getEAttributeType(), (String)newValue);
+						newValue = EEFConverterUtil.createFromString(StatemachinePackage.eINSTANCE.getCommand_Name().getEAttributeType(), (String)newValue);
 					}
 					ret = Diagnostician.INSTANCE.validate(StatemachinePackage.eINSTANCE.getCommand_Name().getEAttributeType(), newValue);
 				}
 				if (StatemachineViewsRepository.Command.Properties.code == event.getAffectedEditor()) {
 					Object newValue = event.getNewValue();
 					if (newValue instanceof String) {
-						newValue = EcoreUtil.createFromString(StatemachinePackage.eINSTANCE.getCommand_Code().getEAttributeType(), (String)newValue);
+						newValue = EEFConverterUtil.createFromString(StatemachinePackage.eINSTANCE.getCommand_Code().getEAttributeType(), (String)newValue);
 					}
 					ret = Diagnostician.INSTANCE.validate(StatemachinePackage.eINSTANCE.getCommand_Code().getEAttributeType(), newValue);
 				}

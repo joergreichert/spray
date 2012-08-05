@@ -17,11 +17,12 @@
       </PropertiesEditionPartProvider>
    </extension>
 
-   <!-- Tabbed properties views extension -->
+  <!-- Tabbed properties views extension -->
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <propertyContributor
-            contributorId="org.eclipse.xtext.example.fowlerdsl.statemachine.properties">
+            contributorId="org.eclipse.xtext.example.fowlerdsl.statemachine.properties"
+            labelProvider="org.eclipse.emf.eef.runtime.ui.utils.EEFLabelProvider">
          <propertyCategory
                category="default">
          </propertyCategory>
@@ -38,10 +39,11 @@
       <propertyTabs
             contributorId="org.eclipse.xtext.example.fowlerdsl.statemachine.properties">
          <propertyTab
+               id="Base"
                label="Base"
-               category="default"
-               id="Base">
+               category="default">
          </propertyTab>
+
       </propertyTabs>
    </extension>
    <extension
@@ -49,44 +51,34 @@
       <propertySections
             contributorId="org.eclipse.xtext.example.fowlerdsl.statemachine.properties">
          <propertySection
-               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               class="org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.StatemachinePropertiesEditionPartForm"
+               filter="org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachinePropertiesEditionProvider$EditionFilter"
                id="org.eclipse.xtext.example.fowlerdsl.statemachine.section.Statemachine"
                tab="Base">
-             <input
-                    type="org.eclipse.xtext.example.fowlerdsl.statemachine.Statemachine">
-             </input>
          </propertySection>
          <propertySection
-               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               class="org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.EventPropertiesEditionPartForm"
+               filter="org.eclipse.xtext.example.fowlerdsl.statemachine.providers.EventPropertiesEditionProvider$EditionFilter"
                id="org.eclipse.xtext.example.fowlerdsl.statemachine.section.Event"
                tab="Base">
-             <input
-                    type="org.eclipse.xtext.example.fowlerdsl.statemachine.Event">
-             </input>
          </propertySection>
          <propertySection
-               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               class="org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.CommandPropertiesEditionPartForm"
+               filter="org.eclipse.xtext.example.fowlerdsl.statemachine.providers.CommandPropertiesEditionProvider$EditionFilter"
                id="org.eclipse.xtext.example.fowlerdsl.statemachine.section.Command"
                tab="Base">
-             <input
-                    type="org.eclipse.xtext.example.fowlerdsl.statemachine.Command">
-             </input>
          </propertySection>
          <propertySection
-               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               class="org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.StatePropertiesEditionPartForm"
+               filter="org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatePropertiesEditionProvider$EditionFilter"
                id="org.eclipse.xtext.example.fowlerdsl.statemachine.section.State"
                tab="Base">
-             <input
-                    type="org.eclipse.xtext.example.fowlerdsl.statemachine.State">
-             </input>
          </propertySection>
          <propertySection
-               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               class="org.eclipse.xtext.example.fowlerdsl.statemachine.parts.forms.TransitionPropertiesEditionPartForm"
+               filter="org.eclipse.xtext.example.fowlerdsl.statemachine.providers.TransitionPropertiesEditionProvider$EditionFilter"
                id="org.eclipse.xtext.example.fowlerdsl.statemachine.section.Transition"
                tab="Base">
-             <input
-                    type="org.eclipse.xtext.example.fowlerdsl.statemachine.Transition">
-             </input>
          </propertySection>
       </propertySections>
    </extension>

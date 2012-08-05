@@ -9,47 +9,68 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.api.parts.IFormPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.context.impl.EObjectPropertiesEditionContext;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
-import org.eclipse.emf.eef.runtime.impl.parts.CompositePropertiesEditionPart;
+
+import org.eclipse.emf.eef.runtime.part.impl.SectionPropertiesEditingPart;
+
 import org.eclipse.emf.eef.runtime.policies.PropertiesEditingPolicy;
+
 import org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider;
+
 import org.eclipse.emf.eef.runtime.ui.parts.PartComposer;
+
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.BindingCompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionStep;
+
 import org.eclipse.emf.eef.runtime.ui.utils.EditingUtils;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.FormUtils;
 import org.eclipse.emf.eef.runtime.ui.widgets.ReferencesTable;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ReferencesTable.ReferencesTableListener;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.TabElementTreeSelectionDialog;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableContentProvider;
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableSettings;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatePropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
 // End of user code
 
@@ -57,17 +78,22 @@ import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMe
  * 
  * 
  */
-public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPart implements IFormPropertiesEditionPart, StatePropertiesEditionPart {
+public class StatePropertiesEditionPartForm extends SectionPropertiesEditingPart implements IFormPropertiesEditionPart, StatePropertiesEditionPart {
 
 	protected Text name;
-		protected ReferencesTable actions;
-		protected List<ViewerFilter> actionsBusinessFilters = new ArrayList<ViewerFilter>();
-		protected List<ViewerFilter> actionsFilters = new ArrayList<ViewerFilter>();
+	protected ReferencesTable actions;
+	protected List<ViewerFilter> actionsBusinessFilters = new ArrayList<ViewerFilter>();
+	protected List<ViewerFilter> actionsFilters = new ArrayList<ViewerFilter>();
 	protected ReferencesTable transitions;
 	protected List<ViewerFilter> transitionsBusinessFilters = new ArrayList<ViewerFilter>();
 	protected List<ViewerFilter> transitionsFilters = new ArrayList<ViewerFilter>();
 
 
+
+	/**
+	 * For {@link ISection} use only.
+	 */
+	public StatePropertiesEditionPartForm() { super(); }
 
 	/**
 	 * Default constructor
@@ -119,7 +145,7 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 					return createPropertiesGroup(widgetFactory, parent);
 				}
 				if (key == StatemachineViewsRepository.State.Properties.name) {
-					return 		createNameText(widgetFactory, parent);
+					return createNameText(widgetFactory, parent);
 				}
 				if (key == StatemachineViewsRepository.State.Properties.actions) {
 					return createActionsReferencesTable(widgetFactory, parent);
@@ -151,7 +177,7 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 
 	
 	protected Composite createNameText(FormToolkit widgetFactory, Composite parent) {
-		FormUtils.createPartLabel(widgetFactory, parent, StatemachineMessages.StatePropertiesEditionPart_NameLabel, propertiesEditionComponent.isRequired(StatemachineViewsRepository.State.Properties.name, StatemachineViewsRepository.FORM_KIND));
+		createDescription(parent, StatemachineViewsRepository.State.Properties.name, StatemachineMessages.StatePropertiesEditionPart_NameLabel);
 		name = widgetFactory.createText(parent, ""); //$NON-NLS-1$
 		name.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 		widgetFactory.paintBordersFor(parent);
@@ -165,8 +191,33 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 			@Override
 			@SuppressWarnings("synthetic-access")
 			public void focusLost(FocusEvent e) {
-				if (propertiesEditionComponent != null)
-					propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(StatePropertiesEditionPartForm.this, StatemachineViewsRepository.State.Properties.name, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.SET, null, name.getText()));
+				if (propertiesEditionComponent != null) {
+					propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(
+							StatePropertiesEditionPartForm.this,
+							StatemachineViewsRepository.State.Properties.name,
+							PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.SET, null, name.getText()));
+					propertiesEditionComponent
+							.firePropertiesChanged(new PropertiesEditionEvent(
+									StatePropertiesEditionPartForm.this,
+									StatemachineViewsRepository.State.Properties.name,
+									PropertiesEditionEvent.FOCUS_CHANGED, PropertiesEditionEvent.FOCUS_LOST,
+									null, name.getText()));
+				}
+			}
+
+			/**
+			 * @see org.eclipse.swt.events.FocusAdapter#focusGained(org.eclipse.swt.events.FocusEvent)
+			 */
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (propertiesEditionComponent != null) {
+					propertiesEditionComponent
+							.firePropertiesChanged(new PropertiesEditionEvent(
+									StatePropertiesEditionPartForm.this,
+									null,
+									PropertiesEditionEvent.FOCUS_CHANGED, PropertiesEditionEvent.FOCUS_GAINED,
+									null, null));
+				}
 			}
 		});
 		name.addKeyListener(new KeyAdapter() {
@@ -193,7 +244,7 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 	 * 
 	 */
 	protected Composite createActionsReferencesTable(FormToolkit widgetFactory, Composite parent) {
-		this.actions = new ReferencesTable(StatemachineMessages.StatePropertiesEditionPart_ActionsLabel, new ReferencesTableListener	() {
+		this.actions = new ReferencesTable(getDescription(StatemachineViewsRepository.State.Properties.actions, StatemachineMessages.StatePropertiesEditionPart_ActionsLabel), new ReferencesTableListener	() {
 			public void handleAdd() { addActions(); }
 			public void handleEdit(EObject element) { editActions(element); }
 			public void handleMove(EObject element, int oldIndex, int newIndex) { moveActions(element, oldIndex, newIndex); }
@@ -275,7 +326,7 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 	 * 
 	 */
 	protected Composite createTransitionsTableComposition(FormToolkit widgetFactory, Composite parent) {
-		this.transitions = new ReferencesTable(StatemachineMessages.StatePropertiesEditionPart_TransitionsLabel, new ReferencesTableListener() {
+		this.transitions = new ReferencesTable(getDescription(StatemachineViewsRepository.State.Properties.transitions, StatemachineMessages.StatePropertiesEditionPart_TransitionsLabel), new ReferencesTableListener() {
 			public void handleAdd() {
 				propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(StatePropertiesEditionPartForm.this, StatemachineViewsRepository.State.Properties.transitions, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.ADD, null, null));
 				transitions.refresh();
@@ -319,7 +370,6 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 	}
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -355,7 +405,6 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 			name.setText(""); //$NON-NLS-1$
 		}
 	}
-
 
 
 
@@ -414,7 +463,6 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -470,6 +518,8 @@ public class StatePropertiesEditionPartForm extends CompositePropertiesEditionPa
 	public boolean isContainedInTransitionsTable(EObject element) {
 		return ((ReferencesTableSettings)transitions.getInput()).contains(element);
 	}
+
+
 
 
 

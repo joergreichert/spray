@@ -28,6 +28,7 @@ public class StatemachineMessages extends NLS {
 	
 	public static String TransitionPropertiesEditionPart_PropertiesGroupLabel;
 
+
 	
 	public static String Statemachine_ReadOnly;
 
@@ -57,6 +58,7 @@ public class StatemachineMessages extends NLS {
 
 	
 	public static String Transition_Part_Title;
+
 
 	
 	public static String StatemachinePropertiesEditionPart_EventsLabel;
@@ -96,6 +98,7 @@ public class StatemachineMessages extends NLS {
 
 	
 	public static String TransitionPropertiesEditionPart_StateLabel;
+
 
 	
 	public static String PropertiesEditionPart_DocumentationLabel;

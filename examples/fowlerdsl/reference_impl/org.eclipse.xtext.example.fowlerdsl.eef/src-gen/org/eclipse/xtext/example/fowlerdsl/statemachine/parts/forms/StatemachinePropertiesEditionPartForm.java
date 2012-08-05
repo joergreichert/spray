@@ -9,39 +9,58 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.eef.runtime.api.component.IPropertiesEditionComponent;
+
 import org.eclipse.emf.eef.runtime.api.notify.IPropertiesEditionEvent;
+
 import org.eclipse.emf.eef.runtime.api.parts.IFormPropertiesEditionPart;
+
 import org.eclipse.emf.eef.runtime.context.impl.EObjectPropertiesEditionContext;
+
 import org.eclipse.emf.eef.runtime.impl.notify.PropertiesEditionEvent;
-import org.eclipse.emf.eef.runtime.impl.parts.CompositePropertiesEditionPart;
+
+import org.eclipse.emf.eef.runtime.part.impl.SectionPropertiesEditingPart;
+
 import org.eclipse.emf.eef.runtime.policies.PropertiesEditingPolicy;
+
 import org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider;
+
 import org.eclipse.emf.eef.runtime.ui.parts.PartComposer;
+
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.BindingCompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionSequence;
 import org.eclipse.emf.eef.runtime.ui.parts.sequence.CompositionStep;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ReferencesTable;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.ReferencesTable.ReferencesTableListener;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.TabElementTreeSelectionDialog;
+
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableContentProvider;
 import org.eclipse.emf.eef.runtime.ui.widgets.referencestable.ReferencesTableSettings;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
+
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachinePropertiesEditionPart;
 import org.eclipse.xtext.example.fowlerdsl.statemachine.parts.StatemachineViewsRepository;
-import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
+import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMessages;
 
 // End of user code
 
@@ -49,14 +68,14 @@ import org.eclipse.xtext.example.fowlerdsl.statemachine.providers.StatemachineMe
  * 
  * 
  */
-public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEditionPart implements IFormPropertiesEditionPart, StatemachinePropertiesEditionPart {
+public class StatemachinePropertiesEditionPartForm extends SectionPropertiesEditingPart implements IFormPropertiesEditionPart, StatemachinePropertiesEditionPart {
 
 	protected ReferencesTable events;
 	protected List<ViewerFilter> eventsBusinessFilters = new ArrayList<ViewerFilter>();
 	protected List<ViewerFilter> eventsFilters = new ArrayList<ViewerFilter>();
-		protected ReferencesTable resetEvents;
-		protected List<ViewerFilter> resetEventsBusinessFilters = new ArrayList<ViewerFilter>();
-		protected List<ViewerFilter> resetEventsFilters = new ArrayList<ViewerFilter>();
+	protected ReferencesTable resetEvents;
+	protected List<ViewerFilter> resetEventsBusinessFilters = new ArrayList<ViewerFilter>();
+	protected List<ViewerFilter> resetEventsFilters = new ArrayList<ViewerFilter>();
 	protected ReferencesTable commands;
 	protected List<ViewerFilter> commandsBusinessFilters = new ArrayList<ViewerFilter>();
 	protected List<ViewerFilter> commandsFilters = new ArrayList<ViewerFilter>();
@@ -65,6 +84,11 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	protected List<ViewerFilter> statesFilters = new ArrayList<ViewerFilter>();
 
 
+
+	/**
+	 * For {@link ISection} use only.
+	 */
+	public StatemachinePropertiesEditionPartForm() { super(); }
 
 	/**
 	 * Default constructor
@@ -155,7 +179,7 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	 * 
 	 */
 	protected Composite createEventsTableComposition(FormToolkit widgetFactory, Composite parent) {
-		this.events = new ReferencesTable(StatemachineMessages.StatemachinePropertiesEditionPart_EventsLabel, new ReferencesTableListener() {
+		this.events = new ReferencesTable(getDescription(StatemachineViewsRepository.Statemachine_.Properties.events, StatemachineMessages.StatemachinePropertiesEditionPart_EventsLabel), new ReferencesTableListener() {
 			public void handleAdd() {
 				propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(StatemachinePropertiesEditionPartForm.this, StatemachineViewsRepository.Statemachine_.Properties.events, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.ADD, null, null));
 				events.refresh();
@@ -202,7 +226,7 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	 * 
 	 */
 	protected Composite createResetEventsReferencesTable(FormToolkit widgetFactory, Composite parent) {
-		this.resetEvents = new ReferencesTable(StatemachineMessages.StatemachinePropertiesEditionPart_ResetEventsLabel, new ReferencesTableListener	() {
+		this.resetEvents = new ReferencesTable(getDescription(StatemachineViewsRepository.Statemachine_.Properties.resetEvents, StatemachineMessages.StatemachinePropertiesEditionPart_ResetEventsLabel), new ReferencesTableListener	() {
 			public void handleAdd() { addResetEvents(); }
 			public void handleEdit(EObject element) { editResetEvents(element); }
 			public void handleMove(EObject element, int oldIndex, int newIndex) { moveResetEvents(element, oldIndex, newIndex); }
@@ -284,7 +308,7 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	 * 
 	 */
 	protected Composite createCommandsTableComposition(FormToolkit widgetFactory, Composite parent) {
-		this.commands = new ReferencesTable(StatemachineMessages.StatemachinePropertiesEditionPart_CommandsLabel, new ReferencesTableListener() {
+		this.commands = new ReferencesTable(getDescription(StatemachineViewsRepository.Statemachine_.Properties.commands, StatemachineMessages.StatemachinePropertiesEditionPart_CommandsLabel), new ReferencesTableListener() {
 			public void handleAdd() {
 				propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(StatemachinePropertiesEditionPartForm.this, StatemachineViewsRepository.Statemachine_.Properties.commands, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.ADD, null, null));
 				commands.refresh();
@@ -332,7 +356,7 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	 * 
 	 */
 	protected Composite createStatesTableComposition(FormToolkit widgetFactory, Composite parent) {
-		this.states = new ReferencesTable(StatemachineMessages.StatemachinePropertiesEditionPart_StatesLabel, new ReferencesTableListener() {
+		this.states = new ReferencesTable(getDescription(StatemachineViewsRepository.Statemachine_.Properties.states, StatemachineMessages.StatemachinePropertiesEditionPart_StatesLabel), new ReferencesTableListener() {
 			public void handleAdd() {
 				propertiesEditionComponent.firePropertiesChanged(new PropertiesEditionEvent(StatemachinePropertiesEditionPartForm.this, StatemachineViewsRepository.Statemachine_.Properties.states, PropertiesEditionEvent.COMMIT, PropertiesEditionEvent.ADD, null, null));
 				states.refresh();
@@ -374,7 +398,6 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 		states.setEEFType("eef::AdvancedTableComposition"); //$NON-NLS-1$
 		return parent;
 	}
-
 
 
 	/**
@@ -449,7 +472,6 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -502,7 +524,6 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	public boolean isContainedInResetEventsTable(EObject element) {
 		return ((ReferencesTableSettings)resetEvents.getInput()).contains(element);
 	}
-
 
 
 
@@ -564,7 +585,6 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 
 
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -620,6 +640,8 @@ public class StatemachinePropertiesEditionPartForm extends CompositePropertiesEd
 	public boolean isContainedInStatesTable(EObject element) {
 		return ((ReferencesTableSettings)states.getInput()).contains(element);
 	}
+
+
 
 
 

@@ -7,7 +7,6 @@ package org.eclipse.xtext.example.fowlerdsl.statemachine.parts;
 
 
 
-
 // End of user code
 
 /**
