@@ -330,7 +330,7 @@
 				<repository>
 					<id>spray-dependencies</id>
 					<layout>p2</layout>
-					<url>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
+					<url>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-indigo/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</url>
 				</repository>
 			</repositories>
 		</profile>
