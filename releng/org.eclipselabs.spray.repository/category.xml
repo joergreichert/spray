@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-	<feature url="features/org.eclipse.emf.eef.codegen.ecore-feature_1.1.1.201206051542.jar" id="org.eclipse.emf.eef.codegen.ecore-feature" version="1.1.1.201206051542">
+	<feature url="features/org.eclipse.emf.eef.sdk-feature_1.1.1.201206051542.jar" id="org.eclipse.emf.eef.sdk-feature" version="1.1.1.201206051542">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/de.itemis.xtext.antlr.sdk_2.0.0.v201108011202.jar" id="de.itemis.xtext.antlr.sdk" version="2.0.0.v201108011202">
