@@ -19,6 +19,7 @@
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,docs/org.eclipselabs.spray.doc.user"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.tests"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/one/org.eclipselabs.spray.examples.one"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.examples.one.tests"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/petrinet/org.eclipselabs.spray.examples.petrinet"/>
@@ -111,6 +112,7 @@
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1341684820391_23" label="Spray Example LWC2012" name="Spray Example LWC2012">
 <item elementID="=de.htwg.2012.lwc.mm" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=org.eclipselabs.spray.examples.lwc2012" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=org.eclipselabs.spray.examples.lwc2012.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1341684728378_20" label="Spray Example Petri Nets" name="Spray Example Petri Nets">
 <item elementID="=org.eclipselabs.spray.examples.petrinet" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
