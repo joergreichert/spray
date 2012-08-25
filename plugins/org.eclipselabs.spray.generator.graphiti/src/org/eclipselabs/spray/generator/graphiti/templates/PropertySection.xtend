@@ -73,7 +73,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
         import java.util.List;
         import «eClass.javaInterfaceName»;
         «IF isEnum»
-        import «fullPackageName(eAttribute.EAttributeType)».«eAttribute.EAttributeType.name»;
+        import «eAttribute.EAttributeType.javaInterfaceName»;
         «ENDIF»
         // MARKER_IMPORT
         

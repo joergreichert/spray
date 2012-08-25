@@ -130,7 +130,7 @@ class PasteFeature extends FileGenerator<Diagram>{
                     «IF containmentRef.many»
                         model.get«containmentRef.name.toFirstUpper»().add((«cls.getCast()») bo);
                     «ELSE»
-                        model.set«containmentRef.name.toFirstUpper»((List<«cls.getCast()»>) bo);
+                        model.set«containmentRef.name.toFirstUpper»((«cls.getCast()») bo);
                     «ENDIF»
                 «ELSE»
                     throw new UnsupportedOperationException("No create behavior defined");

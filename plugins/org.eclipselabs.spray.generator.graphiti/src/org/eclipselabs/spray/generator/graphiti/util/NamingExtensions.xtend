@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EDataType
 import org.eclipselabs.spray.xtext.generator.ImportUtil
 import org.eclipse.emf.ecore.EcorePackage
+import org.eclipse.emf.ecore.EClassifier
 
 /**
  * Computation of class names, file names etc.
@@ -318,16 +319,19 @@ class NamingExtensions {
     def String getJavaInterfaceName (EClass eClass) {
         genModelHelper.getJavaInterfaceName(eClass)
     }
+    def String getJavaInterfaceName (EClassifier eClassifier) {
+        genModelHelper.getJavaInterfaceName(eClassifier)
+    }
     def String getEPackageClassName (MetaClass clazz) {
         this.getEPackageClassName(clazz.type)
     }
-    def String getEPackageClassName (EClass eClass) {
+    def String getEPackageClassName (EClassifier eClassifier) {
         // remove the need to register Ecore Genmodel in a standalone workflow
         // although this usually is not a problem, we had some on CI for the examples project
-        if (eClass.EPackage==EcorePackage::eINSTANCE)
+        if (eClassifier.EPackage==EcorePackage::eINSTANCE)
             "org.eclipse.emf.ecore.EcorePackage"
         else
-            genModelHelper.getEPackageClassName(eClass)
+            genModelHelper.getEPackageClassifierName(eClassifier)
     }
     def String getEFactoryInterfaceName (EClass eClass) {
         if (eClass.EPackage==EcorePackage::eINSTANCE)
