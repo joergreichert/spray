@@ -1,7 +1,7 @@
 shape RelativeAnchorsTest {
 	ellipse {
 		position (x=0, y=0)
-		size (width=0, height=0)
+		size (width=10, height=10)
 	}
 	anchor {
 		position (xoffset=0.1,yoffset=0.0)
