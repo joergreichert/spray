@@ -178,3 +178,6 @@ Those gradient definition can now be used alternative in the style language with
 
 
 !images/styles_gradients.png!
+
+
+
