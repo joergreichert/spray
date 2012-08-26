@@ -25,10 +25,13 @@
 			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.9.0.v20120613-0805"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.3.0.v201206120758"/>
 			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.3.0.v201206110920"/>
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.3.0.v201206120633"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.3.0.v201206120633"/>
 			<unit id="org.eclipse.swt" version="3.100.0.v4233d"/>
 			<repository location="http://download.eclipse.org/releases/juno"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.3.1.v201208210947"/>
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
