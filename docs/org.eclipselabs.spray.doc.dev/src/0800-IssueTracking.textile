@@ -13,3 +13,6 @@ bc. fixed issue#<issuenumber>: <message>
 Google Code will link the commit in the issue and set it to status Fixed.
 
 !images/issuetracking_1.png!
+
+
+

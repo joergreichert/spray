@@ -2,8 +2,6 @@ h1. Getting Started
 
 h2. 5-Minutes Tutorial
 
-*Please note:* Due to issue "#127":http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=127 it is currently not possible to use Spray via update site. We hope to fix this soon. As work around you have to start Spray out of the development workspace.
-
 h3. Create a new EMF project
 
 First we have to create or reuse a meta model of a business domain that can be referenced by the diagram model to be created in the second step.
@@ -20,6 +18,7 @@ First we have to create or reuse a meta model of a business domain that can be r
 
 !images/GenModelGenerate.png!
 
+* Now you have to export the packages of the just generated classes: In the MANIFEST editor switch to the tab "Runtime" and "Add...". the three packages to the "Exported packages" section.
 * Use the quick fix to solve the problems in the MANIFEST.MF (sets the singleton directive) 
 
 h3. Create a new project
@@ -101,14 +100,13 @@ h3. Test the editor
 * Your new diagram editor opens!
 !images/gettingstarted_4.png!
 
-* as alternative you can create your diagram also this way:
-** Right-click on the @src@ folder, choose _File / New / Other -> busmod / New busmod Diagram_
+As alternative you can create your diagram also this way:
+* Right-click on the @src@ folder, choose _File / New / Other -> busmod / New busmod Diagram_
 !images/gettingstarted_2b.png!
-** Give it a name
-!images/gettingstarted_3b.png!
-** in difference to the wizard used above there are now created two files
-*** newDiagram.businessdomaindsl: this hold the domain model
-*** newDiagram.diagram: this hold the pure diagram related stuff and just references elements from the newDiagram.businessdomaindsl
+* Give it a name
+* in difference to the wizard used above there are now created two files
+** newDiagram.businessdomaindsl: this hold the domain model
+** newDiagram.diagram: this hold the pure diagram related stuff and just references elements from the newDiagram.businessdomaindsl
 
 h3. Create your first element
 
@@ -165,7 +163,9 @@ bc..
         MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", 
                 "Selected object of type "+object.eClass().getName());
     }
-    
+
+p. 
+
 !images/adapted_feature_class.png!
 
 p. 
