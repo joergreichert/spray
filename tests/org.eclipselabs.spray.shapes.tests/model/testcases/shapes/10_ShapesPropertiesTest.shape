@@ -5,6 +5,6 @@ shape ShapesPropertiesTest {
 	proportional = true
 	ellipse {
 		position (x=0, y=0)
-		size (width=0, height=0)
+		size (width=10, height=10)
 	}
 }
