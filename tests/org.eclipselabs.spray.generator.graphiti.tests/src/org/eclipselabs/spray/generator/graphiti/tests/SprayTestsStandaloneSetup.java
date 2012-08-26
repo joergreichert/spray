@@ -1,7 +1,13 @@
 package org.eclipselabs.spray.generator.graphiti.tests;
 
+import java.util.Map;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.xtext.util.Modules2;
 import org.eclipselabs.spray.generator.graphiti.GraphitiGeneratorModule;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiRuntimeModule;
@@ -20,6 +26,20 @@ public class SprayTestsStandaloneSetup extends SprayStandaloneSetup {
     @Override
     public Injector createInjectorAndDoEMFRegistration() {
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        return super.createInjectorAndDoEMFRegistration();
+	    EPackage.Registry.INSTANCE.put(XMLTypePackage.eNS_URI, XMLTypePackage.eINSTANCE);
+        EPackage.Registry.INSTANCE.put(XMLNamespacePackage.eNS_URI, XMLNamespacePackage.eINSTANCE);
+        
+        Injector injector = super.createInjectorAndDoEMFRegistration();
+        ResourceSet rs = injector.getInstance(ResourceSet.class);
+        
+        Map<URI, URI> uriMap = rs.getURIConverter().getURIMap(); 
+        uriMap.put( 
+        	URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/XMLNamespace.genmodel"), 
+        	URI.createURI("platform:/resource/org.eclipse.emf.ecore/model/XMLNamespace.genmodel")); 
+        uriMap.put( 
+        	URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/XMLNamespace.ecore"), 
+        	URI.createURI("platform:/resource/org.eclipse.emf.ecore/model/XMLNamespace.ecore")); 
+        
+        return injector;
     }
 }
