@@ -6,6 +6,7 @@ import java.util.Collections
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import static extension org.eclipse.xtext.xtend2.lib.ResourceExtensions.*
+import static extension org.eclipse.xtext.xbase.lib.IteratorExtensions.*
 
 class PackageHelper {
     
@@ -20,7 +21,7 @@ class PackageHelper {
                 val packageName = element.substring(0, index)
                 val className = element.substring(index+1)
                 var EPackage ePackage = null
-                for(EClass clazz : resource.allContentsIterable.filter(typeof(EClass))) {
+                for(EClass clazz : resource.allContents.toIterable.filter(typeof(EClass))) {
                     ePackage = if (clazz.eContainer != null) clazz.eContainer as EPackage else null
                     // TODO handle case when class with same name in multiple packages
                     // better use gen model?: how does the FQN of the selected element map to the package
