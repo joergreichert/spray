@@ -82,7 +82,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
      * Determine the name that appears in the dialog when asking for the name
      */
     def private getUiLabel (MetaClass mc) {
-        if (mc.hasCreateBehavior && mc.createBehavior.label!=null)
+        if (mc.hasCreateBehavior && !mc.createBehavior.label.nullOrEmpty)
             mc.createBehavior.label
         else
             mc.visibleName
