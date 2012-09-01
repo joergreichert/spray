@@ -5,8 +5,24 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess;
+import org.eclipse.xtext.ui.wizard.AbstractPluginProjectCreator;
+import org.eclipse.xtext.util.IAcceptor;
 import org.eclipselabs.spray.xtext.ui.internal.SprayActivator;
 import org.eclipselabs.spray.xtext.ui.wizard.codegen.NewProjectGenerator;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 
 public class SprayProjectCreator extends AbstractPluginProjectCreator {
 
