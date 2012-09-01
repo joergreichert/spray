@@ -235,29 +235,39 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     }
 
     protected IScope scope_Connection_to(EObject context) {
+        IScope result = null;
         final ConnectionInSpray connection = (ConnectionInSpray) context;
         final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-        // filter derived and 'from' from the possible references
-        Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-            @Override
-            public boolean apply(EReference input) {
-                return input != connection.getFrom() && !input.isDerived();
-            }
-        });
-        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        if (metaClass != null && metaClass.getType() != null) {
+            // filter derived and 'from' from the possible references
+            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                @Override
+                public boolean apply(EReference input) {
+                    return input != connection.getFrom() && !input.isDerived();
+                }
+            });
+            result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        } else {
+            result = IScope.NULLSCOPE;
+        }
         return result;
     }
 
     protected IScope scope_Connection_from(EObject context) {
+        IScope result = null;
         final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-        // filter derived references
-        Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-            @Override
-            public boolean apply(EReference input) {
-                return !input.isDerived();
-            }
-        });
-        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        if (metaClass != null && metaClass.getType() != null) {
+            // filter derived references
+            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                @Override
+                public boolean apply(EReference input) {
+                    return !input.isDerived();
+                }
+            });
+            result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        } else {
+            result = IScope.NULLSCOPE;
+        }
         return result;
     }
 
