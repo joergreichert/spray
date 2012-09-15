@@ -1,0 +1,7 @@
+analyseLocally=false
+eclipse.preferences.version=1
+projectArtifactId=org.eclipselabs.spray.examples.one.tests
+projectBranch=
+projectGroupId=org.eclipselabs.spray
+serverUrl=http\://ec2-50-19-206-165.compute-1.amazonaws.com\:9000/sonar
+version=1
