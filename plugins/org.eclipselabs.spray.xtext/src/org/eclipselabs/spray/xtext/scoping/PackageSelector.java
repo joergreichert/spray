@@ -3,6 +3,7 @@ package org.eclipselabs.spray.xtext.scoping;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,6 +14,8 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -28,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jdt.core.IJavaProject;
@@ -40,15 +44,26 @@ import org.eclipselabs.spray.mm.spray.Import;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
+import com.google.inject.Singleton;
 
+@Singleton
 public class PackageSelector {
-    private static final Logger LOGGER = Logger.getLogger(PackageSelector.class);
+    private static final Logger           LOGGER                 = Logger.getLogger(PackageSelector.class);
+    private Map<IContainer, Boolean>      projectToChanged       = new HashMap<IContainer, Boolean>();
+    private Map<IProject, List<EPackage>> javaProjectToEPackages = new HashMap<IProject, List<EPackage>>();
 
     public List<EPackage> getFilteredEPackages(EObject modelElement) {
-        List<EPackage> ePackages = getEPackages();
         IJavaProject project = getJavaProject(modelElement);
-        if (project != null) {
-            ePackages = filterAccessibleEPackages(project, ePackages);
+        List<EPackage> ePackages = null;
+        if (project != null && !projectHasChangedSinceLastRun(project.getProject())) {
+            ePackages = javaProjectToEPackages.get(project.getProject());
+        }
+        if (ePackages == null) {
+            ePackages = getEPackages();
+            if (project != null) {
+                ePackages = filterAccessibleEPackages(project, ePackages);
+                javaProjectToEPackages.put(project.getProject(), ePackages);
+            }
         }
         return ePackages;
     }
@@ -56,7 +71,8 @@ public class PackageSelector {
     public List<EPackage> getEPackages() {
         registerWorkspaceEPackagesAndGenModels();
 
-        Set<Entry<String, Object>> packages = EPackage.Registry.INSTANCE.entrySet();
+        Set<Entry<String, Object>> packages = new HashSet<Entry<String, Object>>();
+        packages.addAll(EPackage.Registry.INSTANCE.entrySet());
         List<EPackage> ePackages = new ArrayList<EPackage>();
         try {
             Object packageObj = null;
@@ -87,8 +103,9 @@ public class PackageSelector {
             if (ws != null) {
                 final IWorkspaceRoot wsRoot = ws.getRoot();
                 for (IProject project : wsRoot.getProjects()) {
+                    registerProjectChangeListener(ws, project);
                     try {
-                        if (project.isOpen() && project.hasNature("org.eclipse.pde.PluginNature")) {
+                        if (project.isOpen() && project.hasNature("org.eclipse.pde.PluginNature") && projectHasChangedSinceLastRun(project)) {
                             project.accept(new IResourceVisitor() {
                                 private Map<String, String> nameToEPackageNsURI = new HashMap<String, String>();
                                 private Map<String, URI>    nameTOGenModelURI   = new HashMap<String, URI>();
@@ -154,6 +171,44 @@ public class PackageSelector {
             }
             EcorePlugin.computePlatformPluginToPlatformResourceMap();
             EcorePlugin.computePlatformURIMap();
+        }
+    }
+
+    /**
+     * @param project
+     * @return
+     */
+    private boolean projectHasChangedSinceLastRun(IProject project) {
+        if (!projectToChanged.containsKey(project)) {
+            projectToChanged.put(project, Boolean.TRUE);
+        }
+        Boolean changed = projectToChanged.get(project);
+        if (changed) {
+            projectToChanged.put(project, Boolean.FALSE);
+        }
+        return changed;
+    }
+
+    private void registerProjectChangeListener(final IWorkspace ws, final IProject project) {
+        if (project != null && !projectToChanged.containsKey(project)) {
+            projectToChanged.put(project, Boolean.TRUE);
+            ws.addResourceChangeListener(new IResourceChangeListener() {
+
+                @Override
+                public void resourceChanged(IResourceChangeEvent event) {
+                    IResource resource = event.getResource();
+                    if (resource != null) {
+                        IContainer projectContainingChange = getProject(resource);
+                        if (projectContainingChange != null) {
+                            projectToChanged.put(projectContainingChange, true);
+                        }
+                        if (resource.equals(project) && (event.getBuildKind() == IResourceChangeEvent.PRE_DELETE || event.getBuildKind() == IResourceChangeEvent.PRE_CLOSE)) {
+                            projectToChanged.remove(project);
+                            javaProjectToEPackages.remove(project);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -227,6 +282,8 @@ public class PackageSelector {
         } catch (Exception e) {
             if (e instanceof java.io.FileNotFoundException) {
                 System.err.println(e.getMessage());
+            } else if (e instanceof Diagnostic) {
+                System.err.println(e.getMessage());
             } else {
                 e.printStackTrace();
             }
@@ -254,11 +311,8 @@ public class PackageSelector {
     }
 
     private IContainer getProject(IResource res) {
-        IContainer parent = res.getParent();
-        if (parent == null) {
-            parent = null;
-        }
-        if (!(parent instanceof IProject)) {
+        IContainer parent = res != null ? res.getParent() : null;
+        if (parent != null && !(parent instanceof IProject)) {
             parent = getProject(parent);
         }
         return parent;

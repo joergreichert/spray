@@ -5,6 +5,7 @@ import org.eclipselabs.spray.styles.styles.YesNoBool
 import org.eclipselabs.spray.styles.styles.LineStyle
 import com.google.inject.Inject
 import org.eclipselabs.spray.styles.generator.StyleGenerator
+import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable
 
 class ShapeTypeStyleGenerator {
 	
@@ -14,7 +15,7 @@ class ShapeTypeStyleGenerator {
 	'''
 	«IF(ssl != null && ssl.layout != null)»
 		«IF(ssl.layout.background != null)»
-		«attName».setBackground(gaService.manageColor(diagram,«ssl.layout.background.createColorValue»));
+		«attName».setBackground(gaService.manageColor(diagram,«new FakeTreeAppendable().createColorValue(ssl.layout.background).content»));
 		«ENDIF»
 		«IF(ssl.layout.transparency != Double::MIN_VALUE)»
 		«attName».setTransparency(«ssl.layout.transparency»);		
@@ -59,7 +60,7 @@ class ShapeTypeStyleGenerator {
     def createLineAttributes(String attName, ShapestyleLayout ssl){
     	'''
     	«IF(ssl.layout.lineColor != null)»
-			«attName».setForeground(gaService.manageColor(diagram,«ssl.layout.lineColor.createColorValue»));    	
+			«attName».setForeground(gaService.manageColor(diagram,«new FakeTreeAppendable().createColorValue(ssl.layout.lineColor).content»));    	
     	«ENDIF»
     	«IF(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL)»
   			«attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);	

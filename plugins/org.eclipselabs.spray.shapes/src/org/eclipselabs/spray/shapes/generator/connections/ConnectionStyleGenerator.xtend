@@ -5,6 +5,7 @@ import org.eclipselabs.spray.styles.styles.LineStyle
 import com.google.inject.Inject
 import org.eclipselabs.spray.styles.generator.StyleGenerator
 import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
+import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable
 
 class ConnectionStyleGenerator {
 	
@@ -14,7 +15,7 @@ class ConnectionStyleGenerator {
 		'''
 		«IF(csl != null && csl.layout != null)»
 			«IF(csl.layout.background != null)»
-			«attName».setBackground(gaService.manageColor(diagram,«csl.layout.background.createColorValue»));
+			«attName».setBackground(gaService.manageColor(diagram,«new FakeTreeAppendable().createColorValue(csl.layout.background).content»));
 			«ENDIF»
 			«IF(csl.layout.transparency != Double::MIN_VALUE)»
 			«attName».setTransparency(«csl.layout.transparency»);		
@@ -59,7 +60,7 @@ class ConnectionStyleGenerator {
     def createLineAttributes(String attName, ShapestyleLayout csl){
      	'''
     	«IF(csl.layout.lineColor != null)»
-		«attName».setForeground(gaService.manageColor(diagram,«csl.layout.lineColor.createColorValue»));    	
+		«attName».setForeground(gaService.manageColor(diagram,«new FakeTreeAppendable().createColorValue(csl.layout.lineColor).content»));    	
     	«ENDIF»
     	«IF(csl.layout.lineStyle != null && csl.layout.lineStyle != LineStyle::NULL)»
   		«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);	

@@ -3,6 +3,8 @@
  */
 package org.eclipselabs.spray.styles;
 
+import org.eclipselabs.spray.styles.naming.StylesQualifiedNameProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the
  * Equinox extension registry.
@@ -21,14 +23,18 @@ public class StyleRuntimeModule extends org.eclipselabs.spray.styles.AbstractSty
 				.to(org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class);
 	}
 
-	// contributed by
-	// org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
+	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider.class;
+		return StylesQualifiedNameProvider.class;
 	}
+	
+	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
+	public Class<? extends org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider> bindIdentifiableSimpleNameProvider() {
+		return org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider.class;
+	}	
 
-	@Override
-	public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
-		return org.eclipselabs.spray.styles.generator.StyleGenerator.class;
-	}
+//	@Override
+//	public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
+//		return org.eclipselabs.spray.styles.generator.StyleGenerator.class;
+//	}
 }

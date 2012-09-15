@@ -18,24 +18,45 @@ import org.eclipselabs.spray.styles.styles.ColorWithTransparency
 import org.eclipselabs.spray.styles.styles.YesNoBool
 import org.eclipselabs.spray.styles.styles.LineStyle
 import com.google.inject.Inject
-import org.eclipselabs.spray.styles.styles.Gradient
 import org.eclipselabs.spray.styles.styles.GradientAllignment
 import org.eclipselabs.spray.styles.styles.GradientRef
 import org.eclipselabs.spray.styles.styles.Color
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
-
+import org.eclipselabs.spray.xtext.generator.DefaultCompilationUnitImportManager
+import org.eclipse.xtext.common.types.util.TypeReferences
+import org.eclipse.graphiti.mm.pictograms.Diagram
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas
+import org.eclipse.graphiti.services.IGaService
+import org.eclipse.graphiti.services.Graphiti
+import org.eclipse.graphiti.util.IColorConstant
+import org.eclipse.graphiti.util.ColorConstant
+import org.eclipse.graphiti.util.IPredefinedRenderingStyle
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory
+import org.eclipse.graphiti.util.IGradientType
+import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
+import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable
 
 class StyleGenerator implements IGenerator {
 	
-	@Inject extension GradientGenerator
+	@Inject extension GradientGenerator gradientGenerator
+	@Inject extension DefaultCompilationUnitImportManager importManager
+    @Inject extension TypeReferences typeReferences
+	private Style current = null 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
-      		fsa.generateFile(gradient.filepath, gradient.compile)
-   		}
+		gradientGenerator.doGenerate(resource, fsa)
+		
 		for(style : resource.allContents.toIterable.filter(typeof(Style))) {
-      		fsa.generateFile(style.filepath, style.compile)
+			current = style
+			importManager.enter(style.packageName)
+			importManager.registerStyleImports(style)
+      		fsa.generateFile(style.filepath, new FakeTreeAppendable().compile(style).content)
+			importManager.exit
    		}
+	}
+	
+	def setCurrent(Style aStyle) {
+		this.current = aStyle
 	}
 	
 	def filepath(Style s) { s.packagePath + s.className + ".java" }
@@ -43,12 +64,26 @@ class StyleGenerator implements IGenerator {
 	def packageName(Style s) { "org.eclipselabs.spray.styles" }
 	def packagePath(Style s) { "org/eclipselabs/spray/styles/" }
 	
-	def compile(Style s) {
-		'''
-		«s.head»
+	def styleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Style), current)  }
+	def diagramType() {  findDeclaredType(typeof(Diagram), current)  }
+	def colorType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Color), current)  }
+	def adaptedGradientColoredAreasType() {  findDeclaredType(typeof(AdaptedGradientColoredAreas), current)  }
+	def iGaServiceType() {  findDeclaredType(typeof(IGaService), current)  }
+	def graphitiType() {  findDeclaredType(typeof(Graphiti), current)  }
+	def iColorConstantType() { findDeclaredType(typeof(IColorConstant), current)  }
+	def colorConstantType() { findDeclaredType(typeof(ColorConstant), current)  }
+	def iPredefinedRenderingStyleType() {  findDeclaredType(typeof(IPredefinedRenderingStyle), current)  }
+	def stylesFactoryType() {  findDeclaredType(typeof(StylesFactory), current)  }
+	def iGradientTypeType() {  findDeclaredType(typeof(IGradientType), current)  }
+	def gradientUtilClassType() {  findDeclaredType(typeof(GradientUtilClass), current)  }
+	def lineStyleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.LineStyle), current)  }
+	
+	def ITreeAppendable compile(ITreeAppendable appendable, Style s) {
+		val appender1 = appendable.append(s.head)
+		val appender2 = appender1.append('''
 		
-		«s.body»
-		'''
+		''')
+		appender2.body(s)
 	}
 	
 	def head(Style s) {
@@ -59,31 +94,34 @@ class StyleGenerator implements IGenerator {
 		 */
 		package «s.packageName»;
 		
-		import org.eclipse.graphiti.mm.pictograms.Diagram;
-		import org.eclipse.graphiti.mm.algorithms.styles.Style;
-		import org.eclipse.graphiti.mm.algorithms.styles.Color;
-		import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
-		import org.eclipse.graphiti.services.Graphiti;
-		import org.eclipse.graphiti.services.IGaService;
-		import org.eclipse.graphiti.util.ColorConstant;
-		import org.eclipse.graphiti.util.IColorConstant;
-«««		import org.eclipselabs.spray.styles.ISprayStyle;
-		«IF s.superStyle == null»
-«««		import org.eclipselabs.spray.styles.DefaultSprayStyle;
-		«ELSE»
-		import «s.superStyle.qualifiedName»;
-		«ENDIF»
-		import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
-		import org.eclipse.graphiti.util.IGradientType;
-		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
-		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		«importManager.insertImports»
 
 		'''
 	}
 	
-	def body(Style s) {
-		'''
+	def registerStyleImports(DefaultCompilationUnitImportManager importManager, Style style) {
+		this.importManager = importManager
+		importManager.addImports(
+			"org.eclipse.graphiti.mm.pictograms.Diagram",
+			"org.eclipse.graphiti.mm.algorithms.styles.Style",
+			"org.eclipse.graphiti.mm.algorithms.styles.Color",
+			"org.eclipse.graphiti.mm.algorithms.styles.LineStyle",
+			"org.eclipse.graphiti.services.Graphiti",
+			"org.eclipse.graphiti.services.IGaService",
+			"org.eclipse.graphiti.util.ColorConstant",
+			"org.eclipse.graphiti.util.IColorConstant",
+			"org.eclipselabs.spray.styles.ISprayStyle",
+			if(style.superStyle == null) "org.eclipselabs.spray.styles.DefaultSprayStyle" else style.superStyle.qualifiedName,
+			"org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas",
+			"org.eclipse.graphiti.util.IGradientType",
+			"org.eclipse.graphiti.mm.algorithms.styles.StylesFactory",
+			"org.eclipse.graphiti.util.IPredefinedRenderingStyle",
+			"org.eclipselabs.spray.styles.generator.util.GradientUtilClass"
+		)
+	}
+	
+	def ITreeAppendable body(ITreeAppendable appendable, Style s) {
+		val appender1 = appendable.append('''
 		/**
 		 * This is a generated Style class for Spray.
 		 * Description: «s.description»
@@ -96,16 +134,16 @@ class StyleGenerator implements IGenerator {
 			 * Description: «s.description»
 			 */
 		    @Override
-			public Style newStyle(Diagram diagram) {
-				IGaService gaService = Graphiti.getGaService();
+			public ''').append(styleType).append(''' newStyle(''').append(diagramType).append(''' diagram) {
+				''').append(iGaServiceType).append(''' gaService = ''').append(graphitiType).append('''.getGaService();
 				
 				// Creating Style with given id and description
-				Style style = super.newStyle(diagram);
+				''').append(styleType).append(''' style = super.newStyle(diagram);
 				style.setId("«s.name»");
 				style.setDescription("«s.description»");
 				
-				«s.layout.createLayout»
-				return style;
+				''') val appender2 = appender1.createLayout(s.layout)
+				appender2.append('''return style;
 			}
 			
 		    /**
@@ -114,99 +152,99 @@ class StyleGenerator implements IGenerator {
 			 * The foreground color will be used for lines and fonts at the same time.
 			 */
 			@Override
-			public Color getFontColor(Diagram diagram) {
-				«s.layout.createFontColor»
+			public ''').append(colorType).append(''' getFontColor(''').append(diagramType).append(''' aDiagram) {
+				''') val appender3 = appender2.createFontColor(s.layout); val appender4 = appender3.append('''
 			}
-	
+
 			 /**
 			 * This method returns Color Schema of the Style
 			 */
-			public AdaptedGradientColoredAreas getColorSchema() {
-				«s.layout.createStyleColorSchema»
+			public ''').append(adaptedGradientColoredAreasType).append(''' getColorSchema() {
+				''') val appender5 = appender4.createStyleColorSchema(s.layout).append('''
 			}
 			
 			
 		}	
-		'''
+		''')
+		appender5
 	}
 
 	def createSuperStyle(Style s) {
 		if(s.superStyle == null) "org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle" else s.superStyle.simpleName
 	}
 
-	def getStyle(Style s) {
+	def ITreeAppendable getStyle(ITreeAppendable appendable, Style s) {
 		if(s.superStyle == null)
-			'''gaService.createStyle(diagram, "«s.name»");'''
+			appendable.append('''gaService.createStyle(diagram, "«s.name»");''')
 		else 
-			'''super.getStyle(diagram);'''			
+			appendable.append('''super.getStyle(diagram);''')			
 	}
 
-    def createLayout(StyleLayout l) {
-        '''
-        «l.createTransparencyAttributes»		
+    def ITreeAppendable createLayout(ITreeAppendable appendable, StyleLayout l) {
+        var appendable1 = appendable.createTransparencyAttributes(l)		
+		if (l.checkColorSchemaNecessary == false) {
+        	appendable1 = appendable1.createBackgroundAttributes(l)
+        }
+		appendable1 = appendable1.createLineAttributes(l)
+		appendable1 = appendable1.createFontAttributes(l)
 		
-		«IF l.checkColorSchemaNecessary == false»
-        	«l.createBackgroundAttributes»
-        «ENDIF»
-		
-        «l.createLineAttributes»
-
-        «l.createFontAttributes»
-		
-        «IF l.checkColorSchemaNecessary»
-        	«setColorSchema»
-        «ENDIF»
-		
-        '''
+        if (l.checkColorSchemaNecessary) {
+        	appendable1 = appendable1.setColorSchema
+        }
+        appendable1
     }
 
-    def createTransparencyAttributes(StyleLayout l) {
-        '''
+    def ITreeAppendable createTransparencyAttributes(ITreeAppendable appendable, StyleLayout l) {
+        appendable.append('''
         // transparency value
         «IF !(l == null || l.transparency == Double::MIN_VALUE)»
         style.setTransparency(«l.transparency»);
         «ENDIF»
-        '''    
+        ''')
     }
         
-    def createBackgroundAttributes(StyleLayout l) {
-        '''
-        // background attributes
-        «IF l == null || l.background == null»
-        «ELSEIF l.background instanceof Transparent»
-        style.setFilled(false);
-        style.setBackground(null);
-        «ELSE»
-        style.setFilled(true);
+    def ITreeAppendable createBackgroundAttributes(ITreeAppendable appendable, StyleLayout l) {
+        var appendable1 = appendable.append('''
+        // background attributes''')
+        if (l == null || l.background == null) {
+        } else if (l.background instanceof Transparent) {
+        appendable1 = appendable1.append('''style.setFilled(false);
+        style.setBackground(null);''')
+        } else {
+        appendable1 = appendable1.append('''style.setFilled(true);
 «««        «var ColorWithTransparency color = l.background»
 «««        style.setBackground(gaService.manageColor(diagram, «color.createColorValue»));
-        style.setBackground(gaService.manageColor(diagram, «l.background.createColorValue»));
-        «ENDIF»
-        '''    
+        style.setBackground(gaService.manageColor(diagram, ''') appendable1 = appendable1.createColorValue(l.background) appendable1.append('''));''')
+        }
+        appendable1
     }
     
-    def createLineAttributes(StyleLayout l) {
-        '''
+    def ITreeAppendable createLineAttributes(ITreeAppendable appendable, StyleLayout l) {
+        var appendable1 = appendable.append('''
         // line attributes
-        «IF l == null || l.lineColor == null»
-        «ELSEIF l.lineColor instanceof Transparent»
-        style.setLineVisible(false);
+        ''')
+        if(l == null || l.lineColor == null) {
+        } else if (l.lineColor instanceof Transparent) {
+        appendable1 = appendable1.append('''style.setLineVisible(false);
         style.setForeground(null);
-        «ELSE»
-        style.setLineVisible(true);
-        style.setForeground(gaService.manageColor(diagram, «l.lineColor.createColorValue»));
-        «IF l.lineWidth > 0»
-        style.setLineWidth(«Math::max(l.lineWidth,1)»);
-        «ENDIF»
-        «IF l.lineStyle != LineStyle::NULL»
-        style.setLineStyle(LineStyle.«l.lineStyle.name»);
-        «ENDIF»
-        «ENDIF»
-        '''    
+        ''')
+        } else {
+        appendable1 = appendable1.append('''style.setLineVisible(true);
+        style.setForeground(gaService.manageColor(diagram, ''') appendable1 = appendable1.createColorValue(l.lineColor) appendable1 = appendable1.append('''));
+        ''')
+        if (l.lineWidth > 0) {}
+        appendable1 = appendable1.append('''style.setLineWidth(«Math::max(l.lineWidth,1)»);
+        ''')
+        }
+        if (l.lineStyle != LineStyle::NULL) {
+        appendable1 = appendable1.append('''style.setLineStyle(''').append(lineStyleType).append('''.«l.lineStyle.name»);
+        ''')
+        }
+        appendable1
     }
 
-    def createFontAttributes(StyleLayout l) {
-        '''
+    def ITreeAppendable createFontAttributes(ITreeAppendable appendable, StyleLayout l) {
+        appendable.append('''
 		// font attributes
 		«IF l == null || l.fontName == null»
 		String fontName = style.getFont().getName();
@@ -229,79 +267,82 @@ class StyleGenerator implements IGenerator {
 		boolean fontBold = «l.fontBold.transformYesNoToBoolean»;
 		«ENDIF»
 		style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-        '''    
+        ''')
     }
     
-    def createFontColor(StyleLayout l) {
+    def ITreeAppendable createFontColor(ITreeAppendable appendable, StyleLayout l) {
+    	var appendable1 = appendable
     	if(l == null || l.fontColor == null) {
- 			'''return super.getFontColor(diagram);'''
+ 			appendable1 = appendable.append('''return super.getFontColor(aDiagram);''')
     	} else {
-    		l.fontColor.createFontColor
+    		appendable1 = appendable1.createFontColor(l.fontColor)
     	}
+    	appendable1
     }
     
-    def createFontColor(ColorWithTransparency c) {
-    	'''
-		IGaService gaService = Graphiti.getGaService();
-		return gaService.manageColor(diagram, «c.createColorValue»);
-    	'''
+    def ITreeAppendable createFontColor(ITreeAppendable appendable, ColorWithTransparency c) {
+		var appendable1 = appendable.append(iGaServiceType).append(''' gaService = ''').append(graphitiType).append('''.getGaService();
+		return gaService.manageColor(aDiagram, ''') appendable1 = appendable1.createColorValue(c) appendable1.append(''');
+    	''')
+    	appendable1
     }
     
     def transformYesNoToBoolean(YesNoBool yesNo) { if(yesNo == YesNoBool::YES) "true" else "false" }
-    def dispatch createColorValue(Transparent c) { '''null''' }
-    def dispatch createColorValue(ColorConstantRef c) { '''IColorConstant.«c.value.name»''' }
-	def dispatch createColorValue(RGBColor c) { '''new ColorConstant(«c.red», «c.green», «c.blue»)''' }
+    def dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, Transparent c) { appendable.append('''null''') }
+    def dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, ColorConstantRef c) { appendable.append(iColorConstantType).append('''.«c.value.name»''') }
+	def dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, RGBColor c) { appendable.append('''new ''').append(colorConstantType).append('''(«c.red», «c.green», «c.blue»)''') }
 	
-	def createStyleColorSchema(StyleLayout l){
+	def ITreeAppendable createStyleColorSchema(ITreeAppendable appendable, StyleLayout l){
 		
-		var gradientOrientation = l.gradient_orientation.mapGradientOrientation
+		var appendable1 = appendable
 		
-		'''
-		«IF l.checkColorSchemaNecessary == false»
-			return null;	
-        «ELSE»
-			final AdaptedGradientColoredAreas agca =
-			StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
-			agca.setDefinedStyleId("«l.createStyleGradientID»");
-			agca.setGradientType(«gradientOrientation»);
-			agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
-														«l.background.gradientColoredAreas»);
+		if(l.checkColorSchemaNecessary == false) {
+			appendable1 = appendable1.append('''return null;''')	
+        } else {
+			appendable1.append('''final ''').append(adaptedGradientColoredAreasType).append(''' agca =
+			''').append(stylesFactoryType).append('''.eINSTANCE.createAdaptedGradientColoredAreas();
+			agca.setDefinedStyleId("''') appendable1 = appendable1.createStyleGradientID(l) appendable1 = appendable1.append('''");
+			agca.setGradientType(''') appendable1 = appendable.mapGradientOrientation(l.gradient_orientation) appendable1 = appendable1.append(''');
+			agca.getAdaptedGradientColoredAreas().add(''').append(iPredefinedRenderingStyleType).append('''.STYLE_ADAPTATION_DEFAULT,
+														''') appendable1 = appendable1.gradientColoredAreas(l.background) appendable1 = appendable1.append(''');
 														
-			«IF l.highlighting != null»
-				«IF l.highlighting.selected != null»
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
-																«l.highlighting.selected.gradientColoredAreas»);
-				«ENDIF»
-				«IF l.highlighting.multiselected != null»
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED,
-																«l.highlighting.multiselected.gradientColoredAreas»);
-				«ENDIF»
-				«IF l.highlighting.allowed != null»
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED,
-																«l.highlighting.allowed.gradientColoredAreas»);
-				«ENDIF»
-				«IF l.highlighting.unallowed != null»
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN,
-																«l.highlighting.unallowed.gradientColoredAreas»);
-				«ENDIF»
-			«ENDIF»
-			return agca;
-        «ENDIF»
-		'''
+			''')if(l.highlighting != null) {
+				if(l.highlighting.selected != null) {
+					appendable1 = appendable1.append('''agca.getAdaptedGradientColoredAreas().add(''').append(iPredefinedRenderingStyleType).append('''.STYLE_ADAPTATION_PRIMARY_SELECTED,
+																''') appendable1 = appendable1.gradientColoredAreas(l.highlighting.selected) appendable1 = appendable1.append(''');''')
+				}
+				if(l.highlighting.multiselected != null) {
+					appendable1 = appendable.append('''agca.getAdaptedGradientColoredAreas().add(''').append(iPredefinedRenderingStyleType).append('''.STYLE_ADAPTATION_SECONDARY_SELECTED,
+																''') appendable1 = appendable1.gradientColoredAreas(l.highlighting.multiselected) appendable1 = appendable1.append(''');''')
+				}
+				if (l.highlighting.allowed != null) {
+					appendable1 = appendable1.append('''agca.getAdaptedGradientColoredAreas().add(''').append(iPredefinedRenderingStyleType).append('''.STYLE_ADAPTATION_ACTION_ALLOWED,
+																''') appendable1 = appendable1.gradientColoredAreas(l.highlighting.allowed) appendable1 = appendable1.append(''');''')
+				}
+				if (l.highlighting.unallowed != null) {
+					appendable.append('''agca.getAdaptedGradientColoredAreas().add(''').append(iPredefinedRenderingStyleType).append('''.STYLE_ADAPTATION_ACTION_FORBIDDEN,
+																''') appendable1 = appendable1.gradientColoredAreas(l.highlighting.unallowed) appendable1 = appendable1.append(''');''')
+				}
+			}
+			appendable1 = appendable1.append('''return agca;''')
+        }
+		appendable1
 	}
 	
-	def mapGradientOrientation(GradientAllignment ga){
+	def ITreeAppendable mapGradientOrientation(ITreeAppendable appendable, GradientAllignment ga){
+		var appendable1 = appendable
 		if(ga == null){
-			'''IGradientType.«GradientAllignment::VERTICAL.name»'''
+			appendable1 = appendable.append(iGradientTypeType).append('''.«GradientAllignment::VERTICAL.name»''')
 		}
 		else{
 		 if (ga == GradientAllignment::HORIZONTAL){
-		 	'''IGradientType.«GradientAllignment::HORIZONTAL.name»'''
+		 	appendable1 = appendable1.append(iGradientTypeType).append('''.«GradientAllignment::HORIZONTAL.name»''')
 		 }
 		 else{
-		 	'''IGradientType.«GradientAllignment::VERTICAL.name»'''
+		 	appendable1 = appendable1.append(iGradientTypeType).append('''.«GradientAllignment::VERTICAL.name»''')
 		 }
 	   }
+	   appendable1
 	}
 	
 	def checkColorSchemaNecessary(StyleLayout l){
@@ -313,27 +354,28 @@ class StyleGenerator implements IGenerator {
 		}
 	}
 	
-	def createStyleGradientID(StyleLayout l){
-		'''LWC2012CorporateStyle_Color_Schema_ID'''
+	def ITreeAppendable createStyleGradientID(ITreeAppendable appendable, StyleLayout l){
+		appendable.append('''LWC2012CorporateStyle_Color_Schema_ID''')
 	}
 	
-	def setColorSchema(){
-		'''gaService.setRenderingStyle(style, getColorSchema());'''
+	def ITreeAppendable setColorSchema(ITreeAppendable appendable){
+		appendable.append('''gaService.setRenderingStyle(style, getColorSchema());''')
 	}
 	
-	def dispatch gradientColoredAreas(GradientRef cg){
-			'''new «cg.gradientRef.qualifiedName»().getGradientColoredAreas( )'''	
+	def dispatch ITreeAppendable gradientColoredAreas(ITreeAppendable appendable, GradientRef cg) {
+		appendable.append('''new «cg.gradientRef.qualifiedName»().getGradientColoredAreas( )''')	
 	}
 	
-	def dispatch gradientColoredAreas(Color cg){
-		'''GradientUtilClass.getOneColorGradient("«cg.createColorHexValue»")'''
+	def dispatch ITreeAppendable gradientColoredAreas(ITreeAppendable appendable, Color cg){
+		val appendable1 = appendable.append(gradientUtilClassType).append('''.getOneColorGradient("''')
+		appendable1.createColorHexValue(cg).append('''")''')
 	}
 	
-	def dispatch gradientColoredAreas(Transparent cg){
-		'''GradientUtilClass.getOneColorGradient(«cg»)'''
+	def dispatch ITreeAppendable gradientColoredAreas(ITreeAppendable appendable, Transparent cg) {
+		appendable.append(gradientUtilClassType).append('''.getOneColorGradient(«cg»)''')
 	}
 	
-	def dispatch createColorHexValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c)»''' }
-	def dispatch createColorHexValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c)»''' }
+	def dispatch ITreeAppendable createColorHexValue(ITreeAppendable appendable, ColorConstantRef c) {  appendable.append(GradientUtilClass::colorConstantToHexString(c)) }
+	def dispatch ITreeAppendable createColorHexValue(ITreeAppendable appendable, RGBColor c) { appendable.append(GradientUtilClass::RGBColorToHexString(c)) }
 	
 }

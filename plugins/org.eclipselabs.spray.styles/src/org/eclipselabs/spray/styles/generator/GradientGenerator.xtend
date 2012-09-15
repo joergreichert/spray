@@ -1,19 +1,52 @@
 package org.eclipselabs.spray.styles.generator
 
-import org.eclipselabs.spray.styles.styles.Gradient
-import org.eclipselabs.spray.styles.styles.GradientLayout
-import org.eclipselabs.spray.styles.styles.GradientColorArea
-import org.eclipselabs.spray.styles.styles.ColorConstantRef
-import org.eclipselabs.spray.styles.styles.RGBColor
+import com.google.inject.Inject
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+import org.eclipselabs.spray.styles.styles.ColorConstantRef
+import org.eclipselabs.spray.styles.styles.Gradient
+import org.eclipselabs.spray.styles.styles.GradientColorArea
+import org.eclipselabs.spray.styles.styles.GradientLayout
+import org.eclipselabs.spray.styles.styles.RGBColor
+import org.eclipselabs.spray.xtext.generator.DefaultCompilationUnitImportManager
+import org.eclipse.graphiti.util.PredefinedColoredAreas
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory
+import org.eclipse.emf.common.util.EList
+import org.eclipse.xtext.common.types.util.TypeReferences
 
 class GradientGenerator {
+	@Inject extension DefaultCompilationUnitImportManager importManager
+    @Inject extension TypeReferences typeReferences
+	
+	private Gradient current = null 
+	
 	def filepath(Gradient g) { g.packagePath + g.className + ".java" }
 	def className(Gradient g) { g.name.toFirstUpper }
 	def packageName(Gradient g) { "org.eclipselabs.spray.styles.gradients" }
 	def packagePath(Gradient g) { "org/eclipselabs/spray/styles/gradients/" }
 	
+    def superType() {  findDeclaredType(typeof(PredefinedColoredAreas), current)  }
+    def interfaceType() {  findDeclaredType(typeof(ISprayGradient), current)  }
+    def gradientColoredAreasType() {  findDeclaredType(typeof(GradientColoredAreas), current)  }
+    def gradientColoredAreaType() {  findDeclaredType(typeof(GradientColoredArea), current)  }
+    def stylesFactoryType() {  findDeclaredType(typeof(StylesFactory), current)  }
+    def eListType() {  findDeclaredType(typeof(EList), current)  }
+	
 	int elementIndex = 0
+	
+	def doGenerate(Resource resource, IFileSystemAccess fsa) {
+		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
+			current = gradient
+			importManager.enter(gradient.packageName)
+			importManager.registerGradientImports(gradient)
+      		fsa.generateFile(gradient.filepath, gradient.compile)
+			importManager.exit
+   		}
+	}
 	
 	def compile(Gradient g) {
 		'''
@@ -23,6 +56,10 @@ class GradientGenerator {
 		'''
 	}
 	
+	def setCurrent(Gradient aGradient) {
+		this.current = aGradient
+	}	
+	
 	def head(Gradient g) {
 		'''
 		/**
@@ -30,16 +67,22 @@ class GradientGenerator {
 		 */
 		package «g.packageName»;
 		
-		import org.eclipse.emf.common.util.EList;
-		import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
-		import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
-		import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
-		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
-		import org.eclipse.graphiti.util.IGradientType;
-		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient;
-		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipse.graphiti.util.PredefinedColoredAreas;
 		'''
+	}
+	
+	def registerGradientImports(DefaultCompilationUnitImportManager importManager, Gradient gradient) {
+		this.importManager = importManager
+		importManager.addImports(
+			"org.eclipse.emf.common.util.EList",
+			"org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea",
+			"org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas",
+			"org.eclipse.graphiti.mm.algorithms.styles.LocationType",
+			"org.eclipse.graphiti.mm.algorithms.styles.StylesFactory",
+			"org.eclipse.graphiti.util.IGradientType",
+			"org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient",
+			"org.eclipse.graphiti.util.IPredefinedRenderingStyle",
+			"org.eclipse.graphiti.util.PredefinedColoredAreas"
+		)
 	}
 	
 	def body(Gradient g) {
