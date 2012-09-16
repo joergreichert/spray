@@ -24,6 +24,7 @@ import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.TextType
 import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
+import org.eclipse.xtext.EcoreUtil2
 
 class ConnectionPlacingGenerator {
     @Inject extension TypeReferences typeReferences
@@ -190,7 +191,7 @@ class ConnectionPlacingGenerator {
 		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»); ''').newLine.append('''
 		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»); ''').newLine.append('''
 		«attname».setValue(""); ''').newLine.append('''
-		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «textIds».«element.body.value».name()); ''').newLine.append('''
+		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «element.textIds».«element.body.value».name()); ''').newLine.append('''
 		''').append(iDirectEditingInfoType).append(''' «editingname» = getFeatureProvider().getDirectEditingInfo(); ''').newLine.append('''
 		«editingname».setMainPictogramElement(newConnection); ''').newLine.append('''
 		«editingname».setPictogramElement(decorator); ''').newLine.append('''
@@ -204,8 +205,9 @@ class ConnectionPlacingGenerator {
 		def private packageName() { "org.eclipselabs.spray.shapes" }
 	def private className(ConnectionDefinition c) { c.name.toFirstUpper }
 	
-	def textIds() {
-		packageName + "." + connectionDefinition.className + "TextIds"
+	def textIds(CDText text) {
+		val container = EcoreUtil2::getContainerOfType(text, typeof(ConnectionDefinition))
+		packageName + "." + (if(container != null) container else connectionDefinition).className + "TextIds"
 	}
 	
 	def mapAlignment(VAlign align) {

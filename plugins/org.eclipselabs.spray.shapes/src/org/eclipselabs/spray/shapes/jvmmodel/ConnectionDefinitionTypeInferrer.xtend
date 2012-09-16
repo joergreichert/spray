@@ -11,6 +11,7 @@ import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGener
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator
 import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.shapes.ConnectionStyle
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle
 
 class ConnectionDefinitionTypeInferrer {
     @Inject extension TypeReferences typeReferences
@@ -47,27 +48,27 @@ class ConnectionDefinitionTypeInferrer {
 			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
 			
 			members += element.toConstructor [
-				parameters += element.toParameter("fp", createTypeRef(connectionGenerator.iFeatureProviderType))
+				parameters += element.toParameter("aFp", createTypeRef(connectionGenerator.iFeatureProviderType))
 				body = [
-					append("super(fp);")
+					append("super(aFp);")
 				]
 			]
 			
 			members += element.toMethod("getConnection", createTypeRef(connectionType)) [
               annotations += element.toAnnotation(typeof(Override))
               parameters += element.toParameter("diagram", createTypeRef(connectionGenerator.diagramType))
-              parameters += element.toParameter("sprayStyle", createTypeRef(connectionGenerator.iSprayStyleType))
+              parameters += element.toParameter("aSprayStyle", createTypeRef(findDeclaredType(typeof(ISprayStyle), element)))
               parameters += element.toParameter("startAnchor", createTypeRef(connectionGenerator.anchorType))
               parameters += element.toParameter("endAnchor", createTypeRef(connectionGenerator.anchorType))
               body = [ 
-              	var appendable1 = append('''''')
+              	var appendable1 = append(connectionGenerator.iSprayStyleType).append(''' sprayStyle = aSprayStyle;''').newLine
 				if (element.connectionStyle == null) {
 				appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''')
 				} else {
 					if (element.connectionStyle == ConnectionStyle::FREEFORM) {
-					appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''')
+						appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''')
 					} else if (element.connectionStyle == ConnectionStyle::MANHATTEN) {
-					appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createManhattanConnection(diagram);''')
+						appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createManhattanConnection(diagram);''')
 					}
 				}
 				appendable1 = appendable1.append('''newConnection.setStart(startAnchor);

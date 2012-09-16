@@ -28,6 +28,7 @@ import java.util.List
 import java.util.ArrayList
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation
+import org.eclipse.xtext.EcoreUtil2
 
 class ShapeTypeGenerator {
 	
@@ -220,7 +221,7 @@ class ShapeTypeGenerator {
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
 		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»);
 		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»);
-		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «textIds».«element.body.value».name());
+		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «element.textIds».«element.body.value».name());
 		«attname».setValue("");''')
 		shapeTypeStyleGenerator.current = element.layout.layout
 		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
@@ -231,8 +232,9 @@ class ShapeTypeGenerator {
 		def private packageName() { "org.eclipselabs.spray.shapes" }
 	def private className(ShapeDefinition c) { c.name.toFirstUpper }
 	
-	def textIds() {
-		packageName + "." + current.className + "TextIds"
+	def textIds(Text text) {
+		val container = EcoreUtil2::getContainerOfType(text, typeof(ShapeDefinition))
+		packageName + "." + (if(container != null) container else current).className + "TextIds"
 	}	
 
 	def ITreeAppendable generateDescription(ITreeAppendable appendable, Description d, String containerName, String styleName, int y, int width) {

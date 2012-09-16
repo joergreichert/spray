@@ -28,7 +28,7 @@ class ShapeDefinitionTypeInferrer {
 		shapeAnchorGenerator.current = element
 
 		var JvmTypeReference varSuperTypeRef = null
-		val superType = defaultSprayShapeType
+		val superType = shapeGenerator.defaultSprayShapeType
 		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
 		val superTypeRef = varSuperTypeRef		
 		
@@ -48,16 +48,16 @@ class ShapeDefinitionTypeInferrer {
 			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
 			
 			members += element.toConstructor [
-				parameters += element.toParameter("fp", createTypeRef(iFeatureProviderType))
+				parameters += element.toParameter("fp", createTypeRef(shapeGenerator.iFeatureProviderType))
 				body = [
 					append("super(fp);")
 				]
 			]
 			
-			members += element.toMethod("getShape", createTypeRef(containerShapeType)) [
+			members += element.toMethod("getShape", createTypeRef(shapeGenerator.containerShapeType)) [
               annotations += element.toAnnotation(typeof(Override))
-              parameters += element.toParameter("targetContainer", createTypeRef(containerShapeType))
-              parameters += element.toParameter("sprayStyle", createTypeRef(iSprayStyleType))
+              parameters += element.toParameter("targetContainer", createTypeRef(shapeGenerator.containerShapeType))
+              parameters += element.toParameter("sprayStyle", createTypeRef(shapeGenerator.iSprayStyleType))
               body = [ 
 				var appendable1 = append('''// Create a ContainerShape for this Shape
 				''').append(diagramType).append(''' diagram = peService.getDiagramForShape(targetContainer);
@@ -76,7 +76,7 @@ class ShapeDefinitionTypeInferrer {
               ''')]
             ]
 			
-			members += element.toMethod("getShapeLayout", createTypeRef(sprayLayoutManagerType)) [
+			members += element.toMethod("getShapeLayout", createTypeRef(shapeLayoutGenerator.sprayLayoutManagerType)) [
               body = [ 
 				append(sprayLayoutManagerType).append(''' layoutManager = new ''').append(sprayLayoutManagerType).append('''();
 				«IF element.shapeLayout.minwidth != 0»
