@@ -40,6 +40,7 @@ class GeneratorShapeDefinition {
 			current = shape
 			shapeLayoutGenerator.current = shape
 			shapeTypeGenerator.current = shape
+			shapeAnchorGenerator.current = shape
 			importManager.enter(packageName)
 			importManager.registerShapeImports(shape)
             fsa.generateFile(filepath(shape), new FakeTreeAppendable().compile(shape).content)
@@ -131,7 +132,7 @@ class GeneratorShapeDefinition {
 				''') appendable1 = appendable1.generateCascadedElements(s) appendable1 = appendable1.append('''
 				
 				// creates the anchors
-				''') appendable1 = appendable1.append(s.createAnchorPoints) appendable1 = appendable1.append('''
+				''') appendable1 = appendable1.createAnchorPoints(s) appendable1 = appendable1.append('''
 				
 				return containerShape;
 			}

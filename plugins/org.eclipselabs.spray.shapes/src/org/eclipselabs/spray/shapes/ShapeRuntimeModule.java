@@ -4,6 +4,7 @@
 package org.eclipselabs.spray.shapes;
 
 import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipselabs.spray.shapes.naming.ShapesQualifiedNameProvider;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 
@@ -33,7 +34,7 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
     // contributed by
     // org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
     public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-        return org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider.class;
+        return ShapesQualifiedNameProvider.class;
     }
 
 }

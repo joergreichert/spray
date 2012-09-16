@@ -10,6 +10,7 @@ import org.eclipselabs.spray.shapes.generator.GeneratorShapeDefinition
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeAnchorGenerator
+import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
 
 class ShapeDefinitionTypeInferrer {
     @Inject extension TypeReferences typeReferences
@@ -18,17 +19,28 @@ class ShapeDefinitionTypeInferrer {
 	@Inject extension ShapeTypeGenerator shapeTypeGenerator
 	@Inject extension ShapeLayoutGenerator shapeLayoutGenerator
 	@Inject extension ShapeAnchorGenerator shapeAnchorGenerator
+	@Inject extension ShapeEnumGenerator shapeEnumGenerator 
 
 	def void infer(ShapeDefinition element, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+		shapeGenerator.setCurrent(element)
+		shapeLayoutGenerator.current = element
+		shapeTypeGenerator.current = element
+		shapeAnchorGenerator.current = element
+
 		var JvmTypeReference varSuperTypeRef = null
 		val superType = defaultSprayShapeType
 		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
 		val superTypeRef = varSuperTypeRef		
 		
-		shapeGenerator.setCurrent(element)
-		shapeLayoutGenerator.current = element
-		shapeTypeGenerator.current = element
-		
+		val ids = element.searchTextIds
+		if(ids.size > 0) {
+			acceptor.accept(element.toEnumerationType(packageName + "." + element.className + "TextIds") [
+				for (id : ids) {
+					members += element.toEnumerationLiteral(id)
+				}
+			])	
+		}
+				
 		acceptor.accept(element.toClass(packageName + "." + element.className)).initializeLater [
 			if(superTypeRef != null) superTypes += superTypeRef
 			
@@ -58,7 +70,7 @@ class ShapeDefinitionTypeInferrer {
 				''') appendable1 = appendable1.generateCascadedElements(element) appendable1 = appendable1.append('''
 				
 				// creates the anchors
-				''') appendable1 = appendable1.append(element.createAnchorPoints) appendable1 = appendable1.append('''
+				''') appendable1 = appendable1.createAnchorPoints(element) appendable1 = appendable1.append('''
 				
 				return containerShape;
               ''')]

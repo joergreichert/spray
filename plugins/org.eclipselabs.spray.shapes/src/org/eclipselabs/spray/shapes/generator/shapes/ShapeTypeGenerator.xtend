@@ -73,23 +73,23 @@ class ShapeTypeGenerator {
 			attname2 = nextAttributeName
 		}
 		var appendable1 = appendable.append('''
-		«iDirectEditingInfoType» directEditingInfo = getFeatureProvider().getDirectEditingInfo();
+		''').append(iDirectEditingInfoType).append(''' directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(«containername»);
 		directEditingInfo.setPictogramElement(«containername»);
 		
-		«graphicsAlgorithmType» «attname» = gaService.createInvisibleRectangle(«containername»);
+		''').append(graphicsAlgorithmType).append(''' «attname» = gaService.createInvisibleRectangle(«containername»);
 		«attname».setStyle(sprayStyle.getStyle(diagram));
-		peService.setPropertyValue(«attname», «iSprayConstantsType».IS_SHAPE_FROM_DSL, «iSprayConstantsType».IS_SHAPE_FROM_DSL_VALUE);
+		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL, ''').append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL_VALUE);
 		gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);
-		
-		«IF s.shape.size > 1»
-		// Invisible rectangle around the elements (because more then one element is on first layer).
-		«graphicsAlgorithmType» «attname2» = gaService.createRectangle(«attname»);
+		''')
+		if (s.shape.size > 1) {
+		appendable1 = appendable.append('''// Invisible rectangle around the elements (because more then one element is on first layer).
+		''').append(graphicsAlgorithmType).append(''' «attname2» = gaService.createRectangle(«attname»);
 		«attname2».setStyle(sprayStyle.getStyle(diagram));
 		«attname2».setFilled(false);
 		«attname2».setLineVisible(false);
-		gaService.setLocationAndSize(«attname2», 0, 0, «sizeMap.width», «sizeMap.heigth»);
-		«ENDIF»''')
+		gaService.setLocationAndSize(«attname2», 0, 0, «sizeMap.width», «sizeMap.heigth»);''')
+		}
 		for (element : s.shape) {
 			appendable1 = appendable1.createElement(element, attname2, "sprayStyle")
 		}
@@ -97,6 +97,8 @@ class ShapeTypeGenerator {
 		if(s.description != null) {
 		appendable1 = appendable1.generateDescription(s.description, containername, "sprayStyle", sizeMap.heigth, sizeMap.width)
 		}
+		
+		appendable1 = appendable1.newLine
 		
 		// Set start values for height and width as properties on the element for Layout Feature
 		appendable1 = appendable1.append(sprayLayoutManagerType).append('''.setSizePictogramProperties(«containername»);
@@ -216,15 +218,22 @@ class ShapeTypeGenerator {
 		«attname».setStyle(style_«element_index».getStyle(diagram));
 		«attname».setForeground(style_«element_index».getFontColor(diagram));
 		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
-		«attname».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
-		«attname».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
-		peService.setPropertyValue(«attname», «iSprayConstantsType».TEXT_ID, TextIds.«element.body.value».name());
+		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»);
+		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»);
+		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «textIds».«element.body.value».name());
 		«attname».setValue("");''')
 		shapeTypeStyleGenerator.current = element.layout.layout
 		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
 		appendable1 = appendable1.append('''getFeatureProvider().getDirectEditingInfo().setGraphicsAlgorithm(«attname»);''')
      	appendable1
 	}
+	
+		def private packageName() { "org.eclipselabs.spray.shapes" }
+	def private className(ShapeDefinition c) { c.name.toFirstUpper }
+	
+	def textIds() {
+		packageName + "." + current.className + "TextIds"
+	}	
 
 	def ITreeAppendable generateDescription(ITreeAppendable appendable, Description d, String containerName, String styleName, int y, int width) {
 		val shapeName = nextAttributeName

@@ -35,13 +35,14 @@ import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory
 import org.eclipse.graphiti.util.IGradientType
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
 import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable
+import org.eclipse.emf.ecore.EObject
 
 class StyleGenerator implements IGenerator {
 	
 	@Inject extension GradientGenerator gradientGenerator
 	@Inject extension DefaultCompilationUnitImportManager importManager
     @Inject extension TypeReferences typeReferences
-	private Style current = null 
+	private EObject current = null 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		gradientGenerator.doGenerate(resource, fsa)
@@ -55,8 +56,8 @@ class StyleGenerator implements IGenerator {
    		}
 	}
 	
-	def setCurrent(Style aStyle) {
-		this.current = aStyle
+	def setCurrent(EObject aEObject) {
+		this.current = aEObject
 	}
 	
 	def filepath(Style s) { s.packagePath + s.className + ".java" }

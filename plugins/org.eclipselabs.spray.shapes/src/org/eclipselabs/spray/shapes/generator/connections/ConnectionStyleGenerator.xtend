@@ -11,7 +11,7 @@ import org.eclipselabs.spray.styles.styles.YesNoBool
 
 class ConnectionStyleGenerator {
 	@Inject extension TypeReferences typeReferences
-	@Inject extension StyleGenerator
+	@Inject extension StyleGenerator styleGenerator
 	
 	private ShapestyleLayout current = null 
 	
@@ -25,10 +25,10 @@ class ConnectionStyleGenerator {
 		var appendable1 = appendable
 		if(csl != null && csl.layout != null) {
 			if(csl.layout.background != null) {
-			appendable1 = appendable1.append('''«attName».setBackground(gaService.manageColor(diagram,''') appendable1 = appendable1.createColorValue(csl.layout.background)  appendable1 = appendable1.append('''));''')
+				appendable1 = appendable1.append('''«attName».setBackground(gaService.manageColor(diagram,''') styleGenerator.current = csl.layout.background  appendable1 = appendable1.createColorValue(csl.layout.background)  appendable1 = appendable1.append('''));''')
 			}
 			if(csl.layout.transparency != Double::MIN_VALUE) {
-			appendable1 = appendable1.append('''«attName».setTransparency(«csl.layout.transparency»);''')		
+				appendable1 = appendable1.append('''«attName».setTransparency(«csl.layout.transparency»);''')		
 			}
 			appendable1 = appendable1.createLineAttributes(attName, csl)
 			appendable1 = appendable1.createFontAttributes(attName, csl)
@@ -39,7 +39,7 @@ class ConnectionStyleGenerator {
 	def ITreeAppendable createFontAttributes(ITreeAppendable appendable, String attName, ShapestyleLayout l) {
 	var appendable1 = appendable
 		if (!(l.layout.fontName == null && l.layout.fontSize == Integer::MIN_VALUE && l.layout.fontItalic == YesNoBool::NULL && l.layout.fontItalic == YesNoBool::NULL)) {
-		appendable1.append('''
+		appendable1 = appendable1.append('''
 		{
 			''').append(styleType).append(''' style = «attName».getStyle();
 			«IF l.layout.fontName == null»
@@ -71,7 +71,7 @@ class ConnectionStyleGenerator {
     def ITreeAppendable createLineAttributes(ITreeAppendable appendable, String attName, ShapestyleLayout csl){
 		var appendable1 = appendable
     	if(csl.layout.lineColor != null) {
-		appendable1 = appendable1.append('''«attName».setForeground(gaService.manageColor(diagram,''') appendable1 = appendable1.createColorValue(csl.layout.lineColor) appendable1 = appendable1.append('''));''')    	
+		appendable1 = appendable1.append('''«attName».setForeground(gaService.manageColor(diagram,''') styleGenerator.current = csl.layout.lineColor  appendable1 = appendable1.createColorValue(csl.layout.lineColor) appendable1 = appendable1.append('''));''')    	
     	}
     	if(csl.layout.lineStyle != null && csl.layout.lineStyle != LineStyle::NULL) {
   		appendable1 = appendable1.append('''«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);''')	

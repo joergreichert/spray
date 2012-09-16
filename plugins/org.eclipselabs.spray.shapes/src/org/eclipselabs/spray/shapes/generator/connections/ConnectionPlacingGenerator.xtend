@@ -23,15 +23,18 @@ import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.shapes.TextType
 import org.eclipselabs.spray.shapes.shapes.VAlign
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
 
 class ConnectionPlacingGenerator {
     @Inject extension TypeReferences typeReferences
 	@Inject extension ConnectionStyleGenerator connectionStyleGenerator
 	
 	private PlacingDefinition current = null 
+	private ConnectionDefinition connectionDefinition = null 
 	
 	def setCurrent(PlacingDefinition aPlacing) {
 		this.current = aPlacing
+		connectionDefinition = aPlacing.eContainer as ConnectionDefinition
 	}
 	
 	def iDirectEditingInfoType() {  findDeclaredType(typeof(IDirectEditingInfo), current)  }
@@ -91,7 +94,7 @@ class ConnectionPlacingGenerator {
 		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style.getStyle(diagram));''')
 		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
+		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.newLine  appendable1 = appendable1.append('''
 		}
      	''')
      	appendable1
@@ -161,7 +164,7 @@ class ConnectionPlacingGenerator {
 		''').append(ellipseType).append(''' «attname» = gaService.createEllipse(«parentName»);
 		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style.getStyle(diagram));
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);''')
+		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);''')  appendable1 = appendable1.newLine
 		connectionStyleGenerator.current = element.layout.layout
 		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
      	''')
@@ -181,21 +184,28 @@ class ConnectionPlacingGenerator {
 		appendable1 = appendable1.append(multiTextType).append(''' «attname» = gaService.createMultiText(«parentName»);''')
 		}
 		appendable1 = appendable1.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));
-		«attname».setForeground(style.getFontColor(diagram));
-		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
-		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»);
-		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»);
-		«attname».setValue("");
-		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, TextIds.«element.body.value».name());
-		«iDirectEditingInfoType» «editingname» = getFeatureProvider().getDirectEditingInfo();
-		«editingname».setMainPictogramElement(newConnection);
-		«editingname».setPictogramElement(decorator);
+		«attname».setStyle(style.getStyle(diagram)); ''').newLine.append('''
+		«attname».setForeground(style.getFontColor(diagram)); ''').newLine.append('''
+		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»); ''').newLine.append('''
+		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»); ''').newLine.append('''
+		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»); ''').newLine.append('''
+		«attname».setValue(""); ''').newLine.append('''
+		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «textIds».«element.body.value».name()); ''').newLine.append('''
+		''').append(iDirectEditingInfoType).append(''' «editingname» = getFeatureProvider().getDirectEditingInfo(); ''').newLine.append('''
+		«editingname».setMainPictogramElement(newConnection); ''').newLine.append('''
+		«editingname».setPictogramElement(decorator); ''').newLine.append('''
 		«editingname».setGraphicsAlgorithm(«attname»);''')
 		connectionStyleGenerator.current = element.layout.layout
 		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
      	''')
      	appendable1
+	}
+	
+		def private packageName() { "org.eclipselabs.spray.shapes" }
+	def private className(ConnectionDefinition c) { c.name.toFirstUpper }
+	
+	def textIds() {
+		packageName + "." + connectionDefinition.className + "TextIds"
 	}
 	
 	def mapAlignment(VAlign align) {
