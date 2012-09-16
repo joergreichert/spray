@@ -17,16 +17,13 @@ class ShapeGenerator implements IGenerator {
     @Inject GeneratorSVGDefinition svgDefinition 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		shapeDefinition.doGenerate(resource, fsa)
 		for(shape : resource.allContents.toIterable.filter(typeof(ShapeDefinition))) {
-    		// create the Shapes
-            fsa.generateFile(shapeDefinition.filepath(shape), shapeDefinition.compile(shape))
             fsa.generateFile(svgDefinition.filepath(shape), svgDefinition.compile(shape))
    		}
+		connectionDefinition.doGenerate(resource, fsa)
    		for(connection : resource.allContents.toIterable.filter(typeof(ConnectionDefinition))) {
-      		// create the connections
-   			fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
             fsa.generateFile(svgDefinition.filepath(connection), svgDefinition.compile(connection))
    		}
-	}
-	
+	}	
 }

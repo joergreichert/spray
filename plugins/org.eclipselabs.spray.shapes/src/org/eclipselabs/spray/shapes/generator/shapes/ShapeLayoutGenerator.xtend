@@ -1,8 +1,19 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
+import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager
+import com.google.inject.Inject
+import org.eclipse.xtext.common.types.util.TypeReferences
 
 class ShapeLayoutGenerator {
+	@Inject extension TypeReferences typeReferences
+	
+	private ShapeDefinition current = null
+	
+	def setCurrent(ShapeDefinition aShape) {
+		this.current = aShape
+	}
 	
 	def generateLayout(ShapeDefinition s) {
 		'''
@@ -24,10 +35,12 @@ class ShapeLayoutGenerator {
 		'''
 	}
 	
-		def generateGetLayoutMethod(ShapeDefinition s) {
-		'''
-		public SprayLayoutManager getShapeLayout() {
-			SprayLayoutManager layoutManager = new SprayLayoutManager( );
+	def sprayLayoutManagerType() {  findDeclaredType(typeof(SprayLayoutManager), current)  }
+	
+	def ITreeAppendable generateGetLayoutMethod(ITreeAppendable appendable, ShapeDefinition s) {
+		appendable.append('''
+		public ''').append(sprayLayoutManagerType).append(''' getShapeLayout() {
+			''').append(sprayLayoutManagerType).append(''' layoutManager = new ''').append(sprayLayoutManagerType).append('''();
 			«IF s.shapeLayout.minwidth != 0»
 				layoutManager.setMinSizeWidth(«s.shapeLayout.minwidth»);	   
 			«ELSE»
@@ -60,7 +73,6 @@ class ShapeLayoutGenerator {
 			«ENDIF»		
 			return layoutManager;
 		}
-		'''
+		''')
 	}
-	
 }

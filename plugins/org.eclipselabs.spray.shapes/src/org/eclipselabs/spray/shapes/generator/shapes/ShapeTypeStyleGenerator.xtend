@@ -1,36 +1,48 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
-import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
-import org.eclipselabs.spray.styles.styles.YesNoBool
-import org.eclipselabs.spray.styles.styles.LineStyle
 import com.google.inject.Inject
+import org.eclipse.xtext.common.types.util.TypeReferences
+import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
+import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
 import org.eclipselabs.spray.styles.generator.StyleGenerator
-import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable
+import org.eclipselabs.spray.styles.styles.LineStyle
+import org.eclipselabs.spray.styles.styles.YesNoBool
 
 class ShapeTypeStyleGenerator {
 	
 	@Inject extension StyleGenerator 
+	@Inject extension TypeReferences typeReferences
 	
-	def generateStyleForElement(String attName, ShapestyleLayout ssl) {
-	'''
-	«IF(ssl != null && ssl.layout != null)»
-		«IF(ssl.layout.background != null)»
-		«attName».setBackground(gaService.manageColor(diagram,«new FakeTreeAppendable().createColorValue(ssl.layout.background).content»));
-		«ENDIF»
-		«IF(ssl.layout.transparency != Double::MIN_VALUE)»
-		«attName».setTransparency(«ssl.layout.transparency»);		
-		«ENDIF»
-		«createLineAttributes(attName, ssl)»
-		«createFontAttributes(attName, ssl)»
-	«ENDIF»
-	'''
+	private ShapestyleLayout current = null
+	
+	def setCurrent(ShapestyleLayout aLayout) {
+		this.current = aLayout
+	}	
+	
+	def styleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Style), current)  }
+	
+	def generateStyleForElement(ITreeAppendable appendable, String attName, ShapestyleLayout ssl) {
+	var appendable1 = appendable.append('''
+	''')
+	if(ssl != null && ssl.layout != null) {
+		if(ssl.layout.background != null) {
+		appendable1 = appendable1.append('''«attName».setBackground(gaService.manageColor(diagram,''') appendable1 = appendable1.createColorValue(ssl.layout.background) appendable1 = appendable.append('''));''')
+		}
+		if(ssl.layout.transparency != Double::MIN_VALUE) {
+		appendable1 = appendable1.append('''«attName».setTransparency(«ssl.layout.transparency»);''')		
+		}
+		appendable1 = appendable1.createLineAttributes(attName, ssl)
+		appendable1 = appendable1.createFontAttributes(attName, ssl)
+	}
+	appendable1
 	}
 	
-	def createFontAttributes(String attName, ShapestyleLayout l) {
-        '''
-		«IF (l.layout.fontName != null || l.layout.fontSize != Integer::MIN_VALUE || l.layout.fontItalic != YesNoBool::NULL || l.layout.fontBold != YesNoBool::NULL)»
-		{
-			Style style = «attName».getStyle();
+	def ITreeAppendable createFontAttributes(ITreeAppendable appendable, String attName, ShapestyleLayout l) {
+        var appendable1 = appendable.append('''
+		''')
+		if (l.layout.fontName != null || l.layout.fontSize != Integer::MIN_VALUE || l.layout.fontItalic != YesNoBool::NULL || l.layout.fontBold != YesNoBool::NULL) {
+		appendable1 = appendable1.append('''{
+			''').append(styleType).append(''' style = «attName».getStyle();
 			«IF l.layout.fontName == null»
 			String fontName = style.getFont().getName();
 			«ELSE»
@@ -52,22 +64,23 @@ class ShapeTypeStyleGenerator {
 			boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;
 			«ENDIF»
 			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
+		}''')
 		}
-		«ENDIF»
-        '''    
+		appendable1
     }
     
-    def createLineAttributes(String attName, ShapestyleLayout ssl){
-    	'''
-    	«IF(ssl.layout.lineColor != null)»
-			«attName».setForeground(gaService.manageColor(diagram,«new FakeTreeAppendable().createColorValue(ssl.layout.lineColor).content»));    	
-    	«ENDIF»
-    	«IF(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL)»
-  			«attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);	
-    	«ENDIF»
-    	«IF(ssl.layout.lineWidth != Integer::MIN_VALUE)»
-    		«attName».setLineWidth(«ssl.layout.lineWidth»);
-    	«ENDIF»    	
-    	'''
+    def ITreeAppendable createLineAttributes(ITreeAppendable appendable, String attName, ShapestyleLayout ssl){
+    	var appendable1 = appendable.append('''
+    	''')
+    	if(ssl.layout.lineColor != null) {
+			appendable1 = appendable1.append('''«attName».setForeground(gaService.manageColor(diagram,''') appendable1 = appendable1.createColorValue(ssl.layout.lineColor) appendable1.append('''));''')    	
+    	}
+    	if(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL) {
+  			appendable1 = appendable1.append('''«attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);''')	
+    	}
+    	if(ssl.layout.lineWidth != Integer::MIN_VALUE) {
+    		appendable1 = appendable1.append('''«attName».setLineWidth(«ssl.layout.lineWidth»);''')
+    	}
+    	appendable1    	
     }
 }

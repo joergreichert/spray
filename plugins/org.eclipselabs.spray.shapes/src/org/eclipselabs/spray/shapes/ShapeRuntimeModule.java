@@ -17,10 +17,10 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
         return ShapeScopeProvider.class;
     }
 
-    @Override
-    public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
-        return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
-    }
+//    @Override
+//    public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
+//        return org.eclipselabs.spray.shapes.generator.ShapeGenerator.class;
+//    }
 
     /**
      * Implicit imports
