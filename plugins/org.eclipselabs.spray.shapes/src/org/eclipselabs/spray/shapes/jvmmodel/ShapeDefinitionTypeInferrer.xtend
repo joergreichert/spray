@@ -55,62 +55,62 @@ class ShapeDefinitionTypeInferrer {
 			]
 			
 			members += element.toMethod("getShape", createTypeRef(shapeGenerator.containerShapeType)) [
-              annotations += element.toAnnotation(typeof(Override))
-              parameters += element.toParameter("targetContainer", createTypeRef(shapeGenerator.containerShapeType))
-              parameters += element.toParameter("sprayStyle", createTypeRef(shapeGenerator.iSprayStyleType))
-              body = [ 
-				var appendable1 = append('''// Create a ContainerShape for this Shape
-				''').append(diagramType).append(''' diagram = peService.getDiagramForShape(targetContainer);
-				''').append(containerShapeType).append(''' containerShape = peCreateService.createContainerShape(targetContainer, true);
-				
-				// define general layout for ContainerShape
-				''') appendable1 = appendable1.append(element.generateLayout) appendable1 = appendable1.append('''
-				
-				// creates the cascaded elements (figures)
-				''') appendable1 = appendable1.generateCascadedElements(element) appendable1 = appendable1.append('''
-				
-				// creates the anchors
-				''') appendable1 = appendable1.createAnchorPoints(element) appendable1 = appendable1.append('''
-				
-				return containerShape;
-              ''')]
+				annotations += element.toAnnotation(typeof(Override))
+				parameters += element.toParameter("targetContainer", createTypeRef(shapeGenerator.containerShapeType))
+				parameters += element.toParameter("sprayStyle", createTypeRef(shapeGenerator.iSprayStyleType))
+				body = [ 
+					var appendable = append('''// Create a ContainerShape for this Shape''').newLine
+					appendable = appendable.append(diagramType).append(''' diagram = peService.getDiagramForShape(targetContainer);''').newLine
+					appendable = appendable.append(containerShapeType).append(''' containerShape = peCreateService.createContainerShape(targetContainer, true);''').newLine
+					appendable = appendable.newLine
+					appendable = appendable.append('''// define general layout for ContainerShape''').newLine
+					appendable = appendable.append(element.generateLayout).newLine
+					appendable = appendable.newLine
+					appendable = appendable.append('''// creates the cascaded elements (figures)''').newLine
+					appendable = appendable.generateCascadedElements(element).newLine
+					appendable = appendable.newLine
+					appendable = appendable.append('''// creates the anchors''').newLine
+					appendable = appendable.createAnchorPoints(element).newLine
+					appendable = appendable.newLine
+					appendable = appendable.append('''return containerShape;''')
+              	]
             ]
 			
 			members += element.toMethod("getShapeLayout", createTypeRef(shapeLayoutGenerator.sprayLayoutManagerType)) [
-              body = [ 
-				append(sprayLayoutManagerType).append(''' layoutManager = new ''').append(sprayLayoutManagerType).append('''();
-				«IF element.shapeLayout.minwidth != 0»
-					layoutManager.setMinSizeWidth(«element.shapeLayout.minwidth»);	   
-				«ELSE»
-					layoutManager.setMinSizeWidth(-1);	
-				«ENDIF»	
-				«IF element.shapeLayout.maxwidth != 0»
-					layoutManager.setMaxSizeWidth(«element.shapeLayout.maxwidth»);	   
-				«ELSE»
-					layoutManager.setMaxSizeWidth(-1);	
-				«ENDIF»	
-				«IF element.shapeLayout.minheight != 0»
-					layoutManager.setMinSizeHeight(«element.shapeLayout.minheight»);	   
-				«ELSE»
-					layoutManager.setMinSizeHeight(-1);	
-				«ENDIF»	
-				«IF element.shapeLayout.maxheight != 0»
-					layoutManager.setMaxSizeHeight(«element.shapeLayout.maxheight»);	   
-				«ELSE»
-					layoutManager.setMaxSizeHeight(-1);	
-				«ENDIF»	
-				«IF element.shapeLayout.stretchH != null»
-					layoutManager.setStretchHorizontal(«element.shapeLayout.stretchH»); 
-				«ELSE»
-					layoutManager.setStretchHorizontal(true);		   
-				«ENDIF»		
-				«IF element.shapeLayout.stretchV != null»
-					layoutManager.setStretchVertical(«element.shapeLayout.stretchV»);	   
-				«ELSE»
-					layoutManager.setStretchHorizontal(true);	   
-				«ENDIF»		
-				return layoutManager;''')
-              ]
+				body = [ 
+					var appendable = append(sprayLayoutManagerType).append(''' layoutManager = new ''').append(sprayLayoutManagerType).append('''();''').newLine
+					if (element.shapeLayout.minwidth != 0) {
+						appendable = appendable.append('''layoutManager.setMinSizeWidth(«element.shapeLayout.minwidth»);''').newLine
+					} else {
+						appendable = appendable.append('''layoutManager.setMinSizeWidth(-1);''').newLine
+					}	
+					if (element.shapeLayout.maxwidth != 0) {
+						appendable = appendable.append('''layoutManager.setMaxSizeWidth(«element.shapeLayout.maxwidth»);''').newLine
+					} else {
+						appendable = appendable.append('''layoutManager.setMaxSizeWidth(-1);''').newLine
+					}
+					if (element.shapeLayout.minheight != 0) {
+						appendable = appendable.append('''layoutManager.setMinSizeHeight(«element.shapeLayout.minheight»);''').newLine
+					} else {
+						appendable = appendable.append('''layoutManager.setMinSizeHeight(-1);''').newLine
+					}	
+					if (element.shapeLayout.maxheight != 0) {
+						appendable = appendable.append('''layoutManager.setMaxSizeHeight(«element.shapeLayout.maxheight»);''').newLine
+					} else {
+						appendable = appendable.append('''layoutManager.setMaxSizeHeight(-1);''').newLine
+					}	
+					if (element.shapeLayout.stretchH != null) {
+						appendable = appendable.append('''layoutManager.setStretchHorizontal(«element.shapeLayout.stretchH»);''').newLine
+					} else {
+						appendable = appendable.append('''layoutManager.setStretchHorizontal(true);''').newLine
+					}		
+					if (element.shapeLayout.stretchV != null) {
+						appendable = appendable.append('''layoutManager.setStretchVertical(«element.shapeLayout.stretchV»);''').newLine
+					} else {
+						appendable = appendable.append('''layoutManager.setStretchHorizontal(true);''').newLine
+					}		
+					appendable = appendable.append('''return layoutManager;''').newLine
+				]
             ]
 		]
 	}	

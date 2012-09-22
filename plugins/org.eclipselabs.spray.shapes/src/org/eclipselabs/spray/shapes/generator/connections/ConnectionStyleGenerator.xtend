@@ -21,64 +21,72 @@ class ConnectionStyleGenerator {
 	
 	def styleType() {  findDeclaredType(typeof(Style), current)  }
 	
-	def ITreeAppendable generateStyleForConnection(ITreeAppendable appendable, String attName, ShapestyleLayout csl) {
-		var appendable1 = appendable
+	def ITreeAppendable generateStyleForConnection(ITreeAppendable givenAppendable, String attName, ShapestyleLayout csl) {
+		var appendable = givenAppendable
 		if(csl != null && csl.layout != null) {
 			if(csl.layout.background != null) {
-				appendable1 = appendable1.append('''«attName».setBackground(gaService.manageColor(diagram,''') styleGenerator.current = csl.layout.background  appendable1 = appendable1.createColorValue(csl.layout.background)  appendable1 = appendable1.append('''));''')
+				appendable = appendable.append('''«attName».setBackground(gaService.manageColor(diagram,''') 
+				if(csl.layout?.background != null) {
+					styleGenerator.current = csl.layout.background  
+					appendable = appendable.createColorValue(csl.layout.background)
+				}
+				appendable = appendable.append('''));''').newLine
 			}
 			if(csl.layout.transparency != Double::MIN_VALUE) {
-				appendable1 = appendable1.append('''«attName».setTransparency(«csl.layout.transparency»);''')		
+				appendable = appendable.append('''«attName».setTransparency(«csl.layout.transparency»);''').newLine		
 			}
-			appendable1 = appendable1.createLineAttributes(attName, csl)
-			appendable1 = appendable1.createFontAttributes(attName, csl)
+			appendable = appendable.createLineAttributes(attName, csl).newLine
+			appendable = appendable.createFontAttributes(attName, csl).newLine
 		}
-		appendable1
+		appendable
 	}
 	
-	def ITreeAppendable createFontAttributes(ITreeAppendable appendable, String attName, ShapestyleLayout l) {
-	var appendable1 = appendable
+	def ITreeAppendable createFontAttributes(ITreeAppendable givenAppendable, String attName, ShapestyleLayout l) {
+	var appendable = givenAppendable
 		if (!(l.layout.fontName == null && l.layout.fontSize == Integer::MIN_VALUE && l.layout.fontItalic == YesNoBool::NULL && l.layout.fontItalic == YesNoBool::NULL)) {
-		appendable1 = appendable1.append('''
-		{
-			''').append(styleType).append(''' style = «attName».getStyle();
-			«IF l.layout.fontName == null»
-			String fontName = style.getFont().getName();
-			«ELSE»
-			String fontName = "«l.layout.fontName»";
-			«ENDIF»
-			«IF l.layout.fontSize == Integer::MIN_VALUE»
-			int fontSize = style.getFont().getSize();
-			«ELSE»
-			int fontSize = «l.layout.fontSize»;
-			«ENDIF»
-			«IF l.layout.fontItalic == YesNoBool::NULL»
-			boolean fontItalic = style.getFont().isItalic();
-			«ELSE»
-			boolean fontItalic = «l.layout.fontItalic.transformYesNoToBoolean»;
-			«ENDIF»
-			«IF l.layout.fontBold == YesNoBool::NULL»
-			boolean fontBold = style.getFont().isBold();
-			«ELSE»
-			boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;
-			«ENDIF»
-			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-		}''')
+			appendable = appendable.append('''{''').newLine
+			appendable = appendable.increaseIndentation.newLine
+				appendable = appendable.append(styleType).append(''' style = «attName».getStyle();''').newLine
+				if (l.layout.fontName == null) {
+					appendable = appendable.append('''String fontName = style.getFont().getName();''').newLine
+				} else {
+					appendable = appendable.append('''String fontName = "«l.layout.fontName»";''').newLine
+				}
+				if (l.layout.fontSize == Integer::MIN_VALUE) {
+					appendable = appendable.append('''int fontSize = style.getFont().getSize();''').newLine
+				} else {
+					appendable = appendable.append('''int fontSize = «l.layout.fontSize»;''').newLine
+				}
+				if (l.layout.fontItalic == YesNoBool::NULL) {
+					appendable = appendable.append('''boolean fontItalic = style.getFont().isItalic();''').newLine
+				} else {
+					appendable = appendable.append('''boolean fontItalic = «l.layout.fontItalic.transformYesNoToBoolean»;''').newLine
+				}
+				if (l.layout.fontBold == YesNoBool::NULL) {
+					appendable = appendable.append('''boolean fontBold = style.getFont().isBold();''').newLine
+				} else {
+					appendable = appendable.append('''boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;''').newLine
+				}
+				appendable = appendable.append('''style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));''').newLine
+				appendable = appendable.decreaseIndentation
+			appendable = appendable.append('''}''')
 		}
-        appendable1
+        appendable
     }
     
-    def ITreeAppendable createLineAttributes(ITreeAppendable appendable, String attName, ShapestyleLayout csl){
-		var appendable1 = appendable
+    def ITreeAppendable createLineAttributes(ITreeAppendable givenAppendable, String attName, ShapestyleLayout csl){
+		var appendable = givenAppendable
     	if(csl.layout.lineColor != null) {
-		appendable1 = appendable1.append('''«attName».setForeground(gaService.manageColor(diagram,''') styleGenerator.current = csl.layout.lineColor  appendable1 = appendable1.createColorValue(csl.layout.lineColor) appendable1 = appendable1.append('''));''')    	
+			appendable = appendable.append('''«attName».setForeground(gaService.manageColor(diagram,''') 
+			styleGenerator.current = csl.layout.lineColor  
+			appendable = appendable.createColorValue(csl.layout.lineColor) appendable = appendable.append('''));''')    	
     	}
     	if(csl.layout.lineStyle != null && csl.layout.lineStyle != LineStyle::NULL) {
-  		appendable1 = appendable1.append('''«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);''')	
+  			appendable = appendable.append('''«attName».setLineStyle(LineStyle.«csl.layout.lineStyle.name»);''')	
     	}
     	if(csl.layout.lineWidth != Integer::MIN_VALUE) {
-    	appendable1 = appendable1.append('''«attName».setLineWidth(«csl.layout.lineWidth»);''')
+    		appendable = appendable.append('''«attName».setLineWidth(«csl.layout.lineWidth»);''')
     	}    	
-		appendable1
+		appendable
     }
 }

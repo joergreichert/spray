@@ -52,157 +52,179 @@ class ConnectionPlacingGenerator {
 	def orientationType() {  findDeclaredType(typeof(Orientation), current)  }
 	def connectionDecoratorType() {  findDeclaredType(typeof(ConnectionDecorator), current)  }
 	
-	
-	def ITreeAppendable generatePlacing(ITreeAppendable appendable, PlacingDefinition pd) {
-		var appendable1 = appendable.append('''
-		{
-			''').append(connectionDecoratorType).append(''' decorator = peCreateService.createConnectionDecorator(newConnection, false, «pd.offset», true);
-			''') appendable1 = appendable1.createElement(pd.shapeCon, "decorator", "sprayStyle", pd.angle, pd.distance) appendable1 = appendable1.append('''
-		}
-		''')
-		appendable1
+	def ITreeAppendable generatePlacing(ITreeAppendable givenAppendable, PlacingDefinition pd) {
+		var appendable = givenAppendable.append('''{''').newLine
+		appendable = appendable.increaseIndentation.newLine
+			appendable = appendable.append(connectionDecoratorType).append(''' decorator = peCreateService.createConnectionDecorator(''')
+				.append('''newConnection, false, «pd.offset», true);''').newLine
+			if(pd.shapeCon != null) {
+				appendable = appendable.createElement(pd.shapeCon, "decorator", "sprayStyle", pd.angle, pd.distance).newLine
+			}
+			appendable = appendable.decreaseIndentation
+		appendable = appendable.append('''}''')
+		appendable
 	}
 	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDLine element, String parentName, String shapeStyle, Integer angle, Integer distance) {
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDLine element, String parentName, String shapeStyle, Integer angle, Integer distance) {
 		val attname = "element"
 		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)		
-		var appendable1 = appendable.append('''
-		''') appendable1 = appendable1.createPointList(element.layout.point, plname, x, y)
-		appendable1 = appendable1.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «plname»);
-		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));''')
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout)
-     	appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDRectangle element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
-		val attname = "element"
-		val plname = "pointList"
-		var x = getXPositionforAngle(distance, angle)
-		var y = getYPositionforAngle(distance, angle)
-		var appendable1 = appendable.append('''
-		{
-		// As Graphiti doesn´t allow rectangles, creating rectangle as polygon
-		''').append(listType).append('''<''').append(pointType).append('''> «plname» = new ''').append(arrayListType).append('''<''').append(pointType).append('''>();
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», 0, 0));
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», 0, 0));
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));
-		''').append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «plname»);
-		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));''')
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.newLine  appendable1 = appendable1.append('''
+		var appendable = givenAppendable.createPointList(element.layout.point, plname, x, y).newLine
+		appendable = appendable.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «plname»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram));''').newLine
+		if(element.layout?.layout != null) {
+			connectionStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
 		}
-     	''')
-     	appendable1
+     	appendable
 	}
 	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDPolygon element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDRectangle element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
 		val attname = "element"
 		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
-		var appendable1 = appendable.append('''
-		''')
-		appendable1 = appendable1.createPointList(element.layout.point, plname,x,y)
-		appendable1 = appendable1.append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «plname»);
-		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));''')
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
-     	''')
-     	appendable1
+		var appendable = givenAppendable.append('''{''').newLine
+		appendable = appendable.increaseIndentation.newLine
+			appendable = appendable.append('''// As Graphiti doesn´t allow rectangles, creating rectangle as polygon''').newLine
+			appendable = appendable.append(listType).append('''<''').append(pointType).append('''> «plname» = new ''')
+				.append(arrayListType).append('''<''').append(pointType).append('''>();''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», 0, 0));''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», 0, 0));''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», 0, 0));''').newLine
+			appendable = appendable.append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «plname»);''').newLine
+			appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+			appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram));''').newLine
+			if(element.layout?.layout != null) {
+				connectionStyleGenerator.current = element.layout.layout
+				appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
+			}
+			appendable = appendable.decreaseIndentation
+		appendable = givenAppendable.append('''}''')
+     	appendable
 	}
 	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDPolyline element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDPolygon element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
 		val attname = "element"
 		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
-		var appendable1 = appendable.append('''
-		''')
-		appendable1 = appendable1.createPointList(element.layout.point, plname,x,y)
-		appendable1 = appendable1.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «plname»);
-		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));''')
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
-     	''')
-     	appendable1
+		var appendable = givenAppendable.createPointList(element.layout.point, plname,x,y).newLine
+		appendable = appendable.append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «plname»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram));''')
+		if(element.layout?.layout != null) {
+			connectionStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
+		}
+     	appendable
 	}
 	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDRoundedRectangle element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDPolyline element, String parentName, 
+		String shapeStyle, Integer angle, Integer distance) { 
 		val attname = "element"
 		val plname = "pointList"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
-		var appendable1 = appendable.append('''
-		{
-		// As Graphiti doesn´t allow rectangles, creating rounded rectangle as curved polygon
-		''').append(listType).append('''<''').append(pointType).append('''> «plname» = new ''').append(arrayListType).append('''<''').append(pointType).append('''>();
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.curveHeight», «element.layout.curveWidth»));
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor», «element.layout.curveWidth», «element.layout.curveHeight»);
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveHeight», «element.layout.curveWidth»);
-		«plname».add(gaService.createPoint(«x+element.layout.common.xcor», «y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveWidth», «element.layout.curveHeight»);
-		''').append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «plname»);
-		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));''')
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
-     	''')
-     	appendable1
+		var appendable = givenAppendable.createPointList(element.layout.point, plname, x, y).newLine
+		appendable = appendable.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «plname»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram));''').newLine
+		if(element.layout?.layout != null) {
+			connectionStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
+		}
+     	appendable
 	}
 	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDEllipse element, String parentName, String shapeStyle, Integer angle, Integer distance) {
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDRoundedRectangle element, String parentName, 
+		String shapeStyle, Integer angle, Integer distance) { 
+		val attname = "element"
+		val plname = "pointList"
+		var x = getXPositionforAngle(distance, angle)
+		var y = getYPositionforAngle(distance, angle)
+		var appendable = givenAppendable.append('''{''').newLine
+		appendable = appendable.increaseIndentation
+			appendable = appendable.append('''// As Graphiti doesn´t allow rectangles, creating rounded rectangle as curved polygon''').newLine
+			appendable = appendable.append(listType).append('''<''').append(pointType).append('''> «plname» = new ''')
+				.append(arrayListType).append('''<''').append(pointType).append('''>();''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor», ''')
+				.append('''«y+element.layout.common.ycor», «element.layout.curveHeight», «element.layout.curveWidth»));''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», ''')
+				.append('''«y+element.layout.common.ycor», «element.layout.curveWidth», «element.layout.curveHeight»);''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor+element.layout.common.width», ''')
+				.append('''«y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveHeight», «element.layout.curveWidth»);''').newLine
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«x+element.layout.common.xcor», ''')
+				.append('''«y+element.layout.common.ycor+element.layout.common.heigth», «element.layout.curveWidth», «element.layout.curveHeight»);''').newLine
+			appendable = appendable.append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «plname»);''').newLine
+			appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+			appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram));''').newLine
+			if(element.layout?.layout != null) {
+				connectionStyleGenerator.current = element.layout.layout
+				appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
+			}
+			appendable = appendable.decreaseIndentation
+		appendable = givenAppendable.append('''}''')
+     	appendable
+	}
+	
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDEllipse element, String parentName, 
+		String shapeStyle, Integer angle, Integer distance) {
 		val attname = "element"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
-		var appendable1 = appendable.append('''
-		''').append(ellipseType).append(''' «attname» = gaService.createEllipse(«parentName»);
-		''').append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram));
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», «element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);''')  appendable1 = appendable1.newLine
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
-     	''')
-     	appendable1
+		var appendable = givenAppendable.append(ellipseType).append(''' «attname» = gaService.createEllipse(«parentName»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram));''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», «element.layout.common.xcor+x», ''')
+			.append('''«element.layout.common.ycor+y», «element.layout.common.width», «element.layout.common.heigth»);''').newLine
+		if(element.layout?.layout != null) {	
+			connectionStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
+		}
+     	appendable
 	}
 	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, CDText element, String parentName, String shapeStyle, Integer angle, Integer distance) { 
+	def dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, CDText element, String parentName, String shapeStyle, 
+		Integer angle, Integer distance) { 
 		val attname = "element"
 		val editingname = "deinfo"
 		var x = getXPositionforAngle(distance, angle)
 		var y = getYPositionforAngle(distance, angle)
-		var appendable1 = appendable.append('''
-		decorator.setActive(true);''')
+		var appendable = givenAppendable.append('''decorator.setActive(true);''').newLine
 		if (element.texttype == TextType::DEFAULT) {
-		appendable1 = appendable1.append(textType).append(''' «attname» = gaService.createText(«parentName»);''')
+			appendable = appendable.append(textType).append(''' «attname» = gaService.createText(«parentName»);''').newLine
 		} else {
-		appendable1 = appendable1.append(multiTextType).append(''' «attname» = gaService.createMultiText(«parentName»);''')
+			appendable = appendable.append(multiTextType).append(''' «attname» = gaService.createMultiText(«parentName»);''').newLine
 		}
-		appendable1 = appendable1.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style.getStyle(diagram)); ''').newLine.append('''
-		«attname».setForeground(style.getFontColor(diagram)); ''').newLine.append('''
-		gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»); ''').newLine.append('''
-		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»); ''').newLine.append('''
-		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»); ''').newLine.append('''
-		«attname».setValue(""); ''').newLine.append('''
-		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «element.textIds».«element.body.value».name()); ''').newLine.append('''
-		''').append(iDirectEditingInfoType).append(''' «editingname» = getFeatureProvider().getDirectEditingInfo(); ''').newLine.append('''
-		«editingname».setMainPictogramElement(newConnection); ''').newLine.append('''
-		«editingname».setPictogramElement(decorator); ''').newLine.append('''
-		«editingname».setGraphicsAlgorithm(«attname»);''')
-		connectionStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForConnection(attname, element.layout.layout) appendable1 = appendable1.append('''
-     	''')
-     	appendable1
+		appendable = appendable.append(iSprayStyleType).append(''' style = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style.getStyle(diagram)); ''').newLine
+		appendable = appendable.append('''«attname».setForeground(style.getFontColor(diagram)); ''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», «x+element.layout.common.xcor», «y+element.layout.common.ycor», ''')
+			.append('''«element.layout.common.width», «element.layout.common.heigth»); ''').newLine
+		appendable = appendable.append('''«attname».setHorizontalAlignment(''').append(orientationType)
+			.append('''.«element.layout.HAlign.mapAlignment»);''').newLine
+		appendable = appendable.append('''«attname».setVerticalAlignment(''').append(orientationType)
+			.append('''.«element.layout.VAlign.mapAlignment»); ''').newLine
+		appendable = appendable.append('''«attname».setValue(""); ''').newLine
+		appendable = appendable.append('''peService.setPropertyValue(«attname», ''').append(iSprayConstantsType)
+			.append('''.TEXT_ID, «element.textIds».«element.body.value».name()); ''').newLine
+		appendable = appendable.append(iDirectEditingInfoType)
+			.append(''' «editingname» = getFeatureProvider().getDirectEditingInfo(); ''').newLine
+		appendable = appendable.append('''«editingname».setMainPictogramElement(newConnection); ''').newLine
+		appendable = appendable.append('''«editingname».setPictogramElement(decorator); ''').newLine
+		appendable = appendable.append('''«editingname».setGraphicsAlgorithm(«attname»);''').newLine
+		if(element.layout?.layout != null) {
+			connectionStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForConnection(attname, element.layout.layout).newLine
+		}
+     	appendable
 	}
 	
-		def private packageName() { "org.eclipselabs.spray.shapes" }
+	def private packageName() { "org.eclipselabs.spray.shapes" }
 	def private className(ConnectionDefinition c) { c.name.toFirstUpper }
 	
 	def textIds(CDText text) {
@@ -231,13 +253,14 @@ class ConnectionPlacingGenerator {
 //		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
 //	}
 
-	def ITreeAppendable createPointList(ITreeAppendable appendable, EList<org.eclipselabs.spray.shapes.shapes.Point> pointlist, String plname, Integer x, Integer y) {
-		appendable.append('''
-		''').append(listType).append('''<''').append(pointType).append('''> «plname» = new ''').append(arrayListType).append('''<''').append(pointType).append('''>();
-		«FOR point: pointlist»
-			«plname».add(gaService.createPoint(«point.xcor+x», «point.ycor+y», «point.curveBefore», «point.curveAfter»));
-		«ENDFOR»
-		''')
+	def ITreeAppendable createPointList(ITreeAppendable givenAppendable, EList<org.eclipselabs.spray.shapes.shapes.Point> pointlist, 
+			String plname, Integer x, Integer y) {
+		var appendable = givenAppendable.append(listType).append('''<''').append(pointType).append('''> «plname» = new ''')
+			.append(arrayListType).append('''<''').append(pointType).append('''>();''').newLine
+		for (point: pointlist) {
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«point.xcor+x», «point.ycor+y», «point.curveBefore», «point.curveAfter»));''')
+		}
+		appendable
 	}
 	
 	def styleForElement(ShapeStyleRef s, String styleName) {
@@ -249,25 +272,25 @@ class ConnectionPlacingGenerator {
 	}
 	
 	def getXPositionforAngle(Integer distance, Integer angle) {
-		// Spezialfälle 0/90/180/270/>=360
+		// special cases 0/90/180/270/>=360
 		if(angle == 90 || angle == 270) {
 			0
 		} else if(angle == 180) {
 			-distance
 		} else if(angle == 0 || angle >= 360) {
 			distance
-		} else if(angle < 90) { // Quadrant 1
+		} else if(angle < 90) { // quadrant 1
 			var posx = (Math::cos(Math::toRadians(angle))*distance).intValue
 			posx
-		} else if(angle < 180) { // Quadrant 2
+		} else if(angle < 180) { // quadrant 2
 			var newangle = 180 - angle
 			var posx = (Math::cos(Math::toRadians(newangle))*distance).intValue
 			posx * -1
-		} else if (angle < 270) { // Quadrant 3
+		} else if (angle < 270) { // quadrant 3
 			var newangle1 = angle - 180
 			var posx = (Math::cos(Math::toRadians(newangle1))*distance).intValue
 			posx * -1
-		} else if (angle < 360) { // Quadrant 4
+		} else if (angle < 360) { // quadrant 4
 			var newangle = 360 - angle
 			var posx = (Math::cos(Math::toRadians(newangle))*distance).intValue
 			posx
@@ -275,29 +298,28 @@ class ConnectionPlacingGenerator {
 	}
 	
 	def getYPositionforAngle(Integer distance, Integer angle) {
-		// Spezialfälle 0/90/180/270/>=360
+		// special cases 0/90/180/270/>=360
 		if(angle == 90) {
 			-distance
 		} else if(angle == 0 || angle == 180 || angle >= 360) {
 			0
 		} else if(angle == 270) {
 			distance
-		} else if(angle < 90) { // Quadrant 1
+		} else if(angle < 90) { // quadrant 1
 			var posy = (Math::sin(Math::toRadians(angle))*distance).intValue
 			posy * -1
-		} else if(angle < 180) { // Quadrant 2
+		} else if(angle < 180) { // quadrant 2
 			var newangle = 180 - angle
 			var posy = (Math::sin(Math::toRadians(newangle))*distance).intValue
 			posy * -1
-		} else if (angle < 270) { // Quadrant 3
+		} else if (angle < 270) { // quadrant 3
 			var newangle1 = angle - 180
 			var posy = (Math::sin(Math::toRadians(newangle1))*distance).intValue
 			posy
-		} else if (angle < 360) { // Quadrant 4
+		} else if (angle < 360) { // quadrant 4
 			var newangle = 360 - angle
 			var posy = (Math::sin(Math::toRadians(newangle))*distance).intValue
 			posy
 		}
 	}
-	
 }

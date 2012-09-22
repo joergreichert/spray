@@ -23,12 +23,13 @@ class ConnectionEnumGenerator {
 	
 	def searchTextIds(ConnectionDefinition c) {
 		val ids = new ArrayList<String>();
-		for(placing : c.placing) {
-			if(placing.shapeCon instanceof CDText) {
-				ids.add((placing.shapeCon as CDText).body.value);
+		if(c.placing != null) {
+			for(placing : c.placing) {
+				if(placing.shapeCon instanceof CDText) {
+					ids.add((placing.shapeCon as CDText).body.value);
+				}
 			}
 		}
 		ids
-	}
-	
+	}	
 }
