@@ -27,7 +27,6 @@ public class ModelTests extends XtextTest {
 
     @Before
     public void before() {
-        super.before();
         suppressSerialization();
     }
 
