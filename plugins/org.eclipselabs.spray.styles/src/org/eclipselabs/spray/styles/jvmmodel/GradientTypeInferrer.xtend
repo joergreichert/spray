@@ -24,13 +24,17 @@ class GradientTypeInferrer {
 			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
 			
 			members += element.toMethod("getGradientColoredAreas", createTypeRef(gradientColoredAreasType)) [
-              documentation = "This method returns the gradient color area.\n Description: " + element.description
-              body = [append('''
-		         final «gradientColoredAreasType» gradientColoredAreas = «stylesFactoryType».eINSTANCE.createGradientColoredAreas();
-		         final «eListType»<«gradientColoredAreaType»> gcas = gradientColoredAreas.getGradientColor();
-		         «element.layout.createColorAreas»
-		         return gradientColoredAreas;
-              ''')]
+				documentation = "This method returns the gradient color area.\n Description: " + element.description
+              	body = [
+              		var appender = append('''final «gradientColoredAreasType» gradientColoredAreas = ''')
+              			.append(stylesFactoryType).append('''.eINSTANCE.createGradientColoredAreas();''').newLine
+					appender = appender.append('''final ''').append(eListType).append('''<''').append(gradientColoredAreaType)
+						.append('''> gcas = gradientColoredAreas.getGradientColor();''')
+					if (element.layout != null) {
+			         	appender = appender.createColorAreas(element.layout).newLine
+					}
+					appender = appender.append('''return gradientColoredAreas;''')
+              	]
             ]
 		]
 	}	

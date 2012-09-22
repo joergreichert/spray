@@ -33,47 +33,42 @@ class StyleTypeInferrer {
 			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
 			
 			members += element.toMethod("newStyle", createTypeRef(styleType)) [
-              documentation = "This method creates a Style and returns the defined style.\n Description: " + element.description
-              annotations += element.toAnnotation(typeof(Override))
-              parameters += element.toParameter("diagram", createTypeRef(diagramType))
-              body = [ 
-              	val appender = append(iGaServiceType).append(" gaService = ").append(graphitiType).append('''.getGaService();
-				
-				// Creating Style with given id and description
-				''').append(styleType).append(''' style = super.newStyle(diagram);
-				style.setId("«element.name»");
-				style.setDescription("«element.description»");
-				
-				''')
-				
-				val newAppender = if(element.layout != null) appender.createLayout(element.layout) else appender.newLine 
-				
-				newAppender.append('''
-				return style;
-              ''')]
+              	documentation = "This method creates a Style and returns the defined style.\n Description: " + element.description
+              	annotations += element.toAnnotation(typeof(Override))
+              	parameters += element.toParameter("diagram", createTypeRef(diagramType))
+              	body = [ 
+					var appender = append(iGaServiceType).append(" gaService = ").append(graphitiType).append('''.getGaService();''').newLine
+					appender = appender.newLine
+					appender = appender.append('''// Creating Style with given id and description''').newLine
+					appender = appender.append(styleType).append(''' style = super.newStyle(diagram);''').newLine
+					appender = appender.append('''style.setId("«element.name»");''').newLine
+					appender = appender.append('''style.setDescription("«element.description»");''').newLine
+					if(element.layout != null) appender = appender.createLayout(element.layout) else appender = appender.newLine 
+					appender = appender.append('''return style;''')
+			  	]
             ]
 			
 			members += element.toMethod("getFontColor", createTypeRef(colorType)) [
-              documentation = 
-             	'''This method returns the font color for the style. 
-			 	The font color will be returned separated, because Graphiti allows just the foreground color.
-			 	The foreground color will be used for lines and fonts at the same time.'''
-              annotations += element.toAnnotation(typeof(Override))
-              parameters += element.toParameter("aDiagram", createTypeRef(diagramType))
-              body = [ 
-              	if(element.layout != null) {
-					createFontColor(element.layout)
-				}
-              ]
+              	documentation = 
+             		'''This method returns the font color for the style. 
+			 		The font color will be returned separated, because Graphiti allows just the foreground color.
+			 		The foreground color will be used for lines and fonts at the same time.'''
+              	annotations += element.toAnnotation(typeof(Override))
+              	parameters += element.toParameter("aDiagram", createTypeRef(diagramType))
+              	body = [ 
+              		if(element.layout != null) {
+						createFontColor(element.layout)
+					}
+              	]
             ]
 			
 			members += element.toMethod("getColorSchema", createTypeRef(adaptedGradientColoredAreasType)) [
-              documentation = "This method returns Color Schema of the Style"
-              body = [
-              	if(element.layout != null) {
-              		createStyleColorSchema(element.layout)
-              	}
-              ]
+              	documentation = "This method returns Color Schema of the Style"
+              	body = [
+              		if(element.layout != null) {
+              			createStyleColorSchema(element.layout)
+              		}
+              	]
             ]
 		]
 	}

@@ -80,7 +80,7 @@ class StyleGenerator implements IGenerator {
 	def lineStyleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.LineStyle), current)  }
 	
 	def ITreeAppendable compile(ITreeAppendable appendable, Style s) {
-		appendable.append(s.head).newLine.body(s)
+		appendable.append(s.head).newLine.newLine.body(s)
 	}
 	
 	def private head(Style s) {
