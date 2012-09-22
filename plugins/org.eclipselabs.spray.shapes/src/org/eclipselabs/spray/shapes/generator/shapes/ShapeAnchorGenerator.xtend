@@ -23,11 +23,11 @@ class ShapeAnchorGenerator {
 	@Inject extension ShapeSizeCalculator
 	@Inject extension ShapeAnchorCalculator
 	
-	def ellipseType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Ellipse), current)  }
-	def fixPointAnchorType() {  findDeclaredType(typeof(FixPointAnchor), current)  }
-	def boxRelativeAnchorType() {  findDeclaredType(typeof(BoxRelativeAnchor), current)  }
-	def iColorConstantType() {  findDeclaredType(typeof(IColorConstant), current)  }
-	def pointType() {  findDeclaredType(typeof(Point), current)  }
+	def private ellipseType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Ellipse), current)  }
+	def private fixPointAnchorType() {  findDeclaredType(typeof(FixPointAnchor), current)  }
+	def private boxRelativeAnchorType() {  findDeclaredType(typeof(BoxRelativeAnchor), current)  }
+	def private iColorConstantType() {  findDeclaredType(typeof(IColorConstant), current)  }
+	def private pointType() {  findDeclaredType(typeof(Point), current)  }
 	
 	private ShapeDefinition current = null
 	
@@ -47,42 +47,47 @@ class ShapeAnchorGenerator {
 		appendable1
 	}
 	
-	def dispatch ITreeAppendable generatorAnchorType(ITreeAppendable appendable, AnchorPredefinied anchorpredefinied, ShapeSizeWrapper shapeSize){
-		var appendable1 = appendable.append('''
-		''')
+	def private dispatch ITreeAppendable generatorAnchorType(ITreeAppendable givenAppendable, AnchorPredefinied anchorpredefinied, ShapeSizeWrapper shapeSize){
+		var appendable = givenAppendable
 		if (anchorpredefinied.value == AnchorPredefiniedEnum::CENTER) {
-			appendable1 = appendable.append('''peCreateService.createChopboxAnchor(containerShape);''')
+			appendable = givenAppendable.append('''peCreateService.createChopboxAnchor(containerShape);''')
 		} else if(anchorpredefinied.value == AnchorPredefiniedEnum::CORNERS) {
-		appendable1 = appendable1.append('''for(double aWidth = 0.0; aWidth <= 1.0; aWidth+=0.5) {
-			for(double aHeigth = 0.0; aHeigth <= 1.0; aHeigth+=0.5) {
-				//No anchor in center
-				if(!(aWidth == 0.5 & aHeigth == 0.5)) {
-					int sizeAnchor = 6;
-					''').append(boxRelativeAnchorType).append(''' boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
-					boxAnchor.setRelativeWidth(aWidth);
-					boxAnchor.setRelativeHeight(aHeigth);
-					''').append(ellipseType).append(''' ellipse = gaService.createEllipse(boxAnchor);
-					ellipse.setFilled(true);
-					ellipse.setLineVisible(false);
-					ellipse.setBackground(gaService.manageColor(diagram, ''').append(iColorConstantType).append('''.GRAY));
-					ellipse.setWidth(sizeAnchor);
-					ellipse.setHeight(sizeAnchor);
-					if(aWidth == 0.0 && aHeigth == 0.0 ) { ellipse.setX(0); ellipse.setY(0); }
-					else if(aWidth == 0.0 && aHeigth == 0.5 ) { ellipse.setX(0); ellipse.setY(-(sizeAnchor/2)); }
-					else if(aWidth == 0.0 && aHeigth == 1.0 ) { ellipse.setX(0); ellipse.setY(-sizeAnchor); }
-					else if(aWidth == 0.5 && aHeigth == 0.0 ) { ellipse.setX(-(sizeAnchor/2)); ellipse.setY(0); }
-					else if(aWidth == 0.5 && aHeigth == 1.0 ) { ellipse.setX(-(sizeAnchor/2)); ellipse.setY(-sizeAnchor); }
-					else if(aWidth == 1.0 && aHeigth == 0.0 ) { ellipse.setX(-sizeAnchor); ellipse.setY(0); }
-					else if(aWidth == 1.0 && aHeigth == 0.5 ) { ellipse.setX(-sizeAnchor); ellipse.setY(-(sizeAnchor/2)); }
-					else if(aWidth == 1.0 && aHeigth == 1.0 ) { ellipse.setX(-sizeAnchor); ellipse.setY(-sizeAnchor); }
-				}
-			}
-		}''')
+			appendable = appendable.append('''for(double aWidth = 0.0; aWidth <= 1.0; aWidth+=0.5) {''').newLine
+			appendable = givenAppendable.increaseIndentation
+				appendable = appendable.append('''for(double aHeigth = 0.0; aHeigth <= 1.0; aHeigth+=0.5) {''').newLine
+				appendable = givenAppendable.increaseIndentation
+					appendable = appendable.append('''//No anchor in center''').newLine
+					appendable = appendable.append('''if(!(aWidth == 0.5 & aHeigth == 0.5)) {''').newLine
+					appendable = givenAppendable.increaseIndentation
+						appendable = appendable.append('''int sizeAnchor = 6;''').newLine
+						appendable = appendable.append(boxRelativeAnchorType).append(''' boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);''').newLine
+						appendable = appendable.append('''boxAnchor.setRelativeWidth(aWidth);''').newLine
+						appendable = appendable.append('''boxAnchor.setRelativeHeight(aHeigth);''').newLine
+						appendable = appendable.append(ellipseType).append(''' ellipse = gaService.createEllipse(boxAnchor);''').newLine
+						appendable = appendable.append('''ellipse.setFilled(true);''').newLine
+						appendable = appendable.append('''ellipse.setLineVisible(false);''').newLine
+						appendable = appendable.append('''ellipse.setBackground(gaService.manageColor(diagram, ''').append(iColorConstantType).append('''.GRAY));''').newLine
+						appendable = appendable.append('''ellipse.setWidth(sizeAnchor);''').newLine
+						appendable = appendable.append('''ellipse.setHeight(sizeAnchor);''').newLine
+						appendable = appendable.append('''if(aWidth == 0.0 && aHeigth == 0.0 ) { ellipse.setX(0); ellipse.setY(0); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 0.0 && aHeigth == 0.5 ) { ellipse.setX(0); ellipse.setY(-(sizeAnchor/2)); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 0.0 && aHeigth == 1.0 ) { ellipse.setX(0); ellipse.setY(-sizeAnchor); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 0.5 && aHeigth == 0.0 ) { ellipse.setX(-(sizeAnchor/2)); ellipse.setY(0); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 0.5 && aHeigth == 1.0 ) { ellipse.setX(-(sizeAnchor/2)); ellipse.setY(-sizeAnchor); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 1.0 && aHeigth == 0.0 ) { ellipse.setX(-sizeAnchor); ellipse.setY(0); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 1.0 && aHeigth == 0.5 ) { ellipse.setX(-sizeAnchor); ellipse.setY(-(sizeAnchor/2)); }''').newLine
+						appendable = appendable.append('''else if(aWidth == 1.0 && aHeigth == 1.0 ) { ellipse.setX(-sizeAnchor); ellipse.setY(-sizeAnchor); }''').newLine
+						appendable = givenAppendable.decreaseIndentation
+					appendable = appendable.append('''}''').newLine
+					appendable = givenAppendable.decreaseIndentation
+				appendable = appendable.append('''}''').newLine
+				appendable = givenAppendable.decreaseIndentation
+			appendable = appendable.append('''}''').newLine
 		}
-		appendable1
+		appendable
 	}
 	
-	def dispatch ITreeAppendable generatorAnchorType(ITreeAppendable appendable, AnchorManual manualAnchor, ShapeSizeWrapper shapeSize){
+	def private dispatch ITreeAppendable generatorAnchorType(ITreeAppendable appendable, AnchorManual manualAnchor, ShapeSizeWrapper shapeSize){
 		var widthA = 6
 		var heightA = 6
 		var appendable1 = appendable
@@ -92,39 +97,42 @@ class ShapeAnchorGenerator {
 		appendable1
 	}
 	
-	def dispatch ITreeAppendable generateAnchor(ITreeAppendable appendable, AnchorRelativePosition position, ShapeSizeWrapper shapeSize, int widthA, int heightA) {
-		appendable.append('''	
-		{
-			''').append(boxRelativeAnchorType).append(''' boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
-			boxAnchor.setRelativeWidth(«position.xoffset»);
-			boxAnchor.setRelativeHeight(«position.yoffset»);
-			''').append(ellipseType).append(''' ellipse = gaService.createEllipse(boxAnchor);
-			ellipse.setFilled(true);
-			ellipse.setLineVisible(false);
-			ellipse.setBackground(gaService.manageColor(diagram, ''').append(iColorConstantType).append('''.GRAY));
-			ellipse.setX(«calculateCorrection(shapeSize.width, widthA, position.xoffset)»);
-			ellipse.setY(«calculateCorrection(shapeSize.heigth, heightA, position.yoffset)»);
-			ellipse.setWidth(«widthA»);
-			ellipse.setHeight(«heightA»);
-		}
-		''')
+	def private dispatch ITreeAppendable generateAnchor(ITreeAppendable givenAppendable, AnchorRelativePosition position, ShapeSizeWrapper shapeSize, int widthA, int heightA) {
+		var appendable = givenAppendable.append('''{''').newLine	
+		appendable = givenAppendable.increaseIndentation
+			appendable = appendable.append(boxRelativeAnchorType).append(''' boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);''').newLine
+			appendable = appendable.append('''boxAnchor.setRelativeWidth(«position.xoffset»);''').newLine
+			appendable = appendable.append('''boxAnchor.setRelativeHeight(«position.yoffset»);''').newLine
+			appendable = appendable.append(ellipseType).append(''' ellipse = gaService.createEllipse(boxAnchor);''').newLine
+			appendable = appendable.append('''ellipse.setFilled(true);''').newLine
+			appendable = appendable.append('''ellipse.setLineVisible(false);''').newLine
+			appendable = appendable.append('''ellipse.setBackground(gaService.manageColor(diagram, ''').append(iColorConstantType).append('''.GRAY));''').newLine
+			appendable = appendable.append('''ellipse.setX(«calculateCorrection(shapeSize.width, widthA, position.xoffset)»);''').newLine
+			appendable = appendable.append('''ellipse.setY(«calculateCorrection(shapeSize.heigth, heightA, position.yoffset)»);''').newLine
+			appendable = appendable.append('''ellipse.setWidth(«widthA»);''').newLine
+			appendable = appendable.append('''ellipse.setHeight(«heightA»);''').newLine
+			appendable = givenAppendable.decreaseIndentation
+		appendable = appendable.append('''}''')
+		appendable
 	}
 		
-	def dispatch ITreeAppendable generateAnchor(ITreeAppendable appendable, AnchorFixPointPosition position, ShapeSizeWrapper shapeSize, int widthA, int heightA) {
-		appendable.append('''
-		{
-			''').append(fixPointAnchorType).append(''' fixAnchor = peCreateService.createFixPointAnchor(containerShape);
-			''').append(pointType).append(''' fixAnchorPoint = gaService.createPoint(«position.xcor», «position.ycor»);
-			fixAnchor.setLocation(fixAnchorPoint);
-			''').append(ellipseType).append(''' ellipse = gaService.createEllipse(fixAnchor);
-			ellipse.setFilled(true);
-			ellipse.setLineVisible(false);
-			ellipse.setBackground(gaService.manageColor(diagram, ''').append(iColorConstantType).append('''.GRAY));
-			ellipse.setX(«calculateCorrection(position.xcor, shapeSize.width, widthA)»);
-			ellipse.setY(«calculateCorrection(position.ycor, shapeSize.heigth, heightA)»);
-			ellipse.setWidth(«widthA»);
-			ellipse.setHeight(«heightA»);
-		}
-		''')
+	def private dispatch ITreeAppendable generateAnchor(ITreeAppendable givenAppendable, AnchorFixPointPosition position, 
+		ShapeSizeWrapper shapeSize, int widthA, int heightA) {
+		var appendable = givenAppendable.append('''{''').newLine
+		appendable = givenAppendable.increaseIndentation
+			appendable = appendable.append(fixPointAnchorType).append(''' fixAnchor = peCreateService.createFixPointAnchor(containerShape);''').newLine
+			appendable = appendable.append(pointType).append(''' fixAnchorPoint = gaService.createPoint(«position.xcor», «position.ycor»);''').newLine
+			appendable = appendable.append('''fixAnchor.setLocation(fixAnchorPoint);''').newLine
+			appendable = appendable.append(ellipseType).append(''' ellipse = gaService.createEllipse(fixAnchor);''').newLine
+			appendable = appendable.append('''ellipse.setFilled(true);''').newLine
+			appendable = appendable.append('''ellipse.setLineVisible(false);''').newLine
+			appendable = appendable.append('''ellipse.setBackground(gaService.manageColor(diagram, ''').append(iColorConstantType).append('''.GRAY));''').newLine
+			appendable = appendable.append('''ellipse.setX(«calculateCorrection(position.xcor, shapeSize.width, widthA)»);''').newLine
+			appendable = appendable.append('''ellipse.setY(«calculateCorrection(position.ycor, shapeSize.heigth, heightA)»);''').newLine
+			appendable = appendable.append('''ellipse.setWidth(«widthA»);''').newLine
+			appendable = appendable.append('''ellipse.setHeight(«heightA»);''').newLine
+			appendable = givenAppendable.decreaseIndentation
+		appendable = appendable.append('''}''')
+		appendable
 	}
 }

@@ -97,7 +97,7 @@ class GeneratorConnectionDefinition {
 	 	)
 	 }
 	 
-	 def defaultSprayConnectionType() {  findDeclaredType(typeof(DefaultSprayConnection), current)  }
+	def defaultSprayConnectionType() {  findDeclaredType(typeof(DefaultSprayConnection), current)  }
 	def iGaServiceType() {  findDeclaredType(typeof(IGaService), current)  }
 	def graphitiType() {  findDeclaredType(typeof(Graphiti), current)  }
 	def iPeServiceType() {  findDeclaredType(typeof(IPeService), current)  }

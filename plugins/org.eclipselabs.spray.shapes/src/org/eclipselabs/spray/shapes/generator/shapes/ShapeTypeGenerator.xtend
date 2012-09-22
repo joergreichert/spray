@@ -36,8 +36,8 @@ class ShapeTypeGenerator {
 	@Inject extension ShapeSizeCalculator
 	@Inject extension TypeReferences typeReferences
 	
-	int element_index
-	int plcount
+	private int element_index
+	private int plcount
 	
 	private ShapeDefinition current = null
 	
@@ -45,25 +45,25 @@ class ShapeTypeGenerator {
 		this.current = aShape
 	}
 	
-	def iDirectEditingInfoType() {  findDeclaredType(typeof(IDirectEditingInfo), current)  }
-	def graphicsAlgorithmType() {  findDeclaredType(typeof(GraphicsAlgorithm), current)  }
-	def iSprayConstantsType() {  findDeclaredType(typeof(ISprayConstants), current)  }
-	def sprayLayoutManagerType() {  findDeclaredType(typeof(SprayLayoutManager), current)  }
-	def listType() {  findDeclaredType(typeof(List), current)  }
-	def arrayListType() {  findDeclaredType(typeof(ArrayList), current)  }
-	def pointType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Point), current)  }
-	def polylineType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Polyline), current)  }
-	def iSprayStyleType() {  findDeclaredType(typeof(ISprayStyle), current)  }
-	def rectangleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Rectangle), current)  }
-	def polygonType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Polygon), current)  }
-	def roundedRectangleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.RoundedRectangle), current)  }
-	def ellipseType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Ellipse), current)  }
-	def textType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Text), current)  }
-	def multiTextType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.MultiText), current)  }
-	def shapeType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.pictograms.Shape), current)  }
-	def orientationType() {  findDeclaredType(typeof(Orientation), current)  }
+	def private iDirectEditingInfoType() {  findDeclaredType(typeof(IDirectEditingInfo), current)  }
+	def private graphicsAlgorithmType() {  findDeclaredType(typeof(GraphicsAlgorithm), current)  }
+	def private iSprayConstantsType() {  findDeclaredType(typeof(ISprayConstants), current)  }
+	def private sprayLayoutManagerType() {  findDeclaredType(typeof(SprayLayoutManager), current)  }
+	def private listType() {  findDeclaredType(typeof(List), current)  }
+	def private arrayListType() {  findDeclaredType(typeof(ArrayList), current)  }
+	def private pointType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Point), current)  }
+	def private polylineType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Polyline), current)  }
+	def private iSprayStyleType() {  findDeclaredType(typeof(ISprayStyle), current)  }
+	def private rectangleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Rectangle), current)  }
+	def private polygonType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Polygon), current)  }
+	def private roundedRectangleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.RoundedRectangle), current)  }
+	def private ellipseType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Ellipse), current)  }
+	def private textType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.Text), current)  }
+	def private multiTextType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.MultiText), current)  }
+	def private shapeType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.pictograms.Shape), current)  }
+	def private orientationType() {  findDeclaredType(typeof(Orientation), current)  }
 	
-	def ITreeAppendable generateCascadedElements(ITreeAppendable appendable, ShapeDefinition s) {
+	def ITreeAppendable generateCascadedElements(ITreeAppendable givenAppendable, ShapeDefinition s) {
 		element_index = -1
 		plcount = 0
 		var sizeMap = s.getContainerSize
@@ -73,190 +73,202 @@ class ShapeTypeGenerator {
 		if(s.shape.size > 1) {
 			attname2 = nextAttributeName
 		}
-		var appendable1 = appendable.append('''
-		''').append(iDirectEditingInfoType).append(''' directEditingInfo = getFeatureProvider().getDirectEditingInfo();
-		directEditingInfo.setMainPictogramElement(«containername»);
-		directEditingInfo.setPictogramElement(«containername»);
-		
-		''').append(graphicsAlgorithmType).append(''' «attname» = gaService.createInvisibleRectangle(«containername»);
-		«attname».setStyle(sprayStyle.getStyle(diagram));
-		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL, ''').append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL_VALUE);
-		gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);
-		''')
+		var appendable = givenAppendable.append(iDirectEditingInfoType).append(''' directEditingInfo = getFeatureProvider().getDirectEditingInfo();''').newLine
+		appendable = appendable.append('''directEditingInfo.setMainPictogramElement(«containername»);''').newLine
+		appendable = appendable.append('''directEditingInfo.setPictogramElement(«containername»);''').newLine
+		appendable = appendable.newLine
+		appendable = appendable.append(graphicsAlgorithmType).append(''' «attname» = gaService.createInvisibleRectangle(«containername»);''').newLine
+		appendable = appendable.append('''«attname».setStyle(sprayStyle.getStyle(diagram));''').newLine
+		appendable = appendable.append('''peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL, ''')
+			.append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL_VALUE);''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);''').newLine
 		if (s.shape.size > 1) {
-		appendable1 = appendable.append('''// Invisible rectangle around the elements (because more then one element is on first layer).
-		''').append(graphicsAlgorithmType).append(''' «attname2» = gaService.createRectangle(«attname»);
-		«attname2».setStyle(sprayStyle.getStyle(diagram));
-		«attname2».setFilled(false);
-		«attname2».setLineVisible(false);
-		gaService.setLocationAndSize(«attname2», 0, 0, «sizeMap.width», «sizeMap.heigth»);''')
+			appendable = appendable.append('''// Invisible rectangle around the elements (because more then one element is on first layer).''')
+				.append(graphicsAlgorithmType).append(''' «attname2» = gaService.createRectangle(«attname»);''').newLine
+			appendable = appendable.append('''«attname2».setStyle(sprayStyle.getStyle(diagram));''').newLine
+			appendable = appendable.append('''«attname2».setFilled(false);''').newLine
+			appendable = appendable.append('''«attname2».setLineVisible(false);''').newLine
+			appendable = appendable.append('''gaService.setLocationAndSize(«attname2», 0, 0, «sizeMap.width», «sizeMap.heigth»);''').newLine
 		}
 		for (element : s.shape) {
-			appendable1 = appendable1.createElement(element, attname2, "sprayStyle")
+			appendable = appendable.createElement(element, attname2, "sprayStyle").newLine
 		}
 		
 		if(s.description != null) {
-		appendable1 = appendable1.generateDescription(s.description, containername, "sprayStyle", sizeMap.heigth, sizeMap.width)
+			appendable = appendable.generateDescription(s.description, containername, "sprayStyle", sizeMap.heigth, sizeMap.width).newLine
 		}
 		
-		appendable1 = appendable1.newLine
-		
-		// Set start values for height and width as properties on the element for Layout Feature
-		appendable1 = appendable1.append(sprayLayoutManagerType).append('''.setSizePictogramProperties(«containername»);
-		''')
-		appendable1
+		appendable = appendable.append('''// Set start values for height and width as properties on the element for Layout Feature''').newLine
+		appendable = appendable.append(sprayLayoutManagerType).append('''.setSizePictogramProperties(«containername»);''').newLine
+		appendable
 	}
 	
-	def ITreeAppendable recursiveCreation(ITreeAppendable appendable, EList<Shape> shapeList, String attname, String shapeStyle) {	
-		var appendable1 = appendable
+	def private ITreeAppendable recursiveCreation(ITreeAppendable givenAppendable, EList<Shape> shapeList, String attname, String shapeStyle) {	
+		var appendable = givenAppendable
 		for (element : shapeList) {
-			appendable1 = appendable1.createElement(element, attname,shapeStyle)
+			appendable = appendable.createElement(element, attname,shapeStyle).newLine
       	}
-      	appendable1
+      	appendable
 	}
 			
-	def ITreeAppendable createPointList(ITreeAppendable appendable, EList<Point> pointlist, String plname) {
-		appendable.append('''
-		''').append(listType).append('''<''').append(pointType).append('''> «plname» = new ''').append(arrayListType).append('''<''').append(pointType).append('''>();
-		«FOR point: pointlist»
-			«plname».add(gaService.createPoint(«point.xcor», «point.ycor», «point.curveBefore», «point.curveAfter»));
-		«ENDFOR»
-		''')
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, Line element, String parentName, String shapeStyle) {
-		val attname = nextAttributeName
-		val pointListName = nextPointListName
-		var appendable1 = appendable.append('''
-		''') 
-		appendable1 = appendable1.createPointList(element.layout.point, pointListName)
-		appendable1 = appendable1.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «pointListName»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-     	appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, Rectangle element, String parentName, String shapeStyle) { 
-		val attname = nextAttributeName
-		var appendable1 = appendable.append('''
-		''').append(rectangleType).append(''' «attname» = gaService.createRectangle(«parentName»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «styleForElement(element.style, shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-		appendable1 = appendable1.recursiveCreation(element.shape, attname, "style_"+element_index)
-		appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, Polygon element, String parentName, String shapeStyle) { 
-		val attname = nextAttributeName
-		val pointListName = nextPointListName
-		var appendable1 = appendable.append('''
-		''')
-		appendable1 = appendable1.createPointList(element.layout.point, pointListName)
-		appendable1 = appendable.append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «pointListName»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-		appendable1 = appendable1.recursiveCreation(element.shape, attname, "style_"+element_index)
-		appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, Polyline element, String parentName, String shapeStyle) { 
-		val attname = nextAttributeName
-		val pointListName = nextPointListName
-		var appendable1 = appendable.append('''
-		''')
-		appendable1 = appendable1.createPointList(element.layout.point, pointListName)
-		appendable1 = appendable.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «pointListName»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-		appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, RoundedRectangle element, String parentName, String shapeStyle) { 
-		val attname = nextAttributeName
-		var appendable1 = appendable.append('''
-		''').append(roundedRectangleType).append(''' «attname» = gaService.createRoundedRectangle(«parentName», «element.layout.curveWidth», «element.layout.curveHeight»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-		appendable1 = appendable1.recursiveCreation(element.shape, attname, "style_"+element_index)
-     	appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, Ellipse element, String parentName, String shapeStyle) {
-		val attname = nextAttributeName
-		var appendable1 = appendable.append('''
-		''').append(ellipseType).append(''' «attname» = gaService.createEllipse(«parentName»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-		appendable1 = appendable1.recursiveCreation(element.shape, attname, "style_"+element_index)
-     	appendable1
-	}
-	
-	def dispatch ITreeAppendable createElement(ITreeAppendable appendable, Text element, String parentName, String shapeStyle) { 
-		val attname = nextAttributeName
-		var appendable1 = appendable.append('''
-		''')
-		if (element.texttype == TextType::DEFAULT) {
-		appendable1 = appendable1.append(textType).append(''' «attname» = gaService.createText(«parentName»);''')
-		} else {
-		appendable1 = appendable1.append(multiTextType).append(''' «attname» = gaService.createMultiText(«parentName»);''')
+	def private ITreeAppendable createPointList(ITreeAppendable givenAppendable, EList<Point> pointlist, String plname) {
+		var appendable = givenAppendable.append(listType).append('''<''').append(pointType).append('''> «plname» = new ''')
+			.append(arrayListType).append('''<''').append(pointType).append('''>();''').newLine
+		for (point : pointlist) {
+			appendable = appendable.append('''«plname».add(gaService.createPoint(«point.xcor», «point.ycor», «point.curveBefore», «point.curveAfter»));''').newLine
 		}
-		appendable1 = appendable1.append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));
-		«attname».setForeground(style_«element_index».getFontColor(diagram));
-		gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);
-		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«element.layout.HAlign.mapAlignment»);
-		«attname».setVerticalAlignment(''').append(orientationType).append('''.«element.layout.VAlign.mapAlignment»);
-		peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, «element.textIds».«element.body.value».name());
-		«attname».setValue("");''')
-		shapeTypeStyleGenerator.current = element.layout.layout
-		appendable1 = appendable1.generateStyleForElement(attname, element.layout.layout)
-		appendable1 = appendable1.append('''getFeatureProvider().getDirectEditingInfo().setGraphicsAlgorithm(«attname»);''')
-     	appendable1
+		appendable
 	}
 	
-		def private packageName() { "org.eclipselabs.spray.shapes" }
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, Line element, String parentName, String shapeStyle) {
+		val attname = nextAttributeName
+		val pointListName = nextPointListName
+		var appendable = givenAppendable.append('''
+		''') 
+		appendable = appendable.createPointList(element.layout.point, pointListName)
+		appendable = appendable.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «pointListName»);
+		''').append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«attname».setStyle(style_«element_index».getStyle(diagram));''')
+		shapeTypeStyleGenerator.current = element.layout.layout
+		appendable = appendable.generateStyleForElement(attname, element.layout.layout)
+     	appendable
+	}
+	
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, Rectangle element, String parentName, String shapeStyle) { 
+		val attname = nextAttributeName
+		var appendable = givenAppendable.append(rectangleType).append(''' «attname» = gaService.createRectangle(«parentName»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «styleForElement(element.style, shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», «element.layout.common.xcor», ''').
+			append('''«element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);''').newLine
+		if(element.layout?.layout != null) {
+			shapeTypeStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForElement(attname, element.layout.layout)
+		}	
+		if(element.shape != null) {
+			appendable = appendable.recursiveCreation(element.shape, attname, "style_"+element_index)
+		}
+		appendable
+	}
+	
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, Polygon element, String parentName, String shapeStyle) { 
+		val attname = nextAttributeName
+		val pointListName = nextPointListName
+		var appendable = givenAppendable.createPointList(element.layout.point, pointListName).newLine
+		appendable = appendable.append(polygonType).append(''' «attname» = gaService.createPolygon(«parentName», «pointListName»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		if(element.layout?.layout != null) {
+			shapeTypeStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForElement(attname, element.layout.layout)
+		}
+		if(element.shape != null) {
+			appendable = appendable.recursiveCreation(element.shape, attname, "style_" + element_index)
+		}
+		appendable
+	}
+	
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, Polyline element, String parentName, String shapeStyle) { 
+		val attname = nextAttributeName
+		val pointListName = nextPointListName
+		var appendable = givenAppendable.createPointList(element.layout.point, pointListName).newLine
+		appendable = appendable.append(polylineType).append(''' «attname» = gaService.createPolyline(«parentName», «pointListName»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		if(element.layout?.layout != null) {
+			shapeTypeStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForElement(attname, element.layout.layout)
+		}
+		appendable
+	}
+	
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, RoundedRectangle element, String parentName, String shapeStyle) { 
+		val attname = nextAttributeName
+		var appendable = givenAppendable.append(roundedRectangleType)
+			.append(''' «attname» = gaService.createRoundedRectangle(«parentName», «element.layout.curveWidth», ''').append('''«element.layout.curveHeight»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», «element.layout.common.xcor», ''')
+			.append('''«element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);''').newLine
+		if(element.layout?.layout != null) {
+			shapeTypeStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForElement(attname, element.layout.layout).newLine
+		}
+		if(element.shape != null) {
+			appendable = appendable.recursiveCreation(element.shape, attname, "style_"+element_index).newLine
+		}
+     	appendable
+	}
+	
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, Ellipse element, String parentName, String shapeStyle) {
+		val attname = nextAttributeName
+		var appendable = givenAppendable.append(ellipseType).append(''' «attname» = gaService.createEllipse(«parentName»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», «element.layout.common.xcor», «element.layout.common.ycor», ''')
+			.append('''«element.layout.common.width», «element.layout.common.heigth»);''').newLine
+		if(element.layout?.layout != null) {
+			shapeTypeStyleGenerator.current = element.layout.layout
+			appendable = appendable.generateStyleForElement(attname, element.layout.layout).newLine
+		}
+		if(element.shape != null) {
+			appendable = appendable.recursiveCreation(element.shape, attname, "style_"+element_index).newLine
+		}
+     	appendable
+	}
+	
+	def private dispatch ITreeAppendable createElement(ITreeAppendable givenAppendable, Text element, String parentName, String shapeStyle) { 
+		val attname = nextAttributeName
+		var appendable = givenAppendable
+		if (element.texttype == TextType::DEFAULT) {
+			appendable = appendable.append(textType).append(''' «attname» = gaService.createText(«parentName»);''').newLine
+		} else {
+			appendable = appendable.append(multiTextType).append(''' «attname» = gaService.createMultiText(«parentName»);''').newLine
+		}
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «element.style.styleForElement(shapeStyle)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		appendable = appendable.append('''«attname».setForeground(style_«element_index».getFontColor(diagram));''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», «element.layout.common.xcor», ''')
+			.append('''«element.layout.common.ycor», «element.layout.common.width», «element.layout.common.heigth»);''').newLine
+		appendable = appendable.append('''«attname».setHorizontalAlignment(''').append(orientationType)
+			.append('''.«element.layout.HAlign.mapAlignment»);''').newLine
+		appendable = appendable.append('''«attname».setVerticalAlignment(''').append(orientationType)
+			.append('''.«element.layout.VAlign.mapAlignment»);''').newLine
+		appendable = appendable.append('''peService.setPropertyValue(«attname», ''').append(iSprayConstantsType)
+			.append('''.TEXT_ID, «element.textIds».«element.body.value».name());''').newLine
+		appendable = appendable.append('''«attname».setValue("");''').newLine
+		shapeTypeStyleGenerator.current = element.layout.layout
+		appendable = appendable.generateStyleForElement(attname, element.layout.layout)
+		appendable = appendable.append('''getFeatureProvider().getDirectEditingInfo().setGraphicsAlgorithm(«attname»);''')
+     	appendable
+	}
+	
+	def private packageName() { "org.eclipselabs.spray.shapes" }
 	def private className(ShapeDefinition c) { c.name.toFirstUpper }
 	
-	def textIds(Text text) {
+	def private textIds(Text text) {
 		val container = EcoreUtil2::getContainerOfType(text, typeof(ShapeDefinition))
 		packageName + "." + (if(container != null) container else current).className + "TextIds"
 	}	
 
-	def ITreeAppendable generateDescription(ITreeAppendable appendable, Description d, String containerName, String styleName, int y, int width) {
+	def private ITreeAppendable generateDescription(ITreeAppendable givenAppendable, Description d, String containerName, String styleName, int y, int width) {
 		val shapeName = nextAttributeName
 		val attname = nextAttributeName
-		appendable.append('''
-		''').append(shapeType).append(''' «shapeName» = peCreateService.createShape(«containerName», false);
-		''').append(textType).append(''' «attname» = gaService.createText(«shapeName»);
-		''').append(iSprayStyleType).append(''' style_«element_index» = «d.style.styleForElement(styleName)»;
-		«attname».setStyle(style_«element_index».getStyle(diagram));
-		«attname».setForeground(style_«element_index».getFontColor(diagram));
-		gaService.setLocationAndSize(«attname», 0, «y», «width», 20);
-		«attname».setHorizontalAlignment(''').append(orientationType).append('''.«d.HAlign.mapAlignment»);
-		«attname».setVerticalAlignment(''').append(orientationType).append('''.«d.VAlign.mapAlignment»);
-		peService.setPropertyValue(«attname», «iSprayConstantsType».TEXT_ID, TextIds.«d.body.value».name());
-		«attname».setValue("");
-		directEditingInfo.setPictogramElement(«shapeName»);
-		directEditingInfo.setGraphicsAlgorithm(«attname»);
-		''')
+		var appendable = givenAppendable.append(shapeType).append(''' «shapeName» = peCreateService.createShape(«containerName», false);''').newLine
+		appendable = appendable.append(textType).append(''' «attname» = gaService.createText(«shapeName»);''').newLine
+		appendable = appendable.append(iSprayStyleType).append(''' style_«element_index» = «d.style.styleForElement(styleName)»;''').newLine
+		appendable = appendable.append('''«attname».setStyle(style_«element_index».getStyle(diagram));''').newLine
+		appendable = appendable.append('''«attname».setForeground(style_«element_index».getFontColor(diagram));''').newLine
+		appendable = appendable.append('''gaService.setLocationAndSize(«attname», 0, «y», «width», 20);''').newLine
+		appendable = appendable.append('''«attname».setHorizontalAlignment(''').append(orientationType).append('''.«d.HAlign.mapAlignment»);''').newLine
+		appendable = appendable.append('''«attname».setVerticalAlignment(''').append(orientationType).append('''.«d.VAlign.mapAlignment»);''').newLine
+		appendable = appendable.append('''peService.setPropertyValue(«attname», «iSprayConstantsType».TEXT_ID, TextIds.«d.body.value».name());''').newLine
+		appendable = appendable.append('''«attname».setValue("");''').newLine
+		appendable = appendable.append('''directEditingInfo.setPictogramElement(«shapeName»);''').newLine
+		appendable = appendable.append('''directEditingInfo.setGraphicsAlgorithm(«attname»);''').newLine
 	}
 
-	def mapAlignment(VAlign align) {
+	def private mapAlignment(VAlign align) {
 		switch align {
 			case VAlign::MIDDLE: "ALIGNMENT_MIDDLE"
 			case VAlign::BOTTOM: "ALIGNMENT_BOTTOM"
@@ -264,7 +276,7 @@ class ShapeTypeGenerator {
 		}
 	}
 	
-	def mapAlignment(HAlign align) {
+	def private mapAlignment(HAlign align) {
 		switch align {
 			case HAlign::CENTER: "ALIGNMENT_CENTER"
 			case HAlign::LEFT: "ALIGNMENT_LEFT"
@@ -277,7 +289,7 @@ class ShapeTypeGenerator {
 //		'''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
 //	}
 
-	def styleForElement(ShapeStyleRef s, String styleName) {
+	def private styleForElement(ShapeStyleRef s, String styleName) {
 		if(s != null) {
 			'''new «s.style.qualifiedName»()'''
 		} else {
@@ -285,14 +297,13 @@ class ShapeTypeGenerator {
 		}
 	}
 	
-	def nextAttributeName() {
+	def private nextAttributeName() {
 		element_index = element_index + 1;
 		"element_" + element_index
 	}
 	
-	def nextPointListName() {
+	def private nextPointListName() {
 		plcount = plcount + 1;
 		"pointList_" + plcount 
 	}
-	
 }

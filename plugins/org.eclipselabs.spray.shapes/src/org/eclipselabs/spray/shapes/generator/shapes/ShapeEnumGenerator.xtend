@@ -18,17 +18,17 @@ class ShapeEnumGenerator {
 		'''
 		public static enum TextIds {
 			«FOR id : ids»
-			«IF !(ids.last == id)»
-			«id»,
-			«ELSE»
-			«id»
-			«ENDIF»
+				«IF !(ids.last == id)»
+					«id»,
+				«ELSE»
+					«id»
+				«ENDIF»
 			«ENDFOR»
 		}
 		'''
 	}
 	
-	def searchTextIds(ShapeDefinition s) {
+	def dispatch searchTextIds(ShapeDefinition s) {
 		val ids = new ArrayList<String>();
 		for(Shape shape : s.shape) {
 			if(shape instanceof Text) {
@@ -46,9 +46,11 @@ class ShapeEnumGenerator {
 	def dispatch searchTextIds(Line shape) {
 		new ArrayList<String>()
 	}
+
 	def dispatch searchTextIds(Polyline shape) {
 		new ArrayList<String>()
 	}
+
 	def dispatch searchTextIds(RoundedRectangle shape) {
 		val ids = new ArrayList<String>()
 		for(child : shape.shape) {
@@ -56,6 +58,7 @@ class ShapeEnumGenerator {
 		}
 		ids
 	}
+
 	def dispatch searchTextIds(Rectangle shape) {
 		val ids = new ArrayList<String>()
 		for(child : shape.shape) {
@@ -63,6 +66,7 @@ class ShapeEnumGenerator {
 		}
 		ids
 	}
+
 	def dispatch searchTextIds(Ellipse shape) {
 		val ids = new ArrayList<String>()
 		for(child : shape.shape) {
@@ -70,6 +74,7 @@ class ShapeEnumGenerator {
 		}
 		ids
 	}
+
 	def dispatch searchTextIds(Polygon shape) {
 		val ids = new ArrayList<String>()
 		for(child : shape.shape) {
@@ -77,6 +82,7 @@ class ShapeEnumGenerator {
 		}
 		ids
 	}
+
 	def dispatch searchTextIds(Text shape) {
 		val ids = new ArrayList<String>()
 		ids.add(shape.body.value)
