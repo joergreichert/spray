@@ -46,7 +46,7 @@ class StyleTypeInferrer {
 				
 				''')
 				
-				val newAppender = appender.createLayout(element.layout)
+				val newAppender = if(element.layout != null) appender.createLayout(element.layout) else appender.newLine 
 				
 				newAppender.append('''
 				return style;
@@ -61,14 +61,18 @@ class StyleTypeInferrer {
               annotations += element.toAnnotation(typeof(Override))
               parameters += element.toParameter("aDiagram", createTypeRef(diagramType))
               body = [ 
-				createFontColor(element.layout)
+              	if(element.layout != null) {
+					createFontColor(element.layout)
+				}
               ]
             ]
 			
 			members += element.toMethod("getColorSchema", createTypeRef(adaptedGradientColoredAreasType)) [
               documentation = "This method returns Color Schema of the Style"
               body = [
-              	createStyleColorSchema(element.layout)
+              	if(element.layout != null) {
+              		createStyleColorSchema(element.layout)
+              	}
               ]
             ]
 		]
