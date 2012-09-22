@@ -11,11 +11,11 @@ class ConnectionEnumGenerator {
 		'''
 		public static enum TextIds {
 			«FOR id : ids»
-			«IF !(ids.last == id)»
-			«id»,
-			«ELSE»
-			«id»
-			«ENDIF»
+				«IF !(ids.last == id)»
+					«id»,
+				«ELSE»
+					«id»
+				«ENDIF»
 			«ENDFOR»
 		}
 		'''

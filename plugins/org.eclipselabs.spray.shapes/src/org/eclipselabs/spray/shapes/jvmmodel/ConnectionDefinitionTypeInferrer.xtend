@@ -55,41 +55,43 @@ class ConnectionDefinitionTypeInferrer {
 			]
 			
 			members += element.toMethod("getConnection", createTypeRef(connectionType)) [
-              annotations += element.toAnnotation(typeof(Override))
-              parameters += element.toParameter("diagram", createTypeRef(connectionGenerator.diagramType))
-              parameters += element.toParameter("aSprayStyle", createTypeRef(findDeclaredType(typeof(ISprayStyle), element)))
-              parameters += element.toParameter("startAnchor", createTypeRef(connectionGenerator.anchorType))
-              parameters += element.toParameter("endAnchor", createTypeRef(connectionGenerator.anchorType))
-              body = [ 
-              	var appendable1 = append(connectionGenerator.iSprayStyleType).append(''' sprayStyle = aSprayStyle;''').newLine
-				if (element.connectionStyle == null) {
-				appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''')
-				} else {
-					if (element.connectionStyle == ConnectionStyle::FREEFORM) {
-						appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''')
-					} else if (element.connectionStyle == ConnectionStyle::MANHATTEN) {
-						appendable1 = appendable1.append('''final ''').append(connectionGenerator.connectionType).append(''' newConnection = peCreateService.createManhattanConnection(diagram);''')
+				annotations += element.toAnnotation(typeof(Override))
+              	parameters += element.toParameter("diagram", createTypeRef(connectionGenerator.diagramType))
+              	parameters += element.toParameter("aSprayStyle", createTypeRef(findDeclaredType(typeof(ISprayStyle), element)))
+              	parameters += element.toParameter("startAnchor", createTypeRef(connectionGenerator.anchorType))
+              	parameters += element.toParameter("endAnchor", createTypeRef(connectionGenerator.anchorType))
+              	body = [ 
+              		var appendable = append(connectionGenerator.iSprayStyleType).append(''' sprayStyle = aSprayStyle;''').newLine
+					if (element.connectionStyle == null) {
+						appendable = appendable.append('''final ''').append(connectionGenerator.connectionType)
+							.append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''').newLine
+					} else {
+						if (element.connectionStyle == ConnectionStyle::FREEFORM) {
+							appendable = appendable.append('''final ''').append(connectionGenerator.connectionType)
+								.append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''').newLine
+						} else if (element.connectionStyle == ConnectionStyle::MANHATTEN) {
+							appendable = appendable.append('''final ''').append(connectionGenerator.connectionType)
+								.append(''' newConnection = peCreateService.createManhattanConnection(diagram);''').newLine
+						}
 					}
-				}
-				appendable1 = appendable1.append('''newConnection.setStart(startAnchor);
-				newConnection.setEnd(endAnchor);
-				
-				final ''').append(connectionGenerator.polylineType).append(''' polyline = gaService.createPolyline(newConnection);
-				polyline.setStyle(sprayStyle.getStyle(diagram));
-
-				// Define general layout of connection''')
-				connectionStyleGenerator.current = element.layout
-				appendable1 = appendable1.generateStyleForConnection("polyline", element.layout) appendable1 = appendable1.append('''
-				
-				// Set the Placings of the connection''')  appendable1 = appendable1.newLine
-				for (place : element.placing) {
-					connectionPlacingGenerator.current = place
-					appendable1 = appendable1.generatePlacing(place)
-				}
-				appendable1 = appendable1.append('''
-				return newConnection;''')
-              ]
-           ]
+					appendable = appendable.append('''newConnection.setStart(startAnchor);''').newLine
+					appendable = appendable.append('''newConnection.setEnd(endAnchor);''').newLine
+					appendable = appendable.newLine
+					appendable = appendable.append(connectionGenerator.polylineType).append(''' polyline = gaService.createPolyline(newConnection);''').newLine
+					appendable = appendable.append('''polyline.setStyle(sprayStyle.getStyle(diagram));''').newLine
+					appendable = appendable.newLine
+					appendable = appendable.append('''// Define general layout of connection''').newLine
+					connectionStyleGenerator.current = element.layout
+					appendable = appendable.generateStyleForConnection("polyline", element.layout).newLine
+					appendable = appendable.newLine
+					appendable = appendable.append('''// Set the Placings of the connection''').newLine
+					for (place : element.placing) {
+						connectionPlacingGenerator.current = place
+						appendable = appendable.generatePlacing(place).newLine
+					}
+					appendable = appendable.append('''return newConnection;''')
+				]
+			]
 		]
 	}	
 }
