@@ -20,6 +20,7 @@ class ShapeTypeStyleGenerator {
 	}	
 	
 	def private styleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Style), current)  }
+	def private lineStyleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.LineStyle), current)  }
 	
 	def generateStyleForElement(ITreeAppendable givenAppendable, String attName, ShapestyleLayout ssl) {
 		var appendable = givenAppendable
@@ -74,7 +75,7 @@ class ShapeTypeStyleGenerator {
 			appendable = appendable.createColorValue(ssl.layout.lineColor) appendable.append('''));''').newLine
     	}
     	if(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL) {
-  			appendable = appendable.append('''«attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);''').newLine	
+  			appendable = appendable.append('''«attName».setLineStyle(''').append(lineStyleType).append('''.«ssl.layout.lineStyle.name»);''').newLine	
     	}
     	if(ssl.layout.lineWidth != Integer::MIN_VALUE) {
     		appendable = appendable.append('''«attName».setLineWidth(«ssl.layout.lineWidth»);''').newLine

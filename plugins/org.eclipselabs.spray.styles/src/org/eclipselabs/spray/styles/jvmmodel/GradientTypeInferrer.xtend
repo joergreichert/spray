@@ -17,13 +17,13 @@ class GradientTypeInferrer {
 		gradientGenerator.setCurrent(element)
 		
 		acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
-			superTypes += createTypeRef(superType)
-			superTypes += createTypeRef(interfaceType)
+			superTypes += createTypeRef(superType).cloneWithProxies
+			superTypes += createTypeRef(interfaceType).cloneWithProxies
 			
 			if(!element.description.nullOrEmpty) documentation = "Description: " + element.description
-			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
+			annotations += toAnnotation(typeof(SuppressWarnings), "all")
 			
-			members += element.toMethod("getGradientColoredAreas", createTypeRef(gradientColoredAreasType)) [
+			members += toMethod("getGradientColoredAreas", createTypeRef(gradientColoredAreasType)) [
 				documentation = "This method returns the gradient color area." + 
 					if(element.description != null) "\n Description: " + element.description else ""
               	body = [

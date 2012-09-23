@@ -8,6 +8,7 @@ import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
 import org.eclipselabs.spray.styles.generator.StyleGenerator
 import org.eclipselabs.spray.styles.styles.Style
+import org.eclipse.graphiti.mm.pictograms.Diagram
 
 class StyleTypeInferrer {
     @Inject extension TypeReferences typeReferences
@@ -27,15 +28,15 @@ class StyleTypeInferrer {
 		styleGenerator.setCurrent(element)
 		
 		acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
-			if(superTypeRef != null) superTypes += superTypeRef
+			if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
 			
-			documentation = "This is a generated Style class for Spray.\nDescription: " + element.description
-			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
+			documentation = "This is a generated Style class for Spray." + (if(!element.description.nullOrEmpty) "\nDescription: " + element.description else "")
+			annotations += toAnnotation(typeof(SuppressWarnings), "all")
 			
-			members += element.toMethod("newStyle", createTypeRef(styleType)) [
+			members += toMethod("newStyle", createTypeRef(styleType)) [
               	documentation = "This method creates a Style and returns the defined style.\n Description: " + element.description
               	annotations += element.toAnnotation(typeof(Override))
-              	parameters += element.toParameter("diagram", createTypeRef(diagramType))
+              	parameters += toParameter("diagram", element.newTypeRef(typeof(Diagram)))
               	body = [ 
 					var appender = append(iGaServiceType).append(" gaService = ").append(graphitiType).append('''.getGaService();''').newLine
 					appender = appender.newLine
@@ -48,13 +49,13 @@ class StyleTypeInferrer {
 			  	]
             ]
 			
-			members += element.toMethod("getFontColor", createTypeRef(colorType)) [
+			members += toMethod("getFontColor", createTypeRef(colorType)) [
               	documentation = 
              		'''This method returns the font color for the style. 
 			 		The font color will be returned separated, because Graphiti allows just the foreground color.
 			 		The foreground color will be used for lines and fonts at the same time.'''
               	annotations += element.toAnnotation(typeof(Override))
-              	parameters += element.toParameter("aDiagram", createTypeRef(diagramType))
+              	parameters += toParameter("aDiagram", element.newTypeRef(typeof(Diagram)))
               	body = [ 
               		if(element.layout != null) {
 						createFontColor(element.layout)
@@ -62,7 +63,7 @@ class StyleTypeInferrer {
               	]
             ]
 			
-			members += element.toMethod("getColorSchema", createTypeRef(adaptedGradientColoredAreasType)) [
+			members += toMethod("getColorSchema", createTypeRef(adaptedGradientColoredAreasType)) [
               	documentation = "This method returns Color Schema of the Style"
               	body = [
               		if(element.layout != null) {

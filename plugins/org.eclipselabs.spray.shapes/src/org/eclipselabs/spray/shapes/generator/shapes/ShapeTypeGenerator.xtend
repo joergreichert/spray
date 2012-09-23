@@ -29,6 +29,7 @@ import java.util.ArrayList
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation
 import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.emf.ecore.EObject
 
 class ShapeTypeGenerator {
 	
@@ -83,8 +84,8 @@ class ShapeTypeGenerator {
 			.append(iSprayConstantsType).append('''.IS_SHAPE_FROM_DSL_VALUE);''').newLine
 		appendable = appendable.append('''gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);''').newLine
 		if (s.shape.size > 1) {
-			appendable = appendable.append('''// Invisible rectangle around the elements (because more then one element is on first layer).''')
-				.append(graphicsAlgorithmType).append(''' «attname2» = gaService.createRectangle(«attname»);''').newLine
+			appendable = appendable.append('''// Invisible rectangle around the elements (because more then one element is on first layer).''').newLine
+			appendable = appendable.append(graphicsAlgorithmType).append(''' «attname2» = gaService.createRectangle(«attname»);''').newLine
 			appendable = appendable.append('''«attname2».setStyle(sprayStyle.getStyle(diagram));''').newLine
 			appendable = appendable.append('''«attname2».setFilled(false);''').newLine
 			appendable = appendable.append('''«attname2».setLineVisible(false);''').newLine
@@ -246,11 +247,11 @@ class ShapeTypeGenerator {
 	def private packageName() { "org.eclipselabs.spray.shapes" }
 	def private className(ShapeDefinition c) { c.name.toFirstUpper }
 	
-	def private textIds(Text text) {
-		val container = EcoreUtil2::getContainerOfType(text, typeof(ShapeDefinition))
+	def private textIds(EObject object) {
+		val container = EcoreUtil2::getContainerOfType(object, typeof(ShapeDefinition))
 		packageName + "." + (if(container != null) container else current).className + "TextIds"
-	}	
-
+	}
+	
 	def private ITreeAppendable generateDescription(ITreeAppendable givenAppendable, Description d, String containerName, String styleName, int y, int width) {
 		val shapeName = nextAttributeName
 		val attname = nextAttributeName
@@ -262,7 +263,7 @@ class ShapeTypeGenerator {
 		appendable = appendable.append('''gaService.setLocationAndSize(«attname», 0, «y», «width», 20);''').newLine
 		appendable = appendable.append('''«attname».setHorizontalAlignment(''').append(orientationType).append('''.«d.HAlign.mapAlignment»);''').newLine
 		appendable = appendable.append('''«attname».setVerticalAlignment(''').append(orientationType).append('''.«d.VAlign.mapAlignment»);''').newLine
-		appendable = appendable.append('''peService.setPropertyValue(«attname», «iSprayConstantsType».TEXT_ID, TextIds.«d.body.value».name());''').newLine
+		appendable = appendable.append('''peService.setPropertyValue(«attname», ''').append(iSprayConstantsType).append('''.TEXT_ID, ''').append(d.textIds).append('''.«d.body.value».name());''').newLine
 		appendable = appendable.append('''«attname».setValue("");''').newLine
 		appendable = appendable.append('''directEditingInfo.setPictogramElement(«shapeName»);''').newLine
 		appendable = appendable.append('''directEditingInfo.setGraphicsAlgorithm(«attname»);''').newLine

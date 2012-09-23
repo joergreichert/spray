@@ -11,6 +11,9 @@ import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeAnchorGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
+import org.eclipse.graphiti.features.IFeatureProvider
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle
+import org.eclipse.graphiti.mm.pictograms.ContainerShape
 
 class ShapeDefinitionTypeInferrer {
     @Inject extension TypeReferences typeReferences
@@ -42,26 +45,33 @@ class ShapeDefinitionTypeInferrer {
 		}
 				
 		acceptor.accept(element.toClass(packageName + "." + element.className)).initializeLater [
-			if(superTypeRef != null) superTypes += superTypeRef
+			if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
 			
 			documentation = "This is a generated Shape class for Spray.\nDescription: " + element.description
 			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
 			
+			val fp = element.newTypeRef(typeof(IFeatureProvider))
+			
 			members += element.toConstructor [
-				parameters += element.toParameter("fp", createTypeRef(shapeGenerator.iFeatureProviderType))
+				parameters += element.toParameter("featureProvider" + element.name.toFirstUpper, fp)
 				body = [
-					append("super(fp);")
+					append("super(featureProvider" + element.name.toFirstUpper + ");")
 				]
 			]
 			
+			val targetContainer = element.newTypeRef(typeof(ContainerShape))
+			val sprayStyle = element.newTypeRef(typeof(ISprayStyle))
+			
 			members += element.toMethod("getShape", createTypeRef(shapeGenerator.containerShapeType)) [
 				annotations += element.toAnnotation(typeof(Override))
-				parameters += element.toParameter("targetContainer", createTypeRef(shapeGenerator.containerShapeType))
-				parameters += element.toParameter("sprayStyle", createTypeRef(shapeGenerator.iSprayStyleType))
+				parameters += element.toParameter("targetContainer" + element.name.toFirstUpper, targetContainer)
+				parameters += element.toParameter("sprayStyle" + element.name.toFirstUpper, sprayStyle)
 				body = [ 
 					var appendable = append('''// Create a ContainerShape for this Shape''').newLine
-					appendable = appendable.append(diagramType).append(''' diagram = peService.getDiagramForShape(targetContainer);''').newLine
-					appendable = appendable.append(containerShapeType).append(''' containerShape = peCreateService.createContainerShape(targetContainer, true);''').newLine
+					appendable = appendable.append(shapeGenerator.containerShapeType).append(''' targetContainer = targetContainer''' + element.name.toFirstUpper + ''';''').newLine
+					appendable = appendable.append(shapeGenerator.iSprayStyleType).append(''' sprayStyle = sprayStyle''' + element.name.toFirstUpper + ''';''').newLine
+					appendable = appendable.append(shapeGenerator.diagramType).append(''' diagram = peService.getDiagramForShape(targetContainer);''').newLine
+					appendable = appendable.append(shapeGenerator.containerShapeType).append(''' containerShape = peCreateService.createContainerShape(targetContainer, true);''').newLine
 					appendable = appendable.newLine
 					appendable = appendable.append('''// define general layout for ContainerShape''').newLine
 					appendable = appendable.append(element.generateLayout).newLine

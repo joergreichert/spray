@@ -1,17 +1,20 @@
 package org.eclipselabs.spray.shapes.jvmmodel
 
 import com.google.inject.Inject
+import org.eclipse.graphiti.features.IFeatureProvider
+import org.eclipse.graphiti.mm.pictograms.Anchor
+import org.eclipse.graphiti.mm.pictograms.Diagram
 import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle
 import org.eclipselabs.spray.shapes.generator.GeneratorConnectionDefinition
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerator
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGenerator
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator
 import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.shapes.ConnectionStyle
-import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle
 
 class ConnectionDefinitionTypeInferrer {
     @Inject extension TypeReferences typeReferences
@@ -39,29 +42,39 @@ class ConnectionDefinitionTypeInferrer {
 		}
 		
 		acceptor.accept(element.toClass(packageName + "." + element.className)).initializeLater [
-			if(superTypeRef != null) superTypes += superTypeRef
+			if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
 
-			members += element.toField("gaService", createTypeRef(connectionGenerator.iGaServiceType))
-			members += element.toField("peService", createTypeRef(connectionGenerator.iPeServiceType))
-			members += element.toField("peCreateService", createTypeRef(connectionGenerator.iPeCreateServiceType))
+			members += element.toField("gaService", createTypeRef(iGaServiceType))
+			members += element.toField("peService", createTypeRef(iPeServiceType))
+			members += element.toField("peCreateService", createTypeRef(iPeCreateServiceType))
 			
 			annotations += element.toAnnotation(typeof(SuppressWarnings), "all")
 			
+			val aFeatureProvider = element.newTypeRef(typeof(IFeatureProvider))
+			
 			members += element.toConstructor [
-				parameters += element.toParameter("aFp", createTypeRef(connectionGenerator.iFeatureProviderType))
+				parameters += toParameter("aFeatureProvider" + element.name.toFirstUpper, aFeatureProvider)
 				body = [
-					append("super(aFp);")
+					append("super(aFeatureProvider" + element.name.toFirstUpper + ");")
 				]
 			]
+
+          	val diagram = element.newTypeRef(typeof(Diagram))
+           	val aSprayStyle = element.newTypeRef(typeof(ISprayStyle))
+           	val startAnchor = element.newTypeRef(typeof(Anchor))
+           	val endAnchor = element.newTypeRef(typeof(Anchor))
 			
 			members += element.toMethod("getConnection", createTypeRef(connectionType)) [
 				annotations += element.toAnnotation(typeof(Override))
-              	parameters += element.toParameter("diagram", createTypeRef(connectionGenerator.diagramType))
-              	parameters += element.toParameter("aSprayStyle", createTypeRef(findDeclaredType(typeof(ISprayStyle), element)))
-              	parameters += element.toParameter("startAnchor", createTypeRef(connectionGenerator.anchorType))
-              	parameters += element.toParameter("endAnchor", createTypeRef(connectionGenerator.anchorType))
+              	parameters += toParameter("diagram" + element.name.toFirstUpper, diagram)
+              	parameters += toParameter("sprayStyle" + element.name.toFirstUpper, aSprayStyle)
+              	parameters += toParameter("startAnchor" + element.name.toFirstUpper, startAnchor)
+              	parameters += toParameter("endAnchor" + element.name.toFirstUpper, endAnchor)
               	body = [ 
-              		var appendable = append(connectionGenerator.iSprayStyleType).append(''' sprayStyle = aSprayStyle;''').newLine
+              		var appendable = append(connectionGenerator.iSprayStyleType).append(''' sprayStyle = sprayStyle''' + element.name.toFirstUpper + ''';''').newLine
+ 					appendable = appendable.append(connectionGenerator.diagramType).append(''' diagram = diagram''' + element.name.toFirstUpper + ''';''').newLine             		
+ 					appendable = appendable.append(connectionGenerator.anchorType).append(''' startAnchor = startAnchor''' + element.name.toFirstUpper + ''';''').newLine             		
+ 					appendable = appendable.append(connectionGenerator.anchorType).append(''' endAnchor = endAnchor''' + element.name.toFirstUpper + ''';''').newLine             		
 					if (element.connectionStyle == null) {
 						appendable = appendable.append('''final ''').append(connectionGenerator.connectionType)
 							.append(''' newConnection = peCreateService.createFreeFormConnection(diagram);''').newLine

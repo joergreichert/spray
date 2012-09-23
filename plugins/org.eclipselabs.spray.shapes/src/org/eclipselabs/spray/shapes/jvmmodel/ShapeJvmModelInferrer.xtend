@@ -10,7 +10,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
 
 	@Inject ShapeDefinitionTypeInferrer shapeTypeInferrer
 	@Inject ConnectionDefinitionTypeInferrer connectionTypeInferrer
-
+	
 	def dispatch void infer(ShapeDefinition element, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
 		shapeTypeInferrer.infer(element, acceptor, isPrelinkingPhase)
 	}
