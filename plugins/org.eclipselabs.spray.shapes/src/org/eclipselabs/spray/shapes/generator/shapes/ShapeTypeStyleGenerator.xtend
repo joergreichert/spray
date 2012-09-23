@@ -10,7 +10,7 @@ import org.eclipselabs.spray.styles.styles.YesNoBool
 
 class ShapeTypeStyleGenerator {
 	
-	@Inject extension StyleGenerator 
+	@Inject extension StyleGenerator styleGenerator
 	@Inject extension TypeReferences typeReferences
 	
 	private ShapestyleLayout current = null
@@ -23,6 +23,7 @@ class ShapeTypeStyleGenerator {
 	def private lineStyleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.LineStyle), current)  }
 	
 	def generateStyleForElement(ITreeAppendable givenAppendable, String attName, ShapestyleLayout ssl) {
+		styleGenerator.current = ssl
 		var appendable = givenAppendable
 		if(ssl != null && ssl.layout != null) {
 			if(ssl.layout.background != null) {

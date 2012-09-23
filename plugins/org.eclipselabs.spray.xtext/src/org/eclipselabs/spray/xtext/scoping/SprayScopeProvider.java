@@ -334,19 +334,19 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             jvmType = connection.getConnection().getType();
         }
         if (jvmType != null && jvmType instanceof JvmGenericType) {
-            return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
+            return getEnumerationLiteralsScopeForShape(context, (JvmGenericType) jvmType, className);
         } else {
             return IScope.NULLSCOPE;
         }
     }
 
-    private IScope getEnumerationLiteralsScopeForShape(JvmGenericType type, String className) {
-        JvmEnumerationType enumType = null;
-        for (JvmMember member : type.getMembers()) {
-            if (member.getSimpleName().equals(className)) {
-                enumType = (JvmEnumerationType) member;
-            }
-        }
+    private String getPackageName() {
+        return "org.eclipselabs.spray.shapes";
+    }
+
+    private IScope getEnumerationLiteralsScopeForShape(EObject context, JvmGenericType type, String className) {
+        IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(context.eResource().getResourceSet());
+        JvmEnumerationType enumType = (JvmEnumerationType) typeProvider.findTypeByName(getPackageName() + "." + type.getSimpleName() + className);
         List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
         if (enumType != null) {
             for (JvmEnumerationLiteral literal : enumType.getLiterals()) {
