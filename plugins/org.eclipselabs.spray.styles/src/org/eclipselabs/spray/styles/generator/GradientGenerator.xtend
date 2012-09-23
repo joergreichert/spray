@@ -27,10 +27,10 @@ class GradientGenerator {
 	
 	private Gradient current = null 
 	
-	def filepath(Gradient g) { g.packagePath + g.className + ".java" }
+	def private filepath(Gradient g) { g.packagePath + g.className + ".java" }
 	def className(Gradient g) { g.name.toFirstUpper }
 	def packageName(Gradient g) { "org.eclipselabs.spray.styles.gradients" }
-	def packagePath(Gradient g) { "org/eclipselabs/spray/styles/gradients/" }
+	def private packagePath(Gradient g) { "org/eclipselabs/spray/styles/gradients/" }
 	
     def superType() {  findDeclaredType(typeof(PredefinedColoredAreas), current)  }
     def interfaceType() {  findDeclaredType(typeof(ISprayGradient), current)  }
@@ -38,11 +38,11 @@ class GradientGenerator {
     def gradientColoredAreaType() {  findDeclaredType(typeof(GradientColoredArea), current)  }
     def stylesFactoryType() {  findDeclaredType(typeof(StylesFactory), current)  }
     def eListType() {  findDeclaredType(typeof(EList), current)  }
-    def locationTypeType() {  findDeclaredType(typeof(LocationType), current)  }
-    def predefinedColoredAreasType() {  findDeclaredType(typeof(PredefinedColoredAreas), current)  }
-    def iSprayGradientType() {  findDeclaredType(typeof(ISprayGradient), current)  }
+    def private locationTypeType() {  findDeclaredType(typeof(LocationType), current)  }
+    def private predefinedColoredAreasType() {  findDeclaredType(typeof(PredefinedColoredAreas), current)  }
+    def private iSprayGradientType() {  findDeclaredType(typeof(ISprayGradient), current)  }
 	
-	int elementIndex = 0
+	private int elementIndex = 0
 	
 	def doGenerate(Resource resource, IFileSystemAccess fsa) {
 		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
@@ -54,7 +54,7 @@ class GradientGenerator {
    		}
 	}
 	
-	def compile(ITreeAppendable appendable, Gradient g) {
+	def private compile(ITreeAppendable appendable, Gradient g) {
 		appendable.append(g.head).newLine.newLine.body(g)
 	}
 	
@@ -62,7 +62,7 @@ class GradientGenerator {
 		this.current = aGradient
 	}	
 	
-	def head(Gradient g) {
+	def private head(Gradient g) {
 		'''
 		/**
 		 * This is a generated Gradient class for Spray.
@@ -74,7 +74,7 @@ class GradientGenerator {
 		'''
 	}
 	
-	def registerGradientImports(DefaultCompilationUnitImportManager importManager, Gradient gradient) {
+	def private registerGradientImports(DefaultCompilationUnitImportManager importManager, Gradient gradient) {
 		this.importManager = importManager
 		importManager.addImports(
 			"org.eclipse.emf.common.util.EList",
@@ -89,7 +89,7 @@ class GradientGenerator {
 		)
 	}
 	
-	def body(ITreeAppendable givenAppendable, Gradient g) {
+	def private body(ITreeAppendable givenAppendable, Gradient g) {
 		var appendable = givenAppendable.append('''/**''').newLine
 		appendable = appendable.append(''' * Description: «g.description»''').newLine
 		appendable = appendable.append(''' */''').newLine;
@@ -110,7 +110,7 @@ class GradientGenerator {
 				appendable = appendable.append('''final ''').append(eListType).append('''<''')
 					.append(gradientColoredAreaType)
 					.append('''> gcas = gradientColoredAreas.getGradientColor();''').newLine
-				if(g.layout != null) appendable = appendable.createColorAreas(g.layout).newLine
+				if(g.layout != null) appendable = appendable.createColorAreas(g.layout)
 				appendable = appendable.append('''return gradientColoredAreas;''').newLine
 				appendable = appendable.decreaseIndentation
 			appendable = appendable.append('''}''').newLine
@@ -127,7 +127,7 @@ class GradientGenerator {
 				if(increaseCounter < l.area.size - 1) {
 					val area2 = l.area.get(elementIndex + 1)
 					if(area1 != null && area2 != null) {
-						appendable = appendable.createArea(area1, l.area.get(elementIndex + 1)).newLine
+						appendable = appendable.createArea(area1, l.area.get(elementIndex + 1))
 					}
 				} else if (l.area.size == 1) {
 					appendable.newLine
@@ -137,23 +137,23 @@ class GradientGenerator {
       	appendable
 	}
 	
-	def createArea(ITreeAppendable appendable, GradientColorArea first, GradientColorArea second) {
+	def private createArea(ITreeAppendable appendable, GradientColorArea first, GradientColorArea second) {
 		var offset_1 = (first.offset*100).intValue
 		var offset_2 = (second.offset*100).intValue  
 		if(first.color != null && second.color != null) {
 			appendable.append('''addGradientColoredArea(gcas, "«first.color.createColorValue»", «offset_1», ''')
 				.append(locationTypeType).append('''.LOCATION_TYPE_RELATIVE, "«second.color.createColorValue»", «offset_2», ''')
-				.append(locationTypeType).append('''.LOCATION_TYPE_RELATIVE);''')
+				.append(locationTypeType).append('''.LOCATION_TYPE_RELATIVE);''').newLine
 		}
 	}
 	
-	def dispatch createColorValue(ColorConstantRef c) {
+	def private dispatch createColorValue(ColorConstantRef c) {
 		'''«GradientUtilClass::colorConstantToHexString(c)»''' 
 	}
 	
-	def dispatch createColorValue(RGBColor c) { 
+	def private dispatch createColorValue(RGBColor c) { 
 		'''«GradientUtilClass::RGBColorToHexString(c)»''' 
 	}
 	
-	def increaseCounter() {  elementIndex = elementIndex + 1  }
+	def private increaseCounter() {  elementIndex = elementIndex + 1  }
 }

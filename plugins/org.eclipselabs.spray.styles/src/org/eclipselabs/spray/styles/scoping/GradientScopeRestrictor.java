@@ -51,5 +51,4 @@ public class GradientScopeRestrictor implements Predicate<IEObjectDescription> {
         }
         return false;
     }
-
 }

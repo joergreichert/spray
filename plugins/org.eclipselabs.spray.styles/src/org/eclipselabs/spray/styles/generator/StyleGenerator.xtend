@@ -60,10 +60,10 @@ class StyleGenerator implements IGenerator {
 		this.current = aEObject
 	}
 	
-	def filepath(Style s) { s.packagePath + s.className + ".java" }
+	def private filepath(Style s) { s.packagePath + s.className + ".java" }
 	def className(Style s) { s.name.toFirstUpper }
 	def packageName(Style s) { "org.eclipselabs.spray.styles" }
-	def packagePath(Style s) { "org/eclipselabs/spray/styles/" }
+	def private packagePath(Style s) { "org/eclipselabs/spray/styles/" }
 	
 	def styleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.Style), current)  }
 	def diagramType() {  findDeclaredType(typeof(Diagram), current)  }
@@ -71,15 +71,15 @@ class StyleGenerator implements IGenerator {
 	def adaptedGradientColoredAreasType() {  findDeclaredType(typeof(AdaptedGradientColoredAreas), current)  }
 	def iGaServiceType() {  findDeclaredType(typeof(IGaService), current)  }
 	def graphitiType() {  findDeclaredType(typeof(Graphiti), current)  }
-	def iColorConstantType() { findDeclaredType(typeof(IColorConstant), current)  }
-	def colorConstantType() { findDeclaredType(typeof(ColorConstant), current)  }
-	def iPredefinedRenderingStyleType() {  findDeclaredType(typeof(IPredefinedRenderingStyle), current)  }
-	def stylesFactoryType() {  findDeclaredType(typeof(StylesFactory), current)  }
-	def iGradientTypeType() {  findDeclaredType(typeof(IGradientType), current)  }
-	def gradientUtilClassType() {  findDeclaredType(typeof(GradientUtilClass), current)  }
-	def lineStyleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.LineStyle), current)  }
+	def private iColorConstantType() { findDeclaredType(typeof(IColorConstant), current)  }
+	def private colorConstantType() { findDeclaredType(typeof(ColorConstant), current)  }
+	def private iPredefinedRenderingStyleType() {  findDeclaredType(typeof(IPredefinedRenderingStyle), current)  }
+	def private stylesFactoryType() {  findDeclaredType(typeof(StylesFactory), current)  }
+	def private iGradientTypeType() {  findDeclaredType(typeof(IGradientType), current)  }
+	def private gradientUtilClassType() {  findDeclaredType(typeof(GradientUtilClass), current)  }
+	def private lineStyleType() {  findDeclaredType(typeof(org.eclipse.graphiti.mm.algorithms.styles.LineStyle), current)  }
 	
-	def ITreeAppendable compile(ITreeAppendable appendable, Style s) {
+	def private ITreeAppendable compile(ITreeAppendable appendable, Style s) {
 		appendable.append(s.head).newLine.newLine.body(s)
 	}
 	
@@ -249,24 +249,24 @@ class StyleGenerator implements IGenerator {
 		if (l == null || l.fontName == null) {
 			appendable = appendable.append('''String fontName = style.getFont().getName();''').newLine
 		} else {
-			appendable = givenAppendable.append('''String fontName = "«l.fontName»";''').newLine
+			appendable = appendable.append('''String fontName = "«l.fontName»";''').newLine
 		}
 		if (l == null || l.fontSize == Integer::MIN_VALUE) {
-			appendable = givenAppendable.append('''int fontSize = style.getFont().getSize();''').newLine
+			appendable = appendable.append('''int fontSize = style.getFont().getSize();''').newLine
 		} else {
-			appendable = givenAppendable.append('''int fontSize = «l.fontSize»;''').newLine
+			appendable = appendable.append('''int fontSize = «l.fontSize»;''').newLine
 		}
 		if (l == null || l.fontItalic == YesNoBool::NULL) {
-			appendable = givenAppendable.append('''boolean fontItalic = style.getFont().isItalic();''').newLine
+			appendable = appendable.append('''boolean fontItalic = style.getFont().isItalic();''').newLine
 		} else {
-			appendable = givenAppendable.append('''boolean fontItalic = «l.fontItalic.transformYesNoToBoolean»;''').newLine
+			appendable = appendable.append('''boolean fontItalic = «l.fontItalic.transformYesNoToBoolean»;''').newLine
  	    }
 		if (l == null || l.fontBold == YesNoBool::NULL) {
-			appendable = givenAppendable.append('''boolean fontBold = style.getFont().isBold();''').newLine
+			appendable = appendable.append('''boolean fontBold = style.getFont().isBold();''').newLine
 		} else {
-			appendable = givenAppendable.append('''boolean fontBold = «l.fontBold.transformYesNoToBoolean»;''').newLine
+			appendable = appendable.append('''boolean fontBold = «l.fontBold.transformYesNoToBoolean»;''').newLine
 		}
-		appendable = givenAppendable.append('''style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));''').newLine
+		appendable = appendable.append('''style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));''').newLine
     }
     
     def ITreeAppendable createFontColor(ITreeAppendable givenAppendable, StyleLayout l) {
@@ -280,21 +280,20 @@ class StyleGenerator implements IGenerator {
     }
     
     def private ITreeAppendable createFontColor(ITreeAppendable givenAppendable, ColorWithTransparency c) {
-		var appendable = givenAppendable.append(iGaServiceType).append(''' gaService = ''').append(graphitiType).append('''.getGaService();
-		return gaService.manageColor(aDiagram, ''') appendable = appendable.createColorValue(c) appendable.append(''');
-    	''')
+		var appendable = givenAppendable.append(iGaServiceType).append(''' gaService = ''').append(graphitiType).append('''.getGaService();''').newLine
+		appendable = appendable.append('''return gaService.manageColor(aDiagram, ''') appendable = appendable.createColorValue(c) appendable.append(''');''')
     	appendable
     }
     
-    def private transformYesNoToBoolean(YesNoBool yesNo) { if(yesNo == YesNoBool::YES) "true" else "false" }
+    def transformYesNoToBoolean(YesNoBool yesNo) { if(yesNo == YesNoBool::YES) "true" else "false" }
 
-    def private dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, Transparent c) { appendable.append('''null''') }
+    def dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, Transparent c) { appendable.append('''null''') }
 
-    def private dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, ColorConstantRef c) { 
+    def dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, ColorConstantRef c) { 
     	appendable.append(iColorConstantType).append('''.«c.value.name»''')
     }
 
-	def private dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, RGBColor c) { 
+	def dispatch ITreeAppendable createColorValue(ITreeAppendable appendable, RGBColor c) { 
 		appendable.append('''new ''').append(colorConstantType).append('''(«c.red», «c.green», «c.blue»)''')
 	}
 	
@@ -332,7 +331,7 @@ class StyleGenerator implements IGenerator {
 						.append('''.STYLE_ADAPTATION_ACTION_FORBIDDEN, ''').gradientColoredAreas(l.highlighting.unallowed).append(''');''').newLine
 				}
 			}
-			appendable = appendable.append('''return agca;''').newLine
+			appendable = appendable.append('''return agca;''')
         }
 		appendable
 	}
