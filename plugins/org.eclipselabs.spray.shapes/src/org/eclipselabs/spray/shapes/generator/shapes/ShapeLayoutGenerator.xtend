@@ -69,7 +69,7 @@ class ShapeLayoutGenerator {
 			if (s.shapeLayout.stretchV != null) {
 				appendable = appendable.append('''layoutManager.setStretchVertical(«s.shapeLayout.stretchV»);''').newLine
 			} else {
-				appendable = appendable.append('''layoutManager.setStretchHorizontal(true);''').newLine
+				appendable = appendable.append('''layoutManager.setStretchVertical(true);''').newLine
 			}		
 			appendable = appendable.append('''return layoutManager;''').newLine
 		appendable = appendable.append('''}''')
