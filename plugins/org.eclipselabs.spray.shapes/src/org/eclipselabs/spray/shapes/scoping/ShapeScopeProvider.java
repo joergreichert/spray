@@ -34,6 +34,10 @@ public class ShapeScopeProvider extends XbaseScopeProvider {
             if (style != null) {
                 return getStyleTypeScope(style);
             }
+            //          ShapeRef shape = EcoreUtil2.getContainerOfType(context, ShapeRef.class);
+            //          if (shape != null) {
+            //              return getShapeTypeScope(shape);
+            //          }
         }
         return super.getScope(context, reference);
     }
@@ -52,4 +56,38 @@ public class ShapeScopeProvider extends XbaseScopeProvider {
         IScope result = new FilteringScope(typesScope, stylesFilter);
         return result;
     }
+
+    //	/**
+    //	 * Returns the Scope of another Shape by referrincing the Shape Interface
+    //	 * (ISprayShape)
+    //	 * 
+    //	 * @param shape
+    //	 *            the ShapeRef context
+    //	 * @return the restricted IScope
+    //	 */
+    //	protected IScope getShapeTypeScope(ShapeRef shape) {
+    //		IScope typesScope = delegateGetScope(shape, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+    //		Predicate<IEObjectDescription> shapesFilter = new ShapeScopeRestrictor();
+    //		IScope result = new FilteringScope(typesScope, shapesFilter);
+    //		return result;
+    //	}
+
+    //	/**
+    //	 * Add Shape Parameters to the Scope of Local Variables
+    //	 */
+    //	@Override
+    //	protected IScope createLocalVarScope(IScope parentScope, LocalVariableScopeContext scopeContext) {
+    //		if (scopeContext.getContext() instanceof ShapeDefinition) {
+    //			ShapeDefinition shapeDefinition = (ShapeDefinition) scopeContext.getContext();
+    //			EList<JvmFormalParameter> descriptions = shapeDefinition.getParam();
+    //			List<IEObjectDescription> descrList = new ArrayList<IEObjectDescription>();
+    //			for (JvmFormalParameter param : descriptions) {
+    //				IEObjectDescription description = EObjectDescription.create(param.getName(), param, null);
+    //				descrList.add(description);
+    //			}
+    //			return MapBasedScope.createScope(super.createLocalVarScope(parentScope, scopeContext), descrList);
+    //		}
+    //		return super.createLocalVarScope(parentScope, scopeContext);
+    //	}
+
 }

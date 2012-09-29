@@ -11,11 +11,11 @@ class ConnectionEnumGenerator {
 		'''
 		public static enum TextIds {
 			«FOR id : ids»
-				«IF !(ids.last == id)»
-					«id»,
-				«ELSE»
-					«id»
-				«ENDIF»
+			«IF !(ids.last == id)»
+			«id»,
+			«ELSE»
+			«id»
+			«ENDIF»
 			«ENDFOR»
 		}
 		'''
@@ -23,13 +23,12 @@ class ConnectionEnumGenerator {
 	
 	def searchTextIds(ConnectionDefinition c) {
 		val ids = new ArrayList<String>();
-		if(c.placing != null) {
-			for(placing : c.placing) {
-				if(placing.shapeCon instanceof CDText) {
-					ids.add((placing.shapeCon as CDText).body.value);
-				}
+		for(placing : c.placing) {
+			if(placing.shapeCon instanceof CDText) {
+				ids.add((placing.shapeCon as CDText).body.value);
 			}
 		}
 		ids
-	}	
+	}
+	
 }
