@@ -26,12 +26,23 @@ import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.CDEllipse
 import org.eclipselabs.spray.shapes.shapes.CDText
 import org.eclipselabs.spray.shapes.shapes.ShapeConnection
+import org.eclipse.xtext.generator.IGenerator
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipselabs.spray.shapes.generator.GeneratorSVGDefinition
 
 /**
  * Generator for SVG representations of ShapeDefinitions.
  */
-class SVGShapeGenerator {
+class SVGShapeGenerator implements IGenerator {
     @Inject extension LayoutExtensions
+    @Inject GeneratorSVGDefinition svgDefinition 
+    
+    override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+   		for(connection : resource.allContents.toIterable.filter(typeof(ConnectionDefinition))) {
+            fsa.generateFile(svgDefinition.filepath(connection), svgDefinition.compile(connection))
+   		}
+    }
 
     // ENTRY METHODS
     def dispatch generate (ShapeDefinition shape) '''
