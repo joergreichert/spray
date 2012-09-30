@@ -235,21 +235,16 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     }
 
     protected IScope scope_Connection_to(EObject context) {
-        IScope result = null;
         final ConnectionInSpray connection = (ConnectionInSpray) context;
         final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-        if (metaClass != null && metaClass.getType() != null) {
-            // filter derived and 'from' from the possible references
-            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-                @Override
-                public boolean apply(EReference input) {
-                    return input != connection.getFrom() && !input.isDerived();
-                }
-            });
-            result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
-        } else {
-            result = IScope.NULLSCOPE;
-        }
+        // filter derived and 'from' from the possible references
+        Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+            @Override
+            public boolean apply(EReference input) {
+                return input != connection.getFrom() && !input.isDerived();
+            }
+        });
+        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
         return result;
     }
 
