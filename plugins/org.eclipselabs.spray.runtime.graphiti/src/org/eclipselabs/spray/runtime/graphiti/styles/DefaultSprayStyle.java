@@ -34,7 +34,7 @@ public class DefaultSprayStyle implements ISprayStyle {
             // no -> create new one
             style = newStyle(diagram);
         }
-        
+
         return style;
     }
 
@@ -88,9 +88,9 @@ public class DefaultSprayStyle implements ISprayStyle {
     }
 
     protected Style findStyle(StyleContainer container, String id) {
-    	
-    	IGaService gaService = Graphiti.getGaService();
-    	
+
+        IGaService gaService = Graphiti.getGaService();
+
         if (id == null)
             return null;
         AdaptedGradientColoredAreas colorSchema;
@@ -106,9 +106,9 @@ public class DefaultSprayStyle implements ISprayStyle {
         return null;
     }
 
-	@Override
-	public AdaptedGradientColoredAreas getColorSchema() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AdaptedGradientColoredAreas getColorSchema() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
