@@ -93,10 +93,14 @@ public class DefaultSprayStyle implements ISprayStyle {
     	
         if (id == null)
             return null;
+        AdaptedGradientColoredAreas colorSchema;
         for (Style s : container.getStyles()) {
             if (id.equals(s.getId()))
-            	// Update Rendering Style 
-                gaService.setRenderingStyle(s, getColorSchema());
+            	// Update Rendering Style
+            	colorSchema = getColorSchema();
+            	if(colorSchema != null) {
+                    gaService.setRenderingStyle(s, getColorSchema());
+            	}
                 return s;
         }
         return null;
