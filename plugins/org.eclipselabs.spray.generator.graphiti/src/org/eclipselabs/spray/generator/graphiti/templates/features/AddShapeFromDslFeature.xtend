@@ -121,22 +121,28 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 final IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
                 link(conShape, addedModelElement);
+                linkShapes(conShape, addedModelElement);
                 «IF metaClass.alias!=null»
                 peService.setPropertyValue(conShape , PROPERTY_ALIAS, "«metaClass.alias»");
                 «ENDIF»
-                for(Shape childShape : conShape.getChildren()) {
-                	link(childShape, addedModelElement);
-                	«IF metaClass.alias!=null»
-                	peService.setPropertyValue(childShape, PROPERTY_ALIAS, "«metaClass.alias»");
-                	«ENDIF»
-                }
 
                 setDoneChanges(true);
                 updatePictogramElement(conShape);
                 
                 return conShape;
             }
-            
+        
+        
+        private void linkShapes(ContainerShape conShape, «metaClass.name» addedModelElement) {
+            link(conShape, addedModelElement);
+            for (Shape childShape : conShape.getChildren()) {
+                if( childShape instanceof ContainerShape ){
+            	    linkShapes((ContainerShape)childShape, addedModelElement);
+                } else {
+                    link(childShape, addedModelElement);
+                }
+            }
+        }
         }
         '''
 }

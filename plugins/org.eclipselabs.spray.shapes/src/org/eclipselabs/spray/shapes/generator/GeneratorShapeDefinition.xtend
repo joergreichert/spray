@@ -19,15 +19,15 @@ class GeneratorShapeDefinition {
 	def filepath(ShapeDefinition s) { packagePath + s.className + ".java" }
 	def className(ShapeDefinition s) { s.name.toFirstUpper }
 
-	def compile(ShapeDefinition s) { 
+	def compile(ShapeDefinition shapeDef) { 
 		'''
-		«s.head»
+		«shapeDef.head»
 		
-		«s.body»
+		«shapeDef.body»
 		'''
 	}
 	 
-	def head(ShapeDefinition s) {
+	def head(ShapeDefinition shapeDef) {
 	 	'''
 		/**
 		 * This is a generated Shape for Spray
@@ -60,14 +60,14 @@ class GeneratorShapeDefinition {
 		'''
 	 }
 	 
-	 def body(ShapeDefinition s) {
+	 def body(ShapeDefinition shapeDefs) {
 		'''
 		@SuppressWarnings("all")
-		public class «s.className» extends DefaultSprayShape {
+		public class «shapeDefs.className» extends DefaultSprayShape {
 		    
-			«s.generateTextIdsEnum»
+			«shapeDefs.generateTextIdsEnum»
 			
-			public «s.className»(IFeatureProvider fp) {
+			public «shapeDefs.className»(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -78,18 +78,18 @@ class GeneratorShapeDefinition {
 				ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
 				
 				// define general layout for ContainerShape
-				«s.generateLayout»
+				«shapeDefs.generateLayout»
 				
 				// creates the cascaded elements (figures)
-				«s.generateCascadedElements»
+				«shapeDefs.generateCascadedElements»
 				
 				// creates the anchors
-				«s.createAnchorPoints»
+				«shapeDefs.createAnchorPoints»
 				
 				return containerShape;
 			}
 
-			«s.generateGetLayoutMethod»
+			«shapeDefs.generateGetLayoutMethod»
 			
 «««			«FOR param : s.param»
 «««			«param.parameterType.qualifiedName» «param.name»;
