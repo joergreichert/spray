@@ -91,15 +91,16 @@ public class DefaultSprayStyle implements ISprayStyle {
 
         IGaService gaService = Graphiti.getGaService();
 
-        if (id == null)
+        if (id == null) {
             return null;
+	}
         AdaptedGradientColoredAreas colorSchema;
         for (Style s : container.getStyles()) {
-            if (id.equals(s.getId()))
+            if (id.equals(s.getId())) {
             	// Update Rendering Style
             	colorSchema = getColorSchema();
             	if(colorSchema != null) {
-                    gaService.setRenderingStyle(s, getColorSchema());
+                    gaService.setRenderingStyle(s, colorSchema);
             	}
                 return s;
         }
