@@ -103,6 +103,7 @@ public class DefaultSprayStyle implements ISprayStyle {
                     gaService.setRenderingStyle(s, colorSchema);
             	}
                 return s;
+	    }
         }
         return null;
     }
