@@ -44,7 +44,7 @@ class ShapeTypeGenerator {
 		
 		GraphicsAlgorithm «attname» = gaService.createInvisibleRectangle(«containername»);
 		«attname».setStyle(sprayStyle.getStyle(diagram));
-		peService.setPropertyValue(«attname», ISprayConstants.IS_SHAPE_FROM_DSL, ISprayConstants.IS_SHAPE_FROM_DSL_VALUE);
+		SprayLayoutService.setShapeFromDsl(«containername», true);
 		gaService.setLocationAndSize(«attname», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);
 		
 		«IF shapeDef.shape.size > 1»

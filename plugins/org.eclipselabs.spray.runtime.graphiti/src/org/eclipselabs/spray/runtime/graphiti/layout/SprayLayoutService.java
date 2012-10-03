@@ -2,10 +2,12 @@ package org.eclipselabs.spray.runtime.graphiti.layout;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
+import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutData.Alignment;
 
 public class SprayLayoutService {
@@ -146,4 +148,11 @@ public class SprayLayoutService {
         }
     }
 
+    static public boolean isShapeFromDsl(PictogramElement shape) {
+        return GraphitiProperties.getBooleanValue(shape, ISprayConstants.IS_SHAPE_FROM_DSL);
+    }
+
+    static public void setShapeFromDsl(PictogramElement shape, boolean value) {
+        GraphitiProperties.set(shape, ISprayConstants.IS_SHAPE_FROM_DSL, value);
+    }
 }

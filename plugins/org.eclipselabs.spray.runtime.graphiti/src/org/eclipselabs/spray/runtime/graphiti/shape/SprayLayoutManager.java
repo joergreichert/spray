@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 
 public class SprayLayoutManager implements ISprayConstants {
 
@@ -137,9 +138,8 @@ public class SprayLayoutManager implements ISprayConstants {
                 }
 
                 if (shapeElement instanceof ContainerShape) {
-                    String propertyValue = Graphiti.getPeService().getPropertyValue(shapeElement.getGraphicsAlgorithm(), IS_SHAPE_FROM_DSL);
-                    if (propertyValue != null && propertyValue.equals(IS_SHAPE_FROM_DSL_VALUE)) {
-                        System.out.println("Do not resize nested compartments, stopping at " + IS_SHAPE_FROM_DSL_VALUE);
+                    if (SprayLayoutService.isShapeFromDsl(shapeElement)) {
+                        System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(shapeElement));
                     } else {
                         resizeElementsRecursive((ContainerShape) shapeElement, widthFactor, heightFactor);
                     }
