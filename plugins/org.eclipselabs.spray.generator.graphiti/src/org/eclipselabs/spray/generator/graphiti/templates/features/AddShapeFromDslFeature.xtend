@@ -133,7 +133,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             }
         
         
-        private void linkShapes(ContainerShape conShape, «metaClass.name» addedModelElement) {
+        protected void linkShapes(ContainerShape conShape, «metaClass.name» addedModelElement) {
             link(conShape, addedModelElement);
             for (Shape childShape : conShape.getChildren()) {
                 if( childShape instanceof ContainerShape ){

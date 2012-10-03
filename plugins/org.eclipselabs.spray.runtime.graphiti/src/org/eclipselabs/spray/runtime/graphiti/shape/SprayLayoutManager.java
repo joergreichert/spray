@@ -89,6 +89,7 @@ public class SprayLayoutManager implements ISprayConstants {
 
             anythingChanged = true;
         }
+        //        fixOffset(containerShape);
 
         return anythingChanged;
     }
@@ -136,7 +137,12 @@ public class SprayLayoutManager implements ISprayConstants {
                 }
 
                 if (shapeElement instanceof ContainerShape) {
-                    resizeElementsRecursive((ContainerShape) shapeElement, widthFactor, heightFactor);
+                    String propertyValue = Graphiti.getPeService().getPropertyValue(shapeElement.getGraphicsAlgorithm(), IS_SHAPE_FROM_DSL);
+                    if (propertyValue != null && propertyValue.equals(IS_SHAPE_FROM_DSL_VALUE)) {
+                        System.out.println("Do not resize nested compartments, stopping at " + IS_SHAPE_FROM_DSL_VALUE);
+                    } else {
+                        resizeElementsRecursive((ContainerShape) shapeElement, widthFactor, heightFactor);
+                    }
                 }
 
             }

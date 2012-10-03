@@ -54,6 +54,8 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.mm.algorithms.styles.*;
 		
 		import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+		import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
+		import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 		import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape;
 		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
@@ -76,6 +78,7 @@ class GeneratorShapeDefinition {
 				// Create a ContainerShape for this Shape
 				Diagram diagram = peService.getDiagramForShape(targetContainer);
 				ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
+				SprayLayoutService.setId(containerShape, "containerShape");
 				
 				// define general layout for ContainerShape
 				«shapeDefs.generateLayout»
@@ -86,6 +89,8 @@ class GeneratorShapeDefinition {
 				// creates the anchors
 				«shapeDefs.createAnchorPoints»
 				
+				// Fix the broken coordinate syaten for not active container shapes
+		        SprayAbstractLayoutManager.fixOffset(containerShape);
 				return containerShape;
 			}
 

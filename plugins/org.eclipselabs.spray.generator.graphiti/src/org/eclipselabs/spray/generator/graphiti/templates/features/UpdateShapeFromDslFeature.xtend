@@ -113,7 +113,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
         
 		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
-	    	private boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.name» eClass) {
+	    	protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.name» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
@@ -164,7 +164,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
 	        
 	    def generate_updateChildsRecursively(ShapeFromDsl container) '''
-	    	private void updateChildsRecursively(Shape shape, final «container.represents.name» eClass) {
+	    	protected void updateChildsRecursively(Shape shape, final «container.represents.name» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
