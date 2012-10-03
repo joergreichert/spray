@@ -51,6 +51,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         import org.eclipselabs.spray.runtime.graphiti.tb.AbstractSprayToolBehaviorProvider;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.emf.common.util.EList;
         import org.eclipse.graphiti.services.Graphiti;
         
@@ -76,11 +77,10 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
 		public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
 			String propertyValue = Graphiti.getPeService().getPropertyValue(pe.getGraphicsAlgorithm(), IS_SHAPE_FROM_DSL);
 			if (propertyValue != null && propertyValue.equals(IS_SHAPE_FROM_DSL_VALUE)) {
-				GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();
-				EList<GraphicsAlgorithm> graphicsAlgorithmChildren = invisible.getGraphicsAlgorithmChildren();
-				if (!graphicsAlgorithmChildren.isEmpty()) {
-					return graphicsAlgorithmChildren.get(0);
-				}
+		    ContainerShape container = (ContainerShape)pe;
+		        if (!container.getChildren().isEmpty()) {
+		            return container.getChildren().get(0).getGraphicsAlgorithm();
+		        }
 			}
 			return super.getSelectionBorder(pe);
 		}
