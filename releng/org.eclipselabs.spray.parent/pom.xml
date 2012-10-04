@@ -42,6 +42,8 @@
 		<junit-version>4.10</junit-version>
 		<local-build-platform.version>[3.8,4.3)</local-build-platform.version>		
 		<ui.test.vmargs></ui.test.vmargs>
+		<coverageAgent></coverageAgent>
+		<it.coverage.argLine></it.coverage.argLine>
 	</properties>
 
 	<build>

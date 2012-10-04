@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -63,6 +64,7 @@ import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
+import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
@@ -411,13 +413,23 @@ public class SprayScopeProvider extends XbaseScopeProvider {
      * @return
      */
     private boolean isSuperType(EClass eClass1, EClass eClass2) {
+        return isSuperType(eClass1, eClass2, new ArrayList<EClass>());
+    }
+
+    private boolean isSuperType(EClass eClass1, EClass eClass2, List<EClass> visited) {
         boolean superType = eClass1.isSuperTypeOf(eClass2);
         if (!superType) {
             if (eClass1.getName().equals(eClass2.getName())) {
                 superType = true;
             } else {
-                for (EClass st : eClass2.getESuperTypes()) {
-                    superType = isSuperType(eClass1, st);
+                EList<EClass> superTypes = eClass2.getESuperTypes();
+                superTypes.removeAll(visited);
+                visited.addAll(superTypes);
+                for (EClass st : superTypes) {
+                    superType = isSuperType(eClass1, st, visited);
+                    if (superType) {
+                        return superType;
+                    }
                 }
             }
         }
@@ -426,7 +438,6 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
     @SuppressWarnings("unchecked")
     protected IScope scope_MetaClass_Type(EObject context, EReference reference) {
-        // TODO Restrict to containment types
         Diagram diagram = EcoreUtil2.getContainerOfType(context, Diagram.class);
         if (diagram == null) {
             return IScope.NULLSCOPE;
@@ -437,39 +448,19 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return IScope.NULLSCOPE;
         }
         final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
+
             @Override
             public boolean apply(EClassifier input) {
-                return input instanceof EClass && equalClasses((EClass) input, diagramModelType) && !((EClass) input).isAbstract() && isAContainmentReferenceType(diagramModelType, (EClass) input);
+                return input instanceof EClass && !((EClass) input).isAbstract() && isAContainmentReferenceType(diagramModelType, (EClass) input);
             }
 
-            private boolean equalClasses(EClass input, EClass diagramModelType) {
-                boolean equals = input.equals(diagramModelType);
-                if (!equals) {
-                    EPackage inputPack = input.getEPackage();
-                    EPackage diagramModelTypePack = diagramModelType.getEPackage();
-                    boolean packEquals = false;
-                    if (inputPack != null) {
-                        if (diagramModelTypePack != null) {
-                            packEquals = inputPack.getName() != null && inputPack.getName().equals(diagramModelTypePack.getName()) && inputPack.getNsURI() != null && inputPack.getNsURI().equals(diagramModelTypePack.getNsURI());
-                        }
-                    } else if (diagramModelTypePack == null) {
-                        packEquals = true;
-                    }
-                    if (packEquals) {
-                        if (inputPack.getName() != null && inputPack.getName().equals(diagramModelType.getName())) {
-                            equals = true;
-                        }
-                    }
-                }
-                return equals;
-            }
         };
         return scopeEClasses(context, filter);
     }
 
     private boolean isAContainmentReferenceType(EClass diagramModelType, EClass input) {
         for (EReference containment : diagramModelType.getEAllContainments()) {
-            if (input != null && containment.getEReferenceType() != null && isSuperType(input, containment.getEReferenceType())) {
+            if (input != null && containment.getEReferenceType() != null && isSuperType(containment.getEReferenceType(), input)) {
                 return true;
             }
         }
@@ -477,17 +468,47 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     }
 
     @SuppressWarnings("unchecked")
-    protected IScope scope_Diagram_ModelType(EObject context, EReference reference) {
+    protected IScope scope_Diagram_ModelType(final EObject context, EReference reference) {
+
         final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
             @Override
             public boolean apply(EClassifier input) {
-                return input instanceof EClass && ((EClass) input).getEAllReferences().size() > 0;
+                return input instanceof EClass && ((EClass) input).getEAllReferences().size() > 0 && matchesOneOfTheImportedPackages(context, (EClass) input);
             }
         };
         return scopeEClasses(context, filter);
     }
 
-    @SuppressWarnings("unchecked")
+    private boolean matchesOneOfTheImportedPackages(EObject context, EClass eClass) {
+        String packageName = eClass.getEPackage() != null ? getFullQualifiedPackageName(eClass.getEPackage()) : null;
+        if (packageName != null) {
+            Import[] imports = ((Diagram) context).getImports();
+            for (Import imp : imports) {
+                String ns = imp.getImportedNamespace();
+                ns = ns.replace(".*", "");
+                if (packageName.startsWith(ns)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param ePackage
+     * @return
+     */
+    private String getFullQualifiedPackageName(EPackage ePackage) {
+        String name = null;
+        EPackage superPackage = ePackage.getESuperPackage();
+        if (superPackage != null) {
+            name = getFullQualifiedPackageName(superPackage) + "." + ePackage.getName();
+        } else {
+            name = ePackage.getName();
+        }
+        return name;
+    }
+
     private IScope scopeEClasses(EObject context, final Predicate<EClassifier>... filters) {
         List<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
         List<EPackage> importedEPackages = getImportedPackages(context);
@@ -495,7 +516,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         for (EPackage pack : ePackages) {
             iteratePackage(pack, eClassifiers);
         }
-        return createScope(eClassifiers, importedEPackages);
+        return createScope(eClassifiers, importedEPackages, filters);
     }
 
     private List<EPackage> getImportedPackages(EObject context) {
@@ -513,12 +534,44 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     }
 
     private IScope createScope(final Set<EClassifier> eClassifiers, final List<EPackage> ePackages, final Predicate<EClassifier>... filters) {
+        Iterable<EClassifier> filtered = getFiltered(eClassifiers, filters);
+        List<IEObjectDescription> global = new ArrayList<IEObjectDescription>();
+        // getEObjectDescriptionsForPackages(ePackages, global);
+        // Iterable<IEObjectDescription> qnNamedEObjects = getEObjectDescriptionsForQualifiedNames(global, filtered);
+        Iterable<IEObjectDescription> simpleNamedEObjects = getEObjectDescriptionsForSimpleNames(ePackages, filtered);
+        final IScope packageScope = MapBasedScope.createScope(IScope.NULLSCOPE, global);
+        return MapBasedScope.createScope(packageScope, simpleNamedEObjects);
+    }
+
+    private Iterable<EClassifier> getFiltered(final Set<EClassifier> eClassifiers, final Predicate<EClassifier>... filters) {
+        final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
+            @Override
+            public boolean apply(EClassifier input) {
+                boolean filter = true;
+                for (Predicate<EClassifier> f : filters) {
+                    filter = filter && f.apply(input);
+                }
+                return filter;
+            }
+        };
+        return Iterables.filter(eClassifiers, filter);
+    }
+
+    private Iterable<IEObjectDescription> getEObjectDescriptionsForPackages(final List<EPackage> ePackages, List<IEObjectDescription> global) {
         Function<EPackage, IEObjectDescription> packageToObjDesc = new Function<EPackage, IEObjectDescription>() {
             @Override
             public IEObjectDescription apply(EPackage from) {
                 return EObjectDescription.create(from.getName(), from);
             }
         };
+        Iterable<IEObjectDescription> packages = Iterables.transform(ePackages, packageToObjDesc);
+        for (IEObjectDescription pack : packages) {
+            global.add(pack);
+        }
+        return packages;
+    }
+
+    private Iterable<IEObjectDescription> getEObjectDescriptionsForQualifiedNames(List<IEObjectDescription> global, Iterable<EClassifier> filtered) {
         Function<EClassifier, IEObjectDescription> qnClassToObjDesc = new Function<EClassifier, IEObjectDescription>() {
             @Override
             public IEObjectDescription apply(EClassifier from) {
@@ -529,6 +582,14 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 }
             }
         };
+        Iterable<IEObjectDescription> qnClassifiers = Iterables.transform(filtered, qnClassToObjDesc);
+        for (IEObjectDescription qnClassifier : qnClassifiers) {
+            global.add(qnClassifier);
+        }
+        return qnClassifiers;
+    }
+
+    private Iterable<IEObjectDescription> getEObjectDescriptionsForSimpleNames(final List<EPackage> ePackages, Iterable<EClassifier> filtered) {
         Function<EClassifier, IEObjectDescription> classToObjDesc = new Function<EClassifier, IEObjectDescription>() {
             @Override
             public IEObjectDescription apply(EClassifier from) {
@@ -552,28 +613,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 return false;
             }
         };
-        final Predicate<EClassifier> filter = new Predicate<EClassifier>() {
-            @Override
-            public boolean apply(EClassifier input) {
-                boolean filter = true;
-                for (Predicate<EClassifier> f : filters) {
-                    filter = filter && f.apply(input);
-                }
-                return filter;
-            }
-        };
-        Iterable<IEObjectDescription> packages = Iterables.transform(ePackages, packageToObjDesc);
-        Iterable<EClassifier> filtered = Iterables.filter(eClassifiers, filter);
-        Iterable<IEObjectDescription> qnClassifiers = Iterables.transform(filtered, qnClassToObjDesc);
-        List<IEObjectDescription> global = new ArrayList<IEObjectDescription>();
-        for (IEObjectDescription pack : packages) {
-            global.add(pack);
-        }
-        for (IEObjectDescription qnClassifier : qnClassifiers) {
-            global.add(qnClassifier);
-        }
-        final IScope packageScope = MapBasedScope.createScope(IScope.NULLSCOPE, global);
-        return MapBasedScope.createScope(packageScope, Iterables.transform(filtered, classToObjDesc));
+        return Iterables.transform(filtered, classToObjDesc);
     }
 
     public void iteratePackage(EPackage pack, Set<EClassifier> eClassifiers) {

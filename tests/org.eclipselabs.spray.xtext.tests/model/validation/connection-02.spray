@@ -1,8 +1,9 @@
 // Connections
 // multiple connection references to not contained as well as to contained features
-diagram test for BusinessDomainDsl.BusinessDomainModel
+import BusinessDomainDsl.*
+diagram test for BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass {
+class BusinessClass {
     container () {
         text () { name };
     }

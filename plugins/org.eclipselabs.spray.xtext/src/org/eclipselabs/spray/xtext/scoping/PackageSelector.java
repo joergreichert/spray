@@ -1,6 +1,5 @@
 package org.eclipselabs.spray.xtext.scoping;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,16 +15,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -43,7 +41,6 @@ import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -55,7 +52,7 @@ public class PackageSelector {
     public List<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = getJavaProject(modelElement);
         List<EPackage> ePackages = null;
-        if (project != null && !projectHasChangedSinceLastRun(project.getProject())) {
+        if (project != null && !projectsHasChangedSinceLastRun()) {
             ePackages = javaProjectToEPackages.get(project.getProject());
         }
         if (ePackages == null) {
@@ -66,6 +63,13 @@ public class PackageSelector {
             }
         }
         return ePackages;
+    }
+
+    /**
+     * @return
+     */
+    private boolean projectsHasChangedSinceLastRun() {
+        return projectToChanged.containsValue(Boolean.TRUE);
     }
 
     public List<EPackage> getEPackages() {
@@ -98,80 +102,49 @@ public class PackageSelector {
     }
 
     public void registerWorkspaceEPackagesAndGenModels() {
-        if (Platform.isRunning()) {
-            IWorkspace ws = ResourcesPlugin.getWorkspace();
+        if (isPlatformRunning()) {
+            IWorkspace ws = getWorkspace();
             if (ws != null) {
                 final IWorkspaceRoot wsRoot = ws.getRoot();
-                for (IProject project : wsRoot.getProjects()) {
-                    registerProjectChangeListener(ws, project);
-                    try {
-                        if (project.isOpen() && project.hasNature("org.eclipse.pde.PluginNature") && projectHasChangedSinceLastRun(project)) {
-                            project.accept(new IResourceVisitor() {
-                                private Map<String, String> nameToEPackageNsURI = new HashMap<String, String>();
-                                private Map<String, URI>    nameTOGenModelURI   = new HashMap<String, URI>();
-                                private String              ePackageNsURI;
-                                private URI                 genModelURI;
-
-                                @Override
-                                public boolean visit(IResource resource) throws CoreException {
-                                    if (resource instanceof IContainer) {
-                                        IContainer folder = (IContainer) resource;
-                                        if ("bin".equals(folder.getName()) || "target".equals(folder.getName())) {
-                                            return false;
-                                        }
-                                        for (IResource member : folder.members()) {
-                                            visit(member);
-                                        }
-                                    } else if (resource instanceof IFile) {
-                                        visitFile((IFile) resource);
-                                    }
-                                    return false;
-                                }
-
-                                public void visitFile(IFile resource) {
-                                    String name = resource.getName();
-                                    name = name.replace("." + resource.getFileExtension(), "");
-                                    String locationURI = resource.getLocationURI().toString();
-                                    if (locationURI.endsWith(".genmodel")) {
-                                        String location = resource.getLocation().makeRelativeTo(wsRoot.getLocation()).toString();
-                                        nameTOGenModelURI.put(name, URI.createPlatformResourceURI("/" + location, true));
-
-                                    } else if (locationURI.endsWith(".ecore")) {
-                                        ResourceSet rs = new ResourceSetImpl();
-                                        Resource r = rs.createResource(URI.createURI(locationURI));
-                                        try {
-                                            r.load(Maps.newHashMap());
-                                            EList<EObject> contents = r.getContents();
-                                            for (EObject content : contents) {
-                                                if (content instanceof EPackage) {
-                                                    EPackage pack = (EPackage) content;
-                                                    EPackage.Registry.INSTANCE.put(pack.getNsURI(), pack);
-                                                    nameToEPackageNsURI.put(name, pack.getNsURI());
-                                                }
-                                            }
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    for (String resourceName : nameToEPackageNsURI.keySet()) {
-                                        if ((ePackageNsURI = nameToEPackageNsURI.get(resourceName)) != null && (genModelURI = nameTOGenModelURI.get(resourceName)) != null) {
-                                            EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(ePackageNsURI, genModelURI);
-                                        }
-                                    }
-                                }
-
-                            });
+                if (wsRoot != null) {
+                    for (IProject project : wsRoot.getProjects()) {
+                        registerProjectChangeListener(ws, project);
+                        try {
+                            if (project.isOpen() && project.hasNature("org.eclipse.pde.PluginNature") && projectHasChangedSinceLastRun(project)) {
+                                project.accept(new ModelResourceVisitor(wsRoot));
+                            }
+                        } catch (CoreException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (CoreException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
             }
-            EcorePlugin.computePlatformPluginToPlatformResourceMap();
-            EcorePlugin.computePlatformURIMap();
+            recomputeResourceAndURIMaps();
         }
+    }
+
+    /**
+     * 
+     */
+    protected void recomputeResourceAndURIMaps() {
+        EcorePlugin.computePlatformPluginToPlatformResourceMap();
+        EcorePlugin.computePlatformURIMap();
+    }
+
+    /**
+     * @return
+     */
+    protected IWorkspace getWorkspace() {
+        return ResourcesPlugin.getWorkspace();
+    }
+
+    /**
+     * @return
+     */
+    protected boolean isPlatformRunning() {
+        return Platform.isRunning();
     }
 
     /**
@@ -258,7 +231,7 @@ public class PackageSelector {
         return filteredEPackages;
     }
 
-    public GenPackage getGenPackage(EPackage pack) {
+    private GenPackage getGenPackage(EPackage pack) {
         return getGenPackage(pack.getNsURI(), pack.getName());
     }
 
@@ -268,14 +241,16 @@ public class PackageSelector {
             LOGGER.error("No genmodel found for package URI " + uri + ". If you are running in stanalone mode make sure register the genmodel file.");
             return null;
         }
-        ResourceSet rs = new ResourceSetImpl();
+        ResourceSet rs = createResourceSet();
         Resource genModelResource;
         try {
             genModelResource = rs.getResource(genModelLoc, true);
-            for (GenModel g : Iterables.filter(genModelResource.getContents(), GenModel.class)) {
-                for (GenPackage genPack : g.getGenPackages()) {
-                    if (genPack.getEcorePackage().getNsURI().equals(uri) && genPack.getEcorePackage().getName().equals(packageName)) {
-                        return genPack;
+            if (genModelResource != null) {
+                for (GenModel g : Iterables.filter(genModelResource.getContents(), GenModel.class)) {
+                    for (GenPackage genPack : g.getGenPackages()) {
+                        if (genPack.getEcorePackage().getNsURI().equals(uri) && genPack.getEcorePackage().getName().equals(packageName)) {
+                            return genPack;
+                        }
                     }
                 }
             }
@@ -291,23 +266,73 @@ public class PackageSelector {
         return null;
     }
 
+    /**
+     * @return
+     */
+    protected ResourceSet createResourceSet() {
+        return new ResourceSetImpl();
+    }
+
     public IJavaProject getJavaProject(EObject model) {
         IJavaProject javaProject = null;
         IContainer container = getProject(model);
         if (container instanceof IProject) {
             IProject project = (IProject) container;
-            javaProject = JavaCore.create(project);
+            javaProject = createJavaProject(project);
         }
         return javaProject;
     }
 
+    /**
+     * @param project
+     * @return
+     */
+    protected IJavaProject createJavaProject(IProject project) {
+        return JavaCore.create(project);
+    }
+
     private IContainer getProject(EObject model) {
-        String fileStr = model.eResource().getURI().toPlatformString(true);
-        if (fileStr == null) {
-            return null;
+        IContainer project = null;
+        String fileStr = toPlatformURIStr(model);
+        if (fileStr != null) {
+            IWorkspaceRoot wsRoot = getWorkspaceRoot();
+            if (wsRoot != null) {
+                IFile file = wsRoot.getFile(getPathFromOSString(fileStr));
+                return getProject(file);
+            }
         }
-        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromOSString(fileStr));
-        return getProject(file);
+        return project;
+    }
+
+    /**
+     * @param model
+     * @return
+     */
+    protected String toPlatformURIStr(EObject model) {
+        String platformStr = null;
+        if (model.eResource() != null) {
+            platformStr = model.eResource().getURI().toPlatformString(true);
+        }
+        return platformStr;
+    }
+
+    /**
+     * @param fileStr
+     * @return
+     */
+    protected IPath getPathFromOSString(String fileStr) {
+        return Path.fromOSString(fileStr);
+    }
+
+    protected IWorkspaceRoot getWorkspaceRoot() {
+        IWorkspaceRoot wsRoot = null;
+        if (isPlatformRunning()) {
+            IWorkspace ws = getWorkspace();
+            if (ws != null) {
+                wsRoot = ws.getRoot();
+            }
+        }
+        return wsRoot;
     }
 
     private IContainer getProject(IResource res) {

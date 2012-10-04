@@ -1,8 +1,9 @@
 // Connections
 // multiple connection references of the same feature are not allowed
-diagram test for BusinessDomainDsl.BusinessDomainModel
+import BusinessDomainDsl.*
+diagram test for BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass {
+class BusinessClass {
     container () {
         text () { name };
     }

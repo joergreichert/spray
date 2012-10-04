@@ -11,7 +11,6 @@ Require-Bundle: org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
  org.eclipse.xtext.builder;bundle-version="[2.3.0,2.4.0)",
  org.eclipse.xtext.ecore;bundle-version="[2.3.0,2.4.0)",
  org.eclipse.xtext.generator;resolution:=optional,
- org.eclipse.xtext.generator;resolution:=optional,
  org.eclipse.xtext.xbase;bundle-version="[2.3.0,2.4.0)",
  org.eclipse.xtext.util,
  org.eclipse.xtext.common.types,
@@ -46,5 +45,6 @@ Export-Package: org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.styles,
  org.eclipselabs.spray.styles.styles.impl,
  org.eclipselabs.spray.styles.styles.util,
- org.eclipselabs.spray.styles.validation
+ org.eclipselabs.spray.styles.validation,
+ org.eclipselabs.spray.styles.jvmmodel
 
