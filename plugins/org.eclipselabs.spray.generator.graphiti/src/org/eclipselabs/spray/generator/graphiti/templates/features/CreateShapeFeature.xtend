@@ -1,17 +1,19 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EDataType
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
+import org.eclipselabs.spray.mm.spray.CompartmentBehavior
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipse.emf.ecore.EAttribute
-import org.eclipse.emf.ecore.EDataType
-import org.eclipselabs.spray.mm.spray.CompartmentBehavior
-import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EReference
 
 class CreateShapeFeature extends FileGenerator<MetaClass> {
     @Inject extension NamingExtensions
@@ -48,6 +50,8 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
+        import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
         import «metaClass.javaInterfaceName»;
         import org.eclipse.graphiti.features.context.IAreaContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -91,19 +95,36 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     def generate_canCreate (MetaClass metaClass) '''
         «overrideHeader()»
         public boolean canCreate(final ICreateContext context) {
+           	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+        	«IF metaClass.createBehavior != null»
             // TODO: Respect the cardinality of the containment reference
             if (context.getTargetContainer() instanceof Diagram) {
             	return true;
             } else if (context.getTargetContainer() instanceof ContainerShape){
-            	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+«««            	OLD STUFF
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
                 «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
                 if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
-                	return true;
+                	   	return true;
+                	}
                 }
                 «ENDFOR»
                 «ENDFOR»
         	}
+        	«ENDIF»
+//              And now the NEW stuff
+            «var result = metaClass.referencesTo»
+            «FOR cls : result »
+                // cls «cls.shape.represents.name» refers to this metaClass»
+                if( target instanceof «cls.shape.represents.javaInterfaceName» ){
+                	if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
+                        String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
+                        if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
+                            return true;	
+                        }
+                    }
+                }
+            «ENDFOR»
             return false;
         }
     '''
@@ -132,7 +153,9 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         «val diagram = metaClass.diagram»
         «val modelClassName = diagram.modelType.itfName»
         «val createBehavior = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head»
-        «val containmentRef = createBehavior.containmentReference»
+        «var EReference containmentRef = null»
+//      «IF createBehavior != null» «containmentRef = createBehavior.containmentReference» «ENDIF»
+        
         /**
          * Creates a new {@link «metaClass.itfName»} instance and adds it to the containing type.
          */
@@ -164,6 +187,19 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             	«ENDIF»   
             }
             «ENDIF»
+//              And now the NEW stuff
+            «var result = metaClass.referencesTo»
+            «FOR cls : result »
+            «var domainName = cls.shape.represents.javaInterfaceName»
+                if( target instanceof «domainName» ){
+                	«domainName» domainObject = («domainName») target;
+                    «IF cls.reference.many»
+                        domainObject.get«cls.reference.name.toFirstUpper»().add(newClass);
+                    «ELSE»»
+                        domainObject.set«cls.reference.name.toFirstUpper»(newClass);
+                    «ENDIF»
+                }
+            «ENDFOR»
             setDoneChanges(true);
             return newClass;
         }

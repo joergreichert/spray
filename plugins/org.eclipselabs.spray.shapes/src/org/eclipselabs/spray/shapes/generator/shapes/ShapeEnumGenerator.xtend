@@ -10,6 +10,8 @@ import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.Ellipse
 import org.eclipselabs.spray.shapes.shapes.Polygon
 import org.eclipselabs.spray.shapes.shapes.Rectangle
+import org.eclipselabs.spray.shapes.shapes.Compartment
+import com.ibm.icu.util.CompactByteArray
 
 class ShapeEnumGenerator {
 	
@@ -33,6 +35,8 @@ class ShapeEnumGenerator {
 		for(Shape shape : s.shape) {
 			if(shape instanceof Text) {
 				ids.add((shape as Text).body.value);
+			} else if(shape instanceof Compartment) {
+				ids.add((shape as Compartment).body.value);
 			} else {
 				ids.addAll(shape.searchTextIds);
 			}
@@ -78,6 +82,11 @@ class ShapeEnumGenerator {
 		ids
 	}
 	def dispatch searchTextIds(Text shape) {
+		val ids = new ArrayList<String>()
+		ids.add(shape.body.value)
+		ids
+	}
+	def dispatch searchTextIds(Compartment shape) {
 		val ids = new ArrayList<String>()
 		ids.add(shape.body.value)
 		ids

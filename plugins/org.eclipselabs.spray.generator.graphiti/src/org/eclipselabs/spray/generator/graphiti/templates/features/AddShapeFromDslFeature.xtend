@@ -64,6 +64,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
+        import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
         import «container.shape.qualifiedName»;
         «IF styleRef != null && styleRef.style != null»
         import «styleRef.style.qualifiedName»;
@@ -93,6 +95,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                     if (context.getTargetContainer() instanceof Diagram) {
                         return true;
                     } else if (context.getTargetContainer() instanceof ContainerShape) {
+                    	// OLD STUFF
                     	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                     	«FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
                     	«FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
@@ -101,7 +104,20 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                     	}
                     	«ENDFOR»
                     	«ENDFOR»
-        	}
+                    	// NEW stuff
+                        «var result = metaClass.referencesTo»
+                        «FOR cls : result »
+                        // cls «cls.shape.represents.name» refers to this metaClass»
+                        if( target instanceof «cls.shape.represents.javaInterfaceName» ){
+                            if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
+                                String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
+                                if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
+                                    return true;	
+                                }
+                            }
+                        }
+                        «ENDFOR»
+        	       }
                 }
                 return false;
             }

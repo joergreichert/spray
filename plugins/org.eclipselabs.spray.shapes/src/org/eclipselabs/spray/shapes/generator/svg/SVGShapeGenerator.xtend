@@ -4,28 +4,29 @@ import com.google.inject.Inject
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipselabs.spray.shapes.shapes.AnchorManual
 import org.eclipselabs.spray.shapes.shapes.AnchorPredefinied
+import org.eclipselabs.spray.shapes.shapes.CDEllipse
+import org.eclipselabs.spray.shapes.shapes.CDLine
+import org.eclipselabs.spray.shapes.shapes.CDPolygon
+import org.eclipselabs.spray.shapes.shapes.CDPolyline
+import org.eclipselabs.spray.shapes.shapes.CDRectangle
+import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
+import org.eclipselabs.spray.shapes.shapes.CDText
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.shapes.Ellipse
 import org.eclipselabs.spray.shapes.shapes.Line
+import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
 import org.eclipselabs.spray.shapes.shapes.PolyLineLayout
 import org.eclipselabs.spray.shapes.shapes.Polygon
 import org.eclipselabs.spray.shapes.shapes.Polyline
 import org.eclipselabs.spray.shapes.shapes.Rectangle
 import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.Shape
+import org.eclipselabs.spray.shapes.shapes.ShapeConnection
+import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
 import org.eclipselabs.spray.shapes.shapes.Text
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
-import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
-import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
-import org.eclipselabs.spray.shapes.shapes.CDLine
-import org.eclipselabs.spray.shapes.shapes.CDPolyline
-import org.eclipselabs.spray.shapes.shapes.CDPolygon
-import org.eclipselabs.spray.shapes.shapes.CDRectangle
-import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
-import org.eclipselabs.spray.shapes.shapes.CDEllipse
-import org.eclipselabs.spray.shapes.shapes.CDText
-import org.eclipselabs.spray.shapes.shapes.ShapeConnection
+import org.eclipselabs.spray.shapes.shapes.Compartment
 
 /**
  * Generator for SVG representations of ShapeDefinitions.
@@ -96,6 +97,9 @@ class SVGShapeGenerator {
 
     // RECTANGLE
 
+    def protected dispatch generateShape (Compartment shape) '''
+        <rect «shape.positionAndSize»/>
+    '''
     def protected dispatch generateShape (Rectangle shape) '''
         <rect «shape.positionAndSize»/>
         «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»

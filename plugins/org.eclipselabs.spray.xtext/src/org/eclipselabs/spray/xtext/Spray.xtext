@@ -66,8 +66,8 @@ BehaviorGroup:
 Behavior :
     CreateBehavior | CustomBehavior | CompartmentBehavior;
 
-CreateBehavior :
-    'create' 'into' containmentReference=[ecore::EReference] (label = STRING)? 
+CreateBehavior : {CreateBehavior }
+    'create' ('into' containmentReference=[ecore::EReference] (label = STRING)? )?
     ('palette' paletteCompartment = STRING)? 
     ('askFor' askFor=[ecore::EAttribute])?;
 
@@ -81,6 +81,7 @@ ShapeInSpray :
 ShapeFromDsl : { ShapeFromDsl }
     'shape' shape = JvmTypeReference ('{'
         properties+=ShapePropertyAssignment*
+        references += ShapeCompartmentAssignment*
     '}')?
 ;
 
@@ -89,6 +90,9 @@ SprayStyleRef:
 
 ShapePropertyAssignment: 
     attribute=[ecore::EAttribute] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?
+;
+ShapeCompartmentAssignment: 
+    'reference' reference=[ecore::EReference] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?
 ;
 
 Layout :

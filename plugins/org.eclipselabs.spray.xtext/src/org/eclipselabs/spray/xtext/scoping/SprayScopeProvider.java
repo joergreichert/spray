@@ -17,6 +17,7 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__T
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
 
 import java.util.ArrayList;
@@ -126,8 +127,12 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             scope = getColorConstantFieldScope(context);
         } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE) {
             return scope_ShapePropertyAssignment_attribute(context);
+        } else if (reference == SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE) {
+            return scope_ShapeCompartmentAssignment_reference(context);
         } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
             scope = scope_ShapePropertyAssignment_Key(context, reference);
+        } else if (reference == SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__KEY) {
+            scope = scope_ShapeCompartmentAssignment_Key(context, reference);
         } else {
             // not handled specially, delegate to super
             scope = super.getScope(context, reference);
@@ -150,6 +155,26 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 }
             };
             return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(metaClass.getType().getEAllAttributes(), filterPredicate)));
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
+
+    protected IScope scope_ShapeCompartmentAssignment_reference(EObject context) {
+        MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
+        if (metaClass != null) {
+            Predicate<EObject> filterPredicate = new Predicate<EObject>() {
+                @Override
+                public boolean apply(EObject input) {
+                    if (input instanceof EReference) {
+                        //                        if (((EReference) input).getEType().getName().equals("EString")) {
+                        return true;
+                        //                        }
+                    }
+                    return false;
+                }
+            };
+            return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(metaClass.getType().getEAllReferences(), filterPredicate)));
         } else {
             return IScope.NULLSCOPE;
         }
@@ -321,6 +346,23 @@ public class SprayScopeProvider extends XbaseScopeProvider {
      * @return
      */
     protected IScope scope_ShapePropertyAssignment_Key(EObject context, EReference reference) {
+        JvmType jvmType = null;
+        final String className = "TextIds";
+        final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
+        final ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
+        if (shape != null) {
+            jvmType = shape.getShape().getType();
+        } else if (connection != null) {
+            jvmType = connection.getConnection().getType();
+        }
+        if (jvmType != null && jvmType instanceof JvmGenericType) {
+            return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
+
+    protected IScope scope_ShapeCompartmentAssignment_Key(EObject context, EReference reference) {
         JvmType jvmType = null;
         final String className = "TextIds";
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);

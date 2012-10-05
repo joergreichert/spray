@@ -18,6 +18,7 @@ import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.HAlign
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 import org.eclipselabs.spray.shapes.shapes.Description
+import org.eclipselabs.spray.shapes.shapes.Compartment 
 
 class ShapeTypeGenerator {
 	
@@ -177,6 +178,23 @@ class ShapeTypeGenerator {
      	'''
 	}
 	
+	def dispatch createElement(Compartment element, String parentName, String shapeStyle) { 
+		val shapeName = nextShapeName
+		val ganame = nextGaName
+		'''
+		// start createElement Compartment parent «parentName»
+		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», true);
+		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setCompartment(«shapeName», true);
+		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.body.value»");
+		Rectangle «ganame» = gaService.createRectangle(«shapeName»);
+		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
+		«ganame».setStyle(style_«element_index».getStyle(diagram));
+		gaService.setLocationAndSize(«ganame», «element.common.xcor», «element.common.ycor», «element.common.width», «element.common.heigth»);
+		«ganame».setLineStyle(LineStyle.DASH);
+«««		«generateStyleForElement(ganame, element.layout.layout)»
+     	'''
+	}
 	def dispatch createElement(Text element, String parentName, String shapeStyle) { 
 		val shapeName = nextShapeName
 		val gaName = nextGaName

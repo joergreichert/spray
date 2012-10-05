@@ -155,4 +155,13 @@ public class SprayLayoutService {
     static public void setShapeFromDsl(PictogramElement shape, boolean value) {
         GraphitiProperties.set(shape, ISprayConstants.IS_SHAPE_FROM_DSL, value);
     }
+
+    static public boolean isCompartment(PictogramElement shape) {
+        return GraphitiProperties.getBooleanValue(shape, ISprayConstants.IS_COMPARTMENT);
+    }
+
+    static public void setCompartment(PictogramElement shape, boolean value) {
+        GraphitiProperties.set(shape, ISprayConstants.IS_COMPARTMENT, value);
+        GraphitiProperties.set(shape, ISprayConstants.PROPERTY_CAN_MOVE, false);
+    }
 }
