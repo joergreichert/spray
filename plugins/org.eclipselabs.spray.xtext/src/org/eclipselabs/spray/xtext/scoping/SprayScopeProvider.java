@@ -493,7 +493,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
             @Override
             public boolean apply(EClassifier input) {
-                return input instanceof EClass && !((EClass) input).isAbstract() && isAContainmentReferenceType(diagramModelType, (EClass) input);
+                return input instanceof EClass; // && !((EClass) input).isAbstract() && isAContainmentReferenceType(diagramModelType, (EClass) input);
             }
 
         };

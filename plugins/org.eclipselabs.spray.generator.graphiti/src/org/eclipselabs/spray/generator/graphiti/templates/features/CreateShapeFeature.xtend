@@ -99,7 +99,11 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         	«IF metaClass.createBehavior != null»
             // TODO: Respect the cardinality of the containment reference
             if (context.getTargetContainer() instanceof Diagram) {
+            	«IF metaClass.createBehavior.containmentReference != null»
             	return true;
+            	«ELSE»
+            	return false;
+            	«ENDIF»
             } else if (context.getTargetContainer() instanceof ContainerShape){
 «««            	OLD STUFF
                 «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»

@@ -10,10 +10,12 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.SprayStyleRef
 import org.eclipselabs.spray.mm.spray.CompartmentBehavior
 import org.eclipse.emf.ecore.EClass
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
 	
     @Inject extension NamingExtensions
+    @Inject extension MetaClassExtensions
     
     MetaClass metaClass = null
     SprayStyleRef styleRef = null
@@ -93,7 +95,11 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 if (newObject instanceof «metaClass.name») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
-                        return true;
+		            	«IF metaClass.createBehavior.containmentReference != null»
+		            	return true;
+		            	«ELSE»
+		            	return false;
+		            	«ENDIF»
                     } else if (context.getTargetContainer() instanceof ContainerShape) {
                     	// OLD STUFF
                     	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
