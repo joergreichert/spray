@@ -137,11 +137,14 @@ class ShapeTypeGenerator {
 	}
 	
 	def dispatch createElement(Polyline element, String parentName, String shapeStyle) { 
+		val shapeName = nextShapeName
 		val attname = nextAttributeName
 		val pointListName = nextPointListName
 		'''
 		«createPointList(element.layout.point, pointListName)»
-		Polyline «attname» = gaService.createPolyline(«parentName», «pointListName»);
+		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
+		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		Polyline «attname» = gaService.createPolyline(«shapeName», «pointListName»);
 		ISprayStyle style_«element_index» = «element.style.styleForElement(shapeStyle)»;
 		«attname».setStyle(style_«element_index».getStyle(diagram));
 		«generateStyleForElement(attname, element.layout.layout)»
@@ -223,7 +226,7 @@ class ShapeTypeGenerator {
 	}
 
 	def generateDescription(Description d, String containerName, String styleName, int y, int width) {
-		val shapeName = nextAttributeName
+		val shapeName = nextShapeName
 		val attname = nextAttributeName
 		'''
 		Shape «shapeName» = peCreateService.createShape(«containerName», false);
