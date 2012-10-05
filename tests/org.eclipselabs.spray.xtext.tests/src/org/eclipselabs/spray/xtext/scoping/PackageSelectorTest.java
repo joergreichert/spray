@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.junit.Test;
 
 public class PackageSelectorTest {
-	private final String workspaceURIStr = "C:/test";
+	private final String workspaceURIStr = "/test";
 	private final String ecoreURIWorkspaceRelativeStr = "/test_prj/test.ecore";
 	private final String ecoreURIStr = workspaceURIStr + ecoreURIWorkspaceRelativeStr;
 	private final String genModelURIStr = workspaceURIStr + "/test_prj/test.genmodel";
