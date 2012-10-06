@@ -3,7 +3,9 @@
  */
 package org.eclipselabs.spray.shapes;
 
+import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipselabs.spray.shapes.linking.ShapeLinkingService;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 
@@ -35,5 +37,9 @@ public class ShapeRuntimeModule extends org.eclipselabs.spray.shapes.AbstractSha
     public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
         return org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider.class;
     }
-
+    
+    @Override
+    public Class<? extends ILinkingService> bindILinkingService() {
+        return ShapeLinkingService.class;
+    }
 }

@@ -6,15 +6,20 @@ package org.eclipselabs.spray.shapes.ui.contentassist;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
+import org.eclipselabs.spray.styles.styles.StylesPackage;
 
 import com.google.inject.Inject;
 
@@ -26,6 +31,9 @@ import com.google.inject.Inject;
 public class ShapeProposalProvider extends AbstractShapeProposalProvider {
     @Inject
     ITypesProposalProvider   proposalProvider;
+    
+    @Inject
+    private ShapeScopeProvider shapeScopeProvider;
 
     @Inject
     IJvmTypeProvider.Factory typeProviderFactory;
@@ -41,6 +49,13 @@ public class ShapeProposalProvider extends AbstractShapeProposalProvider {
         if (model instanceof ShapeStyleRef) {
             JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
             proposalProvider.createSubTypeProposals(superType, this, context, ShapesPackage.Literals.SHAPE_STYLE_REF__STYLE, filter, acceptor);
+            
+            IScope scope = shapeScopeProvider.getScope(model, ShapesPackage.Literals.SHAPE_STYLE_REF__STYLE);
+            for(IEObjectDescription elem : scope.getAllElements()) {
+            	if(elem.getEClass() == TypesPackage.Literals.JVM_GENERIC_TYPE) {
+            		acceptor.accept(createCompletionProposal(elem.getQualifiedName().toString(), context));
+            	}
+            }
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
     }

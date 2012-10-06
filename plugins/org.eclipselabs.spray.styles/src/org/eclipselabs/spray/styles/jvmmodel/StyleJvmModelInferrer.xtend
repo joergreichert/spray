@@ -1,63 +1,47 @@
 package org.eclipselabs.spray.styles.jvmmodel
 
 import com.google.inject.Inject
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.eclipselabs.spray.styles.styles.StyleContainer
+import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
+import org.eclipselabs.spray.styles.generator.StyleGenerator
+import org.eclipselabs.spray.styles.styles.Style
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider
+import org.eclipse.xtext.common.types.JvmDeclaredType
+import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociator
 
-/**
- * <p>Infers a JVM model from the source model.</p> 
- *
- * <p>The JVM model should contain all elements that would appear in the Java code 
- * which is generated from the source model. Other models link against the JVM model rather than the source model.</p>     
- */
 class StyleJvmModelInferrer extends AbstractModelInferrer {
 
-    /**
-     * convenience API to build and initialize JVM types and their members.
-     */
-	@Inject extension JvmTypesBuilder
+	@Inject extension TypeReferences typeReferences
+    @Inject extension JvmTypesBuilder
+    @Inject extension StyleGenerator styleGenerator
+    @Inject extension IJvmTypeProvider$Factory typeProviderFactory
+    @Inject extension IJvmModelAssociator associator
 
-	/**
-	 * The dispatch method {@code infer} is called for each instance of the
-	 * given element's type that is contained in a resource.
-	 * 
-	 * @param element
-	 *            the model to create one or more
-	 *            {@link org.eclipse.xtext.common.types.JvmDeclaredType declared
-	 *            types} from.
-	 * @param acceptor
-	 *            each created
-	 *            {@link org.eclipse.xtext.common.types.JvmDeclaredType type}
-	 *            without a container should be passed to the acceptor in order
-	 *            get attached to the current resource. The acceptor's
-	 *            {@link IJvmDeclaredTypeAcceptor#accept(org.eclipse.xtext.common.types.JvmDeclaredType)
-	 *            accept(..)} method takes the constructed empty type for the
-	 *            pre-indexing phase. This one is further initialized in the
-	 *            indexing phase using the closure you pass to the returned
-	 *            {@link org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor.IPostIndexingInitializing#initializeLater(org.eclipse.xtext.xbase.lib.Procedures.Procedure1)
-	 *            initializeLater(..)}.
-	 * @param isPreIndexingPhase
-	 *            whether the method is called in a pre-indexing phase, i.e.
-	 *            when the global index is not yet fully updated. You must not
-	 *            rely on linking using the index if isPreIndexingPhase is
-	 *            <code>true</code>.
-	 */
-   	def dispatch void infer(StyleContainer element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
-   		// Here you explain how your model is mapped to Java elements, by writing the actual translation code.
-   		
-   		// An implementation for the initial hello world example could look like this:
-//   		acceptor.accept(element.toClass("my.company.greeting.MyGreetings"))
-//   			.initializeLater([
-//   				for (greeting : element.greetings) {
-//   					members += greeting.toMethod("hello" + greeting.name, greeting.newTypeRef(typeof(String))) [
-//   						body = [
-//   							append('''return "Hello «greeting.name»";''')
-//   						]
-//   					]
-//   				}
-//   			])
-   	}
+	def void infer(Style element, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+		var JvmTypeReference varSuperTypeRef = null
+		if(element.superStyle != null) {
+			varSuperTypeRef = cloneWithProxies(element.superStyle)
+		} else {
+			val superType = typeReferences.findDeclaredType(typeof(DefaultSprayStyle), element)
+			if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
+		}
+		val superTypeRef = varSuperTypeRef
+		val typeProvider = typeProviderFactory.createTypeProvider
+		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
+		if(existingClass == null) {
+			acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
+				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
+			]
+		} else {
+			if(existingClass instanceof JvmDeclaredType) {
+				element.associate(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
+			}
+		}
+	}
 }
 

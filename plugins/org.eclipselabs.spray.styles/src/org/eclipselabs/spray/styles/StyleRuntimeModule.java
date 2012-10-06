@@ -3,6 +3,8 @@
  */
 package org.eclipselabs.spray.styles;
 
+import org.eclipselabs.spray.styles.generator.naming.StyleQualifiedNameProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the
  * Equinox extension registry.
@@ -24,7 +26,7 @@ public class StyleRuntimeModule extends org.eclipselabs.spray.styles.AbstractSty
 	// contributed by
 	// org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider.class;
+		return StyleQualifiedNameProvider.class;
 	}
 
 	@Override
