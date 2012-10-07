@@ -7,29 +7,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
+import org.eclipselabs.spray.xtext.scoping.JavaProjectHelper;
 
 public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 	private Map<IResource, List<T>> fileToEObjects = new HashMap<IResource, List<T>>();
 	private ResourceSet rs = null;
+	private JavaProjectHelper javaProjectHelper = new JavaProjectHelper();
 
 	public void setResourceSet(ResourceSet rs) {
 		this.rs = rs;
@@ -37,12 +30,12 @@ public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 		if (getJavaProjectProvider() != null) {
 			IJavaProject javaProject = getJavaProjectProvider().getJavaProject(
 					rs);
-			if (javaProject == null) {
-				if(rs.getResources().size() > 0) {
+			if (javaProject == null && rs != null) {
+				if (rs.getResources().size() > 0) {
 					Resource res = rs.getResources().get(0);
 					EList<EObject> contents = res.getContents();
-					if(contents.size() > 0) {
-						javaProject = getJavaProject(contents.get(0));
+					if (contents.size() > 0) {
+						javaProject = javaProjectHelper.getJavaProject(contents.get(0));
 					}
 				}
 			}
@@ -55,92 +48,6 @@ public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 			}
 		}
 	}
-	
-    public IJavaProject getJavaProject(EObject model) {
-        IJavaProject javaProject = null;
-        IContainer container = getProject(model);
-        if (container instanceof IProject) {
-            IProject project = (IProject) container;
-            javaProject = createJavaProject(project);
-        }
-        return javaProject;
-    }
-
-    /**
-     * @param project
-     * @return
-     */
-    protected IJavaProject createJavaProject(IProject project) {
-        return JavaCore.create(project);
-    }
-
-    private IContainer getProject(EObject model) {
-        IContainer project = null;
-        String fileStr = toPlatformURIStr(model);
-        if (fileStr != null) {
-            IWorkspaceRoot wsRoot = getWorkspaceRoot();
-            if (wsRoot != null) {
-                IFile file = wsRoot.getFileForLocation(getPathFromOSString(fileStr));
-                return getProject(file);
-            }
-        }
-        return project;
-    }
-
-    /**
-     * @param model
-     * @return
-     */
-    protected String toPlatformURIStr(EObject model) {
-        String platformStr = null;
-        if (model.eResource() != null) {
-        	URI uri = model.eResource().getURI();
-            platformStr = uri.toFileString();
-        }
-        return platformStr;
-    }
-
-    /**
-     * @param fileStr
-     * @return
-     */
-    protected IPath getPathFromOSString(String fileStr) {
-        return Path.fromOSString(fileStr);
-    }
-
-    protected IWorkspaceRoot getWorkspaceRoot() {
-        IWorkspaceRoot wsRoot = null;
-        if (isPlatformRunning()) {
-            IWorkspace ws = getWorkspace();
-            if (ws != null) {
-                wsRoot = ws.getRoot();
-            }
-        }
-        return wsRoot;
-    }
-    
-    /**
-     * @return
-     */
-    protected IWorkspace getWorkspace() {
-        return ResourcesPlugin.getWorkspace();
-    }
-
-    /**
-     * @return
-     */
-    protected boolean isPlatformRunning() {
-        return Platform.isRunning();
-    }    
-
-    private IContainer getProject(IResource res) {
-        IContainer parent = res != null ? res.getParent() : null;
-        if (parent != null && !(parent instanceof IProject)) {
-            parent = getProject(parent);
-        }
-        return parent;
-    }	
-
 
 	protected abstract IJavaProjectProvider getJavaProjectProvider();
 

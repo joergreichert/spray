@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -19,8 +18,6 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -34,7 +31,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipselabs.spray.mm.spray.Diagram;
@@ -48,9 +44,10 @@ public class PackageSelector {
     private static final Logger           LOGGER                 = Logger.getLogger(PackageSelector.class);
     private Map<IContainer, Boolean>      projectToChanged       = new HashMap<IContainer, Boolean>();
     private Map<IProject, List<EPackage>> javaProjectToEPackages = new HashMap<IProject, List<EPackage>>();
+    private JavaProjectHelper             javaProjectHelper      = new JavaProjectHelper();
 
     public List<EPackage> getFilteredEPackages(EObject modelElement) {
-        IJavaProject project = getJavaProject(modelElement);
+        IJavaProject project = javaProjectHelper.getJavaProject(modelElement);
         List<EPackage> ePackages = null;
         if (project != null && !projectsHasChangedSinceLastRun(project)) {
             ePackages = javaProjectToEPackages.get(project.getProject());
@@ -183,7 +180,7 @@ public class PackageSelector {
                 public void resourceChanged(IResourceChangeEvent event) {
                     IResource resource = event.getResource();
                     if (resource != null) {
-                        IContainer projectContainingChange = getProject(resource);
+                        IContainer projectContainingChange = javaProjectHelper.getProject(resource);
                         if (projectContainingChange != null) {
                             projectToChanged.put(projectContainingChange, true);
                         }
@@ -285,73 +282,11 @@ public class PackageSelector {
         return new ResourceSetImpl();
     }
 
-    public IJavaProject getJavaProject(EObject model) {
-        IJavaProject javaProject = null;
-        IContainer container = getProject(model);
-        if (container instanceof IProject) {
-            IProject project = (IProject) container;
-            javaProject = createJavaProject(project);
-        }
-        return javaProject;
-    }
-
-    /**
-     * @param project
-     * @return
-     */
-    protected IJavaProject createJavaProject(IProject project) {
-        return JavaCore.create(project);
-    }
-
-    private IContainer getProject(EObject model) {
-        IContainer project = null;
-        String fileStr = toPlatformURIStr(model);
-        if (fileStr != null) {
-            IWorkspaceRoot wsRoot = getWorkspaceRoot();
-            if (wsRoot != null) {
-                IFile file = wsRoot.getFile(getPathFromOSString(fileStr));
-                return getProject(file);
-            }
-        }
-        return project;
-    }
-
     /**
      * @param model
      * @return
      */
-    protected String toPlatformURIStr(EObject model) {
-        String platformStr = null;
-        if (model.eResource() != null) {
-            platformStr = model.eResource().getURI().toPlatformString(true);
-        }
-        return platformStr;
-    }
-
-    /**
-     * @param fileStr
-     * @return
-     */
-    protected IPath getPathFromOSString(String fileStr) {
-        return Path.fromOSString(fileStr);
-    }
-
-    protected IWorkspaceRoot getWorkspaceRoot() {
-        IWorkspaceRoot wsRoot = null;
-        if (isPlatformRunning()) {
-            IWorkspace ws = getWorkspace();
-            if (ws != null) {
-                wsRoot = ws.getRoot();
-            }
-        }
-        return wsRoot;
-    }
-
-    private IContainer getProject(IResource res) {
-        IContainer parent = res != null ? res.getParent() : null;
-        if (parent != null && !(parent instanceof IProject)) {
-            parent = getProject(parent);
-        }
-        return parent;
+    public IJavaProject getJavaProject(EObject model) {
+        return javaProjectHelper.getJavaProject(model);
     }
 }
