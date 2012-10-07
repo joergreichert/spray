@@ -12,6 +12,7 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeI
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
 import org.eclipse.xtext.ui.wizard.IProjectCreator;
+import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalPriorities;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalProvider;
 import org.eclipselabs.spray.xtext.ui.linking.SprayDispatchingLinkingHelper;
 import org.eclipselabs.spray.xtext.ui.linking.connection.ConnectionEditorOpener;
@@ -64,6 +65,10 @@ public class SprayUiModule extends AbstractSprayUiModule {
                 return false;
             }
         });
+    }
+
+    public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities> bindIContentProposalPriorities() {
+        return SprayJdtTypesProposalPriorities.class;
     }
 
     public void configureNewProjectName(Binder binder) {
