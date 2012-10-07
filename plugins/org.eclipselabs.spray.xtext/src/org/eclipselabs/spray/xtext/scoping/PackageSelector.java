@@ -52,7 +52,7 @@ public class PackageSelector {
     public List<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = getJavaProject(modelElement);
         List<EPackage> ePackages = null;
-        if (project != null && !projectsHasChangedSinceLastRun()) {
+        if (project != null && !projectsHasChangedSinceLastRun(project)) {
             ePackages = javaProjectToEPackages.get(project.getProject());
         }
         if (ePackages == null) {
@@ -68,8 +68,20 @@ public class PackageSelector {
     /**
      * @return
      */
-    private boolean projectsHasChangedSinceLastRun() {
-        return projectToChanged.containsValue(Boolean.TRUE);
+    private boolean projectsHasChangedSinceLastRun(IJavaProject project) {
+        Map<IContainer, Boolean> localProjectToChanged = new HashMap<IContainer, Boolean>();
+        try {
+            for (Map.Entry<IContainer, Boolean> entry : localProjectToChanged.entrySet()) {
+                for (String requiredProjectName : project.getRequiredProjectNames()) {
+                    if (requiredProjectName.equals(entry.getKey().getName()) && entry.getValue() == Boolean.TRUE) {
+                        return true;
+                    }
+                }
+            }
+        } catch (JavaModelException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public List<EPackage> getEPackages() {
