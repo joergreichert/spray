@@ -3,7 +3,8 @@
  */
 package org.eclipselabs.spray.styles;
 
-import org.eclipselabs.spray.styles.generator.naming.StyleQualifiedNameProvider;
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+
 
 /**
  * Use this class to register components to be used at runtime / without the
@@ -26,7 +27,7 @@ public class StyleRuntimeModule extends org.eclipselabs.spray.styles.AbstractSty
 	// contributed by
 	// org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return StyleQualifiedNameProvider.class;
+		return DefaultDeclarativeQualifiedNameProvider.class;
 	}
 
 	@Override

@@ -1,7 +1,9 @@
 package org.eclipselabs.spray.styles.jvmmodel
 
 import com.google.inject.Inject
+import org.eclipse.xtext.common.types.JvmDeclaredType
 import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider$Factory
 import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
@@ -9,9 +11,6 @@ import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
 import org.eclipselabs.spray.styles.generator.StyleGenerator
 import org.eclipselabs.spray.styles.styles.Style
-import org.eclipse.xtext.common.types.access.IJvmTypeProvider
-import org.eclipse.xtext.common.types.JvmDeclaredType
-import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociator
 
 class StyleJvmModelInferrer extends AbstractModelInferrer {
 
@@ -19,7 +18,6 @@ class StyleJvmModelInferrer extends AbstractModelInferrer {
     @Inject extension JvmTypesBuilder
     @Inject extension StyleGenerator styleGenerator
     @Inject extension IJvmTypeProvider$Factory typeProviderFactory
-    @Inject extension IJvmModelAssociator associator
 
 	def void infer(Style element, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
 		var JvmTypeReference varSuperTypeRef = null
