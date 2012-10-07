@@ -4,6 +4,7 @@
 package org.eclipselabs.spray.styles;
 
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 
 
 /**
@@ -15,14 +16,14 @@ public class StyleRuntimeModule extends org.eclipselabs.spray.styles.AbstractSty
 	public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
 		return org.eclipselabs.spray.styles.scoping.StyleScopeProvider.class;
 	}
-
-	// contributed by
-	// org.eclipse.xtext.generator.scoping.AbstractScopingFragment
-	public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class)
-				.annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-				.to(org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class);
-	}
+	
+    /**
+     * Implicit imports
+     */
+    @Override
+    public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
+        binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(SprayImportedNamespaceScopeProvider.class);
+    }	
 
 	// contributed by
 	// org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
