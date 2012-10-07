@@ -52,6 +52,8 @@
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
 				<module>../../examples/lwc2012/de.htwg.2012.lwc.mm</module>
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
+				<module>../../bpmn2.0/de.htwg.2012.bpmn.mm</module>
+				<module>../../bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
@@ -98,6 +100,8 @@
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
 				<module>../../examples/lwc2012/de.htwg.2012.lwc.mm</module>
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
+				<module>../../bpmn2.0/de.htwg.2012.bpmn.mm</module>
+				<module>../../bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
@@ -176,6 +180,8 @@
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
 				<module>../../examples/lwc2012/de.htwg.2012.lwc.mm</module>
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
+				<module>../../bpmn2.0/de.htwg.2012.bpmn.mm</module>
+				<module>../../bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
                 <module>../../tests/org.eclipselabs.spray.testhelper</module>
                 <module>../../tests/org.eclipselabs.spray.xtext.tests</module>
                 <module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
@@ -242,6 +248,8 @@
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
 				<module>../../examples/lwc2012/de.htwg.2012.lwc.mm</module>
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
+				<module>../../bpmn2.0/de.htwg.2012.bpmn.mm</module>
+				<module>../../bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
