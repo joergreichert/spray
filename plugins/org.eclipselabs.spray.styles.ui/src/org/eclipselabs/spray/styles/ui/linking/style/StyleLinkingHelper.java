@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.ui.linking;
+package org.eclipselabs.spray.styles.ui.linking.style;
 
 import java.util.Set;
 
@@ -14,7 +14,7 @@ import org.eclipselabs.spray.styles.styles.Style;
 
 import com.google.inject.Inject;
 
-public class ShapeLinkingHelper extends DSLLinkingHelper<Style> {
+public class StyleLinkingHelper extends DSLLinkingHelper<Style> {
 		
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
@@ -22,11 +22,12 @@ public class ShapeLinkingHelper extends DSLLinkingHelper<Style> {
 	@Inject
 	private IJvmModelAssociations modelAssocs;
 	
-	@Inject
-	private StyleEditorOpener styleEditorOpener;
+	@Inject 
+	private StyleEditorOpener styleEditorOpener; 
 	
 	@Inject 
 	private StyleResourceVisitor styleResourceVisitor;
+	
 
 	@Override
 	protected DSLResourceVisitor<Style> getDSLResourceVisitor(

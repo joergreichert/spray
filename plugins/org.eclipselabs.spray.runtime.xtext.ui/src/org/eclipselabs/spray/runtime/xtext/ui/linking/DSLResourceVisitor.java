@@ -18,12 +18,12 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 
 public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
-	private final Map<IResource, List<T>> fileToEObjects;
-	private final ResourceSet rs;
+	private Map<IResource, List<T>> fileToEObjects = new HashMap<IResource, List<T>>();
+	private ResourceSet rs = null;
 
-	public DSLResourceVisitor(ResourceSet rs) {
+	public void setResourceSet(ResourceSet rs) {
 		this.rs = rs;
-		fileToEObjects = new HashMap<IResource, List<T>>();
+		fileToEObjects.clear();
 		if (getJavaProjectProvider() != null) {
 			IJavaProject javaProject = getJavaProjectProvider().getJavaProject(
 					rs);
@@ -40,11 +40,14 @@ public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 	@Override
 	public boolean visit(IResource resource) throws CoreException {
 		boolean visitMembers = false;
-		if (getFileExtension().equals(resource.getFileExtension())
-				&& noBinOrTargetFolderContent(resource)) {
-			fillFileToEObjects(resource, fileToEObjects);
-		} else if (resource instanceof IContainer) {
-			visitMembers = true;
+		if (rs != null) {
+			if (getFileExtension().equals(resource.getFileExtension())
+					&& noBinOrTargetFolderContent(resource)) {
+				fillFileToEObjects(resource, fileToEObjects);
+			} else if (resource instanceof IContainer) {
+				visitMembers = true;
+			}
+
 		}
 		return visitMembers;
 	}
@@ -57,7 +60,7 @@ public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 						.contains("/target/");
 	}
 
-	public void fillFileToEObjects(IResource resource,
+	private void fillFileToEObjects(IResource resource,
 			Map<IResource, List<T>> fileToEObjects) {
 		Resource res = getEmfResource(resource);
 		try {
@@ -70,8 +73,8 @@ public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 		}
 	}
 
-	public abstract void fillFileToEObjects(IResource resource, EObject root,
-			Map<IResource, List<T>> fileToEObjects);
+	protected abstract void fillFileToEObjects(IResource resource,
+			EObject root, Map<IResource, List<T>> fileToEObjects);
 
 	private Resource getEmfResource(IResource resource) {
 		URI uri = URI.createURI(resource.getLocationURI().toString());

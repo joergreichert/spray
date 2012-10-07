@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.ui.linking;
+package org.eclipselabs.spray.styles.ui.linking.gradient;
 
 import java.util.Set;
 
@@ -10,11 +10,11 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLEditorOpener;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLLinkingHelper;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.styles.Gradient;
 
 import com.google.inject.Inject;
 
-public class ShapeLinkingHelper extends DSLLinkingHelper<Style> {
+public class GradientLinkingHelper extends DSLLinkingHelper<Gradient> {
 		
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
@@ -23,31 +23,31 @@ public class ShapeLinkingHelper extends DSLLinkingHelper<Style> {
 	private IJvmModelAssociations modelAssocs;
 	
 	@Inject
-	private StyleEditorOpener styleEditorOpener;
+	private GradientEditorOpener gradientEditorOpener;
 	
 	@Inject 
-	private StyleResourceVisitor styleResourceVisitor;
+	private GradientResourceVisitor gradientResourceVisitor;
 
 	@Override
-	protected DSLResourceVisitor<Style> getDSLResourceVisitor(
+	protected DSLResourceVisitor<Gradient> getDSLResourceVisitor(
 			final XtextResource xtextResource) {
-		styleResourceVisitor.setResourceSet(xtextResource.getResourceSet());
-		return styleResourceVisitor;
+		gradientResourceVisitor.setResourceSet(xtextResource.getResourceSet());
+		return gradientResourceVisitor;
 	}
 
 	@Override
 	protected boolean isExpectedType(final EObject to) {
-		return to instanceof Style;
+		return to instanceof Gradient;
 	}
 	
 	@Override
-	protected DSLEditorOpener<Style> getDSLEditorOpener(Style to) {
-		styleEditorOpener.setEObject(to);
-		return styleEditorOpener;
+	protected DSLEditorOpener<Gradient> getDSLEditorOpener(Gradient to) {
+		gradientEditorOpener.setEObject(to);
+		return gradientEditorOpener;
 	}
 
 	@Override
-	protected String getName(Style style) {
+	protected String getName(Gradient style) {
 		return style.getName();
 	}
 

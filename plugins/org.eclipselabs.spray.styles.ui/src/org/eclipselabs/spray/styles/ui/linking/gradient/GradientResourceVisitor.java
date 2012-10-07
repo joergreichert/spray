@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.ui.linking;
+package org.eclipselabs.spray.styles.ui.linking.gradient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.common.types.xtext.ui.XtextResourceSetBasedProjectProvider;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.styles.Gradient;
 import org.eclipselabs.spray.styles.styles.StyleContainer;
 import org.eclipselabs.spray.styles.styles.StyleContainerElement;
 
 import com.google.inject.Inject;
 
-public class StyleResourceVisitor extends DSLResourceVisitor<Style> {
+public class GradientResourceVisitor extends DSLResourceVisitor<Gradient> {
 	private static final String STYLE_DSL_FILEEXTENSION = "style";
 	
 	@Inject
@@ -23,18 +23,18 @@ public class StyleResourceVisitor extends DSLResourceVisitor<Style> {
 
 	@Override
 	public void fillFileToEObjects(IResource resource, EObject root,
-			Map<IResource, List<Style>> fileToEObjects) {
-		List<Style> list;
+			Map<IResource, List<Gradient>> fileToEObjects) {
+		List<Gradient> list;
 		if (root instanceof StyleContainer) {
 			StyleContainer styleContainer = (StyleContainer) root;
 			for (StyleContainerElement ele : styleContainer
 					.getStyleContainerElement()) {
-				if (ele instanceof Style) {
+				if (ele instanceof Gradient) {
 					list = fileToEObjects.get(resource);
 					if (list == null) {
-						list = new ArrayList<Style>();
+						list = new ArrayList<Gradient>();
 					}
-					list.add((Style) ele);
+					list.add((Gradient) ele);
 					fileToEObjects.put(resource, list);
 				}
 			}

@@ -32,36 +32,38 @@ public abstract class DSLEditorOpener<T extends EObject> extends
 	private static final Logger logger = Logger
 			.getLogger(DSLEditorOpener.class);
 
-	private final T eObject;
+	private T eObject;
 
-	public DSLEditorOpener(T eObject) {
+	public void setEObject(T eObject) {
 		this.eObject = eObject;
 	}
 
 	@Override
 	public IEditorPart open(URI uri, EReference crossReference,
 			int indexInList, boolean select) {
-		try {
-			IFile file = getFile(eObject);
-			if (file != null) {
-				IEditorInput editorInput = new FileEditorInput(file);
-				if (getWorkbench() != null) {
-					IWorkbenchPage activePage = getWorkbench()
-							.getActiveWorkbenchWindow().getActivePage();
-					IEditorPart editor = IDE.openEditor(activePage,
-							editorInput, getDSLEditorId());
-					selectAndReveal(editor, uri, crossReference, indexInList,
-							select);
-					return EditorUtils.getXtextEditor(editor);
+		if (eObject != null) {
+			try {
+				IFile file = getFile(eObject);
+				if (file != null) {
+					IEditorInput editorInput = new FileEditorInput(file);
+					if (getWorkbench() != null) {
+						IWorkbenchPage activePage = getWorkbench()
+								.getActiveWorkbenchWindow().getActivePage();
+						IEditorPart editor = IDE.openEditor(activePage,
+								editorInput, getDSLEditorId());
+						selectAndReveal(editor, uri, crossReference,
+								indexInList, select);
+						return EditorUtils.getXtextEditor(editor);
+					}
+					return null;
 				}
-				return null;
+			} catch (WrappedException e) {
+				logger.error("Error while opening editor part for EMF URI '"
+						+ uri + "'", e.getCause());
+			} catch (PartInitException partInitException) {
+				logger.error("Error while opening editor part for EMF URI '"
+						+ uri + "'", partInitException);
 			}
-		} catch (WrappedException e) {
-			logger.error("Error while opening editor part for EMF URI '" + uri
-					+ "'", e.getCause());
-		} catch (PartInitException partInitException) {
-			logger.error("Error while opening editor part for EMF URI '" + uri
-					+ "'", partInitException);
 		}
 		return null;
 	}
@@ -103,11 +105,11 @@ public abstract class DSLEditorOpener<T extends EObject> extends
 					});
 		}
 	}
-	
+
 	@Override
 	public ILocationInFileProvider getLocationProvider() {
 		ILocationInFileProvider lp = super.getLocationProvider();
-		if(lp == null) {
+		if (lp == null) {
 			lp = new DefaultLocationInFileProvider();
 			setLocationProvider(lp);
 		}

@@ -1,15 +1,15 @@
-package org.eclipselabs.spray.shapes.ui.linking;
+package org.eclipselabs.spray.styles.ui.linking.gradient;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLEditorOpener;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.styles.Gradient;
 
 import com.google.inject.Inject;
 
-public class StyleEditorOpener extends DSLEditorOpener<Style> {
+public class GradientEditorOpener extends DSLEditorOpener<Gradient> {
 
 	private static final String STYLE_DSL_EDITORID = "org.eclipselabs.spray.styles.Style";
 
@@ -17,7 +17,7 @@ public class StyleEditorOpener extends DSLEditorOpener<Style> {
 	private IWorkbench workbench;
 	
 	@Inject
-	private StyleResourceVisitor styleResourceVisitor;
+	private GradientResourceVisitor gradientResourceVisitor;
 	
 	@Override
 	protected String getDSLEditorId() {
@@ -25,16 +25,16 @@ public class StyleEditorOpener extends DSLEditorOpener<Style> {
 	}
 
 	@Override
-	protected DSLResourceVisitor<Style> getDSLResourceVisitor(ResourceSet rs) {
-		styleResourceVisitor.setResourceSet(rs);
-		return styleResourceVisitor;
+	protected DSLResourceVisitor<Gradient> getDSLResourceVisitor(ResourceSet rs) {
+		gradientResourceVisitor.setResourceSet(rs);
+		return gradientResourceVisitor;
 	}
 
 	@Override
-	protected boolean areEObjectsEqual(Style givenStyle,
-			Style styleToInspect) {
-		return styleToInspect.getName().equals(
-						givenStyle.getName());
+	protected boolean areEObjectsEqual(Gradient givenGradient,
+			Gradient gradientToInspect) {
+		return gradientToInspect.getName().equals(
+						givenGradient.getName());
 	}
 
 	@Override

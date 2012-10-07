@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.ui.linking;
+package org.eclipselabs.spray.styles.ui.linking.style;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.ui.IWorkbench;
@@ -16,7 +16,7 @@ public class StyleEditorOpener extends DSLEditorOpener<Style> {
 	@Inject(optional = true)
 	private IWorkbench workbench;
 	
-	@Inject
+	@Inject 
 	private StyleResourceVisitor styleResourceVisitor;
 	
 	@Override
@@ -27,7 +27,7 @@ public class StyleEditorOpener extends DSLEditorOpener<Style> {
 	@Override
 	protected DSLResourceVisitor<Style> getDSLResourceVisitor(ResourceSet rs) {
 		styleResourceVisitor.setResourceSet(rs);
-		return styleResourceVisitor;
+		return 	styleResourceVisitor;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.ui.linking;
+package org.eclipselabs.spray.styles.ui.linking.style;
 
 import java.util.ArrayList;
 import java.util.List;

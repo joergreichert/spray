@@ -57,7 +57,7 @@ public abstract class DSLLinkingHelper<T extends EObject> extends
 		return new Region(crossRefNode.getOffset(), crossRefNode.getLength());
 	}
 
-	private void createHyperlinksFromMatchingEObjectsInProject(
+	public void createHyperlinksFromMatchingEObjectsInProject(
 			final XtextResource xtextResource,
 			final IHyperlinkAcceptor acceptor, final INode crossRefNode,
 			final JvmType jvmType) {
@@ -100,31 +100,36 @@ public abstract class DSLLinkingHelper<T extends EObject> extends
 	public void createHyperlinksTo(XtextResource from, Region region,
 			final EObject to, IHyperlinkAcceptor acceptor) {
 		if (isExpectedType(to)) {
-			final URIConverter uriConverter = from.getResourceSet()
-					.getURIConverter();
-			final String hyperlinkText = getLabelProvider().getText(to) + " (Xtext)";
-			final URI uri = EcoreUtil.getURI(to);
-			final URI normalized = uriConverter.normalize(uri);
-
-			XtextHyperlink result = new XtextHyperlink() {
-
-				public void open() {
-					if (isExpectedType(to)) {
-						@SuppressWarnings("unchecked")
-						DSLEditorOpener<T> opener = getDSLEditorOpener((T) to);
-						boolean select = true;
-						opener.open(uri, select);
-					}
-				}
-
-			};
-			result.setHyperlinkRegion(region);
-			result.setURI(normalized);
-			result.setHyperlinkText(hyperlinkText);
-			acceptor.accept(result);
+			createHyperlinkToDSLElement(from, region, to, acceptor);
 		} else {
 			super.createHyperlinksTo(from, region, to, acceptor);
 		}
+	}
+
+	private void createHyperlinkToDSLElement(XtextResource from, Region region,
+			final EObject to, IHyperlinkAcceptor acceptor) {
+		final URIConverter uriConverter = from.getResourceSet()
+				.getURIConverter();
+		final String hyperlinkText = getLabelProvider().getText(to) + " (Xtext)";
+		final URI uri = EcoreUtil.getURI(to);
+		final URI normalized = uriConverter.normalize(uri);
+
+		XtextHyperlink result = new XtextHyperlink() {
+
+			public void open() {
+				if (isExpectedType(to)) {
+					@SuppressWarnings("unchecked")
+					DSLEditorOpener<T> opener = getDSLEditorOpener((T) to);
+					boolean select = true;
+					opener.open(uri, select);
+				}
+			}
+
+		};
+		result.setHyperlinkRegion(region);
+		result.setURI(normalized);
+		result.setHyperlinkText(hyperlinkText);
+		acceptor.accept(result);
 	}
 	
 	protected abstract boolean isExpectedType(final EObject to);
