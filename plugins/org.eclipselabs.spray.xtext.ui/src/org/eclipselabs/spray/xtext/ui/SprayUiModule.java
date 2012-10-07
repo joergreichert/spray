@@ -12,7 +12,21 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeI
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
 import org.eclipse.xtext.ui.wizard.IProjectCreator;
+import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalPriorities;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalProvider;
+import org.eclipselabs.spray.xtext.ui.linking.SprayDispatchingLinkingHelper;
+import org.eclipselabs.spray.xtext.ui.linking.connection.ConnectionEditorOpener;
+import org.eclipselabs.spray.xtext.ui.linking.connection.ConnectionLinkingHelper;
+import org.eclipselabs.spray.xtext.ui.linking.connection.ConnectionResourceVisitor;
+import org.eclipselabs.spray.xtext.ui.linking.domain.DomainEditorOpener;
+import org.eclipselabs.spray.xtext.ui.linking.domain.DomainLinkingHelper;
+import org.eclipselabs.spray.xtext.ui.linking.domain.DomainResourceVisitor;
+import org.eclipselabs.spray.xtext.ui.linking.shape.ShapeEditorOpener;
+import org.eclipselabs.spray.xtext.ui.linking.shape.ShapeLinkingHelper;
+import org.eclipselabs.spray.xtext.ui.linking.shape.ShapeResourceVisitor;
+import org.eclipselabs.spray.xtext.ui.linking.style.StyleEditorOpener;
+import org.eclipselabs.spray.xtext.ui.linking.style.StyleLinkingHelper;
+import org.eclipselabs.spray.xtext.ui.linking.style.StyleResourceVisitor;
 import org.eclipselabs.spray.xtext.ui.syntaxcoloring.SprayHighlightingConfiguration;
 import org.eclipselabs.spray.xtext.ui.syntaxcoloring.SprayTokenToAttributeIdMapper;
 import org.eclipselabs.spray.xtext.ui.validation.SprayJavaUIValidator;
@@ -53,6 +67,10 @@ public class SprayUiModule extends AbstractSprayUiModule {
         });
     }
 
+    public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities> bindIContentProposalPriorities() {
+        return SprayJdtTypesProposalPriorities.class;
+    }
+
     public void configureNewProjectName(Binder binder) {
         binder.bind(String.class).annotatedWith(Names.named(NEW_PROJECT_NAME)).toInstance("org.eclipselabs.spray.examples.mydiagram");
     }
@@ -86,5 +104,58 @@ public class SprayUiModule extends AbstractSprayUiModule {
     @Override
     public Class<? extends ITypesProposalProvider> bindITypesProposalProvider() {
         return SprayJdtTypesProposalProvider.class;
+    }
+
+    @Override
+    public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+        return SprayDispatchingLinkingHelper.class;
+    }
+
+    public Class<? extends StyleLinkingHelper> bindStyleLinkingHelper() {
+        return StyleLinkingHelper.class;
+    }
+
+    public Class<? extends StyleEditorOpener> bindStyleEditorOpener() {
+        return StyleEditorOpener.class;
+    }
+
+    public Class<? extends StyleResourceVisitor> bindStyleResourceVisitor() {
+        return StyleResourceVisitor.class;
+    }
+
+    public Class<? extends ShapeLinkingHelper> bindShapeLinkingHelper() {
+        return ShapeLinkingHelper.class;
+    }
+
+    public Class<? extends ShapeEditorOpener> bindShapeEditorOpener() {
+        return ShapeEditorOpener.class;
+    }
+
+    public Class<? extends ShapeResourceVisitor> bindShapeResourceVisitor() {
+        return ShapeResourceVisitor.class;
+    }
+
+    public Class<? extends ConnectionLinkingHelper> bindConnectionLinkingHelper() {
+        return ConnectionLinkingHelper.class;
+    }
+
+    public Class<? extends ConnectionEditorOpener> bindConnectionEditorOpener() {
+        return ConnectionEditorOpener.class;
+    }
+
+    public Class<? extends ConnectionResourceVisitor> bindConnectionResourceVisitor() {
+        return ConnectionResourceVisitor.class;
+    }
+
+    public Class<? extends DomainLinkingHelper> bindDomainLinkingHelper() {
+        return DomainLinkingHelper.class;
+    }
+
+    public Class<? extends DomainEditorOpener> bindDomainEditorOpener() {
+        return DomainEditorOpener.class;
+    }
+
+    public Class<? extends DomainResourceVisitor> bindDomainResourceVisitor() {
+        return DomainResourceVisitor.class;
     }
 }

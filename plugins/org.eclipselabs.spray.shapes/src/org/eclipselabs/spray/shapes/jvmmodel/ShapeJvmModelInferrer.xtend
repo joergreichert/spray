@@ -1,63 +1,88 @@
 package org.eclipselabs.spray.shapes.jvmmodel
 
 import com.google.inject.Inject
+import org.eclipse.xtext.common.types.JvmDeclaredType
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider$Factory
+import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer
+import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection
+import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape
+import org.eclipselabs.spray.shapes.generator.GeneratorConnectionDefinition
+import org.eclipselabs.spray.shapes.generator.GeneratorShapeDefinition
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
-/**
- * <p>Infers a JVM model from the source model.</p> 
- *
- * <p>The JVM model should contain all elements that would appear in the Java code 
- * which is generated from the source model. Other models link against the JVM model rather than the source model.</p>     
- */
 class ShapeJvmModelInferrer extends AbstractModelInferrer {
 
-    /**
-     * convenience API to build and initialize JVM types and their members.
-     */
-	@Inject extension JvmTypesBuilder
+	@Inject extension TypeReferences typeReferences
+    @Inject extension JvmTypesBuilder
+    @Inject extension GeneratorShapeDefinition shapeGenerator
+    @Inject extension GeneratorConnectionDefinition connectionGenerator
+    @Inject extension IJvmTypeProvider$Factory typeProviderFactory
 
-	/**
-	 * The dispatch method {@code infer} is called for each instance of the
-	 * given element's type that is contained in a resource.
-	 * 
-	 * @param element
-	 *            the model to create one or more
-	 *            {@link org.eclipse.xtext.common.types.JvmDeclaredType declared
-	 *            types} from.
-	 * @param acceptor
-	 *            each created
-	 *            {@link org.eclipse.xtext.common.types.JvmDeclaredType type}
-	 *            without a container should be passed to the acceptor in order
-	 *            get attached to the current resource. The acceptor's
-	 *            {@link IJvmDeclaredTypeAcceptor#accept(org.eclipse.xtext.common.types.JvmDeclaredType)
-	 *            accept(..)} method takes the constructed empty type for the
-	 *            pre-indexing phase. This one is further initialized in the
-	 *            indexing phase using the closure you pass to the returned
-	 *            {@link org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor.IPostIndexingInitializing#initializeLater(org.eclipse.xtext.xbase.lib.Procedures.Procedure1)
-	 *            initializeLater(..)}.
-	 * @param isPreIndexingPhase
-	 *            whether the method is called in a pre-indexing phase, i.e.
-	 *            when the global index is not yet fully updated. You must not
-	 *            rely on linking using the index if isPreIndexingPhase is
-	 *            <code>true</code>.
-	 */
-   	def dispatch void infer(ShapeContainer element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
-   		// Here you explain how your model is mapped to Java elements, by writing the actual translation code.
-   		
-   		// An implementation for the initial hello world example could look like this:
-//   		acceptor.accept(element.toClass("my.company.greeting.MyGreetings"))
-//   			.initializeLater([
-//   				for (greeting : element.greetings) {
-//   					members += greeting.toMethod("hello" + greeting.name, greeting.newTypeRef(typeof(String))) [
-//   						body = [
-//   							append('''return "Hello «greeting.name»";''')
-//   						]
-//   					]
-//   				}
-//   			])
+   	def void infer(ShapeDefinition element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+		val JvmTypeReference superTypeRef = element.calculateSuperTypeRef
+		val typeProvider = typeProviderFactory.createTypeProvider
+		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
+		if(existingClass == null) {
+			acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
+				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
+			]
+		} else {
+			if(existingClass instanceof JvmDeclaredType) {
+				element.associate(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
+			}
+		}
    	}
+   	
+   	def void infer(ConnectionDefinition element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+		val JvmTypeReference superTypeRef = element.calculateSuperTypeRef
+		val typeProvider = typeProviderFactory.createTypeProvider
+		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
+		if(existingClass == null) {
+			acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
+				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
+			]
+		} else {
+			if(existingClass instanceof JvmDeclaredType) {
+				element.associate(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
+			}
+		}
+   	}   	
+   	
+	def dispatch JvmTypeReference calculateSuperTypeRef(ShapeDefinition shape) {
+		var JvmTypeReference varSuperTypeRef = null
+		val superType = typeReferences.findDeclaredType(typeof(DefaultSprayShape), shape)
+		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
+		varSuperTypeRef
+	} 
+	
+	def dispatch JvmTypeReference calculateSuperTypeRef(ConnectionDefinition shape) {
+		var JvmTypeReference varSuperTypeRef = null
+		val superType = typeReferences.findDeclaredType(typeof(DefaultSprayConnection), shape)
+		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
+		varSuperTypeRef
+	}	
+	
+	def dispatch String getPackageName(ShapeDefinition shapeDefinition) {
+		shapeGenerator.packageName
+	}
+	
+	def dispatch String getPackageName(ConnectionDefinition connectionDefinition) {
+		connectionGenerator.packageName
+	}	
+	
+	def dispatch String getClassName(ShapeDefinition shapeDefinition) {
+		shapeGenerator.className(shapeDefinition)
+	}
+	
+	def dispatch String getClassName(ConnectionDefinition connectionDefinition) {
+		connectionGenerator.className(connectionDefinition)
+	}	
 }
 

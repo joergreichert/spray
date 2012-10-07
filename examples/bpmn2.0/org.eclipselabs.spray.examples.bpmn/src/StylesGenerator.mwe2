@@ -1,0 +1,18 @@
+module org.eclipselabs.spray.examples.bpmn.StylesGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+		registerGeneratedEPackage = "BPMN.BPMNPackage"
+		registerGenModelFile = "platform:/resource/de.htwg.2012.bpmn.mm/model/bpmn.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
+		clean = "false"
+		validate = "false"
+		modelPath = "model,../de.htwg.2012.bpmn.mm/model"
+	}
+}

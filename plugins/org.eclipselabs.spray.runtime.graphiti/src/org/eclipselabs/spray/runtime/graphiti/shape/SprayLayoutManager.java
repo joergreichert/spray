@@ -123,12 +123,16 @@ public class SprayLayoutManager implements ISprayConstants {
             return;
         } else {
 
-            // for (GraphicsAlgorithm shapeElement : a
-            // .getGraphicsAlgorithmChildren()) {
-            for (Shape shapeElement : shape.getChildren()) {
-                GraphicsAlgorithm ga = shapeElement.getGraphicsAlgorithm();
+            for (Shape child : shape.getChildren()) {
+                GraphicsAlgorithm ga = child.getGraphicsAlgorithm();
                 IDimension size = gaService.calculateSize(ga);
 
+                if (child instanceof ContainerShape) {
+                    if (SprayLayoutService.isShapeFromDsl(child)) {
+                        System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(child));
+                        continue;
+                    }
+                }
                 if (ga instanceof Polyline) {
                     resizePolyline((Polyline) ga, size, widthFactor, heightFactor);
                 } else if (ga instanceof Polygon) {
@@ -137,12 +141,12 @@ public class SprayLayoutManager implements ISprayConstants {
                     resizeShape(ga, size, widthFactor, heightFactor);
                 }
 
-                if (shapeElement instanceof ContainerShape) {
-                    if (SprayLayoutService.isShapeFromDsl(shapeElement)) {
-                        System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(shapeElement));
-                    } else {
-                        resizeElementsRecursive((ContainerShape) shapeElement, widthFactor, heightFactor);
-                    }
+                if (child instanceof ContainerShape) {
+                    //                    if (SprayLayoutService.isShapeFromDsl(child)) {
+                    //                        System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(child));
+                    //                    } else {
+                    resizeElementsRecursive((ContainerShape) child, widthFactor, heightFactor);
+                    //                    }
                 }
 
             }

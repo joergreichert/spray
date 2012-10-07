@@ -7,6 +7,13 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.styles.ui.linking.StyleDispatchingLinkingHelper;
+import org.eclipselabs.spray.styles.ui.linking.gradient.GradientEditorOpener;
+import org.eclipselabs.spray.styles.ui.linking.gradient.GradientLinkingHelper;
+import org.eclipselabs.spray.styles.ui.linking.gradient.GradientResourceVisitor;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleEditorOpener;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleResourceVisitor;
 import org.eclipselabs.spray.styles.ui.syntaxcoloring.StyleHighlightingConfiguration;
 import org.eclipselabs.spray.styles.ui.syntaxcoloring.StyleTokenToAttributeIdMapper;
 
@@ -34,4 +41,32 @@ public class StyleUiModule extends org.eclipselabs.spray.styles.ui.AbstractStyle
 		return StyleHighlightingConfiguration.class;
 	}
 
+    @Override
+    public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+        return StyleDispatchingLinkingHelper.class;
+    }
+    
+    public Class<? extends StyleLinkingHelper> bindStyleLinkingHelper() {
+        return StyleLinkingHelper.class;
+    }
+
+    public Class<? extends GradientLinkingHelper> bindGradientLinkingHelper() {
+        return GradientLinkingHelper.class;
+    }
+    
+    public Class<? extends StyleEditorOpener> bindStyleEditorOpener() {
+        return StyleEditorOpener.class;
+    }
+    
+    public Class<? extends StyleResourceVisitor> bindStyleResourceVisitor() {
+        return StyleResourceVisitor.class;
+    }
+    
+    public Class<? extends GradientEditorOpener> bindGradientEditorOpener() {
+        return GradientEditorOpener.class;
+    }
+    
+    public Class<? extends GradientResourceVisitor> bindGradientResourceVisitor() {
+        return GradientResourceVisitor.class;
+    }    
 }

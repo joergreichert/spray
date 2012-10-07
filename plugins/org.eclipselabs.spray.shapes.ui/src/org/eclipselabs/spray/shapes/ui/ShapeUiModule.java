@@ -8,6 +8,9 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.shapes.ui.linking.ShapeLinkingHelper;
+import org.eclipselabs.spray.shapes.ui.linking.StyleEditorOpener;
+import org.eclipselabs.spray.shapes.ui.linking.StyleResourceVisitor;
 import org.eclipselabs.spray.shapes.ui.outline.ShapeOutlinePage;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeHighlightingConfiguration;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeTokenToAttributeIdMapper;
@@ -40,5 +43,17 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
     public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
         return ShapeOutlinePage.class;
     }
-
+    
+    @Override
+    public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+        return ShapeLinkingHelper.class;
+    }
+    
+    public Class<? extends StyleEditorOpener> bindStyleEditorOpener() {
+        return StyleEditorOpener.class;
+    }
+    
+    public Class<? extends StyleResourceVisitor> bindStyleResourceVisitor() {
+        return StyleResourceVisitor.class;
+    }
 }

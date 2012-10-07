@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.junit.Test;
 
 public class PackageSelectorTest {
-	private final String workspaceURIStr = "C:/test";
+	private final String workspaceURIStr = "/test";
 	private final String ecoreURIWorkspaceRelativeStr = "/test_prj/test.ecore";
 	private final String ecoreURIStr = workspaceURIStr + ecoreURIWorkspaceRelativeStr;
 	private final String genModelURIStr = workspaceURIStr + "/test_prj/test.genmodel";
@@ -40,7 +40,7 @@ public class PackageSelectorTest {
 		final IProject expectedProject = mock(IProject.class);
 		when(expectedProject.getName()).thenReturn("test_prj");
 		final IJavaProject expectedJavaProject = mock(IJavaProject.class);
-		final PackageSelector sut = getInstrumentedPackageSelector(root, path, expectedProject,
+		final JavaProjectHelper sut = getInstrumentedJavaProjectHelper(root, path, expectedProject,
 				expectedJavaProject);
 		final EObject model = mock(EObject.class);
 		final IFile ecoreFile = mock(IFile.class);
@@ -91,10 +91,10 @@ public class PackageSelectorTest {
 	 * @param expectedProject
 	 * @param expectedJavaProject
 	 */
-	protected PackageSelector getInstrumentedPackageSelector(final IWorkspaceRoot root,
+	protected JavaProjectHelper getInstrumentedJavaProjectHelper(final IWorkspaceRoot root,
 			final Path path, final IProject expectedProject,
 			final IJavaProject expectedJavaProject) {
-		return new PackageSelector() {
+		return new JavaProjectHelper() {
 			
 			@Override
 			protected IWorkspaceRoot getWorkspaceRoot() {
