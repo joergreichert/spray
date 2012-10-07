@@ -12,6 +12,7 @@ Workflow {
 	
 	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
 		clean = "false"
+		validate = "false"
 		modelPath = "model,../de.htwg.2012.lwc.mm/model"
 	}
 }

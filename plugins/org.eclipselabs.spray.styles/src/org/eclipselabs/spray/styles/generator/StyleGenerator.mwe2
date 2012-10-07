@@ -6,6 +6,7 @@ var srcGenDir = "src-gen"
 var srcManDir = "src"
 var clean = "true"
 var modelPath
+var validate = "true"
 
 Workflow {
     bean = StandaloneSetup {
@@ -18,6 +19,8 @@ Workflow {
 	component = org.eclipselabs.spray.xtext.util.ReaderExt {
 		// lookup all resources on the classpath
 		// useJavaClassPath = true
+
+		validate = validate
 
 		// or define search scope explicitly
 		path = modelPath
