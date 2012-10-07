@@ -13,6 +13,7 @@ import org.eclipselabs.spray.styles.generator.GradientGenerator
 import org.eclipselabs.spray.styles.generator.StyleGenerator
 import org.eclipselabs.spray.styles.styles.Gradient
 import org.eclipselabs.spray.styles.styles.Style
+import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient
 
 class StyleJvmModelInferrer extends AbstractModelInferrer {
 
@@ -79,7 +80,10 @@ class StyleJvmModelInferrer extends AbstractModelInferrer {
 	}
 	
 	def dispatch JvmTypeReference calculateSuperTypeRef(Gradient gradient) {
-		null
+		var JvmTypeReference varSuperTypeRef = null
+		val superType = typeReferences.findDeclaredType(typeof(ISprayGradient), gradient)
+		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
+		varSuperTypeRef
 	}	
 }
 
