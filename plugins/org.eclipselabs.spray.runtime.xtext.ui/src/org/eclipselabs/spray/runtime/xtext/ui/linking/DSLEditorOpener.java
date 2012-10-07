@@ -45,14 +45,11 @@ public abstract class DSLEditorOpener<T extends EObject> extends
 			try {
 				IFile file = getFile(eObject);
 				if (file != null) {
-					IEditorInput editorInput = new FileEditorInput(file);
 					if (getWorkbench() != null) {
 						IWorkbenchPage activePage = getWorkbench()
 								.getActiveWorkbenchWindow().getActivePage();
-						IEditorPart editor = IDE.openEditor(activePage,
-								editorInput, getDSLEditorId());
-						selectAndReveal(editor, uri, crossReference,
-								indexInList, select);
+						IEditorPart editor = open(activePage, file);
+						selectAndReveal(editor, uri, crossReference, indexInList, select);
 						return EditorUtils.getXtextEditor(editor);
 					}
 					return null;
@@ -66,6 +63,13 @@ public abstract class DSLEditorOpener<T extends EObject> extends
 			}
 		}
 		return null;
+	}
+
+	protected IEditorPart open(IWorkbenchPage activePage,
+			IFile file) throws PartInitException {
+		IEditorInput editorInput = new FileEditorInput(file);
+		return IDE.openEditor(activePage, editorInput,
+				getDSLEditorId());
 	}
 
 	protected void selectAndReveal(IEditorPart openEditor, final URI uri,

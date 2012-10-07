@@ -2,6 +2,7 @@ package org.eclipselabs.spray.xtext.ui.linking.domain;
 
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
@@ -10,12 +11,10 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLEditorOpener;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLLinkingHelper;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.shapes.shapes.Shape;
-import org.eclipselabs.spray.styles.styles.Style;
 
 import com.google.inject.Inject;
 
-public class DomainLinkingHelper extends DSLLinkingHelper<EObject> {
+public class DomainLinkingHelper extends DSLLinkingHelper<EClassifier> {
 
     @Inject
     private EObjectAtOffsetHelper eObjectAtOffsetHelper;
@@ -30,25 +29,25 @@ public class DomainLinkingHelper extends DSLLinkingHelper<EObject> {
     private DomainResourceVisitor eObjectResourceVisitor;
 
     @Override
-    protected DSLResourceVisitor<EObject> getDSLResourceVisitor(final XtextResource xtextResource) {
+    protected DSLResourceVisitor<EClassifier> getDSLResourceVisitor(final XtextResource xtextResource) {
         eObjectResourceVisitor.setResourceSet(xtextResource.getResourceSet());
         return eObjectResourceVisitor;
     }
 
     @Override
     protected boolean isExpectedType(final EObject to) {
-        return (to instanceof EObject) && !(to instanceof Style) && !(to instanceof Shape);
+        return (to instanceof EClassifier);
     }
 
     @Override
-    protected DSLEditorOpener<EObject> getDSLEditorOpener(EObject to) {
+    protected DSLEditorOpener<EClassifier> getDSLEditorOpener(EClassifier to) {
         eObjectEditorOpener.setEObject(to);
         return eObjectEditorOpener;
     }
 
     @Override
-    protected String getName(EObject eObject) {
-        return eObject.eClass().getName();
+    protected String getName(EClassifier eObject) {
+        return eObject.getName();
     }
 
     @Override

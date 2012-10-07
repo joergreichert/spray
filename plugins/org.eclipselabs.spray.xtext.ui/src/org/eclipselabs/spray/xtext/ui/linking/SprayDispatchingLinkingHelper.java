@@ -2,6 +2,7 @@ package org.eclipselabs.spray.xtext.ui.linking;
 
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.Region;
 import org.eclipse.xtext.common.types.JvmType;
@@ -77,7 +78,7 @@ public class SprayDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
             shapeLinkingHelper.createHyperlinksTo(from, region, to, acceptor);
         } else if (to instanceof Style) {
             styleLinkingHelper.createHyperlinksTo(from, region, to, acceptor);
-        } else if ((to instanceof EObject) && !(to instanceof JvmType)) {
+        } else if ((to instanceof EClassifier)) {
             domainLinkingHelper.createHyperlinksTo(from, region, to, acceptor);
         } else {
             super.createHyperlinksTo(from, region, to, acceptor);
