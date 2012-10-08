@@ -14,10 +14,10 @@ import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipselabs.spray.shapes.shapes.Shape;
+import org.eclipselabs.spray.shapes.ui.linking.shape.ShapeLinkingHelper;
 import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.xtext.ui.linking.domain.DomainLinkingHelper;
-import org.eclipselabs.spray.xtext.ui.linking.shape.ShapeLinkingHelper;
-import org.eclipselabs.spray.xtext.ui.linking.style.StyleLinkingHelper;
 
 import com.google.inject.Inject;
 

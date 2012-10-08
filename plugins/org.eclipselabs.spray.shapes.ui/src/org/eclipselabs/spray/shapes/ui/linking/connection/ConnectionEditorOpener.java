@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.xtext.ui.linking.connection;
+package org.eclipselabs.spray.shapes.ui.linking.connection;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.ui.IWorkbench;

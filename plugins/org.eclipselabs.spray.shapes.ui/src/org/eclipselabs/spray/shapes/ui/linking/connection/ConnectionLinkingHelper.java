@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.xtext.ui.linking.shape;
+package org.eclipselabs.spray.shapes.ui.linking.connection;
 
 import java.util.Set;
 
@@ -10,43 +10,43 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLEditorOpener;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLLinkingHelper;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
 
 import com.google.inject.Inject;
 
-public class ShapeLinkingHelper extends DSLLinkingHelper<ShapeDefinition> {
+public class ConnectionLinkingHelper extends DSLLinkingHelper<ConnectionDefinition> {
 
     @Inject
-    private EObjectAtOffsetHelper eObjectAtOffsetHelper;
+    private EObjectAtOffsetHelper     eObjectAtOffsetHelper;
 
     @Inject
-    private IJvmModelAssociations modelAssocs;
+    private IJvmModelAssociations     modelAssocs;
 
     @Inject
-    private ShapeEditorOpener     shapeEditorOpener;
+    private ConnectionEditorOpener    shapeEditorOpener;
 
     @Inject
-    private ShapeResourceVisitor  shapeResourceVisitor;
+    private ConnectionResourceVisitor shapeResourceVisitor;
 
     @Override
-    protected DSLResourceVisitor<ShapeDefinition> getDSLResourceVisitor(final XtextResource xtextResource) {
+    protected DSLResourceVisitor<ConnectionDefinition> getDSLResourceVisitor(final XtextResource xtextResource) {
         shapeResourceVisitor.setResourceSet(xtextResource.getResourceSet());
         return shapeResourceVisitor;
     }
 
     @Override
     protected boolean isExpectedType(final EObject to) {
-        return to instanceof ShapeDefinition;
+        return to instanceof ConnectionDefinition;
     }
 
     @Override
-    protected DSLEditorOpener<ShapeDefinition> getDSLEditorOpener(ShapeDefinition to) {
+    protected DSLEditorOpener<ConnectionDefinition> getDSLEditorOpener(ConnectionDefinition to) {
         shapeEditorOpener.setEObject(to);
         return shapeEditorOpener;
     }
 
     @Override
-    protected String getName(ShapeDefinition shape) {
+    protected String getName(ConnectionDefinition shape) {
         return shape.getName();
     }
 

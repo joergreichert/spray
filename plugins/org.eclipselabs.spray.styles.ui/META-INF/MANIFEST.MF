@@ -43,6 +43,7 @@ Export-Package: org.eclipselabs.spray.styles.ui,
  org.eclipselabs.spray.styles.ui.contentassist.antlr,
  org.eclipselabs.spray.styles.ui.internal,
  org.eclipselabs.spray.styles.ui.labeling,
+ org.eclipselabs.spray.styles.ui.linking.style,
  org.eclipselabs.spray.styles.ui.outline,
  org.eclipselabs.spray.styles.ui.quickfix,
  org.eclipselabs.spray.styles.ui.templates
