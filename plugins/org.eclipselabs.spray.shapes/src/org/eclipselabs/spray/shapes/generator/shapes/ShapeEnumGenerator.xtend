@@ -36,7 +36,7 @@ class ShapeEnumGenerator {
 			if(shape instanceof Text) {
 				ids.add((shape as Text).body.value);
 			} else if(shape instanceof Compartment) {
-				ids.add((shape as Compartment).body.value);
+				ids.add((shape as Compartment).shape.id.value)
 			} else {
 				ids.addAll(shape.searchTextIds);
 			}
@@ -88,7 +88,7 @@ class ShapeEnumGenerator {
 	}
 	def dispatch searchTextIds(Compartment shape) {
 		val ids = new ArrayList<String>()
-		ids.add(shape.body.value)
+		ids.add(shape.shape.id.value)
 		ids
 	}
 }

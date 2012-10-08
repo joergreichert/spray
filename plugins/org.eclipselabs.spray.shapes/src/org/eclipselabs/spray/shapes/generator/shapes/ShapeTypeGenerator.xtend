@@ -18,7 +18,9 @@ import org.eclipselabs.spray.shapes.shapes.VAlign
 import org.eclipselabs.spray.shapes.shapes.HAlign
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 import org.eclipselabs.spray.shapes.shapes.Description
-import org.eclipselabs.spray.shapes.shapes.Compartment 
+import org.eclipselabs.spray.shapes.shapes.Compartment
+import org.eclipselabs.spray.shapes.shapes.CompartmentRectangle
+import org.eclipselabs.spray.shapes.shapes.CompartmentEllipse 
 
 class ShapeTypeGenerator {
 	
@@ -174,15 +176,18 @@ class ShapeTypeGenerator {
 	def dispatch createElement(Compartment element, String parentName, String shapeStyle) { 
 		nextIndex
 		'''
-		// start createElement Compartment parent «parentName»
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», true);
 		SprayLayoutService.setId(«shapeName», "«shapeName»");
 		SprayLayoutService.setCompartment(«shapeName», true);
-		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.body.value»");
+		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.shape.id.value»");
+		«IF element.shape instanceof CompartmentRectangle»
 		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
-		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
-		«elementName».setStyle(«styleName».getStyle(diagram));
-		gaService.setLocationAndSize(«elementName», «element.common.xcor», «element.common.ycor», «element.common.width», «element.common.heigth»);
+		«ELSEIF element.shape instanceof CompartmentEllipse»
+		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
+        «ENDIF»
+«««		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
+«««		«elementName».setStyle(«styleName».getStyle(diagram));
+		gaService.setLocationAndSize(«elementName», «element.shape.layout.common.xcor», «element.shape.layout.common.ycor», «element.shape.layout.common.width», «element.shape.layout.common.heigth»);
 		«elementName».setLineVisible(false);
 		«elementName».setFilled(false);
      	'''
@@ -190,7 +195,6 @@ class ShapeTypeGenerator {
 	def dispatch createElement(Text element, String parentName, String shapeStyle) { 
 		nextIndex
 		'''
-		// start createElement Text parent «parentName»
 		Shape «shapeName» = peCreateService.createShape(«parentName», false);
 		SprayLayoutService.setId(«shapeName», "«shapeName»");
 		«IF element.texttype == TextType::DEFAULT»
