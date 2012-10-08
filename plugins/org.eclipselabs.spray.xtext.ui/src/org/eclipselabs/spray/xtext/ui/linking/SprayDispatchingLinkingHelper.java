@@ -13,7 +13,9 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
-import org.eclipselabs.spray.shapes.shapes.Shape;
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.ui.linking.connection.ConnectionLinkingHelper;
 import org.eclipselabs.spray.shapes.ui.linking.shape.ShapeLinkingHelper;
 import org.eclipselabs.spray.styles.styles.Style;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
@@ -23,19 +25,22 @@ import com.google.inject.Inject;
 
 public class SprayDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
     @Inject
-    private EObjectAtOffsetHelper eObjectAtOffsetHelper;
+    private EObjectAtOffsetHelper   eObjectAtOffsetHelper;
 
     @Inject
-    private IJvmModelAssociations modelAssocs;
+    private IJvmModelAssociations   modelAssocs;
 
     @Inject
-    private ShapeLinkingHelper    shapeLinkingHelper;
+    private ConnectionLinkingHelper connectionLinkingHelper;
 
     @Inject
-    private StyleLinkingHelper    styleLinkingHelper;
+    private ShapeLinkingHelper      shapeLinkingHelper;
 
     @Inject
-    private DomainLinkingHelper   domainLinkingHelper;
+    private StyleLinkingHelper      styleLinkingHelper;
+
+    @Inject
+    private DomainLinkingHelper     domainLinkingHelper;
 
     public void createHyperlinksByOffset(final XtextResource xtextResource, int offset, final IHyperlinkAcceptor acceptor) {
         final INode crossRefNode = eObjectAtOffsetHelper.getCrossReferenceNode(xtextResource, new TextRegion(offset, 0));
@@ -50,6 +55,7 @@ public class SprayDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
                 createHyperlinkFromAssociatedEObjects(xtextResource, acceptor, crossRefNode, sourceElements);
             } else {
                 shapeLinkingHelper.createHyperlinksFromMatchingEObjectsInProject(xtextResource, acceptor, crossRefNode, jvmType);
+                connectionLinkingHelper.createHyperlinksFromMatchingEObjectsInProject(xtextResource, acceptor, crossRefNode, jvmType);
                 styleLinkingHelper.createHyperlinksFromMatchingEObjectsInProject(xtextResource, acceptor, crossRefNode, jvmType);
                 domainLinkingHelper.createHyperlinksFromMatchingEObjectsInProject(xtextResource, acceptor, crossRefNode, jvmType);
             }
@@ -74,8 +80,10 @@ public class SprayDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
 
     @Override
     public void createHyperlinksTo(XtextResource from, Region region, final EObject to, IHyperlinkAcceptor acceptor) {
-        if (to instanceof Shape) {
+        if (to instanceof ShapeDefinition) {
             shapeLinkingHelper.createHyperlinksTo(from, region, to, acceptor);
+        } else if (to instanceof ConnectionDefinition) {
+            connectionLinkingHelper.createHyperlinksTo(from, region, to, acceptor);
         } else if (to instanceof Style) {
             styleLinkingHelper.createHyperlinksTo(from, region, to, acceptor);
         } else if ((to instanceof EClassifier)) {

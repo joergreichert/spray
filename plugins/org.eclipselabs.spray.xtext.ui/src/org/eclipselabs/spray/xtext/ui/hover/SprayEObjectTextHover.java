@@ -35,7 +35,7 @@ public class SprayEObjectTextHover extends XbaseDispatchingEObjectTextHover {
 
     private boolean hasExpectedShapeSuperType(JvmGenericType type) {
         for (JvmTypeReference superType : type.getSuperTypes()) {
-            if ("org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape".equals(superType.getQualifiedName())) {
+            if ("org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape".equals(superType.getQualifiedName()) || "org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection".equals(superType.getQualifiedName())) {
                 return true;
             }
         }

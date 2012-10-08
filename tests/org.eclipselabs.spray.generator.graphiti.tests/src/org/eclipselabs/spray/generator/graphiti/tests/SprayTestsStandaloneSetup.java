@@ -5,6 +5,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
@@ -28,6 +29,7 @@ public class SprayTestsStandaloneSetup extends SprayStandaloneSetup {
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
 	    EPackage.Registry.INSTANCE.put(XMLTypePackage.eNS_URI, XMLTypePackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(XMLNamespacePackage.eNS_URI, XMLNamespacePackage.eINSTANCE);
+	    EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
         
         Injector injector = super.createInjectorAndDoEMFRegistration();
         ResourceSet rs = injector.getInstance(ResourceSet.class);
@@ -39,6 +41,9 @@ public class SprayTestsStandaloneSetup extends SprayStandaloneSetup {
         uriMap.put( 
         	URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/XMLNamespace.ecore"), 
         	URI.createURI("platform:/resource/org.eclipse.emf.ecore/model/XMLNamespace.ecore")); 
+        uriMap.put( 
+            	URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"), 
+            	URI.createURI("platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore")); 
         
         return injector;
     }

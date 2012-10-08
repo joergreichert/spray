@@ -15,48 +15,45 @@ import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider.HoverControlCreator;
 
 public class SprayHoverControlCreator extends HoverControlCreator {
-	private Map<Shell, IInformationControl> fInformationControls = new HashMap<Shell, IInformationControl>();
+    private Map<Shell, IInformationControl> fInformationControls = new HashMap<Shell, IInformationControl>();
 
-	public SprayHoverControlCreator(
-			DefaultEObjectHoverProvider defaultEObjectHoverProvider,
-			IInformationControlCreator informationPresenterControlCreator) {
-		defaultEObjectHoverProvider.super(informationPresenterControlCreator);
-	}
+    public SprayHoverControlCreator(DefaultEObjectHoverProvider defaultEObjectHoverProvider, IInformationControlCreator informationPresenterControlCreator) {
+        defaultEObjectHoverProvider.super(informationPresenterControlCreator);
+    }
 
-	@Override
-	public IInformationControl createInformationControl(final Shell parent) {
-		IInformationControl control = (IInformationControl) fInformationControls
-				.get(parent);
-		if (control == null) {
-			final IInformationControl newControl = doCreateInformationControl(parent);
-			newControl.addDisposeListener(this);
-			try {
-				Display.getCurrent().asyncExec(new Runnable() {
+    @Override
+    public IInformationControl createInformationControl(final Shell parent) {
+        IInformationControl control = (IInformationControl) fInformationControls.get(parent);
+        if (control == null) {
+            final IInformationControl newControl = doCreateInformationControl(parent);
+            newControl.addDisposeListener(this);
+            try {
+                Display.getCurrent().asyncExec(new Runnable() {
 
-					@Override
-					public void run() {
-						if (BrowserInformationControl.isAvailable(parent)) {
-							Point sizeHint = newControl.computeSizeHint();
-							newControl.setSize(sizeHint.x, 200);
-						}
-					}
-				});
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if (newControl != null) {
-				fInformationControls.put(parent, newControl);
-			}
-			control = newControl;
-		}
-		return control;
-	}
+                    @Override
+                    public void run() {
+                        if (BrowserInformationControl.isAvailable(parent)) {
+                            Point sizeHint = newControl.computeSizeHint();
+                            newControl.setSize(sizeHint.x, 200);
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (newControl != null) {
+                fInformationControls.put(parent, newControl);
+            }
+            control = newControl;
+        }
+        return control;
+    }
 
-	public void widgetDisposed(DisposeEvent e) {
-		Composite parent = null;
-		if (e.widget instanceof Shell)
-			parent = ((Shell) e.widget).getParent();
-		if (parent instanceof Shell)
-			fInformationControls.remove(parent);
-	}
+    public void widgetDisposed(DisposeEvent e) {
+        Composite parent = null;
+        if (e.widget instanceof Shell)
+            parent = ((Shell) e.widget).getParent();
+        if (parent instanceof Shell)
+            fInformationControls.remove(parent);
+    }
 }
