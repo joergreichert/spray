@@ -111,8 +111,25 @@ Text:
 	//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 
 Compartment:
-	{Compartment} 'compartment' (style=ShapeStyleRef)? '{' common = CommonLayout body = TextBody '}'
+	{Compartment} 'compartment' shape = CompartmentShape
+	///'{' common = CommonLayout body = TextBody '}'
 ;
+
+CompartmentShape :
+	CompartmentEllipse | CompartmentRectangle // | CompartmentPolygon | CompartmentRoundedRectangle
+;
+
+CompartmentRectangle:
+	{CompartmentRectangle} 'rectangle' ('{' layout=RectangleEllipseLayout id = TextBody'}');
+
+CompartmentRoundedRectangle:
+	{CompartmentRoundedRectangle} 'rounded-rectangle' ('{' layout=RoundedRectangleLayout id = TextBody'}');
+
+CompartmentPolygon:
+	{CompartmentPolygon} 'polygon' ('{' layout=PolyLineLayout id = TextBody'}');
+
+CompartmentEllipse:
+	{CompartmentEllipse} 'ellipse' ('{' layout=RectangleEllipseLayout id = TextBody'}');
 
 Description:
 	{Description} (
