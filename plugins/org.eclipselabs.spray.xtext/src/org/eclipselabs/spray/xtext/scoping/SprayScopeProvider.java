@@ -350,9 +350,9 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         final String className = "TextIds";
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
         final ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
-        if (shape != null) {
+        if (shape != null && shape.getShape() != null) {
             jvmType = shape.getShape().getType();
-        } else if (connection != null) {
+        } else if (connection != null && connection.getConnection() != null) {
             jvmType = connection.getConnection().getType();
         }
         if (jvmType != null && jvmType instanceof JvmGenericType) {
