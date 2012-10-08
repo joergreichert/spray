@@ -84,6 +84,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultRemoveFeature;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import «util_package()».OwnerPropertyDeleteFeature;
         «IF !diagram.metaClasses.empty»
         «ENDIF»
@@ -189,7 +190,12 @@ class FeatureProvider extends FileGenerator<Diagram> {
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
         //    if (pictogramElement instanceof ContainerShape) {
                 final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
-                if (bo == null) return null;
+                if (bo == null) {
+                	return null;
+                }
+                if( SprayLayoutService.isCompartment(pictogramElement) ){
+                    return null; 
+                }
             «FOR cls : diagram.metaClasses »
                 «IF ! (cls.representedBy instanceof ConnectionInSpray) »
                 if ( «generate_metaClassSwitchCondition(cls)») { // 11
@@ -224,7 +230,9 @@ class FeatureProvider extends FileGenerator<Diagram> {
         public ILayoutFeature getLayoutFeature(final ILayoutContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
-            if (bo == null) return null;
+            if (bo == null) {
+            	return null;
+            }
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
             if ( «generate_metaClassSwitchCondition(cls)» ) {
@@ -287,6 +295,10 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «overrideHeader»
         public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
             // Spray specific DefaultRemoveFeature
+            final PictogramElement pictogramElement = context.getPictogramElement();
+            if( SprayLayoutService.isCompartment(pictogramElement) ){
+                return null; 
+            }
             return new DefaultRemoveFeature(this);
         }
     '''
@@ -295,7 +307,12 @@ class FeatureProvider extends FileGenerator<Diagram> {
         public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
-            if (bo == null) return null;
+            if (bo == null) {
+            	return null;
+            }
+            if( SprayLayoutService.isCompartment(pictogramElement) ){
+                return null; 
+            }
             final String reference = peService.getPropertyValue(pictogramElement, PROPERTY_REFERENCE);
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
 
@@ -331,6 +348,9 @@ class FeatureProvider extends FileGenerator<Diagram> {
         @Override
         public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
             final Shape s = context.getShape();
+            if( SprayLayoutService.isCompartment(s) ){
+                return null; 
+            }
             final String stat  = peService.getPropertyValue(s, PROPERTY_CAN_MOVE);
             if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
                 return null;
@@ -343,7 +363,9 @@ class FeatureProvider extends FileGenerator<Diagram> {
         @Override
         public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
-            if (bo == null) return new ICustomFeature[0];
+            if (bo == null) {
+            	return new ICustomFeature[0];
+            }
             final String alias = (String)context.getProperty(PROPERTY_ALIAS);
             «FOR metaClass : diagram.metaClasses »
                 «val featureClasses = metaClass.customFeatureClassNames»
@@ -366,8 +388,12 @@ class FeatureProvider extends FileGenerator<Diagram> {
 	    public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
 	    	final PictogramElement pictogramElement = context.getPictogramElement();
 	    	final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
-	    	if (bo == null)
+	    	if (bo == null) {
 	    		return null;
+	    	}
+	    	if( SprayLayoutService.isCompartment(pictogramElement) ){
+	    		return null; 
+	    	}
 	    	final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
 	    	«FOR metaClass : diagram.metaClasses»
 	    	if ( «generate_metaClassSwitchCondition(metaClass)» ) {
@@ -397,8 +423,12 @@ class FeatureProvider extends FileGenerator<Diagram> {
     	public IResizeShapeFeature getResizeShapeFeature (IResizeShapeContext context) {
     		final PictogramElement pictogramElement = context.getPictogramElement();
     		final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
-    		if (bo == null)
+    		if (bo == null) {
     			return null;
+    		}
+            if( SprayLayoutService.isCompartment(pictogramElement) ){
+                return null; 
+            }
     		final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
     		«FOR crs : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)»
     		if(«generate_metaClassSwitchCondition(crs)»){

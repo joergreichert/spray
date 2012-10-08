@@ -183,7 +183,8 @@ class ShapeTypeGenerator {
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		gaService.setLocationAndSize(«elementName», «element.common.xcor», «element.common.ycor», «element.common.width», «element.common.heigth»);
-		«elementName».setLineStyle(LineStyle.DASH);
+		«elementName».setLineVisible(false);
+		«elementName».setFilled(false);
      	'''
 	}
 	def dispatch createElement(Text element, String parentName, String shapeStyle) { 
