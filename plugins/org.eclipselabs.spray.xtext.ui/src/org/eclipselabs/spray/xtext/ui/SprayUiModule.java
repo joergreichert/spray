@@ -7,11 +7,13 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.service.SingletonBinding;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
 import org.eclipse.xtext.ui.wizard.IProjectCreator;
+import org.eclipselabs.spray.shapes.ui.hover.ImageResourceVisitor;
 import org.eclipselabs.spray.shapes.ui.linking.connection.ConnectionEditorOpener;
 import org.eclipselabs.spray.shapes.ui.linking.connection.ConnectionLinkingHelper;
 import org.eclipselabs.spray.shapes.ui.linking.connection.ConnectionResourceVisitor;
@@ -23,6 +25,8 @@ import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleResourceVisitor;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalPriorities;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalProvider;
+import org.eclipselabs.spray.xtext.ui.hover.SprayEObjectHoverProvider;
+import org.eclipselabs.spray.xtext.ui.hover.SprayEObjectTextHover;
 import org.eclipselabs.spray.xtext.ui.linking.SprayDispatchingLinkingHelper;
 import org.eclipselabs.spray.xtext.ui.linking.domain.DomainEditorOpener;
 import org.eclipselabs.spray.xtext.ui.linking.domain.DomainLinkingHelper;
@@ -157,5 +161,19 @@ public class SprayUiModule extends AbstractSprayUiModule {
 
     public Class<? extends DomainResourceVisitor> bindDomainResourceVisitor() {
         return DomainResourceVisitor.class;
+    }
+
+    @Override
+    public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+        return SprayEObjectHoverProvider.class;
+    }
+
+    public Class<? extends ImageResourceVisitor> bindImageResourceVisitor() {
+        return ImageResourceVisitor.class;
+    }
+
+    @Override
+    public Class<? extends org.eclipse.xtext.ui.editor.hover.IEObjectHover> bindIEObjectHover() {
+        return SprayEObjectTextHover.class;
     }
 }
