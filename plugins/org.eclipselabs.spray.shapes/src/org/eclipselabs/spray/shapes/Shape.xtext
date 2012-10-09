@@ -62,7 +62,7 @@ AnchorFixPointPosition:
 	'x=' xcor=INT ',' 'y=' ycor=INT;
 
 Shape:
-	Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text | Compartment;
+	Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text ;
 
 ShapeConnection:
 	CDLine | CDPolyline | CDRectangle | CDRoundedRectangle | CDPolygon | CDEllipse | CDText;
@@ -108,7 +108,10 @@ Polygon:
 	{Polygon} 'polygon' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout shape+=Shape* '}');
 
 Ellipse:
-	{Ellipse} 'ellipse' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout shape+=Shape* '}');
+	{Ellipse} 'ellipse' 
+	(compartmentInfo = CompartmentInfo)?
+	(style=ShapeStyleRef)? 
+	('{' layout=RectangleEllipseLayout shape+=Shape* '}');
 
 Text:
 	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');

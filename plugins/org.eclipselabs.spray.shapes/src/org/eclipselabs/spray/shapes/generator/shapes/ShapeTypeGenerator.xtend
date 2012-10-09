@@ -135,27 +135,51 @@ class ShapeTypeGenerator {
      	'''
 	}
 	
-	def dispatch createElement(Compartment element, String parentName, String shapeStyle) { 
+	def dispatch createElement(Ellipse element, String parentName, String shapeStyle) {
 		nextIndex
+		val isCompartment = (element.compartmentInfo != null)
 		'''
-		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», true);
+		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», «isCompartment»);
 		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
-		SprayLayoutService.setCompartment(«shapeName», true);
-		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.shape.id.value»");
-		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentLayout.name»;
+		SprayLayoutService.setCompartment(«shapeName», «isCompartment»);
+		«IF element?.compartmentInfo?.id != null»
+		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.compartmentInfo.id.value»");
+		«ENDIF»
+		«IF element?.compartmentInfo?.compartmentLayout != null »
+		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
 		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5);
-		«IF element.shape instanceof CompartmentRectangle»
-		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
-		«ELSEIF element.shape instanceof CompartmentEllipse»
+		«ENDIF»
+
 		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
-        «ENDIF»
-«««		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
-«««		«elementName».setStyle(«styleName».getStyle(diagram));
-		«generateSetSizeAndlocation(shapeName, elementName, element.shape.layout.common.xcor, element.shape.layout.common.ycor, element.shape.layout.common.width, element.shape.layout.common.heigth)»
-		«elementName».setLineVisible(false);
-		«elementName».setFilled(false);
+		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
+		«elementName».setStyle(«styleName».getStyle(diagram));
+		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
+		«generateStyleForElement(elementName, element.layout.layout)»
+		«element.shape.recursiveCreation(shapeName, styleName)»
      	'''
 	}
+	
+//	def dispatch createElement(Compartment element, String parentName, String shapeStyle) { 
+//		nextIndex
+//		'''
+//		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», true);
+//		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
+//		SprayLayoutService.setCompartment(«shapeName», true);
+//		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.shape.id.value»");
+//		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentLayout.name»;
+//		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5);
+//		«IF element.shape instanceof CompartmentRectangle»
+//		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
+//		«ELSEIF element.shape instanceof CompartmentEllipse»
+//		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
+//        «ENDIF»
+//«««		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
+//«««		«elementName».setStyle(«styleName».getStyle(diagram));
+//		«generateSetSizeAndlocation(shapeName, elementName, element.shape.layout.common.xcor, element.shape.layout.common.ycor, element.shape.layout.common.width, element.shape.layout.common.heigth)»
+//		«elementName».setLineVisible(false);
+//		«elementName».setFilled(false);
+//     	'''
+//	}
 
 	def dispatch createElement(Polygon element, String parentName, String shapeStyle) { 
 		nextIndex
@@ -190,20 +214,6 @@ class ShapeTypeGenerator {
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
 		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		RoundedRectangle «elementName» = gaService.createRoundedRectangle(«shapeName», «element.layout.curveWidth», «element.layout.curveHeight»);
-		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
-		«elementName».setStyle(«styleName».getStyle(diagram));
-		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
-		«generateStyleForElement(elementName, element.layout.layout)»
-		«element.shape.recursiveCreation(shapeName, styleName)»
-     	'''
-	}
-	
-	def dispatch createElement(Ellipse element, String parentName, String shapeStyle) {
-		nextIndex
-		'''
-		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
-		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»

@@ -97,9 +97,9 @@ class SVGShapeGenerator {
 
     // RECTANGLE
 
-    def protected dispatch generateShape (Compartment shape) '''
-        <rect «shape.positionAndSize»/>
-    '''
+//    def protected dispatch generateShape (Compartment shape) '''
+//        <rect «shape.positionAndSize»/>
+//    '''
     def protected dispatch generateShape (Rectangle shape) '''
         <rect «shape.positionAndSize»/>
         «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»

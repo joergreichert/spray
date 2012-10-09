@@ -73,6 +73,9 @@ class ShapeEnumGenerator {
 	}
 	def dispatch searchTextIds(Ellipse shape) {
 		val ids = new ArrayList<String>()
+		if( shape?.compartmentInfo?.id != null ){
+			ids.add(shape.compartmentInfo.id.value)
+		}
 		for(child : shape.shape) {
 			ids.addAll(child.searchTextIds)
 		}
