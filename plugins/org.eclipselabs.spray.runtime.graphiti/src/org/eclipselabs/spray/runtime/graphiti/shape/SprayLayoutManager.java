@@ -98,6 +98,8 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     public void resizeElements(ContainerShape shape, double widthFactor, double heightFactor) {
+        System.out.println("Before resize");
+        SprayAbstractLayoutManager.print(shape, 0);
         GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
         // Special layout handling for shapes which only consists of a polyline
         // or polygon
@@ -116,7 +118,8 @@ public class SprayLayoutManager implements ISprayConstants {
             //            setMaxWidthPictorgramProperty(shape, (int) Math.round(shape.getGraphicsAlgorithm().getWidth()));
 
         }
-
+        System.out.println("After resize");
+        SprayAbstractLayoutManager.print(shape, 0);
     }
 
     public void resizeElementsRecursive(ContainerShape shape, double widthFactor, double heightFactor) {

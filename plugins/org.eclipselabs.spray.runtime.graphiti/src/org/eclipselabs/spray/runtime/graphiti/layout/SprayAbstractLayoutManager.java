@@ -1,12 +1,16 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.impl.GaServiceImpl;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
 
@@ -175,6 +179,48 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
     @Override
     public void setAlignment(SprayAlignment alignment) {
         GraphitiProperties.set(shape, SprayLayoutService.LAYOUT_ALIGNMENT, alignment);
+    }
+
+    static public void print(Shape shape, int level) {
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+        GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+        System.out.println(SprayLayoutService.getId(shape) + " ==> " + ga.getClass() + " X : " + ga.getX() + " Y : " + ga.getY() + " W : " + ga.getWidth() + " H : " + ga.getHeight());
+        if (shape instanceof ContainerShape) {
+            for (Shape child : ((ContainerShape) shape).getChildren()) {
+                print(child, level + 1);
+            }
+        }
+    }
+
+    static public void printLayout(Shape expressionShape, int level) {
+        // expressionShape.setActive(false);
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+        GraphicsAlgorithm ga = expressionShape.getGraphicsAlgorithm();
+        ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(expressionShape);
+        SprayLayoutData data = SprayLayoutService.getLayoutData(expressionShape);
+        System.out.println(SprayLayoutService.getId(expressionShape) + " ==> " + ga.getClass() + " Layout : " + mgr.getClass().getSimpleName() + " margin : " + mgr.getMargin() + " spacing: " + mgr.getSpacing() + " MinW : " + data.getMinimumWidth() + " MinH : " + data.getMinimumHeight());
+        if (expressionShape instanceof ContainerShape) {
+            for (Shape child : ((ContainerShape) expressionShape).getChildren()) {
+                printLayout(child, level + 1);
+            }
+        }
+    }
+
+    static public Font manageFont(Diagram diagram, String name, int size) {
+        return Graphiti.getGaService().manageFont(diagram, name, size);
+    }
+
+    static public void setDefaultTextAttributes(Diagram diagram, AbstractText ret, String value) {
+        //        setDefaultGraphicsAlgorithmValues(ret);
+        ret.setValue(value);
+        if (diagram != null) {
+            Font font = manageFont(diagram, GaServiceImpl.DEFAULT_FONT, 12);
+            ret.setFont(font);
+        }
     }
 
 }

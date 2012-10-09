@@ -57,7 +57,7 @@ public class GraphitiProperties {
         try {
             result = Boolean.parseBoolean(bool);
         } catch (NumberFormatException e) {
-            result = true;
+            result = false;
         }
         return result;
     }
