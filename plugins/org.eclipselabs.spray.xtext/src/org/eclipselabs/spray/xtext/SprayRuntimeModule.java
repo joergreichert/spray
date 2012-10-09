@@ -4,6 +4,8 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
@@ -34,6 +36,7 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
         binder.bind(SprayFactory.class).toInstance(SprayFactory.eINSTANCE);
         binder.bind(EcorePackage.class).toInstance(EcorePackage.eINSTANCE);
         binder.bind(EcoreFactory.class).toInstance(EcoreFactory.eINSTANCE);
+        binder.bind(Resource.Factory.class).toInstance(new XMIResourceFactoryImpl());
         super.configure(binder);
     }
 

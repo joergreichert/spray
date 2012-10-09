@@ -10,6 +10,5 @@ Require-Bundle: org.eclipselabs.spray.xtext.tests,
  org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.3",
  org.eclipselabs.spray.testhelper;bundle-version="0.0.4",
  org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi,
  org.junit4;bundle-version="4.8.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -44,13 +44,10 @@ Import-Package: org.apache.log4j,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.shapes.ui.contentassist,
  org.eclipselabs.spray.shapes.ui.contentassist.antlr,
- org.eclipselabs.spray.shapes.ui.hover,
  org.eclipselabs.spray.shapes.ui.internal,
- org.eclipselabs.spray.shapes.ui.linking.connection,
- org.eclipselabs.spray.shapes.ui.linking.shape,
  org.eclipselabs.spray.shapes.ui.syntaxcoloring,
  org.eclipselabs.spray.shapes.ui.templates
 Bundle-Activator: org.eclipselabs.spray.shapes.ui.internal.ShapeActivator
 Bundle-ClassPath: .,
  lib/batik-all-1.6.jar,
- lib/xerces-2.4.0.jar
+ lib/xerces-2.11.jar
