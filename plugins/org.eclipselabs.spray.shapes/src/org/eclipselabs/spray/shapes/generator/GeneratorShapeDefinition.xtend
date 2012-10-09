@@ -56,6 +56,8 @@ class GeneratorShapeDefinition {
 		import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
+		import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutType;
+		
 		import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
 		import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape;
 		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
@@ -79,7 +81,7 @@ class GeneratorShapeDefinition {
 				// Create a ContainerShape for this Shape
 				Diagram diagram = peService.getDiagramForShape(targetContainer);
 				ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
-				SprayLayoutService.setId(containerShape, "containerShape");
+				SprayLayoutService.setId(containerShape, "«shapeDefs.name».containerShape");
 				
 				// define general layout for ContainerShape
 				«shapeDefs.generateLayout»

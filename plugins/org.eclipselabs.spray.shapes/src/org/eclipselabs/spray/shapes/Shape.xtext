@@ -110,8 +110,11 @@ Text:
 	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
 	//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
 
+enum CompartmentLayout :
+	FIXED = 'fixed' | VERTICAL = 'vertical' | HORIZONTAL = 'horizontal'
+;
 Compartment:
-	{Compartment} 'compartment' shape = CompartmentShape
+	{Compartment} 'compartment' (compartmentLayout = CompartmentLayout)? shape = CompartmentShape
 	///'{' common = CommonLayout body = TextBody '}'
 ;
 

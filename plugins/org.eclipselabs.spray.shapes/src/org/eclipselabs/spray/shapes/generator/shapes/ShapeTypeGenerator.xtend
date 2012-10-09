@@ -28,8 +28,10 @@ class ShapeTypeGenerator {
 	@Inject extension ShapeSizeCalculator
 	
 	int element_index
+	ShapeDefinition sh
 	
 	def generateCascadedElements(ShapeDefinition shapeDef) {
+		sh = shapeDef
 		element_index = 0
 		var sizeMap = shapeDef.getContainerSize
 		var containername = "containerShape"
@@ -52,7 +54,7 @@ class ShapeTypeGenerator {
 		«IF shapeDef.shape.size > 1»
 		// Invisible rectangle around the elements (because more then one element is on first layer).
 		ContainerShape invisibleShape = peCreateService.createContainerShape(containerShape, false);
-		SprayLayoutService.setId(invisibleShape, "invisibleShape");
+		SprayLayoutService.setId(invisibleShape, "«sh.name».invisibleShape");
 		GraphicsAlgorithm «elementName2» = gaService.createRectangle(invisibleShape);
 		«elementName2».setStyle(sprayStyle.getStyle(diagram));
 		«elementName2».setFilled(false);
@@ -94,7 +96,7 @@ class ShapeTypeGenerator {
 		'''
 		«createPointList(element.layout.point, pointListName)»
 		Shape «shapeName» = peCreateService.createShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		Polyline «elementName» = gaService.createPolyline(«shapeName», «pointListName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -107,7 +109,7 @@ class ShapeTypeGenerator {
 		'''
 		// start createElement Rectangle parent «parentName»
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -123,7 +125,7 @@ class ShapeTypeGenerator {
 		'''
 		«createPointList(element.layout.point, pointListName)»
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		Polygon «elementName» = gaService.createPolygon(«shapeName», «pointListName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -137,7 +139,7 @@ class ShapeTypeGenerator {
 		'''
 		«createPointList(element.layout.point, pointListName)»
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		Polyline «elementName» = gaService.createPolyline(«shapeName», «pointListName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -149,7 +151,7 @@ class ShapeTypeGenerator {
 		nextIndex
 		'''
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		RoundedRectangle «elementName» = gaService.createRoundedRectangle(«shapeName», «element.layout.curveWidth», «element.layout.curveHeight»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -163,7 +165,7 @@ class ShapeTypeGenerator {
 		nextIndex
 		'''
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -177,9 +179,11 @@ class ShapeTypeGenerator {
 		nextIndex
 		'''
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», true);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		SprayLayoutService.setCompartment(«shapeName», true);
 		GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.shape.id.value»");
+		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentLayout.name»;
+		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5);
 		«IF element.shape instanceof CompartmentRectangle»
 		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
 		«ELSEIF element.shape instanceof CompartmentEllipse»
@@ -196,7 +200,7 @@ class ShapeTypeGenerator {
 		nextIndex
 		'''
 		Shape «shapeName» = peCreateService.createShape(«parentName», false);
-		SprayLayoutService.setId(«shapeName», "«shapeName»");
+		SprayLayoutService.setId(«shapeName», "«sh.name».«shapeName»");
 		«IF element.texttype == TextType::DEFAULT»
 		Text «elementName» = gaService.createText(«shapeName»);
 		«ELSE»
@@ -274,6 +278,10 @@ class ShapeTypeGenerator {
 
 	def styleName() {
 		"style_" + element_index
+	}
+
+	def layoutName() {
+		"layout_" + element_index
 	}
 
 	def pointListName() {

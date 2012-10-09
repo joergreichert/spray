@@ -15,6 +15,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+import org.eclipselabs.spray.runtime.graphiti.layout.ISprayLayoutManager;
+import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 
 public class SprayLayoutManager implements ISprayConstants {
@@ -148,6 +150,13 @@ public class SprayLayoutManager implements ISprayConstants {
                     resizeElementsRecursive((ContainerShape) child, widthFactor, heightFactor);
                     //                    }
                 }
+
+            }
+            if (SprayLayoutService.isCompartment(shape)) {
+                ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(shape);
+                mgr.layout();
+                //                Graphiti.getGaLayoutService().setLocation(shape.getGraphicsAlgorithm(), 10, 10);
+                SprayAbstractLayoutManager.fixOffset(shape);
 
             }
         }

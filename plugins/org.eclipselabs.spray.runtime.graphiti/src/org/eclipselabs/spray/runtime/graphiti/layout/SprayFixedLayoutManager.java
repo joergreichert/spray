@@ -10,12 +10,12 @@ public class SprayFixedLayoutManager extends SprayAbstractLayoutManager {
 
     @Override
     public void layout() {
-        SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
-        if (data.isVisible()) {
-            layoutService.setSize(shape.getGraphicsAlgorithm(), data.getMinimumWidth(), data.getMinimumHeight());
-        } else {
-            layoutService.setSize(shape.getGraphicsAlgorithm(), 0, 0);
-        }
+        //        SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
+        //        if (data.isVisible()) {
+        //            layoutService.setSize(shape.getGraphicsAlgorithm(), data.getMinimumWidth(), data.getMinimumHeight());
+        //        } else {
+        //            layoutService.setSize(shape.getGraphicsAlgorithm(), 0, 0);
+        //        }
     }
 
     @Override

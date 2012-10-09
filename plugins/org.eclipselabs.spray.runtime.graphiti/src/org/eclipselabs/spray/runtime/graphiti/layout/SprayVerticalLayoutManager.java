@@ -26,7 +26,8 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
     public void layout() {
         level++;
         SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
-        if (data.isVisible()) {
+        // TODO isVisible is incorrect
+        if (!data.isVisible()) {
             int spacing = getSpacing();
             int margin = getMargin();
             int x = margin;

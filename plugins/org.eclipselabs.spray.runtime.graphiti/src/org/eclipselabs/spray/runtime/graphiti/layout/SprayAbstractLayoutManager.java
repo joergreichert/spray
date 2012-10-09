@@ -69,19 +69,19 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
 
     static protected void fixOffsetForShape(ContainerShape containerShape) {
         boolean active = containerShape.isActive();
-        System.out.println("BEGIN FixOffset for shape ooo: " + SprayLayoutService.getId(containerShape) + " active " + active);
+        System.out.println("BEGIN FixOffset for shape: " + SprayLayoutService.getId(containerShape) + " active " + active);
         if (active) {
-            if(!containerShape.getContainer().isActive()) {
-        
-            xOffset = 0;
-            yOffset = 0;
-            ContainerShape parent = findActiveParent(containerShape);
-            if( parent != null){
-                GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
-                System.out.println("    fixing shape " + SprayLayoutService.getId(containerShape) + " old " + containerGa.getX() + ", " + containerGa.getY() + " offset " + xOffset + ", " + yOffset);
-                Graphiti.getGaService().setLocation(containerGa, containerGa.getX() + xOffset, containerGa.getY() + yOffset);
-                System.out.println("    new: " + containerGa.getX() + ", " + containerGa.getY());
-            }
+            if (!containerShape.getContainer().isActive()) {
+
+                xOffset = 0;
+                yOffset = 0;
+                ContainerShape parent = findActiveParent(containerShape);
+                if (parent != null) {
+                    GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
+                    System.out.println("    fixing shape " + SprayLayoutService.getId(containerShape) + " old " + containerGa.getX() + ", " + containerGa.getY() + " offset " + xOffset + ", " + yOffset);
+                    Graphiti.getGaService().setLocation(containerGa, containerGa.getX() + xOffset, containerGa.getY() + yOffset);
+                    System.out.println("    new: " + containerGa.getX() + ", " + containerGa.getY());
+                }
             }
         }
         System.out.println("END FixOffset for shape");
