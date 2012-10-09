@@ -36,7 +36,6 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
         binder.bind(SprayFactory.class).toInstance(SprayFactory.eINSTANCE);
         binder.bind(EcorePackage.class).toInstance(EcorePackage.eINSTANCE);
         binder.bind(EcoreFactory.class).toInstance(EcoreFactory.eINSTANCE);
-        binder.bind(Resource.Factory.class).toInstance(new XMIResourceFactoryImpl());
         super.configure(binder);
     }
 
