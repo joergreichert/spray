@@ -62,6 +62,9 @@ class ShapeTypeGenerator {
 		// Invisible rectangle around the elements (because more then one element is on first layer).
 		ContainerShape invisibleShape = peCreateService.createContainerShape(containerShape, false);
 		SprayLayoutService.setId(invisibleShape, "«sh.name».invisibleShape");
+		SprayLayoutType «layoutName» = SprayLayoutType.HORIZONTAL;
+		SprayLayoutService.setLayoutManager(«containername», «layoutName», 0, 0);
+
 		GraphicsAlgorithm «elementName2» = gaService.createRectangle(invisibleShape);
 		«elementName2».setStyle(sprayStyle.getStyle(diagram));
 		«elementName2».setFilled(false);
