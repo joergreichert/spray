@@ -23,13 +23,15 @@ import org.eclipselabs.spray.styles.styles.GradientAllignment
 import org.eclipselabs.spray.styles.styles.GradientRef
 import org.eclipselabs.spray.styles.styles.Color
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
 
 
-class StyleGenerator implements IGenerator {
+class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	
 	@Inject extension GradientGenerator
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		super.doGenerate(resource, fsa)
 		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
       		fsa.generateFile(gradient.filepath, gradient.compile)
    		}

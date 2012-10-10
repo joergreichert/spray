@@ -62,7 +62,7 @@ AnchorFixPointPosition:
 	'x=' xcor=INT ',' 'y=' ycor=INT;
 
 Shape:
-	Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text;
+	Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text ;
 
 ShapeConnection:
 	CDLine | CDPolyline | CDRectangle | CDRoundedRectangle | CDPolygon | CDEllipse | CDText;
@@ -94,8 +94,12 @@ Line:
 Polyline:
 	{Polyline} 'polyline' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout '}');
 
+
 Rectangle:
-	{Rectangle} 'rectangle' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout shape+=Shape* '}');
+	{Rectangle} 'rectangle' 
+	(compartmentInfo = CompartmentInfo)?
+	(style=ShapeStyleRef)? 
+	('{' layout=RectangleEllipseLayout shape+=Shape* '}');
 
 RoundedRectangle:
 	{RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}');
@@ -104,11 +108,47 @@ Polygon:
 	{Polygon} 'polygon' (style=ShapeStyleRef)? ('{' layout=PolyLineLayout shape+=Shape* '}');
 
 Ellipse:
-	{Ellipse} 'ellipse' (style=ShapeStyleRef)? ('{' layout=RectangleEllipseLayout shape+=Shape* '}');
+	{Ellipse} 'ellipse' 
+	(compartmentInfo = CompartmentInfo)?
+	(style=ShapeStyleRef)? 
+	('{' layout=RectangleEllipseLayout shape+=Shape* '}');
 
 Text:
 	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
 	//ShapeRef: {ShapeRef} 'shape' (ref=JvmTypeReference) "{" layout=RectangleEllipseLayout "}";
+
+CompartmentInfo :
+	(
+		 'compartment' 
+		 (invisible ?= 'invisible')?
+		 compartmentLayout = CompartmentLayout
+		 ( id = TextBody )?
+	)
+;
+
+enum CompartmentLayout :
+	FIXED = 'fixed' | VERTICAL = 'vertical' | HORIZONTAL = 'horizontal'
+;
+Compartment:
+	{Compartment} 'compartment' (compartmentLayout = CompartmentLayout)? shape = CompartmentShape
+	///'{' common = CommonLayout body = TextBody '}'
+;
+
+CompartmentShape :
+	CompartmentEllipse | CompartmentRectangle // | CompartmentPolygon | CompartmentRoundedRectangle
+;
+
+CompartmentRectangle:
+	{CompartmentRectangle} 'rectangle' ('{' layout=RectangleEllipseLayout id = TextBody'}');
+
+CompartmentRoundedRectangle:
+	{CompartmentRoundedRectangle} 'rounded-rectangle' ('{' layout=RoundedRectangleLayout id = TextBody'}');
+
+CompartmentPolygon:
+	{CompartmentPolygon} 'polygon' ('{' layout=PolyLineLayout id = TextBody'}');
+
+CompartmentEllipse:
+	{CompartmentEllipse} 'ellipse' ('{' layout=RectangleEllipseLayout id = TextBody'}');
 
 Description:
 	{Description} (
@@ -156,7 +196,7 @@ CommonLayout:
 	{CommonLayout} (('position' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT ')')? &
 	('size' '(' 'width' '=' width=INT ',' 'height' '=' heigth=INT ')'));
 
-TextBody:
+TextBody: {TextBody}
 	"id" "=" value=ID; //value=TextBodyValue;
 
 //TextBodyValue:

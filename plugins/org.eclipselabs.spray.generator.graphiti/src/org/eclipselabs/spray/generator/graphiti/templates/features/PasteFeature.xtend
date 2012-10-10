@@ -125,12 +125,12 @@ class PasteFeature extends FileGenerator<Diagram>{
             final String alias = Graphiti.getPeService().getPropertyValue(pe, PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses»
             if(«generate_metaClassSwitchCondition(cls)») {
-                «IF cls.hasCreateBehavior»
+                «IF cls.hasCreateBehavior && (cls.createBehavior != null) && (cls.createBehavior.containmentReference != null) »
                     «val containmentRef = cls.createBehavior.containmentReference»
                     «IF containmentRef.many»
                         model.get«containmentRef.name.toFirstUpper»().add((«cls.getCast()») bo);
                     «ELSE»
-                        model.set«containmentRef.name.toFirstUpper»((List<«cls.getCast()»>) bo);
+                        model.set«containmentRef.name.toFirstUpper»((«cls.getCast()») bo);
                     «ENDIF»
                 «ELSE»
                     throw new UnsupportedOperationException("No create behavior defined");

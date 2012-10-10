@@ -3,23 +3,25 @@ package org.eclipselabs.spray.generator.graphiti.util
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EcorePackage
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.eclipselabs.spray.mm.spray.AliasableElement
-import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.ColorConstantRef
+import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.xtext.generator.ImportUtil
 import org.eclipselabs.spray.xtext.util.GenModelHelper
-import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
-import org.eclipse.xtext.util.SimpleAttributeResolver
+
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipse.xtext.common.types.JvmTypeReference
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EDataType
-import org.eclipselabs.spray.xtext.generator.ImportUtil
-import org.eclipse.emf.ecore.EcorePackage
 
 /**
  * Computation of class names, file names etc.
@@ -401,5 +403,15 @@ class NamingExtensions {
         return importUtil.shortName(clazz)
     }
     
+    // And complex queries
+    def Iterable<ShapeCompartmentAssignment> getReferencesTo (MetaClass metaClass ) {
+        var referringShapes = metaClass.diagram.metaClasses.map(cls | cls.representedBy).filter(typeof(ShapeFromDsl))
+        var references = referringShapes.map(s | s.referencesList).flatten   				
+        var result = references.filter(r | metaClass.type.EAllSuperTypes.contains(r.reference.EReferenceType))
+        result
+    }
+    def Iterable<ShapeFromDsl> xgetReferringShapes (MetaClass metaClass ) {
+        metaClass.diagram.metaClasses.map(cls | cls.representedBy).filter(typeof(ShapeFromDsl))
+    }
 }
 

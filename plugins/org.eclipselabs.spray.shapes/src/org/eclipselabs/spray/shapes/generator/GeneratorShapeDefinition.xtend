@@ -19,15 +19,15 @@ class GeneratorShapeDefinition {
 	def filepath(ShapeDefinition s) { packagePath + s.className + ".java" }
 	def className(ShapeDefinition s) { s.name.toFirstUpper }
 
-	def compile(ShapeDefinition s) { 
+	def compile(ShapeDefinition shapeDef) { 
 		'''
-		«s.head»
+		«shapeDef.head»
 		
-		«s.body»
+		«shapeDef.body»
 		'''
 	}
 	 
-	def head(ShapeDefinition s) {
+	def head(ShapeDefinition shapeDef) {
 	 	'''
 		/**
 		 * This is a generated Shape for Spray
@@ -54,20 +54,25 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.mm.algorithms.styles.*;
 		
 		import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+		import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
+		import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
+		import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutType;
+		
+		import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
 		import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape;
 		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		'''
 	 }
 	 
-	 def body(ShapeDefinition s) {
+	 def body(ShapeDefinition shapeDefs) {
 		'''
 		@SuppressWarnings("all")
-		public class «s.className» extends DefaultSprayShape {
+		public class «shapeDefs.className» extends DefaultSprayShape {
 		    
-			«s.generateTextIdsEnum»
+			«shapeDefs.generateTextIdsEnum»
 			
-			public «s.className»(IFeatureProvider fp) {
+			public «shapeDefs.className»(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -76,20 +81,23 @@ class GeneratorShapeDefinition {
 				// Create a ContainerShape for this Shape
 				Diagram diagram = peService.getDiagramForShape(targetContainer);
 				ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
+				SprayLayoutService.setId(containerShape, "«shapeDefs.name».containerShape");
 				
 				// define general layout for ContainerShape
-				«s.generateLayout»
+				«shapeDefs.generateLayout»
 				
 				// creates the cascaded elements (figures)
-				«s.generateCascadedElements»
+				«shapeDefs.generateCascadedElements»
 				
 				// creates the anchors
-				«s.createAnchorPoints»
+				«shapeDefs.createAnchorPoints»
 				
+				// Fix the broken coordinate syaten for not active container shapes
+		        SprayAbstractLayoutManager.fixOffset(containerShape);
 				return containerShape;
 			}
 
-			«s.generateGetLayoutMethod»
+			«shapeDefs.generateGetLayoutMethod»
 			
 «««			«FOR param : s.param»
 «««			«param.parameterType.qualifiedName» «param.name»;

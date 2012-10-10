@@ -7,7 +7,7 @@ import org.eclipse.emf.codegen.util.ImportManager;
 import com.google.inject.Singleton;
 
 @Singleton
-class DefaultCompilationUnitImportManager implements CompilationUnitImportManager {
+public class DefaultCompilationUnitImportManager implements CompilationUnitImportManager {
 
     private static final ThreadLocal<ImportManager> THREAD_LOCAL = new ThreadLocal<ImportManager>();
 

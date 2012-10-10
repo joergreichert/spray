@@ -1,0 +1,19 @@
+gradient GreenToWhite {
+	area(color=green, offset=0.0)
+	area(color=white, offset=1.0)
+}
+
+gradient GreenToOrange {
+	area(color=green, offset=0.0)
+	area(color=orange, offset=1.0)
+}
+
+gradient GreenToYellow {
+	area(color=green, offset=0.0)
+	area(color=yellow, offset=1.0)
+}
+
+gradient GreenToRed {
+	area(color=green, offset=0.0)
+	area(color=red, offset=1.0)
+}

@@ -1,0 +1,17 @@
+module org.eclipselabs.spray.examples.petrinet.StylesGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+		registerGeneratedEPackage = "PetriNet.PetriNetPackage"
+		registerGenModelFile = "platform:/resource/de.htwg.petrinet.mm/model/PetriNet.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
+		clean = "true"
+		modelPath = "model,../de.htwg.petrinet.mm/model"
+	}
+}

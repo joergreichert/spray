@@ -29,8 +29,8 @@ class FileGenerator<T super EObject> extends TemplateUtil {
         }
         
         var String fileContent
-        if(javaGenFile!=null && javaGenFile.hasExtensionPoint){
-        }
+//        if(javaGenFile!=null && javaGenFile.hasExtensionPoint){
+//        }
         if (javaGenFile!=null) {
             val organizeImports = [String s1| s1.replace("// MARKER_IMPORT", importUtil.printImports) ]
             if (javaGenFile.hasExtensionPoint) {

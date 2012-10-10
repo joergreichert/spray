@@ -1,45 +1,90 @@
 package org.eclipselabs.spray.shapes.jvmmodel
 
-import org.eclipse.xtext.common.types.JvmDeclaredType
+import com.google.inject.Inject
 import org.eclipse.xtext.util.IAcceptor
+import org.eclipse.xtext.common.types.JvmDeclaredType
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.common.types.access.IJvmTypeProvider$Factory
+import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer
+import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection
+import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape
+import org.eclipselabs.spray.shapes.generator.GeneratorConnectionDefinition
+import org.eclipselabs.spray.shapes.generator.GeneratorShapeDefinition
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipse.xtext.naming.IQualifiedNameConverter
 
-/**
- * <p>Infers a JVM model from the source model.</p> 
- *
- * <p>The JVM model should contain all elements that would appear in the Java code 
- * which is generated from the source model. Other models link against the JVM model rather than the source model.</p>     
- */
 class ShapeJvmModelInferrer extends AbstractModelInferrer {
 
-    /**
-     * conveninence API to build and initialize JvmTypes and their members.
-     */
-//    @Inject extension JvmTypesBuilder
+	@Inject extension TypeReferences typeReferences
+    @Inject extension JvmTypesBuilder
+    @Inject extension GeneratorShapeDefinition shapeGenerator
+    @Inject extension GeneratorConnectionDefinition connectionGenerator
+    @Inject extension IJvmTypeProvider$Factory typeProviderFactory
+    @Inject IQualifiedNameConverter converter
 
-    /**
-     * Is called for each instance of the first argument's type contained in a resource.
-     * 
-     * @param element - the model to create one or more JvmDeclaredTypes from.
-     * @param acceptor - each created JvmDeclaredType without a container should be passed to the acceptor in order get attached to the
-     *                   current resource.
-     * @param isPreLinkingPhase - whether the method is called in a pre linking phase, i.e. when the global index isn't fully updated. You
-     *        must not rely on linking using the index if iPrelinkingPhase is <code>true</code>
-     */
-       def dispatch void infer(ShapeContainer element, IAcceptor<JvmDeclaredType> acceptor, boolean isPrelinkingPhase) {
-           
-           // Here you explain how your model is mapped to Java elements, by writing the actual translation code.
-           // An example based on the initial hellow world example could look like this:
-           
-//           acceptor.accept(element.toClass("my.company.greeting.MyGreetings") [
-//               for (greeting : element.greetings) {
-//                   members += greeting.toMethod(greeting.name, greeting.newTypeRef(typeof(String))) [
-//                       it.body ['''
-//                           return "Hello «greeting.name»";
-//                       ''']
-//                   ]
-//               }
-//           ])
-       }
+   	def void infer(ShapeDefinition element, IAcceptor<JvmDeclaredType> acceptor, boolean isPreIndexingPhase) {
+		val JvmTypeReference superTypeRef = element.calculateSuperTypeRef
+		val typeProvider = typeProviderFactory.createTypeProvider
+		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
+		if(existingClass == null) {
+			acceptor.accept(element.toClass(converter.toQualifiedName(element.packageName + "." + element.className)) [
+				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
+			])
+		} else {
+			if(existingClass instanceof JvmDeclaredType) {
+				element.associate(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
+			}
+		}
+   	}
+   	
+   	def void infer(ConnectionDefinition element, IAcceptor<JvmDeclaredType> acceptor, boolean isPreIndexingPhase) {
+		val JvmTypeReference superTypeRef = element.calculateSuperTypeRef
+		val typeProvider = typeProviderFactory.createTypeProvider
+		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
+		if(existingClass == null) {
+			acceptor.accept(element.toClass(converter.toQualifiedName(element.packageName + "." + element.className)) [
+				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
+			])
+		} else {
+			if(existingClass instanceof JvmDeclaredType) {
+				element.associate(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
+			}
+		}
+   	}   	
+   	
+	def dispatch JvmTypeReference calculateSuperTypeRef(ShapeDefinition shape) {
+		var JvmTypeReference varSuperTypeRef = null
+		val superType = typeReferences.findDeclaredType(typeof(DefaultSprayShape), shape)
+		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
+		varSuperTypeRef
+	} 
+	
+	def dispatch JvmTypeReference calculateSuperTypeRef(ConnectionDefinition shape) {
+		var JvmTypeReference varSuperTypeRef = null
+		val superType = typeReferences.findDeclaredType(typeof(DefaultSprayConnection), shape)
+		if(superType != null) varSuperTypeRef = typeReferences.createTypeRef(superType)
+		varSuperTypeRef
+	}	
+	
+	def dispatch String getPackageName(ShapeDefinition shapeDefinition) {
+		shapeGenerator.packageName
+	}
+	
+	def dispatch String getPackageName(ConnectionDefinition connectionDefinition) {
+		connectionGenerator.packageName
+	}	
+	
+	def dispatch String getClassName(ShapeDefinition shapeDefinition) {
+		shapeGenerator.className(shapeDefinition)
+	}
+	
+	def dispatch String getClassName(ConnectionDefinition connectionDefinition) {
+		connectionGenerator.className(connectionDefinition)
+	}	
 }
+

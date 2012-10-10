@@ -51,7 +51,7 @@ Workflow {
 
             // Serializer 2.0
             fragment = serializer.SerializerFragment {
-            	generateStub = false
+            	generateStub = true
             }
             
             // the serialization component (1.0)

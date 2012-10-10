@@ -10,10 +10,12 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.SprayStyleRef
 import org.eclipselabs.spray.mm.spray.CompartmentBehavior
 import org.eclipse.emf.ecore.EClass
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
 	
     @Inject extension NamingExtensions
+    @Inject extension MetaClassExtensions
     
     MetaClass metaClass = null
     SprayStyleRef styleRef = null
@@ -64,6 +66,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddFeature;
         import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
+        import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
         import «container.shape.qualifiedName»;
         «IF styleRef != null && styleRef.style != null»
         import «styleRef.style.qualifiedName»;
@@ -91,8 +95,13 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 if (newObject instanceof «metaClass.name») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
-                        return true;
+		            	«IF metaClass.createBehavior.containmentReference != null»
+		            	return true;
+		            	«ELSE»
+		            	return false;
+		            	«ENDIF»
                     } else if (context.getTargetContainer() instanceof ContainerShape) {
+                    	// OLD STUFF
                     	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                     	«FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
                     	«FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
@@ -101,7 +110,20 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                     	}
                     	«ENDFOR»
                     	«ENDFOR»
-        	}
+                    	// NEW stuff
+                        «var result = metaClass.referencesTo»
+                        «FOR cls : result »
+                        // cls «cls.shape.represents.name» refers to this metaClass»
+                        if( target instanceof «cls.shape.represents.javaInterfaceName» ){
+                            if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
+                                String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
+                                if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
+                                    return true;	
+                                }
+                            }
+                        }
+                        «ENDFOR»
+        	       }
                 }
                 return false;
             }
@@ -121,22 +143,28 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 final IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());
                 link(conShape, addedModelElement);
+                linkShapes(conShape, addedModelElement);
                 «IF metaClass.alias!=null»
                 peService.setPropertyValue(conShape , PROPERTY_ALIAS, "«metaClass.alias»");
                 «ENDIF»
-                for(Shape childShape : conShape.getChildren()) {
-                	link(childShape, addedModelElement);
-                	«IF metaClass.alias!=null»
-                	peService.setPropertyValue(childShape, PROPERTY_ALIAS, "«metaClass.alias»");
-                	«ENDIF»
-                }
 
                 setDoneChanges(true);
                 updatePictogramElement(conShape);
                 
                 return conShape;
             }
-            
+        
+        
+        protected void linkShapes(ContainerShape conShape, «metaClass.name» addedModelElement) {
+            link(conShape, addedModelElement);
+            for (Shape childShape : conShape.getChildren()) {
+                if( childShape instanceof ContainerShape ){
+            	    linkShapes((ContainerShape)childShape, addedModelElement);
+                } else {
+                    link(childShape, addedModelElement);
+                }
+            }
+        }
         }
         '''
 }

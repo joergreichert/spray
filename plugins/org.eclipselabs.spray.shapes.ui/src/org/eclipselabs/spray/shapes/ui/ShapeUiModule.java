@@ -5,9 +5,17 @@ package org.eclipselabs.spray.shapes.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.shapes.ui.hover.ImageResourceVisitor;
+import org.eclipselabs.spray.shapes.ui.hover.ShapesEObjectDocumentationProvider;
+import org.eclipselabs.spray.shapes.ui.hover.ShapesEObjectHoverProvider;
+import org.eclipselabs.spray.shapes.ui.linking.ShapeLinkingHelper;
+import org.eclipselabs.spray.shapes.ui.linking.StyleEditorOpener;
+import org.eclipselabs.spray.shapes.ui.linking.StyleResourceVisitor;
 import org.eclipselabs.spray.shapes.ui.outline.ShapeOutlinePage;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeHighlightingConfiguration;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeTokenToAttributeIdMapper;
@@ -27,7 +35,7 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
     }
 
     @Override
-    public void configure(Binder binder) {
+	public void configure(Binder binder) {
         super.configure(binder);
         binder.bind(TokenTypeToStringMapper.class).to(ShapeTokenToAttributeIdMapper.class);
     }
@@ -40,5 +48,29 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
     public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
         return ShapeOutlinePage.class;
     }
+    
+    @Override
+    public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+        return ShapeLinkingHelper.class;
+    }
+    
+    public Class<? extends StyleEditorOpener> bindStyleEditorOpener() {
+        return StyleEditorOpener.class;
+    }
+    
+    public Class<? extends StyleResourceVisitor> bindStyleResourceVisitor() {
+        return StyleResourceVisitor.class;
+    }
+    
+    public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return ShapesEObjectHoverProvider.class;
+	}
 
+	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
+		return ShapesEObjectDocumentationProvider.class;
+	}   
+	
+	public Class<? extends ImageResourceVisitor> bindImageResourceVisitor() {
+		return ImageResourceVisitor.class;
+	}	
 }

@@ -56,7 +56,7 @@ class ShapeLayoutGenerator {
 			«IF s.shapeLayout.stretchV != null»
 				layoutManager.setStretchVertical(«s.shapeLayout.stretchV»);	   
 			«ELSE»
-				layoutManager.setStretchHorizontal(true);	   
+				layoutManager.setStretchVertical(true);	   
 			«ENDIF»		
 			return layoutManager;
 		}

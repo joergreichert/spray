@@ -1,0 +1,17 @@
+module org.eclipselabs.spray.examples.bpmn.SprayGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+		registerGeneratedEPackage = "BPMN.BPMNPackage"
+		registerGenModelFile = "platform:/resource/de.htwg.2012.bpmn.mm/model/bpmn.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
+		clean = "false"
+		modelPath = "model,../de.htwg.2012.bpmn.mm/model"
+	}
+}

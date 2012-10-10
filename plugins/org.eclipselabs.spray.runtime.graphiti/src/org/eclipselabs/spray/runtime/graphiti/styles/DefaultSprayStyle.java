@@ -34,7 +34,7 @@ public class DefaultSprayStyle implements ISprayStyle {
             // no -> create new one
             style = newStyle(diagram);
         }
-        
+
         return style;
     }
 
@@ -88,23 +88,29 @@ public class DefaultSprayStyle implements ISprayStyle {
     }
 
     protected Style findStyle(StyleContainer container, String id) {
-    	
-    	IGaService gaService = Graphiti.getGaService();
-    	
-        if (id == null)
+
+        IGaService gaService = Graphiti.getGaService();
+
+        if (id == null) {
             return null;
+	}
+        AdaptedGradientColoredAreas colorSchema;
         for (Style s : container.getStyles()) {
-            if (id.equals(s.getId()))
-            	// Update Rendering Style 
-                gaService.setRenderingStyle(s, getColorSchema());
+            if (id.equals(s.getId())) {
+            	// Update Rendering Style
+            	colorSchema = getColorSchema();
+            	if(colorSchema != null) {
+                    gaService.setRenderingStyle(s, colorSchema);
+            	}
                 return s;
+	    }
         }
         return null;
     }
 
-	@Override
-	public AdaptedGradientColoredAreas getColorSchema() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AdaptedGradientColoredAreas getColorSchema() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

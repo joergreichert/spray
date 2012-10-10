@@ -37,7 +37,8 @@ class DiagramExtensions {
     }
     
     def dispatch Iterable<MetaClass> getElementsForTemplate (Diagram diagram, CreateShapeFeature template) {
-        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof ConnectionInSpray) && mc.behaviors.exists(b|b instanceof CreateBehavior))
+//        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof ConnectionInSpray) && mc.behaviors.exists(b|b instanceof CreateBehavior))
+        diagram.metaClasses.filter(mc|!(mc.representedBy instanceof ConnectionInSpray) )
     }
     
     def dispatch Iterable<MetaClass> getElementsForTemplate (Diagram diagram, CreateConnectionFeature template) {

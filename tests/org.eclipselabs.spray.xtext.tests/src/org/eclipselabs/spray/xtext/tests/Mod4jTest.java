@@ -17,9 +17,9 @@ import BusinessDomainDsl.IBusinessDomainDslPackage;
 @RunWith(XtextRunner2.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class Mod4jTest extends XtextTest {
-    @Before
+
+	@Before
     public void before() {
-        super.before();
         suppressSerialization();
 		EPackage.Registry.INSTANCE.put(IBusinessDomainDslPackage.eNS_URI, IBusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);

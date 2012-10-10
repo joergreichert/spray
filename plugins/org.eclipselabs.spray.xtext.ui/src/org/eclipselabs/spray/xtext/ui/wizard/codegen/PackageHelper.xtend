@@ -5,8 +5,6 @@ import org.eclipse.emf.common.util.URI
 import java.util.Collections
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
-import static extension org.eclipse.xtext.xtend2.lib.ResourceExtensions.*
-import static extension org.eclipse.xtext.xbase.lib.IteratorExtensions.*
 
 class PackageHelper {
     

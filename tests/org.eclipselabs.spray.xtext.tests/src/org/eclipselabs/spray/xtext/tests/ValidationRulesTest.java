@@ -9,7 +9,6 @@ import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,9 +17,9 @@ import BusinessDomainDsl.IBusinessDomainDslPackage;
 @RunWith(XtextRunner2.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class ValidationRulesTest extends XtextTest {
-    @Before
+
+	@Before
     public void before() {
-        super.before();
         suppressSerialization();
 		EPackage.Registry.INSTANCE.put(IBusinessDomainDslPackage.eNS_URI, IBusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);

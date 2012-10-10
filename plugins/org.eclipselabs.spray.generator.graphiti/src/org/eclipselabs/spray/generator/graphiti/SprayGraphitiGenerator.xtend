@@ -266,7 +266,7 @@ class SprayGraphitiGenerator implements IGenerator {
     }
     
     def handleTargetType(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
-        if( !targetType.abstract ) {
+        if( !targetType.^abstract ) {
 //            println("NOT ABSTRACT: " + targetType.name)
             java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
             cralf.setTarget(targetType)
@@ -283,7 +283,7 @@ class SprayGraphitiGenerator implements IGenerator {
     
     def handleTargetTypeSubClasses(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
         for( subclass : targetType.getSubclasses() ){
-            if( ! subclass.abstract ){
+            if( ! subclass.^abstract ){
                 println("NOT ABSTRACT subclass: " + subclass.name)
                 java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
                 cralf.setTarget(subclass)

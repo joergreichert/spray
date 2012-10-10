@@ -55,8 +55,8 @@ class GradientGenerator {
 		     * Description: «g.description»
 		     */
 		     public GradientColoredAreas getGradientColoredAreas( ) {
-		         final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
-		         final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
+		         final GradientColoredAreas gradientColoredAreas = org.eclipse.graphiti.mm.algorithms.styles.StylesFactory.eINSTANCE.createGradientColoredAreas();
+		         final EList<org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 		         «g.layout.createColorAreas»
 		         return gradientColoredAreas;
 		     }
@@ -82,7 +82,7 @@ class GradientGenerator {
 	def createArea(GradientColorArea first, GradientColorArea second){
 		var offset_1 = (first.offset*100).intValue
 		var offset_2 = (second.offset*100).intValue  
-		'''addGradientColoredArea(gcas,"«first.color.createColorValue»",«offset_1»,LocationType.LOCATION_TYPE_RELATIVE, "«second.color.createColorValue»",«offset_2»,LocationType.LOCATION_TYPE_RELATIVE);'''
+		'''addGradientColoredArea(gcas,"«first.color.createColorValue»",«offset_1»,org.eclipse.graphiti.mm.algorithms.styles.LocationType.LOCATION_TYPE_RELATIVE, "«second.color.createColorValue»",«offset_2»,org.eclipse.graphiti.mm.algorithms.styles.LocationType.LOCATION_TYPE_RELATIVE);'''
 	}
 	
 	def dispatch createColorValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c)»''' }

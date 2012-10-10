@@ -1,0 +1,17 @@
+module org.eclipselabs.spray.examples.lwc2012.ShapesGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+		registerGeneratedEPackage = "LanguageWorkbenchCompetition.LanguageWorkbenchCompetitionPackage.java"
+		registerGenModelFile = "platform:/resource/de.htwg.2012.lwc.mm/model/LWC.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
+		clean = "false"
+		modelPath = "model,../de.htwg.2012.lwc.mm/model"
+	}
+}

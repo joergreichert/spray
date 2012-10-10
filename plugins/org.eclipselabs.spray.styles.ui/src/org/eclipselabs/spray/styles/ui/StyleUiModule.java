@@ -7,6 +7,13 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.styles.ui.linking.StyleDispatchingLinkingHelper;
+import org.eclipselabs.spray.styles.ui.linking.gradient.GradientEditorOpener;
+import org.eclipselabs.spray.styles.ui.linking.gradient.GradientLinkingHelper;
+import org.eclipselabs.spray.styles.ui.linking.gradient.GradientResourceVisitor;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleEditorOpener;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
+import org.eclipselabs.spray.styles.ui.linking.style.StyleResourceVisitor;
 import org.eclipselabs.spray.styles.ui.syntaxcoloring.StyleHighlightingConfiguration;
 import org.eclipselabs.spray.styles.ui.syntaxcoloring.StyleTokenToAttributeIdMapper;
 

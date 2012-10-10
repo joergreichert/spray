@@ -48,9 +48,11 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.dt.IDiagramTypeProvider;
         import org.eclipse.graphiti.features.IFeature;
         import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.tb.AbstractSprayToolBehaviorProvider;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.emf.common.util.EList;
         import org.eclipse.graphiti.services.Graphiti;
         
@@ -74,13 +76,12 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
     def generate_getSelectionBorder(Diagram diagram) { '''
     	«overrideHeader»
 		public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
-			String propertyValue = Graphiti.getPeService().getPropertyValue(pe.getGraphicsAlgorithm(), IS_SHAPE_FROM_DSL);
-			if (propertyValue != null && propertyValue.equals(IS_SHAPE_FROM_DSL_VALUE)) {
-				GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();
-				EList<GraphicsAlgorithm> graphicsAlgorithmChildren = invisible.getGraphicsAlgorithmChildren();
-				if (!graphicsAlgorithmChildren.isEmpty()) {
-					return graphicsAlgorithmChildren.get(0);
-				}
+			boolean isFromDsl = SprayLayoutService.isShapeFromDsl(pe);
+			if (isFromDsl) {
+		        ContainerShape container = (ContainerShape)pe;
+		        if (!container.getChildren().isEmpty()) {
+		            return container.getChildren().get(0).getGraphicsAlgorithm();
+		        }
 			}
 			return super.getSelectionBorder(pe);
 		}
@@ -114,10 +115,10 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
             // Compartments
             «FOR reference: diagram.listReferences.toSet»
                 «val target = reference.target »  
-                «IF ! target.EReferenceType.abstract»
+                «IF ! target.EReferenceType.^abstract»
                     buildCreationTool(new «reference.createFeatureClassName.shortName»(this.getFeatureProvider()));
                 «ENDIF»
-                «FOR subclass : target.EReferenceType.getSubclasses().filter(c|!c.abstract) »
+                «FOR subclass : target.EReferenceType.getSubclasses().filter(c|!c.^abstract) »
                         buildCreationTool(new «reference.getCreateReferenceAsListFeatureClassName(subclass).shortName»(this.getFeatureProvider()));
                 «ENDFOR»
             «ENDFOR»

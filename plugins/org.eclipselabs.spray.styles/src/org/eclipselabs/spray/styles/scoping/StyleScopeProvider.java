@@ -17,39 +17,41 @@ import org.eclipselabs.spray.styles.styles.Style;
 import com.google.common.base.Predicate;
 
 /**
- * This class contains custom scoping description.
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
- * how and when to use it
+ * This class contains custom scoping description. see :
+ * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on how
+ * and when to use it
  */
 public class StyleScopeProvider extends AbstractDeclarativeScopeProvider {
 
-    @Override
-    public IScope getScope(EObject context, EReference reference) {
-        if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
-            GradientRef gradientRef = EcoreUtil2.getContainerOfType(context, GradientRef.class);
-            if (gradientRef != null) {
-                return getGradientTypeScope(gradientRef);
-            }
-            Style style = EcoreUtil2.getContainerOfType(context, Style.class);
-            if (style != null) {
-                return getStyleTypeScope(style);
-            }
-        }
-        return super.getScope(context, reference);
-    }
+	@Override
+	public IScope getScope(EObject context, EReference reference) {
+		if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
+			GradientRef gradientRef = EcoreUtil2.getContainerOfType(context,
+					GradientRef.class);
+			if (gradientRef != null) {
+				return getGradientTypeScope(gradientRef);
+			}
+			Style style = EcoreUtil2.getContainerOfType(context, Style.class);
+			if (style != null) {
+				return getStyleTypeScope(style);
+			}
+		}
+		return super.getScope(context, reference);
+	}
 
-    protected IScope getStyleTypeScope(Style style) {
-        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-        Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
-        IScope result = new FilteringScope(typesScope, stylesFilter);
-        return result;
-    }
+	protected IScope getStyleTypeScope(Style style) {
+		IScope typesScope = delegateGetScope(style,
+				TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+		Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
+		IScope result = new FilteringScope(typesScope, stylesFilter);
+		return result;
+	}
 
-    protected IScope getGradientTypeScope(GradientRef gradientRef) {
-        IScope typesScope = delegateGetScope(gradientRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-        Predicate<IEObjectDescription> gradientFilter = new GradientScopeRestrictor();
-        IScope result = new FilteringScope(typesScope, gradientFilter);
-        return result;
-    }
-
+	protected IScope getGradientTypeScope(GradientRef gradientRef) {
+		IScope typesScope = delegateGetScope(gradientRef,
+				TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+		Predicate<IEObjectDescription> gradientFilter = new GradientScopeRestrictor();
+		IScope result = new FilteringScope(typesScope, gradientFilter);
+		return result;
+	}
 }

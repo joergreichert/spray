@@ -37,7 +37,7 @@ Workflow {
             from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
             to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
         }
-                uriMap = {
+        uriMap = {
             from = "platform:/plugin/org.eclipselabs.spray.styles.mm/model/Style.ecore"
             to = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.ecore"
         }

@@ -99,11 +99,11 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 if(pictogramElement instanceof ContainerShape) {
                     ContainerShape conShape = (ContainerShape) pictogramElement;
                     «container.represents.name» eClass = («container.represents.name») bo;
-                    if(checkUpdateNeededRecursively(conShape.getGraphicsAlgorithm(), eClass)) {
+                    if(checkUpdateNeededRecursively(conShape, eClass)) {
                     	return Reason.createTrueReason();
                     }
                     for(Shape childShape : conShape.getChildren()) {
-                    	if(checkUpdateNeededRecursively(childShape.getGraphicsAlgorithm(), eClass)) {
+                    	if(checkUpdateNeededRecursively(childShape, eClass)) {
                     		return Reason.createTrueReason();
                     	}
                     }
@@ -113,7 +113,8 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
         
 		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
-	    	private boolean checkUpdateNeededRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
+	    	protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.name» eClass) {
+                GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
@@ -137,10 +138,12 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    			}
 	    			«ENDIF»
 	    		}
-	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
-	    			if(checkUpdateNeededRecursively(gAlgorithmChild, eClass)) {
-	    				return true;
-	    			}
+	    		if( shape instanceof ContainerShape ){
+	    		    for(Shape child : ((ContainerShape) shape).getChildren()) {
+	    			    if(checkUpdateNeededRecursively(child, eClass)) {
+	    				    return true;
+	    			    }
+	    		    }
 	    		}
 	    		return false;
 	    	}
@@ -151,12 +154,9 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             public boolean update(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final «container.represents.name» eClass = («container.represents.name») getBusinessObjectForPictogramElement(pictogramElement);
-                if(pictogramElement instanceof ContainerShape) {
-                    ContainerShape conShape = (ContainerShape) pictogramElement;
-                    updateChildsRecursively(conShape.getGraphicsAlgorithm(), eClass);
-                    for(Shape childShape : conShape.getChildren()) {
-                    	updateChildsRecursively(childShape.getGraphicsAlgorithm(), eClass);
-                    }
+                if(pictogramElement instanceof Shape) {
+                    Shape shape = (Shape) pictogramElement;
+                    updateChildsRecursively(shape, eClass);
                 }
                 return true;
                 
@@ -164,7 +164,8 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
 	        
 	    def generate_updateChildsRecursively(ShapeFromDsl container) '''
-	    	private void updateChildsRecursively(final GraphicsAlgorithm graphicsAlgorithm, final «container.represents.name» eClass) {
+	    	protected void updateChildsRecursively(Shape shape, final «container.represents.name» eClass) {
+                GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 	    		if(graphicsAlgorithm instanceof Text) {
 	    			«IF !container.properties.empty»
 	    			Text text = (Text) graphicsAlgorithm;
@@ -183,9 +184,12 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
 	    			}
 	    			«ENDIF»
 	    		}
-	    		for(GraphicsAlgorithm gAlgorithmChild : graphicsAlgorithm.getGraphicsAlgorithmChildren()) {
-	    			updateChildsRecursively(gAlgorithmChild, eClass);
-	    		}
+	    		
+                if (shape instanceof ContainerShape) {
+	    		    for(Shape child : ((ContainerShape) shape).getChildren()) {
+	    			    updateChildsRecursively(child, eClass);
+	    		    }
+	    	    }
 	    	}
 	    '''
         

@@ -10,6 +10,9 @@ import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.Ellipse
 import org.eclipselabs.spray.shapes.shapes.Polygon
 import org.eclipselabs.spray.shapes.shapes.Rectangle
+import org.eclipselabs.spray.shapes.shapes.Compartment
+import com.ibm.icu.util.CompactByteArray
+import org.eclipselabs.spray.shapes.shapes.Rectangle
 
 class ShapeEnumGenerator {
 	
@@ -28,11 +31,13 @@ class ShapeEnumGenerator {
 		'''
 	}
 	
-	def searchTextIds(ShapeDefinition s) {
+	def dispatch searchTextIds(ShapeDefinition s) {
 		val ids = new ArrayList<String>();
 		for(Shape shape : s.shape) {
 			if(shape instanceof Text) {
 				ids.add((shape as Text).body.value);
+			} else if(shape instanceof Compartment) {
+				ids.add((shape as Compartment).shape.id.value)
 			} else {
 				ids.addAll(shape.searchTextIds);
 			}
@@ -58,6 +63,9 @@ class ShapeEnumGenerator {
 	}
 	def dispatch searchTextIds(Rectangle shape) {
 		val ids = new ArrayList<String>()
+		if( shape?.compartmentInfo?.id != null ){
+			ids.add(shape.compartmentInfo.id.value)
+		}
 		for(child : shape.shape) {
 			ids.addAll(child.searchTextIds)
 		}
@@ -65,6 +73,9 @@ class ShapeEnumGenerator {
 	}
 	def dispatch searchTextIds(Ellipse shape) {
 		val ids = new ArrayList<String>()
+		if( shape?.compartmentInfo?.id != null ){
+			ids.add(shape.compartmentInfo.id.value)
+		}
 		for(child : shape.shape) {
 			ids.addAll(child.searchTextIds)
 		}
@@ -80,6 +91,11 @@ class ShapeEnumGenerator {
 	def dispatch searchTextIds(Text shape) {
 		val ids = new ArrayList<String>()
 		ids.add(shape.body.value)
+		ids
+	}
+	def dispatch searchTextIds(Compartment shape) {
+		val ids = new ArrayList<String>()
+		ids.add(shape.shape.id.value)
 		ids
 	}
 }

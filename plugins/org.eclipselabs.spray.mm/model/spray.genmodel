@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="(c) Copyright Spray Project Team"
-    modelDirectory="/org.eclipselabs.spray.mm/emf-gen" editDirectory="/org.eclipselabs.spray.mm.edit/src"
-    modelPluginID="org.eclipselabs.spray.mm" modelName="Spray" importerID="org.eclipse.emf.importer.ecore"
-    arrayAccessors="true" complianceLevel="6.0" copyrightFields="false" language=""
-    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.genmodel#//shapes ../../org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.genmodel#//styles ../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="(c) Copyright Spray Project Team" modelDirectory="/org.eclipselabs.spray.mm/emf-gen"
+    editDirectory="/org.eclipselabs.spray.mm.edit/src" modelPluginID="org.eclipselabs.spray.mm"
+    modelName="Spray" importerID="org.eclipse.emf.importer.ecore" arrayAccessors="true"
+    complianceLevel="6.0" copyrightFields="false" language="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipselabs.spray.shapes/src-gen/org/eclipselabs/spray/shapes/Shape.genmodel#//shapes ../../org.eclipselabs.spray.styles/src-gen/org/eclipselabs/spray/styles/Style.genmodel#//styles ../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
   <foreignModel>spray.ecore</foreignModel>
   <genPackages prefix="Spray" basePackage="org.eclipselabs.spray.mm" disposableProviderFactory="true"
       ecorePackage="spray.ecore#/">
@@ -15,6 +13,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/metaClasses"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/behaviourGroups"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/modelType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/style"/>
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//ShapeInSpray">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//ShapeInSpray/represents"/>
@@ -63,6 +62,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/type"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/representedByShape"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/hasStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/style"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//MetaReference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/representedBy"/>
@@ -109,10 +109,24 @@
     <genClasses ecoreClass="spray.ecore#//ShapeFromDsl">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/shape"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/references"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//ShapePropertyAssignment">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/key"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/attribute"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//SprayStyleRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//SprayStyleRef/style"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//CompartmentBehavior">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//CompartmentBehavior/compartmentReference"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//ShapeCompartmentAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/reference"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/shape"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -28,7 +28,6 @@ public interface IDiagramInitializer {
         @Override
         public void initialize(Diagram diagram) {
             diagram.setGridUnit(10);
-            diagram.setShowGuides(true);
             diagram.setSnapToGrid(true);
             diagram.setVisible(true);
             Color c1 = Graphiti.getGaService().manageColor(diagram, 249, 238, 227);

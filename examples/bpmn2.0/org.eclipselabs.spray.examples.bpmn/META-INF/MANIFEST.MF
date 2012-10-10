@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray.examples.bpmn
 Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.examples.bpmn; singleton:=true
 Bundle-Activator: org.eclipselabs.spray.examples.bpmn.Activator
 Bundle-ActivationPolicy: lazy
@@ -20,8 +20,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.transaction;bundle-version="1.4.0",
  org.eclipselabs.spray.xtext,
  org.eclipse.xtext.ui,
- org.eclipselabs.spray.shapes.ui,
- org.eclipselabs.spray.styles.ui,
  de.htwg.2012.bpmn.mm
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,

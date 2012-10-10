@@ -11,9 +11,13 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+import org.eclipselabs.spray.runtime.graphiti.layout.ISprayLayoutManager;
+import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
+import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 
 public class SprayLayoutManager implements ISprayConstants {
 
@@ -22,9 +26,9 @@ public class SprayLayoutManager implements ISprayConstants {
 
     private int        maxSizeWidth;
     private int        maxSizeHeight;
-    
-    private boolean stretchVertical;
-	private boolean stretchHorizontal;
+
+    private boolean    stretchVertical;
+    private boolean    stretchHorizontal;
 
     private IGaService gaService;
 
@@ -77,7 +81,7 @@ public class SprayLayoutManager implements ISprayConstants {
         if ((widthFactor != 1.0) || (heightFactor != 1.0)) {
 
             // calculate new element sizes
-            resizeElements(containerGa, widthFactor, heightFactor);
+            resizeElements(containerShape, widthFactor, heightFactor);
 
             // calculate new anchor positions
             recalculateAnchors(containerShape, widthFactor, heightFactor);
@@ -88,14 +92,18 @@ public class SprayLayoutManager implements ISprayConstants {
 
             anythingChanged = true;
         }
+        //        fixOffset(containerShape);
 
         return anythingChanged;
     }
 
-    public void resizeElements(GraphicsAlgorithm a, double widthFactor, double heightFactor) {
-
-        // Special layout handling for shapes which only consists of a polyline or polygon
-        if (a.getGraphicsAlgorithmChildren().size() == 0 && ((a instanceof Polyline) || (a instanceof Polygon))) {
+    public void resizeElements(ContainerShape shape, double widthFactor, double heightFactor) {
+        System.out.println("Before resize");
+        SprayAbstractLayoutManager.print(shape, 0);
+        GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
+        // Special layout handling for shapes which only consists of a polyline
+        // or polygon
+        if (shape.getChildren().size() == 0 && ((a instanceof Polyline) || (a instanceof Polygon))) {
 
             IDimension size = gaService.calculateSize(a);
             if (a instanceof Polyline) {
@@ -106,32 +114,52 @@ public class SprayLayoutManager implements ISprayConstants {
         } else {
 
             // calculate new element size recursively
-            resizeElementsRecursive(a, widthFactor, heightFactor);
+            resizeElementsRecursive(shape, widthFactor, heightFactor);
+            //            setMaxWidthPictorgramProperty(shape, (int) Math.round(shape.getGraphicsAlgorithm().getWidth()));
 
         }
-
+        System.out.println("After resize");
+        SprayAbstractLayoutManager.print(shape, 0);
     }
 
-    public void resizeElementsRecursive(GraphicsAlgorithm a, double widthFactor, double heightFactor) {
-
-        if (a.getGraphicsAlgorithmChildren().size() == 0) {
-
+    public void resizeElementsRecursive(ContainerShape shape, double widthFactor, double heightFactor) {
+        GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
+        if (shape.getChildren().size() == 0) {
             return;
-
         } else {
 
-            for (GraphicsAlgorithm shapeElement : a.getGraphicsAlgorithmChildren()) {
-                IDimension size = gaService.calculateSize(shapeElement);
+            for (Shape child : shape.getChildren()) {
+                GraphicsAlgorithm ga = child.getGraphicsAlgorithm();
+                IDimension size = gaService.calculateSize(ga);
 
-                if (shapeElement instanceof Polyline) {
-                    resizePolyline((Polyline) shapeElement, size, widthFactor, heightFactor);
-                } else if (shapeElement instanceof Polygon) {
-                    resizePolygon((Polygon) shapeElement, size, widthFactor, heightFactor);
+                if (child instanceof ContainerShape) {
+                    if (SprayLayoutService.isShapeFromDsl(child)) {
+                        System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(child));
+                        continue;
+                    }
+                }
+                if (ga instanceof Polyline) {
+                    resizePolyline((Polyline) ga, size, widthFactor, heightFactor);
+                } else if (ga instanceof Polygon) {
+                    resizePolygon((Polygon) ga, size, widthFactor, heightFactor);
                 } else {
-                    resizeShape(shapeElement, size, widthFactor, heightFactor);
+                    resizeShape(ga, size, widthFactor, heightFactor);
                 }
 
-                resizeElementsRecursive(shapeElement, widthFactor, heightFactor);
+                if (child instanceof ContainerShape) {
+                    //                    if (SprayLayoutService.isShapeFromDsl(child)) {
+                    //                        System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(child));
+                    //                    } else {
+                    resizeElementsRecursive((ContainerShape) child, widthFactor, heightFactor);
+                    //                    }
+                }
+
+            }
+            if (SprayLayoutService.isCompartment(shape)) {
+                ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(shape);
+                mgr.layout();
+                //                Graphiti.getGaLayoutService().setLocation(shape.getGraphicsAlgorithm(), 10, 10);
+                SprayAbstractLayoutManager.fixOffset(shape);
 
             }
         }
@@ -288,20 +316,20 @@ public class SprayLayoutManager implements ISprayConstants {
 
     }
 
-	public boolean isStretchVertical() {
-		return stretchVertical;
-	}
+    public boolean isStretchVertical() {
+        return stretchVertical;
+    }
 
-	public void setStretchVertical(boolean stretchVertical) {
-		this.stretchVertical = stretchVertical;
-	}
+    public void setStretchVertical(boolean stretchVertical) {
+        this.stretchVertical = stretchVertical;
+    }
 
-	public boolean isStretchHorizontal() {
-		return stretchHorizontal;
-	}
+    public boolean isStretchHorizontal() {
+        return stretchHorizontal;
+    }
 
-	public void setStretchHorizontal(boolean stretchHorizontal) {
-		this.stretchHorizontal = stretchHorizontal;
-	}
+    public void setStretchHorizontal(boolean stretchHorizontal) {
+        this.stretchHorizontal = stretchHorizontal;
+    }
 
 }

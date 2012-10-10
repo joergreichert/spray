@@ -63,5 +63,4 @@ public class SprayCompiler extends XbaseCompiler {
     public void setMetaClassVariable(String metaClassVariable) {
         this.metaClassVariable = metaClassVariable;
     }
-
 }
