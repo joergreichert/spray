@@ -7,8 +7,8 @@ import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 class GeneratorSVGDefinition {
     @Inject SVGShapeGenerator shapeGenerator
     
-    def packagePath() { "org/eclipselabs/spray/shapes/" }
-	def filepath(ShapeContainerElement s) { packagePath + s.name.toFirstUpper + ".svg" }
+	def filepath(ShapeContainerElement s) { s.name.toFirstUpper + ".svg" }
+	
 	def compile(ShapeContainerElement s) '''
      «s.head»
      «s.body»

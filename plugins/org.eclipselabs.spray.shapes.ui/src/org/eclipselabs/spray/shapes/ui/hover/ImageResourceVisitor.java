@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import static org.eclipselabs.spray.shapes.generator.ImageConstants.*;
 
 public class ImageResourceVisitor implements IResourceVisitor {
 	private final Map<String, String> shapeToSvgPath;
@@ -38,9 +39,10 @@ public class ImageResourceVisitor implements IResourceVisitor {
 	@Override
 	public boolean visit(final IResource resource) throws CoreException {
 		if (shapeName != null) {
-			if ((shapeName + ".svg").equals(resource.getName())) {
-				shapeToSvgPath.put(shapeName, resource.getLocation()
-						.toFile().getAbsolutePath());
+			if ((shapeName + ".svg").equals(resource.getName())
+					&& resource.getLocationURI().toString().contains(SVG_PATH)) {
+				shapeToSvgPath.put(shapeName, resource.getLocation().toFile()
+						.getAbsolutePath());
 				resource.getWorkspace().addResourceChangeListener(
 						new IResourceChangeListener() {
 
@@ -49,18 +51,19 @@ public class ImageResourceVisitor implements IResourceVisitor {
 									IResourceChangeEvent event) {
 								if (resource.equals(event.getResource())) {
 									if (event.getType() == IResourceChangeEvent.PRE_DELETE) {
-										shapeToSvgPath
-												.remove(shapeName);
-										shapeToPngPath
-												.remove(shapeName);
+										shapeToSvgPath.remove(shapeName);
+										shapeToPngPath.remove(shapeName);
 									} else {
-										generatePng(shapeName,
-												resource, true);
+										generatePng(shapeName, resource, true);
 									}
 								}
 							}
 						});
 				generatePng(shapeName, resource, false);
+			} else if ((shapeName + ".png").equals(resource.getName())
+					&& resource.getLocationURI().toString().contains(PNG_PATH)) {
+				shapeToPngPath.put(shapeName, resource.getLocation().toFile()
+						.getAbsolutePath());
 			} else if (resource instanceof IContainer) {
 				return true;
 			}
@@ -84,8 +87,10 @@ public class ImageResourceVisitor implements IResourceVisitor {
 					TranscoderInput input = new TranscoderInput(
 							new ByteArrayInputStream(svgContent));
 					String absolutePngPath = absoluteSvgPath.replace(".svg",
-							".png");
-					writer = new FileOutputStream(new File(absolutePngPath));
+							".png").replace(getSystemPath(SVG_PATH), getSystemPath(PNG_PATH));
+					File pngFile = new File(absolutePngPath);
+					pngFile.getParentFile().mkdirs();
+					writer = new FileOutputStream(pngFile);
 					TranscoderOutput output = new TranscoderOutput(writer);
 					t.transcode(input, output);
 					shapeToPngPath.put(shapeName, absolutePngPath);
@@ -112,9 +117,13 @@ public class ImageResourceVisitor implements IResourceVisitor {
 			}
 		}
 	}
+	
+	private String getSystemPath(String path) {
+		return path.replace("/", System.getProperty("file.separator"));
+	}
 
 	public String getImagePath() {
-		if(shapeName != null) {
+		if (shapeName != null) {
 			return shapeToPngPath.get(shapeName);
 		}
 		return null;

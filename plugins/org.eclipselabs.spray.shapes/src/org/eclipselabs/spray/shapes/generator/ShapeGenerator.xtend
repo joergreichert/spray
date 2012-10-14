@@ -5,10 +5,15 @@ package org.eclipselabs.spray.shapes.generator
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.AbstractFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import org.eclipse.xtext.generator.OutputConfiguration
 import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+
+import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
 
 class ShapeGenerator implements IGenerator {
 
@@ -17,16 +22,41 @@ class ShapeGenerator implements IGenerator {
     @Inject GeneratorSVGDefinition svgDefinition 
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for(shape : resource.allContents.toIterable.filter(typeof(ShapeDefinition))) {
-    		// create the Shapes
-            fsa.generateFile(shapeDefinition.filepath(shape), shapeDefinition.compile(shape))
-            fsa.generateFile(svgDefinition.filepath(shape), svgDefinition.compile(shape))
-   		}
-   		for(connection : resource.allContents.toIterable.filter(typeof(ConnectionDefinition))) {
-      		// create the connections
-   			fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
-            fsa.generateFile(svgDefinition.filepath(connection), svgDefinition.compile(connection))
+   		val svgOutputConfName = "svgOutputConf"
+   		fsa.addSVGOutputConfiguration(svgOutputConfName)
+		for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
+			fsa.generateJava(shapeContainerElement)
+            val svgContent = svgDefinition.compile(shapeContainerElement)
+            fsa.generateFile(svgDefinition.filepath(shapeContainerElement), svgOutputConfName, svgContent)
    		}
 	}
 	
+	def private dispatch generateJava(IFileSystemAccess fsa, ShapeDefinition shape) {
+           fsa.generateFile(shapeDefinition.filepath(shape), shapeDefinition.compile(shape))
+	}
+	
+	def private dispatch generateJava(IFileSystemAccess fsa, ConnectionDefinition connection) {
+		fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
+	}	
+	
+	def private addSVGOutputConfiguration(IFileSystemAccess fsa, String svgOutputConfName) {
+   		fsa.addImageOutputConfiguration(svgOutputConfName, SVG_PATH)
+	}	
+	
+	def private addImageOutputConfiguration(IFileSystemAccess fsa, String outputConfName, String path) {
+   		if(fsa instanceof AbstractFileSystemAccess) {
+   			val aFsa = fsa as AbstractFileSystemAccess
+   			if(!aFsa.outputConfigurations.containsKey(outputConfName)) {
+	   			val outputConfigurations = <String, OutputConfiguration> newHashMap
+	   			outputConfigurations.putAll(aFsa.outputConfigurations)
+	   			val imageOutputConfiguration = new OutputConfiguration(outputConfName)
+	   			imageOutputConfiguration.outputDirectory = path
+	   			imageOutputConfiguration.createOutputDirectory = true
+	   			imageOutputConfiguration.overrideExistingResources = true
+	   			imageOutputConfiguration.setDerivedProperty = true
+	   			outputConfigurations.put(outputConfName, imageOutputConfiguration) 
+	   			aFsa.setOutputConfigurations(outputConfigurations)
+   			}
+   		}
+	}	
 }
