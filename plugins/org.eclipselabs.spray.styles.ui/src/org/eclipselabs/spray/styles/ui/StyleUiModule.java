@@ -41,4 +41,32 @@ public class StyleUiModule extends org.eclipselabs.spray.styles.ui.AbstractStyle
 		return StyleHighlightingConfiguration.class;
 	}
 
+    @Override
+    public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+        return StyleDispatchingLinkingHelper.class;
+    }
+    
+    public Class<? extends StyleLinkingHelper> bindStyleLinkingHelper() {
+        return StyleLinkingHelper.class;
+    }
+
+    public Class<? extends GradientLinkingHelper> bindGradientLinkingHelper() {
+        return GradientLinkingHelper.class;
+    }
+    
+    public Class<? extends StyleEditorOpener> bindStyleEditorOpener() {
+        return StyleEditorOpener.class;
+    }
+    
+    public Class<? extends StyleResourceVisitor> bindStyleResourceVisitor() {
+        return StyleResourceVisitor.class;
+    }
+    
+    public Class<? extends GradientEditorOpener> bindGradientEditorOpener() {
+        return GradientEditorOpener.class;
+    }
+    
+    public Class<? extends GradientResourceVisitor> bindGradientResourceVisitor() {
+        return GradientResourceVisitor.class;
+    }    
 }

@@ -116,7 +116,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
 			// And now the new stuff
 			«var result = metaClass.referencesTo»
 			«FOR cls : result »
-				// cls «cls.shape.represents.name» refers to this metaClass»
+				// cls «cls.shape.represents.name» refers to this metaClass
 				if( target instanceof «cls.shape.represents.javaInterfaceName» ){
 					if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
 						String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
@@ -197,7 +197,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                 	«domainName» domainObject = («domainName») target;
                     «IF cls.reference.many»
                         domainObject.get«cls.reference.name.toFirstUpper»().add(newClass);
-                    «ELSE»»
+                    «ELSE»
                         domainObject.set«cls.reference.name.toFirstUpper»(newClass);
                     «ENDIF»
                 }

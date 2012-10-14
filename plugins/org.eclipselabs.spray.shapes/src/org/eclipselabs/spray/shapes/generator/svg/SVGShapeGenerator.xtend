@@ -26,7 +26,6 @@ import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
 import org.eclipselabs.spray.shapes.shapes.Text
-import org.eclipselabs.spray.shapes.shapes.Compartment
 
 /**
  * Generator for SVG representations of ShapeDefinitions.

@@ -35,11 +35,11 @@ public class SprayLayoutService {
 
     static private IPeService  peService                     = Graphiti.getPeService();
 
-    static public String getId(Shape shape) {
+    static public String getId(PictogramElement shape) {
         return (shape.isActive() ? "[A]" : "") + peService.getPropertyValue(shape, ID);
     }
 
-    static public void setId(Shape shape, String id) {
+    static public void setId(PictogramElement shape, String id) {
         peService.setPropertyValue(shape, ID, id);
     }
 

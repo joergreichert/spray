@@ -2,11 +2,11 @@ package org.eclipselabs.spray.styles.ui.syntaxcoloring;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
 import org.eclipse.xtext.ui.editor.utils.TextStyle;
 
-public class StyleHighlightingConfiguration implements IHighlightingConfiguration {
+public class StyleHighlightingConfiguration extends DefaultHighlightingConfiguration {
 
 	private static final RGB   RGB_DARKGREEN 		= 	new RGB(46,  139, 87);
     private static final RGB   RGB_ORANGE 			= 	new RGB(255, 140, 000);
@@ -16,7 +16,15 @@ public class StyleHighlightingConfiguration implements IHighlightingConfiguratio
 
     @Override
     public void configure(IHighlightingConfigurationAcceptor acceptor) {
-    	acceptor.acceptDefaultHighlighting(KEYWORDSTYLEDEF_ID, "keywordsShapeDef", keywordShapeDefTextStyle());
+		acceptor.acceptDefaultHighlighting(KEYWORD_ID, "Keyword", keywordTextStyle());
+		acceptor.acceptDefaultHighlighting(PUNCTUATION_ID, "Punctuation character", punctuationTextStyle());
+		acceptor.acceptDefaultHighlighting(COMMENT_ID, "Comment", commentTextStyle());
+		acceptor.acceptDefaultHighlighting(STRING_ID, "String", stringTextStyle());
+		// acceptor.acceptDefaultHighlighting(NUMBER_ID, "Number", numberTextStyle());
+		acceptor.acceptDefaultHighlighting(DEFAULT_ID, "Default", defaultTextStyle());
+		acceptor.acceptDefaultHighlighting(INVALID_TOKEN_ID, "Invalid Symbol", errorTextStyle());
+
+		acceptor.acceptDefaultHighlighting(KEYWORDSTYLEDEF_ID, "keywordsShapeDef", keywordShapeDefTextStyle());
         acceptor.acceptDefaultHighlighting(KEYWORDATTRIB_ID, "keywordsAttributes", keywordAttribTextStyle());
     }
 

@@ -8,6 +8,7 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
@@ -17,6 +18,7 @@ import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
+import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -50,6 +52,19 @@ public abstract class AbstractSprayToolBehaviorProvider extends org.eclipse.grap
             }
         };
         return Iterables.toArray(Iterables.filter(palette, filter), IPaletteCompartmentEntry.class);
+    }
+
+    @Override
+    public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
+        if (SprayLayoutService.isCompartment(originalPe)) {
+            ContainerShape shape = (ContainerShape) originalPe;
+            ContainerShape parent = shape.getContainer();
+            while (parent != null && (!SprayLayoutService.isShapeFromDsl(parent))) {
+                parent = parent.getContainer();
+            }
+            return parent;
+        }
+        return super.getSelection(originalPe, oldSelection);
     }
 
     /**

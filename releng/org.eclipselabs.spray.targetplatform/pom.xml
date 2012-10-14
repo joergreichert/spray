@@ -23,7 +23,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>spray.target</file>
+									<file>spray-indigo.target</file>
 									<type>target</type>
 									<classifier>spray</classifier>
 								</artifact>

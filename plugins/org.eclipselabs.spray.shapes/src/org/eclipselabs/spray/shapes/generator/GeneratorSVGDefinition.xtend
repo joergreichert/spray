@@ -3,12 +3,14 @@ package org.eclipselabs.spray.shapes.generator
 import com.google.inject.Inject
 import org.eclipselabs.spray.shapes.generator.svg.SVGShapeGenerator
 import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
+import org.eclipselabs.spray.shapes.generator.svg.LayoutExtensions
 
 class GeneratorSVGDefinition {
     @Inject SVGShapeGenerator shapeGenerator
+    @Inject extension LayoutExtensions
     
-    def packagePath() { "org/eclipselabs/spray/shapes/" }
-	def filepath(ShapeContainerElement s) { packagePath + s.name.toFirstUpper + ".svg" }
+	def filepath(ShapeContainerElement s) { s.name.toFirstUpper + ".svg" }
+	
 	def compile(ShapeContainerElement s) '''
      «s.head»
      «s.body»
@@ -19,7 +21,7 @@ class GeneratorSVGDefinition {
     <?xml version="1.0" standalone="no" ?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
         "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg width="«s.width + 5»" height="«s.height + 5»" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title>Shape: «s.name»</title>
         «s.metadata»
     '''
