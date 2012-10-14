@@ -24,6 +24,10 @@ public class ShapeTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 		layoutShapeKeywords.add("'wrapped-text'");
 		layoutShapeKeywords.add("'placing'");
 		layoutShapeKeywords.add("'description'");
+		layoutShapeKeywords.add("'compartment'");
+		layoutShapeKeywords.add("'horizontal'");
+		layoutShapeKeywords.add("'vertical'");
+		layoutShapeKeywords.add("'fixed'");
 		layoutShapeAttribKeywords.add("'style'");
 		layoutShapeAttribKeywords.add("'size-min'");
 		layoutShapeAttribKeywords.add("'size-max'");
