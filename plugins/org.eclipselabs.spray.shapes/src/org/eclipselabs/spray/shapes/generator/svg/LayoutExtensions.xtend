@@ -31,6 +31,8 @@ import org.eclipselabs.spray.shapes.shapes.CDPolyline
 import org.eclipselabs.spray.shapes.shapes.CDPolygon
 import org.eclipselabs.spray.shapes.shapes.ShapeConnection
 import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
+import org.eclipselabs.spray.shapes.shapes.Point
+import java.util.List
 
 class LayoutExtensions {
 	
@@ -136,6 +138,35 @@ class LayoutExtensions {
     def int y2 (CDLine shape) { shape.yoffset + shape.layout.point.get(1).ycor }
     def dispatch width (CDLine shape) {  Math::abs(shape.layout.point.get(1).xcor - shape.layout.point.get(0).xcor) }
     def dispatch height (CDLine shape) { Math::abs(shape.layout.point.get(1).ycor - shape.layout.point.get(0).ycor) }
+
+    def dispatch int x (Polygon shape) { shape.layout.point.minXPoint }
+    def dispatch int y (Polygon shape) { shape.layout.point.minYPoint }
+    def dispatch int width (Polygon shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
+    def dispatch int height (Polygon shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
+    def dispatch int x (CDPolygon shape) { shape.layout.point.minXPoint }
+    def dispatch int y (CDPolygon shape) { shape.layout.point.minYPoint }
+    def dispatch int width (CDPolygon shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
+    def dispatch int height (CDPolygon shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
+    
+    def minXPoint(List<Point> points) {
+    	findPoint(points, [Point p|p.xcor], [Integer c1, Integer c2|c1 - c2]).head
+    }
+
+    def maxXPoint(List<Point> points) {
+    	findPoint(points, [Point p|p.xcor], [Integer c1, Integer c2|c2 - c1]).head
+    }
+
+    def minYPoint(List<Point> points) {
+    	findPoint(points, [Point p|p.ycor], [Integer c1, Integer c2|c1 - c2]).head
+    }
+
+    def maxYPoint(List<Point> points) {
+    	findPoint(points, [Point p|p.ycor], [Integer c1, Integer c2|c2 - c1]).head
+    }
+    
+    def findPoint(List<Point> points, (Point) => Integer coord, (Integer, Integer) => Integer compare) {
+    	points.map(p|coord.apply(p)).sort[coord1, coord2| compare.apply(coord1, coord2) ]
+    }
     
     def dispatch String lineStyle (ConnectionDefinition shape) {
         lineStyle(shape.layout?.layout)
