@@ -37,10 +37,10 @@ class SVGShapeGenerator {
     def dispatch generate (ShapeDefinition shape) '''
         «shape.defs»
         «FOR s: shape.shape»
-            «s.generateShape»
+            «s.generateShape(false)»
         «ENDFOR»
         «IF shape.anchor!=null»
-            «shape.anchor.type.generateAnchor»
+            «shape.anchor.type.generateAnchor(false)»
         «ENDIF»
     '''
     
@@ -48,13 +48,13 @@ class SVGShapeGenerator {
         «shape.defs»
         <line x1="10" y1="50" x2="110" y2="50" «IF shape.layout!=null»«shape.lineStyle»«ENDIF»/>
         «FOR p: shape.placing»
-            «p.generateShape»
+            «p.generateShape(true)»
         «ENDFOR»
     '''
     
     // LINE
     
-    def protected dispatch generateShape (Line shape) '''
+    def protected dispatch generateShape (Line shape, boolean child) '''
         <line x1="«shape.x1»" y1="«shape.y1»" x2="«shape.x2»" y2="«shape.y2»" «shape.lineStyle»/>
     '''
     def protected dispatch generateShape (CDLine shape) '''
@@ -63,27 +63,27 @@ class SVGShapeGenerator {
 
     // POLYLINE
     
-    def protected dispatch generateShape (Polyline shape) '''
-        <polyline points="«shape.points»" «shape.layout.styleAttribute» «shape.lineStyle»/>
+    def protected dispatch generateShape (Polyline shape, boolean child) '''
+        <polyline points="«shape.points(child)»" «shape.layout.styleAttribute» «shape.lineStyle»/>
     '''
-    def protected dispatch generateShape (CDPolyline shape) '''
-        <polyline points="«shape.points»" «shape.layout.styleAttribute» «shape.lineStyle»/>
+    def protected dispatch generateShape (CDPolyline shape, boolean child) '''
+        <polyline points="«shape.points(child)»" «shape.layout.styleAttribute» «shape.lineStyle»/>
     '''
     
-    def protected points (Polyline pl) '''
+    def protected points (Polyline pl, boolean child) '''
         «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
     '''
-    def protected points (CDPolyline pl) '''
+    def protected points (CDPolyline pl, boolean child) '''
         «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
     '''
 
     // POLYGON
     
-    def protected dispatch generateShape (Polygon shape) '''
+    def protected dispatch generateShape (Polygon shape, boolean child) '''
         <polygon points="«shape.points»" «shape.lineStyle»/>
-        «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»
+        «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch generateShape (CDPolygon shape) '''
+    def protected dispatch generateShape (CDPolygon shape, boolean child) '''
         <polygon points="«shape.points»" «shape.lineStyle»/>
     '''
 
@@ -99,69 +99,69 @@ class SVGShapeGenerator {
 //    def protected dispatch generateShape (Compartment shape) '''
 //        <rect «shape.positionAndSize»/>
 //    '''
-    def protected dispatch generateShape (Rectangle shape) '''
-        <rect «shape.positionAndSize»/>
-        «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»
+    def protected dispatch generateShape (Rectangle shape, boolean child) '''
+        <rect «shape.positionAndSize(child)»/>
+        «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch generateShape (CDRectangle shape) '''
-        <rect «shape.positionAndSize»/>
+    def protected dispatch generateShape (CDRectangle shape, boolean child) '''
+        <rect «shape.positionAndSize(child)»/>
     '''
 
     // ROUNDEDRECTANGLE
     
-    def protected dispatch generateShape (RoundedRectangle shape) '''
-        <rect «shape.positionAndSize» rx="«shape.rx»" ry="«shape.ry»"/>
-        «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»
+    def protected dispatch generateShape (RoundedRectangle shape, boolean child) '''
+        <rect «shape.positionAndSize(child)» rx="«shape.rx»" ry="«shape.ry»"/>
+        «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch generateShape (CDRoundedRectangle shape) '''
-        <rect «shape.positionAndSize» rx="«shape.rx»" ry="«shape.ry»"/>
+    def protected dispatch generateShape (CDRoundedRectangle shape, boolean child) '''
+        <rect «shape.positionAndSize(child)» rx="«shape.rx»" ry="«shape.ry»"/>
     '''
 
     // ELLIPSE
     
-    def protected dispatch generateShape (Ellipse shape) '''
+    def protected dispatch generateShape (Ellipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x»" cy="«shape.y»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
         «ELSE»
-            <ellipse cx="«shape.x»" cy="«shape.y»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
         «ENDIF» 
-        «FOR subshape: shape.shape»«subshape.generateShape»«ENDFOR»
+        «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch generateShape (CDEllipse shape) '''
+    def protected dispatch generateShape (CDEllipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x»" cy="«shape.y»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
         «ELSE»
-            <ellipse cx="«shape.x»" cy="«shape.y»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
         «ENDIF» 
     '''
 
     // TEXT
     
-    def protected dispatch generateShape (Text shape) '''
-        <text x="«shape.x»" y="«shape.y»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
+    def protected dispatch generateShape (Text shape, boolean child) '''
+        <text x="«shape.x(child)»" y="«shape.y(child)»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
     '''
-    def protected dispatch generateShape (CDText shape) '''
-        <text x="«shape.x»" y="«shape.y»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
+    def protected dispatch generateShape (CDText shape, boolean child) '''
+        <text x="«shape.x(child)»" y="«shape.y(child)»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
     '''
     
-    def protected positionAndSize (Shape shape) '''x="«shape.x»" y="«shape.y»" width="«shape.width»" height="«shape.height»"'''
-    def protected positionAndSize (ShapeConnection shape) '''x="«shape.x»" y="«shape.y»" width="«shape.width»" height="«shape.height»"'''
+    def protected positionAndSize (Shape shape, boolean child) '''x="«shape.x(child)»" y="«shape.y(child)»" width="«shape.width»" height="«shape.height»"'''
+    def protected positionAndSize (ShapeConnection shape, boolean child) '''x="«shape.x(child)»" y="«shape.y(child)»" width="«shape.width»" height="«shape.height»"'''
     
     // ANCHOR
-    def protected dispatch generateAnchor (AnchorManual anchor) '''
+    def protected dispatch generateAnchor (AnchorManual anchor, boolean child) '''
         «FOR ap: anchor.position»
-        <use x="«ap.pos.x»" y="«ap.pos.y»" xlink:href="#anchor"/>
+        <use x="«ap.pos.x(child)»" y="«ap.pos.y(child)»" xlink:href="#anchor"/>
         «ENDFOR»
     '''
-    def protected dispatch generateAnchor (AnchorPredefinied anchor) '''
+    def protected dispatch generateAnchor (AnchorPredefinied anchor, boolean child) '''
 «««        TODO 
     '''
     
     // PLACING
     
-    def protected dispatch generateShape (PlacingDefinition shape) '''
-        <svg x="«shape.x»" y="«shape.y»" width="«shape.width»" height="«shape.height»">
-        «shape.shapeCon.generateShape»
+    def protected dispatch generateShape (PlacingDefinition shape, boolean child) '''
+        <svg x="«shape.x(child)»" y="«shape.y(child)»" width="«shape.width»" height="«shape.height»">
+        «shape.shapeCon.generateShape(child)»
         </svg>
     '''
     
