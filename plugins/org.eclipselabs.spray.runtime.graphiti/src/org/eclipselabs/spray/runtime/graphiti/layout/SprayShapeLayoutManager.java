@@ -34,17 +34,11 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
                 IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), text.getFont());
                 int width = Math.max(dim.getWidth(), data.getMinimumWidth());
                 int newWidth = width + (2 * MARGIN);
-                // System.out.println(EplLayoutManager.indent()
-                // + "ShapeLayoutManager.layout() "
-                // + EplLayoutService.getId(shape) + " width set to "
-                // + newWidth);
                 layoutService.setSize(ga, newWidth, dim.getHeight() + 2 * MARGIN);
             } else if (ga instanceof Polyline) {
                 Polyline pl = (Polyline) ga;
                 IDimension dim = layoutService.calculateSize(pl);
                 layoutService.setSize(ga, dim.getWidth(), (dim.getHeight() == 1 ? 4 : dim.getHeight()));
-                // System.out.println("POLYLINE: " + dim.getWidth() + ", "
-                // + dim.getHeight());
             } else if (ga instanceof Rectangle) {
                 Rectangle pl = (Rectangle) ga;
                 layoutService.calculateSize(pl);
