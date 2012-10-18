@@ -96,17 +96,19 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 if (!(bo instanceof «container.represents.name»)) {
                     return Reason.createFalseReason(); 
                 }
-                if(pictogramElement instanceof ContainerShape) {
-                    ContainerShape conShape = (ContainerShape) pictogramElement;
+                if(pictogramElement instanceof Shape) {
+                    Shape shape = (Shape) pictogramElement;
                     «container.represents.name» eClass = («container.represents.name») bo;
-                    if(checkUpdateNeededRecursively(conShape, eClass)) {
+                    if(checkUpdateNeededRecursively(shape, eClass)) {
                     	return Reason.createTrueReason();
                     }
-                    for(Shape childShape : conShape.getChildren()) {
-                    	if(checkUpdateNeededRecursively(childShape, eClass)) {
-                    		return Reason.createTrueReason();
-                    	}
-                    }
+                    if( shape instanceof ContainerShape ){
+	                    for(Shape childShape : ((ContainerShape)shape).getChildren()) {
+	                    	if(checkUpdateNeededRecursively(childShape, eClass)) {
+	                    		return Reason.createTrueReason();
+	                    	}
+	                	}
+	                }
                 }
                 return Reason.createFalseReason();
              }
