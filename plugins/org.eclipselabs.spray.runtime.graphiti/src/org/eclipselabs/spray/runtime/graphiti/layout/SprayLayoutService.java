@@ -22,6 +22,7 @@ public class SprayLayoutService {
     private SprayLayoutService() {
     }
 
+    static final public String LAYOUT_FLEXIBLE               = "L_FLEX";
     static final public String LAYOUT_TYPE                   = "L_TYPE";
     static final public String LAYOUT_SPACING                = "L_SPACING";
     static final public String LAYOUT_MARGIN                 = "L_MARGIN";
@@ -54,6 +55,13 @@ public class SprayLayoutService {
         GraphitiProperties.set(shape, LAYOUT_TYPE, type.name());
         GraphitiProperties.set(shape, LAYOUT_SPACING, spacing);
         GraphitiProperties.set(shape, LAYOUT_MARGIN, margin);
+    }
+
+    static public void setLayoutManager(Shape shape, SprayLayoutType type, int margin, int spacing, boolean flexible) {
+        GraphitiProperties.set(shape, LAYOUT_TYPE, type.name());
+        GraphitiProperties.set(shape, LAYOUT_SPACING, spacing);
+        GraphitiProperties.set(shape, LAYOUT_MARGIN, margin);
+        GraphitiProperties.set(shape, LAYOUT_FLEXIBLE, flexible);
     }
 
     static public void setLayoutManager(Shape shape, SprayLayoutType type) {
@@ -143,6 +151,8 @@ public class SprayLayoutService {
             return new SprayVerticalLayoutManager(shape);
         case FIXED:
             return new SprayFixedLayoutManager(shape);
+        case TOP:
+            return new SprayTopLayoutManager(shape);
         default:
             return new SprayFixedLayoutManager(shape);
         }

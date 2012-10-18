@@ -63,4 +63,6 @@ public interface ISprayLayoutManager {
     public void setAlignment(SprayAlignment alignment);
 
     public SprayAlignment getAlignment();
+
+    public boolean isFlexible();
 }

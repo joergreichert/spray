@@ -3,26 +3,29 @@ package org.eclipselabs.spray.runtime.graphiti.layout;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
-public class SprayFixedLayoutManager extends SprayAbstractLayoutManager {
+/**
+ * @author jos
+ *         Layout manager for the top level comntainer shape as is always generated for Spray shapes
+ */
+public class SprayTopLayoutManager extends SprayAbstractLayoutManager {
 
-    public SprayFixedLayoutManager(ContainerShape shape) {
+    public SprayTopLayoutManager(ContainerShape shape) {
         super(shape);
     }
 
     @Override
     public void layout() {
         level++;
-        System.out.println(indent() + "FixedLayoutManager.layout() " + SprayLayoutService.getId(shape));
-        //        SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
-        //        if (data.isVisible()) {
-        //            layoutService.setSize(shape.getGraphicsAlgorithm(), data.getMinimumWidth(), data.getMinimumHeight());
-        //        } else {
-        //            layoutService.setSize(shape.getGraphicsAlgorithm(), 0, 0);
-        //        }
+        int width = 0;
+        int height = 0;
+        System.out.println(indent() + "TopLayoutManager.layout() " + SprayLayoutService.getId(shape));
         for (Shape child : shape.getChildren()) {
             ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
             mgr.layout();
+            width = Math.max(width, child.getGraphicsAlgorithm().getWidth());
+            height = Math.max(height, child.getGraphicsAlgorithm().getHeight());
         }
+        layoutService.setSize(shape.getGraphicsAlgorithm(), width, height);
         level--;
     }
 

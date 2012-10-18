@@ -19,6 +19,7 @@ public class SprayHorizontalLayoutManager extends SprayAbstractLayoutManager {
     @Override
     public void layout() {
         level++;
+        System.out.println(indent() + "HoprizontalLayoutManager.layout() " + SprayLayoutService.getId(shape));
         SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
         if (data.isVisible()) {
             int spacing = getSpacing();

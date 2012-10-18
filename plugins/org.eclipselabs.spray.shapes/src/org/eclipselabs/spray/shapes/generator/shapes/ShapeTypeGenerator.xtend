@@ -56,13 +56,13 @@ class ShapeTypeGenerator {
 		GraphicsAlgorithm «elementName1» = gaService.createInvisibleRectangle(«containername»);
 		«elementName1».setStyle(sprayStyle.getStyle(diagram));
 		SprayLayoutService.setShapeFromDsl(«containername», true);
-		gaService.setLocationAndSize(«elementName1», 0, 0, «sizeMap.width», «sizeMap.heigth + 20»);
+		gaService.setLocationAndSize(«elementName1», 0, 0, «sizeMap.width», «sizeMap.heigth»);
 		
 		«IF shapeDef.shape.size > 1»
 		// Invisible rectangle around the elements (because more then one element is on first layer).
 		ContainerShape invisibleShape = peCreateService.createContainerShape(containerShape, false);
 		SprayLayoutService.setId(invisibleShape, "«sh.name».invisibleShape");
-		SprayLayoutType «layoutName» = SprayLayoutType.HORIZONTAL;
+		SprayLayoutType «layoutName» = SprayLayoutType.TOP;
 		SprayLayoutService.setLayoutManager(«containername», «layoutName», 0, 0);
 
 		GraphicsAlgorithm «elementName2» = gaService.createRectangle(invisibleShape);
@@ -72,7 +72,7 @@ class ShapeTypeGenerator {
 		gaService.setLocationAndSize(«elementName2», 0, 0, «sizeMap.width», «sizeMap.heigth»);
 		«ENDIF»
 		«FOR element : shapeDef.shape»
-		«element.createElement(containername, "sprayStyle")»
+		«element.createElement(containername, "sprayStyle", true)»
 		«ENDFOR»
 		
 		«shapeDef.description?.generateDescription(containername, "sprayStyle", sizeMap.heigth, sizeMap.width)»
@@ -82,11 +82,12 @@ class ShapeTypeGenerator {
 		'''
 	}
 	
-	def recursiveCreation(EList<Shape> shapeList, String elementName, String shapeStyle) {	
+	def recursiveCreation(EList<Shape> shapeList, String elementName, String shapeStyle, boolean flexible) {	
 		'''
 		// start RECURSIVEcREATION «elementName»
+		
 		«FOR element : shapeList»
-		«element.createElement(elementName,shapeStyle)»
+		«element.createElement(elementName,shapeStyle, flexible)»
       	«ENDFOR»
 		// end RECURSIVEcREATION «elementName»
       	'''
@@ -101,7 +102,7 @@ class ShapeTypeGenerator {
 		'''
 	}
 	
-	def dispatch createElement(Line element, String parentName, String shapeStyle) {
+	def dispatch createElement(Line element, String parentName, String shapeStyle, boolean flexible) {
 		nextIndex
 		'''
 		«createPointList(element.layout.point, pointListName)»
@@ -114,7 +115,7 @@ class ShapeTypeGenerator {
      	'''
 	}
 	
-	def dispatch createElement(Rectangle element, String parentName, String shapeStyle) { 
+	def dispatch createElement(Rectangle element, String parentName, String shapeStyle, boolean flexible) { 
 		nextIndex
 		val isCompartment = (element.compartmentInfo != null)
 		'''
@@ -126,7 +127,7 @@ class ShapeTypeGenerator {
 		«ENDIF»
 		«IF element?.compartmentInfo?.compartmentLayout != null »
 		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
-		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5);
+		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5, «flexible»);
 		«ENDIF»
 
 		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
@@ -134,11 +135,16 @@ class ShapeTypeGenerator {
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«generateStyleForElement(elementName, element.layout.layout)»
-		«element.shape.recursiveCreation(shapeName, styleName)»
+		«IF isCompartment && element.compartmentInfo.invisible»
+		«elementName».setFilled(false);
+		«elementName».setLineVisible(false);
+		«ENDIF»
+		«var boolean childFlexible = isCompartment && (!element?.compartmentInfo?.compartmentLayout?.name.equalsIgnoreCase("fixed"))» 
+		«element.shape.recursiveCreation(shapeName, styleName, childFlexible)»
      	'''
 	}
 	
-	def dispatch createElement(Ellipse element, String parentName, String shapeStyle) {
+	def dispatch createElement(Ellipse element, String parentName, String shapeStyle, boolean flexible) {
 		nextIndex
 		val isCompartment = (element.compartmentInfo != null)
 		'''
@@ -150,7 +156,7 @@ class ShapeTypeGenerator {
 		«ENDIF»
 		«IF element?.compartmentInfo?.compartmentLayout != null »
 		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
-		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5);
+		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», 5, 5, «flexible»);
 		«ENDIF»
 
 		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
@@ -158,7 +164,12 @@ class ShapeTypeGenerator {
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«generateStyleForElement(elementName, element.layout.layout)»
-		«element.shape.recursiveCreation(shapeName, styleName)»
+		«IF isCompartment && element.compartmentInfo.invisible»
+		«elementName».setFilled(false);
+		«elementName».setLineVisible(false);
+		«ENDIF»
+		«var boolean childFlexible = isCompartment && (!element?.compartmentInfo?.compartmentLayout?.name.equalsIgnoreCase("fixed"))» 
+		«element.shape.recursiveCreation(shapeName, styleName, childFlexible)»
      	'''
 	}
 	
@@ -184,7 +195,7 @@ class ShapeTypeGenerator {
 //     	'''
 //	}
 
-	def dispatch createElement(Polygon element, String parentName, String shapeStyle) { 
+	def dispatch createElement(Polygon element, String parentName, String shapeStyle, boolean flexible) { 
 		nextIndex
 		'''
 		«createPointList(element.layout.point, pointListName)»
@@ -194,11 +205,11 @@ class ShapeTypeGenerator {
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«generateStyleForElement(elementName, element.layout.layout)»
-		«element.shape.recursiveCreation(shapeName, styleName)»
+		«element.shape.recursiveCreation(shapeName, styleName, false)»
      	'''
 	}
 	
-	def dispatch createElement(Polyline element, String parentName, String shapeStyle) { 
+	def dispatch createElement(Polyline element, String parentName, String shapeStyle, boolean flexible) { 
 		nextIndex
 		'''
 		«createPointList(element.layout.point, pointListName)»
@@ -211,7 +222,7 @@ class ShapeTypeGenerator {
      	'''
 	}
 	
-	def dispatch createElement(RoundedRectangle element, String parentName, String shapeStyle) { 
+	def dispatch createElement(RoundedRectangle element, String parentName, String shapeStyle, boolean flexible) { 
 		nextIndex
 		'''
 		ContainerShape «shapeName» = peCreateService.createContainerShape(«parentName», false);
@@ -221,11 +232,11 @@ class ShapeTypeGenerator {
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«generateStyleForElement(elementName, element.layout.layout)»
-		«element.shape.recursiveCreation(shapeName, styleName)»
+		«element.shape.recursiveCreation(shapeName, styleName, false)»
      	'''
 	}
 	
-	def dispatch createElement(Text element, String parentName, String shapeStyle) { 
+	def dispatch createElement(Text element, String parentName, String shapeStyle, boolean flexible) { 
 		nextIndex
 		'''
 		Shape «shapeName» = peCreateService.createShape(«parentName», false);

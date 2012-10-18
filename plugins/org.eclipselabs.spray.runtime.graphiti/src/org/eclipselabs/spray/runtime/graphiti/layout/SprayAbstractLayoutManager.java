@@ -60,7 +60,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
     }
 
     static public void fixOffset(ContainerShape containerShape) {
-        System.out.println("BEGIN FixOffset: " + SprayLayoutService.getId(containerShape));
+        //        System.out.println("BEGIN FixOffset: " + SprayLayoutService.getId(containerShape));
 
         fixOffsetForShape(containerShape);
         for (Shape child : containerShape.getChildren()) {
@@ -68,12 +68,12 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
                 fixOffset((ContainerShape) child);
             }
         }
-        System.out.println("END FixOffset: ");
+        //        System.out.println("END FixOffset: ");
     }
 
     static protected void fixOffsetForShape(ContainerShape containerShape) {
         boolean active = containerShape.isActive();
-        System.out.println("BEGIN FixOffset for shape: " + SprayLayoutService.getId(containerShape) + " active " + active);
+        //        System.out.println("BEGIN FixOffset for shape: " + SprayLayoutService.getId(containerShape) + " active " + active);
         if (active) {
             if (!containerShape.getContainer().isActive()) {
 
@@ -88,7 +88,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
                 }
             }
         }
-        System.out.println("END FixOffset for shape");
+        //        System.out.println("END FixOffset for shape");
     }
 
     static public void OLDfixOffset(ContainerShape containerShape) {
@@ -223,4 +223,8 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
         }
     }
 
+    @Override
+    public boolean isFlexible() {
+        return GraphitiProperties.getBooleanValue(shape, SprayLayoutService.LAYOUT_FLEXIBLE);
+    }
 }

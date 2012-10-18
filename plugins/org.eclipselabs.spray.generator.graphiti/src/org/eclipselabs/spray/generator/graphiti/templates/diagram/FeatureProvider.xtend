@@ -80,11 +80,13 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.features.custom.ICustomFeature;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
+        import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultRemoveFeature;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayFixedLayoutManager;
         import «util_package()».OwnerPropertyDeleteFeature;
         «IF !diagram.metaClasses.empty»
         «ENDIF»
@@ -347,14 +349,17 @@ class FeatureProvider extends FileGenerator<Diagram> {
          */
         @Override
         public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
-            final Shape s = context.getShape();
-            if( SprayLayoutService.isCompartment(s) ){
-                return null; 
+            final Shape shape = context.getShape();
+            final ContainerShape parent = shape.getContainer();
+            if (SprayLayoutService.isCompartment(parent)) {
+                if (! (SprayLayoutService.getLayoutManager(parent) instanceof SprayFixedLayoutManager) ) {
+                    return null;
+                }
             }
-            final String stat  = peService.getPropertyValue(s, PROPERTY_CAN_MOVE);
-            if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
-                return null;
-            }
+//            final String stat  = peService.getPropertyValue(s, PROPERTY_CAN_MOVE);
+//            if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
+//               return null;
+//            }
             return super.getMoveShapeFeature(context);
         }
     '''

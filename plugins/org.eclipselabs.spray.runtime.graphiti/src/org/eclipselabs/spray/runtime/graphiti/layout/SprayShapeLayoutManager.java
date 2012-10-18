@@ -5,6 +5,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
@@ -24,8 +25,15 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
     }
 
     @Override
+    public boolean isFlexible() {
+        return false;
+    }
+
+    @Override
     public void layout() {
         SprayAbstractLayoutManager.level++;
+        System.out.println(SprayAbstractLayoutManager.indent() + "ShapeLayoutManager.layout() " + SprayLayoutService.getId(shape) + "  " + shape.getGraphicsAlgorithm().toString());
+
         SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
         GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
         if (data.isVisible()) {
@@ -37,8 +45,11 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
                 layoutService.setSize(ga, newWidth, dim.getHeight() + 2 * MARGIN);
             } else if (ga instanceof Polyline) {
                 Polyline pl = (Polyline) ga;
+                pl.setLineWidth(4);
                 IDimension dim = layoutService.calculateSize(pl);
-                layoutService.setSize(ga, dim.getWidth(), (dim.getHeight() == 1 ? 4 : dim.getHeight()));
+                System.out.print("ShapeLayout ");
+                printPolyLine(pl);
+                layoutService.setSize(ga, dim.getWidth(), (dim.getHeight() < 1 ? 4 : dim.getHeight()));
             } else if (ga instanceof Rectangle) {
                 Rectangle pl = (Rectangle) ga;
                 layoutService.calculateSize(pl);
@@ -48,12 +59,20 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
             layoutService.setSize(shape.getGraphicsAlgorithm(), 0, 0);
         }
         SprayAbstractLayoutManager.level--;
+    }
 
+    public void printPolyLine(Polyline line) {
+        System.out.print("POLYLINE ");
+        for (Point p : line.getPoints()) {
+            System.out.print("(" + p.getX() + ", " + p.getY() + ") ");
+        }
+        System.out.println("");
     }
 
     @Override
     public void stretchWidthTo(int newWidth) {
         SprayAbstractLayoutManager.level++;
+        System.out.println("Stretch ShapeLayout " + shape.getGraphicsAlgorithm().toString());
         layoutService.setWidth(shape.getGraphicsAlgorithm(), newWidth);
         SprayAbstractLayoutManager.level--;
     }

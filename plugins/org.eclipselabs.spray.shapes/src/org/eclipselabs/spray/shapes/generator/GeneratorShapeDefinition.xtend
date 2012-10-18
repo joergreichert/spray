@@ -6,6 +6,9 @@ import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
+import org.eclipselabs.spray.shapes.shapes.Shape
+import org.eclipselabs.spray.shapes.shapes.Rectangle
+import org.eclipselabs.spray.shapes.shapes.Ellipse
 
 class GeneratorShapeDefinition {
 	
@@ -18,6 +21,15 @@ class GeneratorShapeDefinition {
 	def packagePath() { "org/eclipselabs/spray/shapes/" }
 	def filepath(ShapeDefinition s) { packagePath + s.className + ".java" }
 	def className(ShapeDefinition s) { s.name.toFirstUpper }
+	def dispatch compartment(Shape shape) {
+		null
+	}
+	def dispatch compartment(Rectangle shape) {
+		shape.compartmentInfo
+	}
+	def dispatch compartment(Ellipse shape) {
+		shape.compartmentInfo
+	}
 
 	def compile(ShapeDefinition shapeDef) { 
 		'''
@@ -85,6 +97,16 @@ class GeneratorShapeDefinition {
 				
 				// define general layout for ContainerShape
 				«shapeDefs.generateLayout»
+				
+				// layout data
+				«IF shapeDefs.shape.get(0).compartment != null»
+				SprayLayoutService.setCompartment(containerShape, true);
+				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				«ELSE»
+				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				«ENDIF»
+				SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
+				SprayLayoutService.getLayoutData(containerShape).setVisible(true);
 				
 				// creates the cascaded elements (figures)
 				«shapeDefs.generateCascadedElements»

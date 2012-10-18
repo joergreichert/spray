@@ -9,5 +9,6 @@ public enum SprayLayoutType {
     NONE,
     HORIZONTAL,
     VERTICAL,
-    FIXED
+    FIXED,
+    TOP
 }
