@@ -58,7 +58,9 @@ public abstract class AbstractAddFeature extends org.eclipse.graphiti.features.i
     }
 
     protected void layout(ContainerShape targetContainer) {
-        //        if (!(targetContainer instanceof Diagram)) {
+        if (targetContainer instanceof Diagram) {
+            return;
+        }
         while (!SprayLayoutService.isShapeFromDsl(targetContainer) && !(targetContainer.getContainer() instanceof Diagram)) {
             targetContainer = targetContainer.getContainer();
         }
