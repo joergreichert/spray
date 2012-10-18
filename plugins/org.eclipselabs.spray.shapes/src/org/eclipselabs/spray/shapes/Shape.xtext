@@ -97,9 +97,12 @@ Polyline:
 
 Rectangle:
 	{Rectangle} 'rectangle' 
-	(compartmentInfo = CompartmentInfo)?
 	(style=ShapeStyleRef)? 
-	('{' layout=RectangleEllipseLayout shape+=Shape* '}');
+	('{' 
+		(compartmentInfo = CompartmentInfo)?
+		layout=RectangleEllipseLayout shape+=Shape* 
+	 '}'
+	);
 
 RoundedRectangle:
 	{RoundedRectangle} 'rounded-rectangle' (style=ShapeStyleRef)? ('{' layout=RoundedRectangleLayout shape+=Shape* '}');
@@ -109,9 +112,12 @@ Polygon:
 
 Ellipse:
 	{Ellipse} 'ellipse' 
-	(compartmentInfo = CompartmentInfo)?
 	(style=ShapeStyleRef)? 
-	('{' layout=RectangleEllipseLayout shape+=Shape* '}');
+	('{' 
+			(compartmentInfo = CompartmentInfo)?
+			layout=RectangleEllipseLayout shape+=Shape* 
+	  '}'
+	);
 
 Text:
 	{Text} texttype=TextType (style=ShapeStyleRef)? ('{' layout=TextLayout body=TextBody '}');
@@ -119,9 +125,10 @@ Text:
 
 CompartmentInfo :
 	(
-		 'compartment' 
+		 'compartment' '=' compartmentLayout = CompartmentLayout
+		 ('spacing' '=' spacing = INT)?
+		 ('margin'  '=' margin  = INT)?
 		 (invisible ?= 'invisible')?
-		 compartmentLayout = CompartmentLayout
 		 ( id = TextBody )?
 	)
 ;
