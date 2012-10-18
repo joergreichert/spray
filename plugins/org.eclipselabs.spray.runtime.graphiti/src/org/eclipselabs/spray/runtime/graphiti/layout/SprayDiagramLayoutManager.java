@@ -29,7 +29,7 @@ public class SprayDiagramLayoutManager extends SprayAbstractLayoutManager {
                 ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(container);
                 if (mgr != null) {
                     mgr.layout();
-                    SprayAbstractLayoutManager.fixOffset(container);
+                    //                    SprayAbstractLayoutManager.fixOffset(container);
                 }
             }
         }
