@@ -72,7 +72,6 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
     @Override
     public void stretchWidthTo(int newWidth) {
         SprayAbstractLayoutManager.level++;
-        System.out.println("Stretch ShapeLayout " + shape.getGraphicsAlgorithm().toString());
         layoutService.setWidth(shape.getGraphicsAlgorithm(), newWidth);
         SprayAbstractLayoutManager.level--;
     }
