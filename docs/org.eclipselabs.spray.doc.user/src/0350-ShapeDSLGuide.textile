@@ -92,6 +92,74 @@ bc. anchor {
 	
 This example defines a fixed anchor, where the coordinates for the position are with a fixed value.
 
+h2. Compartments
+
+A compartment is a shape in which other shapes may be placed through the palette. A compartmkent is specified by the @compartment@ property:
+
+bc.. 
+
+shape SimpleClassShape {
+	rectangle {
+		compartment = vertical
+		spacing = 5
+		margin = 5
+		id = simpleAttributes 
+		position (x=0, y=0)
+		size (width=100, height=320)
+	}
+}
+p. 
+A compartment has a layout,  which can be @vertical@, @horizontal@ or @fixed@. In a @fixed@ compartment the shapes in the compartment are placed by the user, and can be moved around free. In a @vertical@ compartment, the shapes inside the compartment will be layed out vertically below each other.  These shapes cannot be placed or moved by the user. A @vertical@ compartment behaves similar, but the shapes are layed out in a horizontal way.
+
+Only a @rectangle@, a @ellipse@ or a @roundedrectangle@ may be marked as compartments. 
+
+For a @vertical@ or @horizontal@ compartment the property @spacing@ sepcifies the space between the child shapes, and the property @margin@ specifies the space around aal the child shapes.
+
+The @id@ property behaves similar to the @id@ property of the @text@ shape.  The main Spray DSL may refer to such an id and specify what type of object are allowed inside the compartment. based on the above example, the a Spray model might look like:
+
+bc.. 
+
+class BusinessClass {
+    shape SimpleClassShape {
+        reference properties into simpleAttributes
+    }
+    behavior {
+        create into types palette "Shapes";
+    }
+}
+p. 
+The @properties@ is a reference from @BusinssClass@ and specifies that associated objects may be placed inside the @simpleAttributes@ compartment. This will automatically allow all attributes defined in the Spray DSL to be placed inside the compartment.  An attribute could be specified as 
+
+bc.. 
+shape TextShape style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+	text style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+		position (x=0, y=0)
+		size (width=80, height=25)
+		id = textId2
+	}
+}
+
+class StringProperty {
+    shape TextShape {
+        name into textId2
+    }
+    behavior {
+        create palette "Properties"
+    }
+}
+
+class BoolProperty {
+    shape TextShape {
+        name into textId2
+    }
+    behavior {
+        create palette "Properties"
+    }
+}
+
+p. 
+I this example both a @StringProperty@ and a @BoolProperty@ can be placed inside the compartment.  They are both subtypes of @Property@ , which is the type of the @property@ reference from @BusinessClass@.
+
 h2. Shape Default Values
 
 If the user doesn't specify any value for one or more attribute the *default values* will be gained. The default values are.
