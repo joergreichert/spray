@@ -59,7 +59,7 @@ AnchorRelativePosition:
 	'xoffset' '=' xoffset=DOUBLE ',' 'yoffset' '=' yoffset=DOUBLE;
 
 AnchorFixPointPosition:
-	'x=' xcor=INT ',' 'y=' ycor=INT;
+	'x' '=' xcor=INT ',' 'y' '=' ycor=INT;
 
 Shape:
 	Line | Polyline | Rectangle | RoundedRectangle | Polygon | Ellipse | Text ;
@@ -200,7 +200,7 @@ ShapeStyleRef:
 	'style' (style=JvmTypeReference);
 
 CommonLayout:
-	{CommonLayout} (('position' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT ')')? &
+	{CommonLayout} (('position' '(' 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT ')')? &
 	('size' '(' 'width' '=' width=INT ',' 'height' '=' heigth=INT ')'));
 
 TextBody: {TextBody}
@@ -215,7 +215,7 @@ TextBody: {TextBody}
 //TextBodyParameter:
 //	param=[types::JvmIdentifiableElement] ("formatting" format=ID)?;
 Point:
-	{Point} ('point' '(' 'x=' xcor=N_INT ',' 'y=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','
+	{Point} ('point' '(' 'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT (',' 'curveBefore' '=' curveBefore=INT ','
 	'curveAfter' '=' curveAfter=INT)? ')');
 
 Boolean returns ecore::EBooleanObject:

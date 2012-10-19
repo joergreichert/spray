@@ -80,12 +80,12 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
 
     protected void handleNoSpaceBeforeINT(FormattingConfig c) {
         // no space before integers
-        c.setNoSpace().before(grammar.getCommonLayoutAccess().getXcorN_INTParserRuleCall_1_0_3_0());
-        c.setNoSpace().before(grammar.getCommonLayoutAccess().getYcorN_INTParserRuleCall_1_0_6_0());
-        c.setNoSpace().before(grammar.getPointAccess().getXcorN_INTParserRuleCall_1_3_0());
-        c.setNoSpace().before(grammar.getPointAccess().getYcorN_INTParserRuleCall_1_6_0());
-        c.setNoSpace().before(grammar.getAnchorFixPointPositionAccess().getXcorINTTerminalRuleCall_1_0());
-        c.setNoSpace().before(grammar.getAnchorFixPointPositionAccess().getYcorINTTerminalRuleCall_4_0());
+        c.setNoSpace().before(grammar.getCommonLayoutAccess().getXcorN_INTParserRuleCall_1_0_4_0());
+        c.setNoSpace().before(grammar.getCommonLayoutAccess().getYcorN_INTParserRuleCall_1_0_8_0());
+        c.setNoSpace().before(grammar.getPointAccess().getXcorN_INTParserRuleCall_1_4_0());
+        c.setNoSpace().before(grammar.getPointAccess().getYcorN_INTParserRuleCall_1_8_0());
+        c.setNoSpace().before(grammar.getAnchorFixPointPositionAccess().getXcorINTTerminalRuleCall_2_0());
+        c.setNoSpace().before(grammar.getAnchorFixPointPositionAccess().getYcorINTTerminalRuleCall_6_0());
     }
 
     protected void handleBlocks(FormattingConfig c) {

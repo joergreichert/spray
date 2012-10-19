@@ -55,9 +55,10 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
             }
             // set the final size of the shape
             int newWidth = width + (2 * margin);
+            int newHeight = Math.max(y + margin, data.getMinimumHeight());
             //            System.out.println(indent() + "VerticalLayoutManager.layout() " + SprayLayoutService.getId(shape) + " width set to " + newWidth);
             if (isFlexible()) {
-                gaService.setSize(shape.getGraphicsAlgorithm(), newWidth, y + margin);
+                gaService.setSize(shape.getGraphicsAlgorithm(), newWidth, newHeight);
             }
         } else {
             gaService.setSize(shape.getGraphicsAlgorithm(), 0, 0);
