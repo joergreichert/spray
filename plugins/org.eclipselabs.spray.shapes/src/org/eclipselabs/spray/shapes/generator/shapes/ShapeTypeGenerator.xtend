@@ -128,6 +128,7 @@ class ShapeTypeGenerator {
 		«IF element?.compartmentInfo?.compartmentLayout != null »
 		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
 		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», «element.compartmentInfo.margin», «element.compartmentInfo.spacing», «flexible»);
+		SprayLayoutService.setLayoutData(«shapeName», «element.layout.common.width», «element.layout.common.heigth»);
 		«ENDIF»
 
 		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
