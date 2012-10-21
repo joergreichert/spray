@@ -125,8 +125,9 @@ class DiagramExtensionsTest {
         diagram.metaClassesList.add(metaClass3)
         diagram.metaClassesList.add(metaClass4)
         val Iterable<MetaClass> foundClasses = diagramExtensions.getElementsForTemplate(diagram, createShapeFeatureTemplate)
-        assertEquals("expected metaClass count", 1, foundClasses.size)
-        assertEquals("expected metaClass", metaClass3, foundClasses.head)
+        assertEquals("expected metaClass count", 2, foundClasses.size)
+        assertTrue("expected metaClass2", foundClasses.exists(c|c == metaClass2))
+        assertTrue("expected metaClass3", foundClasses.exists(c|c == metaClass3))
     }
     
     @Test
