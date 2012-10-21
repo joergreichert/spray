@@ -43,8 +43,8 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
     }
 
     private void handleDiagram(FormattingConfig c, SprayGrammarAccess f) {
-        c.setLinewrap(2).before(f.getDiagramRule());
-        c.setLinewrap(2).after(f.getDiagramRule());
+        c.setLinewrap(2).between(f.getImportRule(), f.getDiagramRule());
+        c.setLinewrap(2).around(f.getDiagramRule());
     }
 
     private void handleImport(FormattingConfig c, SprayGrammarAccess f) {
@@ -58,12 +58,8 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
 
     private void handleMetaclass(FormattingConfig c, SprayGrammarAccess f) {
         c.setLinewrap(2).before(f.getMetaClassAccess().getClassKeyword_0());
-
-        //        c.setIndentationDecrement().after(f.getMetaClassAccess().getRightCurlyBracketKeyword_7_3());
-        // indent after opening colon, close after MetaClass rule
-        //        c.setIndentationIncrement().after(f.getMetaClassAccess().getColonKeyword_5());
-        //        c.setLinewrap().after(f.getMetaClassAccess().getColonKeyword_5());
-        //        c.setIndentationDecrement().after(f.getMetaClassRule());
+        c.setLinewrap().around(f.getShapePropertyAssignmentRule());
+        c.setLinewrap().around(f.getShapeCompartmentAssignmentRule());
         c.setLinewrap(2).after(f.getMetaClassRule());
     }
 

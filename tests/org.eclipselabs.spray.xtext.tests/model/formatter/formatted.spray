@@ -14,8 +14,8 @@ diagram mydiagram for BusinessDomainModel style org.eclipselabs.spray.runtime.gr
 
 class BusinessClass {
 	shape org.eclipselabs.spray.shapes.ClassShape {
-		name into classname 
-		reference properties into attributes 
+		name into classname
+		reference properties into attributes
 		reference businessRules into businessrules
 	}
 	behavior {
@@ -35,4 +35,3 @@ class Association icon "connection16.gif" {
 		create into associations palette "PaletteName" askFor name
 	}
 }
-
