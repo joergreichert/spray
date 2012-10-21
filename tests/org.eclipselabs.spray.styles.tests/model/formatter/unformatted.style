@@ -1,0 +1,47 @@
+/*************************************************************************************
+ *
+ * Spray styles definition
+ * 
+ * This file contains the definition of style classes using the Styles Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+
+// Add definition of styles here.
+style 
+MydiagramDefaultStyle 
+
+
+
+{description="The default style of the mydiagram diagram type."	transparency=0.95 background-color=black line-color=black line-style=solid line-width=1 font-color=black font-name="Tahoma" font-size=12
+// font-bold = yes
+
+
+
+}
+
+
+
+
+style All {
+		transparency     	= 0.7
+		gradient-orientation	= vertical
+		highlighting				(selected = yellow  multiselected = orange 
+		 allowed = black   unallowed = red)
+		line-color       	= yellow 
+		background-color 	= blue
+	    font-bold        	= no
+        line-width       	= 10      font-name        	= "Arial"
+	    font-color       	= green
+        line-style       	= solid    font-size        	= 12
+					    font-italic      	= no
+}
+
+	gradient MyGradient {
+		description = "Desc"
+					area 
+					
+						(color=white, offset = 0.2 )  area ( color = yellow, offset=0.5)   
+						
+						
+						area( color   = green,offset = 0.9 )
+		}

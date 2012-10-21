@@ -52,11 +52,30 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
         handleNoSpaceBeforeINT(c);
 
         handleLineWrapBeforeKeywords(c);
+        
+        
+        c.setLinewrap().around(grammar.getGradientAccess().getDescriptionAssignment_4_2());
+        c.setLinewrap().around(grammar.getGradientColorAreaRule());
+
+        c.setSpace("\n        ").after(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
+        c.setSpace("\n    ").before(grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6());
+        
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getSelectedAssignment_2_2());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getMultiselectedAssignment_3_2());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getAllowedAssignment_4_2());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getUnallowedAssignment_5_2());
+        
+        c.setIndentation(
+        		grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1(), 
+        		grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6()
+        );
     }
 
     protected void handleLineWrapBeforeKeywords(FormattingConfig c) {
         // line wraps
-        c.setLinewrap(2).before(grammar.getStyleRule());
+        c.setLinewrap(2).between(grammar.getStyleRule(), grammar.getStyleRule());
+        c.setLinewrap(2).between(grammar.getGradientRule(), grammar.getStyleRule());
+        c.setLinewrap(2).between(grammar.getStyleRule(), grammar.getGradientRule());
         c.setLinewrap().before(grammar.getStyleAccess().getDescriptionKeyword_5_0());
         c.setLinewrap().before(grammar.getStyleLayoutAccess().getTransparencyKeyword_1_0_0());
         c.setLinewrap().before(grammar.getStyleLayoutAccess().getBackgroundColorKeyword_1_1_0());
