@@ -1,10 +1,16 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
 
 /**
@@ -104,10 +110,23 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
             // already dione
         } else {
             for (Shape child : shape.getChildren()) {
-                if (SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
-                    System.out.println("SETTING CHILD WIDTH of " + SprayLayoutService.getId(child) + " to " + (newWidth - (2 * margin)));
-                    ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
-                    mgr.stretchWidthTo(newWidth);// - (2 * margin));
+                if (SprayLayoutService.isShapeFromDsl(child)) {
+                    System.out.println("STRETCH TO WIDTH resize " + SprayLayoutService.getId(child));
+                    GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
+                    Diagram diagram = Graphiti.getPeService().getDiagramForShape(shape);
+                    IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
+                    ResizeShapeContext context = new ResizeShapeContext(child);
+                    context.setLocation(childGa.getX(), childGa.getY());
+                    context.setSize(newWidth, childGa.getHeight());
+                    IResizeShapeFeature feature = featureProvider.getResizeShapeFeature(context);
+                    feature.resizeShape(context);
+                } else {
+                    System.out.println("STRETCH TO WIDTH old fashion  " + SprayLayoutService.getId(child));
+                    if (SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
+                        System.out.println("SETTING CHILD WIDTH of " + SprayLayoutService.getId(child) + " to " + (newWidth - (2 * margin)));
+                        ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
+                        mgr.stretchWidthTo(newWidth - (2 * margin));
+                    }
                 }
             }
         }

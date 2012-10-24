@@ -66,8 +66,8 @@ public class SprayLayoutManager implements ISprayConstants {
         gaService = Graphiti.getGaService();
 
         // Get old size values from element properties
-        float oldMaxWidth = getMaxWidthPictorgramProperty(containerShape);
-        float oldMaxHeight = getMaxHeightPictorgramProperty(containerShape);
+        float oldMaxWidth = SprayLayoutService.getCurrentWidth(containerShape);
+        float oldMaxHeight = SprayLayoutService.getCurrentHeight(containerShape);
 
         // Get new size of container
         float newContainerWidth = containerGa.getWidth();
@@ -87,8 +87,8 @@ public class SprayLayoutManager implements ISprayConstants {
             recalculateAnchors(containerShape, widthFactor, heightFactor);
 
             // set new size to properties of element
-            setMaxHeightPictorgramProperty(containerShape, (int) Math.round(newContainerHeight));
-            setMaxWidthPictorgramProperty(containerShape, (int) Math.round(newContainerWidth));
+            SprayLayoutService.setCurrentHeight(containerShape, (int) Math.round(newContainerHeight));
+            SprayLayoutService.setCurrentWidth(containerShape, (int) Math.round(newContainerWidth));
 
             anythingChanged = true;
         }
@@ -255,28 +255,6 @@ public class SprayLayoutManager implements ISprayConstants {
         this.maxSizeHeight = maxSizeHeight;
     }
 
-    public int getMaxWidthPictorgramProperty(PictogramElement pe) {
-
-        return Integer.parseInt(Graphiti.getPeService().getPropertyValue(pe, WIDTH_KEY));
-    }
-
-    public static void setMaxWidthPictorgramProperty(PictogramElement pe, int maxWidth) {
-
-        Graphiti.getPeService().setPropertyValue(pe, WIDTH_KEY, Integer.toString(maxWidth));
-
-    }
-
-    public int getMaxHeightPictorgramProperty(PictogramElement pe) {
-
-        return Integer.parseInt(Graphiti.getPeService().getPropertyValue(pe, HEIGHT_KEY));
-    }
-
-    public static void setMaxHeightPictorgramProperty(PictogramElement pe, int maxHeight) {
-
-        Graphiti.getPeService().setPropertyValue(pe, HEIGHT_KEY, Integer.toString(maxHeight));
-
-    }
-
     public static void setSizePictogramProperties(PictogramElement pe) {
 
         GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
@@ -305,8 +283,8 @@ public class SprayLayoutManager implements ISprayConstants {
             maxWidth = ga.getWidth();
         }
 
-        setMaxHeightPictorgramProperty(pe, maxHeight);
-        setMaxWidthPictorgramProperty(pe, maxWidth);
+        SprayLayoutService.setCurrentHeight(pe, maxHeight);
+        SprayLayoutService.setCurrentWidth(pe, maxWidth);
 
     }
 

@@ -174,4 +174,21 @@ public class SprayLayoutService {
         GraphitiProperties.set(shape, ISprayConstants.IS_COMPARTMENT, value);
         GraphitiProperties.set(shape, ISprayConstants.PROPERTY_CAN_MOVE, false);
     }
+
+    static public int getCurrentWidth(PictogramElement pe) {
+        return GraphitiProperties.getIntValue(pe, ISprayConstants.WIDTH_KEY);
+    }
+
+    static public void setCurrentWidth(PictogramElement pe, int currentWidth) {
+        GraphitiProperties.set(pe, ISprayConstants.WIDTH_KEY, currentWidth);
+    }
+
+    static public int getCurrentHeight(PictogramElement pe) {
+        return GraphitiProperties.getIntValue(pe, ISprayConstants.HEIGHT_KEY);
+    }
+
+    static public void setCurrentHeight(PictogramElement pe, int currentHeight) {
+        GraphitiProperties.set(pe, ISprayConstants.HEIGHT_KEY, currentHeight);
+    }
+
 }
