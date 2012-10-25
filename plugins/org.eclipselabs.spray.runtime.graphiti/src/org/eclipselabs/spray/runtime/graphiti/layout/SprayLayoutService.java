@@ -191,4 +191,8 @@ public class SprayLayoutService {
         GraphitiProperties.set(pe, ISprayConstants.HEIGHT_KEY, currentHeight);
     }
 
+    static public boolean isFlexible(PictogramElement pe) {
+        return GraphitiProperties.getBooleanValue(pe, LAYOUT_FLEXIBLE);
+    }
+
 }

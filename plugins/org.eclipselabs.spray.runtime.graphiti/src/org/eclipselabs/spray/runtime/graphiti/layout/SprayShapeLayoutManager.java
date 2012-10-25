@@ -62,9 +62,46 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
     @Override
     public void stretchWidthTo(int newWidth) {
         SprayAbstractLayoutManager.level++;
-        layoutService.setWidth(shape.getGraphicsAlgorithm(), newWidth);
+        //        System.out.println("STRECHT VERTICAL of " + SprayLayoutService.getId(shape) + " to " + newWidth);
+        GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+        int oldWidth = shapeGa.getWidth();
+        if (!isFlexible()) {
+            System.out.println(SprayAbstractLayoutManager.indent() + "TopLayout NOIT FLEXIBLE shape " + SprayLayoutService.getId(shape) + " from " + oldWidth + "  to " + newWidth);
+            SprayAbstractLayoutManager.level--;
+            return;
+        }
+        layoutService.setWidth(shapeGa, newWidth);
+        if (this.getAlignment() == SprayAlignment.MIDDLE) {
+            // already dione
+        } else {
+            shape.getGraphicsAlgorithm().setWidth(newWidth);
+            //            for (Shape child : shape.getChildren()) {
+            //                GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
+            //                System.out.println("VerticalLayout stretch child shape " + SprayLayoutService.getId(child) + " from " + oldWidth + "  to " + newWidth);
+            //                SprayResizeLayoutManager mgr = new SprayResizeLayoutManager();
+            //                ILayoutContext ctx = new LayoutContext(child);
+            //                if (childGa instanceof Polyline || childGa instanceof Polygon) {
+            //                    IDimension dim = Graphiti.getGaService().calculateSize(childGa);
+            //                    SprayLayoutService.setCurrentHeight(child, dim.getHeight());
+            //                    SprayLayoutService.setCurrentWidth(child, dim.getWidth());
+            //                    childGa.setHeight(dim.getHeight());
+            //                } else {
+            //                    SprayLayoutService.setCurrentHeight(child, childGa.getHeight());
+            //                    SprayLayoutService.setCurrentWidth(child, childGa.getWidth());
+            //                }
+            //                childGa.setWidth(newWidth);
+            //                mgr.layout(ctx);
+            //            }
+        }
         SprayAbstractLayoutManager.level--;
     }
+
+    //    @Override
+    //    public void stretchWidthTo(int newWidth) {
+    //        SprayAbstractLayoutManager.level++;
+    //        layoutService.setWidth(shape.getGraphicsAlgorithm(), newWidth);
+    //        SprayAbstractLayoutManager.level--;
+    //    }
 
     @Override
     public void stretchHeightTo(int newHeight) {

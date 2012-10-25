@@ -225,6 +225,6 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
 
     @Override
     public boolean isFlexible() {
-        return GraphitiProperties.getBooleanValue(shape, SprayLayoutService.LAYOUT_FLEXIBLE);
+        return SprayLayoutService.isFlexible(shape);
     }
 }

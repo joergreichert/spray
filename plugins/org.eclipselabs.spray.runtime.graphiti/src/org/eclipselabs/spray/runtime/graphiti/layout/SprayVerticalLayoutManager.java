@@ -1,16 +1,15 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IResizeShapeFeature;
-import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.context.ILayoutContext;
+import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
 
 /**
@@ -31,6 +30,10 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
         super(shape);
     }
 
+    public boolean layout(ILayoutContext context) {
+        return true;
+    }
+
     public void layout() {
         level++;
         System.out.println(indent() + "VerticalLayoutManager.layout() " + SprayLayoutService.getId(shape));
@@ -46,7 +49,7 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
                 mgr.layout();
                 GraphicsAlgorithm childAlgorithm = child.getGraphicsAlgorithm();
                 if (childAlgorithm instanceof Polyline) {
-                    changePolyLine((Polyline) childAlgorithm, x, y);
+                    movePolyLine((Polyline) childAlgorithm, x, y);
                 } else {
                     gaService.setLocation(childAlgorithm, x, y);
                 }
@@ -72,7 +75,7 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
         level--;
     }
 
-    private void changePolyLine(Polyline line, int x, int y) {
+    private void movePolyLine(Polyline line, int x, int y) {
         Point first = line.getPoints().get(0);
         int xDiff = x - first.getX();
         int yDiff = y - first.getY();
@@ -99,35 +102,36 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
     @Override
     public void stretchWidthTo(int newWidth) {
         level++;
-        System.out.println("STRECHT VERTICAL of " + SprayLayoutService.getId(shape) + " to " + newWidth);
+        //        System.out.println("STRECHT VERTICAL of " + SprayLayoutService.getId(shape) + " to " + newWidth);
+        GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+        int oldWidth = shapeGa.getWidth();
         if (!isFlexible()) {
+            System.out.println(indent() + "VerticalLayout stretch NOT FLEXIBLE shape " + SprayLayoutService.getId(shape) + " from " + oldWidth + "  to " + newWidth);
+            level--;
             return;
         }
-        int margin = getMargin();
-        GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
         layoutService.setWidth(shapeGa, newWidth);
         if (this.getAlignment() == SprayAlignment.MIDDLE) {
             // already dione
+            System.out.println(indent() + "VerticalLayout stretch alignment MIUDDLE shape " + SprayLayoutService.getId(shape) + " from " + oldWidth + "  to " + newWidth);
         } else {
+            shape.getGraphicsAlgorithm().setWidth(newWidth);
             for (Shape child : shape.getChildren()) {
-                if (SprayLayoutService.isShapeFromDsl(child)) {
-                    System.out.println("STRETCH TO WIDTH resize " + SprayLayoutService.getId(child));
-                    GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
-                    Diagram diagram = Graphiti.getPeService().getDiagramForShape(shape);
-                    IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-                    ResizeShapeContext context = new ResizeShapeContext(child);
-                    context.setLocation(childGa.getX(), childGa.getY());
-                    context.setSize(newWidth, childGa.getHeight());
-                    IResizeShapeFeature feature = featureProvider.getResizeShapeFeature(context);
-                    feature.resizeShape(context);
+                GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
+                System.out.println(indent() + "VerticalLayout stretch child shape " + SprayLayoutService.getId(child) + " from " + oldWidth + "  to " + newWidth);
+                SprayResizeLayoutManager mgr = new SprayResizeLayoutManager();
+                ILayoutContext ctx = new LayoutContext(child);
+                if (childGa instanceof Polyline || childGa instanceof Polygon) {
+                    IDimension dim = gaService.calculateSize(childGa);
+                    SprayLayoutService.setCurrentHeight(child, dim.getHeight());
+                    SprayLayoutService.setCurrentWidth(child, dim.getWidth());
+                    childGa.setHeight(dim.getHeight());
                 } else {
-                    System.out.println("STRETCH TO WIDTH old fashion  " + SprayLayoutService.getId(child));
-                    if (SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
-                        System.out.println("SETTING CHILD WIDTH of " + SprayLayoutService.getId(child) + " to " + (newWidth - (2 * margin)));
-                        ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
-                        mgr.stretchWidthTo(newWidth - (2 * margin));
-                    }
+                    SprayLayoutService.setCurrentHeight(child, childGa.getHeight());
+                    SprayLayoutService.setCurrentWidth(child, childGa.getWidth());
                 }
+                childGa.setWidth(newWidth);
+                mgr.layout(ctx);
             }
         }
         level--;
@@ -155,4 +159,24 @@ public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
         }
         level--;
     }
+
+    // TODO copied from SprayLayouytManager
+    public void resizePolyline(Polyline p, double widthFactor, double heightFactor) {
+        System.out.println("resizePolyline of " + SprayLayoutService.getId(p.getPictogramElement()) + " factor " + widthFactor);
+        recalulatePointList(p.getPoints(), widthFactor, heightFactor);
+    }
+
+    public void resizePolygon(Polygon p, double widthFactor, double heightFactor) {
+        recalulatePointList(p.getPoints(), widthFactor, heightFactor);
+    }
+
+    public void recalulatePointList(EList<Point> points, double widthFactor, double heightFactor) {
+        for (Point point : points) {
+            int newXCord = (int) Math.round(point.getX() * widthFactor);
+            int newYCord = (int) Math.round(point.getY() * heightFactor);
+            point.setX(newXCord);
+            point.setY(newYCord);
+        }
+    }
+
 }
