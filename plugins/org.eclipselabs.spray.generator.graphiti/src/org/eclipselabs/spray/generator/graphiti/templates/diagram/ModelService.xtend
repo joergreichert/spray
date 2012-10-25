@@ -31,6 +31,7 @@ class ModelService extends FileGenerator<Diagram> {
         import org.eclipse.emf.ecore.util.EcoreUtil;
         import org.eclipse.graphiti.dt.IDiagramTypeProvider;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
@@ -47,7 +48,27 @@ class ModelService extends FileGenerator<Diagram> {
             protected IDiagramTypeProvider dtp;
             «generate_additionalFields(diagram)»
             
-            public «className» (IDiagramTypeProvider dtp) {
+            static protected «className» modelService = null;
+            
+            /**
+             * return the model service, create one if it does not exist yet.
+             */
+            static public «className» getModelService(IDiagramTypeProvider dtp){
+            	if( modelService == null ){
+            		modelService = new «className»(dtp);
+            	}
+            	return modelService;
+            }
+            
+            /**
+             * return the model service.
+             * returns null if there is no model service.
+             */
+            static public «className» getModelService(){
+            	return modelService;
+            }
+            
+            protected «className» (IDiagramTypeProvider dtp) {
                 this.dtp = dtp;
                 this.peService = Graphiti.getPeService();
             }
@@ -60,6 +81,10 @@ class ModelService extends FileGenerator<Diagram> {
                 }
                 return model;
             }
+            
+            public Object getBusinessObject(PictogramElement pe){
+        		return dtp.getFeatureProvider().getBusinessObjectForPictogramElement(dtp.getDiagram());
+        	}
             
             /**
              * Creates the domain model element and store it in the file. Overwrite to set required properties on creation.

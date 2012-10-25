@@ -57,7 +57,7 @@ class PasteFeature extends FileGenerator<Diagram>{
 
             public «className»(IFeatureProvider fp) {
                 super(fp);
-                modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
+                modelService = «diagram.modelServiceClassName.shortName».getModelService(fp.getDiagramTypeProvider());
             }
 
             «generate_canPaste(diagram)»

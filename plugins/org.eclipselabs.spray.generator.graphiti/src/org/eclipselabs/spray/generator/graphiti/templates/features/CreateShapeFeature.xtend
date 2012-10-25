@@ -69,7 +69,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             public «className» (final IFeatureProvider fp) {
                 // set name and description of the creation feature
                 super(fp, "«metaClass.createFeatureLabel»", "«metaClass.createFeatureDescription»");
-                modelService = new «diagram.modelServiceClassName.shortName»(fp.getDiagramTypeProvider());
+                modelService = «diagram.modelServiceClassName.shortName».getModelService(fp.getDiagramTypeProvider());
             }
         
             «generate_canCreate(metaClass)»
