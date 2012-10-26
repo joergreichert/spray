@@ -16,6 +16,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 import org.eclipselabs.spray.runtime.graphiti.layout.ISprayLayoutManager;
+import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 
 public class SprayLayoutManager implements ISprayConstants {
@@ -133,15 +134,14 @@ public class SprayLayoutManager implements ISprayConstants {
 
                     if (child instanceof ContainerShape) {
                         if (SprayLayoutService.isShapeFromDsl(child)) {
-                            System.out.println("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(child));
+                            SprayAbstractLayoutManager.debug("Do not resize nested compartments, stopping at " + SprayLayoutService.getId(child));
                         } else {
                             resizeElementsRecursive((ContainerShape) child, widthFactor, heightFactor);
                         }
                     }
 
                 }
-            }
-            if (SprayLayoutService.isCompartment(shape)) {
+            } else {//             SprayLayoutService.isCompartment(shape)
                 ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(shape);
                 mgr.layout();
             }
@@ -233,7 +233,6 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     public static void setSizePictogramProperties(PictogramElement pe) {
-
         GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
         int maxWidth = 0;
         int maxHeight = 0;
@@ -243,26 +242,19 @@ public class SprayLayoutManager implements ISprayConstants {
             EList<Point> points = element.getPoints();
 
             for (Point point : points) {
-
                 if (point.getX() > maxWidth) {
                     maxWidth = point.getX();
                 }
-
                 if (point.getY() > maxHeight) {
                     maxHeight = point.getY();
                 }
-
             }
-        }
-
-        else {
+        } else {
             maxHeight = ga.getHeight();
             maxWidth = ga.getWidth();
         }
-
         SprayLayoutService.setCurrentHeight(pe, maxHeight);
         SprayLayoutService.setCurrentWidth(pe, maxWidth);
-
     }
 
     public boolean isStretchVertical() {

@@ -58,6 +58,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         
         import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
@@ -159,6 +160,8 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 if(pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
                     updateChildsRecursively(shape, eClass);
+            		Shape top = findTopShape(shape);
+            		SprayLayoutService.getLayoutManager(top).layout();
                 }
                 return true;
                 

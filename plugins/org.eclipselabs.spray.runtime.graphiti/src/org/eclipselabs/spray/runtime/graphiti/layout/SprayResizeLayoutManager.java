@@ -79,15 +79,14 @@ public class SprayResizeLayoutManager extends SprayLayoutManager {
     }
 
     public void resizeElements(ContainerShape shape, double widthFactor, double heightFactor) {
-        GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
-        // Special layout handling for shapes which only consists of a polyline
-        // or polygon
-        if (shape.getChildren().size() == 0 && ((a instanceof Polyline) || (a instanceof Polygon))) {
-            IDimension size = gaService.calculateSize(a);
-            if (a instanceof Polyline) {
-                resizePolyline((Polyline) a, size, widthFactor, heightFactor);
-            } else if (a instanceof Polygon) {
-                resizePolygon((Polygon) a, size, widthFactor, heightFactor);
+        GraphicsAlgorithm shaoeGa = shape.getGraphicsAlgorithm();
+        // Special layout handling for shapes which only consists of a polyline or polygon
+        if (shape.getChildren().size() == 0 && ((shaoeGa instanceof Polyline) || (shaoeGa instanceof Polygon))) {
+            IDimension size = gaService.calculateSize(shaoeGa);
+            if (shaoeGa instanceof Polyline) {
+                resizePolyline((Polyline) shaoeGa, size, widthFactor, heightFactor);
+            } else if (shaoeGa instanceof Polygon) {
+                resizePolygon((Polygon) shaoeGa, size, widthFactor, heightFactor);
             }
         } else {
             // calculate new element size recursively
@@ -97,7 +96,6 @@ public class SprayResizeLayoutManager extends SprayLayoutManager {
 
     @Override
     public void resizeElementsRecursive(ContainerShape shape, double widthFactor, double heightFactor) {
-        GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
         if (shape.getChildren().size() == 0) {
             return;
         } else {
@@ -113,21 +111,11 @@ public class SprayResizeLayoutManager extends SprayLayoutManager {
                     } else {
                         resizeShape(ga, size, widthFactor, heightFactor);
                     }
-                }
-
-                if (child instanceof ContainerShape) {
-                    if (!SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
-                        SprayAbstractLayoutManager.debug("Nested compartment NOT STRETCHEABKE, stopping at " + SprayLayoutService.getId(child));
-                        //                        resizeElementsRecursive((ContainerShape) child, widthFactor, heightFactor);
-                    } else {
+                    if (child instanceof ContainerShape) {
                         resizeElementsRecursive((ContainerShape) child, widthFactor, heightFactor);
                     }
                 }
-
-                //                }
             }
         }
-
     }
-
 }
