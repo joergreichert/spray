@@ -130,7 +130,9 @@ class ShapeTypeGenerator {
 		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», «element.compartmentInfo.margin», «element.compartmentInfo.spacing», «flexible»);
 		SprayLayoutService.setLayoutData(«shapeName», «element.layout.common.width», «element.layout.common.heigth»);
 		«ENDIF»
-
+		«IF element?.compartmentInfo?.stretchH != null »
+		SprayLayoutService.getLayoutData(«shapeName»).setHorizontalStrechable(«element.compartmentInfo.stretchH»);
+		«ENDIF»
 		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
@@ -158,6 +160,10 @@ class ShapeTypeGenerator {
 		«IF element?.compartmentInfo?.compartmentLayout != null »
 		SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
 		SprayLayoutService.setLayoutManager(«shapeName», «layoutName», «element.compartmentInfo.margin», «element.compartmentInfo.spacing», «flexible»);
+		SprayLayoutService.setLayoutData(«shapeName», «element.layout.common.width», «element.layout.common.heigth»);
+		«ENDIF»
+		«IF element?.compartmentInfo?.stretchH != null »
+		SprayLayoutService.getLayoutData(«shapeName»).setHorizontalStrechable(«element.compartmentInfo.stretchH»);
 		«ENDIF»
 
 		Ellipse «elementName» = gaService.createEllipse(«shapeName»);

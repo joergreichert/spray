@@ -22,7 +22,7 @@ public class SprayDiagramLayoutManager extends SprayAbstractLayoutManager {
     @Override
     public void layout() {
         level++;
-        System.out.println(indent() + "DiagramLayoutManager.layout() " + SprayLayoutService.getId(shape));
+        debug("DiagramLayoutManager.layout() " + SprayLayoutService.getId(shape));
         for (Shape shape : diagram.getChildren()) {
             if (shape instanceof ContainerShape) {
                 ContainerShape container = (ContainerShape) shape;
@@ -34,10 +34,6 @@ public class SprayDiagramLayoutManager extends SprayAbstractLayoutManager {
             }
         }
         level--;
-    }
-
-    @Override
-    public void stretchWidthTo(int newWidth) {
     }
 
     @Override

@@ -125,11 +125,14 @@ Text:
 
 CompartmentInfo :
 	(
-		 'compartment' '=' compartmentLayout = CompartmentLayout
-		 ('spacing' '=' spacing = INT)?
-		 ('margin'  '=' margin  = INT)?
-		 (invisible ?= 'invisible')?
-		 ( id = TextBody )?
+		'compartment' '(' 
+			'layout' '=' compartmentLayout = CompartmentLayout
+		 	('stretching' '(' 'horizontal' '=' stretchH=Boolean ',' 'vertical' '=' stretchV=Boolean ')')?
+		 	('spacing' '=' spacing = INT)?
+		 	('margin'  '=' margin  = INT)?
+		 	(invisible ?= 'invisible')?
+		 	( id = TextBody )?
+		 ')'
 	)
 ;
 

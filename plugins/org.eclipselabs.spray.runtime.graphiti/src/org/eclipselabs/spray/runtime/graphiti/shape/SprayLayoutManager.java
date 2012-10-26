@@ -16,26 +16,23 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 import org.eclipselabs.spray.runtime.graphiti.layout.ISprayLayoutManager;
-import org.eclipselabs.spray.runtime.graphiti.layout.SprayAbstractLayoutManager;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
 
 public class SprayLayoutManager implements ISprayConstants {
 
-    private int        minSizeWidth;
-    private int        minSizeHeight;
+    protected int        minSizeWidth;
+    protected int        minSizeHeight;
 
-    private int        maxSizeWidth;
-    private int        maxSizeHeight;
+    protected int        maxSizeWidth;
+    protected int        maxSizeHeight;
 
-    private boolean    stretchVertical;
-    private boolean    stretchHorizontal;
+    protected boolean    stretchVertical;
+    protected boolean    stretchHorizontal;
 
-    private IGaService gaService;
+    protected IGaService gaService;
 
     public boolean layout(ILayoutContext context) {
-
         boolean anythingChanged = false;
-
         ContainerShape containerShape = (ContainerShape) context.getPictogramElement();
         GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
 
@@ -98,13 +95,10 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     public void resizeElements(ContainerShape shape, double widthFactor, double heightFactor) {
-        System.out.println("Before resize");
-        SprayAbstractLayoutManager.print(shape, 0);
         GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
         // Special layout handling for shapes which only consists of a polyline
         // or polygon
         if (shape.getChildren().size() == 0 && ((a instanceof Polyline) || (a instanceof Polygon))) {
-
             IDimension size = gaService.calculateSize(a);
             if (a instanceof Polyline) {
                 resizePolyline((Polyline) a, size, widthFactor, heightFactor);
@@ -112,14 +106,9 @@ public class SprayLayoutManager implements ISprayConstants {
                 resizePolygon((Polygon) a, size, widthFactor, heightFactor);
             }
         } else {
-
             // calculate new element size recursively
             resizeElementsRecursive(shape, widthFactor, heightFactor);
-            //            setMaxWidthPictorgramProperty(shape, (int) Math.round(shape.getGraphicsAlgorithm().getWidth()));
-
         }
-        System.out.println("After resize");
-        SprayAbstractLayoutManager.print(shape, 0);
     }
 
     public void resizeElementsRecursive(ContainerShape shape, double widthFactor, double heightFactor) {
@@ -157,19 +146,17 @@ public class SprayLayoutManager implements ISprayConstants {
                 mgr.layout();
             }
         }
-
     }
 
-    public void resizePolyline(Polyline p, IDimension size, double widthFactor, double heightFactor) {
+    protected void resizePolyline(Polyline p, IDimension size, double widthFactor, double heightFactor) {
         recalulatePointList(p.getPoints(), widthFactor, heightFactor);
     }
 
-    public void resizePolygon(Polygon p, IDimension size, double widthFactor, double heightFactor) {
+    protected void resizePolygon(Polygon p, IDimension size, double widthFactor, double heightFactor) {
         recalulatePointList(p.getPoints(), widthFactor, heightFactor);
     }
 
-    public void resizeShape(GraphicsAlgorithm gAlgorithm, IDimension size, double widthFactor, double heightFactor) {
-
+    protected void resizeShape(GraphicsAlgorithm gAlgorithm, IDimension size, double widthFactor, double heightFactor) {
         // Set new width and height
         int newWidth = (int) Math.round(size.getWidth() * widthFactor);
         int newHeight = (int) Math.round(size.getHeight() * heightFactor);
@@ -181,26 +168,19 @@ public class SprayLayoutManager implements ISprayConstants {
         gaService.setLocationAndSize(gAlgorithm, newXCord, newYCord, newWidth, newHeight);
     }
 
-    public void recalulatePointList(EList<Point> points, double widthFactor, double heightFactor) {
-
+    protected void recalulatePointList(EList<Point> points, double widthFactor, double heightFactor) {
         for (Point point : points) {
-
             int newXCord = (int) Math.round(point.getX() * widthFactor);
             int newYCord = (int) Math.round(point.getY() * heightFactor);
 
             point.setX(newXCord);
             point.setY(newYCord);
-
         }
-
     }
 
-    public void recalculateAnchors(ContainerShape containerShape, double widthFactor, double heightFactor) {
-
+    protected void recalculateAnchors(ContainerShape containerShape, double widthFactor, double heightFactor) {
         for (Anchor anchor : containerShape.getAnchors()) {
-
             if (anchor instanceof FixPointAnchor) {
-
                 GraphicsAlgorithm ga = anchor.getGraphicsAlgorithm();
                 FixPointAnchor fpa = (FixPointAnchor) anchor;
 
@@ -216,11 +196,8 @@ public class SprayLayoutManager implements ISprayConstants {
                 // Set new x and y coordinates
                 ga.setX((int) Math.round(ga.getX() * widthFactor));
                 ga.setY((int) Math.round(ga.getY() * heightFactor));
-
             }
-
         }
-
     }
 
     public int getMinSizeWidth() {

@@ -27,6 +27,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
 
     // debugging / logging helper variable
     static public int              level     = 0;
+    static public boolean          DEBUG     = true;
 
     /**
      * Debugging / logger helper to indent according to level.
@@ -39,6 +40,12 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
             result.append("   ");
         }
         return result.toString();
+    }
+
+    static public void debug(String message) {
+        if (DEBUG) {
+            System.out.println(indent() + message);
+        }
     }
 
     // The shape for this layout mmanager

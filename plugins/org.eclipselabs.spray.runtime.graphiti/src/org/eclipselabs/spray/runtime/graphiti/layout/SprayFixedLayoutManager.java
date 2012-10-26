@@ -12,7 +12,7 @@ public class SprayFixedLayoutManager extends SprayAbstractLayoutManager {
     @Override
     public void layout() {
         level++;
-        System.out.println(indent() + "FixedLayoutManager.layout() " + SprayLayoutService.getId(shape));
+        debug("FixedLayoutManager.layout() " + SprayLayoutService.getId(shape));
         //        SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
         //        if (data.isVisible()) {
         //            layoutService.setSize(shape.getGraphicsAlgorithm(), data.getMinimumWidth(), data.getMinimumHeight());
@@ -24,13 +24,6 @@ public class SprayFixedLayoutManager extends SprayAbstractLayoutManager {
             mgr.layout();
         }
         level--;
-    }
-
-    @Override
-    public void stretchWidthTo(int newWidth) {
-        if (SprayLayoutService.getLayoutData(shape).isHorizontalStretchable()) {
-            layoutService.setWidth(shape.getGraphicsAlgorithm(), newWidth);
-        }
     }
 
     @Override

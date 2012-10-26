@@ -18,14 +18,6 @@ public interface ISprayLayoutManager {
     public void layout();
 
     /**
-     * Change the width of the corresponding shape equal to 'newWidth'. Will
-     * recursively go into subshapes and strethc them as well.
-     * 
-     * @param newWidth
-     */
-    public void stretchWidthTo(int newWidth);
-
-    /**
      * Change the height of the corresponding shape equal to 'newHeight'. Will
      * recursively go into subshapes and strethc them as well.
      * 

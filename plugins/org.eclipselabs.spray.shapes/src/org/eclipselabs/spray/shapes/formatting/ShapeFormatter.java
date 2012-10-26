@@ -46,8 +46,8 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
                 c.setNoSpace().around(kw);
             }
         }
-        
-        c.setSpace(" ").around(grammar.getCompartmentInfoAccess().getEqualsSignKeyword_1());
+
+        c.setSpace(" ").around(grammar.getCompartmentInfoAccess().getEqualsSignKeyword_3());
 
         // no space befor comma, one space after
         for (Keyword kw : grammar.findKeywords(",")) {
@@ -58,7 +58,7 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
         handleNoSpaceBeforeINT(c);
 
         handleLineWrapBeforeKeywords(c);
-        
+
         c.setLinewrap(2).between(grammar.getShapeDefinitionRule(), grammar.getShapeDefinitionRule());
         c.setLinewrap(2).between(grammar.getConnectionDefinitionRule(), grammar.getConnectionDefinitionRule());
         c.setLinewrap(2).between(grammar.getConnectionDefinitionRule(), grammar.getShapeDefinitionRule());

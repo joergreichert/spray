@@ -42,18 +42,18 @@ public class SprayLayoutData {
     }
 
     public boolean isHorizontalStretchable() {
-        return GraphitiProperties.getBooleanValue(shape, SprayLayoutService.LAYOUT_HORIZONTAL_STRETCHABLE);
+        return !GraphitiProperties.getBooleanValue(shape, SprayLayoutService.LAYOUT_NOT_HORIZONTAL_STRETCHABLE);
     }
 
     public void setHorizontalStrechable(boolean value) {
-        GraphitiProperties.set(shape, SprayLayoutService.LAYOUT_HORIZONTAL_STRETCHABLE, value);
+        GraphitiProperties.set(shape, SprayLayoutService.LAYOUT_NOT_HORIZONTAL_STRETCHABLE, !value);
     }
 
     public boolean isVerticalStretchable() {
-        return GraphitiProperties.getBooleanValue(shape, SprayLayoutService.LAYOUT_VERTICAL_STRETCHABLE);
+        return !GraphitiProperties.getBooleanValue(shape, SprayLayoutService.LAYOUT_NOT_VERTICAL_STRETCHABLE);
     }
 
     public void setVerticalStrechable(boolean value) {
-        GraphitiProperties.set(shape, SprayLayoutService.LAYOUT_VERTICAL_STRETCHABLE, value);
+        GraphitiProperties.set(shape, SprayLayoutService.LAYOUT_NOT_VERTICAL_STRETCHABLE, !value);
     }
 }

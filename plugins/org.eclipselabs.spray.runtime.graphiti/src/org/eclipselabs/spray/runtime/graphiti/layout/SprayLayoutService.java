@@ -22,19 +22,19 @@ public class SprayLayoutService {
     private SprayLayoutService() {
     }
 
-    static final public String LAYOUT_FLEXIBLE               = "L_FLEX";
-    static final public String LAYOUT_TYPE                   = "L_TYPE";
-    static final public String LAYOUT_SPACING                = "L_SPACING";
-    static final public String LAYOUT_MARGIN                 = "L_MARGIN";
-    static final public String LAYOUT_MIN_WIDTH              = "L_MINW";
-    static final public String LAYOUT_MIN_HEIGHT             = "L_MINH";
-    static final public String LAYOUT_VISIBLE                = "L_VIS";
-    static final public String ID                            = "ID";
-    public static final String LAYOUT_HORIZONTAL_STRETCHABLE = "L_H_STR";
-    public static final String LAYOUT_VERTICAL_STRETCHABLE   = "L_V_STR";
-    public static final String LAYOUT_ALIGNMENT              = "L_ALIGN";
+    static final protected String LAYOUT_FLEXIBLE                   = "L_FLEX";
+    static final protected String LAYOUT_TYPE                       = "L_TYPE";
+    static final protected String LAYOUT_SPACING                    = "L_SPACING";
+    static final protected String LAYOUT_MARGIN                     = "L_MARGIN";
+    static final protected String LAYOUT_MIN_WIDTH                  = "L_MINW";
+    static final protected String LAYOUT_MIN_HEIGHT                 = "L_MINH";
+    static final protected String LAYOUT_VISIBLE                    = "L_VIS";
+    static final protected String ID                                = "ID";
+    static final protected String LAYOUT_NOT_HORIZONTAL_STRETCHABLE = "L_H_STR";
+    static final protected String LAYOUT_NOT_VERTICAL_STRETCHABLE   = "L_V_STR";
+    static final protected String LAYOUT_ALIGNMENT                  = "L_ALIGN";
 
-    static private IPeService  peService                     = Graphiti.getPeService();
+    static private IPeService     peService                         = Graphiti.getPeService();
 
     static public String getId(PictogramElement shape) {
         return (shape.isActive() ? "[A]" : "") + peService.getPropertyValue(shape, ID);
@@ -71,7 +71,7 @@ public class SprayLayoutService {
     static public void setLayoutData(Shape shape, int minWidth, int minHeight, Alignment horizontalAlignment, Alignment verticalAlignment, boolean strechable) {
         GraphitiProperties.set(shape, LAYOUT_MIN_WIDTH, minWidth);
         GraphitiProperties.set(shape, LAYOUT_MIN_HEIGHT, minHeight);
-        GraphitiProperties.set(shape, LAYOUT_HORIZONTAL_STRETCHABLE, strechable);
+        GraphitiProperties.set(shape, LAYOUT_NOT_HORIZONTAL_STRETCHABLE, !strechable);
         GraphitiProperties.set(shape, LAYOUT_VISIBLE, true);
     }
 
@@ -92,7 +92,7 @@ public class SprayLayoutService {
     static public void setLayoutData(Shape shape, int minWidth, int minHeight, boolean strechable) {
         GraphitiProperties.set(shape, LAYOUT_MIN_WIDTH, minWidth);
         GraphitiProperties.set(shape, LAYOUT_MIN_HEIGHT, minHeight);
-        GraphitiProperties.set(shape, LAYOUT_HORIZONTAL_STRETCHABLE, strechable);
+        GraphitiProperties.set(shape, LAYOUT_NOT_HORIZONTAL_STRETCHABLE, !strechable);
         GraphitiProperties.set(shape, LAYOUT_VISIBLE, true);
     }
 

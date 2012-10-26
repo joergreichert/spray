@@ -13,11 +13,13 @@ class ShapeLayoutGenerator {
 		«ENDIF»		
 		«IF s.shapeLayout.stretchH != null»
 		sprayStyle.getStyle(diagram).setStretchH(«s.shapeLayout.stretchH»);	   
+		SprayLayoutService.getLayoutData(containerShape).setHorizontalStrechable(«s.shapeLayout.stretchH»);
 		«ELSE»
 		sprayStyle.getStyle(diagram).setStretchH(false);	   
 		«ENDIF»		
 		«IF s.shapeLayout.stretchV != null»
 		sprayStyle.getStyle(diagram).setStretchV(«s.shapeLayout.stretchV»);	   
+		SprayLayoutService.getLayoutData(containerShape).setVerticalStrechable(«s.shapeLayout.stretchV»);
 		«ELSE»
 		sprayStyle.getStyle(diagram).setStretchV(false);	   
 		«ENDIF»		
