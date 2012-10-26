@@ -306,9 +306,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
             if (bo == null) {
             	return null;
             }
-            if( SprayLayoutService.isCompartment(pictogramElement) ){
-                return null; 
-            }
             final String reference = peService.getPropertyValue(pictogramElement, PROPERTY_REFERENCE);
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
 
@@ -425,9 +422,9 @@ class FeatureProvider extends FileGenerator<Diagram> {
     		if (bo == null) {
     			return null;
     		}
-            if( SprayLayoutService.isCompartment(pictogramElement) ){
-                return null; 
-            }
+«««            if( SprayLayoutService.isCompartment(pictogramElement) ){
+«««                return null; 
+«««            }
     		final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
     		«FOR crs : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)»
     		if(«generate_metaClassSwitchCondition(crs)»){
