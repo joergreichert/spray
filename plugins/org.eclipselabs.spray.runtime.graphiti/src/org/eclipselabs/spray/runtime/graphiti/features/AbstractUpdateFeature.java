@@ -62,5 +62,4 @@ public abstract class AbstractUpdateFeature extends org.eclipse.graphiti.feature
         }
         return result;
     }
-
 }

@@ -195,9 +195,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 if (bo == null) {
                 	return null;
                 }
-                if( SprayLayoutService.isCompartment(pictogramElement) ){
-                    return null; 
-                }
             «FOR cls : diagram.metaClasses »
                 «IF ! (cls.representedBy instanceof ConnectionInSpray) »
                 if ( «generate_metaClassSwitchCondition(cls)») { // 11
@@ -298,9 +295,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
         public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
             // Spray specific DefaultRemoveFeature
             final PictogramElement pictogramElement = context.getPictogramElement();
-            if( SprayLayoutService.isCompartment(pictogramElement) ){
-                return null; 
-            }
             return new DefaultRemoveFeature(this);
         }
     '''

@@ -150,7 +150,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
 
                 setDoneChanges(true);
                 updatePictogramElement(conShape);
-                layout(targetContainer);
+                layout(conShape);
                 
                 return conShape;
             }
