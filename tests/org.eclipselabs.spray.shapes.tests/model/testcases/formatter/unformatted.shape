@@ -26,11 +26,14 @@ shape ClassShape style MydiagramDefaultStyle    {rectangle{position (x = 0,   y=
 		
 		
 		
-			compartment=vertical
-		
-		
-		
-			id = attributes
+			compartment(layout= vertical id =attributes
+
+
+		 		stretching 
+		 		(horizontal = false
+		 		, vertical=true 
+		 		)
+		 		spacing=10 margin = 5 invisible)
 		
 		
 		
@@ -44,7 +47,7 @@ shape ClassShape style MydiagramDefaultStyle    {rectangle{position (x = 0,   y=
 																point (x=100, y=220)
 									}
 									rectangle 
-					{compartment   =    vertical	id    =     businessrules position (x=0, y  =222)	size (width=95, height=196)
+					{compartment   ( layout =    vertical	id    =     businessrules )position (x=0, y  =222)	size (width=95, height=196)
 									}
 					}}
 

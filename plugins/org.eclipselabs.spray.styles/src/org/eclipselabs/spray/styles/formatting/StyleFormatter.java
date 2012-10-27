@@ -3,6 +3,9 @@
  */
 package org.eclipselabs.spray.styles.formatting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
@@ -32,11 +35,16 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
         c.setAutoLinewrap(120);
 
         handleBlocks(c);
+        
+        List<Keyword> bracketsToIgnore = new ArrayList<Keyword>();
+        bracketsToIgnore.add(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
 
         for (Pair<Keyword, Keyword> kw : grammar.findKeywordPairs("(", ")")) {
-            c.setSpace(" ").before(kw.getFirst());
-            c.setNoSpace().after(kw.getFirst());
-            c.setNoSpace().before(kw.getSecond());
+        	if(!bracketsToIgnore.contains(kw.getFirst())) {
+                c.setSpace(" ").before(kw.getFirst());
+                c.setNoSpace().after(kw.getFirst());
+                c.setNoSpace().before(kw.getSecond());
+        	}
         }
 
         for (Keyword kw : grammar.findKeywords("=")) {
@@ -53,13 +61,12 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
 
         handleLineWrapBeforeKeywords(c);
         
-        
         c.setLinewrap().around(grammar.getGradientAccess().getDescriptionAssignment_4_2());
         c.setLinewrap().around(grammar.getGradientColorAreaRule());
 
-        c.setSpace("\n        ").after(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
-        c.setSpace("\n    ").before(grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6());
-        
+        c.setLinewrap().after(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6());
+
         c.setLinewrap().around(grammar.getHighlightingValuesAccess().getSelectedAssignment_2_2());
         c.setLinewrap().around(grammar.getHighlightingValuesAccess().getMultiselectedAssignment_3_2());
         c.setLinewrap().around(grammar.getHighlightingValuesAccess().getAllowedAssignment_4_2());

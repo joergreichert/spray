@@ -25,11 +25,11 @@ style All {
 	transparency = 0.7
 	gradient-orientation = vertical
 	highlighting (
-        selected = yellow
+		selected = yellow
 		multiselected = orange
 		allowed = black
 		unallowed = red
-    )
+	)
 	line-color = yellow
 	background-color = blue
 	font-bold = no

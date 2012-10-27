@@ -32,11 +32,11 @@ public class ShapeFormatterTest extends XtextTest {
 				"model/testcases/formatter/formatted.shape"));
 		String expected = scanner.useDelimiter("\\A").next();
 		scanner.close();
-		String actual = getExpectedFormattedString("testcases/formatter/unformatted.shape");
+		String actual = getActualFormattedString("testcases/formatter/unformatted.shape");
 		assertEquals("Expected formatted result", expected, actual);
 	}
 
-	public String getExpectedFormattedString(String path) {
+	public String getActualFormattedString(String path) {
 		URI uri = URI.createURI(resourceRoot + "/" + path);
 		EObject model = loadModel(resourceSet, uri, getRootObjectType(uri));
 		ICompositeNode rootNode = ((XtextResource) model.eResource())

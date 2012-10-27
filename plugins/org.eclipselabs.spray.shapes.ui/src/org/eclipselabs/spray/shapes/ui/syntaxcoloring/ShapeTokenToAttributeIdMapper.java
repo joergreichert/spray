@@ -40,6 +40,8 @@ public class ShapeTokenToAttributeIdMapper extends DefaultAntlrTokenToAttributeI
 		layoutShapeAttribKeywords.add("'compartment'");
 		layoutShapeAttribKeywords.add("'spacing'");
 		layoutShapeAttribKeywords.add("'margin'");
+		layoutShapeAttribKeywords.add("'layout'");
+		layoutShapeAttribKeywords.add("'invisible'");
 	}
 
 	@Override

@@ -3,6 +3,9 @@
  */
 package org.eclipselabs.spray.shapes.formatting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
@@ -32,10 +35,17 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
 
         handleBlocks(c);
 
+        List<Keyword> bracketsToIgnore = new ArrayList<Keyword>();
+        bracketsToIgnore.add(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
+        bracketsToIgnore.add(grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_1());
+        bracketsToIgnore.add(grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_2_1_1());
+        
         for (Pair<Keyword, Keyword> kw : grammar.findKeywordPairs("(", ")")) {
-            c.setSpace(" ").before(kw.getFirst());
-            c.setNoSpace().after(kw.getFirst());
-            c.setNoSpace().before(kw.getSecond());
+        	if(!bracketsToIgnore.contains(kw.getFirst())) {
+	            c.setSpace(" ").before(kw.getFirst());
+	            c.setNoSpace().after(kw.getFirst());
+	            c.setNoSpace().before(kw.getSecond());
+        	}
         }
 
         // no space around =, except for text value assignment
@@ -47,13 +57,21 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
             }
         }
 
-        c.setSpace(" ").around(grammar.getCompartmentInfoAccess().getEqualsSignKeyword_3());
+        c.setSpace(" ").around(grammar.getCompartmentInfoAccess().getEqualsSignKeyword_2_0_1());
 
+        List<Keyword> commasToIgnore = new ArrayList<Keyword>();
+        commasToIgnore.add(grammar.getCompartmentInfoAccess().getCommaKeyword_2_1_5());
+        
         // no space befor comma, one space after
         for (Keyword kw : grammar.findKeywords(",")) {
-            c.setNoSpace().before(kw);
-            c.setSpace(" ").after(kw);
+        	if(!commasToIgnore.contains(kw)) {
+        		c.setNoSpace().before(kw);
+        		c.setSpace(" ").after(kw);
+        	}
         }
+        
+        c.setNoSpace().before(grammar.getCompartmentInfoAccess().getCommaKeyword_2_1_5());
+        c.setLinewrap().after(grammar.getCompartmentInfoAccess().getCommaKeyword_2_1_5());
 
         handleNoSpaceBeforeINT(c);
 
@@ -63,6 +81,38 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap(2).between(grammar.getConnectionDefinitionRule(), grammar.getConnectionDefinitionRule());
         c.setLinewrap(2).between(grammar.getConnectionDefinitionRule(), grammar.getShapeDefinitionRule());
         c.setLinewrap(2).between(grammar.getShapeDefinitionRule(), grammar.getConnectionDefinitionRule());
+
+        c.setIndentation(
+       		grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_1(), 
+       		grammar.getCompartmentInfoAccess().getRightParenthesisKeyword_3()
+        );
+        
+        c.setLinewrap().after(grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_1());
+        c.setLinewrap().around(grammar.getCompartmentInfoAccess().getRightParenthesisKeyword_3());
+        
+        c.setLinewrap().after(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6());
+
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getSelectedAssignment_2_2());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getMultiselectedAssignment_3_2());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getAllowedAssignment_4_2());
+        c.setLinewrap().around(grammar.getHighlightingValuesAccess().getUnallowedAssignment_5_2());
+        
+        c.setIndentation(
+       		grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1(), 
+       		grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6()
+        );
+        
+        c.setLinewrap().after(grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_2_1_1());
+        c.setLinewrap().around(grammar.getCompartmentInfoAccess().getRightParenthesisKeyword_2_1_9());
+        
+        c.setLinewrap().around(grammar.getCompartmentInfoAccess().getStretchHAssignment_2_1_4());
+        c.setLinewrap().around(grammar.getCompartmentInfoAccess().getStretchVAssignment_2_1_8());
+
+        c.setIndentation(
+       		grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_2_1_1(), 
+       		grammar.getCompartmentInfoAccess().getRightParenthesisKeyword_2_1_9()
+        );
     }
 
     protected void handleLineWrapBeforeKeywords(FormattingConfig c) {
@@ -78,7 +128,9 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap().before(grammar.getTextLayoutAccess().getAlignKeyword_1_1_0());
         c.setLinewrap().before(grammar.getTextBodyAccess().getIdKeyword_1());
         c.setLinewrap().before(grammar.getShapestyleLayoutAccess().getStyleKeyword_1_0());
-        for (Keyword kw : grammar.findKeywords("line", "ellipse", "rectangle", "rounded-rectangle", "polyline", "polygon", "text", "description", "align", "id", "compartment")) {
+        for (Keyword kw : grammar.findKeywords("line", "ellipse", "rectangle", "rounded-rectangle", 
+        		"polyline", "polygon", "text", "description", "align", "id", "compartment",
+        		"layout", "invisible", "stretching", "margin", "spacing", "vertical")) {
             c.setLinewrap().before(kw);
         }
 
