@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
@@ -15,6 +16,7 @@ import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.util.StringInputStream;
 
 import com.google.inject.Inject;
 
@@ -52,7 +54,15 @@ public class SprayMultiPageEditor extends MultiPageEditorPart implements IResour
         generatorPropertiesForm = new SprayGeneratorPropertiesForm(SprayGeneratorPropertiesForm.class.getName(), "Generator Settings");
         try {
             IFile propertiesFile = root.getFile(sprayFile.getFullPath().removeFileExtension().addFileExtension("properties"));
-            FileEditorInput input = propertiesFile.exists() ? new FileEditorInput(propertiesFile) : null;
+            if (!propertiesFile.exists()) {
+                try {
+                    propertiesFile.create(new StringInputStream(""), true, null);
+                } catch (CoreException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+            FileEditorInput input = new FileEditorInput(propertiesFile);
             addPage(generatorPropertiesEditor, input);
             setPageText(1, propertiesFile.getName());
         } catch (PartInitException e) {

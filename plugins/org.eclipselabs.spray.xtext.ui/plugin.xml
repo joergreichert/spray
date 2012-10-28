@@ -5,8 +5,7 @@
     <!-- SPRAY BEGIN -->
     <extension
             point="org.eclipse.ui.editors">
-    <!--
-        <editor
+        <!--editor
               class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
               contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
               default="true"
@@ -14,8 +13,7 @@
               icon="icons/Spray-Logo-Icon-16.png"
               id="org.eclipselabs.spray.xtext.Spray"
               name="Spray Editor">
-        </editor>
-        -->
+        </editor-->
         <editor
               class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipselabs.spray.xtext.ui.editor.SprayMultiPageEditor"
               contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"

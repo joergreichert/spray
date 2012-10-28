@@ -26,8 +26,9 @@ public abstract class DSLLinkingHelper<T extends EObject> extends
 			int offset, final IHyperlinkAcceptor acceptor) {
 		final INode crossRefNode = getEObjectAtOffsetHelper().getCrossReferenceNode(
 				xtextResource, new TextRegion(offset, 0));
-		if (crossRefNode == null)
+		if (crossRefNode == null) {
 			return;
+		}
 		EObject crossLinkedEObject = getEObjectAtOffsetHelper()
 				.getCrossReferencedElement(crossRefNode);
 
