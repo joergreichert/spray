@@ -55,10 +55,10 @@ class SVGShapeGenerator {
     // LINE
     
     def protected dispatch generateShape (Line shape, boolean child) '''
-        <line x1="«shape.x1»" y1="«shape.y1»" x2="«shape.x2»" y2="«shape.y2»" «shape.lineStyle»/>
+        <line x1="«shape.x1 + shape.parentX»" y1="«shape.y1 + shape.parentY»" x2="«shape.x2 + shape.parentX»" y2="«shape.y2 + shape.parentY»" «shape.lineStyle»/>
     '''
-    def protected dispatch generateShape (CDLine shape) '''
-        <line x1="«shape.x1»" y1="«shape.y1»" x2="«shape.x2»" y2="«shape.y2»" «shape.lineStyle»/>
+    def protected dispatch generateShape (CDLine shape, boolean child) '''
+        <line x1="«shape.x1 + shape.parentX»" y1="«shape.y1 + shape.parentY»" x2="«shape.x2 + shape.parentX»" y2="«shape.y2 + shape.parentY»" «shape.lineStyle»/>
     '''
 
     // POLYLINE
@@ -71,27 +71,27 @@ class SVGShapeGenerator {
     '''
     
     def protected points (Polyline pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
+        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
     '''
     def protected points (CDPolyline pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
+        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
     '''
 
     // POLYGON
     
     def protected dispatch generateShape (Polygon shape, boolean child) '''
-        <polygon points="«shape.points»" «shape.lineStyle»/>
+        <polygon points="«shape.points(child)»" «shape.lineStyle»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDPolygon shape, boolean child) '''
-        <polygon points="«shape.points»" «shape.lineStyle»/>
+        <polygon points="«shape.points(child)»" «shape.lineStyle»/>
     '''
 
-    def protected points (Polygon pl) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
+    def protected points (Polygon pl, boolean child) '''
+        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
     '''
-    def protected points (CDPolygon pl) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
+    def protected points (CDPolygon pl, boolean child) '''
+        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
     '''
 
     // RECTANGLE
