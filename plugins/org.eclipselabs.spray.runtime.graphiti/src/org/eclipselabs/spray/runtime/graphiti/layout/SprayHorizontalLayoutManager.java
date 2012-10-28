@@ -67,28 +67,6 @@ public class SprayHorizontalLayoutManager extends SprayAbstractLayoutManager {
      */
     //    @Override
     public void stretchWidthTo(int newWidth) {
-        //        GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-        //        int diff = newWidth - shapeGa.getWidth();
-        //        layoutService.setWidth(shapeGa, newWidth);
-        //        int nrOfStrechableChildren = 0;
-        //        for (Shape child : shape.getChildren()) {
-        //            if (SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
-        //                nrOfStrechableChildren++;
-        //            }
-        //        }
-        //        if (nrOfStrechableChildren > 0) {
-        //            int stretch = diff / nrOfStrechableChildren;
-        //            int moveright = 0;
-        //            for (Shape child : shape.getChildren()) {
-        //                GraphicsAlgorithm ga = child.getGraphicsAlgorithm();
-        //                layoutService.setLocation(ga, ga.getX() + moveright, ga.getY());
-        //                if (SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
-        //                    ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
-        //                    mgr.stretchWidthTo(ga.getWidth() + stretch);
-        //                    moveright += stretch;
-        //                }
-        //            }
-        //        }
     }
 
     @Override
