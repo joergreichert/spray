@@ -13,9 +13,7 @@
 	<packaging>pom</packaging>
 	
 	<properties>
-		<tycho-version>0.15.0</tycho-version>
-		<maven-scm-plugin.version>1.7</maven-scm-plugin.version>
-		<jacoco.version>0.5.9.201207300726</jacoco.version>
+		<tycho-version>0.16.0</tycho-version>
 	</properties>	
 	
 	<name>Eclipselabs Spray</name>
