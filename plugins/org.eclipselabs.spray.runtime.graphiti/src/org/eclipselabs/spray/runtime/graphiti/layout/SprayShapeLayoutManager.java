@@ -59,10 +59,10 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayAbstractLayoutManager.level--;
     }
 
-    @Override
-    public void stretchHeightTo(int newHeight) {
-        layoutService.setHeight(shape.getGraphicsAlgorithm(), newHeight);
-    }
+    //    @Override
+    //    public void stretchHeightTo(int newHeight) {
+    //        layoutService.setHeight(shape.getGraphicsAlgorithm(), newHeight);
+    //    }
 
     @Override
     public int getMargin() {

@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
@@ -31,17 +32,28 @@ public class SprayHorizontalLayoutManager extends SprayAbstractLayoutManager {
                 ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
                 mgr.layout();
                 GraphicsAlgorithm childAlgorithm = child.getGraphicsAlgorithm();
-                gaService.setLocation(childAlgorithm, x, y);
+                if (childAlgorithm instanceof Polyline) {
+                    movePolyLine((Polyline) childAlgorithm, x, y);
+                } else {
+                    gaService.setLocation(childAlgorithm, x, y);
+                }
                 x += childAlgorithm.getWidth() + spacing;
                 height = Math.max(height, childAlgorithm.getHeight());
             }
-            height = Math.max(height, SprayLayoutService.getLayoutData(shape).getMinimumHeight());
+            height = Math.max(height, data.getMinimumHeight());
             SprayAlignment align = this.getAlignment();
             if (align == SprayAlignment.MIDDLE) {
                 alignCenter(height);
+            } else {
+                stretchHeightTo(height);
             }
-            x = Math.max(x, data.getMinimumWidth());
-            gaService.setSize(shape.getGraphicsAlgorithm(), x + margin, height + 2 * margin);
+            // set the final size of the shape
+            int newHeight = height + (2 * margin);
+            int newWidth = Math.max(x + margin, data.getMinimumWidth());
+            //            System.out.println(indent() + "VerticalLayoutManager.layout() " + SprayLayoutService.getId(shape) + " width set to " + newWidth);
+            if (isFlexible()) {
+                gaService.setSize(shape.getGraphicsAlgorithm(), newWidth, newHeight);
+            }
         } else {
             gaService.setSize(shape.getGraphicsAlgorithm(), 0, 0);
         }
@@ -69,15 +81,15 @@ public class SprayHorizontalLayoutManager extends SprayAbstractLayoutManager {
     public void stretchWidthTo(int newWidth) {
     }
 
-    @Override
-    public void stretchHeightTo(int newHeight) {
-        int margin = getMargin();
-        layoutService.setHeight(shape.getGraphicsAlgorithm(), newHeight);
-        for (Shape child : shape.getChildren()) {
-            if (SprayLayoutService.getLayoutData(child).isVerticalStretchable()) {
-                ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
-                mgr.stretchHeightTo(newHeight - (2 * margin));
-            }
-        }
-    }
+    //    @Override
+    //    public void stretchHeightTo(int newHeight) {
+    //        int margin = getMargin();
+    //        layoutService.setHeight(shape.getGraphicsAlgorithm(), newHeight);
+    //        for (Shape child : shape.getChildren()) {
+    //            if (SprayLayoutService.getLayoutData(child).isVerticalStretchable()) {
+    //                ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
+    //                mgr.stretchHeightTo(newHeight - (2 * margin));
+    //            }
+    //        }
+    //    }
 }

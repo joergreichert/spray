@@ -23,7 +23,7 @@ public interface ISprayLayoutManager {
      * 
      * @param newHeight
      */
-    public void stretchHeightTo(int newHeight);
+    //    public void stretchHeightTo(int newHeight);
 
     /**
      * Get the margin for this layout manager. The margin is additional space at

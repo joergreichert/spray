@@ -29,15 +29,14 @@ public class SprayDiagramLayoutManager extends SprayAbstractLayoutManager {
                 ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(container);
                 if (mgr != null) {
                     mgr.layout();
-                    //                    SprayAbstractLayoutManager.fixOffset(container);
                 }
             }
         }
         level--;
     }
 
-    @Override
-    public void stretchHeightTo(int newHeight) {
-    }
+    //    @Override
+    //    public void stretchHeightTo(int newHeight) {
+    //    }
 
 }

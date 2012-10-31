@@ -1,10 +1,15 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
+import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.context.ILayoutContext;
+import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -113,8 +118,6 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
     static protected void OLDfixOffsetForShape(ContainerShape containerShape) {
         System.out.println("BEGIN FixOffset for shape: " + SprayLayoutService.getId(containerShape));
         if (containerShape.isActive()) {
-            // System.out.println("NO OFFSET "
-            // + EplLayoutService.getId(containerShape));
             return;
         }
         int xOffset = 0;
@@ -122,8 +125,6 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
         GraphicsAlgorithm ga = containerShape.getGraphicsAlgorithm();
         xOffset += ga.getX();
         yOffset += ga.getY();
-        // System.out.println("OFFSET " + EplLayoutService.getId(containerShape)
-        // + " is " + xOffset + ", " + yOffset);
 
         for (Shape child : containerShape.getChildren()) {
             GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
@@ -148,6 +149,82 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
      */
     public SprayAbstractLayoutManager(ContainerShape shape) {
         this.shape = shape;
+    }
+
+    public void stretchWidthTo(int newWidth) {
+        level++;
+        //        System.out.println("STRECHT VERTICAL of " + SprayLayoutService.getId(shape) + " to " + newWidth);
+        GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+        //        int oldWidth = shapeGa.getWidth();
+        if (!isFlexible()) {
+            //            debug("VerticalLayout stretch NOT FLEXIBLE shape " + SprayLayoutService.getId(shape) + " from " + oldWidth + "  to " + newWidth);
+            level--;
+            return;
+        }
+        layoutService.setWidth(shapeGa, newWidth);
+        if (this.getAlignment() == SprayAlignment.MIDDLE) {
+            // already dione
+            //            debug("VerticalLayout stretch alignment MIUDDLE shape " + SprayLayoutService.getId(shape) + " from " + oldWidth + "  to " + newWidth);
+        } else {
+            shape.getGraphicsAlgorithm().setWidth(newWidth);
+            for (Shape child : shape.getChildren()) {
+                if (!SprayLayoutService.getLayoutData(child).isHorizontalStretchable()) {
+                    //                    debug("VerticalLayout not STRETCHABLKE child shape " + SprayLayoutService.getId(child) + " from " + oldWidth + "  to " + newWidth);
+                    continue;
+                }
+                GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
+                //                debug("VerticalLayout stretch child shape " + SprayLayoutService.getId(child) + " from " + oldWidth + "  to " + newWidth);
+                SprayResizeLayoutManager mgr = new SprayResizeLayoutManager();
+                ILayoutContext ctx = new LayoutContext(child);
+                if (childGa instanceof Polyline || childGa instanceof Polygon) {
+                    IDimension dim = gaService.calculateSize(childGa);
+                    SprayLayoutService.setCurrentHeight(child, dim.getHeight());
+                    SprayLayoutService.setCurrentWidth(child, dim.getWidth());
+                    childGa.setHeight(dim.getHeight());
+                } else {
+                    SprayLayoutService.setCurrentHeight(child, childGa.getHeight());
+                    SprayLayoutService.setCurrentWidth(child, childGa.getWidth());
+                }
+                childGa.setWidth(newWidth);
+                mgr.layout(ctx);
+            }
+        }
+        level--;
+    }
+
+    public void stretchHeightTo(int newHeight) {
+        level++;
+        GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+        if (!isFlexible()) {
+            level--;
+            return;
+        }
+        layoutService.setHeight(shapeGa, newHeight);
+        if (this.getAlignment() == SprayAlignment.MIDDLE) {
+            // already dione
+        } else {
+            shape.getGraphicsAlgorithm().setHeight(newHeight);
+            for (Shape child : shape.getChildren()) {
+                if (!SprayLayoutService.getLayoutData(child).isVerticalStretchable()) {
+                    continue;
+                }
+                GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
+                SprayResizeLayoutManager mgr = new SprayResizeLayoutManager();
+                ILayoutContext ctx = new LayoutContext(child);
+                if (childGa instanceof Polyline || childGa instanceof Polygon) {
+                    IDimension dim = gaService.calculateSize(childGa);
+                    SprayLayoutService.setCurrentHeight(child, dim.getHeight());
+                    SprayLayoutService.setCurrentWidth(child, dim.getWidth());
+                    childGa.setWidth(dim.getWidth());
+                } else {
+                    SprayLayoutService.setCurrentHeight(child, childGa.getHeight());
+                    SprayLayoutService.setCurrentWidth(child, childGa.getWidth());
+                }
+                childGa.setHeight(newHeight);
+                mgr.layout(ctx);
+            }
+        }
+        level--;
     }
 
     @Override
@@ -186,6 +263,19 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
     @Override
     public void setAlignment(SprayAlignment alignment) {
         GraphitiProperties.set(shape, SprayLayoutService.LAYOUT_ALIGNMENT, alignment);
+    }
+
+    protected void movePolyLine(Polyline line, int x, int y) {
+        Point first = line.getPoints().get(0);
+        int xDiff = x - first.getX();
+        int yDiff = y - first.getY();
+
+        for (Point point : line.getPoints()) {
+            int newXCord = point.getX() + xDiff;
+            int newYCord = point.getY() + yDiff;
+            point.setX(newXCord);
+            point.setY(newYCord);
+        }
     }
 
     static public void print(Shape shape, int level) {

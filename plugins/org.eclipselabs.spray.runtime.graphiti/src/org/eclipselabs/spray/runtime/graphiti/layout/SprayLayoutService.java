@@ -108,7 +108,6 @@ public class SprayLayoutService {
             try {
                 return SprayLayoutType.valueOf(SprayLayoutType.class, type);
             } catch (IllegalArgumentException exception) {
-                System.err.println("EplLayoutType property exception for name [" + type + "]");
                 return SprayLayoutType.NONE;
             }
         }

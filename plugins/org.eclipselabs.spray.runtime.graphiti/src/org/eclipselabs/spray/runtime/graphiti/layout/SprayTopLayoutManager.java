@@ -73,8 +73,4 @@ public class SprayTopLayoutManager extends SprayAbstractLayoutManager {
         level--;
     }
 
-    @Override
-    public void stretchHeightTo(int newHeight) {
-    }
-
 }
