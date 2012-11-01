@@ -85,10 +85,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
     
     def generate_canCreate (MetaReference ref) '''
         «val metaClass = (ref.eContainer as ContainerInSpray).represents»
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader»
         public boolean canCreate(final ICreateContext context) {
             final Shape target = context.getTargetContainer();
             final EObject domainObject = getBusinessObjectForPictogramElement(target);
@@ -98,10 +95,7 @@ class CreateReferenceAsListFeature extends FileGenerator<MetaReference>  {
     
     def generate_create (MetaReference ref) '''
         «val metaClass = (ref.eContainer as ContainerInSpray).represents»
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader»
         public Object[] create(final ICreateContext context) {
             // ask user for «target.name» name
             final String newName = SampleUtil.askString(TITLE, USER_QUESTION, "", null);

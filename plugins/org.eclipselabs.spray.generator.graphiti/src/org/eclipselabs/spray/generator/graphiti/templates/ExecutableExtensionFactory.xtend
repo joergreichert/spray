@@ -24,12 +24,12 @@ class ExecutableExtensionFactory extends FileGenerator<Diagram>  {
         import «main_package()».Activator;
         public class «className» extends AbstractGuiceAwareExecutableExtensionFactory {
         
-            @Override
+            «overrideHeader»
             protected Bundle getBundle() {
                 return «diagram.activatorSimpleClassName».getDefault().getBundle();
             }
         
-            @Override
+            «overrideHeader»
             protected Injector getInjector() {
                 return «diagram.activatorSimpleClassName».getDefault().getInjector();
             }

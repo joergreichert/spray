@@ -49,7 +49,7 @@ class Filter extends FileGenerator<EClass> {
         
         public class «className» extends AbstractPropertySectionFilter {
                  
-            @Override
+            «overrideHeader»
             protected boolean accept(final PictogramElement pe) {
                 final EObject eObject = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
                 if (eObject instanceof «eClass.itfName») {

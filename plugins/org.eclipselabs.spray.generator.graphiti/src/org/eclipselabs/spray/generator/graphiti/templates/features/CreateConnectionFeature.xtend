@@ -228,7 +228,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     
     def generate_getCreateImageId (MetaClass metaClass) '''
         «IF (metaClass.icon != null) && ! metaClass.icon.equalsIgnoreCase("")»
-            @Override
+            «overrideHeader»
             public String getCreateImageId() {
                 return «metaClass.diagram.imageProviderClassName.shortName».«metaClass.diagram.getImageIdentifier(metaClass.icon)»; 
             }

@@ -77,10 +77,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
     def generate_canAdd (MetaReference reference) '''
         «val target = reference.target» 
         «val metaClass = (reference.eContainer as ContainerInSpray).represents»
-        /**
-         * {@inheritDoc}
-         */
-        @Override
+        «overrideHeader»
         public boolean canAdd(final IAddContext context) {
             final EObject newObject = (EObject) context.getNewObject();
             if (newObject instanceof «target.EReferenceType.itfName») {

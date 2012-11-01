@@ -87,7 +87,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
             «ENDIF»
             «generate_additionalFields(eAttribute)»
          
-            @Override
+            «overrideHeader»
             public void createControls(Composite parent, TabbedPropertySheetPage tabbedPropertySheetPage) {
                 super.createControls(parent, tabbedPropertySheetPage);
          
@@ -115,7 +115,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
         }
          
         «IF ! (isEnum || isBoolean)»
-            @Override
+            «overrideHeader»
             public void refresh() {
                 «propertyName»Widget.removeModifyListener(nameListener);
 
@@ -179,7 +179,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
         «ENDIF»
 
         «IF isEnum || isBoolean»
-            @Override
+            «overrideHeader»
             public void refresh() {
                 «propertyName»Widget.removeSelectionListener(nameListener);
                 «propertyName»Widget.setItems(getEnumerationFeatureValues());

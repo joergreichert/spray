@@ -24,11 +24,13 @@ class ShapeGenerator implements IGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
    		val svgOutputConfName = "svgOutputConf"
    		fsa.addSVGOutputConfiguration(svgOutputConfName)
-		for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
-			fsa.generateJava(shapeContainerElement)
+        for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
+            fsa.generateJava(shapeContainerElement)
+        }
+        for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
             val svgContent = svgDefinition.compile(shapeContainerElement)
             fsa.generateFile(svgDefinition.filepath(shapeContainerElement), svgOutputConfName, svgContent)
-   		}
+        }
 	}
 	
 	def private dispatch generateJava(IFileSystemAccess fsa, ShapeDefinition shape) {

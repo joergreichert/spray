@@ -338,7 +338,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         /** 
          * Ensure that any shape with property {@link ISprayConstants#CAN_MOVE} set to false will not have a move feature.
          */
-        @Override
+        «overrideHeader»
         public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
             final Shape shape = context.getShape();
             final ContainerShape parent = shape.getContainer();
@@ -347,16 +347,21 @@ class FeatureProvider extends FileGenerator<Diagram> {
                     return null;
                 }
             }
-//            final String stat  = peService.getPropertyValue(s, PROPERTY_CAN_MOVE);
-//            if( stat != null && Boolean.valueOf(stat) == Boolean.FALSE){
-//               return null;
-//            }
+            EObject eObject = getBusinessObjectForPictogramElement(shape);
+            ContainerShape targetContainer = context.getTargetContainer();
+            EObject target = getBusinessObjectForPictogramElement(targetContainer);
+            «FOR cls : diagram.metaClassesList.filter(s | s.representedByShape  != null)»
+            if( eObject instanceof «cls.itfName»){
+                return new  «cls.moveFeatureClassName»(this);
+            }
+            
+            «ENDFOR»
             return super.getMoveShapeFeature(context);
         }
     '''
     
     def generate_getCustomFeatures (Diagram diagram) '''
-        @Override
+        «overrideHeader»
         public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
             if (bo == null) {
@@ -380,7 +385,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
     '''
     
     def generate_getDirectEditingFeatures(Diagram diagram) '''
-	    @Override
+	    «overrideHeader»
 	    public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
 	    	final PictogramElement pictogramElement = context.getPictogramElement();
 	    	final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
@@ -401,21 +406,21 @@ class FeatureProvider extends FileGenerator<Diagram> {
     '''
     
     def generate_getCopyFeature(Diagram diagram) '''
-	    @Override
+	    «overrideHeader»
 	    public ICopyFeature getCopyFeature(ICopyContext context) {
 	    	return new «diagram.copyFeatureClassName.shortName»(this);
 	    }
     '''
     
     def generate_getPasteFeature(Diagram diagram) '''
-	    @Override
+	    «overrideHeader»
 	    public IPasteFeature getPasteFeature(IPasteContext context) {
 	    	return new «diagram.pasteFeatureClassName.shortName»(this);
 	    }
     '''
     
     def generate_getResizeFeatures(Diagram diagram) '''
-    	@Override
+    	«overrideHeader»
     	public IResizeShapeFeature getResizeShapeFeature (IResizeShapeContext context) {
     		final PictogramElement pictogramElement = context.getPictogramElement();
     		final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);

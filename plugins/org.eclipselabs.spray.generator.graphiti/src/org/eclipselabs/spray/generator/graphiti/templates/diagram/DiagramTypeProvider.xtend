@@ -42,7 +42,7 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
                 setFeatureProvider(new «diagram.name.toFirstUpper»FeatureProvider(this));
             }
         
-            @Override
+            «overrideHeader»
             public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
                 if (toolBehaviorProviders == null) {
                     toolBehaviorProviders =

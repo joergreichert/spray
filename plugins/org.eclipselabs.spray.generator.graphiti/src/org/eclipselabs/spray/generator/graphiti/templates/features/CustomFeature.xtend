@@ -29,7 +29,7 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
                 super(fp);
             }
         
-            @Override
+            «overrideHeader»
             public void execute(final ICustomContext context, final EObject object) {
                 // TODO add code here.
             }
@@ -55,12 +55,12 @@ class CustomFeature extends FileGenerator<CustomBehavior>  {
                 super(fp);
             }
         
-            @Override
+            «overrideHeader»
             public String getName() {
                 return "«behavior.label»"; //$NON-NLS-1$
             }
         
-            @Override
+            «overrideHeader»
             public String getDescription() {
                 return "«behavior.label» description"; //$NON-NLS-1$
             }

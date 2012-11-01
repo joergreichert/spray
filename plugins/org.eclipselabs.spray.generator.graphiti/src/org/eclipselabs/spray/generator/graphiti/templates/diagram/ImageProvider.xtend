@@ -57,7 +57,7 @@ class ImageProvider extends FileGenerator<Diagram> {
                 public static final String «diagram.getImageIdentifier(icon)»  = PREFIX + "«icon.imageBaseName»";
             «ENDFOR»
         
-            @Override
+            «overrideHeader»
             protected void addAvailableImages() {
                 // register the path for each image identifier
             «FOR icon : icons»

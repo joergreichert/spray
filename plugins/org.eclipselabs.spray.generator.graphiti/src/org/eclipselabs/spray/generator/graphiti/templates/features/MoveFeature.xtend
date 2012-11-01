@@ -72,7 +72,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
     '''
     
     def generateCanMoveShape(ShapeFromDsl container, String className, Iterable<ShapeCompartmentAssignment> references)'''
-         @Override
+         «overrideHeader»
         public boolean canMoveShape(IMoveShapeContext context) {
             Shape sourceShape = (Shape) context.getPictogramElement();
             ContainerShape targetContainer = context.getTargetContainer();
@@ -100,7 +100,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
     '''
     
     def generateMoveShape(ShapeFromDsl container, String className, Iterable<ShapeCompartmentAssignment> references)'''
-        @Override
+        «overrideHeader»
         public void moveShape(IMoveShapeContext context) {
             ContainerShape targetContainer = context.getTargetContainer();
             Object source = getBusinessObjectForPictogramElement(context.getPictogramElement());
