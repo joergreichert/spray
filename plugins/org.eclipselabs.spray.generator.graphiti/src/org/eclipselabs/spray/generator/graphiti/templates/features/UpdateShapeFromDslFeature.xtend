@@ -16,10 +16,10 @@ import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension NamingExtensions
     @Inject extension DiagramExtensions
-  	@Inject extension SprayCompiler
-  	
-  	String functionClassName = "com.google.common.base.Function"
-  	
+      @Inject extension SprayCompiler
+      
+      String functionClassName = "com.google.common.base.Function"
+      
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
         mainFile(modelElement, javaGenFile.baseClassName)
     }
@@ -101,56 +101,56 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                     Shape shape = (Shape) pictogramElement;
                     «container.represents.name» eClass = («container.represents.name») bo;
                     if(checkUpdateNeededRecursively(shape, eClass)) {
-                    	return Reason.createTrueReason();
+                        return Reason.createTrueReason();
                     }
                     if( shape instanceof ContainerShape ){
-	                    for(Shape childShape : ((ContainerShape)shape).getChildren()) {
-	                    	if(checkUpdateNeededRecursively(childShape, eClass)) {
-	                    		return Reason.createTrueReason();
-	                    	}
-	                	}
-	                }
+                        for(Shape childShape : ((ContainerShape)shape).getChildren()) {
+                            if(checkUpdateNeededRecursively(childShape, eClass)) {
+                                return Reason.createTrueReason();
+                            }
+                        }
+                    }
                 }
                 return Reason.createFalseReason();
              }
         '''
         
-		def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
-	    	protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.name» eClass) {
+        def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
+            protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.name» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-	    		if(graphicsAlgorithm instanceof Text) {
-	    			«IF !container.properties.empty»
-	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
-	    			if(id != null) {
-	    				«FOR property : container.properties»
-	    				if(id.equals("«property.key.simpleName»")) {
-	    					«IF property.value != null»
-	    					«property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
-	    					«ELSE»
-	    					String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
-	    					«ENDIF»
-	    					String gAlgorithmValue = text.getValue();
-	    					if(eClassValue != null) {
-	    						if(!eClassValue.equals(gAlgorithmValue)) {
-	    							return true;
-	    						}
-	    					}
-	    				}
-	    				«ENDFOR»
-	    			}
-	    			«ENDIF»
-	    		}
-	    		if( shape instanceof ContainerShape ){
-	    		    for(Shape child : ((ContainerShape) shape).getChildren()) {
-	    			    if(checkUpdateNeededRecursively(child, eClass)) {
-	    				    return true;
-	    			    }
-	    		    }
-	    		}
-	    		return false;
-	    	}
-	    '''
+                if(graphicsAlgorithm instanceof Text) {
+                    «IF !container.properties.empty»
+                    Text text = (Text) graphicsAlgorithm;
+                    String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
+                    if(id != null) {
+                        «FOR property : container.properties»
+                        if(id.equals("«property.key.simpleName»")) {
+                            «IF property.value != null»
+                            «property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
+                            «ELSE»
+                            String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
+                            «ENDIF»
+                            String gAlgorithmValue = text.getValue();
+                            if(eClassValue != null) {
+                                if(!eClassValue.equals(gAlgorithmValue)) {
+                                    return true;
+                                }
+                            }
+                        }
+                        «ENDFOR»
+                    }
+                    «ENDIF»
+                }
+                if( shape instanceof ContainerShape ){
+                    for(Shape child : ((ContainerShape) shape).getChildren()) {
+                        if(checkUpdateNeededRecursively(child, eClass)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        '''
     
         def generate_update (ShapeFromDsl container) '''
             «overrideHeader»
@@ -160,49 +160,49 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 if(pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
                     updateChildsRecursively(shape, eClass);
-            		Shape top = findTopShape(shape);
-            		SprayLayoutService.getLayoutManager(top).layout();
+                    Shape top = findTopShape(shape);
+                    SprayLayoutService.getLayoutManager(top).layout();
                 }
                 return true;
                 
             }
         '''
-	        
-	    def generate_updateChildsRecursively(ShapeFromDsl container) '''
-	    	protected void updateChildsRecursively(Shape shape, final «container.represents.name» eClass) {
+            
+        def generate_updateChildsRecursively(ShapeFromDsl container) '''
+            protected void updateChildsRecursively(Shape shape, final «container.represents.name» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-	    		if(graphicsAlgorithm instanceof Text) {
-	    			«IF !container.properties.empty»
-	    			Text text = (Text) graphicsAlgorithm;
-	    			String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
-	    			if(id != null) {
-	    				«FOR property : container.properties»
-	    				if(id.equals("«property.key.simpleName»")) {
-	    					«IF property.value != null»
-	    					«property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
-	    					text.setValue(value);
-	    					«ELSE»
-	    					text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
-	    					«ENDIF»
-	    				}
-	    				«ENDFOR»
-	    			}
-	    			«ENDIF»
-	    		}
-	    		
+                if(graphicsAlgorithm instanceof Text) {
+                    «IF !container.properties.empty»
+                    Text text = (Text) graphicsAlgorithm;
+                    String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
+                    if(id != null) {
+                        «FOR property : container.properties»
+                        if(id.equals("«property.key.simpleName»")) {
+                            «IF property.value != null»
+                            «property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
+                            text.setValue(value);
+                            «ELSE»
+                            text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
+                            «ENDIF»
+                        }
+                        «ENDFOR»
+                    }
+                    «ENDIF»
+                }
+                
                 if (shape instanceof ContainerShape) {
-	    		    for(Shape child : ((ContainerShape) shape).getChildren()) {
-	    			    updateChildsRecursively(child, eClass);
-	    		    }
-	    	    }
-	    	}
-	    '''
+                    for(Shape child : ((ContainerShape) shape).getChildren()) {
+                        updateChildsRecursively(child, eClass);
+                    }
+                }
+            }
+        '''
         
-	   def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
-	   		«returnType» «valueName» = new «functionClassName.shortName»<«metaClassName», «returnType»>() {
-	   			public «returnType» apply(«metaClassName» modelElement) {
-	   				«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
-	   			}
-	   		}.apply(«metaClassAttribute»); 
-	   '''
+       def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
+               «returnType» «valueName» = new «functionClassName.shortName»<«metaClassName», «returnType»>() {
+                   public «returnType» apply(«metaClassName» modelElement) {
+                       «xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+                   }
+               }.apply(«metaClassAttribute»); 
+       '''
 }

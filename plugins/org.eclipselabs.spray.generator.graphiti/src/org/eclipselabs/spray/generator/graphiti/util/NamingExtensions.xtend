@@ -22,7 +22,6 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
-import org.eclipse.emf.common.util.EList
 import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment
 
 /**
@@ -43,7 +42,7 @@ class NamingExtensions {
     def dispatch String getName (MetaReference ref) {
         ref.target.name
     }
-    
+
     /**
      * The visible name is the element's alias if set, otherwise the element's name
      */
@@ -164,6 +163,12 @@ class NamingExtensions {
     }
     def getResizeFeatureSimpleClassName (MetaClass clazz) {
         getFeatureSimpleClassName (clazz, FeatureType::Resize)
+    }
+    def getMoveFeatureClassName (MetaClass clazz) {
+        getFeatureClassName (clazz, FeatureType::Move)
+    }
+    def getMoveFeatureSimpleClassName (MetaClass clazz) {
+        getFeatureSimpleClassName (clazz, FeatureType::Move)
     }
 
     /**

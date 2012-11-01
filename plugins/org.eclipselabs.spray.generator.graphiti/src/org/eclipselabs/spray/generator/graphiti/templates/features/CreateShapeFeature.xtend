@@ -91,43 +91,45 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     }
 
     def generate_canCreate (MetaClass metaClass) '''
-		«overrideHeader()»
-		public boolean canCreate(final ICreateContext context) {
-			final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
-			«IF metaClass.createBehavior != null»
-				// TODO: Respect the cardinality of the containment reference
-				if (context.getTargetContainer() instanceof Diagram) {
-					«IF metaClass.createBehavior.containmentReference != null»
-						return true;
-					«ELSE»	
-						return false;
-					«ENDIF»
-				} else if (context.getTargetContainer() instanceof ContainerShape) {
-«««            	OLD STUFF
-					«FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-						«FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
-							if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
-								return true;
-							}
-						«ENDFOR»
-					«ENDFOR»
-				}
-			«ENDIF»
-			// And now the new stuff
-			«var result = metaClass.referencesTo»
-			«FOR cls : result »
-				// cls «cls.shape.represents.name» refers to this metaClass
-				if( target instanceof «cls.shape.represents.javaInterfaceName» ){
-					if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
-						String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
-						if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
-							return true;
-						}
-					}
-				}
-			«ENDFOR»
-			return false;
-		}
+        «overrideHeader()»
+        public boolean canCreate(final ICreateContext context) {
+            final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+            «IF metaClass.createBehavior != null»
+                // TODO: Respect the cardinality of the containment reference
+                if (context.getTargetContainer() instanceof Diagram) {
+                    «IF metaClass.createBehavior.containmentReference != null»
+                        return true;
+                    «ELSE»    
+                        return false;
+                    «ENDIF»
+                } else if (context.getTargetContainer() instanceof ContainerShape) {
+«««                OLD STUFF
+                    «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
+                        «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
+                            if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
+                                return true;
+                            }
+                        «ENDFOR»
+                    «ENDFOR»
+                }
+            «ENDIF»
+            // And now the new stuff
+            «var result = metaClass.referencesTo»
+            «FOR cls : result »
+                // cls «cls.shape.represents.name» refers to this metaClass
+                «IF cls.reference.containment»
+                if( target instanceof «cls.shape.represents.javaInterfaceName» ){
+                    if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
+                        String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
+                        if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
+                            return true;
+                        }
+                    }
+                }
+                «ENDIF»
+            «ENDFOR»
+            return false;
+        }
     '''
 
     
@@ -183,24 +185,33 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                 // add the element to containment reference
                 «modelClassName» model = modelService.getModel();
                 «IF containmentRef.many»
-                	model.get«containmentRef.name.toFirstUpper»().add(newClass);
+                    model.get«containmentRef.name.toFirstUpper»().add(newClass);
                 «ELSE»
                 model.set«containmentRef.name.toFirstUpper»(newClass);
-            	«ENDIF»   
+                «ENDIF»   
             }
             «ENDIF»
 //              And now the NEW stuff
             «var result = metaClass.referencesTo»
             «FOR cls : result »
             «var domainName = cls.shape.represents.javaInterfaceName»
+               «IF cls.reference.containment»
                 if( target instanceof «domainName» ){
-                	«domainName» domainObject = («domainName») target;
-                    «IF cls.reference.many»
-                        domainObject.get«cls.reference.name.toFirstUpper»().add(newClass);
-                    «ELSE»
-                        domainObject.set«cls.reference.name.toFirstUpper»(newClass);
-                    «ENDIF»
-                }
+                    «domainName» domainObject = («domainName») target;
+                        // containment
+                        «IF cls.reference.many»
+                            domainObject.get«cls.reference.name.toFirstUpper»().add(newClass);
+                            setDoneChanges(true);
+                            return newClass;
+                        «ELSE»
+                            domainObject.set«cls.reference.name.toFirstUpper»(newClass);
+                            setDoneChanges(true);
+                            return newClass;
+                        «ENDIF»
+                    }
+                «ELSE»
+                // NOT containment 
+                «ENDIF»
             «ENDFOR»
             setDoneChanges(true);
             return newClass;

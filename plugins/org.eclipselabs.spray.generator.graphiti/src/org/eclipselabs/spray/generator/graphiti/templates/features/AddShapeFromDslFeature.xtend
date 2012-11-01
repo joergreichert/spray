@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
-	
+    
     @Inject extension NamingExtensions
     @Inject extension MetaClassExtensions
     
@@ -24,9 +24,9 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     def setAttributes(MetaClass cls, SprayStyleRef ssr){
         metaClass = cls
         if(metaClass.style != null) {
-        	styleRef = metaClass.style
+            styleRef = metaClass.style
         } else if(ssr != null) {
-        	styleRef = ssr
+            styleRef = ssr
         }
     }
     
@@ -95,22 +95,22 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 if (newObject instanceof «metaClass.name») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
-		            	«IF metaClass.createBehavior.containmentReference != null»
-		            	return true;
-		            	«ELSE»
-		            	return false;
-		            	«ENDIF»
+                        «IF metaClass.createBehavior.containmentReference != null»
+                        return true;
+                        «ELSE»
+                        return false;
+                        «ENDIF»
                     } else if (context.getTargetContainer() instanceof ContainerShape) {
-                    	// OLD STUFF
-                    	final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
-                    	«FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
-                    	«FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
-                    	if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
-                    		return true;
-                    	}
-                    	«ENDFOR»
-                    	«ENDFOR»
-                    	// NEW stuff
+                        // OLD STUFF
+                        final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+                        «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
+                        «FOR Refcompartment: (behavior as CompartmentBehavior).compartmentReference.filter(m | m.eContainer instanceof EClass)»
+                        if (target instanceof «(Refcompartment.eContainer as EClass).itfName») {
+                            return true;
+                        }
+                        «ENDFOR»
+                        «ENDFOR»
+                        // NEW stuff
                         «var result = metaClass.referencesTo»
                         «FOR cls : result »
                         // cls «cls.shape.represents.name» refers to this metaClass»
@@ -118,12 +118,12 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                             if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                                 String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
                                 if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
-                                    return true;	
+                                    return true;    
                                 }
                             }
                         }
                         «ENDFOR»
-        	       }
+                   }
                 }
                 return false;
             }
@@ -131,7 +131,21 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             «overrideHeader»
             public PictogramElement add(final IAddContext context) {
                 final «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
-                //targetDiagram = peService.getDiagramForShape(context.getTargetContainer());
+                        // NEW stuff
+                Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
+                «var references = metaClass.referencesTo»
+                «FOR cls : references»
+                    «IF ! cls.reference.containment»
+                    if( target instanceof «cls.shape.represents.javaInterfaceName» ){
+                        if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
+                            String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
+                            if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
+                                ((«cls.shape.represents.javaInterfaceName»)target).get«cls.reference.name.toFirstUpper»().add(addedModelElement);
+                            }
+                        }
+                    }
+                    «ENDIF»
+                «ENDFOR»
                 final ContainerShape targetContainer = context.getTargetContainer();
                 «IF styleRef != null && styleRef.style != null»
                 final ISprayStyle style = new «styleRef.style.simpleName»();
@@ -160,7 +174,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             link(conShape, addedModelElement);
             for (Shape childShape : conShape.getChildren()) {
                 if( childShape instanceof ContainerShape ){
-            	    linkShapes((ContainerShape)childShape, addedModelElement);
+                    linkShapes((ContainerShape)childShape, addedModelElement);
                 } else {
                     link(childShape, addedModelElement);
                 }

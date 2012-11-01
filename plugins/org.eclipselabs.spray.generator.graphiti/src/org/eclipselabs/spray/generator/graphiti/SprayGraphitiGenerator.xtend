@@ -33,6 +33,7 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFe
 import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferenceFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.MoveFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.PasteFeature
@@ -78,6 +79,7 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject CreateReferenceAsConnectionFeature createReferenceAsConnectionFeature 
     @Inject UpdateConnectionFeature updateConnectionFeature
     @Inject UpdateConnectionFromDslFeature updateConnectionFromDslFeature
+    @Inject MoveFeature moveFeature
     @Inject LayoutFeature layoutFeature
     @Inject LayoutFromDslFeature layoutFromDslFeature
     @Inject UpdateShapeFeature updateShapeFeature
@@ -144,9 +146,8 @@ class SprayGraphitiGenerator implements IGenerator {
         generateCopyFeature(diagram, java, copyFeature)
         generatePasteFeature(diagram, java, pasteFeature)
         generateResizeFeature(diagram, java, resizeFeature)
+        generateMoveFeature(diagram, java, moveFeature)
     }
-    
-
 
     def generatePluginXml(Diagram diagram, IFileSystemAccess fsa) {
         fsa.generateFile("plugin.xml", plugin.generate(diagram))
@@ -480,10 +481,18 @@ class SprayGraphitiGenerator implements IGenerator {
     }
     
     def generateResizeFeature(Diagram diagram, JavaGenFile java, ResizeFeature lf) {
-    	for(metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)) {
-    		val container = metaClass.representedBy as ShapeFromDsl
+        for(metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)) {
+            val container = metaClass.representedBy as ShapeFromDsl
             java.setPackageAndClass(metaClass.resizeFeatureClassName)
-        	lf.generate(container, java)
-    	} 	
+            lf.generate(container, java)
+        }   
+    }
+
+    def generateMoveFeature(Diagram diagram, JavaGenFile java, MoveFeature lf) {
+        for(metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)) {
+            val container = metaClass.representedBy as ShapeFromDsl
+            java.setPackageAndClass(metaClass.moveFeatureClassName)
+            lf.generate(container, java)
+        }   
     }
 }
