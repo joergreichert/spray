@@ -158,10 +158,10 @@ class LayoutExtensions {
     def dispatch int x (Point point, boolean child) { point.xoffset + (if(child) point.xcor else 0) }
     def dispatch int y (Point point, boolean child) { point.xoffset + (if(child) point.ycor else 0) }
     
-    def private dispatch int grandParentX(Ellipse shape) { shape.eContainer.parentX + shape.xoffset + shape.layout.common.xcor }
-    def private dispatch int grandParentY(Ellipse shape) { shape.eContainer.parentY + shape.yoffset + shape.layout.common.ycor }
-    def private dispatch int grandParentX(EObject shape) { shape.eContainer.parentX + shape.x(shape.eContainer != null) }
-    def private dispatch int grandParentY(EObject shape) { shape.eContainer.parentY + shape.y(shape.eContainer != null) }
+    def private dispatch int grandParentX(Ellipse shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentX) + shape.xoffset + shape.layout.common.xcor }
+    def private dispatch int grandParentY(Ellipse shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentY) + shape.yoffset + shape.layout.common.ycor }
+    def private dispatch int grandParentX(EObject shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentX) + shape.x(shape.eContainer != null) }
+    def private dispatch int grandParentY(EObject shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentY) + shape.y(shape.eContainer != null) }
     def private dispatch int grandParentX(Object shape) { 0 }
     def private dispatch int grandParentY(Object shape) { 0 }
     def dispatch int parentX(EObject shape) { if(shape.eContainer == null) 0 else shape.eContainer.grandParentX }
