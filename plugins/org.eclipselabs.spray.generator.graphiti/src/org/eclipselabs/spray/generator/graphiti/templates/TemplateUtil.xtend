@@ -7,6 +7,7 @@ import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipse.xtend2.lib.StringConcatenation
+import org.eclipse.emf.ecore.EReference
 
 class TemplateUtil extends Object {
     @Inject SprayCompiler compiler
@@ -71,5 +72,13 @@ class TemplateUtil extends Object {
          * {@inheritDoc}
          */
         @Override
+    '''
+    
+    def addOrSetReference(EReference ref, String containerName, String elementName)'''
+        «IF ref.many»
+            «containerName».get«ref.name.toFirstUpper»().add(«elementName»);
+        «ELSE»
+            «containerName».set«ref.name.toFirstUpper»(«elementName»);
+        «ENDIF»
     '''
 }

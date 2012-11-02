@@ -18,6 +18,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -342,15 +343,10 @@ class FeatureProvider extends FileGenerator<Diagram> {
         public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
             final Shape shape = context.getShape();
             final ContainerShape parent = shape.getContainer();
-            if (SprayLayoutService.isCompartment(parent)) {
-                if (! (SprayLayoutService.getLayoutManager(parent) instanceof SprayFixedLayoutManager) ) {
-                    return null;
-                }
-            }
             EObject eObject = getBusinessObjectForPictogramElement(shape);
             ContainerShape targetContainer = context.getTargetContainer();
             EObject target = getBusinessObjectForPictogramElement(targetContainer);
-            «FOR cls : diagram.metaClassesList.filter(s | s.representedByShape  == null)»
+            «FOR cls : diagram.metaClassesList.filter(s | (s.representedBy instanceof ShapeFromDsl) )»
             if( eObject instanceof «cls.itfName»){
                 return new  «cls.moveFeatureClassName»(this);
             }
