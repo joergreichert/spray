@@ -132,6 +132,11 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                     if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                         String id = GraphitiProperties.get(context.getTargetContainer(), ISprayConstants.TEXT_ID);
                         if ((id != null) && (id.equals("«ref.key.simpleName»"))) {
+                            «IF ref.reference.many»
+                            ((«ref.shape.represents.itfName») target).get«ref.reference.name.toFirstUpper»().add((«container.represents.itfName») source);
+                            «ELSE»
+                            ((«ref.shape.represents.itfName») target).set«ref.reference.name.toFirstUpper»((«container.represents.itfName») source);
+                            «ENDIF»
                             AddContext addContext = new AddContext();
                             addContext.setNewObject(source);
                             addContext.setLocation(context.getX(), context.getX());
