@@ -161,7 +161,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                         RemoveContext removeContext = new RemoveContext(sourceShape);
                         IRemoveFeature rem = getFeatureProvider().getRemoveFeature(removeContext);
                         rem.remove(removeContext);
-    
+
                         // remove from source container and add to target container
                         «IF ref.reference.many»
                         ((«ref.shape.represents.itfName») sourceParent).get«ref.reference.name.toFirstUpper»().remove((«container.represents.itfName»)source);

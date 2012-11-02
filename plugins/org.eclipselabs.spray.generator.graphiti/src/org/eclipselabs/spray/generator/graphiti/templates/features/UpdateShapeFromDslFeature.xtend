@@ -16,7 +16,7 @@ import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
     @Inject extension NamingExtensions
     @Inject extension DiagramExtensions
-      @Inject extension SprayCompiler
+    @Inject extension SprayCompiler
       
       String functionClassName = "com.google.common.base.Function"
       

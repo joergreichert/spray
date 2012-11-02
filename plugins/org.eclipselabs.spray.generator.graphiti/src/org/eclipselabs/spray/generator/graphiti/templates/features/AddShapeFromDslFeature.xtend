@@ -133,19 +133,6 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 final «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
                         // NEW stuff
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
-«««                «var references = metaClass.referencesTo»
-«««                «FOR cls : references»
-«««                    «IF ! cls.reference.containment»
-«««                    if( target instanceof «cls.shape.represents.javaInterfaceName» ){
-«««                        if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
-«««                            String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
-«««                            if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
-«««                                ((«cls.shape.represents.javaInterfaceName»)target).get«cls.reference.name.toFirstUpper»().add(addedModelElement);
-«««                            }
-«««                        }
-«««                    }
-«««                    «ENDIF»
-«««                «ENDFOR»
                 final ContainerShape targetContainer = context.getTargetContainer();
                 «IF styleRef != null && styleRef.style != null»
                 final ISprayStyle style = new «styleRef.style.simpleName»();

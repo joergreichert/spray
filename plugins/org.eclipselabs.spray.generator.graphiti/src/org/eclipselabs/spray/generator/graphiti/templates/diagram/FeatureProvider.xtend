@@ -18,7 +18,6 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
-import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -146,10 +145,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
             return super.getAddFeature(context);
         }
     '''
-    
-//    def private generate_aliasClause (MetaClass cls) '''
-//        «IF cls.alias!=null»"«cls.alias»".equals(context.getProperty(PROPERTY_ALIAS))«ELSE»context.getProperty(PROPERTY_ALIAS)==null«ENDIF»
-//    '''
     
     def generate_getCreateFeatures (Diagram diagram) '''
         «overrideHeader»
@@ -424,9 +419,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
     		if (bo == null) {
     			return null;
     		}
-«««            if( SprayLayoutService.isCompartment(pictogramElement) ){
-«««                return null; 
-«««            }
     		final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
     		«FOR crs : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl)»
     		if(«generate_metaClassSwitchCondition(crs)»){
