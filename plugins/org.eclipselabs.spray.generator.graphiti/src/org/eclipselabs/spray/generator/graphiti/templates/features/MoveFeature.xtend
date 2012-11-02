@@ -43,6 +43,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
         import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
         import org.eclipse.graphiti.features.context.impl.AddContext;
         import org.eclipse.graphiti.features.context.impl.RemoveContext;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         
@@ -122,10 +123,11 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
     def generateMoveShape(ShapeFromDsl container, String className, Iterable<ShapeCompartmentAssignment> references)'''
         «overrideHeader»
         public void moveShape(IMoveShapeContext context) {
+            PictogramElement sourceShape = context.getPictogramElement();
             ContainerShape targetContainer = context.getTargetContainer();
             ContainerShape sourceContainer = context.getSourceContainer();
             Object sourceParent = getBusinessObjectForPictogramElement(sourceContainer);
-            Object source = getBusinessObjectForPictogramElement(context.getPictogramElement());
+            Object source = getBusinessObjectForPictogramElement(sourceShape);
             Object target = getBusinessObjectForPictogramElement(targetContainer);
             «FOR ref : references.filter(ref | ! ref.reference.containment)»
                 if (target instanceof «ref.shape.represents.itfName») {
@@ -138,6 +140,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                             ((«ref.shape.represents.itfName») target).set«ref.reference.name.toFirstUpper»((«container.represents.itfName») source);
                             «ENDIF»
                             AddContext addContext = new AddContext();
+                            addContext.putProperty(ISprayConstants.PROPERTY_ALIAS, GraphitiProperties.get(sourceShape, ISprayConstants.PROPERTY_ALIAS));
                             addContext.setNewObject(source);
                             addContext.setLocation(context.getX(), context.getX());
                             addContext.setTargetContainer(targetContainer);
@@ -151,7 +154,11 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                 if (SprayLayoutService.isCompartment(targetContainer) ) {
                     String id = GraphitiProperties.get(targetContainer, ISprayConstants.TEXT_ID);
                     if ((id != null) && (id.equals("«ref.key.simpleName»"))) {
-                        RemoveContext removeContext = new RemoveContext(context.getPictogramElement());
+                        // create AddCointext5 fist, because the PROPERT_ALIAS property will be set to null after removing it.
+                        AddContext addContext = new AddContext();
+                        addContext.putProperty(ISprayConstants.PROPERTY_ALIAS, GraphitiProperties.get(sourceShape, ISprayConstants.PROPERTY_ALIAS));
+
+                        RemoveContext removeContext = new RemoveContext(sourceShape);
                         IRemoveFeature rem = getFeatureProvider().getRemoveFeature(removeContext);
                         rem.remove(removeContext);
     
@@ -163,7 +170,6 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                         ((«ref.shape.represents.itfName») sourceParent).set«ref.reference.name.toFirstUpper»( null);
                         ((«ref.shape.represents.itfName») target).set«ref.reference.name.toFirstUpper»((«container.represents.itfName») source);
                         «ENDIF»
-                        AddContext addContext = new AddContext();
                         addContext.setNewObject(source);
                         addContext.setLocation(context.getX(), context.getX());
                         addContext.setTargetContainer(targetContainer);

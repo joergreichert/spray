@@ -11,7 +11,6 @@ import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
-import org.eclipselabs.spray.mm.spray.TextInSpray;
 
 import com.google.inject.Inject;
 
@@ -22,9 +21,9 @@ public class SprayCompiler extends XbaseCompiler {
 
     private String        metaClassVariable;
 
-    public String compile(TextInSpray operation, ImportManager importManager) {
+    public String compile(XExpression value, ImportManager importManager) {
         ITreeAppendable appendable = new FakeTreeAppendable(importManager);
-        IAppendable result = compile(operation.getValue(), appendable, typeProvider.getExpectedType(operation.getValue()));
+        IAppendable result = compile(value, appendable, typeProvider.getExpectedType(value));
         return result.toString();
     }
 

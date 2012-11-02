@@ -48,7 +48,7 @@ class TemplateUtil extends Object {
     def CharSequence valueGenerator(TextInSpray text, String metaClassVariable)    {
         try {
             compiler.metaClassVariable = metaClassVariable
-            val body = compiler.compile(text, new ImportManager(false))
+            val body = compiler.compile(text.value, new ImportManager(false))
             val result = new StringConcatenation()
             result.append(body)
             return result

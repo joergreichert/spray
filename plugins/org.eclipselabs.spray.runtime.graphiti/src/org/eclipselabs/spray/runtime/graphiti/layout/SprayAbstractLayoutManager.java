@@ -32,7 +32,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
 
     // debugging / logging helper variable
     static public int              level     = 0;
-    static public boolean          DEBUG     = true;
+    static public boolean          DEBUG     = false;
 
     /**
      * Debugging / logger helper to indent according to level.

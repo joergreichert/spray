@@ -194,4 +194,16 @@ public class SprayLayoutService {
         return GraphitiProperties.getBooleanValue(pe, LAYOUT_FLEXIBLE);
     }
 
+    static public ContainerShape findDslShape(PictogramElement shape) {
+        if (SprayLayoutService.isShapeFromDsl(shape)) {
+            return (ContainerShape) shape;
+        }
+        ContainerShape result = null;
+        result = ((Shape) shape).getContainer();
+        while ((result != null) && (!SprayLayoutService.isShapeFromDsl(result))) {
+            result = result.getContainer();
+        }
+        return result;
+    }
+
 }
