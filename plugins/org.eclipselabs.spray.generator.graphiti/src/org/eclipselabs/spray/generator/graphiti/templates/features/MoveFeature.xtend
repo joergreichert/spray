@@ -51,6 +51,8 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
         import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayFixedLayoutManager;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayTopLayoutManager;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayDiagramLayoutManager;
         import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
         import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
         
@@ -82,9 +84,16 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
             Object target = getBusinessObjectForPictogramElement(targetContainer);
             // check whether it can move in the same container
             if( sourceShape.eContainer() == targetContainer ){
-                if (!(SprayLayoutService.getLayoutManager(sourceShape) instanceof SprayFixedLayoutManager)) {
-                    return false;
+                if ((SprayLayoutService.getLayoutManager(sourceShape.getContainer()) instanceof SprayFixedLayoutManager)) {
+                    return true;
                 }
+                if ((SprayLayoutService.getLayoutManager(sourceShape.getContainer()) instanceof SprayTopLayoutManager)) {
+                    return true;
+                }
+                if ((SprayLayoutService.getLayoutManager(sourceShape.getContainer()) instanceof SprayDiagramLayoutManager)) {
+                    return true;
+                }
+                return false;
             }
             «FOR ref : references.filter(ref | ! ref.reference.containment)»
                 // Cannot drag from a location where the object is a non containment reference
@@ -129,6 +138,10 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
             Object sourceParent = getBusinessObjectForPictogramElement(sourceContainer);
             Object source = getBusinessObjectForPictogramElement(sourceShape);
             Object target = getBusinessObjectForPictogramElement(targetContainer);
+            if( sourceShape.eContainer() == targetContainer ){ 
+                super.moveShape(context);
+                return;   
+            }
             «FOR ref : references.filter(ref | ! ref.reference.containment)»
                 if (target instanceof «ref.shape.represents.itfName») {
                     if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
@@ -145,6 +158,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                             addContext.setLocation(context.getX(), context.getX());
                             addContext.setTargetContainer(targetContainer);
                             getFeatureProvider().addIfPossible(addContext);
+                            return;
                         }
                     }
                 }
@@ -162,6 +176,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                         IRemoveFeature rem = getFeatureProvider().getRemoveFeature(removeContext);
                         rem.remove(removeContext);
 
+                        SprayLayoutService.getLayoutManager(SprayLayoutService.findTopDslShape(sourceContainer)).layout();
                         // remove from source container and add to target container
                         «IF ref.reference.many»
                         ((«ref.shape.represents.itfName») sourceParent).get«ref.reference.name.toFirstUpper»().remove((«container.represents.itfName»)source);
