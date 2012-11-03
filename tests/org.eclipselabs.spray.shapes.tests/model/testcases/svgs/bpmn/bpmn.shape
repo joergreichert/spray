@@ -1,0 +1,1314 @@
+//--> Events
+// Blanko
+shape BPMN_EventStart_default {
+	ellipse {
+		size (width=50, height=50)
+	}
+}
+shape BPMN_EventEnd_default {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+	}
+}
+shape BPMN_EventEnd_used {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+		}
+	}
+}
+
+//Messages
+shape BPMN_EventMail {
+	ellipse {
+		size (width=50, height=50)
+		rectangle {
+			position (x=10, y=15)
+			size (width=30, height=20)
+			polygon {
+				point (x=0, y=0)
+				point (x=15, y=10)
+				point (x=30, y=0)
+			}
+		}
+	}
+}
+shape BPMN_EventMail_Dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		rectangle {
+			position (x=10, y=15)
+			size (width=30, height=20)
+			polygon {
+				point (x=0, y=0)
+				point (x=15, y=10)
+				point (x=30, y=0)
+			}
+		}
+	}
+}
+shape BPMN_EventMail_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			rectangle {
+				position (x=10, y=15)
+				size (width=30, height=20)
+				polygon {
+					point (x=0, y=0)
+					point (x=15, y=10)
+					point (x=30, y=0)
+				}
+			}
+		}
+	}
+}
+shape BPMN_EventMail_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			style (line-style=dash)
+			rectangle {
+				position (x=10, y=15)
+				size (width=30, height=20)
+				polygon {
+					point (x=0, y=0)
+					point (x=15, y=10)
+					point (x=30, y=0)
+				}
+			}
+		}
+	}
+}
+shape BPMN_EventMailInvert_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=8, y=12)
+				point (x=38, y=12)
+				point (x=23, y=22)
+				style (background-color=black)
+			}
+			polygon {
+				point (x=8, y=15)
+				point (x=8, y=33)
+				point (x=38, y=33)
+				point (x=38, y=15)
+				point (x=23, y=25)
+				style (background-color=black)
+			}
+		}
+	}
+}
+shape BPMN_EventMailInvert_Bold {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		polygon {
+			point (x=10, y=15)
+			point (x=40, y=15)
+			point (x=25, y=25)
+			style (background-color=black)
+		}
+		polygon {
+			point (x=10, y=18)
+			point (x=10, y=36)
+			point (x=40, y=36)
+			point (x=40, y=18)
+			point (x=25, y=28)
+			style (background-color=black)
+		}
+	}
+}
+//Timer
+shape BPMN_EventTimer_default {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=1)
+		//Clock
+
+		ellipse {
+			size (width=38, height=38)
+			position (x=6, y=6)
+			polyline {
+				point (x=32, y=19)
+				point (x=19, y=19)
+				point (x=22, y=3)
+			}
+			line {
+				point (x=19, y=0)
+				point (x=19, y=4)
+			}
+			line {
+				point (x=19, y=38)
+				point (x=19, y=34)
+			}
+			line {
+				point (x=0, y=19)
+				point (x=4, y=19)
+			}
+			line {
+				point (x=38, y=19)
+				point (x=34, y=19)
+			}
+		}
+	}
+}
+shape BPMN_EventTimer_Dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		//Clock
+
+		ellipse {
+			size (width=38, height=38)
+			position (x=6, y=6)
+			polyline {
+				point (x=32, y=19)
+				point (x=19, y=19)
+				point (x=22, y=3)
+			}
+			line {
+				point (x=19, y=0)
+				point (x=19, y=4)
+			}
+			line {
+				point (x=19, y=38)
+				point (x=19, y=34)
+			}
+			line {
+				point (x=0, y=19)
+				point (x=4, y=19)
+			}
+			line {
+				point (x=38, y=19)
+				point (x=34, y=19)
+			}
+		}
+	}
+}
+shape BPMN_EventTimer_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			//Clock
+
+			ellipse {
+				size (width=38, height=38)
+				position (x=4, y=4)
+				polyline {
+					point (x=32, y=19)
+					point (x=19, y=19)
+					point (x=22, y=3)
+				}
+				line {
+					point (x=19, y=0)
+					point (x=19, y=4)
+				}
+				line {
+					point (x=19, y=38)
+					point (x=19, y=34)
+				}
+				line {
+					point (x=0, y=19)
+					point (x=4, y=19)
+				}
+				line {
+					point (x=38, y=19)
+					point (x=34, y=19)
+				}
+			}
+		}
+	}
+}
+shape BPMN_EventTimer_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			style (line-style=dash)
+			//Clock
+
+			ellipse {
+				size (width=38, height=38)
+				position (x=4, y=4)
+				polyline {
+					point (x=32, y=19)
+					point (x=19, y=19)
+					point (x=22, y=3)
+				}
+				line {
+					point (x=19, y=0)
+					point (x=19, y=4)
+				}
+				line {
+					point (x=19, y=38)
+					point (x=19, y=34)
+				}
+				line {
+					point (x=0, y=19)
+					point (x=4, y=19)
+				}
+				line {
+					point (x=38, y=19)
+					point (x=34, y=19)
+				}
+			}
+		}
+	}
+}
+
+//Eskalation
+shape BPMN_EventEskalation_Start {
+	ellipse {
+		size (width=50, height=50)
+		polygon {
+			point (x=25, y=10)
+			point (x=40, y=40)
+			point (x=25, y=25)
+			point (x=10, y=40)
+		}
+	}
+}
+shape BPMN_EventEskalation_Dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		polygon {
+			point (x=25, y=10)
+			point (x=40, y=40)
+			point (x=25, y=25)
+			point (x=10, y=40)
+		}
+	}
+}
+shape BPMN_EventEskalation_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=38)
+				point (x=23, y=23)
+				point (x=8, y=38)
+			}
+		}
+	}
+}
+shape BPMN_EventEskalation_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			style (line-style=dash)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=38)
+				point (x=23, y=23)
+				point (x=8, y=38)
+			}
+		}
+	}
+}
+shape BPMN_EventEskalation_DoubleInvert {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=38)
+				point (x=23, y=23)
+				point (x=8, y=38)
+				style (background-color=black)
+			}
+		}
+	}
+}
+shape BPMN_EventEskalation_BoldInvert {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		polygon {
+			point (x=25, y=10)
+			point (x=40, y=40)
+			point (x=25, y=25)
+			point (x=10, y=40)
+			style (background-color=black)
+		}
+	}
+}
+
+//Bedingung
+shape BPMN_EventIf_default {
+	ellipse {
+		size (width=50, height=50)
+		rectangle {
+			position (x=15, y=12)
+			size (width=20, height=25)
+			line {
+				point (x=2, y=2)
+				point (x=18, y=2)
+			}
+			line {
+				point (x=2, y=8)
+				point (x=18, y=8)
+			}
+			line {
+				point (x=2, y=16)
+				point (x=18, y=16)
+			}
+			line {
+				point (x=2, y=22)
+				point (x=18, y=22)
+			}
+		}
+	}
+}
+shape BPMN_EventIf_Dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		rectangle {
+			position (x=15, y=12)
+			size (width=20, height=25)
+			line {
+				point (x=2, y=2)
+				point (x=18, y=2)
+			}
+			line {
+				point (x=2, y=8)
+				point (x=18, y=8)
+			}
+			line {
+				point (x=2, y=16)
+				point (x=18, y=16)
+			}
+			line {
+				point (x=2, y=22)
+				point (x=18, y=22)
+			}
+		}
+	}
+}
+shape BPMN_EventIf_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			rectangle {
+				position (x=13, y=10)
+				size (width=20, height=25)
+				line {
+					point (x=2, y=2)
+					point (x=18, y=2)
+				}
+				line {
+					point (x=2, y=8)
+					point (x=18, y=8)
+				}
+				line {
+					point (x=2, y=16)
+					point (x=18, y=16)
+				}
+				line {
+					point (x=2, y=22)
+					point (x=18, y=22)
+				}
+			}
+		}
+	}
+}
+shape BPMN_EventIf_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			style (line-style=dash)
+			rectangle {
+				position (x=13, y=10)
+				size (width=20, height=25)
+				line {
+					point (x=2, y=2)
+					point (x=18, y=2)
+				}
+				line {
+					point (x=2, y=8)
+					point (x=18, y=8)
+				}
+				line {
+					point (x=2, y=16)
+					point (x=18, y=16)
+				}
+				line {
+					point (x=2, y=22)
+					point (x=18, y=22)
+				}
+			}
+		}
+	}
+}
+//Link
+shape BPMN_EventLink_entered {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=28, y=8)
+				point (x=38, y=23)
+				point (x=28, y=38)
+				point (x=28, y=29)
+				point (x=8, y=29)
+				point (x=8, y=17)
+				point (x=28, y=17)
+			}
+		}
+	}
+}
+shape BPMN_EventLink_triggered {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=28, y=8)
+				point (x=38, y=23)
+				point (x=28, y=38)
+				point (x=28, y=29)
+				point (x=8, y=29)
+				point (x=8, y=17)
+				point (x=28, y=17)
+				style (background-color=black)
+			}
+		}
+	}
+}
+
+//Fehler
+shape BPMN_EventError_default {
+	ellipse {
+		size (width=50, height=50)
+		polygon {
+			point (x=23, y=10)
+			point (x=32, y=25)
+			point (x=42, y=10)
+			point (x=32, y=40)
+			point (x=20, y=25)
+			point (x=8, y=40)
+		}
+	}
+}
+shape BPMN_EventError_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=21, y=8)
+				point (x=30, y=23)
+				point (x=40, y=8)
+				point (x=30, y=38)
+				point (x=18, y=23)
+				point (x=6, y=38)
+			}
+		}
+	}
+}
+shape BPMN_EventError_BoldInvert {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		polygon {
+			point (x=23, y=10)
+			point (x=32, y=25)
+			point (x=42, y=10)
+			point (x=32, y=40)
+			point (x=20, y=25)
+			point (x=8, y=40)
+			style (background-color=black)
+		}
+	}
+}
+
+//Abbruch
+shape BPMN_EventCancel_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=13, y=8)
+				point (x=23, y=18)
+				point (x=33, y=8)
+				point (x=38, y=13)
+				point (x=28, y=23)
+				point (x=38, y=33)
+				point (x=33, y=38)
+				point (x=23, y=28)
+				point (x=13, y=38)
+				point (x=8, y=33)
+				point (x=18, y=23)
+				point (x=8, y=13)
+			}
+		}
+	}
+}
+shape BPMN_EventCancel_BoldInvert {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		polygon {
+			point (x=15, y=10)
+			point (x=25, y=20)
+			point (x=35, y=10)
+			point (x=40, y=15)
+			point (x=30, y=25)
+			point (x=40, y=35)
+			point (x=35, y=40)
+			point (x=25, y=30)
+			point (x=15, y=40)
+			point (x=10, y=35)
+			point (x=20, y=25)
+			point (x=10, y=15)
+			style (background-color=black)
+		}
+	}
+}
+
+//Kompensation
+shape BPMN_EventCompensation_default {
+	ellipse {
+		size (width=50, height=50)
+		polygon {
+			point (x=22, y=15)
+			point (x=22, y=35)
+			point (x=7, y=25)
+		}
+		polygon {
+			point (x=22, y=25)
+			point (x=37, y=15)
+			point (x=37, y=35)
+		}
+	}
+}
+shape BPMN_EventCompensation_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=20, y=13)
+				point (x=20, y=33)
+				point (x=5, y=23)
+			}
+			polygon {
+				point (x=20, y=23)
+				point (x=35, y=13)
+				point (x=35, y=33)
+			}
+		}
+	}
+}
+shape BPMN_EventCompensation_DoubleInvert {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			position (x=2, y=2)
+			size (width=46, height=46)
+			polygon {
+				point (x=20, y=13)
+				point (x=20, y=33)
+				point (x=5, y=23)
+				style (background-color=black)
+			}
+			polygon {
+				point (x=20, y=23)
+				point (x=35, y=13)
+				point (x=35, y=33)
+				style (background-color=black)
+			}
+		}
+	}
+}
+shape BPMN_EventCompensation_BoldInvert {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		polygon {
+			point (x=22, y=15)
+			point (x=22, y=35)
+			point (x=7, y=25)
+			style (background-color=black)
+		}
+		polygon {
+			point (x=22, y=25)
+			point (x=37, y=15)
+			point (x=37, y=35)
+			style (background-color=black)
+		}
+	}
+}
+
+//Signal
+shape BPMN_EventSignal_default {
+	ellipse {
+		size (width=50, height=50)
+		polygon {
+			point (x=25, y=10)
+			point (x=10, y=35)
+			point (x=40, y=35)
+		}
+	}
+}
+shape BPMN_EventSignal_dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		polygon {
+			point (x=25, y=10)
+			point (x=10, y=35)
+			point (x=40, y=35)
+		}
+	}
+}
+shape BPMN_EventSignal_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=8, y=33)
+				point (x=38, y=33)
+			}
+		}
+	}
+}
+shape BPMN_EventSignal_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=8, y=33)
+				point (x=38, y=33)
+			}
+		}
+	}
+}
+shape BPMN_EventSignal_DoubleInvert {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=8, y=33)
+				point (x=38, y=33)
+				style (background-color=black)
+			}
+		}
+	}
+}
+shape BPMN_EventSignal_BoldInvert {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=8, y=33)
+				point (x=38, y=33)
+				style (background-color=black)
+			}
+		}
+	}
+}
+
+//Mehrfach
+shape BPMN_EventMulti_default {
+	ellipse {
+		size (width=50, height=50)
+		polygon {
+			point (x=25, y=10)
+			point (x=40, y=20)
+			point (x=35, y=40)
+			point (x=15, y=40)
+			point (x=10, y=20)
+		}
+	}
+}
+shape BPMN_EventMulti_dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		polygon {
+			point (x=25, y=10)
+			point (x=40, y=20)
+			point (x=35, y=40)
+			point (x=15, y=40)
+			point (x=10, y=20)
+		}
+	}
+}
+shape BPMN_EventMulti_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=18)
+				point (x=33, y=38)
+				point (x=13, y=38)
+				point (x=8, y=18)
+			}
+		}
+	}
+}
+shape BPMN_EventMulti_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=18)
+				point (x=33, y=38)
+				point (x=13, y=38)
+				point (x=8, y=18)
+			}
+		}
+	}
+}
+shape BPMN_EventMulti_DoubleInvert {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=18)
+				point (x=33, y=38)
+				point (x=13, y=38)
+				point (x=8, y=18)
+				style (background-color=black)
+			}
+		}
+	}
+}
+shape BPMN_EventMulti_BoldInvert {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=23, y=8)
+				point (x=38, y=18)
+				point (x=33, y=38)
+				point (x=13, y=38)
+				point (x=8, y=18)
+				style (background-color=black)
+			}
+		}
+	}
+}
+
+//Merfach/Parallel
+shape BPMN_EventParallel_default {
+	ellipse {
+		size (width=50, height=50)
+		polygon {
+			point (x=20, y=5)
+			point (x=30, y=5)
+			point (x=30, y=20)
+			point (x=45, y=20)
+			point (x=45, y=30)
+			point (x=30, y=30)
+			point (x=30, y=45)
+			point (x=20, y=45)
+			point (x=20, y=30)
+			point (x=5, y=30)
+			point (x=5, y=20)
+			point (x=20, y=20)
+		}
+	}
+}
+shape BPMN_EventParallel_dash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		polygon {
+			point (x=20, y=5)
+			point (x=30, y=5)
+			point (x=30, y=20)
+			point (x=45, y=20)
+			point (x=45, y=30)
+			point (x=30, y=30)
+			point (x=30, y=45)
+			point (x=20, y=45)
+			point (x=20, y=30)
+			point (x=5, y=30)
+			point (x=5, y=20)
+			point (x=20, y=20)
+		}
+	}
+}
+shape BPMN_EventParallel_Double {
+	ellipse {
+		size (width=50, height=50)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			polygon {
+				point (x=18, y=3)
+				point (x=28, y=3)
+				point (x=28, y=18)
+				point (x=43, y=18)
+				point (x=43, y=28)
+				point (x=28, y=28)
+				point (x=28, y=43)
+				point (x=18, y=43)
+				point (x=18, y=28)
+				point (x=3, y=28)
+				point (x=3, y=18)
+				point (x=18, y=18)
+			}
+		}
+	}
+}
+shape BPMN_EventParallel_DoubleDash {
+	ellipse {
+		size (width=50, height=50)
+		style (line-style=dash)
+		ellipse {
+			size (width=46, height=46)
+			position (x=2, y=2)
+			style (line-style=dash)
+			polygon {
+				point (x=18, y=3)
+				point (x=28, y=3)
+				point (x=28, y=18)
+				point (x=43, y=18)
+				point (x=43, y=28)
+				point (x=28, y=28)
+				point (x=28, y=43)
+				point (x=18, y=43)
+				point (x=18, y=28)
+				point (x=3, y=28)
+				point (x=3, y=18)
+				point (x=18, y=18)
+			}
+		}
+	}
+}
+
+//Terminierung
+shape BPMN_EventTermination {
+	ellipse {
+		size (width=50, height=50)
+		style (line-width=3)
+		ellipse {
+			position (x=5, y=5)
+			size (width=40, height=40)
+			style (background-color=black)
+		}
+	}
+}
+
+//--> Aktivitäten
+shape BPMN_Activity_Task {
+	rounded-rectangle {
+		size (width=120, height=80)
+		curve (width=20, height=20)
+		text {
+			position (x=5, y=30)
+			size (width=110, height=20)
+			align (horizontal=center, vertical=middle)
+			id = shapeName
+		}
+	}
+}
+shape BPMN_Activity_Transaction {
+	rounded-rectangle {
+		size (width=120, height=80)
+		curve (width=20, height=20)
+		rounded-rectangle {
+			size (width=116, height=76)
+			position (x=2, y=2)
+			curve (width=20, height=20) text {
+				position (x=5, y=28)
+				size (width=106, height=20)
+				align (horizontal=center, vertical=middle)
+				id = shapeName
+			}
+		}
+	}
+}
+shape BPMN_Activity_EventSubProcess {
+	rounded-rectangle {
+		size (width=120, height=80)
+		curve (width=20, height=20)
+		style (line-style=dot)
+		text {
+			position (x=5, y=30)
+			size (width=110, height=20)
+			align (horizontal=center, vertical=middle)
+			id = shapeName
+		}
+	}
+}
+shape BPMN_Activity_CallActivity {
+	rounded-rectangle {
+		size (width=120, height=80)
+		curve (width=20, height=20)
+		style (line-width=3)
+		text {
+			position (x=5, y=30)
+			size (width=110, height=20)
+			align (horizontal=center, vertical=middle)
+			id = shapeName
+		}
+	}
+}
+
+//Gateways
+shape BPMN_Gateway_XOR_1 {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+		line {
+			point (x=19, y=41)
+			point (x=41, y=19)
+			style (line-width=3)
+		}
+		line {
+			point (x=19, y=19)
+			point (x=41, y=41)
+			style (line-width=3)
+		}
+	}
+}
+shape BPMN_Gateway_XOR_2 {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+	}
+}
+shape BPMN_Gateway_Event {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+		ellipse {
+			position (x=12, y=12)
+			size (width=37, height=37)
+			ellipse {
+				position (x=2, y=2)
+				size (width=33, height=33)
+				polyline {
+					point (x=16, y=3)
+					point (x=28, y=11)
+					point (x=24, y=27)
+					point (x=8, y=27)
+					point (x=4, y=11)
+					point (x=16, y=3)
+				}
+			}
+		}
+	}
+}
+shape BPMN_Gateway_AND {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+		line {
+			point (x=15, y=30)
+			point (x=45, y=30)
+			style (line-width=1)
+		}
+		line {
+			point (x=30, y=15)
+			point (x=30, y=45)
+			style (line-width=1)
+		}
+	}
+}
+shape BPMN_Gateway_OR {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=25)
+		point (x=30, y=60)
+		ellipse {
+			position (x=15, y=15)
+			size (width=30, height=30)
+			style (line-width=3)
+		}
+	}
+}
+shape BPMN_Gateway_complex {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+		line {
+			point (x=15, y=30)
+			point (x=45, y=30)
+			style (line-width=2)
+		}
+		line {
+			point (x=30, y=15)
+			point (x=30, y=45)
+			style (line-width=2)
+		}
+		line {
+			point (x=19, y=41)
+			point (x=41, y=19)
+			style (line-width=2)
+		}
+		line {
+			point (x=19, y=19)
+			point (x=41, y=41)
+			style (line-width=2)
+		}
+	}
+}
+shape BPMN_Gateway_XEvent {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+		ellipse {
+			position (x=12, y=12)
+			size (width=37, height=37)
+			polyline {
+				point (x=16, y=3)
+				point (x=28, y=11)
+				point (x=24, y=27)
+				point (x=8, y=27)
+				point (x=4, y=11)
+				point (x=16, y=3)
+			}
+		}
+	}
+}
+shape BPMN_Gateway_AND_Event {
+	polygon {
+		point (x=0, y=30)
+		point (x=30, y=0)
+		point (x=60, y=30)
+		point (x=30, y=60)
+		ellipse {
+			position (x=12, y=12)
+			size (width=37, height=37)
+			polyline {
+				point (x=16, y=4)
+				point (x=21, y=4)
+				point (x=21, y=16)
+				point (x=33, y=16)
+				point (x=33, y=21)
+				point (x=21, y=21)
+				point (x=21, y=33)
+				point (x=16, y=33)
+				point (x=16, y=21)
+				point (x=4, y=21)
+				point (x=4, y=16)
+				point (x=16, y=16)
+				point (x=16, y=4)
+			}
+		}
+	}
+}
+
+//Konversation
+shape BPMN_Conversation_default {
+	polygon {
+		point (x=0, y=20)
+		point (x=10, y=0)
+		point (x=30, y=0)
+		point (x=40, y=20)
+		point (x=30, y=40)
+		point (x=10, y=40)
+	}
+}
+shape BPMN_Conversation_Bold {
+	polygon {
+		point (x=0, y=20)
+		point (x=10, y=0)
+		point (x=30, y=0)
+		point (x=40, y=20)
+		point (x=30, y=40)
+		point (x=10, y=40)
+		style (line-width=3)
+	}
+}
+
+//Daten
+shape BPMN_OneData {
+	polygon {
+		point (x=0, y=0)
+		point (x=20, y=0)
+		point (x=30, y=10)
+		point (x=30, y=50)
+		point (x=0, y=50)
+		polyline {
+			point (x=20, y=0)
+			point (x=20, y=10)
+			point (x=30, y=10)
+		}
+	}
+}
+shape BPMN_ListData {
+	polygon {
+		point (x=0, y=0)
+		point (x=20, y=0)
+		point (x=30, y=10)
+		point (x=30, y=50)
+		point (x=0, y=50)
+		polyline {
+			point (x=20, y=0)
+			point (x=20, y=10)
+			point (x=30, y=10)
+		}
+		line {
+			point (x=10, y=50)
+			point (x=10, y=40)
+			style (line-width=3)
+		}
+		line {
+			point (x=15, y=50)
+			point (x=15, y=40)
+			style (line-width=3)
+		}
+		line {
+			point (x=20, y=50)
+			point (x=20, y=40)
+			style (line-width=3)
+		}
+	}
+}
+shape BPMN_DataStorage {
+	polygon {
+		point (x=0, y=10, curveBefore=5, curveAfter=30)
+		point (x=25, y=0, curveBefore=20, curveAfter=20)
+		point (x=50, y=10, curveBefore=30, curveAfter=5)
+		point (x=50, y=40)
+		point (x=25, y=50, curveBefore=20, curveAfter=20)
+		point (x=0, y=40)
+	}
+}
+
+//Connections
+connection BPMN_SequenceFlow {
+	placing {
+		position (offset=1.0)
+		polygon {
+			point (x=-10, y=10)
+			point (x=0, y=0)
+			point (x=-10, y=-10)
+			style (background-color=black)
+		}
+	}
+}
+connection BPMN_DefaultFlow {
+	placing {
+		position (offset=1.0)
+		polygon {
+			point (x=-10, y=10)
+			point (x=0, y=0)
+			point (x=-10, y=-10)
+			style (background-color=black)
+		}
+	}
+	placing {
+		position (offset=0.05)
+		line {
+			point (x=0, y=-10)
+			point (x=5, y=10)
+		}
+	}
+}
+connection BPMN_ConditionalFlow {
+	placing {
+		position (offset=1.0)
+		polygon {
+			point (x=-10, y=10)
+			point (x=0, y=0)
+			point (x=-10, y=-10)
+			style (background-color=black)
+		}
+	}
+	placing {
+		position (offset=0.0)
+		polygon {
+			point (x=0, y=0)
+			point (x=-20, y=10)
+			point (x=-40, y=0)
+			point (x=-20, y=-10)
+		}
+	}
+}
+connection BPMN_DataAssoziation {
+	placing {
+		position (offset=1.0)
+		polygon {
+			point (x=-10, y=10)
+			point (x=0, y=0)
+			point (x=-10, y=-10)
+			style (background-color=black)
+		}
+	}
+}

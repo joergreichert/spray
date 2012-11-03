@@ -1,0 +1,14 @@
+style LWC2012CorporateStyle {
+	background-color = GreenToOrange
+	line-color = dark-green
+	font-name = "Lucida Sans"
+	font-size = 8
+	font-color = blue
+	gradient-orientation = horizontal
+	highlighting(
+		selected=GreenToOrange
+		multiselected=GreenToYellow
+		allowed=green
+		unallowed=GreenToRed			
+	)
+}
