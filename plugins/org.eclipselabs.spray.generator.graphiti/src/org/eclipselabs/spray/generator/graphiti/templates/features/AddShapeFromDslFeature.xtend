@@ -92,7 +92,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             «overrideHeader()»
             public boolean canAdd(final IAddContext context) {
                 final EObject newObject = (EObject) context.getNewObject();
-                if (newObject instanceof «metaClass.name») {
+                if (newObject instanceof «metaClass.itfName») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
                         «IF metaClass.createBehavior.containmentReference != null»
@@ -113,7 +113,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                         // NEW stuff
                         «var result = metaClass.referencesTo»
                         «FOR cls : result »
-                        // cls «cls.shape.represents.name» refers to this metaClass»
+                        // cls «cls.shape.represents.itfName» refers to this metaClass»
                         if( target instanceof «cls.shape.represents.javaInterfaceName» ){
                             if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                                 String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
@@ -130,7 +130,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
 
             «overrideHeader»
             public PictogramElement add(final IAddContext context) {
-                final «metaClass.name» addedModelElement = («metaClass.name») context.getNewObject();
+                final «metaClass.itfName» addedModelElement = («metaClass.itfName») context.getNewObject();
                         // NEW stuff
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 final ContainerShape targetContainer = context.getTargetContainer();
@@ -157,7 +157,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             }
         
         
-        protected void linkShapes(ContainerShape conShape, «metaClass.name» addedModelElement) {
+        protected void linkShapes(ContainerShape conShape, «metaClass.itfName» addedModelElement) {
             link(conShape, addedModelElement);
             for (Shape childShape : conShape.getChildren()) {
                 if( childShape instanceof ContainerShape ){

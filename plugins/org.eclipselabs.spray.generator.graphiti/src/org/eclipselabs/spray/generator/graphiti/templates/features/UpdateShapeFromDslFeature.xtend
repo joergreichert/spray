@@ -82,10 +82,10 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         def generate_canUpdate (ShapeFromDsl container) '''
             «overrideHeader»
             public boolean canUpdate(final IUpdateContext context) {
-                // return true, if linked business object is a «container.represents.name»
+                // return true, if linked business object is a «container.represents.itfName»
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-                return (bo instanceof «container.represents.name») && (!(pictogramElement instanceof Diagram));
+                return (bo instanceof «container.represents.itfName») && (!(pictogramElement instanceof Diagram));
             }
         '''
         
@@ -94,12 +94,12 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             public IReason updateNeeded(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
                 final Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-                if (!(bo instanceof «container.represents.name»)) {
+                if (!(bo instanceof «container.represents.itfName»)) {
                     return Reason.createFalseReason(); 
                 }
                 if(pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
-                    «container.represents.name» eClass = («container.represents.name») bo;
+                    «container.represents.itfName» eClass = («container.represents.itfName») bo;
                     if(checkUpdateNeededRecursively(shape, eClass)) {
                         return Reason.createTrueReason();
                     }
@@ -116,7 +116,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
         
         def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
-            protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.name» eClass) {
+            protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.itfName» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
                 if(graphicsAlgorithm instanceof Text) {
                     «IF !container.properties.empty»
@@ -126,7 +126,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                         «FOR property : container.properties»
                         if(id.equals("«property.key.simpleName»")) {
                             «IF property.value != null»
-                            «property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.name, "eClass")»
+                            «property.value.propertyAssignmentFunction("eClassValue", "String", container.represents.itfName, "eClass")»
                             «ELSE»
                             String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
                             «ENDIF»
@@ -156,7 +156,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             «overrideHeader»
             public boolean update(final IUpdateContext context) {
                 final PictogramElement pictogramElement = context.getPictogramElement();
-                final «container.represents.name» eClass = («container.represents.name») getBusinessObjectForPictogramElement(pictogramElement);
+                final «container.represents.itfName» eClass = («container.represents.itfName») getBusinessObjectForPictogramElement(pictogramElement);
                 if(pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
                     updateChildsRecursively(shape, eClass);
@@ -169,7 +169,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         '''
             
         def generate_updateChildsRecursively(ShapeFromDsl container) '''
-            protected void updateChildsRecursively(Shape shape, final «container.represents.name» eClass) {
+            protected void updateChildsRecursively(Shape shape, final «container.represents.itfName» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
                 if(graphicsAlgorithm instanceof Text) {
                     «IF !container.properties.empty»
@@ -179,7 +179,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                         «FOR property : container.properties»
                         if(id.equals("«property.key.simpleName»")) {
                             «IF property.value != null»
-                            «property.value.propertyAssignmentFunction("value", "String", container.represents.name, "eClass")»
+                            «property.value.propertyAssignmentFunction("value", "String", container.represents.itfName, "eClass")»
                             text.setValue(value);
                             «ELSE»
                             text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
