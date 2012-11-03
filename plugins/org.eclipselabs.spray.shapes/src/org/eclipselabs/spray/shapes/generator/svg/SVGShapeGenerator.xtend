@@ -121,17 +121,17 @@ class SVGShapeGenerator {
     
     def protected dispatch generateShape (Ellipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" r="«shape.rx»"/>
         «ELSE»
-            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" rx="«shape.rx»" ry="«shape.ry»"/>
         «ENDIF» 
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDEllipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" r="«shape.rx»"/>
         «ELSE»
-            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" rx="«shape.rx»" ry="«shape.ry»"/>
         «ENDIF» 
     '''
 

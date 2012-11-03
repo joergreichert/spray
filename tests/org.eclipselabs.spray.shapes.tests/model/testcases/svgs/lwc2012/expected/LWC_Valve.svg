@@ -32,5 +32,5 @@
 </defs>
 <polygon points="0 0,120 60,120 0,0 60
 " />
-<text x="0" y="20">#shapeName</text>
+<text x="30" y="20">#shapeName</text>
 </svg>

@@ -33,6 +33,7 @@ import org.eclipselabs.spray.shapes.shapes.ShapeConnection
 import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
 import org.eclipselabs.spray.shapes.shapes.Point
 import java.util.List
+import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 
 class LayoutExtensions {
 	
@@ -81,39 +82,39 @@ class LayoutExtensions {
     def dispatch int height (EObject other) { 0 }
     
     // Rectangle
-    def dispatch int x (Rectangle shape, boolean child) { if(child) shape.layout.common.xcor else 0 }
-    def dispatch int y (Rectangle shape, boolean child) { if(child) shape.layout.common.ycor else 0 }
+    def dispatch int x (Rectangle shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0 }
+    def dispatch int y (Rectangle shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0 }
     def dispatch width (Rectangle shape) { shape.layout.common.width }
     def dispatch height (Rectangle shape) { shape.layout.common.heigth }
-    def dispatch int x (CDRectangle shape, boolean child) { if(child) shape.layout.common.xcor else 0 }
-    def dispatch int y (CDRectangle shape, boolean child) { if(child) shape.layout.common.ycor else 0 }
+    def dispatch int x (CDRectangle shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0 }
+    def dispatch int y (CDRectangle shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0 }
     def dispatch width (CDRectangle shape) { shape.layout.common.width }
     def dispatch height (CDRectangle shape) { shape.layout.common.heigth }
 
     // RoundedRectangle
-    def dispatch int x (RoundedRectangle shape, boolean child) { if(child) shape.layout.common.xcor else 0 }
-    def dispatch int y (RoundedRectangle shape, boolean child) { if(child) shape.layout.common.ycor else 0 }
+    def dispatch int x (RoundedRectangle shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0 }
+    def dispatch int y (RoundedRectangle shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0 }
     def dispatch width (RoundedRectangle shape) { shape.layout.common.width }
     def dispatch height (RoundedRectangle shape) { shape.layout.common.heigth }
     def rx (RoundedRectangle shape) { shape.layout.curveWidth }
     def ry (RoundedRectangle shape) { shape.layout.curveHeight }
-    def dispatch int x (CDRoundedRectangle shape, boolean child) { shape.xoffset + (if(child) shape.layout.common.xcor else 0) }
-    def dispatch int y (CDRoundedRectangle shape, boolean child) { shape.yoffset + (if(child) shape.layout.common.ycor else 0) }
+    def dispatch int x (CDRoundedRectangle shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) }
+    def dispatch int y (CDRoundedRectangle shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) }
     def dispatch width (CDRoundedRectangle shape) { shape.layout.common.width }
     def dispatch height (CDRoundedRectangle shape) { shape.layout.common.heigth }
     def rx (CDRoundedRectangle shape) { shape.layout.curveWidth }
     def ry (CDRoundedRectangle shape) { shape.layout.curveHeight }
 
 	// Ellipse
-    def dispatch int x (Ellipse shape, boolean child) { shape.xoffset + (if(child) shape.layout.common.xcor else 0) + shape.rx }
-    def dispatch int y (Ellipse shape, boolean child) { shape.xoffset + (if(child) shape.layout.common.ycor else 0) + shape.ry}
+    def dispatch int x (Ellipse shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) + shape.rx }
+    def dispatch int y (Ellipse shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) + shape.ry}
     def rx (Ellipse shape) { shape.layout.common.width/2 }
     def ry (Ellipse shape) { shape.layout.common.heigth/2 }
     def isCircle (Ellipse shape) { shape.rx==shape.ry }
     def dispatch width (Ellipse shape) { shape.layout.common.width }
     def dispatch height (Ellipse shape) { shape.layout.common.heigth }
-    def dispatch int x (CDEllipse shape, boolean child) { shape.xoffset + (if(child) shape.layout.common.xcor else 0) + shape.rx }
-    def dispatch int y (CDEllipse shape, boolean child) { shape.yoffset + (if(child) shape.layout.common.ycor else 0) + shape.ry}
+    def dispatch int x (CDEllipse shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) + shape.rx }
+    def dispatch int y (CDEllipse shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) + shape.ry}
     def rx (CDEllipse shape) { shape.layout.common.width/2 }
     def ry (CDEllipse shape) { shape.layout.common.heigth/2 }
     def isCircle (CDEllipse shape) { shape.rx==shape.ry }
@@ -122,12 +123,12 @@ class LayoutExtensions {
     
     // Text
     // in SVG x/y is left-bottom for text
-    def dispatch int x (Text shape, boolean child) { if(child) shape.layout.common.xcor else 0 }
-    def dispatch int y (Text shape, boolean child) { (if(child) shape.layout.common.ycor else 0) + shape.layout.common.heigth }
+    def dispatch int x (Text shape, boolean child) { if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0 }
+    def dispatch int y (Text shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) + shape.layout.common.heigth }
     def dispatch width (Text shape) { shape.layout.common.width }
     def dispatch height (Text shape) { shape.layout.common.heigth }
-    def dispatch int x (CDText shape, boolean child) { shape.xoffset + (if(child) shape.layout.common.xcor else 0) }
-    def dispatch int y (CDText shape, boolean child) { shape.yoffset + (if(child) shape.layout.common.ycor else 0) + shape.layout.common.heigth }
+    def dispatch int x (CDText shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) }
+    def dispatch int y (CDText shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) + shape.layout.common.heigth }
     def dispatch width (CDText shape) { shape.layout.common.width }
     def dispatch height (CDText shape) { shape.layout.common.heigth }
 
@@ -146,26 +147,28 @@ class LayoutExtensions {
     def dispatch height (CDLine shape) { Math::abs(shape.layout.point.get(1).ycor - shape.layout.point.get(0).ycor) }
 
 	// Polygon
-    def dispatch int x (Polygon shape, boolean child) { shape.xoffset + (if(child) shape.layout.point.minXPoint else 0) }
-    def dispatch int y (Polygon shape, boolean child) { shape.yoffset + (if(child) shape.layout.point.minYPoint else 0) }
+    def dispatch int x (Polygon shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minXPoint else 0) }
+    def dispatch int y (Polygon shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minYPoint else 0) }
     def dispatch int width (Polygon shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
     def dispatch int height (Polygon shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
-    def dispatch int x (CDPolygon shape, boolean child) { shape.xoffset + (if(child) shape.layout.point.minXPoint else 0) }
-    def dispatch int y (CDPolygon shape, boolean child) { shape.yoffset + (if(child) shape.layout.point.minYPoint else 0) }
+    def dispatch int x (CDPolygon shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minXPoint else 0) }
+    def dispatch int y (CDPolygon shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minYPoint else 0) }
     def dispatch int width (CDPolygon shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
     def dispatch int height (CDPolygon shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
 
     def dispatch int x (Point point, boolean child) { point.xoffset + (if(child) point.xcor else 0) }
     def dispatch int y (Point point, boolean child) { point.xoffset + (if(child) point.ycor else 0) }
     
-    def private dispatch int grandParentX(Ellipse shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentX) + shape.xoffset + shape.layout.common.xcor }
-    def private dispatch int grandParentY(Ellipse shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentY) + shape.yoffset + shape.layout.common.ycor }
-    def private dispatch int grandParentX(EObject shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentX) + shape.x(shape.eContainer != null) }
-    def private dispatch int grandParentY(EObject shape) { (if(shape.eContainer == null) 0 else shape.eContainer.parentY) + shape.y(shape.eContainer != null) }
+    def private dispatch int grandParentX(Ellipse shape) { shape.parentX + shape.xoffset + shape.layout.common.xcor }
+    def private dispatch int grandParentY(Ellipse shape) { shape.parentY + shape.yoffset + shape.layout.common.ycor }
+    def private dispatch int grandParentX(EObject shape) { shape.parentX + shape.x(shape.eContainer != null) }
+    def private dispatch int grandParentY(EObject shape) { shape.parentY + shape.y(shape.eContainer != null) }
     def private dispatch int grandParentX(Object shape) { 0 }
     def private dispatch int grandParentY(Object shape) { 0 }
-    def dispatch int parentX(EObject shape) { if(shape.eContainer == null) 0 else shape.eContainer.grandParentX }
-    def dispatch int parentY(EObject shape) { if(shape.eContainer == null) 0 else shape.eContainer.grandParentY }
+    def dispatch int parentX(Ellipse shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.xoffset + shape.layout.common.xcor else shape.eContainer.grandParentX }
+    def dispatch int parentY(Ellipse shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.yoffset + shape.layout.common.ycor else shape.eContainer.grandParentY }
+    def dispatch int parentX(EObject shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.x(true) else shape.eContainer.grandParentX }
+    def dispatch int parentY(EObject shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.y(true) else shape.eContainer.grandParentY }
     def dispatch int parentX(Object shape) { 0 }
     def dispatch int parentY(Object shape) { 0 }
     

@@ -33,7 +33,7 @@
 <polygon points="0 30,30 0,60 30,30 60
 " />
 <circle cx="30" cy="30" r="18"/>
-<circle cx="18" cy="18" r="16"/>
-<polyline points="18 5,30 13,26 29,10 29,6 13,18 5
+<circle cx="30" cy="30" r="16"/>
+<polyline points="30 17,42 25,38 41,22 41,18 25,30 17
 "  />
 </svg>

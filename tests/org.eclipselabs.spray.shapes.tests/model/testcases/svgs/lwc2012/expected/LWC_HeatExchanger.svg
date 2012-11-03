@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
     "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg width="105" height="95" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="105" height="115" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Shape: LWC_HeatExchanger</title>
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -30,7 +30,7 @@
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
-<circle cx="30" cy="30" r="30"/>
+<circle cx="30" cy="70" r="30"/>
 <polyline points="90 70,30 70,50 50,30 30,90 30
 "  />
 <text x="0" y="20">#shapeName</text>
