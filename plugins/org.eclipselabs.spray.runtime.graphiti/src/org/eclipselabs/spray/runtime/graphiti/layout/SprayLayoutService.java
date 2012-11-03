@@ -206,4 +206,15 @@ public class SprayLayoutService {
         return result;
     }
 
+    static public ContainerShape findTopDslShape(PictogramElement shape) {
+        if (SprayLayoutService.isShapeFromDsl(shape)) {
+            return (ContainerShape) shape;
+        }
+        ContainerShape result = null;
+        result = ((Shape) shape).getContainer();
+        while ((result != null) && (!SprayLayoutService.isShapeFromDsl(result)) && (!(result.getContainer() instanceof Diagram))) {
+            result = result.getContainer();
+        }
+        return result;
+    }
 }

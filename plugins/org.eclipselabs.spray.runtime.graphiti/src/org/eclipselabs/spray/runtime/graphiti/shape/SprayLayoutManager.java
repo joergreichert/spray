@@ -9,6 +9,7 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -32,7 +33,26 @@ public class SprayLayoutManager implements ISprayConstants {
 
     protected IGaService gaService;
 
+    protected void layout1(Shape targetContainer) {
+        if (targetContainer instanceof Diagram) {
+            System.out.println("Layout for Diagram " + SprayLayoutService.getId(targetContainer));
+            return;
+        }
+        while (!SprayLayoutService.isShapeFromDsl(targetContainer) && !(targetContainer.getContainer() instanceof Diagram)) {
+            targetContainer = targetContainer.getContainer();
+        }
+        //        }
+        ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(targetContainer);
+        System.out.println("Layout for " + SprayLayoutService.getId(targetContainer) + " with " + mgr.toString());
+        mgr.layout();
+    }
+
     public boolean layout(ILayoutContext context) {
+        layout1((Shape) context.getPictogramElement());
+        return true;
+    }
+
+    public boolean layoutOLD(ILayoutContext context) {
         boolean anythingChanged = false;
         ContainerShape containerShape = (ContainerShape) context.getPictogramElement();
         GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
