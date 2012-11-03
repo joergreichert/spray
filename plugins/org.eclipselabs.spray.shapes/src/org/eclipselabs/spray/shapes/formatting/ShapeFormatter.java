@@ -113,6 +113,8 @@ public class ShapeFormatter extends AbstractDeclarativeFormatter {
        		grammar.getCompartmentInfoAccess().getLeftParenthesisKeyword_2_1_1(), 
        		grammar.getCompartmentInfoAccess().getRightParenthesisKeyword_2_1_9()
         );
+        
+        c.setLinewrap().around(grammar.getCommonLayoutRule());
     }
 
     protected void handleLineWrapBeforeKeywords(FormattingConfig c) {
