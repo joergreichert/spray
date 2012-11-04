@@ -55,6 +55,9 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 import org.eclipselabs.spray.generator.graphiti.templates.features.ResizeFeature
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.impl.Log4jFactory
+import org.apache.commons.logging.LogFactory
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
@@ -97,13 +100,15 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject CopyFeature copyFeature
     @Inject PasteFeature pasteFeature
     @Inject ResizeFeature resizeFeature
+    
+    private static Log   LOGGER       = LogFactory::getLog("SprayGraphitiGenerator");
     /**
      * This method is a long sequence of calling all templates for the code generation
      */
     override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
         //var String modelPath = resource.getURI().devicePath;
         //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
-        println("Spray generating for model " + resource.URI)
+        LOGGER.info("Spray generating for model " + resource.URI)
         
         ProjectProperties::setModelUri(resource.URI)
 

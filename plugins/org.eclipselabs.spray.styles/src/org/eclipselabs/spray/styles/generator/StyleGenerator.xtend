@@ -3,35 +3,36 @@
  */
 package org.eclipselabs.spray.styles.generator
 
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-
-import static extension org.eclipse.xtext.xbase.lib.IteratorExtensions.*
-
-import org.eclipselabs.spray.styles.styles.Style
-import org.eclipselabs.spray.styles.styles.StyleLayout
-import org.eclipselabs.spray.styles.styles.Transparent
+import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
+import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+import org.eclipselabs.spray.styles.styles.Color
 import org.eclipselabs.spray.styles.styles.ColorConstantRef
-import org.eclipselabs.spray.styles.styles.RGBColor
 import org.eclipselabs.spray.styles.styles.ColorWithTransparency
-import org.eclipselabs.spray.styles.styles.YesNoBool
-import org.eclipselabs.spray.styles.styles.LineStyle
-import com.google.inject.Inject
 import org.eclipselabs.spray.styles.styles.Gradient
 import org.eclipselabs.spray.styles.styles.GradientAllignment
 import org.eclipselabs.spray.styles.styles.GradientRef
-import org.eclipselabs.spray.styles.styles.Color
-import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
-import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
+import org.eclipselabs.spray.styles.styles.LineStyle
+import org.eclipselabs.spray.styles.styles.RGBColor
+import org.eclipselabs.spray.styles.styles.Style
+import org.eclipselabs.spray.styles.styles.StyleLayout
+import org.eclipselabs.spray.styles.styles.Transparent
+import org.eclipselabs.spray.styles.styles.YesNoBool
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.impl.Log4jFactory
+import org.apache.commons.logging.LogFactory
 
 
 class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	
 	@Inject extension GradientGenerator
+    private static Log   LOGGER       = LogFactory::getLog("StyleGenerator");
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-        println("Spray generating for model " + resource.URI)
+        LOGGER.info("Spray generating for model " + resource.URI)
 		super.doGenerate(resource, fsa)
 		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
       		fsa.generateFile(gradient.filepath, gradient.compile)

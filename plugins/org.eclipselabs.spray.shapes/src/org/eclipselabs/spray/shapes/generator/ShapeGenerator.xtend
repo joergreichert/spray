@@ -14,15 +14,19 @@ import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
 import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.impl.Log4jFactory
+import org.apache.commons.logging.LogFactory
 
 class ShapeGenerator implements IGenerator {
 
 	@Inject GeneratorShapeDefinition shapeDefinition
     @Inject GeneratorConnectionDefinition connectionDefinition 
     @Inject GeneratorSVGDefinition svgDefinition 
+    private static Log   LOGGER       = LogFactory::getLog("ShapeGenerator");
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-        println("Spray generating for model " + resource.URI)
+        LOGGER.info("Spray generating for model " + resource.URI)
    		val svgOutputConfName = "svgOutputConf"
    		fsa.addSVGOutputConfiguration(svgOutputConfName)
         for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
