@@ -35,7 +35,7 @@ public class SprayLayoutManager implements ISprayConstants {
 
     protected void layout1(Shape targetContainer) {
         if (targetContainer instanceof Diagram) {
-            System.out.println("Layout for Diagram " + SprayLayoutService.getId(targetContainer));
+            System.out.println("SprayLayoutManager.layout() for Diagram " + SprayLayoutService.getId(targetContainer));
             return;
         }
         while (!SprayLayoutService.isShapeFromDsl(targetContainer) && !(targetContainer.getContainer() instanceof Diagram)) {
@@ -43,7 +43,7 @@ public class SprayLayoutManager implements ISprayConstants {
         }
         //        }
         ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(targetContainer);
-        System.out.println("Layout for " + SprayLayoutService.getId(targetContainer) + " with " + mgr.toString());
+        System.out.println("SprayLayoutManager.layout() for " + SprayLayoutService.getId(targetContainer) + " with mgr " + mgr.toString());
         mgr.layout();
     }
 

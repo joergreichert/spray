@@ -8,6 +8,8 @@ class FileGenerator<T super EObject> extends TemplateUtil {
     @Inject ImportUtil importUtil
     extension GenFile genFile
     extension JavaGenFile javaGenFile
+    
+    boolean DEBUG = false
 
     def getJavaGenFile() {
         return javaGenFile
@@ -35,21 +37,21 @@ class FileGenerator<T super EObject> extends TemplateUtil {
             val organizeImports = [String s1| s1.replace("// MARKER_IMPORT", importUtil.printImports) ]
             if (javaGenFile.hasExtensionPoint) {
                 if( javaGenFile.extensionFileExists ){
-                    println("Not regenerating extension point [" + javaGenFile.fileName + "]")
+                    if( DEBUG) { println("Not regenerating extension point [" + javaGenFile.fileName + "]") }
                 } else {
-                    println("generating " + javaGenFile.getPathName)
+                    if( DEBUG) { println("generating " + javaGenFile.getPathName) }
                     importUtil.initImports(javaGenFile.packageName)
                     fileContent = generateExtensionFile(modelElement).toString
                     fileContent = organizeImports.apply(fileContent) 
                     javaGenFile.generateBaseFile(javaGenFile.getPathName, fileContent)
                 }
-                println("generating 1 " + javaGenFile.getBasePathName + " from " + this.getClass().name)
+                if( DEBUG) { println("generating 1 " + javaGenFile.getBasePathName + " from " + this.getClass().name) }
                 importUtil.initImports(javaGenFile.packageName)
                 fileContent = generateBaseFile(modelElement).toString
                 fileContent = organizeImports.apply(fileContent) 
                 genFile.generateFile(javaGenFile.basePathName, fileContent)
             } else {
-                println("generating 2 " + javaGenFile.pathName + " from " + this.getClass().name)
+                if( DEBUG) { println("generating 2 " + javaGenFile.pathName + " from " + this.getClass().name) }
                 importUtil.initImports(javaGenFile.packageName)
                 fileContent = generateBaseFile(modelElement).toString
                 fileContent = organizeImports.apply(fileContent) 

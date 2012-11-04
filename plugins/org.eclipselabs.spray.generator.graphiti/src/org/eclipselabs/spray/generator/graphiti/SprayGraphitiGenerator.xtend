@@ -103,6 +103,8 @@ class SprayGraphitiGenerator implements IGenerator {
     override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
         //var String modelPath = resource.getURI().devicePath;
         //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
+        println("Spray generating for model " + resource.URI)
+        
         ProjectProperties::setModelUri(resource.URI)
 
         val JavaGenFile java = genFileProvider.get()

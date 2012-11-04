@@ -31,6 +31,7 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	@Inject extension GradientGenerator
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+        println("Spray generating for model " + resource.URI)
 		super.doGenerate(resource, fsa)
 		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
       		fsa.generateFile(gradient.filepath, gradient.compile)

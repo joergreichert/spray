@@ -56,7 +56,6 @@ public class ProjectProperties {
                 throw new RuntimeException(e);
             }
         }
-        System.err.println("PROPERTIES [" + propertiesUri + "]");
         readAllProperties();
     }
 
