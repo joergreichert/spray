@@ -46,7 +46,7 @@ class SVGShapeGenerator {
     
     def dispatch generate (ConnectionDefinition shape) '''
         «shape.defs»
-        <line x1="10" y1="50" x2="110" y2="50" «IF shape.layout!=null»«shape.lineStyle»«ENDIF»/>
+        <line x1="«defaultConnectionX1»" y1="«defaultConnectionY1»" x2="«defaultConnectionX2»" y2="«defaultConnectionY2»" «IF shape.layout!=null»«shape.lineStyle»«ENDIF»/>
         «FOR p: shape.placing»
             «p.generateShape(true)»
         «ENDFOR»
@@ -71,10 +71,10 @@ class SVGShapeGenerator {
     '''
     
     def protected points (Polyline pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
+        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
     '''
     def protected points (CDPolyline pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
+        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
     '''
 
     // POLYGON
@@ -88,10 +88,10 @@ class SVGShapeGenerator {
     '''
 
     def protected points (Polygon pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
+        «FOR p: pl.layout.point SEPARATOR ","»«p.x(child) + (if(child) pl.parentX else 0)» «p.y(child) + (if(child) pl.parentY else 0)»«ENDFOR»
     '''
     def protected points (CDPolygon pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor + pl.parentX» «p.ycor + pl.parentY»«ENDFOR»
+        «FOR p: pl.layout.point SEPARATOR ","»«p.x(child) + (if(child) pl.parentX else 0)» «p.y(child) + (if(child) pl.parentY else 0)»«ENDFOR»
     '''
 
     // RECTANGLE
@@ -121,17 +121,17 @@ class SVGShapeGenerator {
     
     def protected dispatch generateShape (Ellipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
         «ELSE»
-            <ellipse cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
         «ENDIF» 
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDEllipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
         «ELSE»
-            <ellipse cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
         «ENDIF» 
     '''
 

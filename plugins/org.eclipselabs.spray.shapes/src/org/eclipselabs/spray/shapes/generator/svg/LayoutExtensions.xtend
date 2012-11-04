@@ -37,6 +37,13 @@ import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 
 class LayoutExtensions {
 	
+	def int defaultConnectionX1() { 10 }
+	def int defaultConnectionY1() { 50 }
+	def int defaultConnectionX2() { 110 }
+	def int defaultConnectionY2() { 50 }
+	def int defaultConnectionWidth() { defaultConnectionX2 - defaultConnectionX1 }
+	def int defaultConnectionHeight() { defaultConnectionY2 - defaultConnectionY1 }
+	
     def dispatch int width (ShapeDefinition shapeDef) {
         var w = 0;
         for (shape : shapeDef.eContents.filter(typeof(Shape))) {
@@ -48,8 +55,12 @@ class LayoutExtensions {
         w
     }
     
-    def dispatch int width (ConnectionDefinition shapeDef) { 100 }
-    def dispatch int width (PlacingDefinition shape) { shape.shapeCon.width }
+    def placingDefs(ConnectionDefinition shapeDef) {
+    	shapeDef.eContents.filter(typeof(PlacingDefinition)).map(pd|pd.width())
+    }
+    
+    def dispatch int width (ConnectionDefinition shapeDef) { defaultConnectionWidth }
+    def dispatch int width (PlacingDefinition shape) { if(shape.shapeCon != null) shape.shapeCon.width else defaultConnectionWidth }
 
     def dispatch int height (ShapeDefinition shapeDef) {
         var h = 0;
@@ -62,17 +73,17 @@ class LayoutExtensions {
         h
     }
     
-    def dispatch int height (ConnectionDefinition shapeDef) { 30 }
-    def dispatch int height (PlacingDefinition shape) { shape.shapeCon.height }
+    def dispatch int height (ConnectionDefinition shapeDef) { defaultConnectionHeight }
+    def dispatch int height (PlacingDefinition shape) { if(shape.shapeCon != null) shape.shapeCon.height else defaultConnectionHeight }
 
     // OFFSETS
     def dispatch int xoffset (EObject other) { 0 }
     def dispatch int xoffset (ConnectionDefinition shape) { 10 }
-    def dispatch int xoffset (PlacingDefinition shape) { (shape.eContainer.xoffset + shape.offset*shape.eContainer.width).intValue }
+    def dispatch int xoffset (PlacingDefinition shape) { (shape.eContainer.xoffset + shape.offset*shape.width).intValue }
     def dispatch int xoffset (ShapeConnection shape) { shape.eContainer.xoffset }
     def dispatch int yoffset (EObject other) { 0 }
     def dispatch int yoffset (ConnectionDefinition shape) { 10 }
-    def dispatch int yoffset (PlacingDefinition shape) { (shape.eContainer.yoffset + shape.offset*shape.eContainer.width).intValue }
+    def dispatch int yoffset (PlacingDefinition shape) { (shape.eContainer.yoffset + shape.offset*shape.width).intValue }
     def dispatch int yoffset (ShapeConnection shape) { shape.eContainer.yoffset }
     
 
@@ -146,6 +157,16 @@ class LayoutExtensions {
     def dispatch width (CDLine shape) {  Math::abs(shape.layout.point.get(1).xcor - shape.layout.point.get(0).xcor) }
     def dispatch height (CDLine shape) { Math::abs(shape.layout.point.get(1).ycor - shape.layout.point.get(0).ycor) }
 
+    // Polyline
+    def dispatch x (Polyline shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minXPoint else 0) }
+    def dispatch y (Polyline shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minYPoint else 0) }
+    def dispatch width (Polyline shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
+    def dispatch height (Polyline shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
+    def dispatch x (CDPolyline shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minXPoint else 0) }
+    def dispatch y (CDPolyline shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minYPoint else 0) }
+    def dispatch width (CDPolyline shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
+    def dispatch height (CDPolyline shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
+
 	// Polygon
     def dispatch int x (Polygon shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minXPoint else 0) }
     def dispatch int y (Polygon shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.point.minYPoint else 0) }
@@ -156,17 +177,17 @@ class LayoutExtensions {
     def dispatch int width (CDPolygon shape) { shape.layout.point.maxXPoint - shape.layout.point.minXPoint }
     def dispatch int height (CDPolygon shape) { shape.layout.point.maxYPoint - shape.layout.point.minYPoint }
 
-    def dispatch int x (Point point, boolean child) { point.xoffset + (if(child) point.xcor else 0) }
-    def dispatch int y (Point point, boolean child) { point.xoffset + (if(child) point.ycor else 0) }
+    def dispatch int x (Point point, boolean child) { point.xoffset + point.xcor }
+    def dispatch int y (Point point, boolean child) { point.xoffset + point.ycor }
     
-    def private dispatch int grandParentX(Ellipse shape) { shape.parentX + shape.xoffset + shape.layout.common.xcor }
-    def private dispatch int grandParentY(Ellipse shape) { shape.parentY + shape.yoffset + shape.layout.common.ycor }
+    def private dispatch int grandParentX(Ellipse shape) { shape.parentX + shape.xoffset }
+    def private dispatch int grandParentY(Ellipse shape) { shape.parentY + shape.yoffset }
     def private dispatch int grandParentX(EObject shape) { shape.parentX + shape.x(shape.eContainer != null) }
     def private dispatch int grandParentY(EObject shape) { shape.parentY + shape.y(shape.eContainer != null) }
     def private dispatch int grandParentX(Object shape) { 0 }
     def private dispatch int grandParentY(Object shape) { 0 }
-    def dispatch int parentX(Ellipse shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.xoffset + shape.layout.common.xcor else shape.eContainer.grandParentX }
-    def dispatch int parentY(Ellipse shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.yoffset + shape.layout.common.ycor else shape.eContainer.grandParentY }
+    def dispatch int parentX(Ellipse shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.xoffset else shape.layout.common.xcor + shape.eContainer.grandParentX }
+    def dispatch int parentY(Ellipse shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.yoffset else shape.layout.common.ycor + shape.eContainer.grandParentY }
     def dispatch int parentX(EObject shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.x(true) else shape.eContainer.grandParentX }
     def dispatch int parentY(EObject shape) { if(shape.eContainer instanceof ShapeContainerElement) shape.y(true) else shape.eContainer.grandParentY }
     def dispatch int parentX(Object shape) { 0 }

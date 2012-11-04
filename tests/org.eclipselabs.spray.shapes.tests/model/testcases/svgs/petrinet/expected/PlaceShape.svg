@@ -26,7 +26,6 @@
     ellipse {fill: none; stroke:black; stroke-width:1px}
     text {fill: black; font-family: verdana,sans-serif; font-size:12px;}
     .default {fill: none; stroke:black; stroke-width:1px}
-    .org.eclipselabs.spray.styles.PetrinetDefaultStyle { }          
     ]]>
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>

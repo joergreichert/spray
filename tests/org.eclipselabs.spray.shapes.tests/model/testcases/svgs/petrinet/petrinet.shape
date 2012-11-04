@@ -7,7 +7,7 @@
  *************************************************************************************/
 // Add import statements here, e.g.
 // import java.util.*
-shape PlaceShape style org.eclipselabs.spray.styles.PetrinetDefaultStyle {
+shape PlaceShape {
 	ellipse {
 		size (width=30, height=30)
 	}
