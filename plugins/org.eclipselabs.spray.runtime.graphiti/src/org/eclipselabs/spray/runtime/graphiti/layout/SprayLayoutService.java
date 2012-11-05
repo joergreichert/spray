@@ -194,6 +194,17 @@ public class SprayLayoutService {
         return GraphitiProperties.getBooleanValue(pe, LAYOUT_FLEXIBLE);
     }
 
+    static public Diagram findDiagram(Shape shape) {
+        if (shape instanceof Diagram) {
+            return (Diagram) shape;
+        }
+        ContainerShape result = shape.getContainer();
+        while ((result != null) && !(result instanceof Diagram)) {
+            result = result.getContainer();
+        }
+        return (Diagram) result;
+    }
+
     static public ContainerShape findDslShape(PictogramElement shape) {
         if (SprayLayoutService.isShapeFromDsl(shape)) {
             return (ContainerShape) shape;
@@ -207,7 +218,7 @@ public class SprayLayoutService {
     }
 
     static public ContainerShape findTopDslShape(PictogramElement shape) {
-        if (SprayLayoutService.isShapeFromDsl(shape)) {
+        if (SprayLayoutService.isShapeFromDsl(shape) && ((Shape) shape) instanceof Diagram) {
             return (ContainerShape) shape;
         }
         ContainerShape result = null;

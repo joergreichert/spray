@@ -12,7 +12,7 @@ StyleContainerElement:
 
 Style:
 	{Style}
-	"style" name=ID ("extends" superStyle=JvmTypeReference)? "{"
+	"style" name=ID ("extends" ( (superStyle=JvmTypeReference) | ('dsl' superStyleFromDsl=[Style]) ) )? "{"
 	   ("description" "=" description=STRING)?
 	   layout=StyleLayout
 	"}";

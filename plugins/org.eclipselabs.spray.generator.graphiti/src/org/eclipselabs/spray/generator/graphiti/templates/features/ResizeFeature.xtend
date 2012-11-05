@@ -37,8 +37,8 @@ class ResizeFeature extends FileGenerator<ShapeFromDsl>{
     	import org.eclipse.graphiti.features.IFeatureProvider;
     	import org.eclipse.graphiti.features.IResizeConfiguration;
     	import org.eclipse.graphiti.features.context.IResizeShapeContext;
-    	import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
     	import org.eclipse.graphiti.features.DefaultResizeConfiguration;
+        import org.eclipselabs.spray.runtime.graphiti.features.DefaultResizeShapeFeature;
     	import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
     	import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
     	

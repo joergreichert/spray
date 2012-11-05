@@ -176,13 +176,16 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                         IRemoveFeature rem = getFeatureProvider().getRemoveFeature(removeContext);
                         rem.remove(removeContext);
 
-                        SprayLayoutService.getLayoutManager(SprayLayoutService.findTopDslShape(sourceContainer)).layout();
+                        ContainerShape sourceTop = SprayLayoutService.findTopDslShape(sourceContainer);
+                        if( sourceTop != null ){
+                            SprayLayoutService.getLayoutManager(sourceTop).layout();
+                        }
                         // remove from source container and add to target container
                         «IF ref.reference.many»
-                        ((«ref.shape.represents.itfName») sourceParent).get«ref.reference.name.toFirstUpper»().remove((«container.represents.itfName»)source);
+«««                        ((«ref.shape.represents.itfName») sourceParent).get«ref.reference.name.toFirstUpper»().remove((«container.represents.itfName»)source);
                         ((«ref.shape.represents.itfName») target).get«ref.reference.name.toFirstUpper»().add((«container.represents.itfName») source);
                         «ELSE»
-                        ((«ref.shape.represents.itfName») sourceParent).set«ref.reference.name.toFirstUpper»( null);
+«««                        ((«ref.shape.represents.itfName») sourceParent).set«ref.reference.name.toFirstUpper»( null);
                         ((«ref.shape.represents.itfName») target).set«ref.reference.name.toFirstUpper»((«container.represents.itfName») source);
                         «ENDIF»
                         addContext.setNewObject(source);

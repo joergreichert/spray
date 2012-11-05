@@ -48,7 +48,8 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     public boolean layout(ILayoutContext context) {
-        layout1((Shape) context.getPictogramElement());
+        //        layout1((Shape) context.getPictogramElement());
+        layoutOLD(context);
         return true;
     }
 
@@ -116,6 +117,7 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     public void resizeElements(ContainerShape shape, double widthFactor, double heightFactor) {
+        System.out.println("SprayLayoutManager.resizeElements() for shape " + SprayLayoutService.getId(shape));
         GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
         // Special layout handling for shapes which only consists of a polyline
         // or polygon
@@ -133,6 +135,7 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     public void resizeElementsRecursive(ContainerShape shape, double widthFactor, double heightFactor) {
+        System.out.println("SprayLayoutManager.resizeElementsRecursive() for shape " + SprayLayoutService.getId(shape));
         GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
         if (shape.getChildren().size() == 0) {
             return;
@@ -177,6 +180,7 @@ public class SprayLayoutManager implements ISprayConstants {
     }
 
     protected void resizeShape(GraphicsAlgorithm gAlgorithm, IDimension size, double widthFactor, double heightFactor) {
+        System.out.println("SprayLayoutManager.resizeShape() for shape " + SprayLayoutService.getId(gAlgorithm.getPictogramElement()));
         // Set new width and height
         int newWidth = (int) Math.round(size.getWidth() * widthFactor);
         int newHeight = (int) Math.round(size.getHeight() * heightFactor);
