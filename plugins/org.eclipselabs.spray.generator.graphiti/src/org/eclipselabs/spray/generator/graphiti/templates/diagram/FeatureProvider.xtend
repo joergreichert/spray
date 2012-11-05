@@ -185,8 +185,13 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «overrideHeader»
         public IUpdateFeature getUpdateFeature(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
-            Shape dslShape = SprayLayoutService.findDslShape(pictogramElement );
-            final String alias = peService.getPropertyValue(dslShape,PROPERTY_ALIAS);
+            String alias ;
+            if( pictogramElement  instanceof Shape ){
+                Shape dslShape = SprayLayoutService.findDslShape(pictogramElement );
+                alias = peService.getPropertyValue(dslShape,PROPERTY_ALIAS);
+            } else {
+                alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
+            }
         //    if (pictogramElement instanceof ContainerShape) {
                 final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
                 if (bo == null) {

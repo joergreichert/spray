@@ -39,11 +39,19 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
         if (data.isVisible()) {
             if (ga instanceof Text) {
+                int width = 10;
+                int height = 10;
                 Text text = (Text) ga;
                 IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), text.getFont());
-                int width = Math.max(dim.getWidth(), data.getMinimumWidth());
+                if (dim == null) {
+                    width = data.getMinimumWidth();
+                    height = data.getMinimumHeight();
+                } else {
+                    width = Math.max(dim.getWidth(), data.getMinimumWidth());
+                    height = dim.getHeight();
+                }
                 int newWidth = width + (2 * MARGIN);
-                layoutService.setSize(ga, newWidth, dim.getHeight() + 2 * MARGIN);
+                layoutService.setSize(ga, newWidth, height + 2 * MARGIN);
             } else if (ga instanceof Polyline) {
                 Polyline pl = (Polyline) ga;
                 IDimension dim = layoutService.calculateSize(pl);
