@@ -4,6 +4,8 @@
 package org.eclipselabs.spray.styles.generator
 
 import com.google.inject.Inject
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -21,9 +23,6 @@ import org.eclipselabs.spray.styles.styles.Style
 import org.eclipselabs.spray.styles.styles.StyleLayout
 import org.eclipselabs.spray.styles.styles.Transparent
 import org.eclipselabs.spray.styles.styles.YesNoBool
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.impl.Log4jFactory
-import org.apache.commons.logging.LogFactory
 
 
 class StyleGenerator extends JvmModelGenerator implements IGenerator {

@@ -4,6 +4,8 @@
 package org.eclipselabs.spray.shapes.generator
 
 import com.google.inject.Inject
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccess
@@ -14,9 +16,6 @@ import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 
 import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.impl.Log4jFactory
-import org.apache.commons.logging.LogFactory
 
 class ShapeGenerator implements IGenerator {
 
