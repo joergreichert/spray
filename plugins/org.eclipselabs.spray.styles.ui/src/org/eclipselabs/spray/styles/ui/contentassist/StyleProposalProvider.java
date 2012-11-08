@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
@@ -159,5 +160,9 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
         }
     }
 
-
+    @Override
+	protected boolean isKeywordWorthyToPropose(Keyword keyword) {
+		//return keyword.getValue().length() > 1 && Character.isLetter(keyword.getValue().charAt(0));
+    	return true;
+	}
 }
