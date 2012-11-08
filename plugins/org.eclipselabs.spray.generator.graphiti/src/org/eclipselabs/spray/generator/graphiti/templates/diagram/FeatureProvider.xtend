@@ -384,15 +384,21 @@ class FeatureProvider extends FileGenerator<Diagram> {
     def generate_getDirectEditingFeatures(Diagram diagram) '''
 	    «overrideHeader»
 	    public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
-	    	final PictogramElement pictogramElement = context.getPictogramElement();
-	    	final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
-	    	if (bo == null) {
-	    		return null;
-	    	}
-	    	if( SprayLayoutService.isCompartment(pictogramElement) ){
-	    		return null; 
-	    	}
-	    	final String alias = peService.getPropertyValue(pictogramElement, PROPERTY_ALIAS);
+	        final PictogramElement pictogramElement = context.getPictogramElement();
+	        final EObject bo = (EObject) getBusinessObjectForPictogramElement(pictogramElement);
+	        if (bo == null) {
+	            return null;
+	        }
+	        if (SprayLayoutService.isCompartment(pictogramElement)) {
+	            return null; 
+	        }
+	        String alias = null;
+	        if (pictogramElement instanceof Shape) {
+	            Shape dslShape = SprayLayoutService.findDslShape(pictogramElement );
+	            alias = peService.getPropertyValue(dslShape,PROPERTY_ALIAS);
+	        } else {
+	            alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
+	        }
 	    	«FOR metaClass : diagram.metaClasses»
 	    	if ( «generate_metaClassSwitchCondition(metaClass)» ) {
 	    		return new «metaClass.directEditFeatureClassName.shortName»(this);
