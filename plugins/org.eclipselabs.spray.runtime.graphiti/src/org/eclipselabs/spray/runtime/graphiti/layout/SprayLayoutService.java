@@ -210,9 +210,11 @@ public class SprayLayoutService {
             return (ContainerShape) shape;
         }
         ContainerShape result = null;
-        result = ((Shape) shape).getContainer();
-        while ((result != null) && (!SprayLayoutService.isShapeFromDsl(result))) {
-            result = result.getContainer();
+        if (shape instanceof Shape) {
+            result = ((Shape) shape).getContainer();
+            while ((result != null) && (!SprayLayoutService.isShapeFromDsl(result))) {
+                result = result.getContainer();
+            }
         }
         return result;
     }
@@ -222,9 +224,11 @@ public class SprayLayoutService {
             return (ContainerShape) shape;
         }
         ContainerShape result = null;
-        result = ((Shape) shape).getContainer();
-        while ((result != null) && (!SprayLayoutService.isShapeFromDsl(result)) && (!(result.getContainer() instanceof Diagram))) {
-            result = result.getContainer();
+        if (shape instanceof Shape) {
+            result = ((Shape) shape).getContainer();
+            while ((result != null) && (!SprayLayoutService.isShapeFromDsl(result)) && (!(result.getContainer() instanceof Diagram))) {
+                result = result.getContainer();
+            }
         }
         return result;
     }
