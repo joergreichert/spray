@@ -76,9 +76,6 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 		«ELSE»
 		import «s.superStyle.qualifiedName»;
 		«ENDIF»
-		«IF s.superStyleFromDsl != null»
-		import «s.packageName».«s.superStyleFromDsl.name»;
-		«ENDIF»
 		import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
@@ -137,27 +134,14 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	}
 
 	def createSuperStyle(Style s) {
-		if(s.superStyle == null) {
-		    if( s.superStyleFromDsl == null ){
-        		"org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle" 
-        	} else {
-        	    s.superStyleFromDsl.name;
-        	}
-        } else {
-            s.superStyle.simpleName
-		}
+		if(s.superStyle == null) "org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle" else s.superStyle.simpleName
 	}
 
 	def getStyle(Style s) {
-		if(s.superStyle == null) {
-		    if( s.superStyleFromDsl == null){
-			    '''gaService.createStyle(diagram, "«s.name»");'''
-			} else {
-                '''super.getStyle(diagram);'''          
-			}
-		} else {
-			'''super.getStyle(diagram);'''			
-        }
+		if(s.superStyle == null)
+			'''gaService.createStyle(diagram, "«s.name»");'''
+		else 
+			'''super.getStyle(diagram);'''
 	}
 
     def createLayout(StyleLayout l) {
