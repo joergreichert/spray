@@ -34,7 +34,7 @@ class DiagramTypeProvider extends FileGenerator<Diagram> {
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractDiagramTypeProvider {
-            private IToolBehaviorProvider[] toolBehaviorProviders;
+            protected IToolBehaviorProvider[] toolBehaviorProviders;
             «generate_additionalFields(diagram)»
         
             public «className»() {

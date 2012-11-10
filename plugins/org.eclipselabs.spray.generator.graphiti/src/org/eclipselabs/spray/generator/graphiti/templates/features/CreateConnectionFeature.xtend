@@ -35,10 +35,10 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
-            @Override
-            public boolean hasDoneChanges() {
-                return false;
-            }
+«««            @Override
+«««            public boolean hasDoneChanges() {
+«««                return false;
+«««            }
         
         }
     '''
@@ -46,15 +46,19 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     def mainFile (MetaClass metaClass, String className) '''
         «header(this)»
         package «feature_package()»;
+        import org.eclipse.emf.common.util.EList;
         import org.eclipse.emf.ecore.EObject;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateConnectionContext;
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
         import org.eclipselabs.spray.runtime.graphiti.containers.SampleUtil;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractCreateConnectionFeature {
@@ -76,12 +80,13 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             «generate_createEReference(metaClass)»
             «generate_getCreateImageId(metaClass)»
             «generate_additionalMethods(metaClass)»
+            «generateGetDslShapeAchor»
         }
     '''
     /**
      * Determine the name that appears in the dialog when asking for the name
      */
-    def private getUiLabel (MetaClass mc) {
+    def protected getUiLabel (MetaClass mc) {
         if (mc.hasCreateBehavior && !mc.createBehavior.label.nullOrEmpty)
             mc.createBehavior.label
         else
@@ -94,12 +99,14 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val to = connection.to.EType as EClass»
         «overrideHeader»
         public boolean canCreate(final ICreateConnectionContext context) {
-            if (context.getTargetAnchor() == null)
+            Anchor targetAnchor = getDslShapeAnchor(context.getTargetPictogramElement());
+            if (targetAnchor == null){
                 return false;
-            // return true if both anchors belong to an EClass
-            // and those EClasses are not identical
-            «from.itfName» source = get«from.name»(context.getSourceAnchor());
-            «to.itfName» target = get«to.name»(context.getTargetAnchor());
+            }
+            // return true if both anchors belong to an EClass of the right type and those EClasses are not identical
+            Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
+            «from.itfName» source = get«from.name»(sourceAnchor);
+            «to.itfName» target = get«to.name»(targetAnchor);
             if ( (source != null) && (target != null) && (source != target) ) {
                 return true;
             }
@@ -112,8 +119,9 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val from = connection.from.EType as EClass»
         «overrideHeader»
         public boolean canStartConnection(final ICreateConnectionContext context) {
-            // return true if start anchor belongs to a EClass
-            if (get«from.name»(context.getSourceAnchor()) != null) {
+            // return true if start anchor belongs to a EClass of the right type
+            Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
+            if (get«from.name»(sourceAnchor) != null) {
                 return true;
             }
             return false;
@@ -128,10 +136,12 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         public Connection create(final ICreateConnectionContext context) {
             «val containmentRef = metaClass.createBehavior.containmentReference»
             Connection newConnection = null;
+            Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
+            Anchor targetAnchor = getDslShapeAnchor(context.getTargetPictogramElement());
     
             // get EClasses which should be connected
-            final «from.itfName» source = get«from.name»(context.getSourceAnchor());
-            final «to.itfName» target = get«to.name»(context.getTargetAnchor());
+            final «from.itfName» source = get«from.name»(sourceAnchor);
+            final «to.itfName» target = get«to.name»(targetAnchor);
             «IF containmentRef.EType==from»
                 final «from.name» container = source;
             «ELSE»
@@ -148,8 +158,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
                     container.set«containmentRef.name.toFirstUpper»(eReference);
                 «ENDIF»
                 // add connection for business object
-                final AddConnectionContext addContext = new AddConnectionContext(
-                        context.getSourceAnchor(), context.getTargetAnchor());
+                final AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
                 addContext.setNewObject(eReference);
                 «IF metaClass.alias!=null»
                 // store alias name
@@ -171,7 +180,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         /**
          * Returns the «from.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        private «from.itfName» get«from.name»(final Anchor anchor) {
+        protected «from.itfName» get«from.name»(final Anchor anchor) {
             if (anchor != null) {
                 final EObject bo = (EObject) getBusinessObjectForPictogramElement(anchor.getParent()); 
                 if (bo instanceof «from.itfName») {
@@ -190,7 +199,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         /**
          * Returns the «to.name» belonging to the anchor, or <code>null</code> if not available.
          */
-        private «to.itfName» get«to.name»(final Anchor anchor) {
+        protected «to.itfName» get«to.name»(final Anchor anchor) {
             if (anchor != null) {
                 final EObject bo = (EObject) getBusinessObjectForPictogramElement(anchor.getParent()); 
                 if (bo instanceof «to.itfName») {
@@ -233,5 +242,21 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
                 return «metaClass.diagram.imageProviderClassName.shortName».«metaClass.diagram.getImageIdentifier(metaClass.icon)»; 
             }
         «ENDIF»
+    '''
+    
+    def generateGetDslShapeAchor()'''
+        protected Anchor getDslShapeAnchor(PictogramElement pe) {
+            if( pe == null ){
+                return null;
+            }
+            Shape dslShape = SprayLayoutService.findDslShape(pe);
+            if (dslShape != null) {
+                EList<Anchor> anchors = dslShape.getAnchors();
+                if (!anchors.isEmpty()) {
+                    return anchors.get(0);
+                }
+            }
+            return null;
+        }
     '''
 }
