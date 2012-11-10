@@ -4,17 +4,11 @@ import 'http://code.google.com/a/eclipselabs.org/p/spray'
 import 'http://www.eclipse.org/xtext/common/JavaVMTypes' as types
 import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
 
-Diagram :
+Diagram:
     imports+=Import*
     'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? 
-    
-    (
-        behaviourGroups += BehaviorGroup
-    )*
-    (
-        metaClasses += MetaClass
-    )*
-    ;
+    (behaviourGroups += BehaviorGroup)*
+    (metaClasses += MetaClass)*;
 
 Import:
     'import' importedNamespace=QualifiedNameWithWildCard;
@@ -23,81 +17,65 @@ QualifiedNameWithWildCard returns ecore::EString :
     QualifiedName  ('.' '*')?;
     
 
-SprayElement :
+SprayElement:
     ShapeInSpray | MetaReferenceAsShape;
 
-MetaClass :
+MetaClass:
     'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)? (style=SprayStyleRef)? 
     '{' 
-    ( representedBy=ShapeInSpray )
-    (
-    'references' '{'
-        (references += MetaReference2  ';'?)*
-    '}'
-    )?
-    (
-    'behavior' '{'
-           ( 
-               ('group' behaviorGroups += [BehaviorGroup] ';'?  ) |
-               (behaviors += Behavior ';'? )
-           )*
-    '}'
-    )?
-    '}'
-    ;
+	    ( representedBy=ShapeInSpray )
+	    ('references' 
+	     '{' 
+	    	(references += MetaReference2  ';'?)*
+	     '}')?
+	    ('behavior' 
+	     '{'
+			(('group' behaviorGroups += [BehaviorGroup] ';'?  ) | (behaviors += Behavior ';'? ))*
+	     '}')?
+	'}';
 
 MetaReference2 returns MetaReference:  
-    target=[ecore::EReference]
-    ':' representedBy=ConnectionInSpray  
-;   
-
+    target=[ecore::EReference] ':' representedBy=ConnectionInSpray;   
     
 MetaReferenceAsShape returns MetaReference :
-    'reference' target=[ecore::EReference]
-    ('attribute' labelProperty = [ecore::EAttribute])? ;
-    
+    'reference' target=[ecore::EReference] ('attribute' labelProperty = [ecore::EAttribute])? ;
 
 BehaviorGroup:
     'behavior' name=ID '{'
           (behaviors += Behavior ';'?)+ 
-    '}'
-;
+    '}';
 
-Behavior :
+Behavior:
     CreateBehavior | CustomBehavior | CompartmentBehavior;
 
-CreateBehavior : {CreateBehavior }
+CreateBehavior: {CreateBehavior}
     'create' ('into' containmentReference=[ecore::EReference] (label = STRING)? )?
     ('palette' paletteCompartment = STRING)? 
     ('askFor' askFor=[ecore::EAttribute])?;
 
-CustomBehavior :
+CustomBehavior:
     'custom' (name = ID | 'ref' realizedBy=JvmTypeReference) (label = STRING);
 
-ShapeInSpray :
-    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl ) 
-;
+ShapeInSpray:
+    (RectangleInSpray | TextInSpray | ContainerInSpray | ConnectionInSpray | LineInSpray | ShapeFromDsl );
 
-ShapeFromDsl : { ShapeFromDsl }
+ShapeFromDsl : {ShapeFromDsl}
     'shape' shape = JvmTypeReference ('{'
         properties+=ShapePropertyAssignment*
         references += ShapeCompartmentAssignment*
-    '}')?
-;
+    '}')?;
 
 SprayStyleRef:
 	'style' (style=JvmTypeReference);
 
 ShapePropertyAssignment: 
-    attribute=[ecore::EAttribute] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?
-;
-ShapeCompartmentAssignment: 
-    'reference' reference=[ecore::EReference] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?
-;
+    attribute=[ecore::EAttribute] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?;
 
-Layout :
-  { Layout }
- '('
+ShapeCompartmentAssignment: 
+    'reference' reference=[ecore::EReference] 'into' key=[types::JvmEnumerationLiteral|QualifiedName] ('(' value=XExpression ')')?;
+
+Layout: { Layout }
+	'('
         (
             ( 'width'  '=' lineWidth = INT )?
           & ( 'color'  '=' lineColor = ColorInSpray)?
@@ -106,23 +84,21 @@ Layout :
           & ( bold ?= 'bold' )?
           & ( italic ?= 'italic' )?
         ) 
-      ')'
-
-;
+	')';
 
 RectangleInSpray returns RectangleInSpray:
     {RectangleInSpray}
     'rectangle' ('alias' alias=ID)?
-    layout = Layout //  name=EString
-;
+    layout = Layout;
 
 ConnectionInSpray returns ConnectionInSpray :
     {ConnectionInSpray}
     'connection' 
-     ( connection = JvmTypeReference ('{'
-            properties+=ShapePropertyAssignment+
-       '}')?
-     )?
+    (connection = JvmTypeReference (
+     	'{'
+			properties+=ShapePropertyAssignment+
+		'}')?
+    )?
     ('alias' alias=ID)? layout = Layout
     (
         '{'
@@ -134,38 +110,33 @@ ConnectionInSpray returns ConnectionInSpray :
             ('toText' toLabel   = TextInSpray ';'?)?
         )
         '}'
-    )?
-;
+    )?;
 
 ColorInSpray:
-    ColorConstantRef | RGBColor
-;
+    ColorConstantRef | RGBColor;
+
 ColorConstantRef:
-    (type=JvmTypeReference '::')? field=[types::JvmField|ValidID]
-;
+    (type=JvmTypeReference '::')? field=[types::JvmField|ValidID];
 
 RGBColor:
-    'RGB' '(' red=INT ',' green=INT ',' blue=INT ')'
-;
+    'RGB' '(' red=INT ',' green=INT ',' blue=INT ')';
 
 TextInSpray returns TextInSpray:
     {TextInSpray}
-    'text' ('alias' alias=ID)? layout = Layout
-    value = XExpression
-    ;
+    'text' ('alias' alias=ID)? 
+	    layout = Layout
+    	value  = XExpression;
 
 LineInSpray returns LineInSpray :
     {LineInSpray}
-    'line' ('alias' alias=ID)? layout = Layout
-;
+    'line' ('alias' alias=ID)? layout = Layout;
 
 ContainerInSpray returns ContainerInSpray:
-    { ContainerInSpray }
+    {ContainerInSpray}
     'container' ('alias' alias=ID)? layout = Layout
     '{'
         (parts+=SprayElement  ';'? )* 
     '}';
     
 CompartmentBehavior :
-    'containment' compartmentReference+=[ecore::EReference] (',' compartmentReference+=[ecore::EReference])* (label = STRING)?  
-    ;
+    'containment' compartmentReference+=[ecore::EReference] (',' compartmentReference+=[ecore::EReference])* (label = STRING)?;

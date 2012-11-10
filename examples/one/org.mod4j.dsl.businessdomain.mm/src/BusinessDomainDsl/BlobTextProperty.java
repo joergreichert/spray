@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package BusinessDomainDsl;
 
@@ -13,9 +9,9 @@ package BusinessDomainDsl;
  * <!-- end-user-doc -->
  *
  *
- * @see BusinessDomainDsl.IBusinessDomainDslPackage#getBlobTextProperty()
+ * @see BusinessDomainDsl.BusinessDomainDslPackage#getBlobTextProperty()
  * @model
  * @generated
  */
-public interface IBlobTextProperty extends IProperty {
-} // IBlobTextProperty
+public interface BlobTextProperty extends Property {
+} // BlobTextProperty

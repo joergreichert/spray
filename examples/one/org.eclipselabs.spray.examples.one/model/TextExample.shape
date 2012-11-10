@@ -1,22 +1,21 @@
-shape ShapeWithText (java.lang.String shapeName) {
+shape ShapeWithText {
 	rectangle {
 		size (width=100, height=200)
 		position (x=0, y=0) text {
 			size (width=100, height=30)
 			position (x=0, y=30)
-			id=shapeName
-			position (x=0, y=0)
 			align (horizontal=center, vertical=middle)
-			id=text1
+			id = shapeName
 		}
 		text {
 			size (width=100, height=30)
 			position (x=0, y=30)
-			id=text2
+			id = text2
 		}
 	}
 }
-connection ConnectionWithText (java.lang.String connectionName) {
+
+connection ConnectionWithText {
 	placing {
 		position (offset=1.0, radius=0, angle=0)
 		polygon {

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package BusinessDomainDsl;
 
@@ -13,9 +9,9 @@ package BusinessDomainDsl;
  * <!-- end-user-doc -->
  *
  *
- * @see BusinessDomainDsl.IBusinessDomainDslPackage#getBusinessRule()
+ * @see BusinessDomainDsl.BusinessDomainDslPackage#getBusinessRule()
  * @model
  * @generated
  */
-public interface IBusinessRule extends IAbstractBusinessRule {
-} // IBusinessRule
+public interface BusinessRule extends AbstractBusinessRule {
+} // BusinessRule

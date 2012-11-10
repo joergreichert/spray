@@ -1,13 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package BusinessDomainDsl.impl;
 
-import BusinessDomainDsl.IBusinessDomainDslPackage;
-import BusinessDomainDsl.IBusinessRule;
+import BusinessDomainDsl.BusinessDomainDslPackage;
+import BusinessDomainDsl.BusinessRule;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -20,24 +16,24 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class BusinessRuleImpl extends AbstractBusinessRuleImpl implements IBusinessRule {
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected BusinessRuleImpl() {
-        super();
-    }
+public class BusinessRuleImpl extends AbstractBusinessRuleImpl implements BusinessRule {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BusinessRuleImpl() {
+		super();
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    protected EClass eStaticClass() {
-        return IBusinessDomainDslPackage.Literals.BUSINESS_RULE;
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return BusinessDomainDslPackage.Literals.BUSINESS_RULE;
+	}
 
 } //BusinessRuleImpl

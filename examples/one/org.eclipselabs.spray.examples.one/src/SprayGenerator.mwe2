@@ -5,7 +5,7 @@ import org.eclipse.emf.mwe.utils.*
 Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
-		registerGeneratedEPackage = "BusinessDomainDsl.IBusinessDomainDslPackage"
+		registerGeneratedEPackage = "BusinessDomainDsl.BusinessDomainDslPackage"
 		registerGenModelFile = "platform:/resource/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel"
 		scanClassPath=true
 	}

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package BusinessDomainDsl;
 
@@ -13,9 +9,9 @@ package BusinessDomainDsl;
  * <!-- end-user-doc -->
  *
  *
- * @see BusinessDomainDsl.IBusinessDomainDslPackage#getBlobBinaryProperty()
+ * @see BusinessDomainDsl.BusinessDomainDslPackage#getBlobBinaryProperty()
  * @model
  * @generated
  */
-public interface IBlobBinaryProperty extends IProperty {
-} // IBlobBinaryProperty
+public interface BlobBinaryProperty extends Property {
+} // BlobBinaryProperty
