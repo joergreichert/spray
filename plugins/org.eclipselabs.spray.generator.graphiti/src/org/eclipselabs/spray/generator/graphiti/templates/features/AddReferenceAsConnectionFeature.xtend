@@ -178,7 +178,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     '''
     
     def generate_createArrow (MetaReference reference) '''
-        private Polyline createArrow(final GraphicsAlgorithmContainer gaContainer) {
+        protected Polyline createArrow(final GraphicsAlgorithmContainer gaContainer) {
             final Polyline polyline = gaCreateService.createPolyline(gaContainer, new int[] { -15, 10, 0, 0, -15, -10 });
     //        polyline.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
             polyline.setLineWidth(«reference.representedBy.layout.lineWidth»);

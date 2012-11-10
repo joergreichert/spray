@@ -98,9 +98,13 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             }
             «metaClassName» eClass = («metaClassName») bo;
 
-            if (pictogramElement instanceof Connection) {
-                final Connection free = (Connection) pictogramElement;
-            }
+«««            if (pictogramElement instanceof Connection) {
+«««                final Connection free = (Connection) pictogramElement;
+«««                for(ConnectionDecorator dec : free.getConnectionDecorators()) {
+«««                    final GraphicsAlgorithm gAlg = dec.getGraphicsAlgorithm();
+«««                    searchChilds(gAlg, eClass);
+«««                }
+«««            }
             return Reason.createTrueReason();
         }
     '''
@@ -125,7 +129,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     '''
     
 	def generate_searchChilds(ConnectionInSpray connection) '''
-    	private void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.name» eClass) {
+    	protected void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.name» eClass) {
     		if(gAlg instanceof Text) {
     			Text text = (Text) gAlg;
     			String id = peService.getPropertyValue(gAlg, TEXT_ID);

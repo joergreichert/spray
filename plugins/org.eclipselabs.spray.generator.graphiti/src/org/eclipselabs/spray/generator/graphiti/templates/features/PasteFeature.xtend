@@ -120,7 +120,7 @@ class PasteFeature extends FileGenerator<Diagram>{
 
     def generate_addBusinessObjectToContainer(Diagram diagram) {
     '''
-        private void addBusinessObjectToContainer(«diagram.modelType.itfName» bo, PictogramElement pe) {
+        protected void addBusinessObjectToContainer(«diagram.modelType.itfName» bo, PictogramElement pe) {
             final «diagram.modelType.itfName» model = modelService.getModel();
             final String alias = Graphiti.getPeService().getPropertyValue(pe, PROPERTY_ALIAS);
             «FOR cls : diagram.metaClasses»
