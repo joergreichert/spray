@@ -7,7 +7,7 @@ public class SprayJdtTypesProposalPriorities extends ContentProposalPriorities {
 
     @Override
     protected void adjustPriority(ICompletionProposal proposal, String prefix, int priority) {
-        if (!proposal.getDisplayString().contains(".")) {
+        if (proposal != null && proposal.getDisplayString() != null && !proposal.getDisplayString().contains(".")) {
             super.adjustPriority(proposal, prefix, priority * proposalWithPrefixMultiplier);
         }
         super.adjustPriority(proposal, prefix, priority);
