@@ -45,12 +45,16 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «header(this)»
         package «feature_package()»;
 
+        import org.eclipse.emf.common.util.EList;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.ICreateConnectionContext;
         import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
         import org.eclipse.graphiti.mm.pictograms.Anchor;
         import org.eclipse.graphiti.mm.pictograms.Connection;
+        import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateConnectionFeature;
+        import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractCreateConnectionFeature {
@@ -64,7 +68,7 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             «generate_getReferenceTargetAnchor(reference)»
             «generate_createTargetType(reference)»
             «generate_additionalMethods(reference)»
-        
+            «generateGetDslShapeAchor»        
         }
     '''
     
@@ -84,10 +88,11 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «val target = reference.target»
         «overrideHeader»
         public boolean canCreate(final ICreateConnectionContext context) {
-            // return true if both anchors belong to an EClass
-            // and those EClasses are not identical
-            final «reference.metaClass.itfName» source = get«reference.metaClass.type.name»(context.getSourceAnchor());
-            final «target.EReferenceType.itfName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
+            // return true if both anchors belong to an EClass of the correct type and those EClasses are not identical
+            Anchor targetAnchor = getDslShapeAnchor(context.getTargetPictogramElement());
+            Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
+            final «reference.metaClass.itfName» source = get«reference.metaClass.type.name»(sourceAnchor);
+            final «target.EReferenceType.itfName» target = get«target.name.toFirstUpper»(targetAnchor);
             if ( (source != null) && (target != null) && (source != target) ) {
                 return true;
             }
@@ -99,8 +104,9 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «val target = reference.target»
         «overrideHeader»
         public boolean canStartConnection(final ICreateConnectionContext context) {
-            // return true if start anchor belongs to a EClass
-            final «reference.metaClass.itfName» «reference.metaClass.itfName.toFirstLower» = («reference.metaClass.itfName») get«reference.metaClass.type.name»(context.getSourceAnchor());
+            // return true if start anchor belongs to a EClass of the right type
+            Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
+            final «reference.metaClass.itfName» «reference.metaClass.itfName.toFirstLower» = («reference.metaClass.itfName») get«reference.metaClass.type.name»(sourceAnchor);
             if («reference.metaClass.itfName.toFirstLower» == null) {
                 return false;
             }
@@ -122,16 +128,18 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         «overrideHeader»
         public Connection create(final ICreateConnectionContext context) {
             Connection newConnection = null;
+            Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
+            Anchor targetAnchor = getDslShapeAnchor(context.getTargetPictogramElement());
     
             // get EClasses which should be connected
-            final «reference.metaClass.itfName» source = get«reference.metaClass.type.name»(context.getSourceAnchor());
-            final «target.EReferenceType.itfName» target = get«target.name.toFirstUpper»(context.getTargetAnchor());
+            final «reference.metaClass.itfName» source = get«reference.metaClass.type.name»(sourceAnchor);
+            final «target.EReferenceType.itfName» target = get«target.name.toFirstUpper»(targetAnchor);
     
             if (source != null && target != null) {
                 // create new business object
                 set«target.name.toFirstUpper()»(source, target);
                 // add connection for business object
-                final AddConnectionContext addContext = new AddConnectionContext( context.getSourceAnchor(), context.getTargetAnchor());
+                final AddConnectionContext addContext = new AddConnectionContext( sourceAnchor, targetAnchor);
                 addContext.setNewObject(source);
                 addContext.putProperty(PROPERTY_REFERENCE, «reference.literalConstant».getName());
                 // TODO: assume that the target object has a Name property
@@ -148,9 +156,11 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
          * Returns the «reference.metaClass.itfName» belonging to the anchor, or <code>null</code> if not available.
          */
         protected «reference.metaClass.itfName» get«reference.metaClass.type.name»(final Anchor anchor) {
-            final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
-            if (anchor != null && bo instanceof «reference.metaClass.itfName») {
-                return («reference.metaClass.itfName») bo;
+            if( anchor != null) {
+                final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
+                if (anchor != null && bo instanceof «reference.metaClass.itfName») {
+                    return («reference.metaClass.itfName») bo;
+                }
             }
             return null;
         }
@@ -163,9 +173,11 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
          * Returns the «target.name» belonging to the anchor, or <code>null</code> if not available.
          */
         protected «target.EReferenceType.itfName» get«target.name.toFirstUpper»(final Anchor anchor) {
-            final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
-            if (anchor != null && bo instanceof «target.EReferenceType.itfName») {
-                return («target.EReferenceType.itfName») bo;
+            if( anchor != null) {
+                final Object bo = getBusinessObjectForPictogramElement(anchor.getParent());
+                if (anchor != null && bo instanceof «target.EReferenceType.itfName») {
+                    return («target.EReferenceType.itfName») bo;
+                }
             }
             return null;
         }
@@ -185,4 +197,21 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             «ENDIF»
         }
     '''
+    
+        def generateGetDslShapeAchor()'''
+        protected Anchor getDslShapeAnchor(PictogramElement pe) {
+            if( pe == null ){
+                return null;
+            }
+            Shape dslShape = SprayLayoutService.findDslShape(pe);
+            if (dslShape != null) {
+                EList<Anchor> anchors = dslShape.getAnchors();
+                if (!anchors.isEmpty()) {
+                    return anchors.get(0);
+                }
+            }
+            return null;
+        }
+    '''
+    
 }

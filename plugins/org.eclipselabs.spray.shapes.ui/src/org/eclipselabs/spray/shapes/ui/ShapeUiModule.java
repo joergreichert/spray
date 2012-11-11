@@ -10,6 +10,7 @@ import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipselabs.spray.shapes.ui.builder.ShapeBuilderParticipant;
 import org.eclipselabs.spray.shapes.ui.hover.ImageResourceVisitor;
 import org.eclipselabs.spray.shapes.ui.hover.ShapesEObjectDocumentationProvider;
 import org.eclipselabs.spray.shapes.ui.hover.ShapesEObjectHoverProvider;
@@ -72,5 +73,9 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
 	
 	public Class<? extends ImageResourceVisitor> bindImageResourceVisitor() {
 		return ImageResourceVisitor.class;
-	}	
+	}
+	
+	public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
+		return ShapeBuilderParticipant.class;
+	} 	
 }

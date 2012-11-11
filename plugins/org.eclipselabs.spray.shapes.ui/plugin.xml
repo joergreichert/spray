@@ -12,6 +12,7 @@
             default="true"
             extensions="shape"
             id="org.eclipselabs.spray.shapes.Shape"
+            matchingStrategy="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.JavaEditorInputMatcher"
             name="Shape Editor">
         </editor>
     </extension>
@@ -166,6 +167,28 @@
     </extension>
 
 
+    <!-- marker definitions for org.eclipselabs.spray.shapes.Shape -->
+    <extension
+            id="shape.check.fast"
+            name="Shape Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.fast"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="shape.check.normal"
+            name="Shape Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.normal"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="shape.check.expensive"
+            name="Shape Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.expensive"/>
+        <persistent value="true"/>
+    </extension>
 
    <extension
          point="org.eclipse.xtext.builder.participant">
@@ -231,11 +254,32 @@
 			</command>
 		</menuContribution>
 	</extension>
-   <!-- quickfix marker resolution generator -->
+    <!-- quickfix marker resolution generator for org.eclipselabs.spray.shapes.Shape -->
    <extension
          point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipselabs.spray.shapes.ui.shape.check.fast">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipselabs.spray.shapes.ui.shape.check.normal">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipselabs.spray.shapes.ui.shape.check.expensive">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
       </markerResolutionGenerator>
    </extension>
    	<!-- Rename Refactoring -->
@@ -287,7 +331,7 @@
 		</handler>
 		<handler 
 			class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchyHandler"
-			commandId="org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchy">
+			commandId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy">
 			<activeWhen>
 				<reference
 					definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
@@ -308,7 +352,7 @@
 		</menuContribution>
 		<menuContribution
 			locationURI="popup:#TextEditorContext?after=group.open">
-			<command commandId="org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchy"
+			<command commandId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy"
 				style="push"
 				tooltip="Quick Type Hierarchy">
 				<visibleWhen checkEnabled="false">
@@ -317,6 +361,62 @@
 			</command>
 		</menuContribution>
 	</extension>
+	<!-- Call Hierachy -->
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierachyHandler"
+			commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierarchy">
+			<activeWhen>
+				<reference
+					definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierarchy"
+				style="push"
+				tooltip="Open Call Hierarchy">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="org.eclipselabs.spray.shapes.Shape.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.builder.smap.StratumBreakpointAdapterFactory"
+         adaptableType="org.eclipse.xtext.ui.editor.XtextEditor">
+         <adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget"/>
+      </factory> 
+   </extension>
+   <extension point="org.eclipse.ui.editorActions">
+      <editorContribution targetID="org.eclipselabs.spray.shapes.Shape" 
+                          id="org.eclipselabs.spray.shapes.Shape.ide.rulerActions">
+	     <action
+	             label="Not Used"
+	             class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+	             style="push"
+	             actionID="RulerDoubleClick"
+	             id="org.eclipselabs.spray.shapes.Shape.doubleClickBreakpointAction"/>
+	  </editorContribution>
+   </extension>
+   <extension point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+         targetID="example.rulerContextMenuId"
+         id="org.eclipselabs.spray.shapes.Shape.ide.RulerPopupActions">
+         <action
+            label="Toggle Breakpoint"
+            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+            menubarPath="additions"
+            id="org.eclipselabs.spray.shapes.Shape.ide.rulerContextMenu.toggleBreakpointAction">
+         </action>
+      </viewerContribution>
+   </extension>
 
   <extension point="org.eclipse.compare.contentViewers">
     <viewer id="org.eclipselabs.spray.shapes.Shape.compare.contentViewers"
@@ -341,7 +441,7 @@
      <view
            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipselabs.spray.shapes.ui.view.ShapePreviewView"
            id="org.eclipselabs.spray.shapes.ui.view.ShapePreviewView"
-           name="Shape Previe">
+           name="Shape Preview">
      </view>
   </extension>
 

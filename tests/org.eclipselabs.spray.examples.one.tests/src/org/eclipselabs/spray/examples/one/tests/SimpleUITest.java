@@ -22,7 +22,7 @@ import org.eclipselabs.spray.wizard.tests.SprayProjectWizardTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import BusinessDomainDsl.IBusinessClass;
+import BusinessDomainDsl.BusinessClass;
 
 @SuppressWarnings("restriction")
 @RunWith(SWTBotJunit4ClassRunner.class)
@@ -129,8 +129,8 @@ public class SimpleUITest extends AbstractGraphitiTest {
         assertNotNull("not linked with bo", link);
         assertEquals("not the expected bo count", 1, link.getBusinessObjects().size());
         EObject bo = link.getBusinessObjects().get(0);
-        assertTrue("should have been business class", bo instanceof IBusinessClass);
-        IBusinessClass bc = (IBusinessClass) bo;
+        assertTrue("should have been business class", bo instanceof BusinessClass);
+        BusinessClass bc = (BusinessClass) bo;
         assertNotNull("bc name set", bc.getName());
         assertEquals("not the expected bc name", shapeName, bc.getName());
     }

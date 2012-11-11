@@ -31,13 +31,21 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
     private static Log   LOGGER       = LogFactory::getLog("StyleGenerator");
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-        LOGGER.info("Spray generating for model " + resource.URI)
-		super.doGenerate(resource, fsa)
-		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
-      		fsa.generateFile(gradient.filepath, gradient.compile)
-   		}
+		doGenerateGradient(resource, fsa)
+		doGenerateStyle(resource, fsa)
+	}
+	
+	def void doGenerateStyle(Resource resource, IFileSystemAccess fsa) {
+        LOGGER.info("Spray generating style for model " + resource.URI)
 		for(style : resource.allContents.toIterable.filter(typeof(Style))) {
       		fsa.generateFile(style.filepath, style.compile)
+   		}
+	}
+	
+	def void doGenerateGradient(Resource resource, IFileSystemAccess fsa) {
+        LOGGER.info("Spray generating gradient for model " + resource.URI)
+		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
+      		fsa.generateFile(gradient.filepath, gradient.compile)
    		}
 	}
 	

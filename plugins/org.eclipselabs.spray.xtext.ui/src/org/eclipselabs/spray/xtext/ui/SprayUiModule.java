@@ -23,6 +23,7 @@ import org.eclipselabs.spray.shapes.ui.linking.shape.ShapeResourceVisitor;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleEditorOpener;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleResourceVisitor;
+import org.eclipselabs.spray.xtext.ui.builder.SprayBuilderParticipant;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalPriorities;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalProvider;
 import org.eclipselabs.spray.xtext.ui.hover.SprayEObjectHoverProvider;
@@ -175,5 +176,9 @@ public class SprayUiModule extends AbstractSprayUiModule {
     @Override
     public Class<? extends org.eclipse.xtext.ui.editor.hover.IEObjectHover> bindIEObjectHover() {
         return SprayEObjectTextHover.class;
+    }
+
+    public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
+        return SprayBuilderParticipant.class;
     }
 }

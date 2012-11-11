@@ -21,7 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import BusinessDomainDsl.IBusinessDomainDslPackage;
+import BusinessDomainDsl.BusinessDomainDslPackage;
 
 import com.google.inject.Inject;
 
@@ -34,13 +34,13 @@ public class SprayFormatterTest extends XtextTest {
 
 	@Before
 	public void before() {
-		EPackage.Registry.INSTANCE.put(IBusinessDomainDslPackage.eNS_URI,
-				IBusinessDomainDslPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(BusinessDomainDslPackage.eNS_URI,
+				BusinessDomainDslPackage.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI,
 				GenModelPackage.eINSTANCE);
 
 		EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(
-				IBusinessDomainDslPackage.eNS_URI,
+				BusinessDomainDslPackage.eNS_URI,
 				URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
 	}
 
