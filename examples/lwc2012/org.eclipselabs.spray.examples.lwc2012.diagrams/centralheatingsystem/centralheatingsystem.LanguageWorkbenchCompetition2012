@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<lwc:LWCModelElement xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lwc="http://de.htwg.2012.lwc">
+  <modelElements xsi:type="lwc:LWCHeatExchanger" name="Boiler">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.0" toElement="//@modelElements.1"/>
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.0" toElement="//@modelElements.1"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCValveControl" name="V1">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.1" toElement="//@modelElements.2"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCPump" name="P1">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.2"/>
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.2" toElement="//@modelElements.6"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCHeatExchanger" name="Radiator">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.3" toElement="//@modelElements.1"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCSystemEnd"/>
+  <modelElements xsi:type="lwc:LWCValveControl" name="V2"/>
+  <modelElements xsi:type="lwc:LWCHeatExchanger" name="Central Heating Unit">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.6" toElement="//@modelElements.0"/>
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.6" toElement="//@modelElements.5"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCJoint"/>
+  <modelElements xsi:type="lwc:LWCJoint"/>
+  <modelElements xsi:type="lwc:LWCLocationDashLine" name="F" value="1"/>
+  <modelElements xsi:type="lwc:LWCLocationDashLine" name="T" value="2">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.10" toElement="//@modelElements.0"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCLocationDashLine" name="S" value="3">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.11" toElement="//@modelElements.2"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCLocationDashLine" name="T" value="4">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.12" toElement="//@modelElements.6"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCLocationDashLine" name="T" value="5">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.13" toElement="//@modelElements.6"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCLocationDashLine" name="T" value="6">
+    <modelElements xsi:type="lwc:LWCPipe" fromElement="//@modelElements.14" toElement="//@modelElements.7"/>
+  </modelElements>
+  <modelElements xsi:type="lwc:LWCJoint" name="Burner"/>
+</lwc:LWCModelElement>

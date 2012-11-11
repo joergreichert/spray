@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<bpmn:BPMNModelElement xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://de.htwg.2012.bpmn">
+  <modelElements xsi:type="bpmn:BPMNEventMail" name="Email form received">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.0" toElement="//@modelElements.1"/>
+  </modelElements>
+  <modelElements xsi:type="bpmn:BPMNActivityTask" name="Leave in email inbox">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.1" toElement="//@modelElements.2"/>
+  </modelElements>
+  <modelElements xsi:type="bpmn:BPMNEventEndDefault" name="Wait for coding and appraisal"/>
+  <modelElements xsi:type="bpmn:BPMNEventTimerDefault">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.3" toElement="//@modelElements.4"/>
+  </modelElements>
+  <modelElements xsi:type="bpmn:BPMNActivityTask" name="Collect internal mail bags">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.4" toElement="//@modelElements.5"/>
+  </modelElements>
+  <modelElements xsi:type="bpmn:BPMNActivityTask" name="Separate standard mail from received forms">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.5" toElement="//@modelElements.6"/>
+  </modelElements>
+  <modelElements xsi:type="bpmn:BPMNActivityTask" name="Stamp all received forms with today's date">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.6" toElement="//@modelElements.7"/>
+  </modelElements>
+  <modelElements xsi:type="bpmn:BPMNActivityTask" name="Place in filing cabinet">
+    <modelElements xsi:type="bpmn:BPMNDefaultFlow" formElement="//@modelElements.7" toElement="//@modelElements.2"/>
+  </modelElements>
+</bpmn:BPMNModelElement>

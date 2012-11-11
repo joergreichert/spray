@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<PetriNet:PetriModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:PetriNet="http://de.htwg.petrinet.mm/">
+  <petriModels xsi:type="PetriNet:PlaceEClass" name="P1">
+    <petriModels xsi:type="PetriNet:ArcEClass" petriFrom="//@petriModels.0" petriTo="//@petriModels.2"/>
+    <token name="Movement3"/>
+  </petriModels>
+  <petriModels xsi:type="PetriNet:PlaceEClass" name="P2">
+    <petriModels xsi:type="PetriNet:ArcEClass" petriFrom="//@petriModels.1" petriTo="//@petriModels.3"/>
+    <token/>
+  </petriModels>
+  <petriModels xsi:type="PetriNet:TransitionEClass" name="A1" description="+1">
+    <petriModels xsi:type="PetriNet:ArcEClass" petriFrom="//@petriModels.2" petriTo="//@petriModels.1"/>
+  </petriModels>
+  <petriModels xsi:type="PetriNet:TransitionEClass" name="A2" description="-1">
+    <petriModels xsi:type="PetriNet:ArcEClass" petriFrom="//@petriModels.3" petriTo="//@petriModels.0/@token"/>
+  </petriModels>
+</PetriNet:PetriModel>

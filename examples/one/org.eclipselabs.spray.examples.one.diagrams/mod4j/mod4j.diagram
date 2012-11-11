@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="mod4j" name="mod4j" snapToGrid="true" pictogramLinks="//@link //@children.0/@link //@children.0/@children.0/@link //@children.0/@children.0/@children.0/@link //@children.0/@children.0/@children.6/@link //@children.1/@link //@children.1/@children.0/@link //@children.1/@children.0/@children.0/@link //@children.1/@children.0/@children.6/@link" version="0.9.1">
+  <properties key="URI" value="platform:/resource/org.eclipselabs.spray.examples.one.diagrams/mod4j/mod4j.businessdomaindsl#/"/>
+  <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" filled="true" lineVisible="true" transparency="0.0" width="1000" height="1000"/>
+  <link>
+    <businessObjects href="mod4j.businessdomaindsl#/"/>
+  </link>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <properties key="CONCEPT_SHAPE" value="TopContainer"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="0.0" width="150" height="231" x="30" y="80"/>
+    <link>
+      <businessObjects href="mod4j.businessdomaindsl#//@types.0"/>
+    </link>
+    <anchors xsi:type="pi:ChopboxAnchor"/>
+    <children xsi:type="pi:ContainerShape" visible="true">
+      <properties key="CONCEPT_SHAPE" value="textbox"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="0.0" width="150" height="50"/>
+      <link>
+        <businessObjects href="mod4j.businessdomaindsl#//@types.0"/>
+      </link>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="mod4j.FullClass.ContainerInSpray0.TextInSpray1"/>
+        <properties key="CONCEPT_SHAPE" value="text"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER"/>
+        <link>
+          <businessObjects href="mod4j.businessdomaindsl#//@types.0"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="Property"/>
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="0" filled="false" lineVisible="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="AbstractBusinessRule"/>
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="0" filled="false" lineVisible="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.4" lineWidth="2" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="mod4j.FullClass.ContainerInSpray0.TextInSpray7"/>
+        <properties key="CONCEPT_SHAPE" value="text"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER"/>
+        <link>
+          <businessObjects href="mod4j.businessdomaindsl#//@types.0"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+    </children>
+  </children>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <properties key="CONCEPT_SHAPE" value="TopContainer"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="0.0" width="150" height="231" x="330" y="80"/>
+    <link>
+      <businessObjects href="mod4j.businessdomaindsl#//@types.1"/>
+    </link>
+    <anchors xsi:type="pi:ChopboxAnchor"/>
+    <children xsi:type="pi:ContainerShape" visible="true">
+      <properties key="CONCEPT_SHAPE" value="textbox"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.1" foreground="//@colors.2" lineWidth="1" transparency="0.0" width="150" height="50"/>
+      <link>
+        <businessObjects href="mod4j.businessdomaindsl#//@types.1"/>
+      </link>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="mod4j.FullClass.ContainerInSpray0.TextInSpray1"/>
+        <properties key="CONCEPT_SHAPE" value="text"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER"/>
+        <link>
+          <businessObjects href="mod4j.businessdomaindsl#//@types.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="Property"/>
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="0" filled="false" lineVisible="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.3" lineWidth="2" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="AbstractBusinessRule"/>
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="0" filled="false" lineVisible="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.4" lineWidth="2" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <properties key="MODEL_TYPE" value="mod4j.FullClass.ContainerInSpray0.TextInSpray7"/>
+        <properties key="CONCEPT_SHAPE" value="text"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER"/>
+        <link>
+          <businessObjects href="mod4j.businessdomaindsl#//@types.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="CONCEPT_SHAPE" value="line"/>
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0">
+          <points/>
+          <points/>
+        </graphicsAlgorithm>
+      </children>
+    </children>
+  </children>
+  <colors red="249" green="238" blue="227"/>
+  <colors red="255" green="255" blue="255"/>
+  <colors/>
+  <colors red="255" green="138" blue="141"/>
+  <colors blue="127"/>
+  <fonts name="Arial" size="8"/>
+  <fonts name="Arial" size="12"/>
+</pi:Diagram>
