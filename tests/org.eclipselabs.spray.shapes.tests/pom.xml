@@ -22,8 +22,27 @@
 			<version>4.8.1</version>
 		</dependency>
 	</dependencies>
-    <build>
-        <plugins>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src-gen</directory>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+						<fileset>
+							<directory>xtend-gen</directory>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
@@ -36,7 +55,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<argLine>${coverageAgent}</argLine>
-				</configuration>				
+				</configuration>
 				<executions>
 					<execution>
 						<id>test</id>
