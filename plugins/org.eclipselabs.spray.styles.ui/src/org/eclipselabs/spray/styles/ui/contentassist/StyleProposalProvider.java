@@ -18,12 +18,16 @@ import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+import org.eclipselabs.spray.styles.scoping.StyleScopeProvider;
 import org.eclipselabs.spray.styles.styles.Gradient;
 import org.eclipselabs.spray.styles.styles.Style;
 import org.eclipselabs.spray.styles.styles.StyleLayout;
@@ -49,6 +53,12 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
     
     @Inject
     private ITypesProposalProvider        typeProposalProvider;
+    
+    @Inject
+    private StyleScopeProvider 			  styleScopeProvider;
+    
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
     /**
      * Completes the JvmTypeReference, that matchs just on public, instanceable subtypes
@@ -159,6 +169,13 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
             super.completeJvmParameterizedTypeReference_Type(model, assignment, context, acceptor);
         }
     }
+    
+	public void completeStyle_SuperStyleFromDsl(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		IScope scope = styleScopeProvider.getScope(model, StylesPackage.Literals.STYLE__SUPER_STYLE_FROM_DSL);
+		for(IEObjectDescription desc : scope.getAllElements()) {
+			acceptor.accept(createCompletionProposal(qualifiedNameConverter.toString(desc.getName()), getStyledDisplayString(desc), null, context));
+		}
+	}
 
     @Override
 	protected boolean isKeywordWorthyToPropose(Keyword keyword) {
