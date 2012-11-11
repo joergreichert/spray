@@ -9,7 +9,7 @@ public class SprayBuilderParticipant extends BuilderParticipant {
 
     @Override
     protected void handleChangedContents(Delta delta, IBuildContext context, EclipseResourceFileSystemAccess2 fileSystemAccess) throws CoreException {
-        if ("spray".equals(delta.getUri().fileExtension()) && delta.haveEObjectDescriptionsChanged()) {
+        if ("spray".equals(delta.getUri().fileExtension())) {
             super.handleChangedContents(delta, context, fileSystemAccess);
         }
     }

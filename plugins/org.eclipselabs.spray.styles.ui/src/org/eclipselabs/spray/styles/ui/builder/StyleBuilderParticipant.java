@@ -11,8 +11,7 @@ public class StyleBuilderParticipant extends BuilderParticipant {
 	protected void handleChangedContents(Delta delta, IBuildContext context,
 			EclipseResourceFileSystemAccess2 fileSystemAccess)
 			throws CoreException {
-		if ("style".equals(delta.getUri().fileExtension())
-				&& delta.haveEObjectDescriptionsChanged()) {
+		if ("style".equals(delta.getUri().fileExtension())) {
 			super.handleChangedContents(delta, context, fileSystemAccess);
 		}
 	}

@@ -6,6 +6,7 @@ package org.eclipselabs.spray.xtext.ui;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.service.SingletonBinding;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
@@ -24,6 +25,7 @@ import org.eclipselabs.spray.styles.ui.linking.style.StyleEditorOpener;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleResourceVisitor;
 import org.eclipselabs.spray.xtext.ui.builder.SprayBuilderParticipant;
+import org.eclipselabs.spray.xtext.ui.builder.SprayResourceDescriptionManager;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalPriorities;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalProvider;
 import org.eclipselabs.spray.xtext.ui.hover.SprayEObjectHoverProvider;
@@ -176,6 +178,10 @@ public class SprayUiModule extends AbstractSprayUiModule {
     @Override
     public Class<? extends org.eclipse.xtext.ui.editor.hover.IEObjectHover> bindIEObjectHover() {
         return SprayEObjectTextHover.class;
+    }
+
+    public Class<? extends IResourceDescription.Manager> bindIResourceDescription$Manager() {
+        return SprayResourceDescriptionManager.class;
     }
 
     public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {

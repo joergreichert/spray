@@ -12,7 +12,7 @@ StyleContainerElement:
 
 Style:
 	{Style}
-	"style" name=ID ("extends" superStyle=JvmTypeReference)? "{"
+	"style" name=ID ("extends" ( ('JAVA' superStyle=JvmTypeReference) | (superStyleFromDsl=[Style]) ) )? "{"
 	   ("description" "=" description=STRING)?
 	   layout=StyleLayout
 	"}";
@@ -59,7 +59,7 @@ ColorOrGradient: Color | Transparent | GradientRef;
 ColorWithTransparency: Color | Transparent;
 Color: RGBColor | ColorConstantRef;
 RGBColor: "RGB" "(" red=INT "," green=INT "," blue=INT ")";
-GradientRef: {GradientRef} gradientRef=JvmTypeReference;
+GradientRef: {GradientRef} ( ('JAVA' gradientRef=JvmTypeReference) | (gradientRefFromDsl=[Gradient]));
 ColorConstantRef: value=ColorConstants;
 Transparent: transparent?="transparent";
 enum ColorConstants:

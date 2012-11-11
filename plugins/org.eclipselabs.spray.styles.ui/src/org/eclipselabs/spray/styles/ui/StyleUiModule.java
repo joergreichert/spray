@@ -4,10 +4,12 @@
 package org.eclipselabs.spray.styles.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipselabs.spray.styles.ui.builder.StyleBuilderParticipant;
+import org.eclipselabs.spray.styles.ui.builder.StyleResourceDescriptionManager;
 import org.eclipselabs.spray.styles.ui.linking.StyleDispatchingLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.gradient.GradientEditorOpener;
 import org.eclipselabs.spray.styles.ui.linking.gradient.GradientLinkingHelper;
@@ -70,8 +72,12 @@ public class StyleUiModule extends org.eclipselabs.spray.styles.ui.AbstractStyle
     public Class<? extends GradientResourceVisitor> bindGradientResourceVisitor() {
         return GradientResourceVisitor.class;
     }  
-    
+	
+	public Class<? extends IResourceDescription.Manager> bindIResourceDescription$Manager() {
+		return StyleResourceDescriptionManager.class;
+	}
+	
 	public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
 		return StyleBuilderParticipant.class;
-	}     
+	}  	
 }
