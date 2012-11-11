@@ -48,12 +48,12 @@ public class GenModelHelperTest {
 
     @Test
     public void test_getEPackageClassName() {
-        assertEquals("BusinessDomainDsl.IBusinessDomainDslPackage", fixture.getEPackageClassName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BusinessDomainDsl.BusinessDomainDslPackage", fixture.getEPackageClassName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
     public void test_getEFactoryInterfaceName() {
-        assertEquals("BusinessDomainDsl.IBusinessDomainDslFactory", fixture.getEFactoryInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BusinessDomainDsl.BusinessDomainDslFactory", fixture.getEFactoryInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     /**
@@ -61,7 +61,7 @@ public class GenModelHelperTest {
      */
     @Test
     public void test_getJavaInterfaceName() {
-        assertEquals("BusinessDomainDsl.IBusinessClass", fixture.getJavaInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
+        assertEquals("BusinessDomainDsl.BusinessClass", fixture.getJavaInterfaceName(BusinessDomainDslPackage.Literals.BUSINESS_CLASS));
     }
 
     @Test
