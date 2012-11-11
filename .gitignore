@@ -18,3 +18,5 @@ docs/org.eclipselabs.spray.shapes.doc/docs/
 *.ec
 *.zip
 
+
+/tests/org.eclipselabs.spray.shapes.tests/src-gen/org/eclipselabs/spray/shapes
