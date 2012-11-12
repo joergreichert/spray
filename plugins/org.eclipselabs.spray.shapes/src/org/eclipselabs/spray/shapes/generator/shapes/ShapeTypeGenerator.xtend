@@ -111,6 +111,10 @@ class ShapeTypeGenerator {
 		Polyline «elementName» = gaService.createPolyline(«shapeName», «pointListName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
+		// set line style seperately: bug in Graphiti ?
+        «elementName».setLineStyle(«styleName».getStyle(diagram).getLineStyle());
+        «elementName».setLineWidth(«styleName».getStyle(diagram).getLineWidth());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateStyleForElement(elementName, element.layout.layout)»
      	'''
 	}
@@ -133,9 +137,13 @@ class ShapeTypeGenerator {
 		«IF element?.compartmentInfo?.stretchH != null »
 		SprayLayoutService.getLayoutData(«shapeName»).setHorizontalStrechable(«element.compartmentInfo.stretchH»);
 		«ENDIF»
-		Rectangle «elementName» = gaService.createRectangle(«shapeName»);
-		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
-		«elementName».setStyle(«styleName».getStyle(diagram));
+        Rectangle «elementName» = gaService.createRectangle(«shapeName»);
+        ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
+        «elementName».setStyle(«styleName».getStyle(diagram));
+        // set line style seperately: bug in Graphiti ?
+        «elementName».setLineStyle(«styleName».getStyle(diagram).getLineStyle());
+        «elementName».setLineWidth(«styleName».getStyle(diagram).getLineWidth());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«generateStyleForElement(elementName, element.layout.layout)»
 		«IF isCompartment && element.compartmentInfo.invisible»
@@ -169,6 +177,10 @@ class ShapeTypeGenerator {
 		Ellipse «elementName» = gaService.createEllipse(«shapeName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
+        // set line style seperately: bug in Graphiti ?
+        «elementName».setLineStyle(«styleName».getStyle(diagram).getLineStyle());
+        «elementName».setLineWidth(«styleName».getStyle(diagram).getLineWidth());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«generateStyleForElement(elementName, element.layout.layout)»
 		«IF isCompartment && element.compartmentInfo.invisible»
@@ -211,6 +223,10 @@ class ShapeTypeGenerator {
 		Polygon «elementName» = gaService.createPolygon(«shapeName», «pointListName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
+        // set line style seperately: bug in Graphiti ?
+        «elementName».setLineStyle(«styleName».getStyle(diagram).getLineStyle());
+        «elementName».setLineWidth(«styleName».getStyle(diagram).getLineWidth());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateStyleForElement(elementName, element.layout.layout)»
 		«element.shape.recursiveCreation(shapeName, styleName, false)»
      	'''
@@ -225,6 +241,10 @@ class ShapeTypeGenerator {
 		Polyline «elementName» = gaService.createPolyline(«shapeName», «pointListName»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
+        // set line style seperately: bug in Graphiti ?
+        «elementName».setLineStyle(«styleName».getStyle(diagram).getLineStyle());
+        «elementName».setLineWidth(«styleName».getStyle(diagram).getLineWidth());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateStyleForElement(elementName, element.layout.layout)»
      	'''
 	}
@@ -237,6 +257,10 @@ class ShapeTypeGenerator {
 		RoundedRectangle «elementName» = gaService.createRoundedRectangle(«shapeName», «element.layout.curveWidth», «element.layout.curveHeight»);
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
+        // set line style seperately: bug in Graphiti ?
+        «elementName».setLineStyle(«styleName».getStyle(diagram).getLineStyle());
+        «elementName».setLineWidth(«styleName».getStyle(diagram).getLineWidth());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«generateStyleForElement(elementName, element.layout.layout)»
 		«element.shape.recursiveCreation(shapeName, styleName, false)»
@@ -258,6 +282,7 @@ class ShapeTypeGenerator {
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«elementName».setForeground(«styleName».getFontColor(diagram));
 		«elementName».setFont(«styleName».getStyle(diagram).getFont());
+        «elementName».setTransparency(«styleName».getStyle(diagram).getTransparency());
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«elementName».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«elementName».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);
