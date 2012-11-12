@@ -257,6 +257,7 @@ class ShapeTypeGenerator {
 		ISprayStyle «styleName» = «element.style.styleForElement(shapeStyle)»;
 		«elementName».setStyle(«styleName».getStyle(diagram));
 		«elementName».setForeground(«styleName».getFontColor(diagram));
+		«elementName».setFont(«styleName».getStyle(diagram).getFont());
 		«generateSetSizeAndlocation(shapeName, elementName, element.layout.common.xcor, element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
 		«elementName».setHorizontalAlignment(Orientation.«element.layout.HAlign.mapAlignment»);
 		«elementName».setVerticalAlignment(Orientation.«element.layout.VAlign.mapAlignment»);

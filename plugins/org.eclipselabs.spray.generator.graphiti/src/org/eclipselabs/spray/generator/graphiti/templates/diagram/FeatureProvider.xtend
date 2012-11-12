@@ -82,6 +82,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         
+        import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultDeleteFeature;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultFeatureProvider;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultRemoveFeature;
@@ -364,7 +365,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             if (bo == null) {
             	return new ICustomFeature[0];
             }
-            final String alias = (String)context.getProperty(PROPERTY_ALIAS);
+            final String alias = GraphitiProperties.get(context.getPictogramElements()[0], PROPERTY_ALIAS);
             «FOR metaClass : diagram.metaClasses »
                 «val featureClasses = metaClass.customFeatureClassNames»
                 «IF !featureClasses.isEmpty»
