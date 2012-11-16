@@ -41,47 +41,45 @@ h3. Create a new project
 
 !images/projectwizard_4.png!
 
+h3. Define Shape Model
+
+After finishing the project wizard open the file @busmod.shape@ and paste the code below into the editor:
+
+bc.. 
+shape SimpleClassShape {
+    rectangle {
+        position(x=0, y=0)
+        size(width=100, height=25)
+        text {
+            position(x=5, y=0)
+            size(width=95, height=25)
+            id = businessClassText            
+        }
+    }
+}
+p. 
+This defines a rectangle shape with an embedded text.  Save this file.
+
 h3. Define Spray Model
 
-After finishing the project wizard the Spray model editor opens. Paste this model into file @busmod.spray@:
+Now open the file @busmod.spray@ and paste this model into the file:
 
 bc.. 
 import BusinessDomainDsl.*
 
 diagram busmod for BusinessDomainDsl.BusinessDomainModel
 
-class BusinessClass {
-    container  ( fill=RGB(217,228,255) ) 
-    {
-          text ( )  { "<<"+eClass.name+">> " + name};  
-          line ( color=black width=2);
-          reference properties attribute dataType;
-          line (width=1 color=blue);
-          reference businessRules;   // will use name property by default
-          line (width=1 color=blue);
-          
-          text () "::" + description;    
-    }
-    references {
-         superclass : connection(); 
+class BusinessClass  {
+    shape SimpleClassShape { 
+        name into businessClassText
     }
     behavior {
-        create into types palette "Shapes";
-    }
- }
- 
-class Association {  
-    connection () 
-    {
-        from source;
-        to   target;
-        toText text() targetMultiplicity.name;
-    } 
-    behavior {
-        create into associations palette "Connections" ;
+        create into types palette "Shapes" askFor name
     }
 }
+
 p. 
+This defines that the class @BusinessClass@ from our domain (ecore) model is represented by the @SimpleClassShape@ shape.
 After saving the model the editor sources will be automatically generated to the @src-gen@ folder of the project.
 !images/gettingstarted_1.png!
 
@@ -110,20 +108,57 @@ As alternative you can create your diagram also this way:
 
 h3. Create your first element
 
-* Click on _Business class_ in the palette to select that entry
+* Click on _BusinessClassNameOnly_ in the palette to select that entry
 * Click somewhere in the diagram editor to create the element
+* You can now edit the name of the newly added class directly within the diagram
 * _Window -> Show View -> Other... -> General/Properties to open the properties view
 * Click on the just created element and you can see its attribute values in the properties view
 * Type _Person_ in the name field
-* Resize the box in the diagram editor (move on the right side of the box and when the horizontal double arrow appears hold the left mouse button and move to the right) to see that the change has been applied
+* You will see the name being changed in the diagram immediately while you type
 
-h2. 15-Minutes Tutorial
+h2. Extending the 5 Minute Tutorial
 
-In this section we will extend the example from the 5-Minutes Tutorial further. Follow the steps mentioned above first.
+This section describes several tutorials to add more functionality to the editor. In these tutorials we assume you start with the models created in the 5 Minute Tutorial. The tutorials in this section can be done individually.
 
-h3. Implement a custom behavior
+h3. Adding Connections to the Diagram
 
-Extend the busmod.spray model like this:
+This section shows how to add an association between two business classes in the diagram. The first step is to define a shape for the association. Do this by opening the busmod.shape file and add the following at the end:
+
+bc.. 
+// Shape for associations
+connection AssociationConnection {
+    connection-type freeform
+    placing {
+        position (offset=0.5, radius=10, angle=90)
+        text {
+            size (width=60, height=20)
+            id = assocText
+        }
+    }
+}
+p. 
+Save this file and open @busmod.spray@ and add the following at the end:
+
+bc.. 
+// Association
+class Association {
+    connection AssociationConnection  {
+        name into assocText
+    }
+    ( ) {
+        from source;
+        to target;
+    }
+    behavior {
+        create into associations palette "Connections"
+    }
+}
+p. 
+Save this file and copy the generated plugin.xml to the root of the project again. Now start a new runtime Eclipse as before. You will now find a new element in the palette labeled _Asociation_.  Create two classes on the diagram.  Then select the Association from the palette and drag a line from one business class to the other. Try selecting the association line and changing its name in the properties view.  You should see it change in the diagram immediately.
+
+h3. Implement a Custom Behavior
+
+Extend the @busmod.spray@ model like this:
 
 bc.. 
 
@@ -137,23 +172,18 @@ behavior actions {
 class BusinessClass {
     ...
     behavior {
-		  create into types palette "Shapes";
+          create into types palette "Shapes";
         group actions    
     }
     ...
 p. 
 
-Find the @BusmodCustomShowInfoForBusinessClassFeature.java@ in your workspace by pressing _CTRL + T_
-
-!images/open_custom_feature.png!
-
-Having the _Link with Editor_ toggle button enabled you see the corresponding file in the package explorer when you open the found Java class file.
-
+Find the @BusmodCustomShowInfoForBusinessClassFeature.java@ in your workspace. It should be in the _src-gen/**/feature_ folder
 Right-click on @BusmodCustomShowInfoForBusinessClassFeature@ from the @features@ package. Select _Spray -> Move to source folder for manual extension_. 
 
 !images/move_to_src.png!
 
-The file is moved from @src-gen@ to @src@ and opens in the editor.
+The file is moved from @src-gen@ to @src@ (in the same package) and opens in the editor.
 
 Implement the execute() method to open a message dialog.
 
@@ -176,70 +206,56 @@ After restarting you can invoke an action "Show Information" from the context me
 
 !images/gettingstarted_6.png!
 
-h2. 20-Minutes Tutorial
+h2. Adding Style to Your Diagram
 
-In this section we will show you how to integrate the Spray DSL with the Shape and Style DSL. This tutorial can be applied after the 5-Minutes tutorial.
+In this section we will show you how to integrate the Spray and Shape DSLs with and Style DSL. This tutorial can be applied after the 5-Minutes tutorial.
 
 As you may have already noticed there are three files:
 * busmod.style
 * busmod.shape
 * busmod.spray
 
-In the 5-Minutes tutorial we just used the Spray DSL built-in capabilities for defining shapes (e.g. rectangle, line) and their styling (e.g. yellow background).
+We have already seen that shapes are defined in files with the file extension _.shape_ and the editor is defined in the file with the extension _.spray_. Styles are defined in files with the file extension _.style_. Style definition can be imported and used in the shapes.
 
-But it is possible to modularize those aspects out. Shapes can be defined in files with the file extension _.shape_ and styles can be defined in files with the file extension _.style_. Shape and style definition can then be imported and reused.
-
-In the followong for the business model DSL this modularization is shown by example. For a full reference of the capabilities of Shape and Style DSL see the later sections of this user guide.
+In the following for the business model DSL this modularization is shown by example. For a full reference of the capabilities of Shape and Style DSL see the later sections of this user guide.
 
 h3. busmod.style
 
-There is already a predefined style BusmodDefaultStyle contained in the busmod.style file. You can reuse styles by extending them as done here for the BusinessClassStyle. This style will also use e.g. 12pt as font-size but additional defines the background color to be yellow. 
+There is already a predefined style BusmodDefaultStyle contained in the busmod.style file generated by the Spray wizard. You can reuse styles by extending them as done here for the @BusinessClassStyle@. This style will have all the values of @BusmodDefaultStyle@, thus also use 12pt as @font-siz@ but additional defines the background color to be yellow. 
 
 bc.. 
 style BusmodDefaultStyle {
     description = "The default style of the bm diagram type."
-    // transparency = 0.95
-    // background-color = black
-    // line-color = black
-    // line-style = solid
-    // line-width = 1
-    // font-color = black
-    // font-name = "Tahoma"
     font-size = 12
-    // font-bold = yes
 }
 
-style BusinessClassStyle extends org.eclipselabs.spray.styles.BusmodDefaultStyle {
+style BusinessClassStyle extends BusmodDefaultStyle {
     description = "The style for the business class."
     background-color = yellow
 }
 
 h3. busmod.shape
 
-A shape is constructed by graphical elements. The element's positions/coordinates and dimensions are defined by absolute values (absolute within the shape container, not within the hole diagram). In the shape file you can reference to styles defined in a style file (done for the rectangle in this case) or define styles within the shape file (used for line). 
+We have seen a very simple shape definition in the 5 minute tutorial, and this section will explain the details and shopw how to create more complex shapes. A shape is constructed by graphical elements. The element's positions/coordinates and dimensions are defined by absolute values (absolute within the shape container, not within the whole diagram). In the shape file you can refer to styles defined in a style file. 
 
-Now look at the text element. The label of the text is parametrized: the parameter _businessClassText_ is assigned to _id_. The value of _businessClassText_ have to be bound in the usage context of the shape. We will see this in busmod.spay file.  
+The text element has a special property called _id_. The value _businessClassText_ is assigned to _id_ in the example model. The value of _businessClassText_ has to be bound in the usage context of the shape in the spray DSL. We see this in busmod.spay file where the _name_ of the business class is assigned to _businessClassText_.  
+
+We add the style _BusinessClassStyle_ to the shape as follows
 
 bc.. 
-shape BusinessClassShape  {
-    rectangle style org.eclipselabs.spray.styles.BusinessClassStyle {
-        position(x=0,y=0)
-        size(width=100,height=100)
+shape SimpleClassShape {
+    rectangle style BusinessClassStyle {
+        position(x=0, y=0)
+        size(width=100, height=25)
+        text {
+            position(x=5, y=0)
+            size(width=95, height=25)
+            id = businessClassText            
+        }
     }
-    text { 
-        position(x=5,y=5) 
-        size(width=90,height=50)
-        id = businessClassText
-    }
-    line { 
-        point(x=0, y=51) 
-        point(x=100, y=51)
-        style (
-            line-color=black
-            line-width=2
-        )  
-    }
- }
+}
+p. 
+Save this file and start a new workspace.  In the editor you will see that the background color of a class that is newly created will be yellow.
 
 h3. busmod.spray
 
@@ -255,25 +271,23 @@ import BusinessDomainDsl.*
 diagram busmod for BusinessDomainModel style BusmodDefaultStyle
 
 class BusinessClass icon "ecore/EClass.gif" {
-	shape org.eclipselabs.spray.shapes.BusinessClassShape {
-		name into businessClassText
-	}
-	behavior {
-		create into types palette "Shapes" askFor name;
-	}
+    shape org.eclipselabs.spray.shapes.BusinessClassShape {
+        name into businessClassText
+    }
+    behavior {
+        create into types palette "Shapes" askFor name;
+    }
 }
 
 class Association icon "connection16.gif" {
-	connection ( ) {
-		from source;
-		to target;
-		fromText text ( ) {
-			source.name
-		}
-	}
-	behavior {
-		create into associations palette "Connections" askFor name
-	}
+    connection ( ) {
+        from source;
+        to target;
+        fromText text ( ) {
+            source.name
+        }
+    }
+    behavior {
+        create into associations palette "Connections" askFor name
+    }
 }
-
-
