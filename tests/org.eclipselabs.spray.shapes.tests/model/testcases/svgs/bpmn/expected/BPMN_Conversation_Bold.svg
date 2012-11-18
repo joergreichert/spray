@@ -30,6 +30,5 @@
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
-<polygon points="0 20,10 0,30 0,40 20,30 40,10 40
-" />
+<polygon points="0 20,10 0,30 0,40 20,30 40,10 40" style="stroke-width:3px;"/>
 </svg>

@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
     "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="89" height="89" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Shape: BPMN_EventTimer_DoubleDash</title>
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -30,13 +30,12 @@
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
-<circle cx="25" cy="25" r="25"/>
-<circle cx="25" cy="25" r="23"/>
+<circle cx="25" cy="25" r="25" style="stroke-dasharray: 6,5"/>
+<circle cx="25" cy="25" r="23" style="stroke-dasharray: 6,4"/>
 <circle cx="25" cy="25" r="19"/>
-<polyline points="38 25,25 25,28 9
-"  />
-<line x1="25" y1="6" x2="25" y2="10" />
-<line x1="25" y1="44" x2="25" y2="40" />
-<line x1="6" y1="25" x2="10" y2="25" />
-<line x1="44" y1="25" x2="40" y2="25" />
+<polyline points="38 25,25 25,28 9"/>
+<line x1="25" y1="6" x2="25" y2="10"/>
+<line x1="25" y1="44" x2="25" y2="40"/>
+<line x1="6" y1="25" x2="10" y2="25"/>
+<line x1="44" y1="25" x2="40" y2="25"/>
 </svg>

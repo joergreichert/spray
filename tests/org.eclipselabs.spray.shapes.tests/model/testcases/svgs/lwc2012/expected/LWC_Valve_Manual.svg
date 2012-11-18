@@ -30,9 +30,8 @@
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
-<polygon points="0 60,120 120,120 60,0 120
-" />
-<line x1="60" y1="30" x2="60" y2="90" />
-<line x1="40" y1="30" x2="80" y2="30" />
+<polygon points="0 60,120 120,120 60,0 120"/>
+<line x1="60" y1="30" x2="60" y2="90"/>
+<line x1="40" y1="30" x2="80" y2="30"/>
 <text x="30" y="120">#shapeName</text>
 </svg>

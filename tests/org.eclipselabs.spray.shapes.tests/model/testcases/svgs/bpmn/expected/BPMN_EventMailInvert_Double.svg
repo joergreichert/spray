@@ -32,8 +32,6 @@
 </defs>
 <circle cx="25" cy="25" r="25"/>
 <circle cx="25" cy="25" r="23"/>
-<polygon points="10 14,40 14,25 24
-" />
-<polygon points="10 17,10 35,40 35,40 17,25 27
-" />
+<polygon points="10 14,40 14,25 24" style="stroke:WHITE;fill:BLACK;"/>
+<polygon points="10 17,10 35,40 35,40 17,25 27" style="stroke:WHITE;fill:BLACK;"/>
 </svg>

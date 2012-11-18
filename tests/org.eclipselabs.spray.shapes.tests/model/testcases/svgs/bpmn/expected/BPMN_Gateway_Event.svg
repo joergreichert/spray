@@ -30,10 +30,8 @@
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
-<polygon points="0 30,30 0,60 30,30 60
-" />
+<polygon points="0 30,30 0,60 30,30 60"/>
 <circle cx="30" cy="30" r="18"/>
 <circle cx="30" cy="30" r="16"/>
-<polyline points="30 17,42 25,38 41,22 41,18 25,30 17
-"  />
+<polyline points="30 17,42 25,38 41,22 41,18 25,30 17"/>
 </svg>

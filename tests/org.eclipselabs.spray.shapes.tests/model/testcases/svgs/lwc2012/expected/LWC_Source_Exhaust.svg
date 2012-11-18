@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
     "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="195" height="105" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Shape: LWC_Source_Exhaust</title>
     <metadata>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -29,12 +29,7 @@
     ]]>
     </style>
 </defs>
-<line x1="10" y1="50" x2="110" y2="50" />
-<svg x="0" y="0" width="0" height="0">
-<polygon points="-10 -5,-10 5,0 0
-" />
-</svg>
-<svg x="0" y="0" width="0" height="0">
-<text x="40" y="65">#connectionName</text>
-</svg>
+<line x1="10" y1="50" x2="110" y2="50"/>
+<polygon points="100 45,100 55,110 50"/>
+<text x="40" y="75">#connectionName</text>
 </svg>

@@ -19,6 +19,7 @@ import org.eclipselabs.spray.shapes.shapes.PolyLineLayout
 import org.eclipselabs.spray.shapes.shapes.Polygon
 import org.eclipselabs.spray.shapes.shapes.Polyline
 import org.eclipselabs.spray.shapes.shapes.Rectangle
+import org.eclipselabs.spray.shapes.shapes.RectangleEllipseLayout
 import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
 import org.eclipselabs.spray.shapes.shapes.Shape
 import org.eclipselabs.spray.shapes.shapes.ShapeConnection
@@ -26,6 +27,12 @@ import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.shapes.ShapestyleLayout
 import org.eclipselabs.spray.shapes.shapes.Text
+import org.eclipselabs.spray.styles.styles.Color
+import org.eclipselabs.spray.styles.styles.ColorConstantRef
+import org.eclipselabs.spray.styles.styles.StyleLayout
+import org.eclipse.emf.ecore.EObject
+import org.eclipselabs.spray.shapes.shapes.RoundedRectangleLayout
+import org.eclipselabs.spray.shapes.shapes.LineLayout
 
 /**
  * Generator for SVG representations of ShapeDefinitions.
@@ -46,53 +53,86 @@ class SVGShapeGenerator {
     
     def dispatch generate (ConnectionDefinition shape) '''
         «shape.defs»
-        <line x1="«defaultConnectionX1»" y1="«defaultConnectionY1»" x2="«defaultConnectionX2»" y2="«defaultConnectionY2»" «IF shape.layout!=null»«shape.lineStyle»«ENDIF»/>
+        <line x1="«defaultConnectionX1 + shape.placingSpaceXShift»" y1="«defaultConnectionY1 + shape.placingSpaceYShift»" x2="«defaultConnectionX2 + shape.placingSpaceXShift»" y2="«defaultConnectionY2 + shape.placingSpaceYShift»"«layouting(shape)»/>
         «FOR p: shape.placing»
             «p.generateShape(true)»
         «ENDFOR»
     '''
     
+    def layouting(ConnectionDefinition shape) {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(Polyline shape)             {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(CDPolyline shape)           {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(Polygon shape)              {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(CDPolygon shape)            {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(Ellipse shape)              {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(CDEllipse shape)            {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(Rectangle shape)            {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(CDRectangle shape)          {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(RoundedRectangle shape)     {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(CDRoundedRectangle shape)   {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(Line shape)                 {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+    def layouting(CDLine shape)               {  if(shape.layout!=null) layouting(shape.layout.styleAttribute, shape.lineStyle) else ""  }
+   	
+   	def layouting(CharSequence shapeStyle, CharSequence lineStyle) {
+   		val shapeStyleDef = shapeStyle?.toString.trim
+   		val lineStyleDef = lineStyle?.toString.trim
+		if(!shapeStyleDef.nullOrEmpty) " style=\"" + shapeStyleDef + lineStyleDef.layoutingLineStyle(true) + "\"" else lineStyleDef.layoutingLineStyle(false)
+   	}
+   	
+   	def layoutingLineStyle(String lineStyleDef, boolean shapeStyleDefined) {
+   		if(!lineStyleDef.nullOrEmpty) (if(!shapeStyleDefined) " style=\"" else " ") + lineStyleDef + (if(!shapeStyleDefined) "\"" else "") else ""
+   	}
+    
     // LINE
     
     def protected dispatch generateShape (Line shape, boolean child) '''
-        <line x1="«shape.x1 + shape.parentX»" y1="«shape.y1 + shape.parentY»" x2="«shape.x2 + shape.parentX»" y2="«shape.y2 + shape.parentY»" «shape.lineStyle»/>
+        <line x1="«shape.x1 + shape.parentX»" y1="«shape.y1 + shape.parentY»" x2="«shape.x2 + shape.parentX»" y2="«shape.y2 + shape.parentY»"«layouting(shape)»/>
     '''
-    def protected dispatch generateShape (CDLine shape, boolean child) '''
-        <line x1="«shape.x1 + shape.parentX»" y1="«shape.y1 + shape.parentY»" x2="«shape.x2 + shape.parentX»" y2="«shape.y2 + shape.parentY»" «shape.lineStyle»/>
-    '''
+    def protected dispatch generateShape (CDLine shape, boolean child) {
+    	val pdOffsetX = shape.placingOffsetX 
+    	val pdOffsetY = shape.placingOffsetY
+    	'''
+        <line x1="«shape.x1 + shape.parentX + pdOffsetX»" y1="«shape.y1 + shape.parentY + pdOffsetY»" x2="«shape.x2 + shape.parentX + pdOffsetX»" y2="«shape.y2 + shape.parentY + pdOffsetY»"«layouting(shape)»/>
+    	'''
+    }	
 
     // POLYLINE
     
     def protected dispatch generateShape (Polyline shape, boolean child) '''
-        <polyline points="«shape.points(child)»" «shape.layout.styleAttribute» «shape.lineStyle»/>
+        <polyline points="«shape.points(child)»"«layouting(shape)»/>
     '''
     def protected dispatch generateShape (CDPolyline shape, boolean child) '''
-        <polyline points="«shape.points(child)»" «shape.layout.styleAttribute» «shape.lineStyle»/>
+        <polyline points="«shape.points(child, shape.placingOffsetX, shape.placingOffsetY)»"«layouting(shape)»/>
     '''
     
-    def protected points (Polyline pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
-    '''
-    def protected points (CDPolyline pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.xcor» «p.ycor»«ENDFOR»
-    '''
+    def protected points (Polyline pl, boolean child, int xOffset, int yOffset) {
+    	val parentX = pl.parentX
+    	val parentY = pl.parentY
+    	'''«FOR p: pl.layout.point SEPARATOR ","»«p.xcor + parentX + xOffset» «p.ycor + parentY + yOffset»«ENDFOR»'''
+    }
+    
+    def protected points (Polyline pl, boolean child) {  points(pl, child, 0, 0)  }
+    def protected points (CDPolyline pl, boolean child, int xOffset, int yOffset) {
+    	val parentX = pl.parentX
+    	val parentY = pl.parentY
+    	'''«FOR p: pl.layout.point SEPARATOR ","»«p.xcor + parentX + xOffset» «p.ycor + parentY + yOffset»«ENDFOR»'''
+   	}
+    def protected points (CDPolyline pl, boolean child) {  points(pl, child, 0, 0)  }
 
     // POLYGON
     
     def protected dispatch generateShape (Polygon shape, boolean child) '''
-        <polygon points="«shape.points(child)»" «shape.lineStyle»/>
+        <polygon points="«shape.points(child)»"«layouting(shape)»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDPolygon shape, boolean child) '''
-        <polygon points="«shape.points(child)»" «shape.lineStyle»/>
+        <polygon points="«shape.points(child, shape.placingOffsetX, shape.placingOffsetY)»"«layouting(shape)»/>
     '''
 
-    def protected points (Polygon pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.x(child) + (if(child) pl.parentX else 0)» «p.y(child) + (if(child) pl.parentY else 0)»«ENDFOR»
-    '''
-    def protected points (CDPolygon pl, boolean child) '''
-        «FOR p: pl.layout.point SEPARATOR ","»«p.x(child) + (if(child) pl.parentX else 0)» «p.y(child) + (if(child) pl.parentY else 0)»«ENDFOR»
-    '''
+    def protected points (Polygon pl, boolean child, int xOffset, int yOffset) '''«FOR p: pl.layout.point SEPARATOR ","»«p.x(child) + (if(child) pl.parentX else 0) + xOffset» «p.y(child) + (if(child) pl.parentY else 0) + yOffset»«ENDFOR»'''
+    def protected points (Polygon pl, boolean child) {  points(pl, child, 0, 0)  }
+    def protected points (CDPolygon pl, boolean child, int xOffset, int yOffset) '''«FOR p: pl.layout.point SEPARATOR ","»«p.x(child) + (if(child) pl.parentX else 0) + xOffset» «p.y(child) + (if(child) pl.parentY else 0) + yOffset»«ENDFOR»'''
+    def protected points (CDPolygon pl, boolean child) {  points(pl, child, 0, 0)  }
 
     // RECTANGLE
 
@@ -100,40 +140,40 @@ class SVGShapeGenerator {
 //        <rect «shape.positionAndSize»/>
 //    '''
     def protected dispatch generateShape (Rectangle shape, boolean child) '''
-        <rect «shape.positionAndSize(child)»/>
+        <rect «shape.positionAndSize(child)»«layouting(shape)»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDRectangle shape, boolean child) '''
-        <rect «shape.positionAndSize(child)»/>
+        <rect «shape.positionAndSize(child, shape.placingOffsetX, shape.placingOffsetY)»«layouting(shape)»/>
     '''
 
     // ROUNDEDRECTANGLE
     
     def protected dispatch generateShape (RoundedRectangle shape, boolean child) '''
-        <rect «shape.positionAndSize(child)» rx="«shape.rx»" ry="«shape.ry»"/>
+        <rect «shape.positionAndSize(child)» rx="«shape.rx»" ry="«shape.ry»"«layouting(shape)»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDRoundedRectangle shape, boolean child) '''
-        <rect «shape.positionAndSize(child)» rx="«shape.rx»" ry="«shape.ry»"/>
+        <rect «shape.positionAndSize(child, shape.placingOffsetX, shape.placingOffsetY)» rx="«shape.rx»" ry="«shape.ry»"«layouting(shape)»/>
     '''
 
     // ELLIPSE
     
     def protected dispatch generateShape (Ellipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" r="«shape.rx»"«layouting(shape)»/>
         «ELSE»
-            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" rx="«shape.rx»" ry="«shape.ry»"«layouting(shape)»/>
         «ENDIF» 
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
     def protected dispatch generateShape (CDEllipse shape, boolean child) '''
         «IF shape.isCircle»
-            <circle cx="«shape.x(child)»" cy="«shape.y(child)»" r="«shape.rx»"/>
+            <circle cx="«shape.x(child) + shape.parentX + shape.placingOffsetX»" cy="«shape.y(child) + shape.parentY + shape.placingOffsetY»" r="«shape.rx»"«layouting(shape)»/>
         «ELSE»
-            <ellipse cx="«shape.x(child)»" cy="«shape.y(child)»" rx="«shape.rx»" ry="«shape.ry»"/>
+            <ellipse cx="«shape.x(child) + shape.parentX + shape.placingOffsetX»" cy="«shape.y(child) + shape.parentY + shape.placingOffsetY»" rx="«shape.rx»" ry="«shape.ry»"«layouting(shape)»/>
         «ENDIF» 
-    '''
+   	'''
 
     // TEXT
     
@@ -141,11 +181,13 @@ class SVGShapeGenerator {
         <text x="«shape.x(child)»" y="«shape.y(child)»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
     '''
     def protected dispatch generateShape (CDText shape, boolean child) '''
-        <text x="«shape.x(child)»" y="«shape.y(child)»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
-    '''
+        <text x="«shape.x(child) + shape.placingOffsetX»" y="«shape.y(child) + shape.placingOffsetY»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
+   	'''
     
-    def protected positionAndSize (Shape shape, boolean child) '''x="«shape.x(child)»" y="«shape.y(child)»" width="«shape.width»" height="«shape.height»"'''
-    def protected positionAndSize (ShapeConnection shape, boolean child) '''x="«shape.x(child)»" y="«shape.y(child)»" width="«shape.width»" height="«shape.height»"'''
+    def protected positionAndSize (Shape shape, boolean child) {  positionAndSize(shape, child, 0, 0)  }
+    def protected positionAndSize (Shape shape, boolean child, int xOffset, int yOffset) '''x="«shape.x(child) + shape.parentX + xOffset»" y="«shape.y(child) + shape.parentY + yOffset»" width="«shape.width»" height="«shape.height»"'''
+    def protected positionAndSize (ShapeConnection shape, boolean child) {  positionAndSize(shape, child, 0, 0)  }
+    def protected positionAndSize (ShapeConnection shape, boolean child, int xOffset, int yOffset) '''x="«shape.x(child) + xOffset»" y="«shape.y(child) + yOffset»" width="«shape.width»" height="«shape.height»"'''
     
     // ANCHOR
     def protected dispatch generateAnchor (AnchorManual anchor, boolean child) '''
@@ -160,30 +202,52 @@ class SVGShapeGenerator {
     // PLACING
     
     def protected dispatch generateShape (PlacingDefinition shape, boolean child) '''
-        <svg x="«shape.x(child)»" y="«shape.y(child)»" width="«shape.width»" height="«shape.height»">
         «shape.shapeCon.generateShape(child)»
-        </svg>
-    '''
+   	'''
     
+    def placingOffsetX(EObject cdShape) {
+    	val pd = EcoreUtil2::getContainerOfType(cdShape, typeof(PlacingDefinition))
+    	if(pd != null) defaultConnectionX1 + Double::valueOf(defaultConnectionWidth * pd.offset).intValue + cdShape.placingSpaceXShift else 0
+    }
+
+    def placingOffsetY(EObject cdShape) {
+    	val pd = EcoreUtil2::getContainerOfType(cdShape, typeof(PlacingDefinition))
+    	if(pd != null) defaultConnectionY1 + cdShape.placingSpaceYShift else 0
+    }
     
-    def protected styleAttribute (PolyLineLayout l) { l.layout.styleAttribute }
+    def protected styleAttribute (RectangleEllipseLayout l) { l.layout.styleAttribute }
+    def protected styleAttribute (RoundedRectangleLayout l) { l.layout.styleAttribute }
+    def protected styleAttribute (PolyLineLayout l)         { l.layout.styleAttribute }
+    def protected styleAttribute (LineLayout l)             { l.layout.styleAttribute }
     
     // STYLE
-    def protected styleAttribute (ShapestyleLayout ssl) '''
-        «IF(ssl != null && ssl.layout != null)»
-            style="
-            «IF(ssl.layout.background != null)»
-«««                fill:«ssl.layout.background.color»;
-            «ENDIF»
-            «IF(ssl.hasTransparency)»
-                opacity:«ssl.transparency»;
-            «ENDIF»
-            «IF ssl.layout.lineWidth>1»
-                stroke-width:«ssl.layout.lineWidth»px;
-            «ENDIF»
-            "
-        «ENDIF»
-    '''
+    def protected styleAttribute (ShapestyleLayout ssl) '''«IF(ssl != null && ssl.layout != null)»«ssl.handleNonNullstyleAttribute»«ENDIF»'''
+    def protected handleNonNullstyleAttribute (ShapestyleLayout ssl) '''«ssl.handleStrokeColor»«ssl.handleBackground»«ssl.handleOpacity»«ssl.handleStrokeWidth»'''
+    def protected handleBackground (ShapestyleLayout ssl) '''«IF(ssl.layout.background != null)»fill:«ssl.layout.backgroundColor»;«ENDIF»'''
+    def protected handleOpacity (ShapestyleLayout ssl) '''«IF(ssl.hasTransparency)»opacity:«ssl.transparency»;«ENDIF»'''
+    def protected handleStrokeWidth (ShapestyleLayout ssl) '''«IF ssl.layout.lineWidth>1»stroke-width:«ssl.layout.lineWidth»px;«ENDIF»'''
+    def protected handleStrokeColor (ShapestyleLayout ssl) '''«IF ssl.layout.lineColor!=null»stroke:«ssl.layout.color»;«ENDIF»'''
+    
+    def backgroundColor(StyleLayout styleLayout) {
+    	if(styleLayout.background instanceof ColorConstantRef) {
+    		(styleLayout.background as ColorConstantRef).color
+    	} else if(styleLayout.background instanceof Color) {
+    		(styleLayout.background as Color).color()
+    	} else {
+	    	""
+    	}
+    }
+    
+    def color(StyleLayout styleLayout) {
+    	if(styleLayout.lineColor instanceof ColorConstantRef) {
+    		(styleLayout.lineColor as ColorConstantRef).color
+    	} else if(styleLayout.lineColor instanceof Color) {
+    		(styleLayout.lineColor as Color).color()
+    	} else {
+	    	""
+    	}
+    }
+    
  
     def protected dispatch String styleClass (ShapeDefinition shape) {
         if (shape.style != null) shape.style.style.type.identifier else "default"

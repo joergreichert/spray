@@ -31,6 +31,5 @@
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
 <circle cx="25" cy="25" r="25"/>
-<polygon points="25 10,10 35,40 35
-" />
+<polygon points="25 10,10 35,40 35"/>
 </svg>

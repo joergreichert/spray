@@ -33,6 +33,5 @@
 <circle cx="25" cy="25" r="25"/>
 <circle cx="25" cy="25" r="23"/>
 <rect x="10" y="15" width="30" height="20"/>
-<polygon points="10 15,25 25,40 15
-" />
+<polygon points="10 15,25 25,40 15"/>
 </svg>

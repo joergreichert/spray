@@ -58,7 +58,7 @@ shape BPMN_EventMail_Double {
 			size (width=46, height=46)
 			position (x=2, y=2)
 			rectangle {
-				position (x=10, y=15)
+				position (x=8, y=13)
 				size (width=30, height=20)
 				polygon {
 					point (x=0, y=0)
@@ -78,7 +78,7 @@ shape BPMN_EventMail_DoubleDash {
 			position (x=2, y=2)
 			style (line-style=dash)
 			rectangle {
-				position (x=10, y=15)
+				position (x=8, y=13)
 				size (width=30, height=20)
 				polygon {
 					point (x=0, y=0)
@@ -99,7 +99,7 @@ shape BPMN_EventMailInvert_Double {
 				point (x=8, y=12)
 				point (x=38, y=12)
 				point (x=23, y=22)
-				style (background-color=black)
+				style (line-color=white background-color=black)
 			}
 			polygon {
 				point (x=8, y=15)
@@ -107,7 +107,7 @@ shape BPMN_EventMailInvert_Double {
 				point (x=38, y=33)
 				point (x=38, y=15)
 				point (x=23, y=25)
-				style (background-color=black)
+				style (line-color=white background-color=black)
 			}
 		}
 	}
@@ -120,7 +120,7 @@ shape BPMN_EventMailInvert_Bold {
 			point (x=10, y=15)
 			point (x=40, y=15)
 			point (x=25, y=25)
-			style (background-color=black)
+			style (line-color=white background-color=black)
 		}
 		polygon {
 			point (x=10, y=18)
@@ -128,7 +128,7 @@ shape BPMN_EventMailInvert_Bold {
 			point (x=40, y=36)
 			point (x=40, y=18)
 			point (x=25, y=28)
-			style (background-color=black)
+			style (line-color=white background-color=black)
 		}
 	}
 }
@@ -156,7 +156,7 @@ shape BPMN_EventTimer_default {
 				point (x=19, y=34)
 			}
 			line {
-				point (x=0, y=19)
+				point (x=0,  y=19)
 				point (x=4, y=19)
 			}
 			line {
@@ -1135,12 +1135,12 @@ shape BPMN_Gateway_XEvent {
 			position (x=12, y=12)
 			size (width=37, height=37)
 			polyline {
-				point (x=16, y=3)
-				point (x=28, y=11)
-				point (x=24, y=27)
-				point (x=8, y=27)
-				point (x=4, y=11)
-				point (x=16, y=3)
+				point (x=18, y=5)
+				point (x=30, y=13)
+				point (x=26, y=29)
+				point (x=10, y=29)
+				point (x=6, y=13)
+				point (x=18, y=5)
 			}
 		}
 	}

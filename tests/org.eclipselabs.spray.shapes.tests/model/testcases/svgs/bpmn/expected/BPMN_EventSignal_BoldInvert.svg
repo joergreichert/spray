@@ -30,8 +30,7 @@
     </style>
     <rect id="anchor" style="fill:#a0c0e8" width="5" height="5"/>
 </defs>
-<circle cx="25" cy="25" r="25"/>
+<circle cx="25" cy="25" r="25" style="stroke-width:3px;"/>
 <circle cx="25" cy="25" r="23"/>
-<polygon points="25 10,10 35,40 35
-" />
+<polygon points="25 10,10 35,40 35" style="fill:BLACK;"/>
 </svg>
