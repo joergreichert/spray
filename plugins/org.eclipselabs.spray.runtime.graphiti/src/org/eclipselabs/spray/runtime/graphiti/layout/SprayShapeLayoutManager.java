@@ -7,6 +7,7 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
@@ -42,7 +43,7 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
                 int width = 10;
                 int height = 10;
                 Text text = (Text) ga;
-                IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), (text.getFont() != null ? text.getFont() : text.getStyle().getFont()));
+                IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), getFont(text));
                 if (dim == null) {
                     width = data.getMinimumWidth();
                     height = data.getMinimumHeight();
@@ -67,10 +68,15 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayAbstractLayoutManager.level--;
     }
 
-    //    @Override
-    //    public void stretchHeightTo(int newHeight) {
-    //        layoutService.setHeight(shape.getGraphicsAlgorithm(), newHeight);
-    //    }
+    protected Font getFont(Text text) {
+        if (text.getFont() != null) {
+            return text.getFont();
+        } else if (text.getStyle() != null) {
+            return text.getStyle().getFont();
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public int getMargin() {

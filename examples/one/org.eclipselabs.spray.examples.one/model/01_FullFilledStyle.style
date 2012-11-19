@@ -1,6 +1,6 @@
 style BlackAndWhiteStyle {
   description = "A style with white background and black foreground."
-  transparency = 0.95
+  transparency = 0.05
   background-color = black
   line-color = black
   line-style = solid
@@ -12,7 +12,7 @@ style BlackAndWhiteStyle {
 }
 style BlackAndWhiteStyle2 {
   description = "A style with white background and black foreground."
-  transparency = 0.95
+  transparency = 0.05
   background-color = black
   line-color = black
   line-style = solid

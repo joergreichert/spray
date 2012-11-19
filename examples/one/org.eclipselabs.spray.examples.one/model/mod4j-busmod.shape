@@ -1,0 +1,208 @@
+/*************************************************************************************
+ * 
+ * Spray shapes definition  
+ * 
+ * This file contains the definition of graphical figures using the Shapes Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+// Add import statements here, e.g.   
+// import java.util.*  
+
+// A simple rectangle for a package 
+// All classes must be placed by the user
+// The size of package shape must also be done byb the user
+shape PackageShape { 
+    rectangle style org.eclipselabs.spray.styles.BusmodDefaultStyle {
+        compartment (
+            layout = fixed
+            id = classes
+        )
+        position (x=0, y=0)
+        size (width=200, height=200)
+    }
+}
+
+// A simple rectangle for a package that puts all classes in a horizontal row
+// Classes not placed by user
+// The size of the shape adapts to the classes within
+shape AutoPackageShape {
+    rectangle {
+        compartment (
+            layout = horizontal
+            margin=10
+            spacing=5
+            id = classes
+        )
+        position (x=0, y=0)
+        size (width=200, height=200)
+    }
+}
+
+// A shape for a unique rule, uses FontStyle, but this seems to be ineffective
+// The is place for the name of the rule, and a compartment for the properties 
+shape UniqueRuleShape style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+    rectangle style Unique {
+        compartment (
+            layout = horizontal
+            spacing=5
+            margin=5
+            id = DUMMY
+        )
+        position (x=0, y=0)
+        size (width=90, height=20)
+        text style FontStyle {
+            position (x=0, y=0)
+            size (width=20, height=25)
+            id = uniqueRuleName
+        }
+        rectangle {
+            compartment (
+                invisible
+                layout = vertical
+                spacing=5
+                margin=5
+                id = properties
+            )
+            position (x=0, y=0)
+            size (width=90, height=20)
+        }
+    }
+}
+// Deeply nested rectangle
+shape RectangleShape style MydiagramDefaultStyle {
+    stretching (horizontal=false, vertical=false)
+    rectangle {
+        position (x=0, y=0)
+        size (width=100, height=100)
+        rectangle {
+            position (x=10, y=10)
+            size (width=80, height=80)
+            rectangle {
+                position (x=10, y=10)
+                size (width=60, height=60)
+                rectangle {
+                    compartment (
+                        layout = vertical
+                        id = prop
+                    )
+                    position (x=10, y=10)
+                    size (width=40, height=40)
+                }
+            }
+        }
+    }
+}
+
+// class like shape with two inner compartments
+// Everything is auto layout
+shape ClassShape style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+    rectangle {
+        compartment (
+            layout = vertical
+        )
+        position (x=0, y=0)
+        size (width=100, height=80)
+        text style FontStyle {
+            position (x=0, y=0)
+            size (width=100, height=20)
+            id = classname
+        }
+        line {
+            point (x=0, y=21)
+            point (x=100, y=21)
+        }
+        rectangle {
+            compartment (
+                layout = vertical
+                stretching (
+                    horizontal=true,
+                    vertical=true
+                )
+                spacing=1
+                margin=5
+                invisible
+                id = attributes
+            )
+            position (x=0, y=22)
+            size (width=100, height=26)
+            //		   	 id = attributes
+
+        }
+        line {
+            point (x=0, y=48)
+            point (x=100, y=48)
+        }
+        rectangle {
+            compartment (
+                layout = vertical
+                spacing=10
+                margin=20
+                invisible
+                id = businessrules
+            )
+            position (x=0, y=48)
+            size (width=100, height=26)
+            //		   	 id = businessrules
+
+        }
+    }
+}
+
+shape ClassNameOnlyShape {
+    rectangle {
+        position (x=0, y=0)
+        size (width=100, height=30)
+        text style FontStyle {
+            position (x=0, y=0)
+            size (width=50, height=25)
+            id = textId1
+        }
+    } 
+}
+// Simple class like shape with one inner compartment instead of two
+// The inner compartment is not stretchable, so if there are too many shapes inside it needs to be resized by hand
+shape SimpleClassShape {
+    rounded-rectangle style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle{
+        curve (width=5, height=5)
+        position (x=0, y=0) 
+        size (width=100, height=220)
+        text style FontStyle {
+            position (x=0, y=0)
+            size (width=100, height=20)
+            id = classname
+        }
+        rectangle {
+            compartment (
+                layout = vertical
+                spacing=20
+                margin=20
+                id = simpleAttributes
+            )
+            position (x=5, y=30)
+            size (width=90, height=180)
+        }
+    }
+}
+
+// Text shape used for attributes and business rules
+shape TextShape {
+    stretching (horizontal=false, vertical=false)
+    text style FontStyle {
+        position (x=0, y=0)
+        size (width=80, height=25)
+        id = textId2
+    }
+}
+
+// Shape for associations
+connection AssociationConnection {
+    connection-type freeform
+    placing {
+        position (offset=0.5, radius=10, angle=90)
+        text style FontStyle {
+            size (width=60, height=20)
+            id = assocText
+        }
+    }
+}
+ 
