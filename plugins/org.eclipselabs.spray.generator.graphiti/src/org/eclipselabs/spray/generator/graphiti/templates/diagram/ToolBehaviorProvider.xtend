@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
 import com.google.inject.Inject
+
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
@@ -16,6 +17,7 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
+import org.eclipselabs.spray.generator.graphiti.util.StringHelpers
 
 class ToolBehaviorProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
@@ -102,7 +104,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
 
     def generate_compartmentConstants (Diagram diagram) '''
         «FOR compartmentName : diagram.paletteCompartmentNames»
-            protected static final String COMPARTMENT_«compartmentName.toUpperCase» = "«compartmentName»";
+            protected static final String COMPARTMENT_«StringHelpers::toJavaIdentifier(compartmentName.toUpperCase)» = "«compartmentName»";
         «ENDFOR»
     '''
 
@@ -139,7 +141,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         protected Iterable<IPaletteCompartmentEntry> buildPaletteCompartments() {
             return Lists.newArrayList(
                 «FOR compartmentName : diagram.paletteCompartmentNames SEPARATOR ", "»
-                    getPaletteCompartment(COMPARTMENT_«compartmentName.toUpperCase»)
+                    getPaletteCompartment(COMPARTMENT_«StringHelpers::toJavaIdentifier(compartmentName.toUpperCase)»)
                 «ENDFOR»
                 «IF diagram.paletteCompartmentNames.size > 0»,«ENDIF»
                 getPaletteCompartment(COMPARTMENT_DEFAULT)
@@ -152,7 +154,7 @@ class ToolBehaviorProvider extends FileGenerator<Diagram> {
         protected IPaletteCompartmentEntry getPaletteCompartmentForFeature(final IFeature feature) {
             «FOR behavior: diagram.allCreateBehaviors.filter(b|b.paletteCompartment!=null) SEPARATOR "else"»
                 if (feature instanceof «behavior.createFeatureClassName») {
-                    return getPaletteCompartment(COMPARTMENT_«behavior.paletteCompartment.toUpperCase»);
+                    return getPaletteCompartment(COMPARTMENT_«StringHelpers::toJavaIdentifier(behavior.paletteCompartment.toUpperCase)»);
                 }
             «ENDFOR»
             return super.getPaletteCompartmentForFeature(feature);
