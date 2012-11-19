@@ -8,44 +8,50 @@
 // Add import statements here, e.g.
 // import java.util.*
 shape PlaceShape {
-	ellipse {
-		size (width=30, height=30)
-	}
-	description {
-		id = placeDescription
-	}
-}
+    ellipse {
+            compartment (layout= fixed id = tokenCompartment)
+        position(x=0,y=0)
+        size (width=100, height=70)
+    }
+    description {
+        id = placeDescription 
+    }
+} 
 shape TransitionShape {
-	rectangle {
-		size (width=50, height=50)
-	}
-	description {
-		id = transitionShapeDescription
-	}
+    rectangle {
+        size (width=50, height=50)
+    }
+    text {
+        position(x=0, y=50)
+        size(width=50, height=20)
+        id = transitionShapeDescription
+    }
 }
 shape EmptyTransitionShape {
-	rectangle {
-		size (width=20, height=75)
-		style (background-color=black)
-	}
-	description {
-		id = transitionShapeDescription
-	}
+    rectangle {
+        size (width=20, height=75)
+        style (background-color=black)
+    }
+    text {
+        position(x=0, y=75)
+        size(width=20, height=20)
+        id = transitionShapeDescription
+    }
 }
 shape TokenShape {
-	ellipse {
-		size (width=15, height=15)
-		style (background-color=black)
-	}
+    ellipse {
+        size (width=15, height=15)
+        style (background-color=black)
+    } 
 }
 connection ArcConnection {
-	placing {
-		position (offset=1.0)
-		polygon {
-			point (x=-10, y=-5)
-			point (x=0, y=0)
-			point (x=-10, y=5)
-			style (background-color=black)
-		}
-	}
+    placing {
+        position (offset=1.0)
+        polygon {
+            point (x=-10, y=-5)
+            point (x=0, y=0)
+            point (x=-10, y=5)
+            style (background-color=black)
+        }
+    }
 }
