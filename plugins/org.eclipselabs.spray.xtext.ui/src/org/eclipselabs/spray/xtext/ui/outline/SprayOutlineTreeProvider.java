@@ -7,13 +7,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
-import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
+import org.eclipselabs.spray.mm.spray.BehaviorGroup;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.LineInSpray;
+import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.SprayPackage;
-import org.eclipselabs.spray.mm.spray.TextInSpray;
+import org.eclipselabs.spray.mm.spray.SprayStyleRef;
 
 /**
  * customization of the default outline structure
@@ -23,15 +23,15 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
     protected void _createChildren(DocumentRootNode parentNode, EObject modelElement) {
         Diagram diagram = (Diagram) modelElement;
 
-        // first the Diagram entry
+        //         first the Diagram entry
         createNode(parentNode, diagram);
-        // then the Imports
-        for (Import element : diagram.getImports()) {
-            createNode(parentNode, element);
-        }
+        //        // then the Imports
+        //        for (Import element : diagram.getImports()) {
+        //            createNode(parentNode, element);
+        //        }
         // then the rest
         for (EObject element : diagram.eContents()) {
-            if (!(element instanceof Import)) {
+            if (!(element instanceof SprayStyleRef)) {
                 createNode(parentNode, element);
             }
         }
@@ -39,20 +39,23 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
     @Override
     protected void _createNode(IOutlineNode parentNode, EObject modelElement) {
-        if (modelElement.eClass() == SprayPackage.Literals.LAYOUT)
-            return;
-        createEObjectNode(parentNode, modelElement);
+        //        if (modelElement.eClass() == SprayPackage.Literals.LAYOUT) {
+        //            return;
+        //        }
+        if ((modelElement instanceof MetaClass) || (modelElement instanceof BehaviorGroup) || (modelElement instanceof Import)) {
+            createEObjectNode(parentNode, modelElement);
+        }
     }
 
     protected boolean _isLeaf(Diagram element) {
         return true;
     }
 
-    protected boolean _isLeaf(ConnectionInSpray element) {
+    protected boolean _isLeaf(MetaClass element) {
         return true;
     }
 
-    protected boolean _isLeaf(TextInSpray element) {
+    protected boolean _isLeaf(BehaviorGroup element) {
         return true;
     }
 

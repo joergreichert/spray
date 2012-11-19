@@ -5,27 +5,34 @@ package org.eclipselabs.spray.shapes.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.shapes.Shape;
+import org.eclipselabs.spray.shapes.shapes.ShapeContainer;
 
 import com.google.inject.Inject;
 
 /**
  * Provides labels for a EObjects.
- * 
  * see
  * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#labelProvider
  */
 public class ShapeLabelProvider extends DefaultEObjectLabelProvider {
 
-	@Inject
-	public ShapeLabelProvider(AdapterFactoryLabelProvider delegate) {
-		super(delegate);
-	}
+    @Inject
+    public ShapeLabelProvider(AdapterFactoryLabelProvider delegate) {
+        super(delegate);
+    }
 
-	/*
-	 * //Labels and icons can be computed like this:
-	 * 
-	 * String text(MyModel ele) { return "my "+ele.getName(); }
-	 * 
-	 * String image(MyModel ele) { return "MyModel.gif"; }
-	 */
+    public String image(ConnectionDefinition element) {
+        return "connection16.gif";
+    }
+
+    public String image(ShapeContainer element) {
+        return "Diagram.gif";
+    }
+
+    public String text(Shape shape) {
+        return shape.eClass().getName();
+    }
+
 }

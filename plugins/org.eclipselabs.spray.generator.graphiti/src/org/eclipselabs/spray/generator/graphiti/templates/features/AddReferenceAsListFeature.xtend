@@ -125,7 +125,7 @@ class AddReferenceAsListFeature extends FileGenerator<MetaReference>  {
             peService.setPropertyValue(newShape, PROPERTY_MODEL_TYPE, «target.EReferenceType.literalConstant».getName());
             peService.setPropertyValue(newShape, ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.TEXT);
             // TODO Name attribute should not be default
-            Text text = gaService.createDefaultText(getDiagram(), newShape, getText(context, addedModelElement)/*, addedModelElement.get«reference.labelPropertyName.toFirstUpper»()*/);
+            Text text = gaService.createDefaultText(getDiagram(), newShape, getText(context, addedModelElement));
             // TODO find the right text color
             text.setForeground(manageColor(ISprayColorConstants.CLASS_TEXT_FOREGROUND));
             text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);

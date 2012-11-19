@@ -5,12 +5,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Diagram" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="metaClasses" upperBound="-1"
-        eType="#//MetaClass" containment="true" eOpposite="#//MetaClass/diagram"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviourGroups" upperBound="-1"
-        eType="#//BehaviorGroup" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelType" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviourGroups" upperBound="-1"
+        eType="#//BehaviorGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaClasses" upperBound="-1"
+        eType="#//MetaClass" containment="true" eOpposite="#//MetaClass/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//SprayStyleRef"
         containment="true"/>
   </eClassifiers>

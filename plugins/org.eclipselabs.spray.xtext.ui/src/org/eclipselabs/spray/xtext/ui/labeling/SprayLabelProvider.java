@@ -1,20 +1,15 @@
 package org.eclipselabs.spray.xtext.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Behavior;
-import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.ContainerInSpray;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.LineInSpray;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
-import org.eclipselabs.spray.mm.spray.TextInSpray;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 
 import com.google.inject.Inject;
@@ -32,16 +27,6 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
     @Inject
     public SprayLabelProvider(AdapterFactoryLabelProvider delegate) {
         super(delegate);
-    }
-
-    public String text(ConnectionInSpray element) {
-        final String from = element.getFrom() != null ? element.getFrom().getName() : "";
-        final String to = element.getTo() != null ? element.getTo().getName() : "";
-        return String.format(" %s -> %s", from, to);
-    }
-
-    public String image(ConnectionInSpray element) {
-        return "connection16.gif";
     }
 
     public String text(ContainerInSpray element) {
@@ -66,7 +51,7 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
 
     public String text(MetaClass element) {
         if (element.getAlias() != null) {
-            return String.format("%s (%s)", element.getType().getName(), element.getAlias());
+            return String.format("%s alias %s", element.getType().getName(), element.getAlias());
         } else {
             return element.getType() != null ? element.getType().getName() : "";
         }
@@ -106,18 +91,18 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         }
     }
 
-    public String text(TextInSpray element) {
-        StringBuilder b = new StringBuilder();
-        ICompositeNode node = NodeModelUtils.getNode(element);
-        for (INode child : node.getChildren()) {
-            if (child.getGrammarElement() == grammar.getTextInSprayAccess().getValueXExpressionParserRuleCall_4_0()) {
-                b.append(child.getText());
-            }
-        }
-        return b.toString().trim();
-    }
-
-    public String image(TextInSpray element) {
-        return "Text.gif";
-    }
+    //    public String text(TextInSpray element) {
+    //        StringBuilder b = new StringBuilder();
+    //        ICompositeNode node = NodeModelUtils.getNode(element);
+    //        for (INode child : node.getChildren()) {
+    //            if (child.getGrammarElement() == grammar.getTextInSprayAccess().getValueXExpressionParserRuleCall_4_0()) {
+    //                b.append(child.getText());
+    //            }
+    //        }
+    //        return b.toString().trim();
+    //    }
+    //
+    //    public String image(TextInSpray element) {
+    //        return "Text.gif";
+    //    }
 }

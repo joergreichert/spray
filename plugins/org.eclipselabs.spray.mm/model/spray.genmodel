@@ -10,9 +10,9 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="spray.ecore#//Figure"/>
     <genClasses ecoreClass="spray.ecore#//Diagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/imports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/metaClasses"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/behaviourGroups"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/modelType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/behaviourGroups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/metaClasses"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//Diagram/style"/>
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//ShapeInSpray">

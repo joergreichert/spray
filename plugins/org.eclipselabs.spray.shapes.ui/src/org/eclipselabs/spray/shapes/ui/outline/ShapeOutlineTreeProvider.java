@@ -3,12 +3,57 @@
  */
 package org.eclipselabs.spray.shapes.ui.outline;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
+import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.shapes.Import;
+import org.eclipselabs.spray.shapes.shapes.Shape;
+import org.eclipselabs.spray.shapes.shapes.ShapeContainer;
+import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.shapes.ShapeLayout;
+import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
 
 /**
  * customization of the default outline structure
- * 
  */
 public class ShapeOutlineTreeProvider extends DefaultOutlineTreeProvider {
+    @Override
+    protected void _createChildren(DocumentRootNode parentNode, EObject modelElement) {
+        ShapeContainer shapeContainer = (ShapeContainer) modelElement;
+
+        for (EObject element : shapeContainer.eContents()) {
+            createNode(parentNode, element);
+        }
+    }
+
+    @Override
+    protected void _createNode(IOutlineNode parentNode, EObject modelElement) {
+        if (modelElement instanceof ShapeStyleRef || modelElement instanceof ShapeLayout) {
+            return;
+        }
+        createEObjectNode(parentNode, modelElement);
+    }
+
+    protected boolean _isLeaf(ShapeContainer element) {
+        return true;
+    }
+
+    protected boolean _isLeaf(Shape element) {
+        return true;
+    }
+
+    protected boolean _isLeaf(ShapeDefinition element) {
+        return false;
+    }
+
+    protected boolean _isLeaf(ConnectionDefinition element) {
+        return true;
+    }
+
+    protected boolean _isLeaf(Import element) {
+        return true;
+    }
 
 }
