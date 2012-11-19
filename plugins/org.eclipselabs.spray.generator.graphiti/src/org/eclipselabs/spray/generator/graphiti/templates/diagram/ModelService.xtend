@@ -80,7 +80,7 @@ class ModelService extends FileGenerator<Diagram> {
                 EObject bo = (EObject) dtp.getFeatureProvider().getBusinessObjectForPictogramElement(diagram);
                 «modelClassName» model = null;
                 // If its a proxy, resolve it
-               if( bo.eIsProxy() ){
+               if( bo != null && bo.eIsProxy() ){
                     if( bo instanceof InternalEObject) {
                         model = («modelClassName»)set.getEObject(((InternalEObject) bo).eProxyURI(), true);
                     }

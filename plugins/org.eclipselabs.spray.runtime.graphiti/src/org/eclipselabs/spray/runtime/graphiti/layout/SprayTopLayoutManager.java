@@ -26,6 +26,7 @@ public class SprayTopLayoutManager extends SprayAbstractLayoutManager {
         int width = 0;
         int height = 0;
         debug("TopLayoutManager.layout() " + SprayLayoutService.getId(shape));
+        print(shape, 0);
         for (Shape child : shape.getChildren()) {
             ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
             mgr.layout();

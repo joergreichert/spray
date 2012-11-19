@@ -51,6 +51,7 @@ class GeneratorShapeDefinition {
 		import org.eclipse.graphiti.mm.algorithms.styles.Point;
 		import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 		
+		import org.eclipse.graphiti.datatypes.IDimension;
 		import org.eclipse.graphiti.features.*;
 		import org.eclipse.graphiti.features.context.IAddContext;
 		import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;

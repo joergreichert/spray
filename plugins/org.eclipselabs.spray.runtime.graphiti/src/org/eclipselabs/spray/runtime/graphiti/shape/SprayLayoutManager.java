@@ -175,7 +175,7 @@ public class SprayLayoutManager implements ISprayConstants {
         recalulatePointList(p.getPoints(), widthFactor, heightFactor);
     }
 
-    protected void resizePolygon(Polygon p, IDimension size, double widthFactor, double heightFactor) {
+    static public void resizePolygon(Polygon p, IDimension size, double widthFactor, double heightFactor) {
         recalulatePointList(p.getPoints(), widthFactor, heightFactor);
     }
 
@@ -192,7 +192,7 @@ public class SprayLayoutManager implements ISprayConstants {
         gaService.setLocationAndSize(gAlgorithm, newXCord, newYCord, newWidth, newHeight);
     }
 
-    protected void recalulatePointList(EList<Point> points, double widthFactor, double heightFactor) {
+    static public void recalulatePointList(EList<Point> points, double widthFactor, double heightFactor) {
         for (Point point : points) {
             int newXCord = (int) Math.round(point.getX() * widthFactor);
             int newYCord = (int) Math.round(point.getY() * heightFactor);

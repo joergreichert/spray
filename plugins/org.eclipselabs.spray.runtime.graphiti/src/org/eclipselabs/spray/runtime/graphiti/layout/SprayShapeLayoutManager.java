@@ -3,6 +3,7 @@ package org.eclipselabs.spray.runtime.graphiti.layout;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -56,7 +57,12 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
             } else if (ga instanceof Polyline) {
                 Polyline pl = (Polyline) ga;
                 IDimension dim = layoutService.calculateSize(pl);
-                SprayAbstractLayoutManager.debug("ShapeLayout ");
+                SprayAbstractLayoutManager.debug("ShapeLayout PolyLine");
+                layoutService.setSize(ga, dim.getWidth(), (dim.getHeight() < 1 ? 4 : dim.getHeight()));
+            } else if (ga instanceof Polygon) {
+                Polygon pl = (Polygon) ga;
+                IDimension dim = layoutService.calculateSize(pl);
+                SprayAbstractLayoutManager.debug("ShapeLayout Polygon");
                 layoutService.setSize(ga, dim.getWidth(), (dim.getHeight() < 1 ? 4 : dim.getHeight()));
             } else if (ga instanceof Rectangle || ga instanceof RoundedRectangle || ga instanceof Ellipse) {
                 layoutService.calculateSize(ga);
