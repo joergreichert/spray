@@ -74,14 +74,13 @@ class BusinessClass  {
         name into businessClassText
     }
     behavior {
-        create into types palette "Shapes" askFor name
+        create into types palette "Shapes" 
     }
 }
 
 p. 
 This defines that the class @BusinessClass@ from our domain (ecore) model is represented by the @SimpleClassShape@ shape.
 After saving the model the editor sources will be automatically generated to the @src-gen@ folder of the project.
-!images/gettingstarted_1.png!
 
 p. 
 Replace the plugin.xml in the project root (in the beginning there is even no plugin.xml in the project root) with the plugin.xml from src-gen. 
@@ -96,7 +95,7 @@ h3. Test the editor
 * Choose the Diagram Type "busmod"
 !images/gettingstarted_3.png!
 * Your new diagram editor opens!
-!images/gettingstarted_4.png!
+!images/first-editor.png!
 
 As alternative you can create your diagram also this way:
 * Right-click on the @src@ folder, choose _File / New / Other -> busmod / New busmod Diagram_
