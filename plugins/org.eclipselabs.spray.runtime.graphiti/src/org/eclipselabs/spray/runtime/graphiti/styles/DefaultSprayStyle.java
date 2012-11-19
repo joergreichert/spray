@@ -59,7 +59,7 @@ public class DefaultSprayStyle implements ISprayStyle {
         style.setDescription("This is the default Style definition for Spray");
 
         // Setting the transparency value - default is 1.0
-        style.setTransparency(1.0);
+        style.setTransparency(0.0);
 
         // Setting the background color
         style.setFilled(true);
@@ -93,17 +93,17 @@ public class DefaultSprayStyle implements ISprayStyle {
 
         if (id == null) {
             return null;
-	}
+        }
         AdaptedGradientColoredAreas colorSchema;
         for (Style s : container.getStyles()) {
             if (id.equals(s.getId())) {
-            	// Update Rendering Style
-            	colorSchema = getColorSchema();
-            	if(colorSchema != null) {
+                // Update Rendering Style
+                colorSchema = getColorSchema();
+                if (colorSchema != null) {
                     gaService.setRenderingStyle(s, colorSchema);
-            	}
+                }
                 return s;
-	    }
+            }
         }
         return null;
     }

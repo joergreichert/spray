@@ -1,244 +1,244 @@
 shape LWC_Vessel_Vertical {
-	rounded-rectangle {
-		size (width=120, height=60)
-		curve (width=50, height=50)
-		text {
-			size (width=100, height=20)
-			position (x=3, y=20)
-			align (horizontal=center, vertical=middle)
-			id = shapeName
-		}
-	}
-}
+    rounded-rectangle {
+        size (width=120, height=60)
+        curve (width=50, height=50)
+        text style TextStyle {
+            size (width=100, height=20)
+            position (x=3, y=20)
+            align (horizontal=center, vertical=middle)
+            id = shapeName 
+        }
+    }
+} 
 shape LWC_Vessel_Horizontal {
-	rounded-rectangle {
-		size (width=60, height=120)
-		curve (width=50, height=50)
-		text {
-			size (width=60, height=20)
-			position (x=3, y=50)
-			id = shapeName
-		}
-	}
-	description {
-		align (horizontal=center, vertical=middle)
-		id = descriptionName
-	}
+    rounded-rectangle {
+        size (width=60, height=120)
+        curve (width=50, height=50)
+        text style TextStyle {
+            size (width=60, height=20) 
+            position (x=3, y=50)
+            id = shapeName
+        }
+    }
+    description {
+        align (horizontal=center, vertical=middle)
+        id = descriptionName
+    }
 }
 shape LWC_HeatExchanger {
-	ellipse {
-		position (x=0, y=20)
-		size (width=60, height=60)
-	}
-	polyline {
-		point (x=90, y=70)
-		point (x=30, y=70)
-		point (x=50, y=50)
-		point (x=30, y=30)
-		point (x=90, y=30)
-	}
-	text {
-		size (width=100, height=20)
-		id = shapeName
-	}
-	anchor {
-		position (x=0, y=50)
-		position (x=90, y=30)
-		position (x=90, y=70)
-	}
+    ellipse {
+        position (x=0, y=20)
+        size (width=60, height=60)
+    }
+    polyline {
+        point (x=90, y=70)
+        point (x=30, y=70)
+        point (x=50, y=50)
+        point (x=30, y=30)
+        point (x=90, y=30)
+    }
+    text style TextStyle {
+        size (width=100, height=20)
+        id = shapeName
+    }
+    anchor {
+        position (x=0, y=50)
+        position (x=90, y=30)
+        position (x=90, y=70)
+    }
 }
 shape LWC_Valve {
-	polygon {
-		point (x=0, y=0)
-		point (x=120, y=60)
-		point (x=120, y=0)
-		point (x=0, y=60)
-	}
-	text {
-		position (x=30, y=0)
-		size (width=60, height=20)
-		id = shapeName
-	}
+    polygon {
+        point (x=0, y=0)
+        point (x=120, y=60)
+        point (x=120, y=0)
+        point (x=0, y=60)
+    }
+    text style TextStyle {
+        position (x=30, y=0)
+        size (width=60, height=20)
+        id = shapeName
+    }
 }
 shape LWC_Valve_Manual {
-	polygon {
-		point (x=0, y=60)
-		point (x=120, y=120)
-		point (x=120, y=60)
-		point (x=0, y=120)
-	}
-	line {
-		point (x=60, y=30)
-		point (x=60, y=90)
-	}
-	line {
-		point (x=40, y=30)
-		point (x=80, y=30)
-	}
-	text {
-		position (x=30, y=100)
-		size (width=60, height=20)
-		id = shapeName
-	}
+    polygon {
+        point (x=0, y=60)
+        point (x=120, y=120)
+        point (x=120, y=60)
+        point (x=0, y=120)
+    }
+    line {
+        point (x=60, y=30)
+        point (x=60, y=90)
+    }
+    line {
+        point (x=40, y=30)
+        point (x=80, y=30)
+    }
+    text style TextStyle {
+        position (x=30, y=100)
+        size (width=60, height=20)
+        id = shapeName
+    }
 }
 shape LWC_Valve_Control {
-	polygon {
-		point (x=0, y=60)
-		point (x=120, y=120)
-		point (x=120, y=60)
-		point (x=0, y=120)
-	}
-	line {
-		point (x=60, y=30)
-		point (x=60, y=90)
-	}
-	polygon {
-		point (x=40, y=30)
-		point (x=60, y=0, curveBefore=30, curveAfter=30)
-		point (x=80, y=30)
-	}
-	text {
-		position (x=30, y=100)
-		size (width=60, height=20)
-		id = shapeName
-	}
+    polygon {
+        point (x=0, y=60)
+        point (x=120, y=120)
+        point (x=120, y=60)
+        point (x=0, y=120)
+    }
+    line {
+        point (x=60, y=30)
+        point (x=60, y=90)
+    }
+    polygon {
+        point (x=40, y=30)
+        point (x=60, y=0, curveBefore=30, curveAfter=30)
+        point (x=80, y=30)
+    }
+    text style TextStyle {
+        position (x=30, y=100)
+        size (width=60, height=20)
+        id = shapeName
+    }
 }
 shape LWC_Pump {
-	ellipse {
-		size (width=60, height=60)
-		line {
-			point (x=8, y=10)
-			point (x=60, y=30)
-		}
-		line {
-			point (x=8, y=50)
-			point (x=60, y=30)
-		}
-		text {
-			position (x=5, y=20)
-			size (width=60, height=20)
-			id = shapeName
-		}
-	}
+    ellipse {
+        size (width=60, height=60)
+        line {
+            point (x=8, y=10)
+            point (x=60, y=30)
+        }
+        line {
+            point (x=8, y=50)
+            point (x=60, y=30)
+        }
+        text style TextStyle {
+            position (x=5, y=20)
+            size (width=60, height=20)
+            id = shapeName
+        }
+    }
 }
 shape LWC_Pump_Vacuum {
-	ellipse {
-		size (width=60, height=60)
-		line {
-			point (x=8, y=10)
-			point (x=57, y=20)
-		}
-		line {
-			point (x=8, y=50)
-			point (x=57, y=40)
-		}
-		text {
-			position (x=5, y=20)
-			size (width=60, height=20)
-			id = shapeName
-		}
-	}
+    ellipse {
+        size (width=60, height=60)
+        line {
+            point (x=8, y=10)
+            point (x=57, y=20)
+        }
+        line {
+            point (x=8, y=50)
+            point (x=57, y=40)
+        }
+        text style TextStyle {
+            position (x=5, y=20)
+            size (width=60, height=20)
+            id = shapeName
+        }
+    }
 }
 shape LWC_SystemEnd {
-	polyline {
-		point (x=10, y=30)
-		point (x=20, y=45, curveBefore=30, curveAfter=30)
-		point (x=10, y=60)
-		point (x=0, y=75, curveBefore=30, curveAfter=30)
-		point (x=10, y=90)
-		style (line-width=3)
-	}
+    polyline {
+        point (x=10, y=30)
+        point (x=20, y=45, curveBefore=30, curveAfter=30)
+        point (x=10, y=60)
+        point (x=0, y=75, curveBefore=30, curveAfter=30)
+        point (x=10, y=90)
+        style (line-width=3)
+    }
 }
 shape LWC_Joint {
-	ellipse {
-		size (width=10, height=10)
-	}
+    ellipse {
+        size (width=10, height=10)
+    }
 }
 shape LWC_Location_NoLine {
-	ellipse {
-		size (width=50, height=50)
-		text {
-			position (x=0, y=5)
-			size (width=50, height=20)
-			align (horizontal=center, vertical=middle)
-			id = shapeName
-		}
-		text {
-			position (x=0, y=30)
-			size (width=50, height=20)
-			align (horizontal=center, vertical=middle)
-			id = valueName
-		}
-	}
+    ellipse {
+        size (width=50, height=50)
+        text style TextStyle {
+            position (x=0, y=5)
+            size (width=50, height=20)
+            align (horizontal=center, vertical=middle)
+            id = shapeName
+        }
+        text style TextStyle {
+            position (x=0, y=30)
+            size (width=50, height=20)
+            align (horizontal=center, vertical=middle)
+            id = valueName
+        }
+    }
 }
 shape LWC_Location_SolidLine {
-	ellipse {
-		size (width=50, height=50)
-		line {
-			point (x=0, y=25)
-			point (x=50, y=25)
-		}
-		text {
-			position (x=0, y=5)
-			size (width=50, height=20)
-			align (horizontal=center, vertical=middle)
-			id = shapeName
-		}
-		text {
-			position (x=0, y=30)
-			size (width=50, height=20)
-			align (horizontal=center, vertical=middle)
-			id = valueName
-		}
-	}
+    ellipse {
+        size (width=50, height=50)
+        line {
+            point (x=0, y=25)
+            point (x=50, y=25)
+        }
+        text style TextStyle {
+            position (x=0, y=5)
+            size (width=50, height=20)
+            align (horizontal=center, vertical=middle)
+            id = shapeName
+        }
+        text style TextStyle {
+            position (x=0, y=30)
+            size (width=50, height=20)
+            align (horizontal=center, vertical=middle)
+            id = valueName
+        }
+    }
 }
 shape LWC_Location_DashedLine {
-	ellipse {
-		size (width=50, height=50)
-		line {
-			point (x=0, y=25)
-			point (x=50, y=25)
-			style (line-style=dash)
-		}
-		text {
-			position (x=0, y=5)
-			size (width=50, height=20)
-			align (horizontal=center, vertical=middle)
-			id = shapeName
-		}
-		text {
-			position (x=0, y=30)
-			size (width=50, height=20)
-			align (horizontal=center, vertical=middle)
-			id = valueName
-		}
-	}
+    ellipse {
+        size (width=50, height=50)
+        line {
+            point (x=0, y=25)
+            point (x=50, y=25)
+            style (line-style=dash)
+        }
+        text style TextStyle {
+            position (x=0, y=5)
+            size (width=50, height=20)
+            align (horizontal=center, vertical=middle)
+            id = shapeName
+        }
+        text style TextStyle {
+            position (x=0, y=30)
+            size (width=50, height=20)
+            align (horizontal=center, vertical=middle)
+            id = valueName
+        }
+    }
 }
 connection LWC_Pipe {
-	connection-type freeform
-	placing {
-		position (offset=0.5, radius=10, angle=90)
-		text {
-			size (width=60, height=20)
-			id = pipeText
-		}
-	}
+    connection-type freeform
+    placing {
+        position (offset=0.5, radius=10, angle=90)
+        text style TextStyle {
+            size (width=60, height=20)
+            id = pipeText
+        }
+    }
 }
 connection LWC_Source_Exhaust {
-	connection-type freeform
-	placing {
-		position (offset=1.0)
-		polygon {
-			point (x=-10, y=-5)
-			point (x=-10, y=5)
-			point (x=0, y=0)
-		}
-	}
-	placing {
-		position (offset=0.3, radius=30, angle=45)
-		text {
-			size (width=150, height=25)
-			id = connectionName
-		}
-	}
+    connection-type freeform
+    placing {
+        position (offset=1.0)
+        polygon {
+            point (x=-10, y=-5)
+            point (x=-10, y=5)
+            point (x=0, y=0)
+        }
+    }
+    placing {
+        position (offset=0.3, radius=30, angle=45)
+        text style TextStyle {
+            size (width=150, height=25)
+            id = connectionName
+        }
+    }
 }

@@ -42,7 +42,7 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
                 int width = 10;
                 int height = 10;
                 Text text = (Text) ga;
-                IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), text.getFont());
+                IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), (text.getFont() != null ? text.getFont() : text.getStyle().getFont()));
                 if (dim == null) {
                     width = data.getMinimumWidth();
                     height = data.getMinimumHeight();

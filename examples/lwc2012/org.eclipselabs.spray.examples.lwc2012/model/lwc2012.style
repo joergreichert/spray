@@ -1,14 +1,18 @@
 style LWC2012CorporateStyle {
-	background-color = org.eclipselabs.spray.styles.gradients.GreenToWhite
+	background-color = GreenToWhite
 	line-color = dark-green
-	font-name = "Lucida Sans"
-	font-size = 8
-	font-color = blue
 	gradient-orientation = horizontal
 	highlighting(
-		selected=org.eclipselabs.spray.styles.gradients.GreenToOrange
-		multiselected=org.eclipselabs.spray.styles.gradients.GreenToYellow
+		selected=GreenToOrange
+		multiselected=GreenToYellow
 		allowed=green
-		unallowed=org.eclipselabs.spray.styles.gradients.GreenToRed			
+		unallowed=GreenToRed			
 	)
+}
+
+style TextStyle extends JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+    font-name = "Lucida Sans"
+    font-size = 8
+    font-color = blue
+    background-color = transparent
 }

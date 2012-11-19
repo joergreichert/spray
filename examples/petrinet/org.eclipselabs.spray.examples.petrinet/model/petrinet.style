@@ -8,15 +8,17 @@
 
 // Add definition of styles here.
 style PetrinetDefaultStyle {
-	description = "The default style of the petrinet diagram type."
-	// transparency = 0.95
-	// background-color = black
-	// line-color = black
-	// line-style = solid
-	// line-width = 1
-	// font-color = black
-	// font-name = "Tahoma"
-	font-size = 6
-	// font-bold = yes
-
+    description = "The default style of the petrinet diagram type."
+    // transparency = 0.95
+    // background-color = black
+    // line-color = black
+    // line-style = solid
+    // line-width = 1
+    // font-color = black
+    // font-name = "Tahoma"
+    font-size = 6
+    background-color = transparent
+    // font-bold = yes 
+  
 }
+ 
