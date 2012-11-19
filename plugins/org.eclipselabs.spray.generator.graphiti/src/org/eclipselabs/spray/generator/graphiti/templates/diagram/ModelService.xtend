@@ -25,6 +25,8 @@ class ModelService extends FileGenerator<Diagram> {
         import org.eclipse.core.resources.IWorkspaceRoot;
         import org.eclipse.core.resources.ResourcesPlugin;
         import org.eclipse.core.runtime.CoreException;
+        import org.eclipse.emf.ecore.EObject;
+        import org.eclipse.emf.ecore.InternalEObject;
         import org.eclipse.emf.common.util.URI;
         import org.eclipse.emf.ecore.resource.Resource;
         import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -54,10 +56,8 @@ class ModelService extends FileGenerator<Diagram> {
              * return the model service, create one if it does not exist yet.
              */
             static public «className» getModelService(IDiagramTypeProvider dtp){
-            	if( modelService == null ){
-            		modelService = new «className»(dtp);
-            	}
-            	return modelService;
+           	    modelService = new «className»(dtp);
+                return modelService;
             }
             
             /**
@@ -65,7 +65,7 @@ class ModelService extends FileGenerator<Diagram> {
              * returns null if there is no model service.
              */
             static public «className» getModelService(){
-            	return modelService;
+                return modelService;
             }
             
             protected «className» (IDiagramTypeProvider dtp) {
@@ -75,7 +75,16 @@ class ModelService extends FileGenerator<Diagram> {
             
             public «modelClassName» getModel () {
                 final Diagram diagram = dtp.getDiagram();
-                «modelClassName» model = («modelClassName») dtp.getFeatureProvider().getBusinessObjectForPictogramElement(diagram);
+                Resource r = diagram.eResource();
+                ResourceSet set = r.getResourceSet();
+                EObject bo = (EObject) dtp.getFeatureProvider().getBusinessObjectForPictogramElement(diagram);
+                «modelClassName» model = null;
+                // If its a proxy, resolve it
+               if( bo.eIsProxy() ){
+                    if( bo instanceof InternalEObject) {
+                        model = («modelClassName»)set.getEObject(((InternalEObject) bo).eProxyURI(), true);
+                    }
+                }
                 if (model == null) {
                     model = createModel();
                 }

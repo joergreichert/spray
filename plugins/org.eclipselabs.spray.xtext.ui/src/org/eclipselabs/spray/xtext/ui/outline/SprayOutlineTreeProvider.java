@@ -25,10 +25,6 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
         //         first the Diagram entry
         createNode(parentNode, diagram);
-        //        // then the Imports
-        //        for (Import element : diagram.getImports()) {
-        //            createNode(parentNode, element);
-        //        }
         // then the rest
         for (EObject element : diagram.eContents()) {
             if (!(element instanceof SprayStyleRef)) {
@@ -39,9 +35,6 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
     @Override
     protected void _createNode(IOutlineNode parentNode, EObject modelElement) {
-        //        if (modelElement.eClass() == SprayPackage.Literals.LAYOUT) {
-        //            return;
-        //        }
         if ((modelElement instanceof MetaClass) || (modelElement instanceof BehaviorGroup) || (modelElement instanceof Import)) {
             createEObjectNode(parentNode, modelElement);
         }

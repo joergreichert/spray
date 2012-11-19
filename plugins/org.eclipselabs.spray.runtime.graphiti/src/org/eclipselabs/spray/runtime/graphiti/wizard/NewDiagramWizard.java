@@ -1,16 +1,11 @@
 package org.eclipselabs.spray.runtime.graphiti.wizard;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -28,10 +23,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -111,40 +102,40 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
      * the editor on the newly created file.
      */
 
-    public void doFinish(String containerName, String fileName, IProgressMonitor monitor, InputStream inputStream) throws CoreException {
-        // create a sample file which has a hmm type
-        String fileNameWithType = fileName + ".diagram";
-        monitor.beginTask("Creating " + fileNameWithType, 2);
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IResource resource = root.findMember(new Path(containerName));
-        if (!resource.exists() || !(resource instanceof IContainer)) {
-            throwCoreException("Container \"" + containerName + "\" does not exist.");
-        }
-        IContainer container = (IContainer) resource;
-        final IFile file = container.getFile(new Path(fileNameWithType));
-        try {
-            InputStream stream = inputStream;
-            if (file.exists()) {
-                file.setContents(stream, true, true, monitor);
-            } else {
-                file.create(stream, true, monitor);
-            }
-            stream.close();
-        } catch (IOException e) {
-        }
-        monitor.worked(1);
-        monitor.setTaskName("Opening file for editing...");
-        getShell().getDisplay().asyncExec(new Runnable() {
-            public void run() {
-                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-                try {
-                    IDE.openEditor(page, file, true);
-                } catch (PartInitException e) {
-                }
-            }
-        });
-        monitor.worked(1);
-    }
+    //    public void doFinish(String containerName, String fileName, IProgressMonitor monitor, InputStream inputStream) throws CoreException {
+    //        // create a sample file which has a hmm type
+    //        String fileNameWithType = fileName + ".diagram";
+    //        monitor.beginTask("Creating " + fileNameWithType, 2);
+    //        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+    //        IResource resource = root.findMember(new Path(containerName));
+    //        if (!resource.exists() || !(resource instanceof IContainer)) {
+    //            throwCoreException("Container \"" + containerName + "\" does not exist.");
+    //        }
+    //        IContainer container = (IContainer) resource;
+    //        final IFile file = container.getFile(new Path(fileNameWithType));
+    //        try {
+    //            InputStream stream = inputStream;
+    //            if (file.exists()) {
+    //                file.setContents(stream, true, true, monitor);
+    //            } else {
+    //                file.create(stream, true, monitor);
+    //            }
+    //            stream.close();
+    //        } catch (IOException e) {
+    //        }
+    //        monitor.worked(1);
+    //        monitor.setTaskName("Opening file for editing...");
+    //        getShell().getDisplay().asyncExec(new Runnable() {
+    //            public void run() {
+    //                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    //                try {
+    //                    IDE.openEditor(page, file, true);
+    //                } catch (PartInitException e) {
+    //                }
+    //            }
+    //        });
+    //        monitor.worked(1);
+    //    }
 
     private void throwCoreException(String message) throws CoreException {
         IStatus status = new Status(IStatus.ERROR, "org.eclipselabs.spray.runtime.graphiti", IStatus.OK, message, null);
