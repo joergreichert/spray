@@ -10,8 +10,9 @@ Workflow {
 		scanClassPath=true
 	}
 	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
-		srcGenDir = "src-gen"
-		srcManDir = "src"
+//		srcGenDir = "src-gen"
+//		srcManDir = "src"
+        clean = "false"
 		modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
 	}
 }

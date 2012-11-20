@@ -1,0 +1,17 @@
+module org.eclipselabs.spray.example.one.ShapesGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+        registerGeneratedEPackage = "BusinessDomainDsl.BusinessDomainDslPackage"
+        registerGenModelFile = "platform:/resource/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
+		clean = "false"
+        modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
+	}
+}

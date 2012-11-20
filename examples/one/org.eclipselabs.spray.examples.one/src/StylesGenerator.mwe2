@@ -1,0 +1,18 @@
+module org.eclipselabs.spray.example.one.StylesGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+        registerGeneratedEPackage = "BusinessDomainDsl.BusinessDomainDslPackage"
+        registerGenModelFile = "platform:/resource/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel"
+		scanClassPath=true
+	}
+	
+	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
+		clean = "false"
+		validate = "false"
+        modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
+	}
+}
