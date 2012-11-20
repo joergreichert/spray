@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import static extension org.eclipselabs.spray.generator.graphiti.util.XtendProperties.*
-import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaReference
 
@@ -108,33 +107,6 @@ class Plugin extends TemplateUtil {
         «ENDFOR»
     
     
-        // Find all clases that are shown as lists in the compartments
-        «FOR cls :  diagram.metaClasses »
-            «IF cls.representedBy instanceof ContainerInSpray»
-                «var container = (cls.representedBy as ContainerInSpray) »
-                «FOR ref :  container.parts.filter(typeof(MetaReference)) »  
-                    «setValue("refName", ref.name)» 
-                    «val target = ref.target»
-                      «setValue("PreviousSection", null)»
-                    <extension
-                      point="org.eclipse.ui.views.properties.tabbed.propertySections">
-                      <propertySections contributorId="«diagramName».PropertyContributor">
-                    «FOR attribute : target.EReferenceType.EAllAttributes»
-                          <propertySection tab="«diagramName».main.tab"           
-                           class="«diagram.extensionFactoryClassName»:«GeneratorUtil::property_package()».«target.EReferenceType.name»«attribute.name.toFirstUpper»Section"
-                           filter="«GeneratorUtil::property_package()».«target.EReferenceType.name»Filter"
-                          «IF getValue("PreviousSection") != null»
-                           afterSection="«getValue("PreviousSection")»"
-                          «ENDIF»
-                           «setValue("PreviousSection", diagramName + ".main.tab." + target.EReferenceType.name + "." + attribute.name)»
-                           id="«getValue("PreviousSection")»">
-                          </propertySection>
-                    «ENDFOR»
-                      </propertySections>
-                  </extension>
-                «ENDFOR»
-            «ENDIF»
-        «ENDFOR»
             «generate_newDiagramWizard(diagram)»
         </plugin>
     '''

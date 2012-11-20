@@ -12,10 +12,7 @@ import com.google.inject.Singleton;
 public class SprayTypeProvider extends XbaseTypeProvider {
     @Override
     protected JvmTypeReference _expectedType(EObject obj, EReference reference, int index, boolean rawType) {
-        if (reference == SprayPackage.Literals.TEXT_IN_SPRAY__VALUE) {
-            // The expected type of the 'value' expression of type Text is String
-            return getTypeReferences().getTypeForName(String.class, obj, (JvmTypeReference[]) null);
-        } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__VALUE) {
+        if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__VALUE) {
             // The expected type of the 'value' expression of type ShapePropertyAssignment is the type of the Key
             // final ShapePropertyAssignment assignment = (ShapePropertyAssignment) obj;
             // final JvmFormalParameter param = (JvmFormalParameter) assignment.getKey();

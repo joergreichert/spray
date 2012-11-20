@@ -5,7 +5,6 @@ package org.eclipselabs.spray.xtext.formatting;
 
 import java.util.List;
 
-import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
@@ -30,7 +29,6 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
         handleDiagram(c, f);
         handleBehavior(c, f);
         handleMetaclass(c, f);
-        handleRGBColor(c, f);
 
         handleSeparators(c, f.findKeywords(";", ","));
         handleBrackets(c, f.findKeywordPairs("{", "}"));
@@ -61,12 +59,6 @@ public class SprayFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap().around(f.getShapePropertyAssignmentRule());
         c.setLinewrap().around(f.getShapeCompartmentAssignmentRule());
         c.setLinewrap(2).after(f.getMetaClassRule());
-    }
-
-    private void handleRGBColor(FormattingConfig c, SprayGrammarAccess f) {
-        for (AbstractElement element : f.getRGBColorAccess().getGroup().getElements()) {
-            c.setNoLinewrap().after(element);
-        }
     }
 
     private void handleSeparators(FormattingConfig c, List<Keyword> keywords) {

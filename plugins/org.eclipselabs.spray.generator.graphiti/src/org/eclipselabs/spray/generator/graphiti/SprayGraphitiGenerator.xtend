@@ -22,31 +22,25 @@ import org.eclipselabs.spray.generator.graphiti.templates.diagram.ToolBehaviorPr
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddConnectionFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsConnectionFeature
-import org.eclipselabs.spray.generator.graphiti.templates.features.AddReferenceAsListFeature
-import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.AddShapeFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CopyFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferenceAsConnectionFeature
-import org.eclipselabs.spray.generator.graphiti.templates.features.CreateReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferenceFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.MoveFeature
-import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.PasteFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
-import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
-import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
@@ -70,22 +64,17 @@ class SprayGraphitiGenerator implements IGenerator {
     @Inject Plugin plugin
     @Inject DiagramTypeProvider dtp
     @Inject FeatureProvider fp
-    @Inject AddShapeFeature addShapeFeature
     @Inject AddShapeFromDslFeature addShapeFromDslFeature
     @Inject AddConnectionFeature addConnectionFeature
     @Inject AddConnectionFromDslFeature addConnectionFromDslFeature
     @Inject AddReferenceAsConnectionFeature addReferenceAsConnectionFeature
-    @Inject AddReferenceAsListFeature addReferenceAsListFeature
     @Inject CreateConnectionFeature createConnectionFeature
     @Inject CreateShapeFeature createShapeFeature
-    @Inject CreateReferenceAsListFeature createReferenceAsListFeature
     @Inject CreateReferenceAsConnectionFeature createReferenceAsConnectionFeature 
     @Inject UpdateConnectionFeature updateConnectionFeature
     @Inject UpdateConnectionFromDslFeature updateConnectionFromDslFeature
     @Inject MoveFeature moveFeature
-    @Inject LayoutFeature layoutFeature
     @Inject LayoutFromDslFeature layoutFromDslFeature
-    @Inject UpdateShapeFeature updateShapeFeature
     @Inject UpdateShapeFromDslFeature updateShapeFromDslFeature
     @Inject UpdateReferenceAsListFeature updateReferenceAsListFeature
     @Inject DeleteReferenceFeature deleteReferenceFeature
@@ -125,19 +114,15 @@ class SprayGraphitiGenerator implements IGenerator {
         generateDiagramTypeProvider(diagram, java, dtp)
         generateFeatureProvider(diagram, java, fp)
         
-        generateAddShapeFeatures(diagram, java, addShapeFeature)
         generateAddShapeFromDslFeatures(diagram, java, addShapeFromDslFeature)
         generateAddConnectionFeatures(diagram, java, addConnectionFeature)
         generateAddReferenceAsConnectionFeature(diagram, java, addReferenceAsConnectionFeature)
-        generateAddReferenceAsListFeature(diagram, java, addReferenceAsListFeature)
         
         generateCreateConnectionFeature(diagram, java, createConnectionFeature)
         generateCreateShapeFeature(diagram, java, createShapeFeature)
         
-        handleTypesInReferences(diagram, java, createReferenceAsListFeature)
-        
         generateCreateReferenceAsConnectionFeature(diagram, java, createReferenceAsConnectionFeature)
-        generateUpdateAndLayoutFeatures(diagram, java, updateShapeFeature, updateConnectionFeature, updateReferenceAsListFeature, layoutFeature)
+        generateUpdateAndLayoutFeatures(diagram, java, updateConnectionFeature, updateReferenceAsListFeature)
         generateUpdateAndLayoutFromDslFeatures(diagram, java, updateShapeFromDslFeature, layoutFromDslFeature)
         generateDeleteReferenceFeature(diagram, java, deleteReferenceFeature)
         
@@ -192,15 +177,6 @@ class SprayGraphitiGenerator implements IGenerator {
         featureProvider.generate(diagram, java)
     }
     
-    def generateAddShapeFeatures(Diagram diagram, JavaGenFile java, AddShapeFeature asf) {
-        // Generate for all Container Shapes
-        for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ContainerInSpray)){
-            var container = metaClass.representedBy as ContainerInSpray
-            java.setPackageAndClass(metaClass.addFeatureClassName)
-            asf.setAttributes(metaClass, diagram.style)
-            asf.generate(container, java)
-        }
-    }
     def generateAddShapeFromDslFeatures(Diagram diagram, JavaGenFile java, AddShapeFromDslFeature asf) {
         for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl )){
             var container = metaClass.representedBy as ShapeFromDsl
@@ -235,19 +211,7 @@ class SprayGraphitiGenerator implements IGenerator {
             }
         }
     }    
-    
-    def generateAddReferenceAsListFeature(Diagram diagram, JavaGenFile java, AddReferenceAsListFeature aralf) {
-        for( metaClass : diagram.metaClasses) {
-            if( metaClass.representedBy instanceof ContainerInSpray ){
-                var container = metaClass.representedBy as ContainerInSpray
-                for(metaRef : container.parts.filter(typeof(MetaReference)) ){
-                    java.setPackageAndClass(metaRef.addReferenceAsListFeatureClassName)
-                    aralf.generate(metaRef, java)
-                }
-            }
-        }
-    }
-    
+        
     def generateCreateConnectionFeature(Diagram diagram, JavaGenFile java, CreateConnectionFeature ccf) {
         for( metaClass : diagram.getElementsForTemplate(createConnectionFeature)) {
             java.setPackageAndClass(metaClass.createFeatureClassName)
@@ -262,48 +226,37 @@ class SprayGraphitiGenerator implements IGenerator {
         }
     }
     
-    def handleTypesInReferences(Diagram diagram, JavaGenFile java, CreateReferenceAsListFeature cralf) {
-//        println("1 : " +  diagram.metaClasses.filter( m | m.container != null))
-        for( reference : diagram.metaClasses.filter( m | m.representedBy != null).map(m | m.representedBy).filter(typeof(ContainerInSpray)).map(c | (c as ContainerInSpray).parts.filter(typeof(MetaReference))).flatten) {
-            val referenceName = reference.getName
-            var metaClass = (reference.eContainer as ContainerInSpray).represents
-            var target = metaClass.type.EAllReferences.findFirst(e|e.name == referenceName) 
-            var targetType = target.EReferenceType 
-            handleTargetType(java, cralf, reference, targetType)
-        }
-    }
-    
-    def handleTargetType(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
-        if( !targetType.^abstract ) {
-//            println("NOT ABSTRACT: " + targetType.name)
-            java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
-            cralf.setTarget(targetType)
-            cralf.generate(reference, java)
-        } else {
-//            println("ABSTRACT: " + targetType.name)
-//            java.setPackageAndClass(feature_package(), metaClass.diagram.name.toFirstUpper + "Create" + metaClass.name + reference.name + targetType.name + "Feature")
-//            var CreateReferenceAsListFeature ft = new CreateReferenceAsListFeature()
-//            ft.setTarget(targetType)
-//            ft.generate(reference, java)
-        }
-        handleTargetTypeSubClasses(java, cralf, reference, targetType)
-    }
-    
-    def handleTargetTypeSubClasses(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
-        for( subclass : targetType.getSubclasses() ){
-            if( ! subclass.^abstract ){
-                println("NOT ABSTRACT subclass: " + subclass.name)
-                java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
-                cralf.setTarget(subclass)
-                cralf.generate(reference, java)
-            } else {
-                println("ABSTRACT subclass: " +subclass.name)
-                java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
-                cralf.setTarget(subclass)
-                cralf.generate(reference, java)
-            }
-        }    
-    }
+//    def handleTargetType(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
+//        if( !targetType.^abstract ) {
+////            println("NOT ABSTRACT: " + targetType.name)
+//            java.setPackageAndClass(reference.createReferenceAsListFeatureClassName)
+//            cralf.setTarget(targetType)
+//            cralf.generate(reference, java)
+//        } else {
+////            println("ABSTRACT: " + targetType.name)
+////            java.setPackageAndClass(feature_package(), metaClass.diagram.name.toFirstUpper + "Create" + metaClass.name + reference.name + targetType.name + "Feature")
+////            var CreateReferenceAsListFeature ft = new CreateReferenceAsListFeature()
+////            ft.setTarget(targetType)
+////            ft.generate(reference, java)
+//        }
+//        handleTargetTypeSubClasses(java, cralf, reference, targetType)
+//    }
+//    
+//    def handleTargetTypeSubClasses(JavaGenFile java, CreateReferenceAsListFeature cralf, MetaReference reference, EClass targetType) {
+//        for( subclass : targetType.getSubclasses() ){
+//            if( ! subclass.^abstract ){
+//                println("NOT ABSTRACT subclass: " + subclass.name)
+//                java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
+//                cralf.setTarget(subclass)
+//                cralf.generate(reference, java)
+//            } else {
+//                println("ABSTRACT subclass: " +subclass.name)
+//                java.setPackageAndClass(reference.getCreateReferenceAsListFeatureClassName(subclass))
+//                cralf.setTarget(subclass)
+//                cralf.generate(reference, java)
+//            }
+//        }    
+//    }
     
     def generateCreateReferenceAsConnectionFeature(Diagram diagram, JavaGenFile java, CreateReferenceAsConnectionFeature cracf) {
         for( metaClass : diagram.metaClasses) {
@@ -314,17 +267,12 @@ class SprayGraphitiGenerator implements IGenerator {
          }
     }
     
-    def generateUpdateAndLayoutFeatures(Diagram diagram, JavaGenFile java, UpdateShapeFeature usf, UpdateConnectionFeature ucf, UpdateReferenceAsListFeature uralf, LayoutFeature lf) {
+    def generateUpdateAndLayoutFeatures(Diagram diagram, JavaGenFile java, UpdateConnectionFeature ucf, UpdateReferenceAsListFeature uralf) {
         for( metaClass : diagram.metaClasses ) {
             if( (metaClass.representedBy instanceof ConnectionInSpray ) && ( (metaClass.representedBy as ConnectionInSpray).connection == null)) {
                 //    No layout feature needed
                 val connection = metaClass.representedBy as ConnectionInSpray
                 generateUpdateConnectionFeature(metaClass, connection, java, ucf)
-            } else if( metaClass.representedBy instanceof ContainerInSpray ) {
-                val container = metaClass.representedBy as ContainerInSpray
-                generateLayoutFeature(metaClass, container, java, lf)
-                generateUpdateShapeFeature(metaClass, container, java, usf)
-                generateUpdateReferenceAsListFeature(metaClass, java, uralf)
             }
         }    
     }
@@ -343,11 +291,6 @@ class SprayGraphitiGenerator implements IGenerator {
         }    
     }
 
-    def generateUpdateShapeFeature(MetaClass metaClass, ContainerInSpray container, JavaGenFile java, UpdateShapeFeature usf) {
-        java.setPackageAndClass(metaClass.updateFeatureClassName)
-        usf.generate(container, java)
-    }
-    
     def generateUpdateShapeFromDslFeature(MetaClass metaClass, ShapeFromDsl container, JavaGenFile java, UpdateShapeFromDslFeature usf) {
         java.setPackageAndClass(metaClass.updateFeatureClassName)
         usf.generate(container, java)
@@ -362,26 +305,11 @@ class SprayGraphitiGenerator implements IGenerator {
         ucf.generate(connection, java)
     }
     
-    def generateLayoutFeature(MetaClass metaClass, ContainerInSpray container, JavaGenFile java, LayoutFeature lf) {
-        java.setPackageAndClass(metaClass.layoutFeatureClassName)
-        lf.generate(container, java)
-    }
     def generateLayoutFromDslFeature(MetaClass metaClass, ShapeFromDsl container, JavaGenFile java, LayoutFromDslFeature lf) {
         java.setPackageAndClass(metaClass.layoutFeatureClassName)
         lf.generate(container, java)
     }
 
-    def generateUpdateReferenceAsListFeature(MetaClass metaClass, JavaGenFile java, UpdateReferenceAsListFeature uralf) {
-        var container = metaClass.representedBy as ContainerInSpray
-        for( reference : container.parts.filter(p | p instanceof MetaReference).map(p | p as MetaReference) ) {
-            val referenceName = reference.getName
-            var eClass = metaClass.type.EAllReferences.findFirst(e|e.name == referenceName).EReferenceType 
-            uralf.setTarget(eClass)
-            java.setPackageAndClass(reference.updateReferenceAsListFeatureClassName)
-            uralf.generate(reference, java)
-        }
-    }
-    
     def generateDeleteReferenceFeature(Diagram diagram, JavaGenFile java, DeleteReferenceFeature drf) {
         for( metaClass : diagram.metaClasses) {
             for( reference : metaClass.references ) {
@@ -404,20 +332,8 @@ class SprayGraphitiGenerator implements IGenerator {
     def generatePropertySection(Diagram diagram, JavaGenFile java, PropertySection ps) {
         for( metaClass : diagram.metaClasses) {
             generatePropertySectionForEClassAttributes(diagram, java, metaClass.type, ps)
-            if( metaClass.representedBy instanceof ContainerInSpray ){
-                generatePropertySectionForReferenceAttributes(diagram, java, metaClass, ps)
-            }
         }        
     }    
-
-    def generatePropertySectionForReferenceAttributes(Diagram diagram, JavaGenFile java, MetaClass metaClass, PropertySection ps) {
-        val container = metaClass.representedBy as ContainerInSpray
-        for( reference : container.parts.filter(p | p instanceof MetaReference).map(p | p as MetaReference)) {
-            val referenceName = reference.getName
-            var eClass = metaClass.type.EAllReferences.findFirst(r | r.name == referenceName).EReferenceType
-            generatePropertySectionForEClassAttributes(diagram, java, eClass, ps)
-        }
-    }
 
     def generatePropertySectionForEClassAttributes(Diagram diagram, JavaGenFile java, EClass eClass, PropertySection ps) {
         for( attribute : eClass.EAllAttributes){
@@ -434,22 +350,9 @@ class SprayGraphitiGenerator implements IGenerator {
     def generateFilter(Diagram diagram, JavaGenFile java, Filter f, Filter f2) {
         for( metaClass : diagram.metaClasses) {
             generateFilter(diagram, java, metaClass, f)
-
-            if( metaClass.representedBy instanceof ContainerInSpray){
-                generateFilterForReference(diagram, java, f2, metaClass)
-            }
         }
     }    
     
-    def generateFilterForReference(Diagram diagram, JavaGenFile java, Filter f, MetaClass metaClass) {
-        val container = metaClass.representedBy as ContainerInSpray
-        for( reference : container.parts.filter( p | p instanceof MetaReference).map(p | p as MetaReference)){
-            val referenceName = reference.getName
-            val eClass = metaClass.type.EAllReferences.findFirst(ref| ref.name == referenceName).EReferenceType 
-            generateFilter(diagram, java, eClass, f)
-        }
-    }
-
     def generateFilter(Diagram diagram, JavaGenFile java, MetaClass metaClass, Filter f) {
         f.setDiagram(diagram)
         java.setPackageAndClass(metaClass.filterClassName)

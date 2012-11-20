@@ -4,10 +4,8 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions;
 import org.eclipselabs.spray.mm.spray.Behavior;
-import org.eclipselabs.spray.mm.spray.ContainerInSpray;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
-import org.eclipselabs.spray.mm.spray.LineInSpray;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
@@ -29,24 +27,12 @@ public class SprayLabelProvider extends DefaultEObjectLabelProvider {
         super(delegate);
     }
 
-    public String text(ContainerInSpray element) {
-        return "";
-    }
-
     public String image(Diagram element) {
         return "Diagram.gif";
     }
 
     public String image(Import element) {
         return "Import.gif";
-    }
-
-    public String text(LineInSpray element) {
-        return "";
-    }
-
-    public String image(LineInSpray element) {
-        return "Line.png";
     }
 
     public String text(MetaClass element) {

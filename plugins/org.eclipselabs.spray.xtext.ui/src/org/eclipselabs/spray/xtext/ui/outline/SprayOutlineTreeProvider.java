@@ -10,7 +10,6 @@ import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipselabs.spray.mm.spray.BehaviorGroup;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
-import org.eclipselabs.spray.mm.spray.LineInSpray;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
@@ -49,10 +48,6 @@ public class SprayOutlineTreeProvider extends DefaultOutlineTreeProvider {
     }
 
     protected boolean _isLeaf(BehaviorGroup element) {
-        return true;
-    }
-
-    protected boolean _isLeaf(LineInSpray element) {
         return true;
     }
 

@@ -2,7 +2,6 @@ package org.eclipselabs.spray.runtime.graphiti.xtext.tb;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -12,24 +11,18 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.mm.Property;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.tb.IDecorator;
-import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.xtext.ui.util.IssueUtil;
 import org.eclipse.xtext.validation.Issue;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipselabs.spray.runtime.graphiti.containers.ISprayContainer;
-import org.eclipselabs.spray.runtime.graphiti.containers.SprayContainerService;
 import org.eclipselabs.spray.runtime.graphiti.tb.IRenderingDecoratorProvider;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 
 public class XtextValidationDecoratorProvider implements IRenderingDecoratorProvider {
     protected IPeService             peService;
@@ -57,25 +50,26 @@ public class XtextValidationDecoratorProvider implements IRenderingDecoratorProv
 
     @Override
     public IDecorator[] getDecorators(PictogramElement pe) {
-        Property concept = peService.getProperty(pe, ISprayContainer.CONCEPT_SHAPE_KEY);
+        //        Property concept = peService.getProperty(pe, ISprayContainer.CONCEPT_SHAPE_KEY);
 
-        if (concept == null || !"TopContainer".equals(concept.getValue()))
-            return null;
+        //        if (concept == null || !"TopContainer".equals(concept.getValue()))
+        //            return null;
 
-        pe = SprayContainerService.findTextShape((ContainerShape) pe);
-        EObject bo = (EObject) fp.getBusinessObjectForPictogramElement(pe);
-        if (bo == null || bo.eIsProxy() || bo.eResource() == null)
-            return null;
+        //        pe = SprayContainerService.findTextShape((ContainerShape) pe);
+        //        EObject bo = (EObject) fp.getBusinessObjectForPictogramElement(pe);
+        //        if (bo == null || bo.eIsProxy() || bo.eResource() == null)
+        //            return null;
 
-        List<IMarker> markers = Lists.newArrayList(findMarkers(bo));
-        if (!markers.isEmpty()) {
-            IDecorator decorator = new ImageDecorator(getImageIdForDecorator(markers));
-            final String message = buildMessage(markers);
-            decorator.setMessage(message);
-            return new IDecorator[]{decorator};
-        } else {
-            return null;
-        }
+        //        List<IMarker> markers = Lists.newArrayList(findMarkers(bo));
+        //        if (!markers.isEmpty()) {
+        //            IDecorator decorator = new ImageDecorator(getImageIdForDecorator(markers));
+        //            final String message = buildMessage(markers);
+        //            decorator.setMessage(message);
+        //            return new IDecorator[]{decorator};
+        //        } else {
+        //            return null;
+        //        }
+        return null;
     }
 
     private String getImageIdForDecorator(Iterable<IMarker> markers) {

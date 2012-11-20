@@ -3,7 +3,6 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import com.google.inject.Inject
 import org.eclipse.xtext.xbase.compiler.ImportManager
 import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
-import org.eclipselabs.spray.mm.spray.TextInSpray
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipse.xtend2.lib.StringConcatenation
@@ -45,24 +44,17 @@ class TemplateUtil extends Object {
     /**
      * Generate the full expression to calculate the value of a Text, existing of string literals and navigation expressions
      */
-    def CharSequence valueGenerator(TextInSpray text, String metaClassVariable)    {
-        try {
-            compiler.metaClassVariable = metaClassVariable
-            val body = compiler.compile(text.value, new ImportManager(false))
-            val result = new StringConcatenation()
-            result.append(body)
-            return result
-        } finally {
-            compiler.metaClassVariable = null
-        }
-    }
-    
-    /**
-     * Generate a unique key for the full expression to be used in map storage
-     */
-    def keyGenerator(TextInSpray text) {
-        return text.value.toString
-    }
+//    def CharSequence valueGenerator(TextInSpray text, String metaClassVariable)    {
+//        try {
+//            compiler.metaClassVariable = metaClassVariable
+//            val body = compiler.compile(text.value, new ImportManager(false))
+//            val result = new StringConcatenation()
+//            result.append(body)
+//            return result
+//        } finally {
+//            compiler.metaClassVariable = null
+//        }
+//    }
     
     /**
      * Generate an Override annotation and Javadoc inheritance 

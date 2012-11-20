@@ -7,7 +7,6 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
-import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import java.util.Set
@@ -41,9 +40,9 @@ class MetaClassExtensions {
     /**
      * @return <code>true</code> when the MetaClass is represented by a Container Shape
      */
-    def boolean isRepresentedByContainer (MetaClass mc) {
-        mc.representedBy instanceof ContainerInSpray
-    }
+//    def boolean isRepresentedByContainer (MetaClass mc) {
+//        mc.representedBy instanceof ContainerInSpray
+//    }
     /**
      * @return <code>true</code> when the MetaClass is represented by a Connection Shape
      */

@@ -129,21 +129,21 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     def generate_getValue (ConnectionInSpray connection) '''
         protected String getValue(final String type, final «connection.represents.itfName» eClass) {
             String result = "";
-            «IF connection.fromLabel != null»
-            if(PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
-                «valueGenerator(connection.fromLabel, "eClass")»
-            }
-            «ENDIF»
-            «IF connection.toLabel!=null»
-            if(PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
-                «valueGenerator(connection.toLabel, "eClass")»
-            }
-            «ENDIF»
-            «IF connection.connectionLabel!=null»
-            if(PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
-                «valueGenerator(connection.connectionLabel, "eClass")»
-            }
-            «ENDIF»
+«««            «IF connection.fromLabel != null»
+«««            if(PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
+«««                «valueGenerator(connection.fromLabel, "eClass")»
+«««            }
+«««            «ENDIF»
+«««            «IF connection.toLabel!=null»
+«««            if(PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
+«««                «valueGenerator(connection.toLabel, "eClass")»
+«««            }
+«««            «ENDIF»
+«««            «IF connection.connectionLabel!=null»
+«««            if(PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
+«««                «valueGenerator(connection.connectionLabel, "eClass")»
+«««            }
+«««            «ENDIF»
             return result;
         }
     '''

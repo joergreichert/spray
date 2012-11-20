@@ -3,8 +3,6 @@ package org.eclipselabs.spray.generator.graphiti.util;
 import java.io.File;
 import java.util.Date;
 
-import org.eclipselabs.spray.mm.spray.ContainerInSpray;
-
 public class GeneratorUtil {
 
     public static String gen_dir() {
@@ -58,23 +56,23 @@ public class GeneratorUtil {
         return name.split("\\.")[0];
     }
 
-    public static String constainerClass(ContainerInSpray container) {
-        if (container.getLayout().getFigure().equalsIgnoreCase("rectangle")) {
-            return "SprayRectangleContainer";
-        } else if (container.getLayout().getFigure().equalsIgnoreCase("Diamond")) {
-            return "SprayDiamondContainer";
-        } else if (container.getLayout().getFigure().equalsIgnoreCase("PmwCalculationConcept")) {
-            return "SprayPmwCalcContainer";
-        } else if (container.getLayout().getFigure().equalsIgnoreCase("PmwCalculationPart")) {
-            return "SprayPmwCalcContainer";
-        } else if (container.getLayout().getFigure().equalsIgnoreCase("PmwProduct")) {
-            return "SprayConceptContainer";
-        } else if (container.getLayout().getFigure().equalsIgnoreCase("RequestSpecConcept")) {
-            return "SprayPmwRequestContainer";
-        } else {
-            return "SprayRectangleContainer";
-        }
-    }
+    //    public static String constainerClass(ContainerInSpray container) {
+    //        if (container.getLayout().getFigure().equalsIgnoreCase("rectangle")) {
+    //            return "SprayRectangleContainer";
+    //        } else if (container.getLayout().getFigure().equalsIgnoreCase("Diamond")) {
+    //            return "SprayDiamondContainer";
+    //        } else if (container.getLayout().getFigure().equalsIgnoreCase("PmwCalculationConcept")) {
+    //            return "SprayPmwCalcContainer";
+    //        } else if (container.getLayout().getFigure().equalsIgnoreCase("PmwCalculationPart")) {
+    //            return "SprayPmwCalcContainer";
+    //        } else if (container.getLayout().getFigure().equalsIgnoreCase("PmwProduct")) {
+    //            return "SprayConceptContainer";
+    //        } else if (container.getLayout().getFigure().equalsIgnoreCase("RequestSpecConcept")) {
+    //            return "SprayPmwRequestContainer";
+    //        } else {
+    //            return "SprayRectangleContainer";
+    //        }
+    //    }
 
     public static String timestamp() {
         if (ProjectProperties.getHeaderTimestamp()) {

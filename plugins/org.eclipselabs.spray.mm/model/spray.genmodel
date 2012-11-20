@@ -17,38 +17,11 @@
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//ShapeInSpray">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//ShapeInSpray/represents"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeInSpray/layout"/>
     </genClasses>
-    <genClasses ecoreClass="spray.ecore#//Layout">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/lineWidth"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/rounded"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/cornerHeight"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/cornerWidth"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/figure"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/bold"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Layout/italic"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Layout/lineColor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Layout/textColor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Layout/fillColor"/>
-    </genClasses>
-    <genClasses ecoreClass="spray.ecore#//RectangleInSpray"/>
-    <genClasses ecoreClass="spray.ecore#//ContainerInSpray">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ContainerInSpray/parts"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//ContainerInSpray/list"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//ContainerInSpray/horizontal"/>
-    </genClasses>
-    <genClasses ecoreClass="spray.ecore#//TextInSpray">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//TextInSpray/value"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="spray.ecore#//SprayElement">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//SprayElement/container"/>
-    </genClasses>
+    <genClasses image="false" ecoreClass="spray.ecore#//SprayElement"/>
     <genClasses ecoreClass="spray.ecore#//ConnectionInSpray">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/from"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/to"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/fromLabel"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/toLabel"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/connectionLabel"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/connection"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionInSpray/properties"/>
     </genClasses>
@@ -67,11 +40,8 @@
     <genClasses ecoreClass="spray.ecore#//MetaReference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/representedBy"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/metaClass"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/text"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference spray.ecore#//MetaReference/labelProperty"/>
     </genClasses>
-    <genClasses ecoreClass="spray.ecore#//LineInSpray"/>
     <genClasses image="false" ecoreClass="spray.ecore#//Behavior">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//Behavior/name"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//Behavior/metaClass"/>
@@ -92,16 +62,6 @@
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//NamedElement/name"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="spray.ecore#//ColorInSpray"/>
-    <genClasses ecoreClass="spray.ecore#//ColorConstantRef">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ColorConstantRef/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ColorConstantRef/field"/>
-    </genClasses>
-    <genClasses ecoreClass="spray.ecore#//RGBColor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//RGBColor/red"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//RGBColor/green"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//RGBColor/blue"/>
     </genClasses>
     <genClasses image="false" ecoreClass="spray.ecore#//AliasableElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//AliasableElement/alias"/>

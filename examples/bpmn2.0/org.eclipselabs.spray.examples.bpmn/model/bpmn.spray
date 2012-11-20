@@ -9,462 +9,462 @@
  *************************************************************************************/
 // Add import statements here, e.g.
 // import BPMN.*
-import BPMN.*
-import org.eclipselabs.spray.shapes.*
-import org.eclipselabs.spray.styles.*
+import BPMN.* 
+import org.eclipselabs.spray.shapes.*  
+import org.eclipselabs.spray.styles.*   
 
-diagram bpmn for BPMNModelElement style BpmnDefaultStyle
+diagram bpmn for BPMNModelElement style BpmnDefaultStyle 
 
 class BPMNActivityCallActivity {
-	shape BPMN_Activity_CallActivity {
-		name into shapeName
-	}
-	behavior {
-		create into modelElements palette "Activity" askFor name;
-	}
+    shape BPMN_Activity_CallActivity {
+        name into shapeName
+    }
+    behavior {
+        create into modelElements palette "Activity" askFor name;
+    }
 }
 
 class BPMNActivityEventSubProcess {
-	shape BPMN_Activity_EventSubProcess {
-		name into shapeName
-	}
-	behavior {
-		create into modelElements palette "Activity" askFor name;
-	}
+    shape BPMN_Activity_EventSubProcess {
+        name into shapeName
+    }
+    behavior {
+        create into modelElements palette "Activity" askFor name;
+    }
 }
 
 class BPMNActivityTask {
-	shape BPMN_Activity_Task {
-		name into shapeName
-	}
-	behavior {
-		create into modelElements palette "Activity" askFor name;
-	}
+    shape BPMN_Activity_Task {
+        name into shapeName
+    }
+    behavior {
+        create into modelElements palette "Activity" askFor name;
+    }
 }
 
 class BPMNActivityTransaction {
-	shape BPMN_Activity_Transaction {
-		name into shapeName
-	}
-	behavior {
-		create into modelElements palette "Activity" askFor name;
-	}
+    shape BPMN_Activity_Transaction {
+        name into shapeName
+    }
+    behavior {
+        create into modelElements palette "Activity" askFor name;
+    }
 }
 
 class BPMNConversationBold {
-	shape BPMN_Conversation_Bold behavior {
-		create into modelElements palette "Conversation";
-	}
+    shape BPMN_Conversation_Bold behavior {
+        create into modelElements palette "Conversation";
+    }
 }
 
 class BPMNConversationDefault {
-	shape BPMN_Conversation_default behavior {
-		create into modelElements palette "Conversation";
-	}
+    shape BPMN_Conversation_default behavior {
+        create into modelElements palette "Conversation";
+    }
 }
 
 class BPMNDataStorage {
-	shape BPMN_DataStorage behavior {
-		create into modelElements palette "Storage";
-	}
+    shape BPMN_DataStorage behavior {
+        create into modelElements palette "Storage";
+    }
 }
 
 class BPMNEventCancelBoldInvert {
-	shape BPMN_EventCancel_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventCancel_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventCancelDouble {
-	shape BPMN_EventCancel_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventCancel_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventCompensationBoldInvert {
-	shape BPMN_EventCompensation_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventCompensation_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventCompensationDefault {
-	shape BPMN_EventCompensation_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventCompensation_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventCompensationDouble {
-	shape BPMN_EventCompensation_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventCompensation_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventCompensationDoubleInvert {
-	shape BPMN_EventCompensation_DoubleInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventCompensation_DoubleInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEndDefault {
-	shape BPMN_EventEnd_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEnd_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEndUsed {
-	shape BPMN_EventEnd_used behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEnd_used behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventErrorBoldInvert {
-	shape BPMN_EventError_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventError_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventErrorDefault {
-	shape BPMN_EventError_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventError_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventErrorDouble {
-	shape BPMN_EventError_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventError_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEskalationBoldInvert {
-	shape BPMN_EventEskalation_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEskalation_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEskalationDash {
-	shape BPMN_EventEskalation_Dash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEskalation_Dash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEskalationDoubelDash {
-	shape BPMN_EventEskalation_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEskalation_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEskalationDoubelInvert {
-	shape BPMN_EventEskalation_DoubleInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEskalation_DoubleInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEskalationDouble {
-	shape BPMN_EventEskalation_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEskalation_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventEskalationStart {
-	shape BPMN_EventEskalation_Start behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventEskalation_Start behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventIfDash {
-	shape BPMN_EventIf_Dash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventIf_Dash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventIfDefault {
-	shape BPMN_EventIf_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventIf_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventIfDouble {
-	shape BPMN_EventIf_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventIf_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventIfDoubleDash {
-	shape BPMN_EventIf_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventIf_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventLinkEntered {
-	shape BPMN_EventLink_entered behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventLink_entered behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventLinkTriggerd {
-	shape BPMN_EventLink_triggered behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventLink_triggered behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMail {
-	shape BPMN_EventMail behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMail behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMailDash {
-	shape BPMN_EventMail_Dash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMail_Dash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMailDouble {
-	shape BPMN_EventMail_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMail_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMailDoubleDash {
-	shape BPMN_EventMail_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMail_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMailInvertBold {
-	shape BPMN_EventMailInvert_Bold behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMailInvert_Bold behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMultiBoldInvert {
-	shape BPMN_EventMulti_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMulti_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMultiDash {
-	shape BPMN_EventMulti_dash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMulti_dash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMultiDefault {
-	shape BPMN_EventMulti_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMulti_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMultiDouble {
-	shape BPMN_EventMulti_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMulti_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMultiDoubleDash {
-	shape BPMN_EventMulti_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMulti_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventMultiDoubleInvert {
-	shape BPMN_EventMulti_DoubleInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventMulti_DoubleInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventParallelDash {
-	shape BPMN_EventParallel_dash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventParallel_dash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventParallelDefault {
-	shape BPMN_EventParallel_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventParallel_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventParallelDouble {
-	shape BPMN_EventParallel_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventParallel_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventParallelDoubleDash {
-	shape BPMN_EventParallel_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventParallel_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventSignalBoldInvert {
-	shape BPMN_EventSignal_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventSignal_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventSignalDash {
-	shape BPMN_EventSignal_BoldInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventSignal_BoldInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventSignalDefault {
-	shape BPMN_EventSignal_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventSignal_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventSignalDouble {
-	shape BPMN_EventSignal_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventSignal_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventSignalDoubleDash {
-	shape BPMN_EventSignal_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventSignal_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventSignalDoubleInvert {
-	shape BPMN_EventSignal_DoubleInvert behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventSignal_DoubleInvert behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventStartDefault {
-	shape BPMN_EventStart_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventStart_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventTermination {
-	shape BPMN_EventTermination behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventTermination behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventTimerDash {
-	shape BPMN_EventTimer_Dash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventTimer_Dash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventTimerDefault {
-	shape BPMN_EventTimer_default behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventTimer_default behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventTimerDouble {
-	shape BPMN_EventTimer_Double behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventTimer_Double behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNEventTimerDoubleDash {
-	shape BPMN_EventTimer_DoubleDash behavior {
-		create into modelElements palette "Event";
-	}
+    shape BPMN_EventTimer_DoubleDash behavior {
+        create into modelElements palette "Event";
+    }
 }
 
 class BPMNGatewayAnd {
-	shape BPMN_Gateway_AND behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_AND behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayAndEvent {
-	shape BPMN_Gateway_AND_Event behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_AND_Event behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayComplex {
-	shape BPMN_Gateway_complex behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_complex behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayEvent {
-	shape BPMN_Gateway_Event behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_Event behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayOR {
-	shape BPMN_Gateway_OR behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_OR behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayXEvent {
-	shape BPMN_Gateway_XEvent behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_XEvent behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayXOR1 {
-	shape BPMN_Gateway_XOR_1 behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_XOR_1 behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNGatewayXOR2 {
-	shape BPMN_Gateway_XOR_2 behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_Gateway_XOR_2 behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNListData {
-	shape BPMN_ListData behavior {
-		create into modelElements palette "List";
-	}
+    shape BPMN_ListData behavior {
+        create into modelElements palette "List";
+    }
 }
 
 class BPMNOneData {
-	shape BPMN_OneData behavior {
-		create into modelElements palette "Gateway";
-	}
+    shape BPMN_OneData behavior {
+        create into modelElements palette "Gateway";
+    }
 }
 
 class BPMNSequenceFlow {
-	connection BPMN_SequenceFlow ( ) {
-		from formElement;
-		to toElement;
-	}
-	behavior {
-		create into modelElements palette "Connections";
-	}
+    connection BPMN_SequenceFlow  {
+        from formElement;
+        to toElement;
+    }
+    behavior {
+        create into modelElements palette "Connections";
+    }
 }
 
 class BPMNDefaultFlow {
-	connection BPMN_DefaultFlow ( ) {
-		from formElement;
-		to toElement;
-	}
-	behavior {
-		create into modelElements palette "Connections";
-	}
+    connection BPMN_DefaultFlow  {
+        from formElement;
+        to toElement;
+    }
+    behavior {
+        create into modelElements palette "Connections";
+    }
 }
 
 class BPMNDataAssoziation {
-	connection BPMN_DataAssoziation ( ) {
-		from formElement;
-		to toElement;
-	}
-	behavior {
-		create into modelElements palette "Connections";
-	}
+    connection BPMN_DataAssoziation {
+        from formElement;
+        to toElement;
+    }
+    behavior {
+        create into modelElements palette "Connections";
+    }
 }
 
-class BPMNConditionalFlow {
-	connection BPMN_ConditionalFlow ( ) {
-		from formElement;
-		to toElement;
-	}
-	behavior {
-		create into modelElements palette "Connections";
-	}
+class BPMNConditionalFlow { 
+    connection BPMN_ConditionalFlow  {
+        from formElement;
+        to toElement;
+    }
+    behavior {
+        create into modelElements palette "Connections";
+    }
 }

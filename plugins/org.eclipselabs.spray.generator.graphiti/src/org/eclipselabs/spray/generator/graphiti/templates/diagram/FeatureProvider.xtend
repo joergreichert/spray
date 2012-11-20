@@ -8,7 +8,6 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
-import org.eclipselabs.spray.mm.spray.ContainerInSpray
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
@@ -134,14 +133,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
                         «ENDFOR»
                     }
                 } 
-                «IF cls.representedBy instanceof ContainerInSpray»
-                    «val container = cls.representedBy as ContainerInSpray»
-                    «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                        if( bo instanceof «reference.target.EReferenceType.itfName» ){
-                            return new «reference.addReferenceAsListFeatureClassName.shortName»(this);
-                        }
-                    «ENDFOR»    
-                «ENDIF»
             «ENDFOR»
             return super.getAddFeature(context);
         }
@@ -166,18 +157,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
         
         for (mc : diagram.metaClassesForShapes.filter(mc|mc.hasCreateBehavior)) {
             result += mc.createFeatureClassName.shortName
-            if (mc.representedByContainer) {
-                val container = mc.representedBy as ContainerInSpray
-                for (reference : container.parts.filter(typeof(MetaReference))) {
-                    val target = reference.target
-                    if (!target.EReferenceType.^abstract) {
-                        result += reference.createFeatureClassName.shortName
-                    }
-                    for (subclass : target.EReferenceType.getSubclasses().filter(cls|!cls.^abstract)) {
-                        result += reference.getCreateReferenceAsListFeatureClassName(subclass).shortName
-                    }
-                }
-            }
         }
         return result
     }
@@ -204,17 +183,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                     return new «cls.updateFeatureClassName.shortName»(this); 
                 }
                 «ENDIF»
-                «IF cls.representedBy instanceof ContainerInSpray»
-                    «val container = cls.representedBy as ContainerInSpray»
-                    «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                        «var eClass = reference.target.EReferenceType » 
-                        «IF  eClass.^abstract»
-                            if (bo instanceof «eClass.itfName») { // 22
-                                return new «reference.updateReferenceAsListFeatureClassName.shortName»(this); 
-                            }
-                        «ENDIF»
-                    «ENDFOR»
-                «ELSEIF cls.representedBy instanceof ConnectionInSpray»
+                «IF cls.representedBy instanceof ConnectionInSpray»
                     «IF !cls.type.^abstract»
                         if (bo instanceof «cls.itfName» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF») { // 33
                             return new «cls.updateFeatureClassName.shortName»(this); 
@@ -322,15 +291,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 «ENDFOR»    
                 }
             } 
-                «IF cls.representedBy instanceof ContainerInSpray»
-                    «val container = cls.representedBy as ContainerInSpray»
-                    «FOR reference : container.parts.filter(typeof(MetaReference))  »
-                        «val target = reference.target» 
-                    if( bo instanceof «target.EReferenceType.itfName» ){
-                        return new OwnerPropertyDeleteFeature(this);
-                    }
-                    «ENDFOR»    
-                «ENDIF»
             «ENDFOR»
             
             return new DefaultDeleteFeature(this); 

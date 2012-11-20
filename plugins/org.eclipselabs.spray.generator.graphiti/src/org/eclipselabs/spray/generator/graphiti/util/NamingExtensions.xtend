@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.eclipselabs.spray.mm.spray.AliasableElement
-import org.eclipselabs.spray.mm.spray.ColorConstantRef
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
@@ -54,15 +53,12 @@ class NamingExtensions {
     }
     
     def String getLabelPropertyName (MetaReference ref) {
-        if (ref.labelProperty != null)
-           ref.labelProperty.name
-        else
+//        if (ref.labelProperty != null)
+//           ref.labelProperty.name
+//        else
            "name" 
     }
     
-    def String shortName (ColorConstantRef colorConstant) {
-        colorConstant.type.name
-    }
     //---------------------------------------------------------------------------------------------
     // Class names for Diagram
     //---------------------------------------------------------------------------------------------

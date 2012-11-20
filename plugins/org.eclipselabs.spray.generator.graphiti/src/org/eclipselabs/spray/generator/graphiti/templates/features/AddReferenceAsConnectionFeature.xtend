@@ -128,8 +128,8 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             //END TRY
     
             final Polyline polyline = gaService.createPolyline(connection);
-            polyline.setLineWidth(«reference.representedBy.layout.lineWidth»);
-            polyline.setForeground(manageColor(«reference.lineColor»));
+            polyline.setLineWidth(1);
+«««            polyline.setForeground(manageColor(«reference.lineColor»));
              
             // create link and wire it
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
@@ -181,8 +181,8 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         protected Polyline createArrow(final GraphicsAlgorithmContainer gaContainer) {
             final Polyline polyline = gaCreateService.createPolyline(gaContainer, new int[] { -15, 10, 0, 0, -15, -10 });
     //        polyline.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
-            polyline.setLineWidth(«reference.representedBy.layout.lineWidth»);
-            polyline.setForeground(manageColor(«reference.lineColor»));
+            polyline.setLineWidth(1);
+«««            polyline.setForeground(manageColor(«reference.lineColor»));
             return polyline;
         }
     '''

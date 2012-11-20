@@ -105,9 +105,9 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             «generate_add(metaClass)»
             «generate_connectionLine(metaClass)»
             
-            «generate_connectionToLabel(metaClass)»
-            «generate_connectionLabel(metaClass)»
-            «generate_connectionFromLabel(metaClass)»
+«««            «generate_connectionToLabel(metaClass)»
+«««            «generate_connectionLabel(metaClass)»
+«««            «generate_connectionFromLabel(metaClass)»
             «generate_additionalMethods(metaClass)»
         }
     '''
@@ -160,75 +160,75 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             connection.setEnd(context.getTargetAnchor());
      
             final Polyline polyline = gaService.createPolyline(connection);
-            polyline.setLineWidth(«metaClass.representedBy.layout.lineWidth»);
-            polyline.setForeground(manageColor(«metaClass.lineColor»));
+            polyline.setLineWidth(1);
+«««            polyline.setForeground(manageColor(«metaClass.lineColor»));
             return connection;
         }
     '''
 
-    def generate_connectionFromLabel (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as ConnectionInSpray»
-        «IF connection.fromLabel != null»
-        «overrideHeader»
-        protected GraphicsAlgorithm createConnectionFromLabel (final IAddConnectionContext context, final Connection connection) {
-            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
-            final ConnectionDecorator fromDecorator = peCreateService.createConnectionDecorator(connection, true, 0.0, true);
-            final Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);
-            gaLayoutService.setLocation(fromText, 10, 20);
-            fromText.setValue(getFromLabel(addedDomainObject));
-            peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL);
-            link(fromDecorator, addedDomainObject);
-            return fromText;
-        }
-        protected String getFromLabel (final «metaClass.itfName» addedDomainObject) {
-            «valueGenerator(connection.fromLabel, "addedDomainObject")»
-        }
-        «ENDIF»
-    '''
+//    def generate_connectionFromLabel (MetaClass metaClass) '''
+//        «val connection = metaClass.representedBy as ConnectionInSpray»
+//        «IF connection.fromLabel != null»
+//        «overrideHeader»
+//        protected GraphicsAlgorithm createConnectionFromLabel (final IAddConnectionContext context, final Connection connection) {
+//            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
+//            final ConnectionDecorator fromDecorator = peCreateService.createConnectionDecorator(connection, true, 0.0, true);
+//            final Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);
+//            gaLayoutService.setLocation(fromText, 10, 20);
+//            fromText.setValue(getFromLabel(addedDomainObject));
+//            peService.setPropertyValue(fromDecorator, PROPERTY_MODEL_TYPE, PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL);
+//            link(fromDecorator, addedDomainObject);
+//            return fromText;
+//        }
+//        protected String getFromLabel (final «metaClass.itfName» addedDomainObject) {
+//            «valueGenerator(connection.fromLabel, "addedDomainObject")»
+//        }
+//        «ENDIF»
+//    '''
 
-    def generate_connectionToLabel (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as ConnectionInSpray»
-        «IF connection.toLabel != null»
-        «overrideHeader»
-        protected GraphicsAlgorithm createConnectionToLabel (final IAddConnectionContext context, final Connection connection) {
-            final «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
-            final ConnectionDecorator toDecorator = peCreateService.createConnectionDecorator(connection, true, 1.0, true);
-            final Text text = gaService.createDefaultText(getDiagram(), toDecorator);
-            
-            final GraphicsAlgorithm ga = context.getTargetAnchor().getParent().getGraphicsAlgorithm();
-            int targetHeight = ga.getHeight();
-            gaLayoutService.setLocation(text, 10, -(targetHeight / 2) - 20);
-            text.setValue(getToLabel(addedDomainObject));
-            peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL);
-            link(toDecorator, addedDomainObject);
-            return text;
-        }
+//    def generate_connectionToLabel (MetaClass metaClass) '''
+//        «val connection = metaClass.representedBy as ConnectionInSpray»
+//        «IF connection.toLabel != null»
+//        «overrideHeader»
+//        protected GraphicsAlgorithm createConnectionToLabel (final IAddConnectionContext context, final Connection connection) {
+//            final «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
+//            final ConnectionDecorator toDecorator = peCreateService.createConnectionDecorator(connection, true, 1.0, true);
+//            final Text text = gaService.createDefaultText(getDiagram(), toDecorator);
+//            
+//            final GraphicsAlgorithm ga = context.getTargetAnchor().getParent().getGraphicsAlgorithm();
+//            int targetHeight = ga.getHeight();
+//            gaLayoutService.setLocation(text, 10, -(targetHeight / 2) - 20);
+//            text.setValue(getToLabel(addedDomainObject));
+//            peService.setPropertyValue(toDecorator, PROPERTY_MODEL_TYPE, PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL);
+//            link(toDecorator, addedDomainObject);
+//            return text;
+//        }
+//
+//        protected String getToLabel (final «metaClass.itfName» addedDomainObject) {
+//            «valueGenerator(connection.toLabel, "addedDomainObject")»
+//        }
+//        «ENDIF»
+//    '''
 
-        protected String getToLabel (final «metaClass.itfName» addedDomainObject) {
-            «valueGenerator(connection.toLabel, "addedDomainObject")»
-        }
-        «ENDIF»
-    '''
-
-    def generate_connectionLabel (MetaClass metaClass) '''
-        «val connection = metaClass.representedBy as ConnectionInSpray»
-        «IF connection.connectionLabel != null»
-        «overrideHeader»
-        protected GraphicsAlgorithm createConnectionLabel (final IAddConnectionContext context, final Connection connection) {
-            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
-            final ConnectionDecorator connectionDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
-            final Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);
-            gaLayoutService.setLocation(sourceText, 10, 0);
-            sourceText.setValue(getConnectionLabel(addedDomainObject));
-            peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, PROPERTY_MODEL_TYPE_CONNECTION_LABEL);
-            link(connectionDecorator, addedDomainObject);
-            return sourceText;
-        }
-
-        protected String getConnectionLabel (final «metaClass.itfName» addedDomainObject) {
-            «valueGenerator(connection.connectionLabel, "addedDomainObject")»
-        }
-        «ENDIF»
-    '''
+//    def generate_connectionLabel (MetaClass metaClass) '''
+//        «val connection = metaClass.representedBy as ConnectionInSpray»
+//        «IF connection.connectionLabel != null»
+//        «overrideHeader»
+//        protected GraphicsAlgorithm createConnectionLabel (final IAddConnectionContext context, final Connection connection) {
+//            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
+//            final ConnectionDecorator connectionDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+//            final Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);
+//            gaLayoutService.setLocation(sourceText, 10, 0);
+//            sourceText.setValue(getConnectionLabel(addedDomainObject));
+//            peService.setPropertyValue(connectionDecorator, PROPERTY_MODEL_TYPE, PROPERTY_MODEL_TYPE_CONNECTION_LABEL);
+//            link(connectionDecorator, addedDomainObject);
+//            return sourceText;
+//        }
+//
+//        protected String getConnectionLabel (final «metaClass.itfName» addedDomainObject) {
+//            «valueGenerator(connection.connectionLabel, "addedDomainObject")»
+//        }
+//        «ENDIF»
+//    '''
 
 }

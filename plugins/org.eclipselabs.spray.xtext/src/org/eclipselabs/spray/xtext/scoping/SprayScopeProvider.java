@@ -3,7 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COLOR_CONSTANT_REF__FIELD;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
@@ -15,7 +14,6 @@ import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODE
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__LABEL_PROPERTY;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE;
 import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
@@ -38,15 +36,12 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmMember;
-import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmType;
-import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
@@ -61,7 +56,6 @@ import org.eclipse.xtext.scoping.impl.SingletonScope;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
-import org.eclipselabs.spray.mm.spray.ColorConstantRef;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
@@ -117,14 +111,10 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             scope = scope_Connection_to(context);
         } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__TARGET) {
             scope = scope_MetaReference_target(context, reference);
-        } else if (context.eClass() == META_REFERENCE && reference == META_REFERENCE__LABEL_PROPERTY) {
-            scope = scope_MetaReference_labelProperty(context);
         } else if (context.eClass() == CREATE_BEHAVIOR && reference == CREATE_BEHAVIOR__ASK_FOR) {
             scope = scope_CreateBehavior_askFor(context);
         } else if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
             scope = scope_JvmParametrizedTypeReference_type(context, reference);
-        } else if (reference == COLOR_CONSTANT_REF__FIELD) {
-            scope = getColorConstantFieldScope(context);
         } else if (reference == SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE) {
             return scope_ShapePropertyAssignment_attribute(context);
         } else if (reference == SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE) {
@@ -181,10 +171,6 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     }
 
     protected IScope scope_JvmParametrizedTypeReference_type(EObject context, EReference reference) {
-        ColorConstantRef colorConstant = EcoreUtil2.getContainerOfType(context, ColorConstantRef.class);
-        if (colorConstant != null) {
-            return getColorConstantTypeScope(colorConstant);
-        }
         SprayStyleRef style = EcoreUtil2.getContainerOfType(context, SprayStyleRef.class);
         if (style != null) {
             return scope_ShapeStyleRefScope(style, context, reference);
@@ -668,123 +654,6 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             } else if (o instanceof EPackage) {
                 iteratePackage((EPackage) o, eClassifiers);
             }
-        }
-    }
-
-    protected IScope getColorConstantTypeScope(ColorConstantRef colorConstantRef) {
-        IScope typesScope = delegateGetScope(colorConstantRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-
-        Predicate<IEObjectDescription> colorConstantsFilter = new Predicate<IEObjectDescription>() {
-            @Override
-            public boolean apply(IEObjectDescription input) {
-                if (input.getEObjectOrProxy() instanceof JvmGenericType) {
-                    return isColorConstant((JvmGenericType) input.getEObjectOrProxy());
-                } else {
-                    return false;
-                }
-            }
-
-            private boolean isColorConstant(JvmGenericType type) {
-                if ("org.eclipse.graphiti.util.IColorConstant".equals(type.getIdentifier())) {
-                    return true;
-                }
-                for (JvmTypeReference itfRef : type.getExtendedInterfaces()) {
-                    if (isColorConstant(itfRef)) {
-                        return true;
-                    }
-                }
-                for (JvmTypeReference superTypeRef : type.getSuperTypes()) {
-                    if (isColorConstant(superTypeRef)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            private boolean isColorConstant(JvmTypeReference typeRef) {
-                if ("org.eclipse.graphiti.util.IColorConstant".equals(typeRef.getIdentifier())) {
-                    return true;
-                }
-                JvmGenericType type = (JvmGenericType) typeRef.getType();
-                for (JvmTypeReference itfRef : type.getExtendedInterfaces()) {
-                    if ("org.eclipse.graphiti.util.IColorConstant".equals(itfRef.getIdentifier())) {
-                        return true;
-                    }
-                }
-                for (JvmTypeReference superTypeRef : type.getSuperTypes()) {
-                    if (isColorConstant(superTypeRef)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        };
-
-        IScope result = new FilteringScope(typesScope, colorConstantsFilter);
-        return result;
-    }
-
-    protected IScope getColorConstantFieldScope(EObject context) {
-        if (context instanceof ColorConstantRef && ((ColorConstantRef) context).getType() != null) {
-            JvmTypeReference typeRef = ((ColorConstantRef) context).getType();
-            if (!(typeRef.getType() instanceof JvmGenericType))
-                return IScope.NULLSCOPE;
-
-            JvmGenericType type = (JvmGenericType) typeRef.getType();
-            Iterable<JvmField> fields = Iterables.filter(type.getMembers(), JvmField.class);
-            // Filter out all fields that are not of type IColorConstant
-
-            // fields = Iterables.filter(fields, colorConstantsFilter);
-            Function<JvmField, IEObjectDescription> toObjDesc = new Function<JvmField, IEObjectDescription>() {
-                @Override
-                public IEObjectDescription apply(JvmField from) {
-                    return EObjectDescription.create(from.getSimpleName(), from);
-                }
-            };
-            final IScope scope = MapBasedScope.createScope(IScope.NULLSCOPE, Iterables.transform(fields, toObjDesc));
-            return scope;
-        } else {
-            if (colorConstantTypeProvider == null) {
-                // colorConstantTypeProvider not set => no implicit colors
-                return IScope.NULLSCOPE;
-            }
-            // implicit color constants
-            IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(context.eResource().getResourceSet());
-            // get the Jvm Type that represents a color (Graphiti: IColorConstant)
-            JvmDeclaredType colorJvmType = (JvmDeclaredType) typeProvider.findTypeByName(colorConstantTypeProvider.getColorType().getName());
-            if (colorJvmType == null) {
-                return null;
-            }
-            final JvmDeclaredType colorJvmType2 = colorJvmType;
-            // this filter selects members that have the required type 'colorJvmType'
-            Predicate<JvmMember> memberFilter = new Predicate<JvmMember>() {
-                @Override
-                public boolean apply(JvmMember input) {
-                    if (input instanceof JvmField) {
-                        return ((JvmField) input).getType().getType() == colorJvmType2;
-                    } else if (input instanceof JvmOperation) {
-                        return ((JvmOperation) input).getReturnType().getType() == colorJvmType2;
-                    } else {
-                        return false;
-                    }
-                }
-            };
-            // Function to create IEObjectDescriptions for JvmMembers
-            Function<JvmMember, QualifiedName> trafo = new Function<JvmMember, QualifiedName>() {
-                @Override
-                public QualifiedName apply(JvmMember from) {
-                    return QualifiedName.create(from.getSimpleName().toLowerCase());
-                }
-            };
-            // for each class, create a scope with the JvmFields of the class
-            IScope scope = IScope.NULLSCOPE;
-            for (Class<?> clazz : colorConstantTypeProvider.getColorConstantTypes()) {
-                JvmType t = typeProvider.findTypeByName(clazz.getName());
-                if (t != null && t instanceof JvmDeclaredType) {
-                    scope = Scopes.scopeFor(Iterables.filter(((JvmDeclaredType) t).getMembers(), memberFilter), trafo, scope);
-                }
-            }
-            return scope;
         }
     }
 
