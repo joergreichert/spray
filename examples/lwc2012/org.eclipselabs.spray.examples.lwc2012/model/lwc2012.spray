@@ -128,7 +128,7 @@ class LWCSystemEnd alias SystemEnd {
 class LWCPipe { // alias Pipe {
 	connection LWC_Pipe {
 		name into pipeText
-	}( ) {
+	} {
 		from fromElement;
 		to toElement;
 	}
@@ -141,7 +141,7 @@ class LWCSourceExhaustStart { // alias StartSourceExhaust {
 	connection LWC_Source_Exhaust {
 		name into connectionName
 	}
-	( ) {
+	{
 		from fromElement;
 		to toElement;
 	}
@@ -154,7 +154,7 @@ class LWCSourceExhaustEnd { //alias EndSourceExhaust {
 	connection LWC_Source_Exhaust {
 		name into connectionName
 	}
-	( ) {
+	{
 		from fromElement;
 		to toElement;
 	}
