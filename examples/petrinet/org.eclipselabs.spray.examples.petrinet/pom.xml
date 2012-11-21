@@ -71,7 +71,7 @@
 						<configuration>
 							<workflowEngine>mwe2</workflowEngine>
 							<workflowDescriptor>org.eclipselabs.spray.examples.petrinet.StylesGenerator</workflowDescriptor>
-							<timestampFileName>xtext-generator.timestamp</timestampFileName>
+							<timestampFileName>styles-generator.timestamp</timestampFileName>
 							<jvmSettings>
 								<jvmArgs>
 									<jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>
@@ -88,7 +88,7 @@
 						<configuration>
 							<workflowEngine>mwe2</workflowEngine>
 							<workflowDescriptor>org.eclipselabs.spray.examples.petrinet.ShapesGenerator</workflowDescriptor>
-							<timestampFileName>xtext-generator.timestamp</timestampFileName>
+							<timestampFileName>shapes-generator.timestamp</timestampFileName>
 							<jvmSettings>
 								<jvmArgs>
 									<jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>
@@ -105,7 +105,7 @@
 						<configuration>
 							<workflowEngine>mwe2</workflowEngine>
 							<workflowDescriptor>org.eclipselabs.spray.examples.petrinet.SprayGenerator</workflowDescriptor>
-							<timestampFileName>xtext-generator.timestamp</timestampFileName>
+							<timestampFileName>spray-generator.timestamp</timestampFileName>
 							<jvmSettings>
 								<jvmArgs>
 									<jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>

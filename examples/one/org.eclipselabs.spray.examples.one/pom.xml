@@ -71,7 +71,7 @@
                         <configuration>
                             <workflowEngine>mwe2</workflowEngine>
                             <workflowDescriptor>org.eclipselabs.spray.example.one.StylesGenerator</workflowDescriptor>
-                            <timestampFileName>xtext-generator.timestamp</timestampFileName>
+                            <timestampFileName>styles-generator.timestamp</timestampFileName>
                             <jvmSettings>
                                 <jvmArgs>
                                     <jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>
@@ -79,6 +79,19 @@
                             </jvmSettings>
                         </configuration>
                     </execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<configuration>
+				    <verbose>true</verbose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.fornax.toolsupport</groupId>
+				<artifactId>fornax-oaw-m2-plugin</artifactId>
+				<executions>
                     <execution>
                         <id>generate-shapes</id>
                         <phase>generate-sources</phase>
@@ -88,7 +101,7 @@
                         <configuration>
                             <workflowEngine>mwe2</workflowEngine>
                             <workflowDescriptor>org.eclipselabs.spray.example.one.ShapesGenerator</workflowDescriptor>
-                            <timestampFileName>xtext-generator.timestamp</timestampFileName>
+                            <timestampFileName>shapes-generator.timestamp</timestampFileName>
                             <jvmSettings>
                                 <jvmArgs>
                                     <jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>
@@ -96,6 +109,19 @@
                             </jvmSettings>
                         </configuration>
                     </execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<configuration>
+				    <verbose>true</verbose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.fornax.toolsupport</groupId>
+				<artifactId>fornax-oaw-m2-plugin</artifactId>
+				<executions>
 					<execution>
 						<id>generate-spray</id>
 						<phase>generate-sources</phase>
@@ -105,7 +131,7 @@
 						<configuration>
 							<workflowEngine>mwe2</workflowEngine>
 							<workflowDescriptor>org.eclipselabs.spray.example.one.SprayGenerator</workflowDescriptor>
-							<timestampFileName>xtext-generator.timestamp</timestampFileName>
+							<timestampFileName>spray-generator.timestamp</timestampFileName>
 							<jvmSettings>
 								<jvmArgs>
 									<jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>

@@ -12,7 +12,6 @@ Workflow {
 	
 	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
 		clean = "false"
-		validate = "false"
         modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
 	}
 }
