@@ -215,7 +215,7 @@ class ShapeTypeGenerator {
         IDimension «sizeName» = gaService.calculateSize(«elementName»);
         SprayLayoutManager.resizePolygon(«elementName», «sizeName», 1, 1);
         gaService.setLocationAndSize(element_1, «elementName».getX(), «elementName».getY(), «sizeName».getWidth(), «sizeName».getHeight());
-        SprayLayoutService.setLayoutData(shape_1, «sizeName».getWidth(), «sizeName».getHeight(), true);
+        SprayLayoutService.setLayoutData(«shapeName», «sizeName».getWidth(), «sizeName».getHeight(), true);
         
 «««        «generateSetSizeAndlocation(shapeName, elementName, element.layout., element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
         «element.shape.recursiveCreation(shapeName, styleName, false)»

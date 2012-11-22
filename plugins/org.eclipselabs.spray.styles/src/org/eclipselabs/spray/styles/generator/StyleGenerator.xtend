@@ -37,8 +37,11 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	}
 	
 	def void doGenerateStyle(Resource resource, IFileSystemAccess fsa) {
-        LOGGER.info("Spray generating style for model " + resource.URI)
-		for(style : resource.allContents.toIterable.filter(typeof(Style))) {
+        LOGGER.info("Spray: generating style for model " + resource.URI)
+        if( ! resource.loaded ){
+            resource.load(null);
+        }
+ 		for(style : resource.allContents.toIterable.filter(typeof(Style))) {
       		fsa.doGenerateStyle(style)
    		}
 	}

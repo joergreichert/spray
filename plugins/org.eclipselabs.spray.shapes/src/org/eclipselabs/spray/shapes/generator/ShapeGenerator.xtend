@@ -26,6 +26,9 @@ class ShapeGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
         LOGGER.info("Spray generating for model " + resource.URI)
+        if( ! resource.loaded ){
+            resource.load(null);
+        }
    		val svgOutputConfName = "svgOutputConf"
    		fsa.addSVGOutputConfiguration(svgOutputConfName)
         for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {

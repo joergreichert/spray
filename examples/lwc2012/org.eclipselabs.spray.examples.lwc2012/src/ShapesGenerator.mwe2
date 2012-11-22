@@ -5,7 +5,7 @@ import org.eclipse.emf.mwe.utils.*
 Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
-		registerGeneratedEPackage = "LanguageWorkbenchCompetition.LanguageWorkbenchCompetitionPackage.java"
+		registerGeneratedEPackage = "LanguageWorkbenchCompetition.LanguageWorkbenchCompetitionPackage"
 		registerGenModelFile = "platform:/resource/de.htwg.2012.lwc.mm/model/LWC.genmodel"
 		scanClassPath=true
 	}
