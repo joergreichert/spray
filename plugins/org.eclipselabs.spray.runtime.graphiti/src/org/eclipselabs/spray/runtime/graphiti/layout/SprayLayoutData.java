@@ -3,6 +3,11 @@ package org.eclipselabs.spray.runtime.graphiti.layout;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
 
+/**
+ * The layout data hilds information on how to layout a shape.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class SprayLayoutData {
     public enum Alignment {
         BEGINNING,

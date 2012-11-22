@@ -10,6 +10,12 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
 
+/**
+ * Layout manager that is called to resize elements.
+ * Incorrect name, because it is not really a layout manager.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class SprayResizeLayoutManager extends SprayLayoutManager {
 
     @Override

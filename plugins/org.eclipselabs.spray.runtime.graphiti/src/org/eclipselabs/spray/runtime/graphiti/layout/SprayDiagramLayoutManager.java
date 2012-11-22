@@ -5,10 +5,10 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
- * This layout manager is specific for the Diagra, it triggers the full a=layout
+ * This layout manager is specific for the Diagram, it triggers the full a=layout
  * of all root shapes in the diagram
  * 
- * @author jos
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
  */
 public class SprayDiagramLayoutManager extends SprayAbstractLayoutManager {
 

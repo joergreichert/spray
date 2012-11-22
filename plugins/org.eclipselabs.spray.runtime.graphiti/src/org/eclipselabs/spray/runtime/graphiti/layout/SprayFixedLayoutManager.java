@@ -6,6 +6,9 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
 
+/**
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class SprayFixedLayoutManager extends SprayAbstractLayoutManager {
 
     public SprayFixedLayoutManager(ContainerShape shape) {

@@ -11,8 +11,9 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
 
 /**
- * @author jos
- *         Layout manager for the top level comntainer shape as is always generated for Spray shapes
+ * Layout manager for the top level conntainer shape as is always generated for Spray shapes.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
  */
 public class SprayTopLayoutManager extends SprayAbstractLayoutManager {
 

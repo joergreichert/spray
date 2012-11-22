@@ -6,6 +6,13 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
 
+/**
+ * A Layout Manager that puts all its children in one horizontal row.
+ * Each child will be asked for its width to determine the width of the row.
+ * The height of all childern will be stretched to the height of the largest child, but onoly if a child is stretchable.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class SprayHorizontalLayoutManager extends SprayAbstractLayoutManager {
 
     /**

@@ -10,6 +10,11 @@ import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
 import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutData.Alignment;
 
+/**
+ * A collection of methods to get layout information for shapes that cannot be stored inside the Graphiti shapes themselves.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class SprayLayoutService {
     public enum SprayAlignment {
         NONE,

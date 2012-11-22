@@ -5,7 +5,7 @@ import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAlignment;
 
 /**
- * @author jos
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
  */
 public interface ISprayLayoutManager {
 

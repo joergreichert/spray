@@ -5,6 +5,11 @@ import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
 
 import com.google.inject.Inject;
 
+/**
+ * Java generation class supporting the generation of a base and extension class.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class JavaGenFile extends GenFile {
     @Inject
     public JavaGenFile(IFileSystemAccessUtil fsaUtil) {

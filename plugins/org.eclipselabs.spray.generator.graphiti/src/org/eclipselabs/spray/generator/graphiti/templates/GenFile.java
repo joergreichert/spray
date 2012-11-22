@@ -6,6 +6,11 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
 
+/**
+ * Class to support generation of base and extension files.
+ * 
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
+ */
 public class GenFile {
     protected IFileSystemAccess           fsa;
 

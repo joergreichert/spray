@@ -24,7 +24,7 @@ import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAli
  * children of the layuout managers shape. The shape is usually a container
  * shape.
  * 
- * @author jos
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
  */
 public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager {
 

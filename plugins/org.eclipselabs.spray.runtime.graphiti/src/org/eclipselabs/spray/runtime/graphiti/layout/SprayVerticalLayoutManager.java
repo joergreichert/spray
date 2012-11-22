@@ -12,7 +12,7 @@ import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAli
  * vertically. If possible the subshapes will all be stretched to the width of
  * the widest subshape.
  * 
- * @author jos
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
  */
 public class SprayVerticalLayoutManager extends SprayAbstractLayoutManager {
 

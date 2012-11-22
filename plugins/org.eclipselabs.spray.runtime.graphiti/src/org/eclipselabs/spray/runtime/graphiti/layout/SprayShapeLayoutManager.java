@@ -16,7 +16,7 @@ import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService.SprayAli
 /**
  * A special layout manager for single non container shapes
  * 
- * @author jos
+ * @author Jos Warmer (jos.warmer@openmodeling.nl)
  */
 public class SprayShapeLayoutManager implements ISprayLayoutManager {
 
