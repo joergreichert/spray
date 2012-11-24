@@ -31,3 +31,9 @@ Export-Package: org.eclipselabs.spray.examples.mod4j.diagram,
  org.eclipselabs.spray.examples.mod4j.features,
  org.eclipselabs.spray.examples.mod4j.property;x-friends:="org.eclipselabs.spray.examples.one.tests"
 Import-Package: org.eclipse.xtext.xbase.lib
+Bundle-ClassPath: .,
+ lib/maven-core-3.0.4.jar,
+ lib/maven-plugin-api-2.0.4.jar,
+ lib/tycho-core-0.16.0.jar,
+ lib/tycho-embedder-api-0.16.0.jar,
+ lib/org.eclipse.tycho.embedder.shared-0.16.0.jar
