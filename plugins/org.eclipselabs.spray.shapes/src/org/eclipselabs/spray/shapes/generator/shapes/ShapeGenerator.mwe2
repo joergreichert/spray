@@ -9,7 +9,7 @@ var modelPath
 Workflow {
     bean = StandaloneSetup {
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-        registerGeneratedEPackage = "org.eclipselabs.spray.styles.styles.StylesPackage"
+        registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.shapes.ShapesPackage"
     }
 

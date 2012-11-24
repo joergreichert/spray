@@ -10,7 +10,7 @@ var modelPath
 Workflow {
     bean = StandaloneSetup {
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-        registerGeneratedEPackage = "org.eclipselabs.spray.styles.styles.StylesPackage"
+        registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.shapes.ShapesPackage"
     }
 
@@ -18,7 +18,7 @@ Workflow {
 
 	component = org.eclipselabs.spray.xtext.util.ReaderExt {
 		// lookup all resources on the classpath
-		useJavaClassPath = true
+		//useJavaClassPath = true
 
 		// or define search scope explicitly
 		path = modelPath
@@ -47,9 +47,9 @@ Workflow {
 		outlet = {
 			path = srcGenDir
 		}
-		outlet = {
-		    outletName ="SRCMAN"
-			path = srcManDir
-		}
+//		outlet = {
+//		    outletName ="SRCMAN"
+//			path = srcManDir
+//		}
 	}	
 }
