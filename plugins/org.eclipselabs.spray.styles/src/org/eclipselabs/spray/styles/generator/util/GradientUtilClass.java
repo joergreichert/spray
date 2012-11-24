@@ -11,8 +11,8 @@ import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
-import org.eclipselabs.spray.styles.styles.ColorConstantRef;
-import org.eclipselabs.spray.styles.styles.RGBColor;
+import org.eclipselabs.spray.styles.ColorConstantRef;
+import org.eclipselabs.spray.styles.RGBColor;
 
 public class GradientUtilClass  extends PredefinedColoredAreas{
 

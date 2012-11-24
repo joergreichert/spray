@@ -10,7 +10,7 @@ Workflow {
     bean = StandaloneSetup {
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.styles.styles.StylesPackage"
-        registerGeneratedEPackage = "org.eclipselabs.spray.shapes.shapes.ShapesPackage"
+        registerGeneratedEPackage = "org.eclipselabs.spray.shapes.ShapesPackage"
     }
 
     component = org.eclipse.xtext.ecore.EcoreSupport{}

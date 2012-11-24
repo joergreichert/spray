@@ -12,8 +12,8 @@ import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection
 import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape
 import org.eclipselabs.spray.shapes.generator.GeneratorConnectionDefinition
 import org.eclipselabs.spray.shapes.generator.GeneratorShapeDefinition
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.ShapeDefinition
 
 class ShapeJvmModelInferrer extends AbstractModelInferrer {
 

@@ -11,7 +11,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
-import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
+import org.eclipselabs.spray.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 
 import com.google.common.base.Predicate;

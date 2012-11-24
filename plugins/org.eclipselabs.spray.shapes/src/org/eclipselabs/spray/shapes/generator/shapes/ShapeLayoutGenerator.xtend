@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ShapeDefinition
 
 class ShapeLayoutGenerator {
 	

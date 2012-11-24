@@ -11,8 +11,8 @@ import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
 import org.eclipselabs.spray.styles.generator.GradientGenerator
 import org.eclipselabs.spray.styles.generator.StyleGenerator
-import org.eclipselabs.spray.styles.styles.Gradient
-import org.eclipselabs.spray.styles.styles.Style
+import org.eclipselabs.spray.styles.Gradient
+import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient
 
 class StyleJvmModelInferrer extends AbstractModelInferrer {

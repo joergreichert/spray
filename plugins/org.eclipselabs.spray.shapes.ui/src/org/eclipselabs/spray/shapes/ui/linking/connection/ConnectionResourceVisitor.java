@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.common.types.xtext.ui.XtextResourceSetBasedProjectProvider;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer;
-import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement;
+import org.eclipselabs.spray.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.ShapeContainer;
+import org.eclipselabs.spray.shapes.ShapeContainerElement;
 
 import com.google.inject.Inject;
 

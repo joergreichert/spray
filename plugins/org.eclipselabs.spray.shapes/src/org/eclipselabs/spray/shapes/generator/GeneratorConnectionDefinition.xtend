@@ -1,10 +1,10 @@
 package org.eclipselabs.spray.shapes.generator
 
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.ConnectionDefinition
 import com.google.inject.Inject
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGenerator
-import org.eclipselabs.spray.shapes.shapes.ConnectionStyle
+import org.eclipselabs.spray.shapes.ConnectionStyle
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerator
 
 class GeneratorConnectionDefinition {

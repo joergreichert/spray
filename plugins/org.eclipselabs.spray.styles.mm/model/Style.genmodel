@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.styles.mm/emf-gen" editDirectory="/org.eclipselabs.spray.styles.edit/src"
+    editorDirectory="/org.eclipselabs.spray.styles.editor/src" modelPluginID="org.eclipselabs.spray.styles.mm"
+    forceOverwrite="true" modelName="Style" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.eclipselabs.spray.styles.edit"
+    editorPluginID="org.eclipselabs.spray.styles.editor" runtimeVersion="2.8" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
+  <genPackages prefix="Styles" basePackage="org.eclipselabs.spray" disposableProviderFactory="true"
+      ecorePackage="Style.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Style.ecore#//ColorConstants">
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/WHITE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/LIGHT_LIGHT_GRAY"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/LIGHT_GRAY"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/GRAY"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/DARK_GRAY"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/BLACK"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/RED"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/LIGHT_ORANGE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/ORANGE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/DARK_ORANGE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/YELLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/GREEN"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/LIGHT_GREEN"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/DARK_GREEN"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/CYAN"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/LIGHT_BLUE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/BLUE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/DARK_BLUE"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//ColorConstants/NULL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Style.ecore#//LineStyle">
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//LineStyle/SOLID"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//LineStyle/DOT"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//LineStyle/DASH"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//LineStyle/DASHDOT"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//LineStyle/DASHDOTDOT"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//LineStyle/NULL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Style.ecore#//YesNoBool">
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//YesNoBool/YES"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//YesNoBool/NO"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//YesNoBool/NULL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Style.ecore#//GradientAllignment">
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//GradientAllignment/HORIZONTAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//GradientAllignment/VERTICAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Style.ecore#//GradientAllignment/NULL"/>
+    </genEnums>
+    <genClasses ecoreClass="Style.ecore#//StyleContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//StyleContainer/styleContainerElement"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//StyleContainerElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleContainerElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleContainerElement/description"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//Style">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//Style/superStyle"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Style.ecore#//Style/superStyleFromDsl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//Style/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//Gradient">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//Gradient/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//StyleLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/transparency"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//StyleLayout/background"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/gradient_orientation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//StyleLayout/highlighting"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//StyleLayout/lineColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/lineWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/lineStyle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/fontName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//StyleLayout/fontColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/fontSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/fontItalic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//StyleLayout/fontBold"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//GradientLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//GradientLayout/area"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//HighlightingValues">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//HighlightingValues/selected"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//HighlightingValues/multiselected"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//HighlightingValues/allowed"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//HighlightingValues/unallowed"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//GradientColorArea">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//GradientColorArea/color"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//GradientColorArea/offset"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//ColorOrGradient"/>
+    <genClasses ecoreClass="Style.ecore#//ColorWithTransparency"/>
+    <genClasses ecoreClass="Style.ecore#//Color"/>
+    <genClasses ecoreClass="Style.ecore#//RGBColor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//RGBColor/red"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//RGBColor/green"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//RGBColor/blue"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//GradientRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Style.ecore#//GradientRef/gradientRef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Style.ecore#//GradientRef/gradientRefFromDsl"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//ColorConstantRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//ColorConstantRef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Style.ecore#//Transparent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Style.ecore#//Transparent/transparent"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -10,7 +10,7 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLEditorOpener;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLLinkingHelper;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.ShapeDefinition;
 
 import com.google.inject.Inject;
 

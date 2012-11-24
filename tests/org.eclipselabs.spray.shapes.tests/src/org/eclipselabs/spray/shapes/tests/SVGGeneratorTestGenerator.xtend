@@ -4,8 +4,8 @@ import java.io.FileWriter
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.spray.shapes.ShapeInjectorProvider
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer
-import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
+import org.eclipselabs.spray.shapes.ShapeContainer
+import org.eclipselabs.spray.shapes.ShapeContainerElement
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.runner.RunWith
@@ -41,7 +41,7 @@ class SVGGeneratorTestGenerator extends XtextTest {
 		import org.eclipse.emf.common.util.URI
 		import org.junit.Before
 		import org.junit.Test
-		import org.eclipselabs.spray.shapes.shapes.ShapeContainer
+		import org.eclipselabs.spray.shapes.ShapeContainer
 		import com.google.inject.Inject
 		import java.util.Scanner
 		import java.io.File

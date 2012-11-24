@@ -3,16 +3,4 @@
 
 <plugin>
 
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://www.eclipselabs.org/spray/shapes/Shape" 
-       class = "org.eclipselabs.spray.shapes.shapes.ShapesPackage"
-       genModel = "org/eclipselabs/spray/shapes/Shape.genmodel" /> 
-	
-  </extension>
-
-
-
-
-
 </plugin>

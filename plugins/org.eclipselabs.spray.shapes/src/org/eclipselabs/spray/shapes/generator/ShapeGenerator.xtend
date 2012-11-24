@@ -11,9 +11,9 @@ import org.eclipse.xtext.generator.AbstractFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.OutputConfiguration
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
-import org.eclipselabs.spray.shapes.shapes.ShapeContainerElement
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.ShapeContainerElement
+import org.eclipselabs.spray.shapes.ShapeDefinition
 
 import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
 

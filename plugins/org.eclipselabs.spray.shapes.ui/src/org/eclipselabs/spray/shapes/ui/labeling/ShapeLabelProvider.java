@@ -5,9 +5,9 @@ package org.eclipselabs.spray.shapes.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
-import org.eclipselabs.spray.shapes.shapes.Shape;
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer;
+import org.eclipselabs.spray.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.Shape;
+import org.eclipselabs.spray.shapes.ShapeContainer;
 
 import com.google.inject.Inject;
 

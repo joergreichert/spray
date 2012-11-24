@@ -1,14 +1,14 @@
 package org.eclipselabs.spray.shapes.generator.util
 
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ShapeDefinition
 
-import org.eclipselabs.spray.shapes.shapes.Line
-import org.eclipselabs.spray.shapes.shapes.Rectangle
-import org.eclipselabs.spray.shapes.shapes.Polygon
-import org.eclipselabs.spray.shapes.shapes.Polyline
-import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
-import org.eclipselabs.spray.shapes.shapes.Ellipse
-import org.eclipselabs.spray.shapes.shapes.Text
+import org.eclipselabs.spray.shapes.Line
+import org.eclipselabs.spray.shapes.Rectangle
+import org.eclipselabs.spray.shapes.Polygon
+import org.eclipselabs.spray.shapes.Polyline
+import org.eclipselabs.spray.shapes.RoundedRectangle
+import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.shapes.Text
 
 class ShapeSizeCalculator {
 	

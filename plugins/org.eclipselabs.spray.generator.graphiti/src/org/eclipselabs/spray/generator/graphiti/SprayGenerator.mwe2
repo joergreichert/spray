@@ -19,7 +19,7 @@ Workflow {
 
 	component = org.eclipselabs.spray.xtext.util.ReaderExt {
 		// lookup all resources on the classpath
-		// useJavaClassPath = true
+		useJavaClassPath = true
 
 		// or define search scope explicitly
 		path = modelPath

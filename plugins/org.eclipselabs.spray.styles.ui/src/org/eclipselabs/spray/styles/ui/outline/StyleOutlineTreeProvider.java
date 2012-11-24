@@ -7,9 +7,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
-import org.eclipselabs.spray.styles.styles.Gradient;
-import org.eclipselabs.spray.styles.styles.Style;
-import org.eclipselabs.spray.styles.styles.StyleContainer;
+import org.eclipselabs.spray.styles.Gradient;
+import org.eclipselabs.spray.styles.Style;
+import org.eclipselabs.spray.styles.StyleContainer;
 
 /**
  * customization of the default outline structure

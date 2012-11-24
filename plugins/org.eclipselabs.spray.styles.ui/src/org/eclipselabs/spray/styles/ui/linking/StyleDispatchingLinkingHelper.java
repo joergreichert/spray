@@ -12,8 +12,8 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
-import org.eclipselabs.spray.styles.styles.Gradient;
-import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.Gradient;
+import org.eclipselabs.spray.styles.Style;
 import org.eclipselabs.spray.styles.ui.linking.gradient.GradientLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 

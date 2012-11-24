@@ -7,13 +7,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
-import org.eclipselabs.spray.shapes.shapes.Import;
-import org.eclipselabs.spray.shapes.shapes.Shape;
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer;
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
-import org.eclipselabs.spray.shapes.shapes.ShapeLayout;
-import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef;
+import org.eclipselabs.spray.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.Import;
+import org.eclipselabs.spray.shapes.Shape;
+import org.eclipselabs.spray.shapes.ShapeContainer;
+import org.eclipselabs.spray.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.ShapeLayout;
+import org.eclipselabs.spray.shapes.ShapeStyleRef;
 
 /**
  * customization of the default outline structure

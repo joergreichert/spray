@@ -5,7 +5,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLEditorOpener;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.styles.styles.Gradient;
+import org.eclipselabs.spray.styles.Gradient;
 
 import com.google.inject.Inject;
 

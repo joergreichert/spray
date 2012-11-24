@@ -28,7 +28,8 @@ Require-Bundle: org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
  org.eclipse.graphiti,
  org.eclipse.graphiti.mm,
  org.eclipse.xtext.xbase.lib,
- org.eclipselabs.spray.runtime.graphiti;bundle-version="0.5.0"
+ org.eclipselabs.spray.runtime.graphiti;bundle-version="0.5.0",
+ org.eclipselabs.spray.styles.mm;bundle-version="0.5.0";visibility:=reexport
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib
@@ -40,11 +41,8 @@ Export-Package: org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.parser.antlr,
  org.eclipselabs.spray.styles.parser.antlr.internal,
  org.eclipselabs.spray.styles.scoping,
- org.eclipselabs.spray.styles.serializer,
  org.eclipselabs.spray.styles.services,
- org.eclipselabs.spray.styles.styles,
- org.eclipselabs.spray.styles.styles.impl,
- org.eclipselabs.spray.styles.styles.util,
  org.eclipselabs.spray.styles.validation,
- org.eclipselabs.spray.styles.jvmmodel
+ org.eclipselabs.spray.styles.jvmmodel,
+ org.eclipselabs.spray.styles.parseTreeConstruction
 

@@ -1,20 +1,20 @@
 package org.eclipselabs.spray.shapes.generator.connections
 
-import org.eclipselabs.spray.shapes.shapes.PlacingDefinition
+import org.eclipselabs.spray.shapes.PlacingDefinition
 import com.google.inject.Inject
 import org.eclipse.emf.common.util.EList
-import org.eclipselabs.spray.shapes.shapes.CDEllipse
-import org.eclipselabs.spray.shapes.shapes.CDLine
-import org.eclipselabs.spray.shapes.shapes.Point
-import org.eclipselabs.spray.shapes.shapes.CDPolygon
-import org.eclipselabs.spray.shapes.shapes.CDPolyline
-import org.eclipselabs.spray.shapes.shapes.CDRectangle
-import org.eclipselabs.spray.shapes.shapes.CDRoundedRectangle
-import org.eclipselabs.spray.shapes.shapes.CDText
-import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
-import org.eclipselabs.spray.shapes.shapes.TextType
-import org.eclipselabs.spray.shapes.shapes.VAlign
-import org.eclipselabs.spray.shapes.shapes.HAlign
+import org.eclipselabs.spray.shapes.CDEllipse
+import org.eclipselabs.spray.shapes.CDLine
+import org.eclipselabs.spray.shapes.Point
+import org.eclipselabs.spray.shapes.CDPolygon
+import org.eclipselabs.spray.shapes.CDPolyline
+import org.eclipselabs.spray.shapes.CDRectangle
+import org.eclipselabs.spray.shapes.CDRoundedRectangle
+import org.eclipselabs.spray.shapes.CDText
+import org.eclipselabs.spray.shapes.ShapeStyleRef
+import org.eclipselabs.spray.shapes.TextType
+import org.eclipselabs.spray.shapes.VAlign
+import org.eclipselabs.spray.shapes.HAlign
 
 class ConnectionPlacingGenerator {
 

@@ -1,10 +1,10 @@
 package org.eclipselabs.spray.styles.generator
 
-import org.eclipselabs.spray.styles.styles.Gradient
-import org.eclipselabs.spray.styles.styles.GradientLayout
-import org.eclipselabs.spray.styles.styles.GradientColorArea
-import org.eclipselabs.spray.styles.styles.ColorConstantRef
-import org.eclipselabs.spray.styles.styles.RGBColor
+import org.eclipselabs.spray.styles.Gradient
+import org.eclipselabs.spray.styles.GradientLayout
+import org.eclipselabs.spray.styles.GradientColorArea
+import org.eclipselabs.spray.styles.ColorConstantRef
+import org.eclipselabs.spray.styles.RGBColor
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
 
 class GradientGenerator {

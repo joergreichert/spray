@@ -10,14 +10,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.eclipselabs.spray.styles.styles.ColorWithTransparency;
-import org.eclipselabs.spray.styles.styles.Gradient;
-import org.eclipselabs.spray.styles.styles.GradientColorArea;
-import org.eclipselabs.spray.styles.styles.LineStyle;
-import org.eclipselabs.spray.styles.styles.RGBColor;
-import org.eclipselabs.spray.styles.styles.Style;
-import org.eclipselabs.spray.styles.styles.StyleLayout;
-import org.eclipselabs.spray.styles.styles.StylesPackage;
+import org.eclipselabs.spray.styles.ColorWithTransparency;
+import org.eclipselabs.spray.styles.Gradient;
+import org.eclipselabs.spray.styles.GradientColorArea;
+import org.eclipselabs.spray.styles.LineStyle;
+import org.eclipselabs.spray.styles.RGBColor;
+import org.eclipselabs.spray.styles.Style;
+import org.eclipselabs.spray.styles.StyleLayout;
+import org.eclipselabs.spray.styles.StylesPackage;
 
 public class StyleJavaValidator extends AbstractStyleJavaValidator {
 

@@ -3,8 +3,8 @@ package org.eclipselabs.spray.xtext.ui.wizard;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.xtext.XtextPackage;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
-import org.eclipselabs.spray.shapes.shapes.ShapesPackage;
-import org.eclipselabs.spray.styles.styles.StylesPackage;
+import org.eclipselabs.spray.shapes.ShapesPackage;
+import org.eclipselabs.spray.styles.StylesPackage;
 
 import com.google.common.base.Predicate;
 import com.google.inject.ImplementedBy;

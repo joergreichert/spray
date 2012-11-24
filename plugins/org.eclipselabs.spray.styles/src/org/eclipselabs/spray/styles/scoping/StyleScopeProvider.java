@@ -11,8 +11,8 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
-import org.eclipselabs.spray.styles.styles.GradientRef;
-import org.eclipselabs.spray.styles.styles.Style;
+import org.eclipselabs.spray.styles.GradientRef;
+import org.eclipselabs.spray.styles.Style;
 
 import com.google.common.base.Predicate;
 

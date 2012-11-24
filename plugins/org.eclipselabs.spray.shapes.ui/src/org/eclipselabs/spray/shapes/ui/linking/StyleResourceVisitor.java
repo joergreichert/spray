@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.common.types.xtext.ui.XtextResourceSetBasedProjectProvider;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
-import org.eclipselabs.spray.styles.styles.Style;
-import org.eclipselabs.spray.styles.styles.StyleContainer;
-import org.eclipselabs.spray.styles.styles.StyleContainerElement;
+import org.eclipselabs.spray.styles.Style;
+import org.eclipselabs.spray.styles.StyleContainer;
+import org.eclipselabs.spray.styles.StyleContainerElement;
 
 import com.google.inject.Inject;
 

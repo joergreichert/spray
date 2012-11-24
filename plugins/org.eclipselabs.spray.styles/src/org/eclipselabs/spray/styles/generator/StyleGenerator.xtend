@@ -11,18 +11,18 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
-import org.eclipselabs.spray.styles.styles.Color
-import org.eclipselabs.spray.styles.styles.ColorConstantRef
-import org.eclipselabs.spray.styles.styles.ColorWithTransparency
-import org.eclipselabs.spray.styles.styles.Gradient
-import org.eclipselabs.spray.styles.styles.GradientAllignment
-import org.eclipselabs.spray.styles.styles.GradientRef
-import org.eclipselabs.spray.styles.styles.LineStyle
-import org.eclipselabs.spray.styles.styles.RGBColor
-import org.eclipselabs.spray.styles.styles.Style
-import org.eclipselabs.spray.styles.styles.StyleLayout
-import org.eclipselabs.spray.styles.styles.Transparent
-import org.eclipselabs.spray.styles.styles.YesNoBool
+import org.eclipselabs.spray.styles.Color
+import org.eclipselabs.spray.styles.ColorConstantRef
+import org.eclipselabs.spray.styles.ColorWithTransparency
+import org.eclipselabs.spray.styles.Gradient
+import org.eclipselabs.spray.styles.GradientAllignment
+import org.eclipselabs.spray.styles.GradientRef
+import org.eclipselabs.spray.styles.LineStyle
+import org.eclipselabs.spray.styles.RGBColor
+import org.eclipselabs.spray.styles.Style
+import org.eclipselabs.spray.styles.StyleLayout
+import org.eclipselabs.spray.styles.Transparent
+import org.eclipselabs.spray.styles.YesNoBool
 
 
 class StyleGenerator extends JvmModelGenerator implements IGenerator {

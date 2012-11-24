@@ -4,11 +4,11 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeAnchorGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
-import org.eclipselabs.spray.shapes.shapes.Shape
-import org.eclipselabs.spray.shapes.shapes.Rectangle
-import org.eclipselabs.spray.shapes.shapes.Ellipse
+import org.eclipselabs.spray.shapes.Shape
+import org.eclipselabs.spray.shapes.Rectangle
+import org.eclipselabs.spray.shapes.Ellipse
 
 class GeneratorShapeDefinition {
 	

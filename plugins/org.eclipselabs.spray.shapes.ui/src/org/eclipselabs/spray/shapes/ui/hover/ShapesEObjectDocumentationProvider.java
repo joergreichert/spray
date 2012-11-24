@@ -5,8 +5,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvider;
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition;
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition;
+import org.eclipselabs.spray.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.ShapeDefinition;
 
 import com.google.inject.Inject;
 

@@ -2,17 +2,4 @@
 <?eclipse version="3.0"?>
 
 <plugin>
-
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://www.eclipselabs.org/spray/styles/Style" 
-       class = "org.eclipselabs.spray.styles.styles.StylesPackage"
-       genModel = "org/eclipselabs/spray/styles/Style.genmodel" /> 
-	
-  </extension>
-
-
-
-
-
 </plugin>

@@ -8,7 +8,7 @@ import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.eclipse.emf.common.util.URI
 import org.junit.Before
 import org.junit.Test
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer
+import org.eclipselabs.spray.shapes.ShapeContainer
 import com.google.inject.Inject
 import java.util.Scanner
 import java.io.File

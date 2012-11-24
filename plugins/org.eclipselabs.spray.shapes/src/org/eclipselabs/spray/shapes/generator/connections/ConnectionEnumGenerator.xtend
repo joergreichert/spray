@@ -1,7 +1,7 @@
 package org.eclipselabs.spray.shapes.generator.connections
 
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
-import org.eclipselabs.spray.shapes.shapes.CDText
+import org.eclipselabs.spray.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.CDText
 import java.util.ArrayList
 
 class ConnectionEnumGenerator {

@@ -1,18 +1,18 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
 import java.util.ArrayList
-import org.eclipselabs.spray.shapes.shapes.Shape
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
-import org.eclipselabs.spray.shapes.shapes.Text
-import org.eclipselabs.spray.shapes.shapes.Line
-import org.eclipselabs.spray.shapes.shapes.Polyline
-import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
-import org.eclipselabs.spray.shapes.shapes.Ellipse
-import org.eclipselabs.spray.shapes.shapes.Polygon
-import org.eclipselabs.spray.shapes.shapes.Rectangle
-import org.eclipselabs.spray.shapes.shapes.Compartment
+import org.eclipselabs.spray.shapes.Shape
+import org.eclipselabs.spray.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.Text
+import org.eclipselabs.spray.shapes.Line
+import org.eclipselabs.spray.shapes.Polyline
+import org.eclipselabs.spray.shapes.RoundedRectangle
+import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.shapes.Polygon
+import org.eclipselabs.spray.shapes.Rectangle
+import org.eclipselabs.spray.shapes.Compartment
 import com.ibm.icu.util.CompactByteArray
-import org.eclipselabs.spray.shapes.shapes.Rectangle
+import org.eclipselabs.spray.shapes.Rectangle
 
 class ShapeEnumGenerator {
 	

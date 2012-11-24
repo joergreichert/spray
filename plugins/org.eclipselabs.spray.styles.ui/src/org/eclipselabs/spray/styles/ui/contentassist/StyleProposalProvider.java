@@ -28,10 +28,10 @@ import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 import org.eclipselabs.spray.styles.scoping.StyleScopeProvider;
-import org.eclipselabs.spray.styles.styles.Gradient;
-import org.eclipselabs.spray.styles.styles.Style;
-import org.eclipselabs.spray.styles.styles.StyleLayout;
-import org.eclipselabs.spray.styles.styles.StylesPackage;
+import org.eclipselabs.spray.styles.Gradient;
+import org.eclipselabs.spray.styles.Style;
+import org.eclipselabs.spray.styles.StyleLayout;
+import org.eclipselabs.spray.styles.StylesPackage;
 
 import com.google.inject.Inject;
 

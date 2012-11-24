@@ -2,25 +2,25 @@ package org.eclipselabs.spray.shapes.generator.shapes
 
 import com.google.inject.Inject
 import org.eclipse.emf.common.util.EList
-import org.eclipselabs.spray.shapes.shapes.Ellipse
-import org.eclipselabs.spray.shapes.shapes.Line
-import org.eclipselabs.spray.shapes.shapes.Point
-import org.eclipselabs.spray.shapes.shapes.Polygon
-import org.eclipselabs.spray.shapes.shapes.Polyline
-import org.eclipselabs.spray.shapes.shapes.Rectangle
-import org.eclipselabs.spray.shapes.shapes.RoundedRectangle
-import org.eclipselabs.spray.shapes.shapes.Shape
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
-import org.eclipselabs.spray.shapes.shapes.ShapeStyleRef
-import org.eclipselabs.spray.shapes.shapes.Text
-import org.eclipselabs.spray.shapes.shapes.TextType
-import org.eclipselabs.spray.shapes.shapes.VAlign
-import org.eclipselabs.spray.shapes.shapes.HAlign
+import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.shapes.Line
+import org.eclipselabs.spray.shapes.Point
+import org.eclipselabs.spray.shapes.Polygon
+import org.eclipselabs.spray.shapes.Polyline
+import org.eclipselabs.spray.shapes.Rectangle
+import org.eclipselabs.spray.shapes.RoundedRectangle
+import org.eclipselabs.spray.shapes.Shape
+import org.eclipselabs.spray.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ShapeStyleRef
+import org.eclipselabs.spray.shapes.Text
+import org.eclipselabs.spray.shapes.TextType
+import org.eclipselabs.spray.shapes.VAlign
+import org.eclipselabs.spray.shapes.HAlign
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
-import org.eclipselabs.spray.shapes.shapes.Description
-import org.eclipselabs.spray.shapes.shapes.Compartment
-import org.eclipselabs.spray.shapes.shapes.CompartmentRectangle
-import org.eclipselabs.spray.shapes.shapes.CompartmentEllipse 
+import org.eclipselabs.spray.shapes.Description
+import org.eclipselabs.spray.shapes.Compartment
+import org.eclipselabs.spray.shapes.CompartmentRectangle
+import org.eclipselabs.spray.shapes.CompartmentEllipse 
 
 class ShapeTypeGenerator {
     

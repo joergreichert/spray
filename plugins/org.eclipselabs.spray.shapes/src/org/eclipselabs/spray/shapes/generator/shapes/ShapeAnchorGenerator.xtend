@@ -4,12 +4,12 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper
-import org.eclipselabs.spray.shapes.shapes.AnchorFixPointPosition
-import org.eclipselabs.spray.shapes.shapes.AnchorManual
-import org.eclipselabs.spray.shapes.shapes.AnchorPredefinied
-import org.eclipselabs.spray.shapes.shapes.AnchorPredefiniedEnum
-import org.eclipselabs.spray.shapes.shapes.AnchorRelativePosition
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.AnchorFixPointPosition
+import org.eclipselabs.spray.shapes.AnchorManual
+import org.eclipselabs.spray.shapes.AnchorPredefinied
+import org.eclipselabs.spray.shapes.AnchorPredefiniedEnum
+import org.eclipselabs.spray.shapes.AnchorRelativePosition
+import org.eclipselabs.spray.shapes.ShapeDefinition
 
 class ShapeAnchorGenerator {
 	

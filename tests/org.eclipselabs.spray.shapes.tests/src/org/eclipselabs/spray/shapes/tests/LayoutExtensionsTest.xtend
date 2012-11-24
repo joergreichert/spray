@@ -9,8 +9,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.eclipse.xtext.junit4.util.ParseHelper
-import org.eclipselabs.spray.shapes.shapes.ShapeContainer
-import org.eclipselabs.spray.shapes.shapes.Ellipse
+import org.eclipselabs.spray.shapes.ShapeContainer
+import org.eclipselabs.spray.shapes.Ellipse
 
 import static org.junit.Assert.*
 
