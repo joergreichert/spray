@@ -57,12 +57,14 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 import org.eclipse.xtext.xbase.scoping.LocalVariableScopeContext;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
+import org.eclipselabs.spray.mm.spray.ConnectionReference;
 import org.eclipselabs.spray.mm.spray.CreateBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
+import org.eclipselabs.spray.mm.spray.ShapeReference;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
 import org.eclipselabs.spray.runtime.graphiti.IColorConstantTypeProvider;
@@ -119,9 +121,9 @@ public class SprayScopeProvider extends XbaseScopeProvider {
             return scope_ShapePropertyAssignment_attribute(context);
         } else if (reference == SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE) {
             return scope_ShapeCompartmentAssignment_reference(context);
-        } else if (reference == SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY) {
+        } else if (reference == SprayPackage.Literals.SHAPE_DSL_KEY__JVM_KEY) {
             scope = scope_ShapePropertyAssignment_Key(context, reference);
-        } else if (reference == SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__KEY) {
+        } else if (reference == SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__SHAPE_DSL_KEY) {
             scope = scope_ShapeCompartmentAssignment_Key(context, reference);
         } else {
             // not handled specially, delegate to super
@@ -336,14 +338,15 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         final String className = "TextIds";
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
         final ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
-        if (shape != null && shape.getShape() != null) {
-            jvmType = shape.getShape().getType();
-        } else if (connection != null && connection.getConnection() != null) {
-            jvmType = connection.getConnection().getType();
+        if (shape != null && shape.getShape() != null && shape.getShape().getJvmShape() != null) {
+            jvmType = shape.getShape().getJvmShape().getType();
+        } else if (connection != null && connection.getConnection() != null && connection.getConnection().getJvmConnection() != null) {
+            jvmType = connection.getConnection().getJvmConnection().getType();
         }
         if (jvmType != null && jvmType instanceof JvmGenericType) {
             return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
         } else {
+            // TODO return the scope from the DSL
             return IScope.NULLSCOPE;
         }
     }
@@ -353,19 +356,32 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         final String className = "TextIds";
         final ShapeFromDsl shape = EcoreUtil2.getContainerOfType(context, ShapeFromDsl.class);
         final ConnectionInSpray connection = EcoreUtil2.getContainerOfType(context, ConnectionInSpray.class);
-        if (shape != null) {
-            jvmType = shape.getShape().getType();
-        } else if (connection != null) {
-            jvmType = connection.getConnection().getType();
+        if (shape != null && shape.getShape() != null && shape.getShape().getJvmShape() != null) {
+            jvmType = shape.getShape().getJvmShape().getType();
+        } else if (connection != null && connection.getConnection() != null && connection.getConnection().getJvmConnection() != null) {
+            jvmType = connection.getConnection().getJvmConnection().getType();
         }
         if (jvmType != null && jvmType instanceof JvmGenericType) {
             return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
         } else {
+            // TODO get scope from DSL
             return IScope.NULLSCOPE;
         }
     }
 
+    protected boolean isJvm(EObject object) {
+        if (object instanceof ShapeReference) {
+            ShapeReference shaperef = (ShapeReference) object;
+            return shaperef.getJvmShape() != null;
+        } else if (object instanceof ConnectionReference) {
+            ConnectionReference conref = (ConnectionReference) object;
+            return conref.getJvmConnection() != null;
+        }
+        return false;
+    }
+
     private IScope getEnumerationLiteralsScopeForShape(JvmGenericType type, String className) {
+        System.out.println("get enumeration literals");
         JvmEnumerationType enumType = null;
         for (JvmMember member : type.getMembers()) {
             if (member.getSimpleName().equals(className)) {

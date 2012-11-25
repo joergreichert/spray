@@ -22,6 +22,9 @@ import org.eclipselabs.spray.xtext.util.GenModelHelper
 import static org.eclipse.xtext.EcoreUtil2.*
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment
+import org.eclipselabs.spray.mm.spray.ShapeReference
+import org.eclipselabs.spray.mm.spray.ConnectionReference
+import org.eclipselabs.spray.mm.spray.ShapeDslKey  
 
 /**
  * Computation of class names, file names etc.
@@ -31,6 +34,54 @@ class NamingExtensions {
     @Inject GenModelHelper genModelHelper
     @Inject ImportUtil importUtil
 
+//    def dispatch String qualifiedName(ShapeDslKey shapeRef) {
+//        if( shapeRef.dslKey!= null){
+//            return "org.eclipselabs.spray.shapes." + shapeRef.dslShape.name.toFirstUpper
+//        } else {
+//            return shapeRef.jvmShape.qualifiedName;
+//        }   
+//    }
+    
+    def dispatch String simpleName(ShapeDslKey shapeRef) {
+        if( shapeRef.dslKey != null){
+            return shapeRef.dslKey
+        } else {
+            return shapeRef.jvmKey.simpleName;
+        }   
+    }
+    
+    def dispatch String qualifiedName(ShapeReference shapeRef) {
+        if( shapeRef.dslShape != null){
+            return "org.eclipselabs.spray.shapes." + shapeRef.dslShape.name.toFirstUpper
+        } else {
+            return shapeRef.jvmShape.qualifiedName;
+        }   
+    }
+    
+    def dispatch String simpleName(ShapeReference shapeRef) {
+        if( shapeRef.dslShape != null){
+            return shapeRef.dslShape.name.toFirstUpper
+        } else {
+            return shapeRef.jvmShape.simpleName;
+        }   
+    }
+    
+    def dispatch String qualifiedName(ConnectionReference shapeRef) {
+        if( shapeRef.dslConnection != null){
+            return "org.eclipselabs.spray.shapes." + shapeRef.dslConnection.name.toFirstUpper
+        } else {
+            return shapeRef.jvmConnection.qualifiedName;
+        }   
+    }
+    
+    def dispatch String simpleName(ConnectionReference shapeRef) {
+        if( shapeRef.dslConnection != null){
+            return shapeRef.dslConnection.name.toFirstUpper
+        } else {
+            return shapeRef.jvmConnection.simpleName;
+        }   
+    }
+    
     def dispatch String getName (EObject obj) {
         SimpleAttributeResolver::NAME_RESOLVER.apply(obj)
     }

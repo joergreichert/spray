@@ -121,7 +121,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                 if( target instanceof «cls.shape.represents.javaInterfaceName» ){
                     if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                         String id = GraphitiProperties.get(context.getTargetContainer(), TEXT_ID);
-                        if ( (id != null) && (id.equals("«cls.key.simpleName»")) ) {
+                        if ( (id != null) && (id.equals("«cls.shapeDslKey.simpleName»")) ) {
                             return true;
                         }
                     }

@@ -106,7 +106,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                 if (target instanceof «ref.shape.represents.itfName») {
                     if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                         String id = GraphitiProperties.get(context.getTargetContainer(), ISprayConstants.TEXT_ID);
-                        if ((id != null) && (id.equals("«ref.key.simpleName»"))) {
+                        if ((id != null) && (id.equals("«ref.shapeDslKey.simpleName»"))) {
                             if( ! ((«ref.shape.represents.itfName»)target).get«ref.reference.name.toFirstUpper»().contains(source) ){
                                 return true;
                             }
@@ -119,7 +119,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                 if (target instanceof «ref.shape.represents.itfName») {
                     if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                         String id = GraphitiProperties.get(context.getTargetContainer(), ISprayConstants.TEXT_ID);
-                        if ((id != null) && (id.equals("«ref.key.simpleName»"))) {
+                        if ((id != null) && (id.equals("«ref.shapeDslKey.simpleName»"))) {
                             return true;
                         }
                     }
@@ -146,7 +146,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                 if (target instanceof «ref.shape.represents.itfName») {
                     if (SprayLayoutService.isCompartment(context.getTargetContainer())) {
                         String id = GraphitiProperties.get(context.getTargetContainer(), ISprayConstants.TEXT_ID);
-                        if ((id != null) && (id.equals("«ref.key.simpleName»"))) {
+                        if ((id != null) && (id.equals("«ref.shapeDslKey.simpleName»"))) {
                             «IF ref.reference.many»
                             ((«ref.shape.represents.itfName») target).get«ref.reference.name.toFirstUpper»().add((«container.represents.itfName») source);
                             «ELSE»
@@ -167,7 +167,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
             if (target instanceof «ref.shape.represents.itfName») {
                 if (SprayLayoutService.isCompartment(targetContainer) ) {
                     String id = GraphitiProperties.get(targetContainer, ISprayConstants.TEXT_ID);
-                    if ((id != null) && (id.equals("«ref.key.simpleName»"))) {
+                    if ((id != null) && (id.equals("«ref.shapeDslKey.simpleName»"))) {
                         // create AddCointext5 fist, because the PROPERT_ALIAS property will be set to null after removing it.
                         AddContext addContext = new AddContext();
                         addContext.putProperty(ISprayConstants.PROPERTY_ALIAS, GraphitiProperties.get(sourceShape, ISprayConstants.PROPERTY_ALIAS));

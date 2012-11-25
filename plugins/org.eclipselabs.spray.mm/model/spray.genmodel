@@ -33,7 +33,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviors"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/behaviorGroups"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/representedByShape"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/hasStyle"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//MetaClass/style"/>
     </genClasses>
@@ -67,12 +66,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//AliasableElement/alias"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//ShapeFromDsl">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/shape"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/properties"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/references"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeFromDsl/shape"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//ShapePropertyAssignment">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/key"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/value"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/attribute"/>
     </genClasses>
@@ -83,10 +82,22 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//CompartmentBehavior/compartmentReference"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//ShapeCompartmentAssignment">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/key"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/value"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/reference"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/shape"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeCompartmentAssignment/shapeDslKey"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//ShapeReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeReference/dslShape"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeReference/jvmShape"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//ConnectionReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionReference/jvmConnection"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ConnectionReference/dslConnection"/>
+    </genClasses>
+    <genClasses ecoreClass="spray.ecore#//ShapeDslKey">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapeDslKey/jvmKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute spray.ecore#//ShapeDslKey/dslKey"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
