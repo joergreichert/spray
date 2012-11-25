@@ -12,6 +12,9 @@ Workflow {
 	
 	component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
 		clean = "false"
+		validate = "false"
         modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
 	}
+	
+	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	
 }

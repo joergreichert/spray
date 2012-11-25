@@ -9,10 +9,12 @@ Workflow {
 		registerGenModelFile = "platform:/resource/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel"
 		scanClassPath=true
 	}
+
 	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
 //		srcGenDir = "src-gen"
 //		srcManDir = "src"
         clean = "false"
+		validate = "false"
 		modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
 	}
 }

@@ -47,6 +47,7 @@
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 				<module>../../examples/petrinet/de.htwg.petrinet.mm</module>
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
@@ -72,6 +73,8 @@
 			<modules>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
@@ -84,6 +87,7 @@
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 			</modules>
 		</profile>		
 		<profile>
@@ -162,6 +166,8 @@
             <modules>
                 <module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
                 <module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.mm</module>
                 <module>../../plugins/org.eclipselabs.spray.mm</module>
                 <module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
                 <module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
@@ -175,6 +181,7 @@
                 <module>../../plugins/org.eclipselabs.spray.shapes</module>
                 <module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
                 <module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
                 <module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 				<module>../../examples/petrinet/de.htwg.petrinet.mm</module>
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
@@ -230,6 +237,8 @@
 				<module>../../releng/org.eclipselabs.spray.targetplatform</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
@@ -243,6 +252,7 @@
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 				<module>../../examples/petrinet/de.htwg.petrinet.mm</module>
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
