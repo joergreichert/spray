@@ -10,11 +10,23 @@ Workflow {
 		scanClassPath=true
 	}
 
-	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
-//		srcGenDir = "src-gen"
-//		srcManDir = "src"
+	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
         clean = "false"
-		validate = "false"
+        validate = "false"
+        modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
+    }
+    
+	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	    
+	
+    component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
+        clean = "false"
+        modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
+    }
+    
+	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	    
+	
+	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
+		clean = "false"
 		modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
 	}
 }
