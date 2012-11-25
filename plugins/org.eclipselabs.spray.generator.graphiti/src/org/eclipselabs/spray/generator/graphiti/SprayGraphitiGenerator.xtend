@@ -97,7 +97,11 @@ class SprayGraphitiGenerator implements IGenerator {
     override void doGenerate(Resource resource, IFileSystemAccess fsa) {  
         //var String modelPath = resource.getURI().devicePath;
         //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
-        LOGGER.info("Spray generating for model " + resource.URI)
+        if (!resource.URI.lastSegment().endsWith(".spray")) {
+            LOGGER.info("Spray NOT generating Graphiti for model " + resource.URI)
+            return;
+        }
+        LOGGER.info("Spray generating Graphiti for model " + resource.URI)
         
         ProjectProperties::setModelUri(resource.URI)
 

@@ -13,6 +13,5 @@ package org.eclipselabs.spray.styles;
  * @model
  * @generated
  */
-public interface Color extends ColorOrGradient, ColorWithTransparency
-{
+public interface Color extends ColorOrGradient, ColorWithTransparency {
 } // Color

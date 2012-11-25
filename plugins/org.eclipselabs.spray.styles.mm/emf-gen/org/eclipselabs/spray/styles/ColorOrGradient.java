@@ -14,6 +14,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ColorOrGradient extends EObject
-{
+public interface ColorOrGradient extends EObject {
 } // ColorOrGradient

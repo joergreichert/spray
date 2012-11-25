@@ -7,7 +7,7 @@
  *************************************************************************************/
 // Add import statements here, e.g.
 // import java.util.*
-shape PlaceShape {
+shape PlaceShape style PetrinetDefaultStyle {
     ellipse {
             compartment (layout= fixed id = tokenCompartment)
         position(x=0,y=0)

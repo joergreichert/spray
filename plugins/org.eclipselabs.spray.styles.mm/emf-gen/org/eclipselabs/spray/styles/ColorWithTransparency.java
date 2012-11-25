@@ -14,6 +14,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ColorWithTransparency extends EObject
-{
+public interface ColorWithTransparency extends EObject {
 } // ColorWithTransparency

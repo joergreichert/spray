@@ -25,7 +25,7 @@ class ShapeGenerator implements IGenerator {
     private static Log   LOGGER       = LogFactory::getLog("ShapeGenerator");
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-        LOGGER.info("Spray generating for model " + resource.URI)
+        LOGGER.info("Spray generating shapes for model " + resource.URI)
         if( ! resource.loaded ){
             resource.load(null);
         }

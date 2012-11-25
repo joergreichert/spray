@@ -44,7 +44,8 @@ public class ProjectProperties {
 
     public static void setModelUri(URI uri) {
         if (!uri.lastSegment().endsWith(".spray")) {
-            throw new IllegalArgumentException("Invalid model uri " + uri);
+            return;
+            //            throw new IllegalArgumentException("Invalid model uri " + uri);
         }
         URI propertiesUri = uri.trimSegments(1).appendSegment(uri.lastSegment().replace(".spray", ".properties"));
         if (propertiesUri.isFile()) {

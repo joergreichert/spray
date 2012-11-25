@@ -14,4 +14,15 @@ Workflow {
 		clean = "true"
 		modelPath = "model,../de.htwg.petrinet.mm/model"
 	}
+
+    component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
+        clean = "false"
+        modelPath = "model,../de.htwg.petrinet.mm/model"
+    }
+    
+        component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
+        clean = "false"
+        modelPath = "model,../de.htwg.petrinet.mm/model"
+    }
+    
 }

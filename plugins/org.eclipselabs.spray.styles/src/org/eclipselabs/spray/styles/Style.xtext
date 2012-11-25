@@ -19,7 +19,7 @@ Style:
 Gradient:
 	{Gradient}
 	"gradient" name=ID "{"
-		("description" "=" description=STRING)?
+		("description" "=" description=STRING)? 
 		layout = GradientLayout		
 	"}";
 
