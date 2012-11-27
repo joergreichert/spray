@@ -17,7 +17,7 @@ import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.graphiti.util.StringHelpers
+import org.eclipselabs.spray.generator.common.StringHelpers
 
 class ToolBehaviorProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions

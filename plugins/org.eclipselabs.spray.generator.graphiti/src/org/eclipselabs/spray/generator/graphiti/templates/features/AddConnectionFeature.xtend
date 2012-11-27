@@ -2,9 +2,7 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.MetaClass
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
@@ -12,7 +10,6 @@ import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 
 class AddConnectionFeature extends FileGenerator<MetaClass> {
-    @Inject extension LayoutExtensions
     @Inject extension NamingExtensions
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
@@ -158,7 +155,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             final Connection connection = peCreateService.createFreeFormConnection(getDiagram());
             connection.setStart(context.getSourceAnchor());
             connection.setEnd(context.getTargetAnchor());
-     
+
             final Polyline polyline = gaService.createPolyline(connection);
             polyline.setLineWidth(1);
 «««            polyline.setForeground(manageColor(«metaClass.lineColor»));

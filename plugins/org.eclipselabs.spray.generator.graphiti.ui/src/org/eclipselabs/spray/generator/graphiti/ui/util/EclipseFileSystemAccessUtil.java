@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
-import org.eclipselabs.spray.generator.graphiti.util.EclipseHelpers;
+import org.eclipselabs.spray.generator.common.EclipseHelpers;
 import org.eclipselabs.spray.xtext.generator.JavaIoFileSystemAccessUtil;
 
 import com.google.inject.Inject;

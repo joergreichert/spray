@@ -3,9 +3,8 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.common.GeneratorUtil
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import static extension org.eclipselabs.spray.generator.graphiti.util.XtendProperties.*
+import static extension org.eclipselabs.spray.generator.common.XtendProperties.*
 import org.eclipselabs.spray.mm.spray.Diagram
-import org.eclipselabs.spray.mm.spray.MetaReference
 
 import org.eclipselabs.spray.generator.common.templates.TemplateUtil
 

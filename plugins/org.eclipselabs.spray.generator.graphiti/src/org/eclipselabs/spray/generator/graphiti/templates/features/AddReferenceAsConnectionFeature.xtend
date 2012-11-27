@@ -2,7 +2,6 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
-import org.eclipselabs.spray.generator.graphiti.util.LayoutExtensions
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
@@ -12,7 +11,6 @@ import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     @Inject extension NamingExtensions
-    @Inject extension LayoutExtensions
     @Inject extension MetaReferenceExtensions
     
     override CharSequence generateBaseFile(MetaReference modelElement) {
