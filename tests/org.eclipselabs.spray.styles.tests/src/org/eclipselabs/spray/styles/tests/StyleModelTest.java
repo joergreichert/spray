@@ -32,7 +32,7 @@ public class StyleModelTest extends XtextTest {
     }
 
     @Test
-    public void test_01_FullFilledStyle() 
+    public void test_01_FullFilledStyle() {
         testFile("testcases/01_FullFilledStyle.style");
     }
 
