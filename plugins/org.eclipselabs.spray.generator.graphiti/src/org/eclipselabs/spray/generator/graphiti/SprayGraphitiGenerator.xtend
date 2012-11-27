@@ -2,6 +2,8 @@ package org.eclipselabs.spray.generator.graphiti
 
 import com.google.inject.Inject
 import com.google.inject.Provider
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.resource.Resource
@@ -30,28 +32,24 @@ import org.eclipselabs.spray.generator.graphiti.templates.features.CreateShapeFe
 import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DeleteReferenceFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.DirectEditFeature
-import org.eclipselabs.spray.generator.graphiti.templates.features.MoveFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.LayoutFromDslFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.MoveFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.PasteFeature
+import org.eclipselabs.spray.generator.graphiti.templates.features.ResizeFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateConnectionFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateReferenceAsListFeature
 import org.eclipselabs.spray.generator.graphiti.templates.features.UpdateShapeFromDslFeature
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
-import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
-import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.graphiti.templates.features.ResizeFeature
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.impl.Log4jFactory
-import org.apache.commons.logging.LogFactory
+import static org.eclipselabs.spray.generator.graphiti.SprayGraphitiGenerator.*
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider

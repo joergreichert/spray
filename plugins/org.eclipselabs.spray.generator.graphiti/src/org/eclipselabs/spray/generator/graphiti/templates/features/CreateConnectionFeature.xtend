@@ -10,7 +10,7 @@ import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 class CreateConnectionFeature extends FileGenerator<MetaClass>  {
     @Inject extension NamingExtensions

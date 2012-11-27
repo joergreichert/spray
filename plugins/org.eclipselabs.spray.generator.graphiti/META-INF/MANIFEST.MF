@@ -30,7 +30,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.3.0,2.4.0)";visibility:=ree
  org.eclipse.xtext.xbase;bundle-version="[2.3.0,2.4.0)",
  org.eclipselabs.spray.shapes;bundle-version="0.5.0",
  org.eclipselabs.spray.runtime.xtext,
- org.eclipselabs.spray.styles;bundle-version="0.5.0"
+ org.eclipselabs.spray.styles;bundle-version="0.5.0",
+ org.eclipselabs.spray.generator.common;bundle-version="0.5.0"
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib

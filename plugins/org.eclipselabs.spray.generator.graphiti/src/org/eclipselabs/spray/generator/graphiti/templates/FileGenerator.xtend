@@ -3,6 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipselabs.spray.xtext.generator.ImportUtil
+import org.eclipselabs.spray.generator.common.templates.TemplateUtil
 
 class FileGenerator<T super EObject> extends TemplateUtil {
     @Inject ImportUtil importUtil

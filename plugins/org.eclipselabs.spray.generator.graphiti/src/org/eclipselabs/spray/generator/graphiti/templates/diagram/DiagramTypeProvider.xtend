@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.templates.diagram
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.mm.spray.Diagram
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 
 class DiagramTypeProvider extends FileGenerator<Diagram> {

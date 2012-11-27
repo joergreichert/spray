@@ -30,6 +30,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+                <module>../../plugins/org.eclipselabs.spray.generator.common</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
@@ -71,7 +72,8 @@
 				</property>
 			</activation>
 			<modules>
-				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
+                <module>../../plugins/org.eclipselabs.spray.generator.common</module>
+                <module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.mm</module>

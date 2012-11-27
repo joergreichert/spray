@@ -6,7 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {

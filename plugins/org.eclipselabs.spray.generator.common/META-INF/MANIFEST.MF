@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common
+Bundle-SymbolicName: org.eclipselabs.spray.generator.common
+Bundle-Version: 0.5.0.qualifier
+Bundle-Activator: org.eclipselabs.spray.generator.common.CommonActivator
+Bundle-Vendor: Spray
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.common;bundle-version="2.8.0",
+ org.eclipse.emf.ecore;bundle-version="2.8.0",
+ org.eclipse.core.resources;bundle-version="3.8.0",
+ org.apache.commons.logging;bundle-version="1.0.4",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.3.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipselabs.spray.generator.common,
+ org.eclipselabs.spray.generator.common.templates

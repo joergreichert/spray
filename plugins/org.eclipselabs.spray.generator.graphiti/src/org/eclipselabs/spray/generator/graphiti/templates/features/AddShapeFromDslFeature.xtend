@@ -6,7 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.SprayStyleRef
 import org.eclipselabs.spray.mm.spray.CompartmentBehavior
 import org.eclipse.emf.ecore.EClass

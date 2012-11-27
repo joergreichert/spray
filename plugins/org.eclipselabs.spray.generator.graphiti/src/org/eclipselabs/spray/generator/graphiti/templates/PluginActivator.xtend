@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 
 class PluginActivator extends FileGenerator<Diagram>  {

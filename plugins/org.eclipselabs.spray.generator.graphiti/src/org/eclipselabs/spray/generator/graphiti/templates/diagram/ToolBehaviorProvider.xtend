@@ -13,7 +13,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.SprayPackage
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*

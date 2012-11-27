@@ -6,7 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaReferenceExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 
 class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {

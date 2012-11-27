@@ -2,7 +2,10 @@ package org.eclipselabs.spray.shapes.generator.shapes
 
 import com.google.inject.Inject
 import org.eclipse.emf.common.util.EList
+import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.shapes.Description
 import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.shapes.HAlign
 import org.eclipselabs.spray.shapes.Line
 import org.eclipselabs.spray.shapes.Point
 import org.eclipselabs.spray.shapes.Polygon
@@ -15,13 +18,7 @@ import org.eclipselabs.spray.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.Text
 import org.eclipselabs.spray.shapes.TextType
 import org.eclipselabs.spray.shapes.VAlign
-import org.eclipselabs.spray.shapes.HAlign
-import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
-import org.eclipselabs.spray.shapes.Description
-import org.eclipselabs.spray.shapes.Compartment
-import org.eclipselabs.spray.shapes.CompartmentRectangle
-import org.eclipselabs.spray.shapes.CompartmentEllipse
-import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties 
+import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator 
 
 class ShapeTypeGenerator {
     
@@ -313,14 +310,12 @@ class ShapeTypeGenerator {
 //        '''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
 //    }
 
-    def stylesPackageName() { ProjectProperties::stylesPackage }
-
     def styleForElement(ShapeStyleRef s, String styleName) {
         if(s != null) {
             if( s.javaStyle != null ){
                 return '''new «s.javaStyle.qualifiedName»()'''
             } else if ( s.dslStyle != null){
-                return '''new «stylesPackageName()».«s.dslStyle.name.toFirstUpper»()''' 
+                return '''new «ProjectProperties::stylesPackage».«s.dslStyle.name.toFirstUpper»()''' 
             }
         } else {
             return styleName

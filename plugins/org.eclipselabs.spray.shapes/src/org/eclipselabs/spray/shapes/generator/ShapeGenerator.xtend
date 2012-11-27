@@ -16,7 +16,8 @@ import org.eclipselabs.spray.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.ShapeDefinition
 
 import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
-import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties
+import static org.eclipselabs.spray.shapes.generator.ShapeGenerator.*
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class ShapeGenerator implements IGenerator {
 

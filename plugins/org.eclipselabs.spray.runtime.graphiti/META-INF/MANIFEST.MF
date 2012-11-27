@@ -31,6 +31,5 @@ Export-Package: org.eclipselabs.spray.runtime.graphiti,
  org.eclipselabs.spray.runtime.graphiti.shape,
  org.eclipselabs.spray.runtime.graphiti.styles,
  org.eclipselabs.spray.runtime.graphiti.tb,
- org.eclipselabs.spray.runtime.graphiti.util,
  org.eclipselabs.spray.runtime.graphiti.wizard
 Import-Package: org.apache.log4j;version="1.2.15"

@@ -20,12 +20,13 @@ import org.eclipselabs.spray.xtext.generator.ImportUtil
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipse.xtext.EcoreUtil2.*
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment
 import org.eclipselabs.spray.mm.spray.ShapeReference
 import org.eclipselabs.spray.mm.spray.ConnectionReference
 import org.eclipselabs.spray.mm.spray.ShapeDslKey
-import org.eclipselabs.spray.mm.spray.SprayStyleRef  
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
+import org.eclipselabs.spray.generator.common.ProjectProperties  
 
 /**
  * Computation of class names, file names etc.
@@ -53,7 +54,7 @@ class NamingExtensions {
     
     def dispatch String qualifiedName(ShapeReference shapeRef) {
         if( shapeRef.dslShape != null){
-            return org::eclipselabs::spray::runtime::graphiti::util::ProjectProperties::shapesPackage + "." + shapeRef.dslShape.name.toFirstUpper
+            return ProjectProperties::shapesPackage + "." + shapeRef.dslShape.name.toFirstUpper
         } else {
             return shapeRef.jvmShape.qualifiedName;
         }   
@@ -69,7 +70,7 @@ class NamingExtensions {
     
     def dispatch String qualifiedName(ConnectionReference shapeRef) {
         if( shapeRef.dslConnection != null){
-            return org::eclipselabs::spray::runtime::graphiti::util::ProjectProperties::shapesPackage + "." + shapeRef.dslConnection.name.toFirstUpper
+            return ProjectProperties::shapesPackage + "." + shapeRef.dslConnection.name.toFirstUpper
         } else {
             return shapeRef.jvmConnection.qualifiedName;
         }   
@@ -87,7 +88,7 @@ class NamingExtensions {
         if( styleRef.javaStyle != null){
             return styleRef.javaStyle.qualifiedName;
         } else {
-            return org::eclipselabs::spray::runtime::graphiti::util::ProjectProperties::stylesPackage + "." + styleRef.dslStyle.name.toFirstUpper
+            return ProjectProperties::stylesPackage + "." + styleRef.dslStyle.name.toFirstUpper
         }   
     }
     

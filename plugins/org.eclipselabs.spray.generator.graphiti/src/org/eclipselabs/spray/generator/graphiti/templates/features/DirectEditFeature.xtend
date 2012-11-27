@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.templates.features
 import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.mm.spray.MetaClass
 
-import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import com.google.inject.Inject
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl

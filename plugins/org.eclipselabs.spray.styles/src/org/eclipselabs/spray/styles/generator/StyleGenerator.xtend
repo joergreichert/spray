@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.xbase.compiler.JvmModelGenerator
-import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
 import org.eclipselabs.spray.styles.Color
 import org.eclipselabs.spray.styles.ColorConstantRef
 import org.eclipselabs.spray.styles.ColorWithTransparency
@@ -23,7 +22,10 @@ import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.styles.StyleLayout
 import org.eclipselabs.spray.styles.Transparent
 import org.eclipselabs.spray.styles.YesNoBool
-import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties
+import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+
+import static org.eclipselabs.spray.styles.generator.StyleGenerator.*
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 
 class StyleGenerator extends JvmModelGenerator implements IGenerator {
