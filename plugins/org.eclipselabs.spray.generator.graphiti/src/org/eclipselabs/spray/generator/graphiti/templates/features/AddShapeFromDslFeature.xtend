@@ -69,8 +69,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
         import «container.shape.qualifiedName»;
-        «IF styleRef != null && styleRef.style != null»
-        import «styleRef.style.qualifiedName»;
+        «IF styleRef != null »
+        import «styleRef.qualifiedName»;
         «ELSE»
         import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         «ENDIF»
@@ -134,8 +134,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                         // NEW stuff
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 final ContainerShape targetContainer = context.getTargetContainer();
-                «IF styleRef != null && styleRef.style != null»
-                final ISprayStyle style = new «styleRef.style.simpleName»();
+                «IF styleRef != null »
+                final ISprayStyle style = new «styleRef.simpleName»();
                 «ELSE»
                 final ISprayStyle style = new DefaultSprayStyle();
                 «ENDIF»

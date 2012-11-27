@@ -1906,9 +1906,19 @@ public class ShapesPackageImpl extends EPackageImpl implements ShapesPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getShapeStyleRef_Style()
+	public EReference getShapeStyleRef_JavaStyle()
 	{
 		return (EReference)shapeStyleRefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getShapeStyleRef_DslStyle()
+	{
+		return (EReference)shapeStyleRefEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2303,7 +2313,8 @@ public class ShapesPackageImpl extends EPackageImpl implements ShapesPackage
 		createEReference(shapestyleLayoutEClass, SHAPESTYLE_LAYOUT__LAYOUT);
 
 		shapeStyleRefEClass = createEClass(SHAPE_STYLE_REF);
-		createEReference(shapeStyleRefEClass, SHAPE_STYLE_REF__STYLE);
+		createEReference(shapeStyleRefEClass, SHAPE_STYLE_REF__JAVA_STYLE);
+		createEReference(shapeStyleRefEClass, SHAPE_STYLE_REF__DSL_STYLE);
 
 		commonLayoutEClass = createEClass(COMMON_LAYOUT);
 		createEAttribute(commonLayoutEClass, COMMON_LAYOUT__XCOR);
@@ -2568,7 +2579,8 @@ public class ShapesPackageImpl extends EPackageImpl implements ShapesPackage
 		initEReference(getShapestyleLayout_Layout(), theStylesPackage.getStyleLayout(), null, "layout", null, 0, 1, ShapestyleLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(shapeStyleRefEClass, ShapeStyleRef.class, "ShapeStyleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getShapeStyleRef_Style(), theTypesPackage.getJvmTypeReference(), null, "style", null, 0, 1, ShapeStyleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getShapeStyleRef_JavaStyle(), theTypesPackage.getJvmTypeReference(), null, "javaStyle", null, 0, 1, ShapeStyleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getShapeStyleRef_DslStyle(), theStylesPackage.getStyle(), null, "dslStyle", null, 0, 1, ShapeStyleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commonLayoutEClass, CommonLayout.class, "CommonLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCommonLayout_Xcor(), ecorePackage.getEInt(), "xcor", null, 0, 1, CommonLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -13,20 +13,16 @@ import org.eclipse.xtext.mwe.SlotEntry
 import org.eclipse.xtext.xbase.lib.Pair
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.shapes.ShapeStandaloneSetup
-import org.eclipselabs.spray.shapes.shapes.ConnectionDefinition
-import org.eclipselabs.spray.shapes.shapes.ShapeDefinition
 import org.eclipselabs.spray.styles.StyleStandaloneSetup
-import org.eclipselabs.spray.styles.styles.Gradient
-import org.eclipselabs.spray.styles.styles.Style
 import org.eclipselabs.spray.xtext.SprayStandaloneSetup
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.eclipselabs.spray.generator.graphiti.SprayGenerator
+import org.eclipselabs.spray.shapes.generator.ShapeGenerator
+import org.eclipselabs.spray.styles.generator.StyleGenerator
 
 import static org.junit.Assert.*
-import org.eclipselabs.spray.styles.generator.StyleGenerator
-import org.eclipselabs.spray.shapes.generator.ShapeGenerator
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Lwc2012TestsInjectorProvider))

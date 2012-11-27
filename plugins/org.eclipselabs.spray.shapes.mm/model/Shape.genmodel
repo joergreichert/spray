@@ -3,8 +3,10 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.shapes.mm/emf-gen" editDirectory="/org.eclipselabs.spray.shapes.edit/src"
     editorDirectory="/org.eclipselabs.spray.shapes.editor/src" modelPluginID="org.eclipselabs.spray.shapes.mm"
     forceOverwrite="true" modelName="Shape" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="org.eclipselabs.spray.shapes.edit"
-    editorPluginID="org.eclipselabs.spray.shapes.editor" runtimeVersion="2.8" usedGenPackages="../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../org.eclipselabs.spray.styles.mm/model/Style.genmodel#//styles">
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    editPluginID="org.eclipselabs.spray.shapes.edit" editorPluginID="org.eclipselabs.spray.shapes.editor"
+    runtimeVersion="2.8" usedGenPackages="../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../org.eclipselabs.spray.styles.mm/model/Style.genmodel#//styles">
+  <foreignModel>Shape.ecore</foreignModel>
   <genPackages prefix="Shapes" basePackage="org.eclipselabs.spray" disposableProviderFactory="true"
       ecorePackage="Shape.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//CompartmentLayout">
@@ -212,7 +214,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapestyleLayout/layout"/>
     </genClasses>
     <genClasses ecoreClass="Shape.ecore#//ShapeStyleRef">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeStyleRef/style"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeStyleRef/javaStyle"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeStyleRef/dslStyle"/>
     </genClasses>
     <genClasses ecoreClass="Shape.ecore#//CommonLayout">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CommonLayout/xcor"/>

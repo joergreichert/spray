@@ -3,8 +3,8 @@ package org.eclipselabs.spray.shapes.generator.connections
 import org.eclipselabs.spray.styles.YesNoBool
 import org.eclipselabs.spray.styles.LineStyle
 import com.google.inject.Inject
-import org.eclipselabs.spray.styles.generator.StyleGenerator
 import org.eclipselabs.spray.shapes.ShapestyleLayout
+import org.eclipselabs.spray.styles.generator.StyleGenerator
 
 class ConnectionStyleGenerator {
 	
@@ -29,7 +29,7 @@ class ConnectionStyleGenerator {
 		'''
 		«IF !(l.layout.fontName == null && l.layout.fontSize == Integer::MIN_VALUE && l.layout.fontItalic == YesNoBool::NULL && l.layout.fontItalic == YesNoBool::NULL)»
 		{
-			Style style = «attName».getStyle();
+			Style style = «attName».getStyle(); 
 			«IF l.layout.fontName == null»
 			String fontName = style.getFont().getName();
 			«ELSE»

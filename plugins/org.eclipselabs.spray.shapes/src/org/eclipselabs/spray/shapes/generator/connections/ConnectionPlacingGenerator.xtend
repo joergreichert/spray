@@ -15,10 +15,13 @@ import org.eclipselabs.spray.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.TextType
 import org.eclipselabs.spray.shapes.VAlign
 import org.eclipselabs.spray.shapes.HAlign
+import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties
 
 class ConnectionPlacingGenerator {
 
 	@Inject extension ConnectionStyleGenerator
+	
+	def packageName() { ProjectProperties::stylesPackage }
 	
 	def generatePlacing(PlacingDefinition pd) {
 		'''
@@ -185,12 +188,17 @@ class ConnectionPlacingGenerator {
 	}
 	
 	def styleForElement(ShapeStyleRef s, String styleName) {
-		if(s != null) {
-			'''new «s.style.qualifiedName»()'''
-		} else {
-			styleName
-		}
+        if(s != null) {
+            if( s.javaStyle != null ){
+                return '''new «s.javaStyle.qualifiedName»()'''
+            } else if ( s.dslStyle != null){
+                return '''new «packageName()».«s.dslStyle.name.toFirstUpper»()''' 
+            }
+        } else {
+            return styleName
+        }
 	}
+	
 	
 	def getXPositionforAngle(Integer distance, Integer angle) {
 		// Spezialfälle 0/90/180/270/>=360

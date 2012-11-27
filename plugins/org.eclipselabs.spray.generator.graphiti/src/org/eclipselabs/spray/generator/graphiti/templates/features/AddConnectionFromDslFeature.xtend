@@ -66,8 +66,8 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
-        «IF styleRef != null && styleRef.style != null»
-        import «styleRef.style.qualifiedName»;
+        «IF styleRef != null »
+        import «styleRef.qualifiedName»;
         «ELSE»
         import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         «ENDIF»
@@ -120,8 +120,8 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             IAddConnectionContext addConContext = (IAddConnectionContext) context;
             // TODO: Domain object
             «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
-            «IF styleRef != null && styleRef.style != null»
-            ISprayStyle style = new «styleRef.style.simpleName»();
+            «IF styleRef != null »
+            ISprayStyle style = new «styleRef.simpleName»();
             «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
             «ENDIF»

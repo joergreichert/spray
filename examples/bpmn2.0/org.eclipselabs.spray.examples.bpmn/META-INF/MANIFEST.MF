@@ -20,7 +20,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.transaction;bundle-version="1.4.0",
  org.eclipselabs.spray.xtext,
  org.eclipse.xtext.ui,
- de.htwg.2012.bpmn.mm
+ de.htwg.2012.bpmn.mm,
+ org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.0",
+ org.eclipselabs.spray.styles;bundle-version="0.5.0"
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib,

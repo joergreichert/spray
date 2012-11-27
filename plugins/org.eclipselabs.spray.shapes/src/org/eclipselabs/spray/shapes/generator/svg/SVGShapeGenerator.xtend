@@ -249,14 +249,14 @@ class SVGShapeGenerator {
     }
     
  
-    def protected dispatch String styleClass (ShapeDefinition shape) {
-        if (shape.style != null) shape.style.style.type.identifier else "default"
-    }
-
-    def protected dispatch String styleClass (Shape shape) {
-        val sd = EcoreUtil2::getContainerOfType(shape,typeof(ShapeDefinition))
-        sd.styleClass
-    }
+//    def protected dispatch String styleClass (ShapeDefinition shape) {
+//        if (shape.style != null) shape.style.style.type.identifier else "default"
+//    }
+//
+//    def protected dispatch String styleClass (Shape shape) {
+//        val sd = EcoreUtil2::getContainerOfType(shape,typeof(ShapeDefinition))
+//        sd.styleClass
+//    }
 
     // HEADER DEFINITIONS: CSS, SHAPE DEFS
     def protected dispatch defs (ShapeDefinition shape) '''
@@ -284,9 +284,9 @@ class SVGShapeGenerator {
         ellipse {fill: none; stroke:black; stroke-width:1px}
         text {fill: black; font-family: verdana,sans-serif; font-size:12px;}
         .default {fill: none; stroke:black; stroke-width:1px}
-        «IF shape.style!=null»
-            .«shape.style.style.type.identifier» { } ««« TODO
-        «ENDIF» 
+«««        «IF shape.style!=null»
+«««            .«shape.style.style.type.identifier» { } ««« TODO
+«««        «ENDIF» 
         ]]>
         </style>
     '''

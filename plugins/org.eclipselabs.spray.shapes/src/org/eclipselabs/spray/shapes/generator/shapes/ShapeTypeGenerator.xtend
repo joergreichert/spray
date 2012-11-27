@@ -20,7 +20,8 @@ import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 import org.eclipselabs.spray.shapes.Description
 import org.eclipselabs.spray.shapes.Compartment
 import org.eclipselabs.spray.shapes.CompartmentRectangle
-import org.eclipselabs.spray.shapes.CompartmentEllipse 
+import org.eclipselabs.spray.shapes.CompartmentEllipse
+import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties 
 
 class ShapeTypeGenerator {
     
@@ -214,7 +215,7 @@ class ShapeTypeGenerator {
         «generateStyleForElement(elementName, element.layout.layout)»
         IDimension «sizeName» = gaService.calculateSize(«elementName»);
         SprayLayoutManager.resizePolygon(«elementName», «sizeName», 1, 1);
-        gaService.setLocationAndSize(element_1, «elementName».getX(), «elementName».getY(), «sizeName».getWidth(), «sizeName».getHeight());
+        gaService.setLocationAndSize(«elementName», «elementName».getX(), «elementName».getY(), «sizeName».getWidth(), «sizeName».getHeight());
         SprayLayoutService.setLayoutData(«shapeName», «sizeName».getWidth(), «sizeName».getHeight(), true);
         
 «««        «generateSetSizeAndlocation(shapeName, elementName, element.layout., element.layout.common.ycor, element.layout.common.width, element.layout.common.heigth)»
@@ -312,13 +313,20 @@ class ShapeTypeGenerator {
 //        '''(get«body.param.simpleName.toFirstUpper»() == null)? "" : get«body.param.simpleName.toFirstUpper»().toString()''' 
 //    }
 
+    def stylesPackageName() { ProjectProperties::stylesPackage }
+
     def styleForElement(ShapeStyleRef s, String styleName) {
         if(s != null) {
-            '''new «s.style.qualifiedName»()'''
+            if( s.javaStyle != null ){
+                return '''new «s.javaStyle.qualifiedName»()'''
+            } else if ( s.dslStyle != null){
+                return '''new «stylesPackageName()».«s.dslStyle.name.toFirstUpper»()''' 
+            }
         } else {
-            styleName
+            return styleName
         }
     }
+    
     
     def shapeName() {
         "shape_" + element_index

@@ -1940,13 +1940,22 @@ public interface ShapesPackage extends EPackage
 	int SHAPE_STYLE_REF = 45;
 
 	/**
-	 * The feature id for the '<em><b>Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Java Style</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE_STYLE_REF__STYLE = 0;
+	int SHAPE_STYLE_REF__JAVA_STYLE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Dsl Style</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_STYLE_REF__DSL_STYLE = 1;
 
 	/**
 	 * The number of structural features of the '<em>Shape Style Ref</em>' class.
@@ -1955,7 +1964,7 @@ public interface ShapesPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE_STYLE_REF_FEATURE_COUNT = 1;
+	int SHAPE_STYLE_REF_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.spray.shapes.impl.CommonLayoutImpl <em>Common Layout</em>}' class.
@@ -3618,15 +3627,26 @@ public interface ShapesPackage extends EPackage
 	EClass getShapeStyleRef();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipselabs.spray.shapes.ShapeStyleRef#getStyle <em>Style</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipselabs.spray.shapes.ShapeStyleRef#getJavaStyle <em>Java Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Style</em>'.
-	 * @see org.eclipselabs.spray.shapes.ShapeStyleRef#getStyle()
+	 * @return the meta object for the containment reference '<em>Java Style</em>'.
+	 * @see org.eclipselabs.spray.shapes.ShapeStyleRef#getJavaStyle()
 	 * @see #getShapeStyleRef()
 	 * @generated
 	 */
-	EReference getShapeStyleRef_Style();
+	EReference getShapeStyleRef_JavaStyle();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipselabs.spray.shapes.ShapeStyleRef#getDslStyle <em>Dsl Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Dsl Style</em>'.
+	 * @see org.eclipselabs.spray.shapes.ShapeStyleRef#getDslStyle()
+	 * @see #getShapeStyleRef()
+	 * @generated
+	 */
+	EReference getShapeStyleRef_DslStyle();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.spray.shapes.CommonLayout <em>Common Layout</em>}'.
@@ -5029,12 +5049,20 @@ public interface ShapesPackage extends EPackage
 		EClass SHAPE_STYLE_REF = eINSTANCE.getShapeStyleRef();
 
 		/**
-		 * The meta object literal for the '<em><b>Style</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Java Style</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SHAPE_STYLE_REF__STYLE = eINSTANCE.getShapeStyleRef_Style();
+		EReference SHAPE_STYLE_REF__JAVA_STYLE = eINSTANCE.getShapeStyleRef_JavaStyle();
+
+		/**
+		 * The meta object literal for the '<em><b>Dsl Style</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SHAPE_STYLE_REF__DSL_STYLE = eINSTANCE.getShapeStyleRef_DslStyle();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.spray.shapes.impl.CommonLayoutImpl <em>Common Layout</em>}' class.

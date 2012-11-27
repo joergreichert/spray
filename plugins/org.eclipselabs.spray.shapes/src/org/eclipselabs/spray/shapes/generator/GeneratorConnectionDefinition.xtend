@@ -6,6 +6,7 @@ import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerat
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGenerator
 import org.eclipselabs.spray.shapes.ConnectionStyle
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerator
+import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties
 
 class GeneratorConnectionDefinition {
 	
@@ -13,8 +14,8 @@ class GeneratorConnectionDefinition {
 	@Inject extension ConnectionPlacingGenerator
 	@Inject extension ConnectionEnumGenerator
 	
-	def packageName() { "org.eclipselabs.spray.shapes" }
-	def packagePath() { "org/eclipselabs/spray/shapes/" }
+	def packageName() { ProjectProperties::shapesPackage }
+	def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage) + "/"  }
 	def filepath(ConnectionDefinition c) { packagePath + c.className + ".java" }
 	def className(ConnectionDefinition c) { c.name.toFirstUpper }
 	
@@ -31,7 +32,7 @@ class GeneratorConnectionDefinition {
 		/**
 		 * This is a generated Shape for Spray
 		 */
-		package org.eclipselabs.spray.shapes;
+		package «packageName»;
 		
 		import java.util.ArrayList;
 		import java.util.List;

@@ -9,6 +9,7 @@ import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
 import org.eclipselabs.spray.shapes.Shape
 import org.eclipselabs.spray.shapes.Rectangle
 import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties
 
 class GeneratorShapeDefinition {
 	
@@ -17,8 +18,8 @@ class GeneratorShapeDefinition {
 	@Inject extension ShapeAnchorGenerator
 	@Inject extension ShapeEnumGenerator
 	
-	def packageName() { "org.eclipselabs.spray.shapes" }
-	def packagePath() { "org/eclipselabs/spray/shapes/" }
+    def packageName() { ProjectProperties::shapesPackage }
+    def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage) + "/"  }
 	def filepath(ShapeDefinition s) { packagePath + s.className + ".java" }
 	def className(ShapeDefinition s) { s.name.toFirstUpper }
 	def dispatch compartment(Shape shape) {
@@ -44,7 +45,7 @@ class GeneratorShapeDefinition {
 		/**
 		 * This is a generated Shape for Spray
 		 */
-		package org.eclipselabs.spray.shapes;
+		package «packageName»;
 		
 		import java.util.List;
 		import java.util.ArrayList;

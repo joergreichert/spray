@@ -76,7 +76,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//ShapePropertyAssignment/attribute"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//SprayStyleRef">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//SprayStyleRef/style"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference spray.ecore#//SprayStyleRef/javaStyle"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//SprayStyleRef/dslStyle"/>
     </genClasses>
     <genClasses ecoreClass="spray.ecore#//CompartmentBehavior">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference spray.ecore#//CompartmentBehavior/compartmentReference"/>

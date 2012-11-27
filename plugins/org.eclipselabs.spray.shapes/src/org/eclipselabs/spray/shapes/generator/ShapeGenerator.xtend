@@ -16,6 +16,7 @@ import org.eclipselabs.spray.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.ShapeDefinition
 
 import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
+import org.eclipselabs.spray.runtime.graphiti.util.ProjectProperties
 
 class ShapeGenerator implements IGenerator {
 
@@ -26,6 +27,7 @@ class ShapeGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
         LOGGER.info("Spray generating shapes for model " + resource.URI)
+        ProjectProperties::setModelUri(resource.URI)
         if( ! resource.loaded ){
             resource.load(null);
         }

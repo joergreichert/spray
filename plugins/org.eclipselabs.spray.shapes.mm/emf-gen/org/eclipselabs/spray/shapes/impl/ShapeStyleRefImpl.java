@@ -16,6 +16,8 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipselabs.spray.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.ShapesPackage;
 
+import org.eclipselabs.spray.styles.Style;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Shape Style Ref</b></em>'.
@@ -23,7 +25,8 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipselabs.spray.shapes.impl.ShapeStyleRefImpl#getStyle <em>Style</em>}</li>
+ *   <li>{@link org.eclipselabs.spray.shapes.impl.ShapeStyleRefImpl#getJavaStyle <em>Java Style</em>}</li>
+ *   <li>{@link org.eclipselabs.spray.shapes.impl.ShapeStyleRefImpl#getDslStyle <em>Dsl Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -32,14 +35,24 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements ShapeStyleRef
 {
 	/**
-	 * The cached value of the '{@link #getStyle() <em>Style</em>}' containment reference.
+	 * The cached value of the '{@link #getJavaStyle() <em>Java Style</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStyle()
+	 * @see #getJavaStyle()
 	 * @generated
 	 * @ordered
 	 */
-	protected JvmTypeReference style;
+	protected JvmTypeReference javaStyle;
+
+	/**
+	 * The cached value of the '{@link #getDslStyle() <em>Dsl Style</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDslStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected Style dslStyle;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,9 +80,9 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JvmTypeReference getStyle()
+	public JvmTypeReference getJavaStyle()
 	{
-		return style;
+		return javaStyle;
 	}
 
 	/**
@@ -77,13 +90,13 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetStyle(JvmTypeReference newStyle, NotificationChain msgs)
+	public NotificationChain basicSetJavaStyle(JvmTypeReference newJavaStyle, NotificationChain msgs)
 	{
-		JvmTypeReference oldStyle = style;
-		style = newStyle;
+		JvmTypeReference oldJavaStyle = javaStyle;
+		javaStyle = newJavaStyle;
 		if (eNotificationRequired())
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_STYLE_REF__STYLE, oldStyle, newStyle);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE, oldJavaStyle, newJavaStyle);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -94,20 +107,63 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStyle(JvmTypeReference newStyle)
+	public void setJavaStyle(JvmTypeReference newJavaStyle)
 	{
-		if (newStyle != style)
+		if (newJavaStyle != javaStyle)
 		{
 			NotificationChain msgs = null;
-			if (style != null)
-				msgs = ((InternalEObject)style).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_STYLE_REF__STYLE, null, msgs);
-			if (newStyle != null)
-				msgs = ((InternalEObject)newStyle).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_STYLE_REF__STYLE, null, msgs);
-			msgs = basicSetStyle(newStyle, msgs);
+			if (javaStyle != null)
+				msgs = ((InternalEObject)javaStyle).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE, null, msgs);
+			if (newJavaStyle != null)
+				msgs = ((InternalEObject)newJavaStyle).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE, null, msgs);
+			msgs = basicSetJavaStyle(newJavaStyle, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_STYLE_REF__STYLE, newStyle, newStyle));
+			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE, newJavaStyle, newJavaStyle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Style getDslStyle()
+	{
+		if (dslStyle != null && dslStyle.eIsProxy())
+		{
+			InternalEObject oldDslStyle = (InternalEObject)dslStyle;
+			dslStyle = (Style)eResolveProxy(oldDslStyle);
+			if (dslStyle != oldDslStyle)
+			{
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ShapesPackage.SHAPE_STYLE_REF__DSL_STYLE, oldDslStyle, dslStyle));
+			}
+		}
+		return dslStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Style basicGetDslStyle()
+	{
+		return dslStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDslStyle(Style newDslStyle)
+	{
+		Style oldDslStyle = dslStyle;
+		dslStyle = newDslStyle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_STYLE_REF__DSL_STYLE, oldDslStyle, dslStyle));
 	}
 
 	/**
@@ -120,8 +176,8 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	{
 		switch (featureID)
 		{
-			case ShapesPackage.SHAPE_STYLE_REF__STYLE:
-				return basicSetStyle(null, msgs);
+			case ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE:
+				return basicSetJavaStyle(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -136,8 +192,11 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	{
 		switch (featureID)
 		{
-			case ShapesPackage.SHAPE_STYLE_REF__STYLE:
-				return getStyle();
+			case ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE:
+				return getJavaStyle();
+			case ShapesPackage.SHAPE_STYLE_REF__DSL_STYLE:
+				if (resolve) return getDslStyle();
+				return basicGetDslStyle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -152,8 +211,11 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	{
 		switch (featureID)
 		{
-			case ShapesPackage.SHAPE_STYLE_REF__STYLE:
-				setStyle((JvmTypeReference)newValue);
+			case ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE:
+				setJavaStyle((JvmTypeReference)newValue);
+				return;
+			case ShapesPackage.SHAPE_STYLE_REF__DSL_STYLE:
+				setDslStyle((Style)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -169,8 +231,11 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	{
 		switch (featureID)
 		{
-			case ShapesPackage.SHAPE_STYLE_REF__STYLE:
-				setStyle((JvmTypeReference)null);
+			case ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE:
+				setJavaStyle((JvmTypeReference)null);
+				return;
+			case ShapesPackage.SHAPE_STYLE_REF__DSL_STYLE:
+				setDslStyle((Style)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -186,8 +251,10 @@ public class ShapeStyleRefImpl extends MinimalEObjectImpl.Container implements S
 	{
 		switch (featureID)
 		{
-			case ShapesPackage.SHAPE_STYLE_REF__STYLE:
-				return style != null;
+			case ShapesPackage.SHAPE_STYLE_REF__JAVA_STYLE:
+				return javaStyle != null;
+			case ShapesPackage.SHAPE_STYLE_REF__DSL_STYLE:
+				return dslStyle != null;
 		}
 		return super.eIsSet(featureID);
 	}

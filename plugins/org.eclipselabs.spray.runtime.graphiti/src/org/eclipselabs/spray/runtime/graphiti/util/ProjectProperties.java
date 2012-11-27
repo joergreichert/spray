@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.util;
+package org.eclipselabs.spray.runtime.graphiti.util;
 
 /*******************************************************************************
  * Copyright (c) 2009 Ordina and committers to Mod4j
@@ -268,6 +268,10 @@ public class ProjectProperties {
         return getDiagramPackage().replaceAll("\\.", "/");
     }
 
+    public static String toPath(String packageName) {
+        return packageName.replaceAll("\\.", "/");
+    }
+
     public static String getSrcModelPath() {
         return SRC_MODEL_PATH;
     }
@@ -321,28 +325,6 @@ public class ProjectProperties {
 
     public static void setProject(String project) {
         ProjectProperties.project = project;
-    }
-
-    /**
-     * @param cls
-     * @return The name of the Java class for name cls
-     */
-    public static String javaDomainClass(String cls) {
-        return StringHelpers.firstCharToUpper(cls);
-    }
-
-    /**
-     * @param cls
-     * @return The name of the Java class for name cls
-     */
-    public static String javaDomainClassPath(String cls) {
-        String packageName = ProjectProperties.getDiagramPackage();
-        return packageName + "." + javaDomainClass(cls);
-    }
-
-    public static String javaDomainClassFolder(String cls) {
-        String packageName = ProjectProperties.getDiagramPackage();
-        return packageName + "." + javaDomainClass(cls);
     }
 
 }

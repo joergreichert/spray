@@ -63,40 +63,6 @@
 				<artifactId>fornax-oaw-m2-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>generate-styles</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>run-workflow</goal>
-						</goals>
-						<configuration>
-							<workflowEngine>mwe2</workflowEngine>
-							<workflowDescriptor>org.eclipselabs.spray.examples.bpmn.StylesGenerator</workflowDescriptor>
-							<timestampFileName>styles-generator.timestamp</timestampFileName>
-							<jvmSettings>
-								<jvmArgs>
-									<jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>
-								</jvmArgs>
-							</jvmSettings>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-shapes</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>run-workflow</goal>
-						</goals>
-						<configuration>
-							<workflowEngine>mwe2</workflowEngine>
-							<workflowDescriptor>org.eclipselabs.spray.examples.bpmn.ShapesGenerator</workflowDescriptor>
-							<timestampFileName>shapes-generator.timestamp</timestampFileName>
-							<jvmSettings>
-								<jvmArgs>
-									<jvmArg>-Dlog4j.configuration=file:${basedir}/log4j.properties</jvmArg>
-								</jvmArgs>
-							</jvmSettings>
-						</configuration>
-					</execution>
-					<execution>
 						<id>generate-spray</id>
 						<phase>generate-sources</phase>
 						<goals>

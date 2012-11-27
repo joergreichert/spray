@@ -50,4 +50,3 @@ Export-Package: org.eclipselabs.spray.shapes,
  org.eclipselabs.spray.shapes.services,
  org.eclipselabs.spray.shapes.validation,
  org.eclipselabs.spray.shapes.parseTreeConstruction
-

@@ -220,7 +220,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         Filter filter = TypeMatchFilters.and(TypeMatchFilters.isPublic(), TypeMatchFilters.canInstantiate());
         if (model instanceof SprayStyleRef) {
             JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
-            proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.SPRAY_STYLE_REF__STYLE, filter, acceptor);
+            proposalProvider.createSubTypeProposals(superType, this, context, SprayPackage.Literals.SPRAY_STYLE_REF__JAVA_STYLE, filter, acceptor);
         }
         if (model instanceof ShapeFromDsl) {
             JvmType superType = typeProvider.findTypeByName(ISprayShape.class.getName());

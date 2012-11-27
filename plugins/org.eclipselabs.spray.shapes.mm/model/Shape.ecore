@@ -244,8 +244,9 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ShapeStyleRef">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="javaStyle" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dslStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles.mm/model/Style.ecore#//Style"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CommonLayout">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="xcor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

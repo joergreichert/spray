@@ -16,14 +16,14 @@ Workflow {
         modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
     }
     
-	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	    
+//	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	    
 	
     component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
         clean = "false"
         modelPath = "model,../org.mod4j.dsl.businessdomain.mm/model"
     }
     
-	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	    
+//	component = org.eclipselabs.spray.tychohelpers.TychoCompilerMwe2Component {}	    
 	
 	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
 		clean = "false"

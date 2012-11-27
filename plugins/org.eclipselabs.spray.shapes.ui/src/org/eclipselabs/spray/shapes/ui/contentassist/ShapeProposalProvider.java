@@ -16,10 +16,9 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
-import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 import org.eclipselabs.spray.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.ShapesPackage;
-import org.eclipselabs.spray.styles.StylesPackage;
+import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 
 import com.google.inject.Inject;
 
@@ -30,13 +29,13 @@ import com.google.inject.Inject;
  */
 public class ShapeProposalProvider extends AbstractShapeProposalProvider {
     @Inject
-    ITypesProposalProvider   proposalProvider;
-    
+    ITypesProposalProvider     proposalProvider;
+
     @Inject
     private ShapeScopeProvider shapeScopeProvider;
 
     @Inject
-    IJvmTypeProvider.Factory typeProviderFactory;
+    IJvmTypeProvider.Factory   typeProviderFactory;
 
     @Override
     public void complete_JvmTypeReference(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -48,13 +47,13 @@ public class ShapeProposalProvider extends AbstractShapeProposalProvider {
         //		} else {
         if (model instanceof ShapeStyleRef) {
             JvmType superType = typeProvider.findTypeByName(ISprayStyle.class.getName());
-            proposalProvider.createSubTypeProposals(superType, this, context, ShapesPackage.Literals.SHAPE_STYLE_REF__STYLE, filter, acceptor);
-            
-            IScope scope = shapeScopeProvider.getScope(model, ShapesPackage.Literals.SHAPE_STYLE_REF__STYLE);
-            for(IEObjectDescription elem : scope.getAllElements()) {
-            	if(elem.getEClass() == TypesPackage.Literals.JVM_GENERIC_TYPE) {
-            		acceptor.accept(createCompletionProposal(elem.getQualifiedName().toString(), context));
-            	}
+            proposalProvider.createSubTypeProposals(superType, this, context, ShapesPackage.Literals.SHAPE_STYLE_REF__JAVA_STYLE, filter, acceptor);
+
+            IScope scope = shapeScopeProvider.getScope(model, ShapesPackage.Literals.SHAPE_STYLE_REF__JAVA_STYLE);
+            for (IEObjectDescription elem : scope.getAllElements()) {
+                if (elem.getEClass() == TypesPackage.Literals.JVM_GENERIC_TYPE) {
+                    acceptor.accept(createCompletionProposal(elem.getQualifiedName().toString(), context));
+                }
             }
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);

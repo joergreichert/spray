@@ -1,4 +1,4 @@
-module org.eclipselabs.spray.examples.lwc2012.SprayGenerator
+module org.eclipselabs.spray.examples.lwc2012.SprayLwcGenerator
 
 import org.eclipse.emf.mwe.utils.*
 

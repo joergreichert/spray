@@ -7,6 +7,7 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 
 class MoveFeature extends FileGenerator<ShapeFromDsl>{
 
@@ -54,7 +55,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayTopLayoutManager;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayDiagramLayoutManager;
         import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
-        import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
+        import «ProjectProperties::shapesPackage».«container.shape.simpleName»;
         
         // MARKER_IMPORT
         

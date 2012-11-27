@@ -99,8 +99,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SprayStyleRef">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="javaStyle" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dslStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles.mm/model/Style.ecore#//Style"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompartmentBehavior" eSuperTypes="#//Behavior">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartmentReference" upperBound="-1"

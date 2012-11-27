@@ -6,6 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 
 class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
     @Inject extension NamingExtensions
@@ -44,7 +45,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
         import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
-        import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
+        import «ProjectProperties::shapesPackage».«container.shape.simpleName»;
         
         // MARKER_IMPORT
         

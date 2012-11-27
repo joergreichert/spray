@@ -6,6 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import com.google.inject.Inject
 
 import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.ProjectProperties
 
 class ResizeFeature extends FileGenerator<ShapeFromDsl>{
 
@@ -44,7 +45,7 @@ class ResizeFeature extends FileGenerator<ShapeFromDsl>{
     	import org.eclipse.graphiti.features.DefaultResizeConfiguration;
         import org.eclipselabs.spray.runtime.graphiti.features.DefaultResizeShapeFeature;
     	import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
-    	import org.eclipselabs.spray.shapes.«container.shape.simpleName»;
+    	import «ProjectProperties::shapesPackage».«container.shape.simpleName»;
     	
     	// MARKER_IMPORT
     	

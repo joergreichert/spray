@@ -52,7 +52,7 @@ class TokenEClass alias Token {
 }
 
 class ArcEClass alias Arc {
-    connection ArcConnection () {
+    connection ArcConnection  {
         from petriFrom
         to petriTo
     }

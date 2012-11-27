@@ -24,7 +24,8 @@ import static org.eclipselabs.spray.generator.graphiti.util.GeneratorUtil.*
 import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment
 import org.eclipselabs.spray.mm.spray.ShapeReference
 import org.eclipselabs.spray.mm.spray.ConnectionReference
-import org.eclipselabs.spray.mm.spray.ShapeDslKey  
+import org.eclipselabs.spray.mm.spray.ShapeDslKey
+import org.eclipselabs.spray.mm.spray.SprayStyleRef  
 
 /**
  * Computation of class names, file names etc.
@@ -52,7 +53,7 @@ class NamingExtensions {
     
     def dispatch String qualifiedName(ShapeReference shapeRef) {
         if( shapeRef.dslShape != null){
-            return "org.eclipselabs.spray.shapes." + shapeRef.dslShape.name.toFirstUpper
+            return org::eclipselabs::spray::runtime::graphiti::util::ProjectProperties::shapesPackage + "." + shapeRef.dslShape.name.toFirstUpper
         } else {
             return shapeRef.jvmShape.qualifiedName;
         }   
@@ -68,7 +69,7 @@ class NamingExtensions {
     
     def dispatch String qualifiedName(ConnectionReference shapeRef) {
         if( shapeRef.dslConnection != null){
-            return "org.eclipselabs.spray.shapes." + shapeRef.dslConnection.name.toFirstUpper
+            return org::eclipselabs::spray::runtime::graphiti::util::ProjectProperties::shapesPackage + "." + shapeRef.dslConnection.name.toFirstUpper
         } else {
             return shapeRef.jvmConnection.qualifiedName;
         }   
@@ -79,6 +80,22 @@ class NamingExtensions {
             return shapeRef.dslConnection.name.toFirstUpper
         } else {
             return shapeRef.jvmConnection.simpleName;
+        }   
+    }
+
+    def dispatch String qualifiedName(SprayStyleRef styleRef) {
+        if( styleRef.javaStyle != null){
+            return styleRef.javaStyle.qualifiedName;
+        } else {
+            return org::eclipselabs::spray::runtime::graphiti::util::ProjectProperties::stylesPackage + "." + styleRef.dslStyle.name.toFirstUpper
+        }   
+    }
+    
+    def dispatch String simpleName(SprayStyleRef styleRef) {
+        if( styleRef.javaStyle != null){
+            return styleRef.javaStyle.simpleName;
+        } else {
+            return styleRef.dslStyle.name.toFirstUpper
         }   
     }
     
