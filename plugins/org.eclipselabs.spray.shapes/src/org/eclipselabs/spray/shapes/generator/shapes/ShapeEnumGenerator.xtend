@@ -12,7 +12,6 @@ import org.eclipselabs.spray.shapes.Polygon
 import org.eclipselabs.spray.shapes.Rectangle
 import org.eclipselabs.spray.shapes.Compartment
 import com.ibm.icu.util.CompactByteArray
-import org.eclipselabs.spray.shapes.Rectangle
 
 class ShapeEnumGenerator {
 	
