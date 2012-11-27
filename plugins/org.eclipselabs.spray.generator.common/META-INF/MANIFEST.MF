@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;bundle-version="3.8.0",
  org.apache.commons.logging;bundle-version="1.0.4",
  org.eclipse.xtext.xbase.lib;bundle-version="2.3.1"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipselabs.spray.generator.common,
  org.eclipselabs.spray.generator.common.templates

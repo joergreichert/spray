@@ -1,7 +1,7 @@
 package org.eclipselabs.spray.styles.tests;
 
 import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipselabs.spray.styles.StyleInjectorProvider;
+import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
 import org.junit.After;
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
  * Tests for the Styles DSL.
  */
 @RunWith(XtextRunner2.class)
-@InjectWith(StyleInjectorProvider.class)
+@InjectWith(StyleTestsInjectorProvider.class)
 public class StyleModelTest extends XtextTest {
 
     @Before

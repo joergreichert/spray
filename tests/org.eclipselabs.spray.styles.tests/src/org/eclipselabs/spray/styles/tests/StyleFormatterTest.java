@@ -3,7 +3,6 @@ package org.eclipselabs.spray.styles.tests;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.util.Scanner;
 
 import org.eclipse.emf.common.util.URI;
@@ -12,7 +11,7 @@ import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipselabs.spray.styles.StyleInjectorProvider;
+import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
 import org.junit.Test;
@@ -21,7 +20,7 @@ import org.junit.runner.RunWith;
 import com.google.inject.Inject;
 
 @RunWith(XtextRunner2.class)
-@InjectWith(StyleInjectorProvider.class)
+@InjectWith(StyleTestsInjectorProvider.class)
 public class StyleFormatterTest extends XtextTest {
 
 	@Inject

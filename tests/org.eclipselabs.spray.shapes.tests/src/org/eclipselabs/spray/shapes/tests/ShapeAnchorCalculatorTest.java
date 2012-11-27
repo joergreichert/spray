@@ -3,8 +3,8 @@ package org.eclipselabs.spray.shapes.tests;
 import junit.framework.Assert;
 
 import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipselabs.spray.shapes.ShapeInjectorProvider;
 import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator;
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import com.google.inject.Inject;
 
 @RunWith(XtextRunner2.class)
-@InjectWith(ShapeInjectorProvider.class)
+@InjectWith(ShapeTestsInjectorProvider.class)
 public class ShapeAnchorCalculatorTest {
 
 	@Inject

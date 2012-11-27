@@ -3,15 +3,15 @@ package org.eclipselabs.spray.shapes.tests
 import java.io.FileWriter
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.shapes.ShapeInjectorProvider
 import org.eclipselabs.spray.shapes.ShapeContainer
 import org.eclipselabs.spray.shapes.ShapeContainerElement
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.runner.RunWith
 
 @RunWith(typeof(XtextRunner2))
-@InjectWith(typeof(ShapeInjectorProvider))
+@InjectWith(typeof(ShapeTestsInjectorProvider))
 class SVGGeneratorTestGenerator extends XtextTest {
 
 	//@Test

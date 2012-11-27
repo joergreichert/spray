@@ -1,23 +1,23 @@
 package org.eclipselabs.spray.shapes.tests.svg
 
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.junit.runner.RunWith
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.shapes.ShapeInjectorProvider
-import org.eclipselabs.xtext.utils.unittesting.XtextTest
+import com.google.inject.Inject
+import java.io.File
+import java.util.Scanner
 import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.junit4.InjectWith
+import org.eclipselabs.spray.shapes.ShapeContainer
+import org.eclipselabs.spray.shapes.generator.GeneratorSVGDefinition
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
+import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.Before
 import org.junit.Test
-import org.eclipselabs.spray.shapes.ShapeContainer
-import com.google.inject.Inject
-import java.util.Scanner
-import java.io.File
+import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
-import org.eclipselabs.spray.shapes.generator.GeneratorSVGDefinition
 
 @RunWith(typeof(XtextRunner2))
-@InjectWith(typeof(ShapeInjectorProvider))
+@InjectWith(typeof(ShapeTestsInjectorProvider))
 class BusmodSVGGeneratorTest extends XtextTest {
 	private var ShapeContainer shapeContainer
 	

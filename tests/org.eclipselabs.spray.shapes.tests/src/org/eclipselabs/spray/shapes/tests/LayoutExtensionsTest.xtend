@@ -2,20 +2,20 @@ package org.eclipselabs.spray.shapes.tests
 
 import com.google.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.shapes.ShapeInjectorProvider
+import org.eclipse.xtext.junit4.util.ParseHelper
+import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.shapes.ShapeContainer
 import org.eclipselabs.spray.shapes.generator.svg.LayoutExtensions
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.eclipselabs.xtext.utils.unittesting.XtextTest
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.eclipselabs.spray.shapes.ShapeContainer
-import org.eclipselabs.spray.shapes.Ellipse
 
 import static org.junit.Assert.*
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
 
 @RunWith(typeof(XtextRunner2))
-@InjectWith(typeof(ShapeInjectorProvider))
+@InjectWith(typeof(ShapeTestsInjectorProvider))
 class LayoutExtensionsTest extends XtextTest {
 
 	@Inject
