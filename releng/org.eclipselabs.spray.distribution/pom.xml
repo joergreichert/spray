@@ -57,9 +57,9 @@
 				<module>../../examples/bpmn2.0/de.htwg.2012.bpmn.mm</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
-<!-- 			<module>../../tests/org.eclipselabs.spray.xtext.tests</module> -->
-<!--    		<module>../../tests/org.eclipselabs.spray.examples.one.tests</module> -->
-<!-- 			<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module> -->
+				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
+				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
+				<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>
  				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
  				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
 			</modules>

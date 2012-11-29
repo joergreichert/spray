@@ -1,5 +1,7 @@
 package org.eclipselabs.spray.generator.graphiti.util;
 
+import static org.junit.Assert.assertEquals;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -11,13 +13,14 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
+import org.eclipselabs.spray.generator.common.ProjectProperties;
+import org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider;
 import org.eclipselabs.spray.mm.spray.Behavior;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayFactory;
-import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.spray.xtext.generator.ImportUtil;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -25,8 +28,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.google.inject.Inject;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test for {@link NamingExtensions}

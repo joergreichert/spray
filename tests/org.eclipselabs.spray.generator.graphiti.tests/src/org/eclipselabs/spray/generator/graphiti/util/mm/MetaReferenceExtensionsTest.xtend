@@ -1,7 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.util.mm
 
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.runner.RunWith
 import com.google.inject.Inject
@@ -11,6 +10,7 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.junit.Assert.*
 import org.eclipselabs.spray.mm.spray.SprayFactory
 import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(SprayTestsInjectorProvider))

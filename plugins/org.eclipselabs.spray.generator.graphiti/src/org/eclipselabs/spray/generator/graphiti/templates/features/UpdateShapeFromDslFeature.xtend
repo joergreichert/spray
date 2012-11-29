@@ -201,7 +201,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
        def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
                «returnType» «valueName» = new «functionClassName.shortName»<«metaClassName», «returnType»>() {
                    public «returnType» apply(«metaClassName» modelElement) {
-                       «xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+                   		«try {  xexp.compileForPropertyAssignement("returnedValue", "modelElement")  } catch(Exception e) { "// generation exception: " + e }»
                    }
                }.apply(«metaClassAttribute»); 
        '''

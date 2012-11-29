@@ -1,5 +1,6 @@
 package org.eclipselabs.spray.xtext.util;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
@@ -12,7 +13,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.EClassImpl;
+import org.eclipse.emf.ecore.impl.EDataTypeImpl;
+import org.eclipse.emf.ecore.impl.EEnumImpl;
+import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -114,12 +120,25 @@ public class GenModelHelper {
                 // In a unit test the Ecore model is read for example with a classpath URI, while the Genmodel refers to the same
                 // EClasses from a platform URI.
                 // As a workaround we compute the qualified names of the EClasses. This workaround should be removed later when possible.
+                if (c.eIsProxy()) {
+                    EObject eo = resolveManually(genClass, ((EClassImpl) c).eProxyURI());
+                    if (eo instanceof EClass) {
+                        c = (EClass) eo;
+                    }
+                }
                 if (qualifiedNameProvider.getFullyQualifiedName(eClass).equals(qualifiedNameProvider.getFullyQualifiedName(c))) {
+                    genClass.setEcoreClass(c);
                     return genClass;
                 }
             }
         }
         return null;
+    }
+
+    private EObject resolveManually(GenBase genModelElement, URI proxyURI) {
+        Resource genModelElementResource = genModelElement.eResource();
+        String newURI = genModelElementResource.getURI().trimSegments(1) + "/" + proxyURI.lastSegment() + "#" + proxyURI.fragment();
+        return genModelElementResource.getResourceSet().getEObject(URI.createURI(newURI), true);
     }
 
     protected GenClassifier getGenClassifier(EClassifier eClassifier) {
@@ -148,10 +167,13 @@ public class GenModelHelper {
                 // In a unit test the Ecore model is read for example with a classpath URI, while the Genmodel refers to the same
                 // EClasses from a platform URI.
                 // As a workaround we compute the qualified names of the EClasses. This workaround should be removed later when possible.
-                if (qualifiedNameProvider.getFullyQualifiedName(eDataType).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
-                    return genDataType;
-                } else if (d.eIsProxy()) {
-                    genDataType.setEcoreDataType(eDataType);
+                if (d.eIsProxy()) {
+                    EObject eo = resolveManually(genDataType, ((EDataTypeImpl) d).eProxyURI());
+                    if (eo instanceof EDataType) {
+                        d = (EDataType) eo;
+                    }
+                } else if (qualifiedNameProvider.getFullyQualifiedName(eDataType).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
+                    genDataType.setEcoreDataType(d);
                     return genDataType;
                 }
             }
@@ -168,10 +190,13 @@ public class GenModelHelper {
                 // In a unit test the Ecore model is read for example with a classpath URI, while the Genmodel refers to the same
                 // EClasses from a platform URI.
                 // As a workaround we compute the qualified names of the EClasses. This workaround should be removed later when possible.
-                if (qualifiedNameProvider.getFullyQualifiedName(eEnum).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
-                    return genEnum;
-                } else if (d.eIsProxy()) {
-                    genEnum.setEcoreEnum(eEnum);
+                if (d.eIsProxy()) {
+                    EObject eo = resolveManually(genEnum, ((EEnumImpl) d).eProxyURI());
+                    if (eo instanceof EEnum) {
+                        d = (EEnum) eo;
+                    }
+                } else if (qualifiedNameProvider.getFullyQualifiedName(eEnum).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
+                    genEnum.setEcoreEnum(d);
                     return genEnum;
                 }
             }
@@ -182,7 +207,15 @@ public class GenModelHelper {
     protected GenFeature getGenFeature(EStructuralFeature feature) {
         GenClass genClass = getGenClass(feature.getEContainingClass());
         for (GenFeature f : genClass.getAllGenFeatures()) {
-            if (qualifiedNameProvider.getFullyQualifiedName(f.getEcoreFeature()).equals(qualifiedNameProvider.getFullyQualifiedName(feature))) {
+            EStructuralFeature ecoreFeature = f.getEcoreFeature();
+            if (ecoreFeature.eIsProxy()) {
+                EObject eo = resolveManually(genClass, ((EStructuralFeatureImpl) ecoreFeature).eProxyURI());
+                if (eo instanceof EStructuralFeature) {
+                    ecoreFeature = (EStructuralFeature) eo;
+                }
+            }
+            if (qualifiedNameProvider.getFullyQualifiedName(feature).equals(qualifiedNameProvider.getFullyQualifiedName(ecoreFeature))) {
+                f.setEcoreFeature(ecoreFeature);
                 return f;
             }
         }
@@ -198,7 +231,12 @@ public class GenModelHelper {
                 // In a unit test the Ecore model is read for example with a classpath URI, while the Genmodel refers to the same
                 // EClasses from a platform URI.
                 // As a workaround we compute the qualified names of the EClasses. This workaround should be removed later when possible.
+                EObject eo = resolveManually(genClass, ((EClassImpl) c).eProxyURI());
+                if (eo instanceof EClass) {
+                    c = (EClass) eo;
+                }
                 if (qualifiedNameProvider.getFullyQualifiedName(eClass).equals(qualifiedNameProvider.getFullyQualifiedName(c))) {
+                    pck.setEcorePackage(c.getEPackage());
                     return pck;
                 }
             }

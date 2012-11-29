@@ -1,7 +1,5 @@
 package org.eclipselabs.spray.generator.graphiti.tests;
 
-import org.eclipselabs.spray.xtext.SprayInjectorProvider;
-
 import com.google.inject.Injector;
 
 /**

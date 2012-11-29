@@ -157,16 +157,16 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             }
         
         
-        protected void linkShapes(ContainerShape conShape, «metaClass.itfName» addedModelElement) {
-            link(conShape, addedModelElement);
-            for (Shape childShape : conShape.getChildren()) {
-                if( childShape instanceof ContainerShape ){
-                    linkShapes((ContainerShape)childShape, addedModelElement);
-                } else {
-                    link(childShape, addedModelElement);
+            protected void linkShapes(ContainerShape conShape, «metaClass.itfName» addedModelElement) {
+                link(conShape, addedModelElement);
+                for (Shape childShape : conShape.getChildren()) {
+                   if( childShape instanceof ContainerShape ) {
+                      linkShapes((ContainerShape)childShape, addedModelElement);
+                   } else {
+                      link(childShape, addedModelElement);
+                   }
                 }
             }
-        }
         }
         '''
 }

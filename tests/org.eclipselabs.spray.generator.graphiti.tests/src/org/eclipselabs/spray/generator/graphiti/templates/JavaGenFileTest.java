@@ -1,9 +1,10 @@
 package org.eclipselabs.spray.generator.graphiti.templates;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 
 import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Before;
@@ -12,10 +13,8 @@ import org.junit.runner.RunWith;
 
 import com.google.inject.Inject;
 
-import static org.junit.Assert.assertEquals;
-
 @RunWith(XtextRunner2.class)
-@InjectWith(SprayTestsInjectorProvider.class)
+@InjectWith(org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider.class)
 public class JavaGenFileTest {
     @Inject
     private IFileSystemAccessUtil fsaUtil;
