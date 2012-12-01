@@ -1,17 +1,42 @@
-diagram Statemachine 
-extension "diagram"
 import statemachine.*
 
-class State {
-	rectangle (color=black fill=white width=100)
+diagram Statemachine for Statemachine
+
+class StartState {
+	shape StartStateShape
+	behavior {
+	    create into states palette "Statemachine"
+	}
 }
 
-class Transition { 
-	connection (width=1) {
-		from source;
-		to target;
-		fromText text () eContainer.name;
-		toText text () state.name;
-		connectionText text (width=1) event.name;
+class State {
+	shape RectangleShape {
+		name into stateName  
+	}
+	behavior {
+	    create into states palette "Statemachine" askFor name
+	}
+}
+
+class Transition {
+	connection TransitionLine {
+		name into connectionText
+		// event.name into connectionText
+		// fromState.name into fromText
+		// toState.name into toText
+	} 
+	{
+		from fromState
+		to toState
+	}	 
+	behavior {
+	    create into transitions palette "Statemachine" askFor name
+	}
+}
+
+class FinishState {
+	shape EndStateShape
+	behavior {
+	    create into states palette "Statemachine"
 	}
 }

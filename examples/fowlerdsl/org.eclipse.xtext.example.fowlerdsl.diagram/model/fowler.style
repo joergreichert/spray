@@ -1,0 +1,27 @@
+style StartEndStyle {
+	background-color = black
+}
+
+style StateStyle {
+	background-color = StateGradient
+	gradient-orientation = vertical
+}
+
+style StateTextStyle {
+	line-width = 3
+	font-name = "Verdana"
+	font-size = 10
+	font-color = dark-gray
+	background-color = transparent
+}
+
+gradient StateGradient {
+	area (color = yellow, offset = 0.0)
+	area (color = RGB(255,255,128), offset = 0.5)
+	area (color = white, offset = 1.0)
+}
+
+style TransitionStyle {
+	line-width = 1
+	line-color = black
+}
