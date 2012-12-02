@@ -172,7 +172,8 @@ public class GenModelHelper {
                     if (eo instanceof EDataType) {
                         d = (EDataType) eo;
                     }
-                } else if (qualifiedNameProvider.getFullyQualifiedName(eDataType).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
+                }
+                if (qualifiedNameProvider.getFullyQualifiedName(eDataType).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
                     genDataType.setEcoreDataType(d);
                     return genDataType;
                 }
@@ -195,7 +196,8 @@ public class GenModelHelper {
                     if (eo instanceof EEnum) {
                         d = (EEnum) eo;
                     }
-                } else if (qualifiedNameProvider.getFullyQualifiedName(eEnum).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
+                }
+                if (qualifiedNameProvider.getFullyQualifiedName(eEnum).equals(qualifiedNameProvider.getFullyQualifiedName(d))) {
                     genEnum.setEcoreEnum(d);
                     return genEnum;
                 }
@@ -231,9 +233,11 @@ public class GenModelHelper {
                 // In a unit test the Ecore model is read for example with a classpath URI, while the Genmodel refers to the same
                 // EClasses from a platform URI.
                 // As a workaround we compute the qualified names of the EClasses. This workaround should be removed later when possible.
-                EObject eo = resolveManually(genClass, ((EClassImpl) c).eProxyURI());
-                if (eo instanceof EClass) {
-                    c = (EClass) eo;
+                if (c.eIsProxy()) {
+                    EObject eo = resolveManually(genClass, ((EClassImpl) c).eProxyURI());
+                    if (eo instanceof EClass) {
+                        c = (EClass) eo;
+                    }
                 }
                 if (qualifiedNameProvider.getFullyQualifiedName(eClass).equals(qualifiedNameProvider.getFullyQualifiedName(c))) {
                     pck.setEcorePackage(c.getEPackage());
