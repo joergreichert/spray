@@ -164,7 +164,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
          * Creates a new {@link «metaClass.itfName»} instance and adds it to the containing type.
          */
         protected «metaClass.itfName» create«metaClass.visibleName»(final ICreateContext context) {
-            «handleAskFor(metaClass, createBehavior.askFor)»
+            «if(createBehavior != null) { handleAskFor(metaClass, createBehavior.askFor) }»
             boolean isContainment = false;
             final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»

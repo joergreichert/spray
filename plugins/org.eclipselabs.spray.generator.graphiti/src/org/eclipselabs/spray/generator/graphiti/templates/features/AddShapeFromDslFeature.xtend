@@ -23,11 +23,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     
     def setAttributes(MetaClass cls, SprayStyleRef ssr){
         metaClass = cls
-        if(metaClass.style != null) {
-            styleRef = metaClass.style
-        } else if(ssr != null) {
-            styleRef = ssr
-        }
+        styleRef = ssr
     }
     
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
@@ -95,7 +91,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 if (newObject instanceof «metaClass.itfName») {
                     // check if user wants to add to a diagram
                     if (context.getTargetContainer() instanceof Diagram) {
-                        «IF metaClass.createBehavior.containmentReference != null»
+                        «IF (metaClass.createBehavior != null) && (metaClass.createBehavior.containmentReference != null)»
                         return true;
                         «ELSE»
                         return false;

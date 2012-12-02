@@ -21,11 +21,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
     SprayStyleRef styleRef = null
     
     def setAttributes(MetaClass metaClass, SprayStyleRef ssr){
-        if(metaClass.style != null) {
-        	styleRef = metaClass.style
-        } else if(ssr != null) {
-        	styleRef = ssr
-        }
+       	styleRef = ssr
     }
     
     override CharSequence generateBaseFile(MetaClass modelElement) {
