@@ -256,9 +256,11 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         String name = ePackage.getName() + ".*";
         if (!alreadyImported.contains(name)) {
             ConfigurableCompletionProposal proposal = (ConfigurableCompletionProposal) createCompletionProposal(name, context);
-            String displayString = ePackage.getName() + " (" + ePackage.getNsURI() + ")";
-            proposal.setDisplayString(displayString);
-            acceptor.accept(proposal);
+            if (proposal != null) {
+                String displayString = ePackage.getName() + " (" + ePackage.getNsURI() + ")";
+                proposal.setDisplayString(displayString);
+                acceptor.accept(proposal);
+            }
         }
     }
 
