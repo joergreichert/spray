@@ -7,6 +7,7 @@
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/FowlerDslTest"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagram"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagrams"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/reference_impl/org.eclipse.xtext.example.fowlerdsl.diagram"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/reference_impl/org.eclipse.xtext.example.fowlerdsl.eef"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.ui"/>
@@ -18,11 +19,14 @@
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,docs/org.eclipselabs.spray.doc.dev"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,docs/org.eclipselabs.spray.doc.user"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.diagrams"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.diagrams"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.tests"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/one/org.eclipselabs.spray.examples.one"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.examples.one.tests"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/petrinet/org.eclipselabs.spray.examples.petrinet"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/petrinet/org.eclipselabs.spray.examples.petrinet.diagrams"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/statemachine/org.eclipselabs.spray.examples.statemachine"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,features/org.eclipselabs.spray.feature"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,features/org.eclipselabs.spray.feature.sdk"/>
@@ -32,6 +36,8 @@
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/generatorextension/org.eclipselabs.spray.generator.graphit"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.generator.graphiti.tests"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.generator.graphiti.ui"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.styles.mm"/>
+<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.shapes.mm"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.mm"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,releng/org.eclipselabs.spray.parent"/>
 <project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,releng/org.eclipselabs.spray.repository"/>
