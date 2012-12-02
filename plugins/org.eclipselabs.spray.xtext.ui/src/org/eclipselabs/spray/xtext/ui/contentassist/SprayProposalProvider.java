@@ -261,4 +261,9 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
             acceptor.accept(proposal);
         }
     }
+
+    @Override
+    protected boolean isKeywordWorthyToPropose(Keyword keyword) {
+        return true;
+    }
 }
