@@ -15,7 +15,7 @@ class GeneratorConnectionDefinition {
 	@Inject extension ConnectionEnumGenerator
 	
 	def packageName() { ProjectProperties::shapesPackage }
-	def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage) + "/"  }
+	def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage)  }
 	def filepath(ConnectionDefinition c) { packagePath + c.className + ".java" }
 	def className(ConnectionDefinition c) { c.name.toFirstUpper }
 	

@@ -19,7 +19,7 @@ class GeneratorShapeDefinition {
 	@Inject extension ShapeEnumGenerator
 	
     def packageName() { ProjectProperties::shapesPackage }
-    def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage) + "/"  }
+    def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage)   }
 	def filepath(ShapeDefinition s) { packagePath + s.className + ".java" }
 	def className(ShapeDefinition s) { s.name.toFirstUpper }
 	def dispatch compartment(Shape shape) {

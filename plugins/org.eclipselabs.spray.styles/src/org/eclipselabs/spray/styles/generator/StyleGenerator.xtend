@@ -69,7 +69,7 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	def filepath(Style s) { s.packagePath + s.className + ".java" }
 	def className(Style s) { s.name.toFirstUpper }
 	def packageName(Style s) { ProjectProperties::stylesPackage }
-	def packagePath(Style s) { ProjectProperties::toPath(ProjectProperties::stylesPackage) + "/"}
+	def packagePath(Style s) { ProjectProperties::toPath(ProjectProperties::stylesPackage) }
 	
 	def compile(Style s) {
 		'''

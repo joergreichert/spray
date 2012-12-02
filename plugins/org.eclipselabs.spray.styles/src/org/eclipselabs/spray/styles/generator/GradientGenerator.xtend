@@ -6,12 +6,13 @@ import org.eclipselabs.spray.styles.GradientColorArea
 import org.eclipselabs.spray.styles.ColorConstantRef
 import org.eclipselabs.spray.styles.RGBColor
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class GradientGenerator {
 	def filepath(Gradient g) { g.packagePath + g.className + ".java" }
 	def className(Gradient g) { g.name.toFirstUpper }
-	def packageName(Gradient g) { "org.eclipselabs.spray.styles.gradients" }
-	def packagePath(Gradient g) { "org/eclipselabs/spray/styles/gradients/" }
+    def packageName(Gradient s) { ProjectProperties::gradientsPackage }
+    def packagePath(Gradient s) { ProjectProperties::toPath(ProjectProperties::gradientsPackage) }
 	
 	int elementIndex = 0
 	

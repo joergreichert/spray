@@ -86,6 +86,7 @@ public class ProjectProperties {
         featurePackage = properties.getProperty("featurePackage", featurePackage);
         propertyPackage = properties.getProperty("propertyPackage", propertyPackage);
         stylesPackage = properties.getProperty("stylesPackage", stylesPackage);
+        gradientsPackage = properties.getProperty("gradientsPackage", gradientsPackage);
         shapesPackage = properties.getProperty("shapesPackage", shapesPackage);
         utilPackage = properties.getProperty("utilPackage", utilPackage);
         srcGenPath = properties.getProperty("srcGenPath", srcGenPath);
@@ -95,18 +96,6 @@ public class ProjectProperties {
         projectPath = properties.getProperty("projectPath", projectPath);
         headerTimestamp = Boolean.valueOf(properties.getProperty("headerTimestamp", "true"));
         fileExtension = properties.getProperty("modelFileExtension");
-
-        //        applicationName = properties.getProperty("applicationName");
-        //        applicationVersion = properties.getProperty("applicationVersion");
-        //        applicationPath = properties.getProperty("applicationPath");
-        //        dslModelsModuleName = properties.getProperty("dslModelsModuleName");
-        //        domainModuleName = properties.getProperty("domainModuleName");
-        //        businessModuleName = properties.getProperty("businessModuleName");
-        //        rootPackage = properties.getProperty("rootPackage");
-        //        businessRootPackage = properties.getProperty("businessRootPackage");
-        //        //environmentPropertiesFileName = properties.getProperty("environmentPropertiesFileName");
-        //        fileEncoding = properties.getProperty("fileEncoding");
-
     }
 
     private static String       projectPath                   = "/";
@@ -137,6 +126,7 @@ public class ProjectProperties {
     private static String       featurePackage                = "features";
     private static String       propertyPackage               = "property";
     private static String       stylesPackage                 = "styles";
+    private static String       gradientsPackage              = "gradients";
     private static String       shapesPackage                 = "shapes";
     private static String       utilPackage                   = "org.eclipselabs.spray.runtime.containers";
 
@@ -256,6 +246,10 @@ public class ProjectProperties {
         return stylesPackage;
     }
 
+    public static String getGradientsPackage() {
+        return gradientsPackage;
+    }
+
     public static String getShapesPackage() {
         return shapesPackage;
     }
@@ -269,7 +263,7 @@ public class ProjectProperties {
     }
 
     public static String toPath(String packageName) {
-        return packageName.replaceAll("\\.", "/");
+        return packageName.replaceAll("\\.", "/") + "/";
     }
 
     public static String getSrcModelPath() {
