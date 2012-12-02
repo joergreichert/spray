@@ -53,7 +53,7 @@ public class SprayMultiPageEditor extends MultiPageEditorPart implements IResour
         }
         generatorPropertiesForm = new SprayGeneratorPropertiesForm(SprayGeneratorPropertiesForm.class.getName(), "Generator Settings");
         try {
-            IFile propertiesFile = root.getFile(sprayFile.getFullPath().removeFileExtension().addFileExtension("properties"));
+            IFile propertiesFile = root.getFile(sprayFile.getParent().getFullPath().append("/spray.properties"));
             if (!propertiesFile.exists()) {
                 try {
                     propertiesFile.create(new StringInputStream(""), true, null);
