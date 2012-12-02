@@ -45,6 +45,7 @@ public class PackageSelector {
     private Map<IContainer, Boolean>      projectToChanged       = new HashMap<IContainer, Boolean>();
     private Map<IProject, List<EPackage>> javaProjectToEPackages = new HashMap<IProject, List<EPackage>>();
     private JavaProjectHelper             javaProjectHelper      = new JavaProjectHelper();
+    private boolean                       workspaceChanged       = true;
 
     public List<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = javaProjectHelper.getJavaProject(modelElement);
@@ -66,9 +67,12 @@ public class PackageSelector {
      * @return
      */
     private boolean projectsHasChangedSinceLastRun(IJavaProject project) {
-        Map<IContainer, Boolean> localProjectToChanged = new HashMap<IContainer, Boolean>();
+        if (workspaceChanged) {
+            workspaceChanged = false;
+            return true;
+        }
         try {
-            for (Map.Entry<IContainer, Boolean> entry : localProjectToChanged.entrySet()) {
+            for (Map.Entry<IContainer, Boolean> entry : projectToChanged.entrySet()) {
                 for (String requiredProjectName : project.getRequiredProjectNames()) {
                     if (requiredProjectName.equals(entry.getKey().getName()) && entry.getValue() == Boolean.TRUE) {
                         return true;
@@ -97,9 +101,13 @@ public class PackageSelector {
                     ePackages.add((EPackage) packageObj);
                 } else if (packageObj instanceof EPackage.Descriptor) {
                     ePackageDescriptor = (EPackage.Descriptor) packageObj;
-                    ePackage = ePackageDescriptor.getEPackage();
-                    if (ePackage != null) {
-                        ePackages.add(ePackage);
+                    try {
+                        ePackage = ePackageDescriptor.getEPackage();
+                        if (ePackage != null) {
+                            ePackages.add(ePackage);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -188,8 +196,11 @@ public class PackageSelector {
                             projectToChanged.remove(project);
                             javaProjectToEPackages.remove(project);
                         }
+                    } else {
+                        workspaceChanged = true;
                     }
                 }
+
             });
         }
     }
