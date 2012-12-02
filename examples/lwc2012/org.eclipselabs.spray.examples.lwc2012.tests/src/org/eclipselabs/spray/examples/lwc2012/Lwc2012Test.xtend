@@ -23,6 +23,10 @@ import org.eclipselabs.spray.shapes.generator.ShapeGenerator
 import org.eclipselabs.spray.styles.generator.StyleGenerator
 
 import static org.junit.Assert.*
+import org.eclipselabs.spray.styles.Style
+import org.eclipselabs.spray.styles.Gradient
+import org.eclipselabs.spray.shapes.ShapeDefinition
+import org.eclipselabs.spray.shapes.ConnectionDefinition
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Lwc2012TestsInjectorProvider))
