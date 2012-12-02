@@ -20,7 +20,7 @@ for
 
 BusinessDomainModel 
 style 
-org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
+JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
 
 
 class 
@@ -29,10 +29,10 @@ class
 BusinessClass 
 {
 	
-shape org.eclipselabs.spray.shapes.ClassShape {name into classname reference properties into attributes	reference businessRules into businessrules}behavior {   create into types 
+shape JAVA org.eclipselabs.spray.shapes.ClassShape {name into classname reference properties into attributes	reference businessRules into businessrules}behavior {   create into types 
 	palette 
 	"Knoten" 
 	askFor 
 	name}}
 
-class Association icon "connection16.gif" {connection (){from source;to target;fromText text (){"" + source.name}}behavior{create into associations palette "PaletteName" askFor name}}
+class Association icon "connection16.gif" {connection JAVA org.eclipselabs.spray.shapes.ConnectionShape {from source;to target;}behavior{create into associations palette "PaletteName" askFor name}}
