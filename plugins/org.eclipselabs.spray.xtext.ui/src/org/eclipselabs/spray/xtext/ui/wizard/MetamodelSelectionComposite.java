@@ -334,7 +334,7 @@ public class MetamodelSelectionComposite extends Composite {
                                         }
                                     }
                                     if (resource instanceof IFile) {
-                                        if (resource.getFileExtension().equals(fileExtensionFilter)) {
+                                        if (fileExtensionFilter.equals(resource.getFileExtension())) {
                                             select[0] = true;
                                         }
                                     }
