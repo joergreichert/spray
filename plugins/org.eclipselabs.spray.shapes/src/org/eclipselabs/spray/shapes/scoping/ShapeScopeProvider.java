@@ -10,8 +10,8 @@ import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
-import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.eclipselabs.spray.shapes.ShapeStyleRef;
+import org.eclipselabs.spray.styles.scoping.StyleScopeProvider;
 import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
 
 import com.google.common.base.Predicate;
@@ -21,7 +21,7 @@ import com.google.common.base.Predicate;
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
  * how and when to use it
  */
-public class ShapeScopeProvider extends XbaseScopeProvider {
+public class ShapeScopeProvider extends StyleScopeProvider {
 
     /**
      * Gets the Scope of a JvmParametrizedType by refercing to the Shape or the
