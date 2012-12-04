@@ -240,7 +240,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         Set<EPackage> ePackages = new HashSet<EPackage>();
         if (project != null) {
             List<String> alreadyImported = packageSelector.getAlreadyImported(container);
-            ePackages.addAll(packageSelector.getEPackages());
+            ePackages.addAll(packageSelector.getFilteredEPackages(model));
             createImportProposals(context, acceptor, project, alreadyImported, new ArrayList<EPackage>(ePackages));
         }
     }

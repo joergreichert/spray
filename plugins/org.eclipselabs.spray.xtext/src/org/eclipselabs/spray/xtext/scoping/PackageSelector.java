@@ -71,6 +71,9 @@ public class PackageSelector {
             workspaceChanged = false;
             return true;
         }
+        if (projectToChanged.size() == 0) {
+            return true;
+        }
         try {
             for (Map.Entry<IContainer, Boolean> entry : projectToChanged.entrySet()) {
                 for (String requiredProjectName : project.getRequiredProjectNames()) {
@@ -85,7 +88,7 @@ public class PackageSelector {
         return false;
     }
 
-    public List<EPackage> getEPackages() {
+    private List<EPackage> getEPackages() {
         registerWorkspaceEPackagesAndGenModels();
 
         Set<Entry<String, Object>> packages = new HashSet<Entry<String, Object>>();

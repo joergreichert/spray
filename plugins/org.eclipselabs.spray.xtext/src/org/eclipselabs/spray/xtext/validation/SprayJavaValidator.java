@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmType;
@@ -20,6 +21,7 @@ import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
+import org.eclipselabs.spray.xtext.scoping.PackageSelector;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 import com.google.common.base.Predicate;
@@ -31,6 +33,8 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
     private GenModelHelper           genModelHelper;
     @Inject
     private IJvmTypeProvider.Factory typeProviderFactory;
+    @Inject
+    private PackageSelector          packageSelector;
 
     /**
      * Add additional EReferences for type conformance validation of expressions.
@@ -151,9 +155,15 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
 
     @Check
     public void checkImports(final Import imp) {
-        // don't check wildcard imports
-        if (imp.getImportedNamespace().endsWith(".*"))
-            return;
+        if (imp.getImportedNamespace().endsWith(".*")) {
+            List<EPackage> ePackages = packageSelector.getFilteredEPackages(imp);
+            for (EPackage ePackage : ePackages) {
+                if ((ePackage.getName() + ".*").equals(imp.getImportedNamespace())) {
+                    return;
+                }
+            }
+            error("The import " + imp.getImportedNamespace() + " cannot be resolved", SprayPackage.Literals.IMPORT__IMPORTED_NAMESPACE, IMPORT_NOTEXISTS, new String[0]);
+        }
         IJvmTypeProvider typeProvider = typeProviderFactory.findOrCreateTypeProvider(imp.eResource().getResourceSet());
         JvmType jvmType = typeProvider.findTypeByName(imp.getImportedNamespace());
         if (jvmType == null) {
