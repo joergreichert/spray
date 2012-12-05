@@ -10,8 +10,6 @@
 // Add import statements here, e.g.
 // import BPMN.*
 import BPMN.* 
-import org.eclipselabs.spray.shapes.*  
-import org.eclipselabs.spray.styles.*   
 
 diagram bpmn for BPMNModelElement style BpmnDefaultStyle 
 

@@ -9,8 +9,6 @@
  *************************************************************************************/  
 // Add import statements here
 import PetriNet.*
-import org.eclipselabs.spray.shapes.* 
-import org.eclipselabs.spray.styles.* 
 
 diagram petrinet for PetriModel style PetrinetDefaultStyle   
  

@@ -9,8 +9,6 @@
  *************************************************************************************/
 // Add import statements here, e.g.
 import LanguageWorkbenchCompetition.*   
-import org.eclipselabs.spray.shapes.* 
-import org.eclipselabs.spray.styles.*
 diagram LWC for LWCModelElement // style LWC2012CorporateStyle   
 
 class LWCVesselHorizontal alias Horizontal {  
