@@ -81,11 +81,11 @@ class LayoutExtensions {
     // OFFSETS
     def dispatch int xoffset (EObject other) { 0 }
     def dispatch int xoffset (ConnectionDefinition shape) { 10 }
-    def dispatch int xoffset (PlacingDefinition shape) { (shape.eContainer.xoffset + shape.offset*shape.width).intValue }
+    def dispatch int xoffset (PlacingDefinition shape) { (shape.eContainer.xoffset + shape.offset*shape.width).nullSafeIntValue }
     def dispatch int xoffset (ShapeConnection shape) { shape.eContainer.xoffset }
     def dispatch int yoffset (EObject other) { 0 }
     def dispatch int yoffset (ConnectionDefinition shape) { 10 }
-    def dispatch int yoffset (PlacingDefinition shape) { (shape.eContainer.yoffset + shape.offset*shape.width).intValue }
+    def dispatch int yoffset (PlacingDefinition shape) { (shape.eContainer.yoffset + shape.offset*shape.width).nullSafeIntValue }
     def dispatch int yoffset (ShapeConnection shape) { shape.eContainer.yoffset }
     
 
@@ -348,7 +348,7 @@ class LayoutExtensions {
     }
     
 	def integerValue(Double doubleValue) {
-		Double::valueOf(doubleValue).intValue
+		Double::valueOf(doubleValue).nullSafeIntValue
 	}    
 
     def placingSpaceXShift(EObject shape) {
@@ -357,12 +357,16 @@ class LayoutExtensions {
     }
 	
     def placingSpaceXShift(ConnectionDefinition shape) {
-    	val x = shape.placing.map(pd|Double::valueOf(defaultConnectionX1 + defaultConnectionWidth * pd.offset + pd.shapeCon.xWithoutShift(true)).intValue).sort.head
+    	val x = shape.placing.map(pd|Double::valueOf(defaultConnectionX1 + defaultConnectionWidth * pd.offset + pd.shapeCon.xWithoutShift(true)).nullSafeIntValue).sort.head
     	if(x == null || x > 0) 0 else Math::abs(x)
     }
 
     def placingSpaceAdditionalWidth(ConnectionDefinition shape) {
-    	shape.placing.map(pd|Double::valueOf(defaultConnectionX1 + (defaultConnectionWidth * pd.offset + (pd.shapeCon.xWithoutShift(true) + pd.shapeCon.width)) - defaultConnectionWidth).intValue).sort.last
+    	shape.placing.map(pd|Double::valueOf(defaultConnectionX1 + (defaultConnectionWidth * pd.offset + (pd.shapeCon.xWithoutShift(true) + pd.shapeCon.width)) - defaultConnectionWidth).nullSafeIntValue).sort.last
+    }
+    
+    def nullSafeIntValue(Double doubleValue) {
+    	if(doubleValue == null) 0 else doubleValue.nullSafeIntValue
     }
 
     def placingSpaceYShift(EObject shape) {
@@ -376,7 +380,7 @@ class LayoutExtensions {
     }
     
     def placingSpaceAdditionalHeight(ConnectionDefinition shape) {
-    	shape.placing.map(pd|Double::valueOf(defaultConnectionY2 + (defaultConnectionHeight * pd.offset + (pd.shapeCon.yWithoutShift(true) + pd.shapeCon.height)) - defaultConnectionHeight).intValue).sort.last
+    	shape.placing.map(pd|Double::valueOf(defaultConnectionY2 + (defaultConnectionHeight * pd.offset + (pd.shapeCon.yWithoutShift(true) + pd.shapeCon.height)) - defaultConnectionHeight).nullSafeIntValue).sort.last
     }
     
     // Anchors
