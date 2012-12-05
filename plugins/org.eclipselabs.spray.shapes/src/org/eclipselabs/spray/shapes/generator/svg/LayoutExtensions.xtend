@@ -366,7 +366,7 @@ class LayoutExtensions {
     }
     
     def nullSafeIntValue(Double doubleValue) {
-    	if(doubleValue == null) 0 else doubleValue.nullSafeIntValue
+    	if(doubleValue == null) 0 else doubleValue.intValue
     }
 
     def placingSpaceYShift(EObject shape) {
