@@ -17,6 +17,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.StringInputStream;
+import org.eclipselabs.spray.generator.common.ProjectProperties;
 
 import com.google.inject.Inject;
 
@@ -53,7 +54,7 @@ public class SprayMultiPageEditor extends MultiPageEditorPart implements IResour
         }
         generatorPropertiesForm = new SprayGeneratorPropertiesForm(SprayGeneratorPropertiesForm.class.getName(), "Generator Settings");
         try {
-            IFile propertiesFile = root.getFile(sprayFile.getParent().getFullPath().append("/spray.properties"));
+            IFile propertiesFile = root.getFile(sprayFile.getParent().getFullPath().append("/" + ProjectProperties.SPRAY_PROPERTY_FILENAME));
             if (!propertiesFile.exists()) {
                 try {
                     propertiesFile.create(new StringInputStream(""), true, null);

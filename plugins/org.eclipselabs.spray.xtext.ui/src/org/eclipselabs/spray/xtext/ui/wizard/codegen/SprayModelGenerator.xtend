@@ -3,15 +3,16 @@ package org.eclipselabs.spray.xtext.ui.wizard.codegen
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo
 import org.eclipse.xtext.generator.IFileSystemAccess
 import com.google.inject.Inject
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class SprayModelGenerator {
     @Inject extension PackageHelper
     
     def doGenerate (SprayProjectInfo info, IFileSystemAccess fsa) {
-        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".spray", info.projectName, generateModel(info))
-        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".shape", info.projectName, generateShapes(info))
-        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".style", info.projectName, generateStyles(info))
-        fsa.generateFile(info.sprayModelDir+"/"+ "spray.properties", info.projectName, generateProperties(info))
+        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ProjectProperties::SPRAY_FILE_EXTENSION, info.projectName, generateModel(info))
+        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ProjectProperties::SHAPES_FILE_EXTENSION, info.projectName, generateShapes(info))
+        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ProjectProperties::STYLES_FILE_EXTENSION, info.projectName, generateStyles(info))
+        fsa.generateFile(info.sprayModelDir+"/"+ ProjectProperties::SPRAY_PROPERTY_FILENAME, info.projectName, generateProperties(info))
     }
     
     def generateModel (SprayProjectInfo info) '''
@@ -112,6 +113,7 @@ class SprayModelGenerator {
         featurePackage  = «info.getBasePackage».«info.featurePackage»
         propertyPackage = «info.getBasePackage».«info.propertyPackage»
         stylesPackage   = «info.getBasePackage».«info.stylesPackage»
+        gradientsPackage= «info.getBasePackage».«info.gradientsPackage»
         shapesPackage   = «info.getBasePackage».«info.shapesPackage»
         utilPackage     = org.eclipselabs.spray.runtime.graphiti.containers
         

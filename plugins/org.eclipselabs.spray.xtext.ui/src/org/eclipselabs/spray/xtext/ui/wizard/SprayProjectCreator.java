@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess;
 import org.eclipse.xtext.ui.wizard.AbstractPluginProjectCreator;
 import org.eclipse.xtext.util.IAcceptor;
+import org.eclipselabs.spray.generator.common.ProjectProperties;
 import org.eclipselabs.spray.xtext.ui.internal.SprayActivator;
 import org.eclipselabs.spray.xtext.ui.wizard.codegen.NewProjectGenerator;
 
@@ -118,7 +119,7 @@ public class SprayProjectCreator extends AbstractPluginProjectCreator {
 
     @Override
     protected IFile getModelFile(IProject project) throws CoreException {
-        return project.getFile(getProjectInfo().getSprayModelDir() + "/" + getProjectInfo().getDiagramTypeName() + ".spray");
+        return project.getFile(getProjectInfo().getSprayModelDir() + "/" + getProjectInfo().getDiagramTypeName() + ProjectProperties.SPRAY_FILE_EXTENSION);
     }
 
     @Override
