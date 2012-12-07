@@ -40,15 +40,21 @@ import org.eclipse.emf.ecore.EObject;
  * To be continued
  */
 public class ProjectProperties {
-    private static final Log LOG = LogFactory.getLog(ProjectProperties.class);
+
+    public static final String SPRAY_PROPERTY_FILENAME = "spray.properties";
+    public static final String SPRAY_FILE_EXTENSION    = ".spray";
+    public static final String SHAPES_FILE_EXTENSION   = ".shape";
+    public static final String STYLES_FILE_EXTENSION   = ".style";
+
+    private static final Log   LOG                     = LogFactory.getLog(ProjectProperties.class);
 
     public static void setModelUri(URI uri) {
-        if ((!uri.lastSegment().endsWith(".spray")) && (!uri.lastSegment().endsWith(".style")) && (!uri.lastSegment().endsWith(".shape"))) {
+        if ((!uri.lastSegment().endsWith(SPRAY_FILE_EXTENSION)) && (!uri.lastSegment().endsWith(STYLES_FILE_EXTENSION)) && (!uri.lastSegment().endsWith(SHAPES_FILE_EXTENSION))) {
             return;
         }
         //        URI propertiesUri = uri.trimSegments(1).appendSegment(uri.lastSegment().replace(".spray", ".properties"));
 
-        URI propertiesUri = uri.trimSegments(1).appendSegment("spray.properties");
+        URI propertiesUri = uri.trimSegments(1).appendSegment(SPRAY_PROPERTY_FILENAME);
         if (propertiesUri.isFile()) {
             propertyFile = propertiesUri.toFileString();
         } else if (propertiesUri.isPlatformResource()) {

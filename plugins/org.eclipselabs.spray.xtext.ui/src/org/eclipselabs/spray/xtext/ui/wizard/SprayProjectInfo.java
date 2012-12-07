@@ -16,6 +16,7 @@ public class SprayProjectInfo extends DefaultProjectInfo {
     private String  featurePackage        = "features";
     private String  propertyPackage       = "property";
     private String  stylesPackage         = "styles";
+    private String  gradientsPackage      = "gradients";
     private String  shapesPackage         = "shapes";
     private boolean createTimestamp       = true;
     private String  epackageURI;
@@ -117,6 +118,14 @@ public class SprayProjectInfo extends DefaultProjectInfo {
 
     public void setStylesPackage(String stylesPackage) {
         this.stylesPackage = stylesPackage;
+    }
+
+    public String getGradientsPackage() {
+        return gradientsPackage;
+    }
+
+    public void setGradientsPackage(String gradientsPackage) {
+        this.gradientsPackage = gradientsPackage;
     }
 
     public String getShapesPackage() {
