@@ -11,7 +11,7 @@ class SprayModelGenerator {
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".spray", info.projectName, generateModel(info))
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".shape", info.projectName, generateShapes(info))
         fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".style", info.projectName, generateStyles(info))
-        fsa.generateFile(info.sprayModelDir+"/"+info.getDiagramTypeName + ".properties", info.projectName, generateProperties(info))
+        fsa.generateFile(info.sprayModelDir+"/"+ "spray.properties", info.projectName, generateProperties(info))
     }
     
     def generateModel (SprayProjectInfo info) '''
