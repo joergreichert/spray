@@ -169,19 +169,14 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
                 if (SprayLayoutService.isCompartment(targetContainer) ) {
                     String id = GraphitiProperties.get(targetContainer, ISprayConstants.TEXT_ID);
                     if ((id != null) && (id.equals("«ref.shapeDslKey.simpleName»"))) {
-                        // create AddCointext5 fist, because the PROPERT_ALIAS property will be set to null after removing it.
-                        AddContext addContext = new AddContext();
-                        addContext.putProperty(ISprayConstants.PROPERTY_ALIAS, GraphitiProperties.get(sourceShape, ISprayConstants.PROPERTY_ALIAS));
 
-                        RemoveContext removeContext = new RemoveContext(sourceShape);
-                        IRemoveFeature rem = getFeatureProvider().getRemoveFeature(removeContext);
-                        rem.remove(removeContext);
-
+                        sourceContainer.getChildren().remove(source);
                         ContainerShape sourceTop = SprayLayoutService.findTopDslShape(sourceContainer);
                         if( sourceTop != null ){
                             SprayLayoutService.getLayoutManager(sourceTop).layout();
                         }
                         // remove from source container and add to target container
+
                         «IF ref.reference.many»
 «««                        ((«ref.shape.represents.itfName») sourceParent).get«ref.reference.name.toFirstUpper»().remove((«container.represents.itfName»)source);
                         ((«ref.shape.represents.itfName») target).get«ref.reference.name.toFirstUpper»().add((«container.represents.itfName») source);
@@ -189,10 +184,11 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 «««                        ((«ref.shape.represents.itfName») sourceParent).set«ref.reference.name.toFirstUpper»( null);
                         ((«ref.shape.represents.itfName») target).set«ref.reference.name.toFirstUpper»((«container.represents.itfName») source);
                         «ENDIF»
-                        addContext.setNewObject(source);
-                        addContext.setLocation(context.getX(), context.getX());
-                        addContext.setTargetContainer(targetContainer);
-                        getFeatureProvider().addIfPossible(addContext);
+                        targetContainer.getChildren().add((Shape)sourceShape);
+                        ContainerShape targetTop = SprayLayoutService.findTopDslShape(targetContainer);
+                        if (targetTop != null) {
+                            SprayLayoutService.getLayoutManager(targetTop).layout();
+                        }
                         return;
                     }
                 }
