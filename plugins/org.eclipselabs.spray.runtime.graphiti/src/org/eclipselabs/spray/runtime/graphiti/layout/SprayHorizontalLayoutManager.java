@@ -52,7 +52,8 @@ public class SprayHorizontalLayoutManager extends SprayAbstractLayoutManager {
             if (align == SprayAlignment.MIDDLE) {
                 alignCenter(height);
             } else {
-                stretchHeightTo(height);
+                // TODO should test for other aloignment option like FILL
+                //                stretchHeightTo(height);
             }
             // set the final size of the shape
             int newHeight = height + (2 * margin);
