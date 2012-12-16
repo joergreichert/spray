@@ -2,7 +2,6 @@ style NoFontnameAndSize  {
 	description = "This is a Style with no font name and size and inherited by DefaultSprayStyle."
 	transparency = 0.7
 	background-color = green
-	line-color = transparent
 	line-style = dash
 	line-width = 2
 	font-color = very-light-gray

@@ -3,8 +3,7 @@ style TransparentLinecolor {
 	transparency = 0.2
 	background-color = green
 	line-color = transparent
-	line-style = dash
-	line-width = 2
+	line-width = 0
 	font-color = RGB(45,45,87)
 	font-name = "Arial"
 	font-size = 7

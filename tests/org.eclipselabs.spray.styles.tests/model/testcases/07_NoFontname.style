@@ -2,7 +2,6 @@ style NoFontname {
 	description = "This is a description for the NoFontname"
 	transparency = 0.1
 	background-color = green
-	line-color = transparent
 	line-style = dash
 	line-width = 2
 	font-color = yellow
