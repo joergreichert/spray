@@ -1,0 +1,3 @@
+gradient Gradient {
+	area (color = blue, offset = 0.0)
+}

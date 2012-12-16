@@ -1,0 +1,5 @@
+style Style {
+	line-color = transparent
+	line-width = 0
+	line-style = solid
+}

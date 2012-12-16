@@ -1,0 +1,13 @@
+/*
+XPECT_IMPORT b.style
+ */
+
+style A1 {
+}
+
+style A2 {
+}
+
+// XPECT elementsInScope at A1 --> A1, A2, B1 
+style A3 extends A1 {
+}

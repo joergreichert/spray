@@ -18,6 +18,7 @@ import org.eclipselabs.spray.styles.RGBColor;
 import org.eclipselabs.spray.styles.Style;
 import org.eclipselabs.spray.styles.StyleLayout;
 import org.eclipselabs.spray.styles.StylesPackage;
+import org.eclipselabs.spray.styles.Transparent;
 
 public class StyleJavaValidator extends AbstractStyleJavaValidator {
 
@@ -83,8 +84,8 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
         EList<GradientColorArea> colorAreas = gradient.getLayout().getArea();
         for (GradientColorArea colorArea : colorAreas) {
             double currentOffset = colorArea.getOffset();
-            if (!(currentOffset >= lastOffset) && EcoreUtil.equals(gradientColorArea, colorArea)) {
-                error("This offset should be " + lastOffset + " or bigger. Please take care about the sortage of the gradient areas.", StylesPackage.Literals.GRADIENT_COLOR_AREA__OFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(gradientColorArea.getOffset()));
+            if (!(currentOffset > lastOffset || ((currentOffset == lastOffset) && (lastOffset == 0.0))) && EcoreUtil.equals(gradientColorArea, colorArea)) {
+                error("This offset should be bigger than " + lastOffset + ". Please take care about the sortage of the gradient areas.", StylesPackage.Literals.GRADIENT_COLOR_AREA__OFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(gradientColorArea.getOffset()));
             }
             lastOffset = currentOffset;
         }
@@ -205,11 +206,11 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
      *            the line style
      */
     public void checkLineAttributes(ColorWithTransparency lineColor, Integer lineWidth, LineStyle lineStyle) {
-        if (lineColor != null && "transparent".equals(lineColor.toString())) {
+        if (lineColor instanceof Transparent) {
             if (lineWidth != 0) {
                 warning("If the line-color is transparent, the line-width is deprecated.", StylesPackage.Literals.STYLE_LAYOUT__LINE_WIDTH, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(lineWidth));
             }
-            if (lineStyle != null) {
+            if (lineStyle != null && lineStyle != LineStyle.NULL) {
                 warning("If the line-color is transparent, the line-style is deprecated.", StylesPackage.Literals.STYLE_LAYOUT__LINE_STYLE, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, lineStyle.toString());
             }
         } else {

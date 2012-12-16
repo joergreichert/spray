@@ -1,0 +1,4 @@
+style Style {
+	line-width = 0
+	line-style = solid
+}

@@ -1,0 +1,6 @@
+gradient Gradient {
+	area (color = blue, offset = 0.0)
+	area (color = green, offset = 0.4)
+	area (color = yellow, offset = 0.4)
+	area (color = gray, offset = 1.0)
+}

@@ -1,0 +1,3 @@
+style MydiagramDefaultStyle extends JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+	font-color = RGB(0,256,0)
+}
