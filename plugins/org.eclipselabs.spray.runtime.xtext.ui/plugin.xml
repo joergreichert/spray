@@ -8,4 +8,16 @@
       </module>
    </extension>
 
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="org.eclipse.xtext.viewCategory"
+            class="org.eclipselabs.spray.runtime.xtext.ui.xtextindex.IEObjectDescriptionViewer"
+            icon="icons/methdef_obj.gif"
+            id="org.eclipselabs.spray.runtime.xtext.ui.xtextindex.IEObjectDescriptionViewer"
+            name="Xtext Index">
+      </view>
+   </extension>
+
 </plugin>

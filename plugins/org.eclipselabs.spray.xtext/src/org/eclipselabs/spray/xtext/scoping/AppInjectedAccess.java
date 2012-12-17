@@ -17,6 +17,6 @@ public class AppInjectedAccess {
     static public ResourceDescriptionsProvider resourceDescriptionsProvider;
 
     public static ResourceDescriptionsProvider getit() {
-        return resourceDescriptionsProvider; // M2uiRuntimeModule.resourceDescriptionsProvider;
+        return resourceDescriptionsProvider;
     }
 }
