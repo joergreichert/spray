@@ -21,20 +21,17 @@ public class IEObjectDescriptionContentProvider implements ITreeContentProvider 
 
     @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        //        System.out.println("====================== inputChanged: ");
     }
 
     @Override
     public Object[] getElements(Object inputElement) {
         IResourceDescriptions[] rrr = {};
 
-        //        System.out.println("====================== getElements: ");
         ResourceDescriptionsProvider provider = AppInjectedAccess.getit();
         if (provider != null) {
             IResourceDescriptions r = provider.createResourceDescriptions();
             ArrayList<IResourceDescription> result = new ArrayList<IResourceDescription>();
             for (IResourceDescription iResourceDescription : r.getAllResourceDescriptions()) {
-                //                System.out.println(iResourceDescription.getURI().path() + " ==> " + iResourceDescription.getURI().fileExtension());
                 //                if ("spray".equalsIgnoreCase(iResourceDescription.getURI().fileExtension())) {
                 result.add(iResourceDescription);
                 //                }
@@ -47,7 +44,6 @@ public class IEObjectDescriptionContentProvider implements ITreeContentProvider 
 
     @Override
     public Object[] getChildren(Object parentElement) {
-        //        System.out.println("====================== getChildren: ");
         if (parentElement instanceof IResourceDescription) {
             Iterable<IEObjectDescription> it = ((IResourceDescription) parentElement).getExportedObjects();
             return toList(it).toArray();
@@ -57,13 +53,11 @@ public class IEObjectDescriptionContentProvider implements ITreeContentProvider 
 
     @Override
     public Object getParent(Object element) {
-        //        System.out.println("====================== getParent: ");
         return null;
     }
 
     @Override
     public boolean hasChildren(Object element) {
-        //        System.out.println("====================== hasChildren: ");
         if (element instanceof IResourceDescription) {
             return true;
         }

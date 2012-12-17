@@ -64,6 +64,11 @@ public class IEObjectDescriptionViewer extends ViewPart {
         tcl_composite.setColumnData(trclmnType, new ColumnPixelData(150, true, true));
         trclmnType.setText("Type");
 
+        TreeViewerColumn treeViewerUserDataColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
+        TreeColumn trclmnUserData = treeViewerUserDataColumn.getColumn();
+        tcl_composite.setColumnData(trclmnUserData, new ColumnPixelData(150, true, true));
+        trclmnUserData.setText("User Data");
+
         Button btnRefresh = new Button(container, SWT.NONE);
         fd_composite.right = new FormAttachment(btnRefresh, -35);
         btnRefresh.addMouseListener(new MouseAdapter() {
@@ -81,6 +86,7 @@ public class IEObjectDescriptionViewer extends ViewPart {
         treeViewer.setContentProvider(new IEObjectDescriptionContentProvider());
         treeViewerColumn.setLabelProvider(new EObjectDescriptionNameColumnLabelProvider());
         treeViewerColumn_1.setLabelProvider(new EObjectDescriptionTypeColumnLabelProvider());
+        treeViewerUserDataColumn.setLabelProvider(new EObjectDescriptionUserDataColumnLabelProvider());
 
         createActions();
         initializeToolBar();

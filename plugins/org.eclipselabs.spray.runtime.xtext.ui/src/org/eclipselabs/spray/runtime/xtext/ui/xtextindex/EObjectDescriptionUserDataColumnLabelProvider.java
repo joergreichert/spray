@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 
-public class EObjectDescriptionNameColumnLabelProvider extends CellLabelProvider {
+public class EObjectDescriptionUserDataColumnLabelProvider extends CellLabelProvider {
 
     @Override
     public void addListener(ILabelProviderListener listener) {
@@ -41,10 +41,17 @@ public class EObjectDescriptionNameColumnLabelProvider extends CellLabelProvider
     public String getText(Object element) {
         if (element instanceof IEObjectDescription) {
             IEObjectDescription oDescription = (IEObjectDescription) element;
-            oDescription.getEClass();
-            return oDescription.getQualifiedName().toString();
+            StringBuffer result = new StringBuffer("{ ");
+            for (String key : oDescription.getUserDataKeys()) {
+                result.append(key);
+                result.append(" : ");
+                result.append(oDescription.getUserData(key));
+                result.append("; ");
+            }
+            result.append(" }");
+            return result.toString();
         } else if (element instanceof IResourceDescription) {
-            return ((IResourceDescription) element).getURI().lastSegment();
+            return "";
         }
         return "unknown";
     }
