@@ -1,4 +1,7 @@
 gradient Gradient {
 	area (color = blue, offset = 0.0)
+/* XPECT validationIssues at '0.9' ---
+warning "A gradient should always end with an offset of 1.0."
+--- */
 	area (color = gray, offset = 0.9)
 }

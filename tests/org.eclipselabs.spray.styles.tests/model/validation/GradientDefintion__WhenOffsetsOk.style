@@ -1,4 +1,6 @@
 gradient Gradient {
+// XPECT noValidationIssues at '0.0'
 	area (color = blue, offset = 0.0)
+// XPECT noValidationIssues at '1.0'	
 	area (color = gray, offset = 1.0)
 }

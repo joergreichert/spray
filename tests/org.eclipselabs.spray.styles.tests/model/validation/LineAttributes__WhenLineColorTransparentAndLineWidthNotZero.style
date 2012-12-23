@@ -1,3 +1,6 @@
+/* XPECT validationIssues at 'Style' ---
+warning "If the line-color is transparent, the line-width is deprecated."
+--- */
 style Style {
 	line-color = transparent
 	line-width = 1
