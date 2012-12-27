@@ -48,22 +48,78 @@ public class TextBodyFetcher {
     @Inject
     private IQualifiedNameConverter qnConverter;
 
-    private IResourceDescriptions   dscriptions = null;
+    private IResourceDescriptions   dscriptions                    = null;
+    private Predicate<EObject>      containerIsCompartmentFilter   = null;
+    private Predicate<EObject>      textBodyFilter                 = null;
+    private Predicate<EObject>      propertyAssignmentIdsFilter    = null;
+    private Predicate<EObject>      compartmentAssignmentIdsFilter = null;
 
-    public Predicate<EObject> getPropertyAssignmentIdsFilter() {
+    public Predicate<EObject> getPropertyAssignmentIdFilter(final String id) {
         return new Predicate<EObject>() {
             public boolean apply(EObject eo) {
-                return eo instanceof TextBody && !(eo.eContainer() instanceof CompartmentShape);
+                return getPropertyAssignmentIdsFilter().apply(eo) && getTextBodyIdFilter(id).apply(eo);
             }
         };
     }
 
-    public Predicate<EObject> getCompartmentAssignmentIdsFilter() {
+    public Predicate<EObject> getCompartmentAssignmentIdFilter(final String id) {
         return new Predicate<EObject>() {
             public boolean apply(EObject eo) {
-                return eo instanceof TextBody && (eo.eContainer() instanceof CompartmentShape || eo.eContainer() instanceof CompartmentInfo);
+                return getCompartmentAssignmentIdsFilter().apply(eo) && getTextBodyIdFilter(id).apply(eo);
             }
         };
+    }
+
+    public Predicate<EObject> getPropertyAssignmentIdsFilter() {
+        if (propertyAssignmentIdsFilter == null) {
+            propertyAssignmentIdsFilter = new Predicate<EObject>() {
+                public boolean apply(EObject eo) {
+                    return getTextBodyFilter().apply(eo) && !getContainerIsCompartmentFilter().apply(eo);
+                }
+            };
+        }
+        return propertyAssignmentIdsFilter;
+    }
+
+    public Predicate<EObject> getCompartmentAssignmentIdsFilter() {
+        if (compartmentAssignmentIdsFilter == null) {
+            compartmentAssignmentIdsFilter = new Predicate<EObject>() {
+                public boolean apply(EObject eo) {
+                    return getTextBodyFilter().apply(eo) && getContainerIsCompartmentFilter().apply(eo);
+                }
+            };
+        }
+        return compartmentAssignmentIdsFilter;
+    }
+
+    public Predicate<EObject> getTextBodyFilter() {
+        if (textBodyFilter == null) {
+            textBodyFilter = new Predicate<EObject>() {
+                public boolean apply(EObject eo) {
+                    return eo instanceof TextBody;
+                }
+            };
+        }
+        return textBodyFilter;
+    }
+
+    public Predicate<EObject> getTextBodyIdFilter(final String id) {
+        return new Predicate<EObject>() {
+            public boolean apply(EObject eo) {
+                return getTextBodyFilter().apply(eo) && (id != null && id.equals(((TextBody) eo).getValue()));
+            }
+        };
+    }
+
+    public Predicate<EObject> getContainerIsCompartmentFilter() {
+        if (containerIsCompartmentFilter == null) {
+            containerIsCompartmentFilter = new Predicate<EObject>() {
+                public boolean apply(EObject eo) {
+                    return eo.eContainer() instanceof CompartmentShape || eo.eContainer() instanceof CompartmentInfo;
+                }
+            };
+        }
+        return containerIsCompartmentFilter;
     }
 
     public Function<ShapeContainerElement, ShapeContainerElement> getShapeContainerElementResolver() {
@@ -85,8 +141,26 @@ public class TextBodyFetcher {
         };
     }
 
-    public Set<String> getTextBodyIds(EObject model, Function<ShapeContainerElement, ShapeContainerElement> ShapeContainerElementResolver, Predicate<EObject> filterPredicate) {
-        Set<String> textBodyIds = new HashSet<String>();
+    public Set<String> getTextBodyIds(EObject model, Function<ShapeContainerElement, ShapeContainerElement> shapeContainerElementResolver, Predicate<EObject> filterPredicate) {
+        Function<EObject, String> textBodyIdExtractor = new Function<EObject, String>() {
+            public String apply(EObject eo) {
+                return ((TextBody) eo).getValue();
+            }
+        };
+        return getTextBodyIds(model, shapeContainerElementResolver, filterPredicate, textBodyIdExtractor);
+    }
+
+    public Set<TextBody> getTextBodysForId(EObject model, Function<ShapeContainerElement, ShapeContainerElement> shapeContainerElementResolver, Predicate<EObject> filterPredicate) {
+        Function<EObject, TextBody> textBodyIdExtractor = new Function<EObject, TextBody>() {
+            public TextBody apply(EObject eo) {
+                return (TextBody) eo;
+            }
+        };
+        return getTextBodyIds(model, shapeContainerElementResolver, filterPredicate, textBodyIdExtractor);
+    }
+
+    private <T> Set<T> getTextBodyIds(EObject model, Function<ShapeContainerElement, ShapeContainerElement> shapeContainerElementResolver, Predicate<EObject> filterPredicate, Function<EObject, T> resultExtractor) {
+        Set<T> results = new HashSet<T>();
         ShapeInSpray shapeRef = EcoreUtil2.getContainerOfType(model, ShapeInSpray.class);
         if (shapeRef != null) {
             ShapeContainerElement shapeContainerElement = null;
@@ -102,15 +176,11 @@ public class TextBodyFetcher {
                 }
             }
             if (shapeContainerElement != null) {
-                shapeContainerElement = ShapeContainerElementResolver.apply(shapeContainerElement);
+                shapeContainerElement = shapeContainerElementResolver.apply(shapeContainerElement);
 
-                textBodyIds = Sets.newHashSet(Iterables.transform(Iterables.filter(IteratorExtensions.toIterable(shapeContainerElement.eAllContents()), filterPredicate), new Function<EObject, String>() {
-                    public String apply(EObject eo) {
-                        return ((TextBody) eo).getValue();
-                    }
-                }));
+                results = Sets.newHashSet(Iterables.transform(Iterables.filter(IteratorExtensions.toIterable(shapeContainerElement.eAllContents()), filterPredicate), resultExtractor));
             }
         }
-        return textBodyIds;
+        return results;
     }
 }
