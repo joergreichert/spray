@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
@@ -20,9 +21,13 @@ import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.Import;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
+import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment;
+import org.eclipselabs.spray.mm.spray.ShapeDslKey;
+import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.scoping.PackageSelector;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
+import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -35,6 +40,8 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
     private IJvmTypeProvider.Factory typeProviderFactory;
     @Inject
     private PackageSelector          packageSelector;
+    @Inject
+    private TextBodyFetcher          textBodyFetcher;
 
     /**
      * Add additional EReferences for type conformance validation of expressions.
@@ -168,6 +175,36 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
         JvmType jvmType = typeProvider.findTypeByName(imp.getImportedNamespace());
         if (jvmType == null) {
             error("The import " + imp.getImportedNamespace() + " cannot be resolved", SprayPackage.Literals.IMPORT__IMPORTED_NAMESPACE, IMPORT_NOTEXISTS, new String[0]);
+        }
+    }
+
+    @Check
+    public void checkIdReferences(final ShapePropertyAssignment shapePropertyAssignment) {
+        ShapeDslKey shapeDslKey = shapePropertyAssignment.getKey();
+        if (shapeDslKey != null) {
+            String currentKey = shapeDslKey.getDslKey();
+            if (currentKey != null) {
+                final Predicate<EObject> filterPredicate = textBodyFetcher.getPropertyAssignmentIdsFilter();
+                Set<String> textBodyIds = textBodyFetcher.getTextBodyIds(shapePropertyAssignment, textBodyFetcher.getShapeContainerElementResolver(), filterPredicate);
+                if (!textBodyIds.contains(currentKey)) {
+                    error("The given id " + currentKey + " cannot be resolved inside the referenced shape", SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY);
+                }
+            }
+        }
+    }
+
+    @Check
+    public void checkIdReferences(final ShapeCompartmentAssignment shapeCompartmentAssignment) {
+        ShapeDslKey shapeDslKey = shapeCompartmentAssignment.getShapeDslKey();
+        if (shapeDslKey != null) {
+            String currentKey = shapeDslKey.getDslKey();
+            if (currentKey != null) {
+                final Predicate<EObject> filterPredicate = textBodyFetcher.getCompartmentAssignmentIdsFilter();
+                Set<String> textBodyIds = textBodyFetcher.getTextBodyIds(shapeCompartmentAssignment, textBodyFetcher.getShapeContainerElementResolver(), filterPredicate);
+                if (!textBodyIds.contains(currentKey)) {
+                    error("The given id " + currentKey + " cannot be resolved inside the referenced shape", SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY);
+                }
+            }
         }
     }
 }

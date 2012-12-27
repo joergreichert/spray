@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -50,31 +49,24 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray;
 import org.eclipselabs.spray.mm.spray.CustomBehavior;
 import org.eclipselabs.spray.mm.spray.ShapeCompartmentAssignment;
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl;
 import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment;
-import org.eclipselabs.spray.mm.spray.ShapeReference;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.mm.spray.SprayStyleRef;
 import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
 import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
-import org.eclipselabs.spray.shapes.CompartmentInfo;
-import org.eclipselabs.spray.shapes.CompartmentShape;
-import org.eclipselabs.spray.shapes.ShapeDefinition;
-import org.eclipselabs.spray.shapes.ShapesPackage;
-import org.eclipselabs.spray.shapes.TextBody;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.naming.EscapeKeywordFunction;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.scoping.PackageSelector;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
+import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
@@ -113,6 +105,8 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     IJvmTypeProvider.Factory              typeProviderFactory;
     @Inject
     private PackageSelector               packageSelector;
+    @Inject
+    private TextBodyFetcher               textBodyFetcher;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -279,61 +273,19 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     @Override
     public void completeShapeDslKey_DslKey(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         if (model instanceof ShapePropertyAssignment) {
-            final Predicate<EObject> filterPredicate = getPropertyAssignmentIdsFilter();
+            final Predicate<EObject> filterPredicate = textBodyFetcher.getPropertyAssignmentIdsFilter();
             createCompletionProposalsForTextBodyIds(context, acceptor, model, filterPredicate);
         } else if (model instanceof ShapeCompartmentAssignment) {
-            final Predicate<EObject> filterPredicate = getCompartmentAssignmentIdsFilter();
+            final Predicate<EObject> filterPredicate = textBodyFetcher.getCompartmentAssignmentIdsFilter();
             createCompletionProposalsForTextBodyIds(context, acceptor, model, filterPredicate);
         } else {
             super.completeShapeDslKey_DslKey(model, assignment, context, acceptor);
         }
     }
 
-    private Predicate<EObject> getPropertyAssignmentIdsFilter() {
-        return new Predicate<EObject>() {
-            public boolean apply(EObject eo) {
-                return eo instanceof TextBody && !(eo.eContainer() instanceof CompartmentShape);
-            }
-        };
-    }
-
-    private Predicate<EObject> getCompartmentAssignmentIdsFilter() {
-        return new Predicate<EObject>() {
-            public boolean apply(EObject eo) {
-                return eo instanceof TextBody && (eo.eContainer() instanceof CompartmentShape || eo.eContainer() instanceof CompartmentInfo);
-            }
-        };
-    }
-
     private void createCompletionProposalsForTextBodyIds(ContentAssistContext context, ICompletionProposalAcceptor acceptor, EObject model, Predicate<EObject> filterPredicate) {
-        Set<String> textBodyIds = getTextBodyIds(model, filterPredicate);
+        Set<String> textBodyIds = textBodyFetcher.getTextBodyIds(model, textBodyFetcher.getShapeContainerElementResolver(), filterPredicate);
         createCompletionProposalsForTextBodyIds(context, acceptor, textBodyIds);
-    }
-
-    private Set<String> getTextBodyIds(EObject model, Predicate<EObject> filterPredicate) {
-        Set<String> textBodyIds = new HashSet<String>();
-        ShapeFromDsl shapeRef = EcoreUtil2.getContainerOfType(model, ShapeFromDsl.class);
-        if (shapeRef != null) {
-            ShapeReference shapeReference = shapeRef.getShape();
-            if (shapeReference != null) {
-                ShapeDefinition dslShape = shapeReference.getDslShape();
-                if (dslShape != null) {
-                    if (dslShape.eIsProxy() && dslShape.getName() != null) {
-                        Iterator<IEObjectDescription> eObjects = dscriptions.getExportedObjects(ShapesPackage.Literals.SHAPE_DEFINITION, qnConverter.toQualifiedName(dslShape.getName()), false).iterator();
-                        if (eObjects.hasNext()) {
-                            dslShape = (ShapeDefinition) eObjects.next().getEObjectOrProxy();
-                        }
-                    }
-
-                    textBodyIds = Sets.newHashSet(Iterables.transform(Iterables.filter(IteratorExtensions.toIterable(dslShape.eAllContents()), filterPredicate), new Function<EObject, String>() {
-                        public String apply(EObject eo) {
-                            return ((TextBody) eo).getValue();
-                        }
-                    }));
-                }
-            }
-        }
-        return textBodyIds;
     }
 
     private void createCompletionProposalsForTextBodyIds(ContentAssistContext context, ICompletionProposalAcceptor acceptor, Set<String> textBodyIds) {

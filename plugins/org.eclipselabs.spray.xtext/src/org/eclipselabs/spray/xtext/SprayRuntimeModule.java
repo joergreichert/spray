@@ -4,8 +4,6 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
@@ -18,6 +16,7 @@ import org.eclipselabs.spray.xtext.customizing.SprayTypeProvider;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 import org.eclipselabs.spray.xtext.scoping.SprayScopeProvider;
+import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Binder;
@@ -70,4 +69,7 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
         binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(SprayImportedNamespaceScopeProvider.class);
     }
 
+    public Class<? extends TextBodyFetcher> bindTextBodyFetcher() {
+        return TextBodyFetcher.class;
+    }
 }
