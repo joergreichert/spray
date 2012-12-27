@@ -84,9 +84,9 @@ SprayStyleRef:
     );
 
 ShapePropertyAssignment: 
-    attribute=[ecore::EAttribute] 'into'
-    key = ShapeDslKey
-     ('(' value=XExpression ')')?;
+    (attribute=[ecore::EAttribute] 'into' key = ShapeDslKey ('(' value=XExpression ')')?) |
+    ('constant' value=XExpression 'into' key = ShapeDslKey)
+;
 
 ShapeDslKey :
     ( 'JAVA'  jvmKey=[types::JvmEnumerationLiteral|QualifiedName] )
