@@ -5,6 +5,7 @@ package org.eclipselabs.spray.shapes.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
@@ -84,4 +85,8 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
 	public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
 		return ShapeBuilderParticipant.class;
 	} 	
+	
+    public Class<? extends TerminalsProposalProvider> bindTerminalsProposalProvider() {
+        return TerminalsProposalProvider.class;
+    }	
 }

@@ -11,6 +11,7 @@ import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -29,13 +30,17 @@ import com.google.inject.Inject;
  */
 public class ShapeProposalProvider extends AbstractShapeProposalProvider {
     @Inject
-    ITypesProposalProvider     proposalProvider;
+    ITypesProposalProvider                proposalProvider;
 
     @Inject
-    private ShapeScopeProvider shapeScopeProvider;
+    private ShapeScopeProvider            shapeScopeProvider;
 
     @Inject
-    IJvmTypeProvider.Factory   typeProviderFactory;
+    private IJvmTypeProvider.Factory      typeProviderFactory;
+    
+    @Inject
+    private TerminalsProposalProvider     terminalsProposalProvider;
+    
 
     @Override
     public void complete_JvmTypeReference(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -58,4 +63,19 @@ public class ShapeProposalProvider extends AbstractShapeProposalProvider {
         }
         super.complete_JvmTypeReference(model, ruleCall, context, acceptor);
     }
+    
+    @Override
+    public void complete_ID(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_ID(model, ruleCall, context, acceptor);
+    }
+
+    @Override
+    public void complete_STRING(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_STRING(model, ruleCall, context, acceptor);
+    }    
+
+    @Override
+    public void complete_INT(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_INT(model, ruleCall, context, acceptor);
+    }    
 }

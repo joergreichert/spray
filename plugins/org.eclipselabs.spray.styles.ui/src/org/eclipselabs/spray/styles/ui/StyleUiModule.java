@@ -4,6 +4,7 @@
 package org.eclipselabs.spray.styles.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.ui.editor.model.TokenTypeToStringMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
@@ -80,4 +81,8 @@ public class StyleUiModule extends org.eclipselabs.spray.styles.ui.AbstractStyle
 	public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
 		return StyleBuilderParticipant.class;
 	}  	
+	
+    public Class<? extends TerminalsProposalProvider> bindTerminalsProposalProvider() {
+        return TerminalsProposalProvider.class;
+    }	
 }

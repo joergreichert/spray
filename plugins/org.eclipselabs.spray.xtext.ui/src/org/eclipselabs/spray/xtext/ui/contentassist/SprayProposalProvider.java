@@ -38,6 +38,7 @@ import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -107,6 +108,8 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private PackageSelector               packageSelector;
     @Inject
     private TextBodyFetcher               textBodyFetcher;
+    @Inject
+    private TerminalsProposalProvider     terminalsProposalProvider;
 
     public List<String> listVisibleResources() {
         List<String> result = new ArrayList<String>();
@@ -295,6 +298,16 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
                 acceptor.accept(proposal);
             }
         }
+    }
+
+    @Override
+    public void complete_ID(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_ID(model, ruleCall, context, acceptor);
+    }
+
+    @Override
+    public void complete_STRING(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_STRING(model, ruleCall, context, acceptor);
     }
 
     @Override

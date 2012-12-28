@@ -6,6 +6,7 @@ package org.eclipselabs.spray.xtext.ui;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.service.SingletonBinding;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
@@ -186,5 +187,9 @@ public class SprayUiModule extends AbstractSprayUiModule {
 
     public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
         return SprayBuilderParticipant.class;
+    }
+
+    public Class<? extends TerminalsProposalProvider> bindTerminalsProposalProvider() {
+        return TerminalsProposalProvider.class;
     }
 }

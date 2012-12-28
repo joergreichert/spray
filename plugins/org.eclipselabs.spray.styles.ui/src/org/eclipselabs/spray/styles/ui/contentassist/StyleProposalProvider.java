@@ -18,6 +18,7 @@ import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
@@ -43,10 +44,10 @@ import com.google.inject.Inject;
 public class StyleProposalProvider extends AbstractStyleProposalProvider {
 
     @Inject
-    ITypesProposalProvider   proposalProvider;
+    ITypesProposalProvider                proposalProvider;
 
     @Inject
-    IJvmTypeProvider.Factory typeProviderFactory;
+    IJvmTypeProvider.Factory              typeProviderFactory;
     
     @Inject
     private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
@@ -58,7 +59,10 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
     private StyleScopeProvider 			  styleScopeProvider;
     
 	@Inject
-	private IQualifiedNameConverter qualifiedNameConverter;
+	private IQualifiedNameConverter       qualifiedNameConverter;
+
+	@Inject
+    private TerminalsProposalProvider     terminalsProposalProvider;
 
     /**
      * Completes the JvmTypeReference, that matchs just on public, instanceable subtypes
@@ -128,7 +132,7 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
                 acceptor.accept(pickFont);
             }
         }
-        super.complete_STRING(model, ruleCall, context, acceptor);
+        terminalsProposalProvider.complete_STRING(model, ruleCall, context, acceptor);
     }
 
     /**
@@ -176,6 +180,16 @@ public class StyleProposalProvider extends AbstractStyleProposalProvider {
 			acceptor.accept(createCompletionProposal(qualifiedNameConverter.toString(desc.getName()), getStyledDisplayString(desc), null, context));
 		}
 	}
+	
+    @Override
+    public void complete_ID(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_ID(model, ruleCall, context, acceptor);
+    }
+    
+    @Override
+    public void complete_INT(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        terminalsProposalProvider.complete_INT(model, ruleCall, context, acceptor);
+    }
 
     @Override
 	protected boolean isKeywordWorthyToPropose(Keyword keyword) {
