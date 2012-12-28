@@ -50,7 +50,7 @@ public class PackageSelector {
     public List<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = javaProjectHelper.getJavaProject(modelElement);
         List<EPackage> ePackages = null;
-        if (project != null && !projectsHasChangedSinceLastRun(project)) {
+        if (project != null && !projectsHasChangedSinceLastRun(project) && !workspaceChanged) {
             ePackages = javaProjectToEPackages.get(project.getProject());
         }
         if (ePackages == null) {
@@ -59,6 +59,7 @@ public class PackageSelector {
                 ePackages = filterAccessibleEPackages(project, ePackages);
                 javaProjectToEPackages.put(project.getProject(), ePackages);
             }
+            workspaceChanged = false;
         }
         return ePackages;
     }
@@ -67,10 +68,6 @@ public class PackageSelector {
      * @return
      */
     private boolean projectsHasChangedSinceLastRun(IJavaProject project) {
-        if (workspaceChanged) {
-            workspaceChanged = false;
-            return true;
-        }
         if (projectToChanged.size() == 0) {
             return true;
         }
@@ -179,7 +176,7 @@ public class PackageSelector {
         if (changed) {
             projectToChanged.put(project, Boolean.FALSE);
         }
-        return changed;
+        return workspaceChanged | changed;
     }
 
     private void registerProjectChangeListener(final IWorkspace ws, final IProject project) {
@@ -211,7 +208,7 @@ public class PackageSelector {
     public List<String> getAlreadyImportedForElement(EObject modelElement) {
         EObject container = null;
         if (modelElement instanceof Diagram) {
-            container = EcoreUtil2.getContainerOfType(modelElement, Diagram.class);
+            container = modelElement;
         } else {
             container = EcoreUtil2.getContainerOfType(modelElement, Diagram.class);
         }

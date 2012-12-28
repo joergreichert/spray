@@ -346,7 +346,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         if (jvmType != null && jvmType instanceof JvmGenericType) {
             return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
         } else {
-            // TODO return the scope from the DSL
+            // done via proposal provider
             return IScope.NULLSCOPE;
         }
     }
@@ -364,7 +364,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         if (jvmType != null && jvmType instanceof JvmGenericType) {
             return getEnumerationLiteralsScopeForShape((JvmGenericType) jvmType, className);
         } else {
-            // TODO get scope from DSL
+            // done via proposal provider
             return IScope.NULLSCOPE;
         }
     }
