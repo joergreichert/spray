@@ -302,7 +302,9 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
 
     @Override
     public void complete_ID(EObject model, RuleCall ruleCall, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        terminalsProposalProvider.complete_ID(model, ruleCall, context, acceptor);
+        if (!(model instanceof ShapePropertyAssignment || model instanceof ShapeCompartmentAssignment)) {
+            terminalsProposalProvider.complete_ID(model, ruleCall, context, acceptor);
+        }
     }
 
     @Override
