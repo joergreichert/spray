@@ -33,16 +33,11 @@ class SprayModelGenerator {
         
         // Add class mappings here. Refer to EClasses here. Don't forget to configure a
         // dependency to the plugin defining the EMF metamodel in META-INF/MANIFEST.MF.
-        // It is required to have a genmodel for the metamodel. If the Ecore model lies in
-        // a workspace project, this project must have the Xtext nature.
+        // It is required to have a genmodel for the metamodel.
         //
         // Example class mapping:
         //   class BusinessClass icon "ecore/EClass.gif" {
-        //     container  ( fill=yellow ) 
-        //     {
-        //       text ( )  { "<<"+eClass.name+">> " + name};
-        //       line ( color=black width=2)
-        //     }
+        //     shape RectangleShape
         //     behavior {
         //       // Enable create feature for this class and add it to the palette "Shapes"
         //       create into types palette "Shapes";
@@ -51,10 +46,9 @@ class SprayModelGenerator {
         //
         // Example association mapping:
         //   class Association icon "connection16.gif" {
-        //     connection ( ) {
+        //     connection ArrowConnection {
         //       from source;
         //       to target;
-        //       fromText "source " + source.name
         //     }
         //   }
         
@@ -69,14 +63,24 @@ class SprayModelGenerator {
          * This file contains the definition of graphical figures using the Shapes Language.
          * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
          *************************************************************************************/
-        // Add import statements here, e.g.
-        // import java.util.*
-        
+
         // Add definition of shapes here.
         // shape RectangleShape {
         //     rectangle {
         //         position(x=0,y=0)
         //         size(width=100,height=100)
+        //     }
+        // }
+        
+        // connection ArrowConnection {
+        //     placing {
+        //         position (offset=1.0)
+        //         polygon {
+        //             point (x=-10, y=-5)
+        //             point (x=0, y=0)
+        //             point (x=-10, y=5)
+        //             style (background-color=black)
+        //         }
         //     }
         // }
     '''
