@@ -1,4 +1,4 @@
-connection DefaultConnection style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle{
+connection DefaultConnection style JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle{
 	style (background-color=blue)	
 	placing {
 		position (offset=0.0, radius=10, angle=0)

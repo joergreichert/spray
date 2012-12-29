@@ -48,6 +48,7 @@ Export-Package: org.eclipselabs.spray.shapes,
  org.eclipselabs.spray.shapes.parser.antlr,
  org.eclipselabs.spray.shapes.parser.antlr.internal,
  org.eclipselabs.spray.shapes.scoping,
+ org.eclipselabs.spray.shapes.serializer,
  org.eclipselabs.spray.shapes.services,
- org.eclipselabs.spray.shapes.validation,
- org.eclipselabs.spray.shapes.parseTreeConstruction
+ org.eclipselabs.spray.shapes.validation
+

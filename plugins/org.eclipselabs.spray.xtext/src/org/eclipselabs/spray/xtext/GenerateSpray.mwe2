@@ -46,19 +46,26 @@ Workflow {
             to = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
         }
         uriMap = {
-            from = "platform:/plugin/org.eclipselabs.spray.shapes/model/Shape.ecore"
-            to = "platform:/resource/org.eclipselabs.spray.shapes/model/Shape.ecore"
+            from = "platform:/plugin/org.eclipselabs.spray.shapes.mm/model/Shape.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shape.ecore"
         }
         uriMap = {
-            from = "platform:/plugin/org.eclipselabs.spray.shapes/model/Shape.genmodel"
-            to = "platform:/resource/org.eclipselabs.spray.shapes/model/Shape.genmodel"
+            from = "platform:/plugin/org.eclipselabs.spray.shapes.mm/model/Shape.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shape.genmodel"
         }
-        registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
-        registerGenModelFile = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
-        registerGeneratedEPackage = "org.eclipselabs.spray.shapes.ShapesPackage"
-        registerGenModelFile = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shape.genmodel"
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.mm/model/spray.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.mm/model/spray.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.mm/model/spray.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.mm/model/spray.genmodel"
+        }
         
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+        registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+        registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
+        registerGeneratedEPackage = "org.eclipselabs.spray.shapes.ShapesPackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.mm.spray.SprayPackage"
         registerGenModelFile = "platform:/resource/org.eclipselabs.spray.mm/model/spray.genmodel"
     }
@@ -87,8 +94,13 @@ Workflow {
             // Generate java classes for Ecore models
             fragment = ecore.EcoreGeneratorFragment {}
 
-            // the serialization component
-            fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+            // Serializer 2.0
+//            fragment = serializer.SerializerFragment {
+//             	generateStub = false
+//            }
+                
+            // the serialization component (1.0)
+             fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
 
             // a custom ResourceFactory for use with EMF 
             fragment = resourceFactory.ResourceFactoryFragment {
@@ -122,7 +134,7 @@ Workflow {
             fragment = exporting.QualifiedNamesFragment {}
 
             // formatter API 
-            fragment = ecore2xtext.FormatterFragment {}
+            fragment = formatting.FormatterFragment {}
 
             // labeling API 
             fragment = labeling.LabelProviderFragment {}

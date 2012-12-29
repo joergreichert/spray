@@ -39,11 +39,11 @@ Export-Package: org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.formatting,
  org.eclipselabs.spray.styles.generator,
  org.eclipselabs.spray.styles.generator.util,
+ org.eclipselabs.spray.styles.jvmmodel,
  org.eclipselabs.spray.styles.parser.antlr,
  org.eclipselabs.spray.styles.parser.antlr.internal,
  org.eclipselabs.spray.styles.scoping,
+ org.eclipselabs.spray.styles.serializer,
  org.eclipselabs.spray.styles.services,
- org.eclipselabs.spray.styles.validation,
- org.eclipselabs.spray.styles.jvmmodel,
- org.eclipselabs.spray.styles.parseTreeConstruction
+ org.eclipselabs.spray.styles.validation
 

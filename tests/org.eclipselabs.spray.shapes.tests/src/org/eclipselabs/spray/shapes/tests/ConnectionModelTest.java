@@ -83,10 +83,10 @@ public class ConnectionModelTest extends XtextTest {
     }
 
     @Test
-    public void test_14_DefaultConnection_OverrideDEfaultWithOwnStyle() {
+    public void test_14_DefaultConnection_OverrideDefaultWithOwnStyle() {
         // TODO Fix serialization problem
         suppressSerialization();
-        testFile("testcases/connections/14_DefaultConnection_OverrideDEfaultWithOwnStyle.shape");
+        testFile("testcases/connections/14_DefaultConnection_OverrideDefaultWithOwnStyle.shape");
     }
 
     @Test

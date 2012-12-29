@@ -48,6 +48,7 @@ Workflow {
         }
         
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+        registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
         registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
         registerGenModelFile = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
     }
@@ -76,8 +77,13 @@ Workflow {
             // Generate java classes for Ecore models
             fragment = ecore.EcoreGeneratorFragment {}
 
-            // the serialization component
-            fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+            // Serializer 2.0
+            fragment = serializer.SerializerFragment {
+             	generateStub = false
+            }
+                
+            // the serialization component (1.0)
+            // fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
 
             // a custom ResourceFactory for use with EMF 
             fragment = resourceFactory.ResourceFactoryFragment {
@@ -111,7 +117,7 @@ Workflow {
             fragment = exporting.QualifiedNamesFragment {}
 
             // formatter API 
-            fragment = ecore2xtext.FormatterFragment {}
+            fragment = formatting.FormatterFragment {}
 
             // labeling API 
             fragment = labeling.LabelProviderFragment {}

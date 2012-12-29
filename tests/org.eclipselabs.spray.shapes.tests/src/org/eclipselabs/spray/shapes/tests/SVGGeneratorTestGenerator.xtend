@@ -9,12 +9,15 @@ import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.runner.RunWith
+import org.junit.Test
+import org.junit.Ignore
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
 class SVGGeneratorTestGenerator extends XtextTest {
 
-	//@Test
+	@Ignore
+	@Test
 	def void generate() {
 		generate("bpmn", "bpmn")
 		generate("busmod", "mydiagram")
