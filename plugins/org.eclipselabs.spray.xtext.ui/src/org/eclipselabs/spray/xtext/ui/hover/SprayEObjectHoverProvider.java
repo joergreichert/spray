@@ -10,9 +10,12 @@ import org.eclipse.jface.text.IInformationControlCreator;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.xtext.common.types.JvmGenericType;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
+import org.eclipselabs.spray.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.ShapeDefinition;
 import org.eclipselabs.spray.shapes.ui.hover.ImageResourceVisitor;
 
 import com.google.inject.Inject;
@@ -32,15 +35,15 @@ public class SprayEObjectHoverProvider extends DefaultEObjectHoverProvider {
         String shapeName = null;
         if (o instanceof JvmGenericType && hasExpectedShapeSuperType((JvmGenericType) o)) {
             JvmGenericType type = (JvmGenericType) o;
-            String name = type.getQualifiedName();
-            int index = name.lastIndexOf(".");
-            if (index > 0 && index + 1 < name.length()) {
-                shapeName = name.substring(index + 1);
-            }
+            shapeName = getShapeName(shapeName, type);
+        } else if (o instanceof ShapeDefinition) {
+            shapeName = ((ShapeDefinition) o).getName();
+        } else if (o instanceof ConnectionDefinition) {
+            shapeName = ((ConnectionDefinition) o).getName();
         } else {
-            typeKey = "Other";
         }
         if (shapeName != null) {
+            typeKey = "Shape";
             IJavaProject javaProject = javaProjectProvider.getJavaProject(o.eResource().getResourceSet());
             if (javaProject != null) {
                 try {
@@ -55,18 +58,27 @@ public class SprayEObjectHoverProvider extends DefaultEObjectHoverProvider {
                     e.printStackTrace();
                 }
             }
+        } else {
+            typeKey = "Other";
         }
         return super.getDocumentation(o);
+    }
+
+    private String getShapeName(String shapeName, JvmType type) {
+        String name = type.getQualifiedName();
+        int index = name.lastIndexOf(".");
+        if (index > 0 && index + 1 < name.length()) {
+            shapeName = name.substring(index + 1);
+        }
+        return shapeName;
     }
 
     private boolean hasExpectedShapeSuperType(JvmGenericType type) {
         for (JvmTypeReference superType : type.getSuperTypes()) {
             if ("org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape".equals(superType.getQualifiedName()) || "org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection".equals(superType.getQualifiedName())) {
-                typeKey = "Shape";
                 return true;
             }
         }
-        typeKey = "Other";
         return false;
     }
 

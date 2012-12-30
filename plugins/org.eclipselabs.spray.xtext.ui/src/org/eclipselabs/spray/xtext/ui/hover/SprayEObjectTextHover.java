@@ -9,6 +9,8 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider.IInformationControlCreatorProvider;
 import org.eclipse.xtext.xbase.ui.hover.XbaseDispatchingEObjectTextHover;
+import org.eclipselabs.spray.shapes.ConnectionDefinition;
+import org.eclipselabs.spray.shapes.ShapeDefinition;
 
 import com.google.inject.Inject;
 
@@ -20,7 +22,7 @@ public class SprayEObjectTextHover extends XbaseDispatchingEObjectTextHover {
 
     @Override
     public Object getHoverInfo(EObject first, ITextViewer textViewer, IRegion hoverRegion) {
-        if (first instanceof JvmGenericType && hasExpectedShapeSuperType((JvmGenericType) first)) {
+        if ((first instanceof JvmGenericType && hasExpectedShapeSuperType((JvmGenericType) first)) || first instanceof ShapeDefinition || first instanceof ConnectionDefinition) {
             if (hoverProvider == null)
                 return null;
             IInformationControlCreatorProvider creatorProvider = hoverProvider.getHoverInfo(first, textViewer, hoverRegion);
