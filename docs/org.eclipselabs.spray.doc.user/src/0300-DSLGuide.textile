@@ -2,65 +2,248 @@ h1. Spray DSL
 
 h2. A Spray based example language
 
+h3. The domain model (defined in Xcore)
+
+bc.. 
+
+@Ecore(nsPrefix="busmod", nsURI="http://www.mod4j.org/busmod")
+@GenModel(editDirectory="/org.mod4j.dsl.businessdomain.mm.edit/src", editorDirectory="/org.mod4j.dsl.businessdomain.mm.editor/src",
+importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", interfaceNamePattern="{0}", classNamePattern="")
+package BusinessDomainDsl
+
+class BusinessDomainModel extends ModelElement
+{
+	contains resolving AbstractType [] types opposite model
+	contains resolving unordered Association [] associations opposite model
+}
+
+class BusinessClass extends AbstractBusinessClass
+{
+	contains resolving AbstractBusinessRule [] businessRules opposite businessClass
+	refers BusinessClass superclass
+	refers Association [] associationsTo opposite source
+}
+
+class StringProperty extends Property
+{
+	String regularExpression
+	int minLength = "-1"
+	int maxLength = "-1"
+	String defaultValue
+}
+
+class BusinessRule extends AbstractBusinessRule
+{
+}
+
+class Association extends ModelElement
+{
+	refers BusinessClass [1] source opposite associationsTo
+	refers AbstractBusinessClass [1] target opposite associationsFrom
+	String sourceRoleName = "sourceRoleName"
+	Multiplicity sourceMultiplicity = "One"
+	String targetRoleName = "targetRoleName"
+	Multiplicity targetMultiplicity = "1"
+	boolean composite = "false"
+	boolean [1] bidirectional = "false"
+	boolean [1] ordered = "false"
+	container resolving BusinessDomainModel model opposite associations
+}
+
+abstract class ModelElement
+{
+	String name = ""
+	String description = ""
+}
+
+abstract class AbstractType extends ModelElement
+{
+	contains resolving Property [] properties opposite owningType
+	container resolving BusinessDomainModel model opposite types
+}
+
+abstract class AbstractBusinessClass extends AbstractType
+{
+	refers Association [] associationsFrom opposite target
+}
+
+abstract class AbstractBusinessRule extends ModelElement
+{
+	container resolving BusinessClass businessClass opposite businessRules
+}
+
+abstract class Property extends ModelElement
+{
+	String dataType
+	boolean nullable
+	boolean ^derived = "false"
+	boolean writable = "false"
+	PersistencyMode persistency = "ReadWrite"
+	boolean hasDefault = "false"
+	container resolving AbstractType owningType opposite properties
+}
+
+enum Multiplicity
+{
+	ZeroMany
+	One = 1
+	ZeroOne = 2
+	OneMany = 3
+}
+
+enum PersistencyMode
+{
+	ReadWrite
+	Read
+	None
+}
+
+
+h3. The spray file
+
 bc.. 
 
 import BusinessDomainDsl.*
-import org.eclipse.graphiti.util.IColorConstant
   
 diagram mod4j for BusinessDomainModel
   
-behavior samen {   
-    custom doit "Do it" ;
+behavior Redraw {
+    custom redraw "Redraw Diagram"; 
 }    
-           
-class Enumeration {  
-  container ()
-  {
-          text ( )  { "<<"+eClass.name+">> " + name};
-          line ( color=black width=2);
-          reference enumerationLiterals attribute name;
-    }  
+
+class BusinessClass icon "ecore/EClass.gif" {
+    shape ClassShape {
+        name into classname
+        reference properties into attributes
+        reference businessRules into businessrules
+    }
+    references {
+        superclass : connection 
+    }
     behavior {
-        create into enumerations palette "Shapes" askFor name ;
-        custom menuitem "Menu Item";
+        create into types palette "Shapes" askFor name;
+        group Redraw
+        custom menuItem "Menu item"
     }
 }
 
-class BusinessClass alias FullClass {
-      container  ( fill=dark_green ) 
-    {
-          text ( )  { "<<"+eClass.name+">> " + name};
-          line ( color=black width=2);
-          reference properties attribute dataType;
-          line                   (width=2  color=RGB(255,138,141));
-          reference businessRules;   // will use name property by default
-          line                   (width=2  color=IColorConstant::DARK_BLUE);
-          
-          text () "::" + description;    
-          line                   (width=1  );
-    }   
-    references {   
-         superclass : connection( )
+class StringProperty {
+    shape TextShape {
+        name into textId2 ( name + " : " + dataType )
     }
     behavior {
-        create into types palette "Shapes"  askFor name ; 
-        custom doWithBusinessClass "Do It With";  
-        group samen ;
+        create palette "Properties"
+    }
+}
+
+class BusinessRule {
+    shape TextShape {
+        name into textId2
+    }
+    behavior {
+        create palette "Rules"
     }
 }
  
-class Association icon "connection16.gif" {
-    connection () 
-    {  
-        from source;
-        to   target;
-        fromText text()  "source " + source.name;
-        connectionText text() targetMultiplicity.name;
-        toText text() name;
-    } 
-    behavior {
-        create into associations palette "Connections"  askFor name;
-        group samen;
+class Association {
+    connection AssociationConnection {
+        name into assocText
     }
+    {
+        from source;
+        to target;
+    }
+    behavior {
+        create into associations palette "Connections"
+    }
+}
+
+h3. The shape file
+
+bc.. 
+
+shape ClassShape style BusinessClassStyle {
+    rectangle {
+        compartment (
+            layout = vertical
+        )
+        position (x=0, y=0)
+        size (width=100, height=80)
+        text style FontStyle {
+            position (x=0, y=0)
+            size (width=100, height=20)
+            id = classname
+        }
+        line {
+            point (x=0, y=21)
+            point (x=100, y=21)
+        }
+        rectangle {
+            compartment (
+                layout = vertical
+                stretching (
+                    horizontal=true,
+                    vertical=true
+                )
+                spacing=1
+                margin=5
+                invisible
+                id = attributes
+            )
+            position (x=0, y=22)
+            size (width=100, height=26)
+        }
+        line {
+            point (x=0, y=48)
+            point (x=100, y=48)
+        }
+        rectangle {
+            compartment (
+                layout = vertical
+                spacing=10
+                margin=20
+                invisible
+                id = businessrules
+            )
+            position (x=0, y=48)
+            size (width=100, height=26)
+        }
+    }
+}
+
+
+shape TextShape { 
+    stretching (horizontal=false, vertical=false)
+    text style FontStyle {
+        position (x=0, y=0)
+        size (width=80, height=25)
+        id = textId2
+    }
+}
+
+
+connection AssociationConnection {
+    connection-type freeform
+    placing {
+        position (offset=0.5, radius=10, angle=90)
+        text style FontStyle {
+            size (width=60, height=20)
+            id = assocText
+        }
+    }
+}
+
+h3. The style file
+
+bc.. 
+
+style BusmodDefaultStyle {
+    description = "The default style of the bm diagram type." 
+    font-size = 12
+} 
+
+style BusinessClassStyle extends BusmodDefaultStyle { 
+    description = "The style for the business class." 
+    background-color = yellow
 }
 

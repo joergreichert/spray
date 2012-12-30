@@ -235,7 +235,7 @@ style BusinessClassStyle extends BusmodDefaultStyle {
 
 h3. busmod.shape
 
-We have seen a very simple shape definition in the 5 minute tutorial, and this section will explain the details and shopw how to create more complex shapes. A shape is constructed by graphical elements. The element's positions/coordinates and dimensions are defined by absolute values (absolute within the shape container, not within the whole diagram). In the shape file you can refer to styles defined in a style file. 
+We have seen a very simple shape definition in the 5 minute tutorial, and this section will explain the details and show how to create more complex shapes. A shape is constructed by graphical elements. The element's positions/coordinates and dimensions are defined by absolute values (absolute within the shape container, not within the whole diagram). In the shape file you can refer to styles defined in a style file. 
 
 The text element has a special property called _id_. The value _businessClassText_ is assigned to _id_ in the example model. The value of _businessClassText_ has to be bound in the usage context of the shape in the spray DSL. We see this in busmod.spay file where the _name_ of the business class is assigned to _businessClassText_.  
 
@@ -270,7 +270,7 @@ import BusinessDomainDsl.*
 diagram busmod for BusinessDomainModel style BusmodDefaultStyle
 
 class BusinessClass icon "ecore/EClass.gif" {
-    shape org.eclipselabs.spray.shapes.BusinessClassShape {
+    shape BusinessClassShape {
         name into businessClassText
     }
     behavior {
@@ -279,12 +279,13 @@ class BusinessClass icon "ecore/EClass.gif" {
 }
 
 class Association icon "connection16.gif" {
-    connection ( ) {
+    connection AssociationConnection {
+        name into assocText
+    }
+    {
         from source;
         to target;
-        fromText text ( ) {
-            source.name
-        }
+        
     }
     behavior {
         create into associations palette "Connections" askFor name

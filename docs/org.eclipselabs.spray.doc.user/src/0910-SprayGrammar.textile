@@ -1,4 +1,526 @@
-h2. The Spray Grammar
+h2. The Spray grammars
+
+h3. The Style grammar
+
+!images/style_grammar.png!
+
+bc.. 
+
+grammar org.eclipselabs.spray.styles.Style with org.eclipse.xtext.xbase.Xbase
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "http://www.eclipselabs.org/spray/styles/Style"
+
+StyleContainer:
+	styleContainerElement+=StyleContainerElement*;
+
+StyleContainerElement:
+	Style | Gradient;
+
+Style:
+	{Style}
+	"style" name=ID ("extends" ( ('JAVA' superStyle=JvmTypeReference) | (superStyleFromDsl=[Style]) ) )? "{"
+	   ("description" "=" description=STRING)?
+	   layout=StyleLayout
+	"}";
+
+Gradient:
+	{Gradient}
+	"gradient" name=ID "{"
+		("description" "=" description=STRING)? 
+		layout = GradientLayout		
+	"}";
+
+StyleLayout: 
+    {StyleLayout}
+    (
+		("transparency"     	"=" transparency=DOUBLE)? &
+		("background-color" 	"=" background=ColorOrGradient)? &
+		("gradient-orientation"	"=" gradient_orientation=GradientAllignment)? &
+		("highlighting"				highlighting=HighlightingValues)? &	
+		("line-color"       	"=" lineColor=ColorWithTransparency)? & 
+        ("line-width"       	"=" lineWidth=INT)? &
+        ("line-style"       	"=" lineStyle=LineStyle)? &
+        ("font-name"        	"=" fontName=STRING)? &
+	    ("font-color"       	"=" fontColor=Color)? &
+	    ("font-size"        	"=" fontSize=INT)? &
+	    ("font-italic"      	"=" fontItalic=YesNoBool)? &
+	    ("font-bold"        	"=" fontBold=YesNoBool)?
+    )
+;
+GradientLayout:
+	{GradientLayout}
+	(
+		("area" area+=GradientColorArea)*
+	)
+;
+
+HighlightingValues:
+	{HighlightingValues}
+	 "(" ( "selected" "=" selected=(ColorOrGradient))?  ( "multiselected" "=" multiselected=(ColorOrGradient))? 
+		 ( "allowed"  "=" allowed=(ColorOrGradient))?   ( "unallowed" "=" unallowed=(ColorOrGradient))? ")"
+;
+
+GradientColorArea: {GradientColorArea}"(" "color" "=" color=Color "," "offset" "=" offset=DOUBLE ")"+;
+ColorOrGradient: Color | Transparent | GradientRef;
+ColorWithTransparency: Color | Transparent;
+Color: RGBColor | ColorConstantRef;
+RGBColor: "RGB" "(" red=INT "," green=INT "," blue=INT ")";
+GradientRef: {GradientRef} ( ('JAVA' gradientRef=JvmTypeReference) | (gradientRefFromDsl=[Gradient]));
+ColorConstantRef: value=ColorConstants;
+Transparent: transparent?="transparent";
+enum ColorConstants:
+	WHITE="white" |
+	LIGHT_LIGHT_GRAY="very-light-gray" |
+	LIGHT_GRAY="light-gray" |
+	GRAY="gray" |
+	DARK_GRAY="dark-gray" |
+	BLACK="black" |
+	RED="red" |
+	LIGHT_ORANGE="light-orange" |
+	ORANGE="orange" |
+	DARK_ORANGE="dark-orange" |
+	YELLOW="yellow" |
+	GREEN="green" |
+	LIGHT_GREEN="light-green" |
+	DARK_GREEN="dark-green" |
+	CYAN="cyan" |
+	LIGHT_BLUE="light-blue" |
+	BLUE="blue" |
+	DARK_BLUE="dark-blue";
+
+enum LineStyle:
+	SOLID="solid" |
+	DOT="dot" |
+	DASH="dash" |
+	DASHDOT="dash-dot" |
+	DASHDOTDOT="dash-dot-dot";
+
+enum YesNoBool:
+	YES="yes" | 
+	NO="no";
+
+enum GradientAllignment:
+	HORIZONTAL="horizontal" |
+	VERTICAL="vertical";
+
+DOUBLE returns ecore::EDouble: INT "." INT;
+
+h3. The Shape grammar
+
+!images/shapes_grammar.png!
+
+bc.. 
+
+grammar org.eclipselabs.spray.shapes.Shape with org.eclipselabs.spray.styles.Style
+import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
+import "http://www.eclipselabs.org/spray/styles/Style" as styles
+import 'http://www.eclipselabs.org/spray/shapes/Shape'
+
+ShapeContainer:
+    imports+=Import*
+    shapeContainerElement+=ShapeContainerElement*;
+
+Import:
+    'import' importedNamespace=QualifiedNameWithWildCard;
+
+QualifiedNameWithWildCard returns ecore::EString:
+    QualifiedName ('.' '*')?;
+
+ShapeContainerElement:
+    ShapeDefinition | ConnectionDefinition;
+
+ConnectionDefinition:
+    'connection' name=ID (style=ShapeStyleRef)? '{'
+        ('connection-type' connectionStyle=ConnectionStyle)?
+        layout=ShapestyleLayout?
+        placing+=PlacingDefinition*
+    '}';
+
+ShapeDefinition:
+    'shape' name=ID (style=ShapeStyleRef)? '{'
+        shapeLayout=ShapeLayout
+        shape+=Shape+
+        description=Description?
+        anchor=Anchor?
+    '}';
+
+PlacingDefinition:
+    'placing' '{'
+        'position' '(' 
+            'offset' '=' offset=DOUBLE 
+            (
+                ',' 'radius' '=' distance=INT 
+                ',' 'angle'  '=' angle=INT
+            )? 
+        ')'
+        shapeCon=ShapeConnection
+    '}';
+
+Anchor:
+    'anchor' type=AnchorType;
+
+AnchorType:
+    AnchorPredefinied | AnchorManual;
+
+AnchorPredefinied:
+    value=AnchorPredefiniedEnum;
+
+AnchorManual:
+    '{' position+=AnchorPosition+ '}';
+
+AnchorPosition:
+    'position' '(' pos=AnchorPositionPos ')';
+
+AnchorPositionPos:
+    AnchorRelativePosition | AnchorFixPointPosition;
+
+AnchorRelativePosition:
+    'xoffset' '=' xoffset=DOUBLE ',' 'yoffset' '=' yoffset=DOUBLE;
+
+AnchorFixPointPosition:
+    'x' '=' xcor=INT ',' 'y' '=' ycor=INT;
+
+Shape:
+    Line | Polyline | Rectangle | RoundedRectangle | Polygon | 
+    Ellipse | Text;
+
+ShapeConnection:
+    CDLine | CDPolyline | CDRectangle | CDRoundedRectangle | 
+    CDPolygon | CDEllipse | CDText;
+
+CDLine: {CDLine} 
+    'line' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=LineLayout 
+        '}'
+    );
+
+CDPolyline: {CDPolyline} 
+    'polyline' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=PolyLineLayout
+        '}' 
+    );
+
+CDRectangle: {CDRectangle} 
+    'rectangle' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=RectangleEllipseLayout 
+        '}'
+    );
+
+CDRoundedRectangle: {CDRoundedRectangle} 
+    'rounded-rectangle' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=RoundedRectangleLayout 
+        '}'
+    );
+
+CDPolygon: {CDPolygon} 
+    'polygon' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=PolyLineLayout
+        '}'
+    );
+
+CDEllipse: {CDEllipse} 
+    'ellipse' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=RectangleEllipseLayout
+        '}'
+    );
+
+CDText: {CDText} 
+    texttype=TextType (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=TextLayout 
+            body=TextBody
+        '}'
+    );
+
+Line: {Line} 
+    'line' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            layout=LineLayout
+        '}' 
+    );
+
+Polyline: {Polyline} 
+    'polyline' (style=ShapeStyleRef)? (
+        '{' 
+            layout=PolyLineLayout
+        '}' 
+    );
+
+Rectangle: {Rectangle} 
+    'rectangle' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            (compartmentInfo = CompartmentInfo)?
+            layout=RectangleEllipseLayout 
+            shape+=Shape* 
+        '}'
+    );
+
+RoundedRectangle: {RoundedRectangle} 
+    'rounded-rectangle' (style=ShapeStyleRef)? (
+        '{' 
+            layout=RoundedRectangleLayout 
+            shape+=Shape*
+        '}'
+    );
+
+Polygon: {Polygon} 
+    'polygon' (style=ShapeStyleRef)? (
+        '{' 
+            layout=PolyLineLayout 
+            shape+=Shape* 
+        '}'
+    );
+
+Ellipse: {Ellipse} 
+    'ellipse' (style=ShapeStyleRef)? 
+    (
+        '{' 
+            (compartmentInfo = CompartmentInfo)?
+            layout=RectangleEllipseLayout 
+            shape+=Shape* 
+        '}'
+    );
+
+Text: {Text} 
+    texttype=TextType (style=ShapeStyleRef)? (
+        '{' 
+            layout=TextLayout 
+            body=TextBody 
+        '}'
+    );
+
+CompartmentInfo:
+(
+    'compartment' '(' 
+        (   
+            ('layout' '=' compartmentLayout = CompartmentLayout)
+            & (
+                'stretching' '(' 
+                    'horizontal' '=' stretchH=Boolean ',' 
+                    'vertical'   '=' stretchV=Boolean 
+                ')'
+              )?
+            & ('spacing' '=' spacing = INT)?
+            & ('margin'  '=' margin  = INT)?
+            & (invisible ?= 'invisible')?
+            & (id = TextBody )?
+        )
+    ')'
+);
+
+enum CompartmentLayout:
+    FIXED = 'fixed' | VERTICAL = 'vertical' | HORIZONTAL = 'horizontal'
+;
+
+Compartment: {Compartment} 
+    'compartment' 
+        (compartmentLayout = CompartmentLayout)? 
+        shape = CompartmentShape
+;
+
+CompartmentShape:
+    CompartmentEllipse | CompartmentRectangle 
+;
+
+CompartmentRectangle: {CompartmentRectangle} 
+    'rectangle' 
+    (
+        '{' 
+            layout=RectangleEllipseLayout 
+            id = TextBody
+        '}'
+    );
+
+CompartmentRoundedRectangle: {CompartmentRoundedRectangle} 
+    'rounded-rectangle' 
+    (
+        '{' 
+            layout=RoundedRectangleLayout 
+            id = TextBody
+        '}'
+    );
+
+CompartmentPolygon: {CompartmentPolygon} 
+    'polygon' 
+    (   
+        '{' 
+            layout=PolyLineLayout 
+            id = TextBody
+        '}'
+    );
+
+CompartmentEllipse: {CompartmentEllipse} 
+    'ellipse' 
+    (
+        '{' 
+            layout=RectangleEllipseLayout 
+            id = TextBody
+        '}'
+    );
+
+Description: {Description} 
+(
+    'description' (style=ShapeStyleRef)? 
+    '{'
+        (
+            'align' '(' 
+                (
+                    'horizontal' '=' hAlign=HAlign ',' 
+                    'vertical'   '=' vAlign=VAlign
+                )? 
+            ')'
+        )?
+        body=TextBody
+    '}'
+);
+
+ShapeLayout: {ShapeLayout} 
+(
+    (
+        'size-min' '(' 
+            'width'  '=' minwidth=INT ',' 
+            'height' '=' minheight=INT 
+        ')'
+    )?
+    & (
+        'size-max' '(' 
+            'width'  '=' maxwidth=INT ',' 
+            'height' '=' maxheight=INT 
+        ')'
+      )?
+    & (
+        'stretching' '(' 
+            'horizontal' '=' stretchH=Boolean ',' 
+            'vertical'   '=' stretchV=Boolean 
+        ')'
+      )?
+    & ('proportional' '=' proportional=Boolean)?
+);
+
+RectangleEllipseLayout: {RectangleEllipseLayout} 
+(
+    (common=CommonLayout) 
+    & (layout=ShapestyleLayout)?
+);
+
+LineLayout: {LineLayout} 
+(
+    (point+=Point) 
+    (point+=Point)
+    (layout=ShapestyleLayout)?
+);
+
+PolyLineLayout: {PolyLineLayout} 
+(
+    (point+=Point) 
+    (point+=Point+)
+    (layout=ShapestyleLayout)?
+);
+
+RoundedRectangleLayout: {RoundedRectangleLayout} 
+(
+    (common=CommonLayout) 
+    & ('curve' '(' 
+            'width'  '=' curveWidth=INT ',' 
+            'height' '=' curveHeight=INT 
+       ')') 
+    & (layout=ShapestyleLayout)?
+);
+
+TextLayout: {TextLayout}
+(
+    (common=CommonLayout) 
+    & ('align' '(' 
+            (
+                'horizontal' '=' hAlign=HAlign ',' 
+                'vertical'   '=' vAlign=VAlign
+            )? 
+       ')'
+      )? 
+    & (layout=ShapestyleLayout)?
+);
+
+ShapestyleLayout: {ShapestyleLayout} 
+(
+    'style' '(' 
+        layout=StyleLayout 
+    ')'
+);
+
+ShapeStyleRef:
+    'style' (
+        ('JAVA' javaStyle=JvmTypeReference) | (dslStyle = [styles::Style] )
+    );
+
+CommonLayout: {CommonLayout} 
+(
+    (
+        'position' '(' 
+            'x' '=' xcor=N_INT ',' 
+            'y' '=' ycor=N_INT 
+        ')'
+    )? 
+    & (
+        'size' '(' 
+            'width'  '=' width=INT ',' 
+            'height' '=' heigth=INT 
+        ')'
+      )
+);
+
+TextBody: {TextBody}
+    "id" "=" value=ID;
+
+Point: {Point} 
+(
+    'point' '(' 
+        'x' '=' xcor=N_INT ',' 'y' '=' ycor=N_INT 
+        (
+            ',' 'curveBefore' '=' curveBefore=INT 
+            ',' 'curveAfter'  '=' curveAfter=INT
+        )? 
+    ')'
+);
+
+Boolean returns ecore::EBooleanObject:
+    'true' | 'false';
+
+enum HAlign:
+    LEFT='left' | CENTER='center' | RIGHT='right';
+
+enum VAlign:
+    TOP='top' | MIDDLE='middle' | BOTTOM='bottom';
+
+enum ConnectionStyle:
+    freeform='freeform' | manhatten='manhatten';
+
+enum AnchorPredefiniedEnum:
+    center='center' | corners='corners';
+
+enum TextType:
+    default="text" | multiline="wrapped-text";
+
+N_INT returns ecore::EInt:
+    ('-')? INT;
+
+h3. The Spray grammar
 
 !images/spray_grammar.png!
 
@@ -6,166 +528,117 @@ bc..
 
 grammar org.eclipselabs.spray.xtext.Spray with org.eclipse.xtext.xbase.Xbase 
 
-import "platform:/resource/org.eclipselabs.spray.mm/model/spray.ecore" 
-import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-import "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore" as types
+import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
+import "http://www.eclipselabs.org/spray/styles/Style" as styles
+import 'http://www.eclipselabs.org/spray/shapes/Shape' as shapes
+import 'http://code.google.com/a/eclipselabs.org/p/spray'
 
-
-Diagram :
-    'diagram'  name = ID
-    
+Diagram:
     imports+=Import*
-    
-    (
-        behaviourGroups += BehaviourGroup
-    )*
-    (
-        metaClasses += MetaClass
-    )*
-    ;
+    'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? 
+    (behaviourGroups += BehaviorGroup)*
+    (metaClasses += MetaClass)*;
 
 Import:
     'import' importedNamespace=QualifiedNameWithWildCard;
 
-SprayElement :
-    Shape | MetaReferenceAsShape | MetaAttributeAsShape;
-
-MetaClass :
-    'class'  type=[ecore::EClass|QualifiedName]  ('alias' alias=ID)? ('icon' icon=STRING)?
-    ":" representedBy=Shape
-    (
-    "references" "["
-        (references += MetaReference2  ";")*
-    "]"    
-    )?
-    (
-    "behavior" "["
-           ( 
-               ("group" behaviourGroups += [BehaviourGroup] ";"  ) |
-               (behaviours += Behaviour ";" )
-           )*
-    "]"
-    )?
-    ; 
-
-MetaReference :  
-    "reference" reference=[ecore::EReference] 
-    ":" representedBy=Connection  
-;   
-
-MetaReference2 returns MetaReference:  
-    reference=[ecore::EReference] 
-    ":" representedBy=Connection  
-;   
-
-    
-MetaAttribute :
-    (pathsegments+=[ecore::EReference] '.')* attribute=[ecore::EAttribute];
-
-MetaReferenceAsShape returns MetaReference :
-    'reference' reference=[ecore::EReference]
-    ("attribute" labelProperty = [ecore::EAttribute]  )? ;
-    
-MetaAttributeAsShape returns MetaAttribute :
-    'attribute' attribute=[ecore::EAttribute];
-
-
-BehaviourGroup: 
-    "behaviour" name=ID "["
-          (behaviours += Behaviour ";")+ 
-    "]"
-;
-
-Behaviour :
-    StandardBehaviour | CustomBehaviour;
-
-StandardBehaviour :
-    type=BehaviourType  (label = STRING)? ('palette' paletteCompartment = STRING)?;
-
-CustomBehaviour :
-    name = ID (label = STRING);
-    
-enum BehaviourType :
-    CREATE_BEHAVIOUR = 'create' 
-    ;
-    
-Shape :
-    (Rectangle | Text | Container | Connection | Line) 
-;
-
-Layout :
-  { Layout }
- '('
-        (
-            ( 'width'  '=' lineWidth = INT )?
-          & ( 'color'  '=' lineColor = Color)?
-          & ( 'fill'   '=' fillColor = Color)?
-          & ( 'figure' '=' figure    = STRING)?
-          & ( bold ?= 'bold' )?
-          & ( italic ?= 'italic' )?
-        ) 
-      ')'
-
-;
-
-EString returns ecore::EString:
-    STRING | ID;
-
-
-Rectangle returns Rectangle:
-    {Rectangle}
-    "rectangle"
-    layout = Layout //  name=EString
-;
-
-Connection returns Connection :
-    {Connection}
-    'connection' layout = Layout
-    (
-        '['
-        'from' from=[ecore::EReference] ";"
-        'to'   to  =[ecore::EReference] ";"
-        (
-            ('fromText' fromLabel = Text ";")? & 
-            ('connectionText' connectionLabel = Text ";")? &
-            ('toText' toLabel   = Text ";")?
-        )
-        ']'
-    )?
-;
-
-Color:
-    ColorConstantRef | RGBColor
-;
-ColorConstantRef:
-    (type=JvmTypeReference '::')? field=[types::JvmField|ValidID]
-;
-
-RGBColor:
-    'RGB' '(' red=INT ',' green=INT ',' blue=INT ')'
-;
-
-Text returns Text:
-    {Text}
-    'text' layout = Layout
-    value = XExpression
-    ;
-
 QualifiedNameWithWildCard returns ecore::EString :
     QualifiedName  ('.' '*')?;
     
-Line returns Line :
-    {Line}
-    'line' layout = Layout
+
+MetaClass:
+    'class'  type=[ecore::EClass|QualifiedName] ('alias' alias=ID)? ('icon' icon=STRING)? (style=SprayStyleRef)? 
+    '{' 
+	    ( representedBy=ShapeInSpray )
+	    ('references' 
+	     '{' 
+	    	(references += MetaReference2  ';'?)*
+	     '}')?
+	    ('behavior' 
+	     '{'
+			(('group' behaviorGroups += [BehaviorGroup] ';'?  ) | (behaviors += Behavior ';'? ))*
+	     '}')?
+	'}';
+
+MetaReference2 returns MetaReference:  
+    target=[ecore::EReference] ':' representedBy=ConnectionInSpray;   
+    
+BehaviorGroup:
+    'behavior' name=ID '{'
+          (behaviors += Behavior ';'?)+ 
+    '}';
+
+Behavior:
+    CreateBehavior | CustomBehavior;
+
+CreateBehavior: {CreateBehavior}
+    'create' ('into' containmentReference=[ecore::EReference] (label = STRING)? )?
+    ('palette' paletteCompartment = STRING)? 
+    ('askFor' askFor=[ecore::EAttribute])?;
+
+CustomBehavior:
+    'custom' (name = ID | 'ref' realizedBy=JvmTypeReference) (label = STRING);
+
+ShapeInSpray:
+    (ConnectionInSpray | ShapeFromDsl );
+
+ShapeFromDsl : {ShapeFromDsl}
+    'shape'
+         (
+             shape = ShapeReference
+         )
+     ('{'
+        properties+=ShapePropertyAssignment*
+        references += ShapeCompartmentAssignment*
+    '}')?;
+
+ShapeReference :
+     ('JAVA'  jvmShape = JvmTypeReference)
+     |
+     (dslShape = [shapes::ShapeDefinition])
 ;
 
-Container returns Container:
-    { Container }
-    'container' layout = Layout
-    '['
-        (parts+=SprayElement  ";" )* 
-    ']';
-
-StaticFieldQualifier:
-    QualifiedName '::' ValidID
+ConnectionReference :
+     ('JAVA'  jvmConnection = JvmTypeReference)
+     |
+     (dslConnection = [shapes::ConnectionDefinition])
 ;
+
+SprayStyleRef:
+    'style' (
+        ('JAVA' javaStyle=JvmTypeReference) | (dslStyle = [styles::Style] ) 
+    );
+
+ShapePropertyAssignment: 
+    (attribute=[ecore::EAttribute] 'into' key = ShapeDslKey ('(' value=XExpression ')')?) |
+    ('constant' value=XExpression 'into' key = ShapeDslKey)
+;
+
+ShapeDslKey :
+    ( 'JAVA'  jvmKey=[types::JvmEnumerationLiteral|QualifiedName] )
+    |
+    ( dslKey = ID )
+    
+;
+ShapeCompartmentAssignment: 
+    'reference' reference=[ecore::EReference] 'into' 
+    shapeDslKey = ShapeDslKey
+    ('(' value=XExpression ')')?;
+
+ConnectionInSpray returns ConnectionInSpray :
+    {ConnectionInSpray}
+    'connection' 
+    (connection = ConnectionReference (
+     	'{'
+			properties+=ShapePropertyAssignment+
+		'}')?
+    )?
+    ('alias' alias=ID)? 
+    (
+        '{'
+            'from' from=[ecore::EReference] ';'?
+            'to'   to  =[ecore::EReference] ';'?
+        '}'
+    )?;
+

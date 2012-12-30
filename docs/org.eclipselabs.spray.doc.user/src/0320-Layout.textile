@@ -8,6 +8,7 @@ bc.
    <shape> (color=<Color>)
 
 h4. Implicit Colors
+
 By default, Spray will allow to use the constants defined in @org.eclipse.graphiti.util.IColorConstant@ as simple names with lower case. For example, @IColorConstant::DARK_GREEN@ will be available as @dark_green@.
 
 *Example:*
@@ -17,6 +18,7 @@ bc.
 
 
 h4. Explicit Colors
+
 Colors can be referred to by qualified names of the static fields.
 
 *Example:*
@@ -34,6 +36,7 @@ class <...>
 p. 
 
 h4. RGB Color
+
 Colors can be defined by their RGB values:
 
 bc. 
@@ -42,3 +45,6 @@ bc.
 If you invoke content assist it will offer you an option "Pick color...", which will open the system's colors dialog.
 
 |!images/layout_color1.png!|!images/layout_color2.png!|
+
+
+

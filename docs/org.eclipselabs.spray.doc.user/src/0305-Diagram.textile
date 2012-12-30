@@ -6,7 +6,6 @@ Referenced Java types and EClasses can be imported with the @import@ keyword. Th
 
 bc. 
 import BusinessDomainDsl.*
-import org.eclipse.graphiti.util.IColorConstant
 // all the rest follows here...
 
 p. 

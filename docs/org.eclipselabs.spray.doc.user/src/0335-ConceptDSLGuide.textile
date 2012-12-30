@@ -5,3 +5,4 @@ Spray is providing three different kinds of DSLs (Domain Specific Languages) - S
 !images/shapes_concept.png!
 
 If any of these model is changed the model generation process is executed and Java, XML and Properties will be generated for the Graphiti Eclipse Plug-In.
+

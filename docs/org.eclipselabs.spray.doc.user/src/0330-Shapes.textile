@@ -1,55 +1,13 @@
 h2. Shapes
 
-A metaclass can be either mapped to a shape by defining it in-place in the .spray file, or a Shape defined with the Shapes DSL can be referenced. The latter is the more flexible way.
-
-h3. External Shape
+A metaclass can be mapped to a shape by referencing a Shape defined with the Shapes DSL.
 
 A shape defined with the Shape DSL can be referred to by using the @shape@ keyword.
+
+For how to define shapes and how to pass parameters from Spray DSL to referenced shapes see the "Shape DSL Guide" later in this documentation.
 
 bc.. 
 class MyMetaclass {
   shape MyCustomShape { ... }
 }
-
-
-
-h3. Container
-
-A Container Shape is a container for other shapes.
-
-
-h3. Text
-
-A shape that displays a computed text.
-
-bc. 
-   text [alias <aliasname>] ([layout]) <expression>;
-   
-The displayed text is an Xbase expression, in the simplest case a static string.
-
-bc. text () "Foo";
-
-bc. text () "element "+this.name;
-
-
-h3. Line
-
-Displays a line.
-
-bc.. 
-  line (); // width 1 pixel, black 
-  line (width=2);
-  line (color=blue width=2);
-
-p. 
-
-h3. Alias names
-
-Each shape allows to specify an alias name. The alias name is reflected in generated code and will be used for variable and method names when referring to a specific shape. If not specified, the shape name will be computed from the containment hierarchy and types of used shapes.
-
-bc. 
-   class MyEClass :
-      container alias rootContainer () {
-        line alias line1 ();
-      }
 
