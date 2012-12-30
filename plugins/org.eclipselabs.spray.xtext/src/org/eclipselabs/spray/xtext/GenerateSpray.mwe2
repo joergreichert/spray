@@ -29,14 +29,15 @@ Workflow {
             from = "platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
             to = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
         }
-        uriMap = {
-            from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore"
-            to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore"
-        }
-        uriMap = {
-            from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-            to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-        }
+        // have to comment this out, otherwise: java.lang.RuntimeException: No GenPackage for NsURI http://www.eclipse.org/xtext/xbase/Xtype found in platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel
+//        uriMap = {
+//            from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore"
+//            to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore"
+//        }
+//        uriMap = {
+//            from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+//            to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+//        }
         uriMap = {
             from = "platform:/plugin/org.eclipselabs.spray.styles.mm/model/Style.ecore"
             to = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.ecore"
@@ -95,12 +96,12 @@ Workflow {
             fragment = ecore.EcoreGeneratorFragment {}
 
             // Serializer 2.0
-//            fragment = serializer.SerializerFragment {
-//             	generateStub = false
-//            }
+            fragment = serializer.SerializerFragment {
+             	generateStub = false
+            }
                 
             // the serialization component (1.0)
-             fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+//            fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
 
             // a custom ResourceFactory for use with EMF 
             fragment = resourceFactory.ResourceFactoryFragment {
