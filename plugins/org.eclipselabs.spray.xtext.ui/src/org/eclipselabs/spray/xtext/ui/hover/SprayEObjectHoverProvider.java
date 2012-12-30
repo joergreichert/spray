@@ -47,7 +47,7 @@ public class SprayEObjectHoverProvider extends DefaultEObjectHoverProvider {
                     imageResourceVisitor.setShapeName(shapeName);
                     javaProject.getProject().accept(imageResourceVisitor);
                     String imagePath = imageResourceVisitor.getImagePath();
-                    if (imagePath != null) {
+                    if (imagePath != null && imagePath.endsWith(".png")) {
                         String alternativeText = "Shapes preview for " + shapeName;
                         return "<br /><br /><img src=\"" + imagePath + "\" alt=\"" + alternativeText + "\" />";
                     }

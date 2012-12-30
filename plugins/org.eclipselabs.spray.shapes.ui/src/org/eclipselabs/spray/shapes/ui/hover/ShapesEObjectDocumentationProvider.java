@@ -35,7 +35,7 @@ public class ShapesEObjectDocumentationProvider extends
 					imageResourceVisitor.setShapeName(shapeName);
 					javaProject.getProject().accept(imageResourceVisitor);
 					String imagePath = imageResourceVisitor.getImagePath();
-					if (imagePath != null && !imagePath.endsWith(".png")) {
+					if (imagePath != null && imagePath.endsWith(".png")) {
 						String alternativeText = "Shapes preview for "
 								+ shapeName;
 						return //super.getDocumentation(o) + 
