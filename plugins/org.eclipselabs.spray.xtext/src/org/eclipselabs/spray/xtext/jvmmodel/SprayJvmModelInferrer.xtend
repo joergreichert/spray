@@ -33,6 +33,9 @@ class SprayJvmModelInferrer extends AbstractModelInferrer {
         }
         
         val instanceClassName = clazz.type.javaInterfaceName
+        if(instanceClassName.nullOrEmpty) {
+        	return
+        }
         val eClassJvmType = typeReferences.getTypeForName(instanceClassName, clazz, null)
         if (eClassJvmType==null || eClassJvmType.eIsProxy) {
             return;
