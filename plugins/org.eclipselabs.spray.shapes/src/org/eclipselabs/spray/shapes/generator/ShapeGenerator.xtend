@@ -43,11 +43,11 @@ class ShapeGenerator implements IGenerator {
         }
 	}
 	
-	def private dispatch generateJava(IFileSystemAccess fsa, ShapeDefinition shape) {
+	def dispatch generateJava(IFileSystemAccess fsa, ShapeDefinition shape) {
            fsa.generateFile(shapeDefinition.filepath(shape), shapeDefinition.compile(shape))
 	}
 	
-	def private dispatch generateJava(IFileSystemAccess fsa, ConnectionDefinition connection) {
+	def dispatch generateJava(IFileSystemAccess fsa, ConnectionDefinition connection) {
 		fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
 	}	
 	
