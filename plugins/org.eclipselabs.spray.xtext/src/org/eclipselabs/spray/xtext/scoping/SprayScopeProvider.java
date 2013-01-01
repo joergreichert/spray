@@ -251,22 +251,25 @@ public class SprayScopeProvider extends XbaseScopeProvider {
 
     protected IScope scope_Connection_to(EObject context) {
         final ConnectionInSpray connection = (ConnectionInSpray) context;
+        IScope result = IScope.NULLSCOPE;
         final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
         // filter derived and 'from' from the possible references
-        Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
-            @Override
-            public boolean apply(EReference input) {
-                return input != connection.getFrom() && !input.isDerived();
-            }
-        });
-        final IScope result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        if (metaClass != null && metaClass.getType() != null && metaClass.getType().getEAllReferences() != null) {
+            Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
+                @Override
+                public boolean apply(EReference input) {
+                    return input != connection.getFrom() && !input.isDerived();
+                }
+            });
+            result = MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(targetReferences));
+        }
         return result;
     }
 
     protected IScope scope_Connection_from(EObject context) {
         IScope result = null;
         final MetaClass metaClass = EcoreUtil2.getContainerOfType(context, MetaClass.class);
-        if (metaClass != null && metaClass.getType() != null) {
+        if (metaClass != null && metaClass.getType() != null && metaClass.getType().getEAllReferences() != null) {
             // filter derived references
             Iterable<EReference> targetReferences = Iterables.filter(metaClass.getType().getEAllReferences(), new Predicate<EReference>() {
                 @Override
