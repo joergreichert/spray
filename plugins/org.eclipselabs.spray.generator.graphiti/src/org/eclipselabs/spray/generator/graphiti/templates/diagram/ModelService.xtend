@@ -79,12 +79,19 @@ class ModelService extends FileGenerator<Diagram> {
                 ResourceSet set = r.getResourceSet();
                 EObject bo = (EObject) dtp.getFeatureProvider().getBusinessObjectForPictogramElement(diagram);
                 «modelClassName» model = null;
-                // If its a proxy, resolve it
-               if( bo != null && bo.eIsProxy() ){
-                    if( bo instanceof InternalEObject) {
-                        model = («modelClassName»)set.getEObject(((InternalEObject) bo).eProxyURI(), true);
+                if (bo != null) {
+                    // If its a proxy, resolve it
+                    if (bo.eIsProxy()) {
+                        if (bo instanceof InternalEObject) {
+                            model = («modelClassName»)set.getEObject(((InternalEObject) bo).eProxyURI(), true);
+                        }
+                    } else {
+                        if( bo instanceof «modelClassName»){
+                            model = («modelClassName»)bo;
+                        }
                     }
                 }
+
                 if (model == null) {
                     model = createModel();
                 }
