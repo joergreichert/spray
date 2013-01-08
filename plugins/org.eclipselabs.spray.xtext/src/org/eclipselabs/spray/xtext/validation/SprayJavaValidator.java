@@ -202,7 +202,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
                 final Predicate<EObject> filterPredicate = textBodyFetcher.getCompartmentAssignmentIdsFilter();
                 Set<String> textBodyIds = textBodyFetcher.getTextBodyIds(shapeCompartmentAssignment, textBodyFetcher.getShapeContainerElementResolver(), filterPredicate);
                 if (!textBodyIds.contains(currentKey)) {
-                    error("The given id " + currentKey + " cannot be resolved inside the referenced shape", SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__KEY);
+                    error("The given id " + currentKey + " cannot be resolved inside the referenced shape", SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__SHAPE_DSL_KEY);
                 }
             }
         }
