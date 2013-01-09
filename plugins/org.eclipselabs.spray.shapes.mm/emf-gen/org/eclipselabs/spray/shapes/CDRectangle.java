@@ -22,29 +22,29 @@ package org.eclipselabs.spray.shapes;
 public interface CDRectangle extends ShapeConnection
 {
 	/**
-	 * Returns the value of the '<em><b>Layout</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Layout</b></em>' containment reference.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Layout</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Layout</em>' containment reference.
-	 * @see #setLayout(RectangleEllipseLayout)
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getCDRectangle_Layout()
-	 * @model containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Layout</em>' containment reference.
+     * @see #setLayout(RectangleEllipseLayout)
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getCDRectangle_Layout()
+     * @model containment="true"
+     * @generated
+     */
 	RectangleEllipseLayout getLayout();
 
 	/**
-	 * Sets the value of the '{@link org.eclipselabs.spray.shapes.CDRectangle#getLayout <em>Layout</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.eclipselabs.spray.shapes.CDRectangle#getLayout <em>Layout</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Layout</em>' containment reference.
-	 * @see #getLayout()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Layout</em>' containment reference.
+     * @see #getLayout()
+     * @generated
+     */
 	void setLayout(RectangleEllipseLayout value);
 
 } // CDRectangle

@@ -155,6 +155,8 @@ public class SprayLayoutService {
             return new SprayVerticalLayoutManager(shape);
         case FIXED:
             return new SprayFixedLayoutManager(shape);
+        case FIT:
+            return new SprayFitLayoutManager(shape);
         case TOP:
             return new SprayTopLayoutManager(shape);
         default:

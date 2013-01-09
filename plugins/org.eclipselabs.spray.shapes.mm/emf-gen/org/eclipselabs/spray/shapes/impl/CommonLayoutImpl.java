@@ -31,315 +31,311 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class CommonLayoutImpl extends MinimalEObjectImpl.Container implements CommonLayout
 {
 	/**
-	 * The default value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getXcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getXcor()
+     * @generated
+     * @ordered
+     */
 	protected static final int XCOR_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getXcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getXcor()
+     * @generated
+     * @ordered
+     */
 	protected int xcor = XCOR_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getYcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getYcor()
+     * @generated
+     * @ordered
+     */
 	protected static final int YCOR_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getYcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getYcor()
+     * @generated
+     * @ordered
+     */
 	protected int ycor = YCOR_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getWidth() <em>Width</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWidth()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getWidth()
+     * @generated
+     * @ordered
+     */
 	protected static final int WIDTH_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWidth()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getWidth()
+     * @generated
+     * @ordered
+     */
 	protected int width = WIDTH_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getHeigth() <em>Heigth</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getHeigth() <em>Heigth</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getHeigth()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getHeigth()
+     * @generated
+     * @ordered
+     */
 	protected static final int HEIGTH_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getHeigth() <em>Heigth</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getHeigth() <em>Heigth</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getHeigth()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getHeigth()
+     * @generated
+     * @ordered
+     */
 	protected int heigth = HEIGTH_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected CommonLayoutImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.COMMON_LAYOUT;
-	}
+        return ShapesPackage.Literals.COMMON_LAYOUT;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getXcor()
 	{
-		return xcor;
-	}
+        return xcor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setXcor(int newXcor)
 	{
-		int oldXcor = xcor;
-		xcor = newXcor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__XCOR, oldXcor, xcor));
-	}
+        int oldXcor = xcor;
+        xcor = newXcor;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__XCOR, oldXcor, xcor));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getYcor()
 	{
-		return ycor;
-	}
+        return ycor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setYcor(int newYcor)
 	{
-		int oldYcor = ycor;
-		ycor = newYcor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__YCOR, oldYcor, ycor));
-	}
+        int oldYcor = ycor;
+        ycor = newYcor;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__YCOR, oldYcor, ycor));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getWidth()
 	{
-		return width;
-	}
+        return width;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setWidth(int newWidth)
 	{
-		int oldWidth = width;
-		width = newWidth;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__WIDTH, oldWidth, width));
-	}
+        int oldWidth = width;
+        width = newWidth;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__WIDTH, oldWidth, width));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getHeigth()
 	{
-		return heigth;
-	}
+        return heigth;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setHeigth(int newHeigth)
 	{
-		int oldHeigth = heigth;
-		heigth = newHeigth;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__HEIGTH, oldHeigth, heigth));
-	}
+        int oldHeigth = heigth;
+        heigth = newHeigth;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.COMMON_LAYOUT__HEIGTH, oldHeigth, heigth));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.COMMON_LAYOUT__XCOR:
-				return getXcor();
-			case ShapesPackage.COMMON_LAYOUT__YCOR:
-				return getYcor();
-			case ShapesPackage.COMMON_LAYOUT__WIDTH:
-				return getWidth();
-			case ShapesPackage.COMMON_LAYOUT__HEIGTH:
-				return getHeigth();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.COMMON_LAYOUT__XCOR:
+                return getXcor();
+            case ShapesPackage.COMMON_LAYOUT__YCOR:
+                return getYcor();
+            case ShapesPackage.COMMON_LAYOUT__WIDTH:
+                return getWidth();
+            case ShapesPackage.COMMON_LAYOUT__HEIGTH:
+                return getHeigth();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.COMMON_LAYOUT__XCOR:
-				setXcor((Integer)newValue);
-				return;
-			case ShapesPackage.COMMON_LAYOUT__YCOR:
-				setYcor((Integer)newValue);
-				return;
-			case ShapesPackage.COMMON_LAYOUT__WIDTH:
-				setWidth((Integer)newValue);
-				return;
-			case ShapesPackage.COMMON_LAYOUT__HEIGTH:
-				setHeigth((Integer)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.COMMON_LAYOUT__XCOR:
+                setXcor((Integer)newValue);
+                return;
+            case ShapesPackage.COMMON_LAYOUT__YCOR:
+                setYcor((Integer)newValue);
+                return;
+            case ShapesPackage.COMMON_LAYOUT__WIDTH:
+                setWidth((Integer)newValue);
+                return;
+            case ShapesPackage.COMMON_LAYOUT__HEIGTH:
+                setHeigth((Integer)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.COMMON_LAYOUT__XCOR:
-				setXcor(XCOR_EDEFAULT);
-				return;
-			case ShapesPackage.COMMON_LAYOUT__YCOR:
-				setYcor(YCOR_EDEFAULT);
-				return;
-			case ShapesPackage.COMMON_LAYOUT__WIDTH:
-				setWidth(WIDTH_EDEFAULT);
-				return;
-			case ShapesPackage.COMMON_LAYOUT__HEIGTH:
-				setHeigth(HEIGTH_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.COMMON_LAYOUT__XCOR:
+                setXcor(XCOR_EDEFAULT);
+                return;
+            case ShapesPackage.COMMON_LAYOUT__YCOR:
+                setYcor(YCOR_EDEFAULT);
+                return;
+            case ShapesPackage.COMMON_LAYOUT__WIDTH:
+                setWidth(WIDTH_EDEFAULT);
+                return;
+            case ShapesPackage.COMMON_LAYOUT__HEIGTH:
+                setHeigth(HEIGTH_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.COMMON_LAYOUT__XCOR:
-				return xcor != XCOR_EDEFAULT;
-			case ShapesPackage.COMMON_LAYOUT__YCOR:
-				return ycor != YCOR_EDEFAULT;
-			case ShapesPackage.COMMON_LAYOUT__WIDTH:
-				return width != WIDTH_EDEFAULT;
-			case ShapesPackage.COMMON_LAYOUT__HEIGTH:
-				return heigth != HEIGTH_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.COMMON_LAYOUT__XCOR:
+                return xcor != XCOR_EDEFAULT;
+            case ShapesPackage.COMMON_LAYOUT__YCOR:
+                return ycor != YCOR_EDEFAULT;
+            case ShapesPackage.COMMON_LAYOUT__WIDTH:
+                return width != WIDTH_EDEFAULT;
+            case ShapesPackage.COMMON_LAYOUT__HEIGTH:
+                return heigth != HEIGTH_EDEFAULT;
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString()
 	{
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (xcor: ");
-		result.append(xcor);
-		result.append(", ycor: ");
-		result.append(ycor);
-		result.append(", width: ");
-		result.append(width);
-		result.append(", heigth: ");
-		result.append(heigth);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (xcor: ");
+        result.append(xcor);
+        result.append(", ycor: ");
+        result.append(ycor);
+        result.append(", width: ");
+        result.append(width);
+        result.append(", heigth: ");
+        result.append(heigth);
+        result.append(')');
+        return result.toString();
+    }
 
 } //CommonLayoutImpl

@@ -30,164 +30,157 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class LineImpl extends ShapeImpl implements Line
 {
 	/**
-	 * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLayout()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLayout()
+     * @generated
+     * @ordered
+     */
 	protected LineLayout layout;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected LineImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.LINE;
-	}
+        return ShapesPackage.Literals.LINE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public LineLayout getLayout()
 	{
-		return layout;
-	}
+        return layout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetLayout(LineLayout newLayout, NotificationChain msgs)
 	{
-		LineLayout oldLayout = layout;
-		layout = newLayout;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.LINE__LAYOUT, oldLayout, newLayout);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        LineLayout oldLayout = layout;
+        layout = newLayout;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.LINE__LAYOUT, oldLayout, newLayout);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setLayout(LineLayout newLayout)
 	{
-		if (newLayout != layout)
-		{
-			NotificationChain msgs = null;
-			if (layout != null)
-				msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.LINE__LAYOUT, null, msgs);
-			if (newLayout != null)
-				msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.LINE__LAYOUT, null, msgs);
-			msgs = basicSetLayout(newLayout, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.LINE__LAYOUT, newLayout, newLayout));
-	}
+        if (newLayout != layout) {
+            NotificationChain msgs = null;
+            if (layout != null)
+                msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.LINE__LAYOUT, null, msgs);
+            if (newLayout != null)
+                msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.LINE__LAYOUT, null, msgs);
+            msgs = basicSetLayout(newLayout, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.LINE__LAYOUT, newLayout, newLayout));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.LINE__LAYOUT:
-				return basicSetLayout(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.LINE__LAYOUT:
+                return basicSetLayout(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.LINE__LAYOUT:
-				return getLayout();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.LINE__LAYOUT:
+                return getLayout();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.LINE__LAYOUT:
-				setLayout((LineLayout)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.LINE__LAYOUT:
+                setLayout((LineLayout)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.LINE__LAYOUT:
-				setLayout((LineLayout)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.LINE__LAYOUT:
+                setLayout((LineLayout)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.LINE__LAYOUT:
-				return layout != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.LINE__LAYOUT:
+                return layout != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //LineImpl

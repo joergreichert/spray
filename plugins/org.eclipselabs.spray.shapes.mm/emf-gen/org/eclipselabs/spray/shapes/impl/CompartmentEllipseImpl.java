@@ -19,24 +19,24 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class CompartmentEllipseImpl extends CompartmentShapeImpl implements CompartmentEllipse
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected CompartmentEllipseImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.COMPARTMENT_ELLIPSE;
-	}
+        return ShapesPackage.Literals.COMPARTMENT_ELLIPSE;
+    }
 
 } //CompartmentEllipseImpl

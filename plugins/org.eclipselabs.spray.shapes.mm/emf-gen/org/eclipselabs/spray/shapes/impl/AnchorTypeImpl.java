@@ -21,24 +21,24 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class AnchorTypeImpl extends MinimalEObjectImpl.Container implements AnchorType
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected AnchorTypeImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.ANCHOR_TYPE;
-	}
+        return ShapesPackage.Literals.ANCHOR_TYPE;
+    }
 
 } //AnchorTypeImpl

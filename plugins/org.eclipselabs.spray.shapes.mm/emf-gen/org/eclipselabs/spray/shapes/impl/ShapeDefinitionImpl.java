@@ -43,342 +43,330 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class ShapeDefinitionImpl extends ShapeContainerElementImpl implements ShapeDefinition
 {
 	/**
-	 * The cached value of the '{@link #getShapeLayout() <em>Shape Layout</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getShapeLayout() <em>Shape Layout</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getShapeLayout()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getShapeLayout()
+     * @generated
+     * @ordered
+     */
 	protected ShapeLayout shapeLayout;
 
 	/**
-	 * The cached value of the '{@link #getShape() <em>Shape</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getShape() <em>Shape</em>}' containment reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getShape()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getShape()
+     * @generated
+     * @ordered
+     */
 	protected EList<Shape> shape;
 
 	/**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
 	protected Description description;
 
 	/**
-	 * The cached value of the '{@link #getAnchor() <em>Anchor</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getAnchor() <em>Anchor</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAnchor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAnchor()
+     * @generated
+     * @ordered
+     */
 	protected Anchor anchor;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ShapeDefinitionImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.SHAPE_DEFINITION;
-	}
+        return ShapesPackage.Literals.SHAPE_DEFINITION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeLayout getShapeLayout()
 	{
-		return shapeLayout;
-	}
+        return shapeLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetShapeLayout(ShapeLayout newShapeLayout, NotificationChain msgs)
 	{
-		ShapeLayout oldShapeLayout = shapeLayout;
-		shapeLayout = newShapeLayout;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, oldShapeLayout, newShapeLayout);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        ShapeLayout oldShapeLayout = shapeLayout;
+        shapeLayout = newShapeLayout;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, oldShapeLayout, newShapeLayout);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setShapeLayout(ShapeLayout newShapeLayout)
 	{
-		if (newShapeLayout != shapeLayout)
-		{
-			NotificationChain msgs = null;
-			if (shapeLayout != null)
-				msgs = ((InternalEObject)shapeLayout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, null, msgs);
-			if (newShapeLayout != null)
-				msgs = ((InternalEObject)newShapeLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, null, msgs);
-			msgs = basicSetShapeLayout(newShapeLayout, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, newShapeLayout, newShapeLayout));
-	}
+        if (newShapeLayout != shapeLayout) {
+            NotificationChain msgs = null;
+            if (shapeLayout != null)
+                msgs = ((InternalEObject)shapeLayout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, null, msgs);
+            if (newShapeLayout != null)
+                msgs = ((InternalEObject)newShapeLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, null, msgs);
+            msgs = basicSetShapeLayout(newShapeLayout, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT, newShapeLayout, newShapeLayout));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Shape> getShape()
 	{
-		if (shape == null)
-		{
-			shape = new EObjectContainmentEList<Shape>(Shape.class, this, ShapesPackage.SHAPE_DEFINITION__SHAPE);
-		}
-		return shape;
-	}
+        if (shape == null) {
+            shape = new EObjectContainmentEList<Shape>(Shape.class, this, ShapesPackage.SHAPE_DEFINITION__SHAPE);
+        }
+        return shape;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Description getDescription()
 	{
-		return description;
-	}
+        return description;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
 	{
-		Description oldDescription = description;
-		description = newDescription;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, oldDescription, newDescription);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        Description oldDescription = description;
+        description = newDescription;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, oldDescription, newDescription);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setDescription(Description newDescription)
 	{
-		if (newDescription != description)
-		{
-			NotificationChain msgs = null;
-			if (description != null)
-				msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, null, msgs);
-			if (newDescription != null)
-				msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, null, msgs);
-			msgs = basicSetDescription(newDescription, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, newDescription, newDescription));
-	}
+        if (newDescription != description) {
+            NotificationChain msgs = null;
+            if (description != null)
+                msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, null, msgs);
+            if (newDescription != null)
+                msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, null, msgs);
+            msgs = basicSetDescription(newDescription, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__DESCRIPTION, newDescription, newDescription));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Anchor getAnchor()
 	{
-		return anchor;
-	}
+        return anchor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetAnchor(Anchor newAnchor, NotificationChain msgs)
 	{
-		Anchor oldAnchor = anchor;
-		anchor = newAnchor;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__ANCHOR, oldAnchor, newAnchor);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        Anchor oldAnchor = anchor;
+        anchor = newAnchor;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__ANCHOR, oldAnchor, newAnchor);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setAnchor(Anchor newAnchor)
 	{
-		if (newAnchor != anchor)
-		{
-			NotificationChain msgs = null;
-			if (anchor != null)
-				msgs = ((InternalEObject)anchor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__ANCHOR, null, msgs);
-			if (newAnchor != null)
-				msgs = ((InternalEObject)newAnchor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__ANCHOR, null, msgs);
-			msgs = basicSetAnchor(newAnchor, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__ANCHOR, newAnchor, newAnchor));
-	}
+        if (newAnchor != anchor) {
+            NotificationChain msgs = null;
+            if (anchor != null)
+                msgs = ((InternalEObject)anchor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__ANCHOR, null, msgs);
+            if (newAnchor != null)
+                msgs = ((InternalEObject)newAnchor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.SHAPE_DEFINITION__ANCHOR, null, msgs);
+            msgs = basicSetAnchor(newAnchor, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.SHAPE_DEFINITION__ANCHOR, newAnchor, newAnchor));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
-				return basicSetShapeLayout(null, msgs);
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE:
-				return ((InternalEList<?>)getShape()).basicRemove(otherEnd, msgs);
-			case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
-				return basicSetDescription(null, msgs);
-			case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
-				return basicSetAnchor(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
+                return basicSetShapeLayout(null, msgs);
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE:
+                return ((InternalEList<?>)getShape()).basicRemove(otherEnd, msgs);
+            case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
+                return basicSetDescription(null, msgs);
+            case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
+                return basicSetAnchor(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
-				return getShapeLayout();
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE:
-				return getShape();
-			case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
-				return getDescription();
-			case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
-				return getAnchor();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
+                return getShapeLayout();
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE:
+                return getShape();
+            case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
+                return getDescription();
+            case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
+                return getAnchor();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
-				setShapeLayout((ShapeLayout)newValue);
-				return;
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE:
-				getShape().clear();
-				getShape().addAll((Collection<? extends Shape>)newValue);
-				return;
-			case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
-				setDescription((Description)newValue);
-				return;
-			case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
-				setAnchor((Anchor)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
+                setShapeLayout((ShapeLayout)newValue);
+                return;
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE:
+                getShape().clear();
+                getShape().addAll((Collection<? extends Shape>)newValue);
+                return;
+            case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
+                setDescription((Description)newValue);
+                return;
+            case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
+                setAnchor((Anchor)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
-				setShapeLayout((ShapeLayout)null);
-				return;
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE:
-				getShape().clear();
-				return;
-			case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
-				setDescription((Description)null);
-				return;
-			case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
-				setAnchor((Anchor)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
+                setShapeLayout((ShapeLayout)null);
+                return;
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE:
+                getShape().clear();
+                return;
+            case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
+                setDescription((Description)null);
+                return;
+            case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
+                setAnchor((Anchor)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
-				return shapeLayout != null;
-			case ShapesPackage.SHAPE_DEFINITION__SHAPE:
-				return shape != null && !shape.isEmpty();
-			case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
-				return description != null;
-			case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
-				return anchor != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE_LAYOUT:
+                return shapeLayout != null;
+            case ShapesPackage.SHAPE_DEFINITION__SHAPE:
+                return shape != null && !shape.isEmpty();
+            case ShapesPackage.SHAPE_DEFINITION__DESCRIPTION:
+                return description != null;
+            case ShapesPackage.SHAPE_DEFINITION__ANCHOR:
+                return anchor != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //ShapeDefinitionImpl

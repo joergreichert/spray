@@ -26,35 +26,35 @@ import org.eclipse.emf.ecore.EObject;
 public interface ShapeContainer extends EObject
 {
 	/**
-	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipselabs.spray.shapes.Import}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
+     * The list contents are of type {@link org.eclipselabs.spray.shapes.Import}.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Imports</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imports</em>' containment reference list.
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getShapeContainer_Imports()
-	 * @model containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Imports</em>' containment reference list.
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getShapeContainer_Imports()
+     * @model containment="true"
+     * @generated
+     */
 	EList<Import> getImports();
 
 	/**
-	 * Returns the value of the '<em><b>Shape Container Element</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipselabs.spray.shapes.ShapeContainerElement}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Shape Container Element</b></em>' containment reference list.
+     * The list contents are of type {@link org.eclipselabs.spray.shapes.ShapeContainerElement}.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Shape Container Element</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Shape Container Element</em>' containment reference list.
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getShapeContainer_ShapeContainerElement()
-	 * @model containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Shape Container Element</em>' containment reference list.
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getShapeContainer_ShapeContainerElement()
+     * @model containment="true"
+     * @generated
+     */
 	EList<ShapeContainerElement> getShapeContainerElement();
 
 } // ShapeContainer

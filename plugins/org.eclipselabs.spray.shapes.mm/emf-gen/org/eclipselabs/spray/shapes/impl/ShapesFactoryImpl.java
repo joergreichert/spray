@@ -22,848 +22,842 @@ import org.eclipselabs.spray.shapes.*;
 public class ShapesFactoryImpl extends EFactoryImpl implements ShapesFactory
 {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
+     * Creates the default factory implementation.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static ShapesFactory init()
 	{
-		try
-		{
-			ShapesFactory theShapesFactory = (ShapesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipselabs.org/spray/shapes/Shape"); 
-			if (theShapesFactory != null)
-			{
-				return theShapesFactory;
-			}
-		}
-		catch (Exception exception)
-		{
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new ShapesFactoryImpl();
-	}
+        try {
+            ShapesFactory theShapesFactory = (ShapesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipselabs.org/spray/shapes/Shape"); 
+            if (theShapesFactory != null) {
+                return theShapesFactory;
+            }
+        }
+        catch (Exception exception) {
+            EcorePlugin.INSTANCE.log(exception);
+        }
+        return new ShapesFactoryImpl();
+    }
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapesFactoryImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public EObject create(EClass eClass)
 	{
-		switch (eClass.getClassifierID())
-		{
-			case ShapesPackage.SHAPE_CONTAINER: return createShapeContainer();
-			case ShapesPackage.IMPORT: return createImport();
-			case ShapesPackage.SHAPE_CONTAINER_ELEMENT: return createShapeContainerElement();
-			case ShapesPackage.CONNECTION_DEFINITION: return createConnectionDefinition();
-			case ShapesPackage.SHAPE_DEFINITION: return createShapeDefinition();
-			case ShapesPackage.PLACING_DEFINITION: return createPlacingDefinition();
-			case ShapesPackage.ANCHOR: return createAnchor();
-			case ShapesPackage.ANCHOR_TYPE: return createAnchorType();
-			case ShapesPackage.ANCHOR_PREDEFINIED: return createAnchorPredefinied();
-			case ShapesPackage.ANCHOR_MANUAL: return createAnchorManual();
-			case ShapesPackage.ANCHOR_POSITION: return createAnchorPosition();
-			case ShapesPackage.ANCHOR_POSITION_POS: return createAnchorPositionPos();
-			case ShapesPackage.ANCHOR_RELATIVE_POSITION: return createAnchorRelativePosition();
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION: return createAnchorFixPointPosition();
-			case ShapesPackage.SHAPE: return createShape();
-			case ShapesPackage.SHAPE_CONNECTION: return createShapeConnection();
-			case ShapesPackage.CD_LINE: return createCDLine();
-			case ShapesPackage.CD_POLYLINE: return createCDPolyline();
-			case ShapesPackage.CD_RECTANGLE: return createCDRectangle();
-			case ShapesPackage.CD_ROUNDED_RECTANGLE: return createCDRoundedRectangle();
-			case ShapesPackage.CD_POLYGON: return createCDPolygon();
-			case ShapesPackage.CD_ELLIPSE: return createCDEllipse();
-			case ShapesPackage.CD_TEXT: return createCDText();
-			case ShapesPackage.LINE: return createLine();
-			case ShapesPackage.POLYLINE: return createPolyline();
-			case ShapesPackage.RECTANGLE: return createRectangle();
-			case ShapesPackage.ROUNDED_RECTANGLE: return createRoundedRectangle();
-			case ShapesPackage.POLYGON: return createPolygon();
-			case ShapesPackage.ELLIPSE: return createEllipse();
-			case ShapesPackage.TEXT: return createText();
-			case ShapesPackage.COMPARTMENT_INFO: return createCompartmentInfo();
-			case ShapesPackage.COMPARTMENT: return createCompartment();
-			case ShapesPackage.COMPARTMENT_SHAPE: return createCompartmentShape();
-			case ShapesPackage.COMPARTMENT_RECTANGLE: return createCompartmentRectangle();
-			case ShapesPackage.COMPARTMENT_ROUNDED_RECTANGLE: return createCompartmentRoundedRectangle();
-			case ShapesPackage.COMPARTMENT_POLYGON: return createCompartmentPolygon();
-			case ShapesPackage.COMPARTMENT_ELLIPSE: return createCompartmentEllipse();
-			case ShapesPackage.DESCRIPTION: return createDescription();
-			case ShapesPackage.SHAPE_LAYOUT: return createShapeLayout();
-			case ShapesPackage.RECTANGLE_ELLIPSE_LAYOUT: return createRectangleEllipseLayout();
-			case ShapesPackage.LINE_LAYOUT: return createLineLayout();
-			case ShapesPackage.POLY_LINE_LAYOUT: return createPolyLineLayout();
-			case ShapesPackage.ROUNDED_RECTANGLE_LAYOUT: return createRoundedRectangleLayout();
-			case ShapesPackage.TEXT_LAYOUT: return createTextLayout();
-			case ShapesPackage.SHAPESTYLE_LAYOUT: return createShapestyleLayout();
-			case ShapesPackage.SHAPE_STYLE_REF: return createShapeStyleRef();
-			case ShapesPackage.COMMON_LAYOUT: return createCommonLayout();
-			case ShapesPackage.TEXT_BODY: return createTextBody();
-			case ShapesPackage.POINT: return createPoint();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eClass.getClassifierID()) {
+            case ShapesPackage.SHAPE_CONTAINER: return createShapeContainer();
+            case ShapesPackage.IMPORT: return createImport();
+            case ShapesPackage.SHAPE_CONTAINER_ELEMENT: return createShapeContainerElement();
+            case ShapesPackage.CONNECTION_DEFINITION: return createConnectionDefinition();
+            case ShapesPackage.SHAPE_DEFINITION: return createShapeDefinition();
+            case ShapesPackage.PLACING_DEFINITION: return createPlacingDefinition();
+            case ShapesPackage.ANCHOR: return createAnchor();
+            case ShapesPackage.ANCHOR_TYPE: return createAnchorType();
+            case ShapesPackage.ANCHOR_PREDEFINIED: return createAnchorPredefinied();
+            case ShapesPackage.ANCHOR_MANUAL: return createAnchorManual();
+            case ShapesPackage.ANCHOR_POSITION: return createAnchorPosition();
+            case ShapesPackage.ANCHOR_POSITION_POS: return createAnchorPositionPos();
+            case ShapesPackage.ANCHOR_RELATIVE_POSITION: return createAnchorRelativePosition();
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION: return createAnchorFixPointPosition();
+            case ShapesPackage.SHAPE: return createShape();
+            case ShapesPackage.SHAPE_CONNECTION: return createShapeConnection();
+            case ShapesPackage.CD_LINE: return createCDLine();
+            case ShapesPackage.CD_POLYLINE: return createCDPolyline();
+            case ShapesPackage.CD_RECTANGLE: return createCDRectangle();
+            case ShapesPackage.CD_ROUNDED_RECTANGLE: return createCDRoundedRectangle();
+            case ShapesPackage.CD_POLYGON: return createCDPolygon();
+            case ShapesPackage.CD_ELLIPSE: return createCDEllipse();
+            case ShapesPackage.CD_TEXT: return createCDText();
+            case ShapesPackage.LINE: return createLine();
+            case ShapesPackage.POLYLINE: return createPolyline();
+            case ShapesPackage.RECTANGLE: return createRectangle();
+            case ShapesPackage.ROUNDED_RECTANGLE: return createRoundedRectangle();
+            case ShapesPackage.POLYGON: return createPolygon();
+            case ShapesPackage.ELLIPSE: return createEllipse();
+            case ShapesPackage.TEXT: return createText();
+            case ShapesPackage.COMPARTMENT_INFO: return createCompartmentInfo();
+            case ShapesPackage.COMPARTMENT: return createCompartment();
+            case ShapesPackage.COMPARTMENT_SHAPE: return createCompartmentShape();
+            case ShapesPackage.COMPARTMENT_RECTANGLE: return createCompartmentRectangle();
+            case ShapesPackage.COMPARTMENT_ROUNDED_RECTANGLE: return createCompartmentRoundedRectangle();
+            case ShapesPackage.COMPARTMENT_POLYGON: return createCompartmentPolygon();
+            case ShapesPackage.COMPARTMENT_ELLIPSE: return createCompartmentEllipse();
+            case ShapesPackage.DESCRIPTION: return createDescription();
+            case ShapesPackage.SHAPE_LAYOUT: return createShapeLayout();
+            case ShapesPackage.RECTANGLE_ELLIPSE_LAYOUT: return createRectangleEllipseLayout();
+            case ShapesPackage.LINE_LAYOUT: return createLineLayout();
+            case ShapesPackage.POLY_LINE_LAYOUT: return createPolyLineLayout();
+            case ShapesPackage.ROUNDED_RECTANGLE_LAYOUT: return createRoundedRectangleLayout();
+            case ShapesPackage.TEXT_LAYOUT: return createTextLayout();
+            case ShapesPackage.SHAPESTYLE_LAYOUT: return createShapestyleLayout();
+            case ShapesPackage.SHAPE_STYLE_REF: return createShapeStyleRef();
+            case ShapesPackage.COMMON_LAYOUT: return createCommonLayout();
+            case ShapesPackage.TEXT_BODY: return createTextBody();
+            case ShapesPackage.POINT: return createPoint();
+            default:
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue)
 	{
-		switch (eDataType.getClassifierID())
-		{
-			case ShapesPackage.COMPARTMENT_LAYOUT:
-				return createCompartmentLayoutFromString(eDataType, initialValue);
-			case ShapesPackage.HALIGN:
-				return createHAlignFromString(eDataType, initialValue);
-			case ShapesPackage.VALIGN:
-				return createVAlignFromString(eDataType, initialValue);
-			case ShapesPackage.CONNECTION_STYLE:
-				return createConnectionStyleFromString(eDataType, initialValue);
-			case ShapesPackage.ANCHOR_PREDEFINIED_ENUM:
-				return createAnchorPredefiniedEnumFromString(eDataType, initialValue);
-			case ShapesPackage.TEXT_TYPE:
-				return createTextTypeFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eDataType.getClassifierID()) {
+            case ShapesPackage.COMPARTMENT_LAYOUT:
+                return createCompartmentLayoutFromString(eDataType, initialValue);
+            case ShapesPackage.HALIGN:
+                return createHAlignFromString(eDataType, initialValue);
+            case ShapesPackage.VALIGN:
+                return createVAlignFromString(eDataType, initialValue);
+            case ShapesPackage.CONNECTION_STYLE:
+                return createConnectionStyleFromString(eDataType, initialValue);
+            case ShapesPackage.ANCHOR_PREDEFINIED_ENUM:
+                return createAnchorPredefiniedEnumFromString(eDataType, initialValue);
+            case ShapesPackage.TEXT_TYPE:
+                return createTextTypeFromString(eDataType, initialValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue)
 	{
-		switch (eDataType.getClassifierID())
-		{
-			case ShapesPackage.COMPARTMENT_LAYOUT:
-				return convertCompartmentLayoutToString(eDataType, instanceValue);
-			case ShapesPackage.HALIGN:
-				return convertHAlignToString(eDataType, instanceValue);
-			case ShapesPackage.VALIGN:
-				return convertVAlignToString(eDataType, instanceValue);
-			case ShapesPackage.CONNECTION_STYLE:
-				return convertConnectionStyleToString(eDataType, instanceValue);
-			case ShapesPackage.ANCHOR_PREDEFINIED_ENUM:
-				return convertAnchorPredefiniedEnumToString(eDataType, instanceValue);
-			case ShapesPackage.TEXT_TYPE:
-				return convertTextTypeToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eDataType.getClassifierID()) {
+            case ShapesPackage.COMPARTMENT_LAYOUT:
+                return convertCompartmentLayoutToString(eDataType, instanceValue);
+            case ShapesPackage.HALIGN:
+                return convertHAlignToString(eDataType, instanceValue);
+            case ShapesPackage.VALIGN:
+                return convertVAlignToString(eDataType, instanceValue);
+            case ShapesPackage.CONNECTION_STYLE:
+                return convertConnectionStyleToString(eDataType, instanceValue);
+            case ShapesPackage.ANCHOR_PREDEFINIED_ENUM:
+                return convertAnchorPredefiniedEnumToString(eDataType, instanceValue);
+            case ShapesPackage.TEXT_TYPE:
+                return convertTextTypeToString(eDataType, instanceValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeContainer createShapeContainer()
 	{
-		ShapeContainerImpl shapeContainer = new ShapeContainerImpl();
-		return shapeContainer;
-	}
+        ShapeContainerImpl shapeContainer = new ShapeContainerImpl();
+        return shapeContainer;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Import createImport()
 	{
-		ImportImpl import_ = new ImportImpl();
-		return import_;
-	}
+        ImportImpl import_ = new ImportImpl();
+        return import_;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeContainerElement createShapeContainerElement()
 	{
-		ShapeContainerElementImpl shapeContainerElement = new ShapeContainerElementImpl();
-		return shapeContainerElement;
-	}
+        ShapeContainerElementImpl shapeContainerElement = new ShapeContainerElementImpl();
+        return shapeContainerElement;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ConnectionDefinition createConnectionDefinition()
 	{
-		ConnectionDefinitionImpl connectionDefinition = new ConnectionDefinitionImpl();
-		return connectionDefinition;
-	}
+        ConnectionDefinitionImpl connectionDefinition = new ConnectionDefinitionImpl();
+        return connectionDefinition;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeDefinition createShapeDefinition()
 	{
-		ShapeDefinitionImpl shapeDefinition = new ShapeDefinitionImpl();
-		return shapeDefinition;
-	}
+        ShapeDefinitionImpl shapeDefinition = new ShapeDefinitionImpl();
+        return shapeDefinition;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PlacingDefinition createPlacingDefinition()
 	{
-		PlacingDefinitionImpl placingDefinition = new PlacingDefinitionImpl();
-		return placingDefinition;
-	}
+        PlacingDefinitionImpl placingDefinition = new PlacingDefinitionImpl();
+        return placingDefinition;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Anchor createAnchor()
 	{
-		AnchorImpl anchor = new AnchorImpl();
-		return anchor;
-	}
+        AnchorImpl anchor = new AnchorImpl();
+        return anchor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorType createAnchorType()
 	{
-		AnchorTypeImpl anchorType = new AnchorTypeImpl();
-		return anchorType;
-	}
+        AnchorTypeImpl anchorType = new AnchorTypeImpl();
+        return anchorType;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorPredefinied createAnchorPredefinied()
 	{
-		AnchorPredefiniedImpl anchorPredefinied = new AnchorPredefiniedImpl();
-		return anchorPredefinied;
-	}
+        AnchorPredefiniedImpl anchorPredefinied = new AnchorPredefiniedImpl();
+        return anchorPredefinied;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorManual createAnchorManual()
 	{
-		AnchorManualImpl anchorManual = new AnchorManualImpl();
-		return anchorManual;
-	}
+        AnchorManualImpl anchorManual = new AnchorManualImpl();
+        return anchorManual;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorPosition createAnchorPosition()
 	{
-		AnchorPositionImpl anchorPosition = new AnchorPositionImpl();
-		return anchorPosition;
-	}
+        AnchorPositionImpl anchorPosition = new AnchorPositionImpl();
+        return anchorPosition;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorPositionPos createAnchorPositionPos()
 	{
-		AnchorPositionPosImpl anchorPositionPos = new AnchorPositionPosImpl();
-		return anchorPositionPos;
-	}
+        AnchorPositionPosImpl anchorPositionPos = new AnchorPositionPosImpl();
+        return anchorPositionPos;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorRelativePosition createAnchorRelativePosition()
 	{
-		AnchorRelativePositionImpl anchorRelativePosition = new AnchorRelativePositionImpl();
-		return anchorRelativePosition;
-	}
+        AnchorRelativePositionImpl anchorRelativePosition = new AnchorRelativePositionImpl();
+        return anchorRelativePosition;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorFixPointPosition createAnchorFixPointPosition()
 	{
-		AnchorFixPointPositionImpl anchorFixPointPosition = new AnchorFixPointPositionImpl();
-		return anchorFixPointPosition;
-	}
+        AnchorFixPointPositionImpl anchorFixPointPosition = new AnchorFixPointPositionImpl();
+        return anchorFixPointPosition;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Shape createShape()
 	{
-		ShapeImpl shape = new ShapeImpl();
-		return shape;
-	}
+        ShapeImpl shape = new ShapeImpl();
+        return shape;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeConnection createShapeConnection()
 	{
-		ShapeConnectionImpl shapeConnection = new ShapeConnectionImpl();
-		return shapeConnection;
-	}
+        ShapeConnectionImpl shapeConnection = new ShapeConnectionImpl();
+        return shapeConnection;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDLine createCDLine()
 	{
-		CDLineImpl cdLine = new CDLineImpl();
-		return cdLine;
-	}
+        CDLineImpl cdLine = new CDLineImpl();
+        return cdLine;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDPolyline createCDPolyline()
 	{
-		CDPolylineImpl cdPolyline = new CDPolylineImpl();
-		return cdPolyline;
-	}
+        CDPolylineImpl cdPolyline = new CDPolylineImpl();
+        return cdPolyline;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDRectangle createCDRectangle()
 	{
-		CDRectangleImpl cdRectangle = new CDRectangleImpl();
-		return cdRectangle;
-	}
+        CDRectangleImpl cdRectangle = new CDRectangleImpl();
+        return cdRectangle;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDRoundedRectangle createCDRoundedRectangle()
 	{
-		CDRoundedRectangleImpl cdRoundedRectangle = new CDRoundedRectangleImpl();
-		return cdRoundedRectangle;
-	}
+        CDRoundedRectangleImpl cdRoundedRectangle = new CDRoundedRectangleImpl();
+        return cdRoundedRectangle;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDPolygon createCDPolygon()
 	{
-		CDPolygonImpl cdPolygon = new CDPolygonImpl();
-		return cdPolygon;
-	}
+        CDPolygonImpl cdPolygon = new CDPolygonImpl();
+        return cdPolygon;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDEllipse createCDEllipse()
 	{
-		CDEllipseImpl cdEllipse = new CDEllipseImpl();
-		return cdEllipse;
-	}
+        CDEllipseImpl cdEllipse = new CDEllipseImpl();
+        return cdEllipse;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CDText createCDText()
 	{
-		CDTextImpl cdText = new CDTextImpl();
-		return cdText;
-	}
+        CDTextImpl cdText = new CDTextImpl();
+        return cdText;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Line createLine()
 	{
-		LineImpl line = new LineImpl();
-		return line;
-	}
+        LineImpl line = new LineImpl();
+        return line;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Polyline createPolyline()
 	{
-		PolylineImpl polyline = new PolylineImpl();
-		return polyline;
-	}
+        PolylineImpl polyline = new PolylineImpl();
+        return polyline;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Rectangle createRectangle()
 	{
-		RectangleImpl rectangle = new RectangleImpl();
-		return rectangle;
-	}
+        RectangleImpl rectangle = new RectangleImpl();
+        return rectangle;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public RoundedRectangle createRoundedRectangle()
 	{
-		RoundedRectangleImpl roundedRectangle = new RoundedRectangleImpl();
-		return roundedRectangle;
-	}
+        RoundedRectangleImpl roundedRectangle = new RoundedRectangleImpl();
+        return roundedRectangle;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Polygon createPolygon()
 	{
-		PolygonImpl polygon = new PolygonImpl();
-		return polygon;
-	}
+        PolygonImpl polygon = new PolygonImpl();
+        return polygon;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Ellipse createEllipse()
 	{
-		EllipseImpl ellipse = new EllipseImpl();
-		return ellipse;
-	}
+        EllipseImpl ellipse = new EllipseImpl();
+        return ellipse;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Text createText()
 	{
-		TextImpl text = new TextImpl();
-		return text;
-	}
+        TextImpl text = new TextImpl();
+        return text;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentInfo createCompartmentInfo()
 	{
-		CompartmentInfoImpl compartmentInfo = new CompartmentInfoImpl();
-		return compartmentInfo;
-	}
+        CompartmentInfoImpl compartmentInfo = new CompartmentInfoImpl();
+        return compartmentInfo;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Compartment createCompartment()
 	{
-		CompartmentImpl compartment = new CompartmentImpl();
-		return compartment;
-	}
+        CompartmentImpl compartment = new CompartmentImpl();
+        return compartment;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentShape createCompartmentShape()
 	{
-		CompartmentShapeImpl compartmentShape = new CompartmentShapeImpl();
-		return compartmentShape;
-	}
+        CompartmentShapeImpl compartmentShape = new CompartmentShapeImpl();
+        return compartmentShape;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentRectangle createCompartmentRectangle()
 	{
-		CompartmentRectangleImpl compartmentRectangle = new CompartmentRectangleImpl();
-		return compartmentRectangle;
-	}
+        CompartmentRectangleImpl compartmentRectangle = new CompartmentRectangleImpl();
+        return compartmentRectangle;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentRoundedRectangle createCompartmentRoundedRectangle()
 	{
-		CompartmentRoundedRectangleImpl compartmentRoundedRectangle = new CompartmentRoundedRectangleImpl();
-		return compartmentRoundedRectangle;
-	}
+        CompartmentRoundedRectangleImpl compartmentRoundedRectangle = new CompartmentRoundedRectangleImpl();
+        return compartmentRoundedRectangle;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentPolygon createCompartmentPolygon()
 	{
-		CompartmentPolygonImpl compartmentPolygon = new CompartmentPolygonImpl();
-		return compartmentPolygon;
-	}
+        CompartmentPolygonImpl compartmentPolygon = new CompartmentPolygonImpl();
+        return compartmentPolygon;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentEllipse createCompartmentEllipse()
 	{
-		CompartmentEllipseImpl compartmentEllipse = new CompartmentEllipseImpl();
-		return compartmentEllipse;
-	}
+        CompartmentEllipseImpl compartmentEllipse = new CompartmentEllipseImpl();
+        return compartmentEllipse;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Description createDescription()
 	{
-		DescriptionImpl description = new DescriptionImpl();
-		return description;
-	}
+        DescriptionImpl description = new DescriptionImpl();
+        return description;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeLayout createShapeLayout()
 	{
-		ShapeLayoutImpl shapeLayout = new ShapeLayoutImpl();
-		return shapeLayout;
-	}
+        ShapeLayoutImpl shapeLayout = new ShapeLayoutImpl();
+        return shapeLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public RectangleEllipseLayout createRectangleEllipseLayout()
 	{
-		RectangleEllipseLayoutImpl rectangleEllipseLayout = new RectangleEllipseLayoutImpl();
-		return rectangleEllipseLayout;
-	}
+        RectangleEllipseLayoutImpl rectangleEllipseLayout = new RectangleEllipseLayoutImpl();
+        return rectangleEllipseLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public LineLayout createLineLayout()
 	{
-		LineLayoutImpl lineLayout = new LineLayoutImpl();
-		return lineLayout;
-	}
+        LineLayoutImpl lineLayout = new LineLayoutImpl();
+        return lineLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PolyLineLayout createPolyLineLayout()
 	{
-		PolyLineLayoutImpl polyLineLayout = new PolyLineLayoutImpl();
-		return polyLineLayout;
-	}
+        PolyLineLayoutImpl polyLineLayout = new PolyLineLayoutImpl();
+        return polyLineLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public RoundedRectangleLayout createRoundedRectangleLayout()
 	{
-		RoundedRectangleLayoutImpl roundedRectangleLayout = new RoundedRectangleLayoutImpl();
-		return roundedRectangleLayout;
-	}
+        RoundedRectangleLayoutImpl roundedRectangleLayout = new RoundedRectangleLayoutImpl();
+        return roundedRectangleLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TextLayout createTextLayout()
 	{
-		TextLayoutImpl textLayout = new TextLayoutImpl();
-		return textLayout;
-	}
+        TextLayoutImpl textLayout = new TextLayoutImpl();
+        return textLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapestyleLayout createShapestyleLayout()
 	{
-		ShapestyleLayoutImpl shapestyleLayout = new ShapestyleLayoutImpl();
-		return shapestyleLayout;
-	}
+        ShapestyleLayoutImpl shapestyleLayout = new ShapestyleLayoutImpl();
+        return shapestyleLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeStyleRef createShapeStyleRef()
 	{
-		ShapeStyleRefImpl shapeStyleRef = new ShapeStyleRefImpl();
-		return shapeStyleRef;
-	}
+        ShapeStyleRefImpl shapeStyleRef = new ShapeStyleRefImpl();
+        return shapeStyleRef;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CommonLayout createCommonLayout()
 	{
-		CommonLayoutImpl commonLayout = new CommonLayoutImpl();
-		return commonLayout;
-	}
+        CommonLayoutImpl commonLayout = new CommonLayoutImpl();
+        return commonLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TextBody createTextBody()
 	{
-		TextBodyImpl textBody = new TextBodyImpl();
-		return textBody;
-	}
+        TextBodyImpl textBody = new TextBodyImpl();
+        return textBody;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Point createPoint()
 	{
-		PointImpl point = new PointImpl();
-		return point;
-	}
+        PointImpl point = new PointImpl();
+        return point;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CompartmentLayout createCompartmentLayoutFromString(EDataType eDataType, String initialValue)
 	{
-		CompartmentLayout result = CompartmentLayout.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        CompartmentLayout result = CompartmentLayout.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertCompartmentLayoutToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public HAlign createHAlignFromString(EDataType eDataType, String initialValue)
 	{
-		HAlign result = HAlign.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        HAlign result = HAlign.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertHAlignToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public VAlign createVAlignFromString(EDataType eDataType, String initialValue)
 	{
-		VAlign result = VAlign.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        VAlign result = VAlign.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertVAlignToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ConnectionStyle createConnectionStyleFromString(EDataType eDataType, String initialValue)
 	{
-		ConnectionStyle result = ConnectionStyle.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        ConnectionStyle result = ConnectionStyle.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertConnectionStyleToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnchorPredefiniedEnum createAnchorPredefiniedEnumFromString(EDataType eDataType, String initialValue)
 	{
-		AnchorPredefiniedEnum result = AnchorPredefiniedEnum.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        AnchorPredefiniedEnum result = AnchorPredefiniedEnum.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertAnchorPredefiniedEnumToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TextType createTextTypeFromString(EDataType eDataType, String initialValue)
 	{
-		TextType result = TextType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        TextType result = TextType.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertTextTypeToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapesPackage getShapesPackage()
 	{
-		return (ShapesPackage)getEPackage();
-	}
+        return (ShapesPackage)getEPackage();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
+     * @deprecated
+     * @generated
+     */
 	@Deprecated
 	public static ShapesPackage getPackage()
 	{
-		return ShapesPackage.eINSTANCE;
-	}
+        return ShapesPackage.eINSTANCE;
+    }
 
 } //ShapesFactoryImpl

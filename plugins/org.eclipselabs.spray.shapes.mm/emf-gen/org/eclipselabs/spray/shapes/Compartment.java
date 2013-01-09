@@ -24,58 +24,58 @@ import org.eclipse.emf.ecore.EObject;
 public interface Compartment extends EObject
 {
 	/**
-	 * Returns the value of the '<em><b>Compartment Layout</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipselabs.spray.shapes.CompartmentLayout}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Compartment Layout</b></em>' attribute.
+     * The literals are from the enumeration {@link org.eclipselabs.spray.shapes.CompartmentLayout}.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Compartment Layout</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Compartment Layout</em>' attribute.
-	 * @see org.eclipselabs.spray.shapes.CompartmentLayout
-	 * @see #setCompartmentLayout(CompartmentLayout)
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getCompartment_CompartmentLayout()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Compartment Layout</em>' attribute.
+     * @see org.eclipselabs.spray.shapes.CompartmentLayout
+     * @see #setCompartmentLayout(CompartmentLayout)
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getCompartment_CompartmentLayout()
+     * @model
+     * @generated
+     */
 	CompartmentLayout getCompartmentLayout();
 
 	/**
-	 * Sets the value of the '{@link org.eclipselabs.spray.shapes.Compartment#getCompartmentLayout <em>Compartment Layout</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.eclipselabs.spray.shapes.Compartment#getCompartmentLayout <em>Compartment Layout</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Compartment Layout</em>' attribute.
-	 * @see org.eclipselabs.spray.shapes.CompartmentLayout
-	 * @see #getCompartmentLayout()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Compartment Layout</em>' attribute.
+     * @see org.eclipselabs.spray.shapes.CompartmentLayout
+     * @see #getCompartmentLayout()
+     * @generated
+     */
 	void setCompartmentLayout(CompartmentLayout value);
 
 	/**
-	 * Returns the value of the '<em><b>Shape</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Shape</b></em>' containment reference.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Shape</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Shape</em>' containment reference.
-	 * @see #setShape(CompartmentShape)
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getCompartment_Shape()
-	 * @model containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Shape</em>' containment reference.
+     * @see #setShape(CompartmentShape)
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getCompartment_Shape()
+     * @model containment="true"
+     * @generated
+     */
 	CompartmentShape getShape();
 
 	/**
-	 * Sets the value of the '{@link org.eclipselabs.spray.shapes.Compartment#getShape <em>Shape</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.eclipselabs.spray.shapes.Compartment#getShape <em>Shape</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Shape</em>' containment reference.
-	 * @see #getShape()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Shape</em>' containment reference.
+     * @see #getShape()
+     * @generated
+     */
 	void setShape(CompartmentShape value);
 
 } // Compartment

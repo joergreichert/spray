@@ -38,169 +38,162 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class ShapeContainerImpl extends MinimalEObjectImpl.Container implements ShapeContainer
 {
 	/**
-	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImports()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getImports()
+     * @generated
+     * @ordered
+     */
 	protected EList<Import> imports;
 
 	/**
-	 * The cached value of the '{@link #getShapeContainerElement() <em>Shape Container Element</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getShapeContainerElement() <em>Shape Container Element</em>}' containment reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getShapeContainerElement()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getShapeContainerElement()
+     * @generated
+     * @ordered
+     */
 	protected EList<ShapeContainerElement> shapeContainerElement;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ShapeContainerImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.SHAPE_CONTAINER;
-	}
+        return ShapesPackage.Literals.SHAPE_CONTAINER;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Import> getImports()
 	{
-		if (imports == null)
-		{
-			imports = new EObjectContainmentEList<Import>(Import.class, this, ShapesPackage.SHAPE_CONTAINER__IMPORTS);
-		}
-		return imports;
-	}
+        if (imports == null) {
+            imports = new EObjectContainmentEList<Import>(Import.class, this, ShapesPackage.SHAPE_CONTAINER__IMPORTS);
+        }
+        return imports;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<ShapeContainerElement> getShapeContainerElement()
 	{
-		if (shapeContainerElement == null)
-		{
-			shapeContainerElement = new EObjectContainmentEList<ShapeContainerElement>(ShapeContainerElement.class, this, ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT);
-		}
-		return shapeContainerElement;
-	}
+        if (shapeContainerElement == null) {
+            shapeContainerElement = new EObjectContainmentEList<ShapeContainerElement>(ShapeContainerElement.class, this, ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT);
+        }
+        return shapeContainerElement;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
-				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
-			case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
-				return ((InternalEList<?>)getShapeContainerElement()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
+                return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+            case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
+                return ((InternalEList<?>)getShapeContainerElement()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
-				return getImports();
-			case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
-				return getShapeContainerElement();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
+                return getImports();
+            case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
+                return getShapeContainerElement();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
-				getImports().clear();
-				getImports().addAll((Collection<? extends Import>)newValue);
-				return;
-			case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
-				getShapeContainerElement().clear();
-				getShapeContainerElement().addAll((Collection<? extends ShapeContainerElement>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
+                getImports().clear();
+                getImports().addAll((Collection<? extends Import>)newValue);
+                return;
+            case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
+                getShapeContainerElement().clear();
+                getShapeContainerElement().addAll((Collection<? extends ShapeContainerElement>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
-				getImports().clear();
-				return;
-			case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
-				getShapeContainerElement().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
+                getImports().clear();
+                return;
+            case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
+                getShapeContainerElement().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
-				return imports != null && !imports.isEmpty();
-			case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
-				return shapeContainerElement != null && !shapeContainerElement.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.SHAPE_CONTAINER__IMPORTS:
+                return imports != null && !imports.isEmpty();
+            case ShapesPackage.SHAPE_CONTAINER__SHAPE_CONTAINER_ELEMENT:
+                return shapeContainerElement != null && !shapeContainerElement.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //ShapeContainerImpl

@@ -162,6 +162,7 @@
     <eLiterals name="FIXED" literal="fixed"/>
     <eLiterals name="VERTICAL" value="1" literal="vertical"/>
     <eLiterals name="HORIZONTAL" value="2" literal="horizontal"/>
+    <eLiterals name="FIT" value="3" literal="fit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Compartment">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="compartmentLayout" eType="#//CompartmentLayout"/>

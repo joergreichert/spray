@@ -21,24 +21,24 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class AnchorPositionPosImpl extends MinimalEObjectImpl.Container implements AnchorPositionPos
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected AnchorPositionPosImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.ANCHOR_POSITION_POS;
-	}
+        return ShapesPackage.Literals.ANCHOR_POSITION_POS;
+    }
 
 } //AnchorPositionPosImpl

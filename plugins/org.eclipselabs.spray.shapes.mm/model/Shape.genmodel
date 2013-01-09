@@ -13,6 +13,7 @@
       <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/FIXED"/>
       <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/VERTICAL"/>
       <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/HORIZONTAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/FIT"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//HAlign">
       <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//HAlign/LEFT"/>

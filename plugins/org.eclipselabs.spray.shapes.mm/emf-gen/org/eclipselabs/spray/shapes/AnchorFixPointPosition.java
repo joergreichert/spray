@@ -23,55 +23,55 @@ package org.eclipselabs.spray.shapes;
 public interface AnchorFixPointPosition extends AnchorPositionPos
 {
 	/**
-	 * Returns the value of the '<em><b>Xcor</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Xcor</b></em>' attribute.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Xcor</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Xcor</em>' attribute.
-	 * @see #setXcor(int)
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getAnchorFixPointPosition_Xcor()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Xcor</em>' attribute.
+     * @see #setXcor(int)
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getAnchorFixPointPosition_Xcor()
+     * @model
+     * @generated
+     */
 	int getXcor();
 
 	/**
-	 * Sets the value of the '{@link org.eclipselabs.spray.shapes.AnchorFixPointPosition#getXcor <em>Xcor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.eclipselabs.spray.shapes.AnchorFixPointPosition#getXcor <em>Xcor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Xcor</em>' attribute.
-	 * @see #getXcor()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Xcor</em>' attribute.
+     * @see #getXcor()
+     * @generated
+     */
 	void setXcor(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Ycor</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Ycor</b></em>' attribute.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Ycor</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ycor</em>' attribute.
-	 * @see #setYcor(int)
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getAnchorFixPointPosition_Ycor()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Ycor</em>' attribute.
+     * @see #setYcor(int)
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getAnchorFixPointPosition_Ycor()
+     * @model
+     * @generated
+     */
 	int getYcor();
 
 	/**
-	 * Sets the value of the '{@link org.eclipselabs.spray.shapes.AnchorFixPointPosition#getYcor <em>Ycor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.eclipselabs.spray.shapes.AnchorFixPointPosition#getYcor <em>Ycor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ycor</em>' attribute.
-	 * @see #getYcor()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Ycor</em>' attribute.
+     * @see #getYcor()
+     * @generated
+     */
 	void setYcor(int value);
 
 } // AnchorFixPointPosition

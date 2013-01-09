@@ -39,202 +39,194 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle
 {
 	/**
-	 * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLayout()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLayout()
+     * @generated
+     * @ordered
+     */
 	protected RoundedRectangleLayout layout;
 
 	/**
-	 * The cached value of the '{@link #getShape() <em>Shape</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getShape() <em>Shape</em>}' containment reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getShape()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getShape()
+     * @generated
+     * @ordered
+     */
 	protected EList<Shape> shape;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected RoundedRectangleImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.ROUNDED_RECTANGLE;
-	}
+        return ShapesPackage.Literals.ROUNDED_RECTANGLE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public RoundedRectangleLayout getLayout()
 	{
-		return layout;
-	}
+        return layout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetLayout(RoundedRectangleLayout newLayout, NotificationChain msgs)
 	{
-		RoundedRectangleLayout oldLayout = layout;
-		layout = newLayout;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, oldLayout, newLayout);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        RoundedRectangleLayout oldLayout = layout;
+        layout = newLayout;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, oldLayout, newLayout);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setLayout(RoundedRectangleLayout newLayout)
 	{
-		if (newLayout != layout)
-		{
-			NotificationChain msgs = null;
-			if (layout != null)
-				msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, null, msgs);
-			if (newLayout != null)
-				msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, null, msgs);
-			msgs = basicSetLayout(newLayout, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, newLayout, newLayout));
-	}
+        if (newLayout != layout) {
+            NotificationChain msgs = null;
+            if (layout != null)
+                msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, null, msgs);
+            if (newLayout != null)
+                msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, null, msgs);
+            msgs = basicSetLayout(newLayout, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.ROUNDED_RECTANGLE__LAYOUT, newLayout, newLayout));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Shape> getShape()
 	{
-		if (shape == null)
-		{
-			shape = new EObjectContainmentEList<Shape>(Shape.class, this, ShapesPackage.ROUNDED_RECTANGLE__SHAPE);
-		}
-		return shape;
-	}
+        if (shape == null) {
+            shape = new EObjectContainmentEList<Shape>(Shape.class, this, ShapesPackage.ROUNDED_RECTANGLE__SHAPE);
+        }
+        return shape;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
-				return basicSetLayout(null, msgs);
-			case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
-				return ((InternalEList<?>)getShape()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
+                return basicSetLayout(null, msgs);
+            case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
+                return ((InternalEList<?>)getShape()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
-				return getLayout();
-			case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
-				return getShape();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
+                return getLayout();
+            case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
+                return getShape();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
-				setLayout((RoundedRectangleLayout)newValue);
-				return;
-			case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
-				getShape().clear();
-				getShape().addAll((Collection<? extends Shape>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
+                setLayout((RoundedRectangleLayout)newValue);
+                return;
+            case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
+                getShape().clear();
+                getShape().addAll((Collection<? extends Shape>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
-				setLayout((RoundedRectangleLayout)null);
-				return;
-			case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
-				getShape().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
+                setLayout((RoundedRectangleLayout)null);
+                return;
+            case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
+                getShape().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
-				return layout != null;
-			case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
-				return shape != null && !shape.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.ROUNDED_RECTANGLE__LAYOUT:
+                return layout != null;
+            case ShapesPackage.ROUNDED_RECTANGLE__SHAPE:
+                return shape != null && !shape.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //RoundedRectangleImpl

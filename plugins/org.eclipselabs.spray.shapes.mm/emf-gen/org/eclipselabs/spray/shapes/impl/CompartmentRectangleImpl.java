@@ -19,24 +19,24 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class CompartmentRectangleImpl extends CompartmentShapeImpl implements CompartmentRectangle
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected CompartmentRectangleImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.COMPARTMENT_RECTANGLE;
-	}
+        return ShapesPackage.Literals.COMPARTMENT_RECTANGLE;
+    }
 
 } //CompartmentRectangleImpl

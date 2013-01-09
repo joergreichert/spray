@@ -37,359 +37,350 @@ import org.eclipselabs.spray.shapes.VAlign;
 public class DescriptionImpl extends MinimalEObjectImpl.Container implements Description
 {
 	/**
-	 * The cached value of the '{@link #getStyle() <em>Style</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getStyle() <em>Style</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStyle()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getStyle()
+     * @generated
+     * @ordered
+     */
 	protected ShapeStyleRef style;
 
 	/**
-	 * The default value of the '{@link #getHAlign() <em>HAlign</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getHAlign() <em>HAlign</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getHAlign()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getHAlign()
+     * @generated
+     * @ordered
+     */
 	protected static final HAlign HALIGN_EDEFAULT = HAlign.LEFT;
 
 	/**
-	 * The cached value of the '{@link #getHAlign() <em>HAlign</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getHAlign() <em>HAlign</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getHAlign()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getHAlign()
+     * @generated
+     * @ordered
+     */
 	protected HAlign hAlign = HALIGN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVAlign()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getVAlign()
+     * @generated
+     * @ordered
+     */
 	protected static final VAlign VALIGN_EDEFAULT = VAlign.TOP;
 
 	/**
-	 * The cached value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getVAlign() <em>VAlign</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVAlign()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getVAlign()
+     * @generated
+     * @ordered
+     */
 	protected VAlign vAlign = VALIGN_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBody()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getBody()
+     * @generated
+     * @ordered
+     */
 	protected TextBody body;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected DescriptionImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.DESCRIPTION;
-	}
+        return ShapesPackage.Literals.DESCRIPTION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ShapeStyleRef getStyle()
 	{
-		return style;
-	}
+        return style;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetStyle(ShapeStyleRef newStyle, NotificationChain msgs)
 	{
-		ShapeStyleRef oldStyle = style;
-		style = newStyle;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__STYLE, oldStyle, newStyle);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        ShapeStyleRef oldStyle = style;
+        style = newStyle;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__STYLE, oldStyle, newStyle);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setStyle(ShapeStyleRef newStyle)
 	{
-		if (newStyle != style)
-		{
-			NotificationChain msgs = null;
-			if (style != null)
-				msgs = ((InternalEObject)style).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__STYLE, null, msgs);
-			if (newStyle != null)
-				msgs = ((InternalEObject)newStyle).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__STYLE, null, msgs);
-			msgs = basicSetStyle(newStyle, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__STYLE, newStyle, newStyle));
-	}
+        if (newStyle != style) {
+            NotificationChain msgs = null;
+            if (style != null)
+                msgs = ((InternalEObject)style).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__STYLE, null, msgs);
+            if (newStyle != null)
+                msgs = ((InternalEObject)newStyle).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__STYLE, null, msgs);
+            msgs = basicSetStyle(newStyle, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__STYLE, newStyle, newStyle));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public HAlign getHAlign()
 	{
-		return hAlign;
-	}
+        return hAlign;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setHAlign(HAlign newHAlign)
 	{
-		HAlign oldHAlign = hAlign;
-		hAlign = newHAlign == null ? HALIGN_EDEFAULT : newHAlign;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__HALIGN, oldHAlign, hAlign));
-	}
+        HAlign oldHAlign = hAlign;
+        hAlign = newHAlign == null ? HALIGN_EDEFAULT : newHAlign;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__HALIGN, oldHAlign, hAlign));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public VAlign getVAlign()
 	{
-		return vAlign;
-	}
+        return vAlign;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setVAlign(VAlign newVAlign)
 	{
-		VAlign oldVAlign = vAlign;
-		vAlign = newVAlign == null ? VALIGN_EDEFAULT : newVAlign;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__VALIGN, oldVAlign, vAlign));
-	}
+        VAlign oldVAlign = vAlign;
+        vAlign = newVAlign == null ? VALIGN_EDEFAULT : newVAlign;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__VALIGN, oldVAlign, vAlign));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TextBody getBody()
 	{
-		return body;
-	}
+        return body;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetBody(TextBody newBody, NotificationChain msgs)
 	{
-		TextBody oldBody = body;
-		body = newBody;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__BODY, oldBody, newBody);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        TextBody oldBody = body;
+        body = newBody;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__BODY, oldBody, newBody);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setBody(TextBody newBody)
 	{
-		if (newBody != body)
-		{
-			NotificationChain msgs = null;
-			if (body != null)
-				msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__BODY, null, msgs);
-			if (newBody != null)
-				msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__BODY, null, msgs);
-			msgs = basicSetBody(newBody, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__BODY, newBody, newBody));
-	}
+        if (newBody != body) {
+            NotificationChain msgs = null;
+            if (body != null)
+                msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__BODY, null, msgs);
+            if (newBody != null)
+                msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.DESCRIPTION__BODY, null, msgs);
+            msgs = basicSetBody(newBody, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.DESCRIPTION__BODY, newBody, newBody));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.DESCRIPTION__STYLE:
-				return basicSetStyle(null, msgs);
-			case ShapesPackage.DESCRIPTION__BODY:
-				return basicSetBody(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.DESCRIPTION__STYLE:
+                return basicSetStyle(null, msgs);
+            case ShapesPackage.DESCRIPTION__BODY:
+                return basicSetBody(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.DESCRIPTION__STYLE:
-				return getStyle();
-			case ShapesPackage.DESCRIPTION__HALIGN:
-				return getHAlign();
-			case ShapesPackage.DESCRIPTION__VALIGN:
-				return getVAlign();
-			case ShapesPackage.DESCRIPTION__BODY:
-				return getBody();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.DESCRIPTION__STYLE:
+                return getStyle();
+            case ShapesPackage.DESCRIPTION__HALIGN:
+                return getHAlign();
+            case ShapesPackage.DESCRIPTION__VALIGN:
+                return getVAlign();
+            case ShapesPackage.DESCRIPTION__BODY:
+                return getBody();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.DESCRIPTION__STYLE:
-				setStyle((ShapeStyleRef)newValue);
-				return;
-			case ShapesPackage.DESCRIPTION__HALIGN:
-				setHAlign((HAlign)newValue);
-				return;
-			case ShapesPackage.DESCRIPTION__VALIGN:
-				setVAlign((VAlign)newValue);
-				return;
-			case ShapesPackage.DESCRIPTION__BODY:
-				setBody((TextBody)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.DESCRIPTION__STYLE:
+                setStyle((ShapeStyleRef)newValue);
+                return;
+            case ShapesPackage.DESCRIPTION__HALIGN:
+                setHAlign((HAlign)newValue);
+                return;
+            case ShapesPackage.DESCRIPTION__VALIGN:
+                setVAlign((VAlign)newValue);
+                return;
+            case ShapesPackage.DESCRIPTION__BODY:
+                setBody((TextBody)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.DESCRIPTION__STYLE:
-				setStyle((ShapeStyleRef)null);
-				return;
-			case ShapesPackage.DESCRIPTION__HALIGN:
-				setHAlign(HALIGN_EDEFAULT);
-				return;
-			case ShapesPackage.DESCRIPTION__VALIGN:
-				setVAlign(VALIGN_EDEFAULT);
-				return;
-			case ShapesPackage.DESCRIPTION__BODY:
-				setBody((TextBody)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.DESCRIPTION__STYLE:
+                setStyle((ShapeStyleRef)null);
+                return;
+            case ShapesPackage.DESCRIPTION__HALIGN:
+                setHAlign(HALIGN_EDEFAULT);
+                return;
+            case ShapesPackage.DESCRIPTION__VALIGN:
+                setVAlign(VALIGN_EDEFAULT);
+                return;
+            case ShapesPackage.DESCRIPTION__BODY:
+                setBody((TextBody)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.DESCRIPTION__STYLE:
-				return style != null;
-			case ShapesPackage.DESCRIPTION__HALIGN:
-				return hAlign != HALIGN_EDEFAULT;
-			case ShapesPackage.DESCRIPTION__VALIGN:
-				return vAlign != VALIGN_EDEFAULT;
-			case ShapesPackage.DESCRIPTION__BODY:
-				return body != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.DESCRIPTION__STYLE:
+                return style != null;
+            case ShapesPackage.DESCRIPTION__HALIGN:
+                return hAlign != HALIGN_EDEFAULT;
+            case ShapesPackage.DESCRIPTION__VALIGN:
+                return vAlign != VALIGN_EDEFAULT;
+            case ShapesPackage.DESCRIPTION__BODY:
+                return body != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString()
 	{
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (hAlign: ");
-		result.append(hAlign);
-		result.append(", vAlign: ");
-		result.append(vAlign);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (hAlign: ");
+        result.append(hAlign);
+        result.append(", vAlign: ");
+        result.append(vAlign);
+        result.append(')');
+        return result.toString();
+    }
 
 } //DescriptionImpl

@@ -214,7 +214,7 @@ CompartmentInfo:
 );
 
 enum CompartmentLayout:
-    FIXED = 'fixed' | VERTICAL = 'vertical' | HORIZONTAL = 'horizontal'
+    FIXED = 'fixed' | VERTICAL = 'vertical' | HORIZONTAL = 'horizontal' | FIT = 'fit'
 ;
 
 Compartment: {Compartment} 

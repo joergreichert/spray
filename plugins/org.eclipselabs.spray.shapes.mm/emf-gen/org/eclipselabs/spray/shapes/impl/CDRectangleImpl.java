@@ -30,164 +30,157 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class CDRectangleImpl extends ShapeConnectionImpl implements CDRectangle
 {
 	/**
-	 * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLayout()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getLayout()
+     * @generated
+     * @ordered
+     */
 	protected RectangleEllipseLayout layout;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected CDRectangleImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.CD_RECTANGLE;
-	}
+        return ShapesPackage.Literals.CD_RECTANGLE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public RectangleEllipseLayout getLayout()
 	{
-		return layout;
-	}
+        return layout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public NotificationChain basicSetLayout(RectangleEllipseLayout newLayout, NotificationChain msgs)
 	{
-		RectangleEllipseLayout oldLayout = layout;
-		layout = newLayout;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.CD_RECTANGLE__LAYOUT, oldLayout, newLayout);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+        RectangleEllipseLayout oldLayout = layout;
+        layout = newLayout;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ShapesPackage.CD_RECTANGLE__LAYOUT, oldLayout, newLayout);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setLayout(RectangleEllipseLayout newLayout)
 	{
-		if (newLayout != layout)
-		{
-			NotificationChain msgs = null;
-			if (layout != null)
-				msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.CD_RECTANGLE__LAYOUT, null, msgs);
-			if (newLayout != null)
-				msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.CD_RECTANGLE__LAYOUT, null, msgs);
-			msgs = basicSetLayout(newLayout, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.CD_RECTANGLE__LAYOUT, newLayout, newLayout));
-	}
+        if (newLayout != layout) {
+            NotificationChain msgs = null;
+            if (layout != null)
+                msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.CD_RECTANGLE__LAYOUT, null, msgs);
+            if (newLayout != null)
+                msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ShapesPackage.CD_RECTANGLE__LAYOUT, null, msgs);
+            msgs = basicSetLayout(newLayout, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.CD_RECTANGLE__LAYOUT, newLayout, newLayout));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.CD_RECTANGLE__LAYOUT:
-				return basicSetLayout(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.CD_RECTANGLE__LAYOUT:
+                return basicSetLayout(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.CD_RECTANGLE__LAYOUT:
-				return getLayout();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.CD_RECTANGLE__LAYOUT:
+                return getLayout();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.CD_RECTANGLE__LAYOUT:
-				setLayout((RectangleEllipseLayout)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.CD_RECTANGLE__LAYOUT:
+                setLayout((RectangleEllipseLayout)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.CD_RECTANGLE__LAYOUT:
-				setLayout((RectangleEllipseLayout)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.CD_RECTANGLE__LAYOUT:
+                setLayout((RectangleEllipseLayout)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.CD_RECTANGLE__LAYOUT:
-				return layout != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.CD_RECTANGLE__LAYOUT:
+                return layout != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //CDRectangleImpl

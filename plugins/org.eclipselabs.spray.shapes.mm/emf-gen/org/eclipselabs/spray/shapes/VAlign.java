@@ -20,231 +20,225 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum VAlign implements Enumerator
 {
 	/**
-	 * The '<em><b>TOP</b></em>' literal object.
-	 * <!-- begin-user-doc -->
+     * The '<em><b>TOP</b></em>' literal object.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #TOP_VALUE
-	 * @generated
-	 * @ordered
-	 */
+     * @see #TOP_VALUE
+     * @generated
+     * @ordered
+     */
 	TOP(0, "TOP", "top"),
 
 	/**
-	 * The '<em><b>MIDDLE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
+     * The '<em><b>MIDDLE</b></em>' literal object.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #MIDDLE_VALUE
-	 * @generated
-	 * @ordered
-	 */
+     * @see #MIDDLE_VALUE
+     * @generated
+     * @ordered
+     */
 	MIDDLE(1, "MIDDLE", "middle"),
 
 	/**
-	 * The '<em><b>BOTTOM</b></em>' literal object.
-	 * <!-- begin-user-doc -->
+     * The '<em><b>BOTTOM</b></em>' literal object.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #BOTTOM_VALUE
-	 * @generated
-	 * @ordered
-	 */
+     * @see #BOTTOM_VALUE
+     * @generated
+     * @ordered
+     */
 	BOTTOM(2, "BOTTOM", "bottom");
 
 	/**
-	 * The '<em><b>TOP</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+     * The '<em><b>TOP</b></em>' literal value.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>TOP</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #TOP
-	 * @model literal="top"
-	 * @generated
-	 * @ordered
-	 */
+     * @see #TOP
+     * @model literal="top"
+     * @generated
+     * @ordered
+     */
 	public static final int TOP_VALUE = 0;
 
 	/**
-	 * The '<em><b>MIDDLE</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+     * The '<em><b>MIDDLE</b></em>' literal value.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>MIDDLE</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #MIDDLE
-	 * @model literal="middle"
-	 * @generated
-	 * @ordered
-	 */
+     * @see #MIDDLE
+     * @model literal="middle"
+     * @generated
+     * @ordered
+     */
 	public static final int MIDDLE_VALUE = 1;
 
 	/**
-	 * The '<em><b>BOTTOM</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+     * The '<em><b>BOTTOM</b></em>' literal value.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>BOTTOM</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #BOTTOM
-	 * @model literal="bottom"
-	 * @generated
-	 * @ordered
-	 */
+     * @see #BOTTOM
+     * @model literal="bottom"
+     * @generated
+     * @ordered
+     */
 	public static final int BOTTOM_VALUE = 2;
 
 	/**
-	 * An array of all the '<em><b>VAlign</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
+     * An array of all the '<em><b>VAlign</b></em>' enumerators.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	private static final VAlign[] VALUES_ARRAY =
-		new VAlign[]
-		{
-			TOP,
-			MIDDLE,
-			BOTTOM,
-		};
+		new VAlign[] {
+            TOP,
+            MIDDLE,
+            BOTTOM,
+        };
 
 	/**
-	 * A public read-only list of all the '<em><b>VAlign</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
+     * A public read-only list of all the '<em><b>VAlign</b></em>' enumerators.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static final List<VAlign> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>VAlign</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
+     * Returns the '<em><b>VAlign</b></em>' literal with the specified literal value.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static VAlign get(String literal)
 	{
-		for (int i = 0; i < VALUES_ARRAY.length; ++i)
-		{
-			VAlign result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal))
-			{
-				return result;
-			}
-		}
-		return null;
-	}
+        for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+            VAlign result = VALUES_ARRAY[i];
+            if (result.toString().equals(literal)) {
+                return result;
+            }
+        }
+        return null;
+    }
 
 	/**
-	 * Returns the '<em><b>VAlign</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc -->
+     * Returns the '<em><b>VAlign</b></em>' literal with the specified name.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static VAlign getByName(String name)
 	{
-		for (int i = 0; i < VALUES_ARRAY.length; ++i)
-		{
-			VAlign result = VALUES_ARRAY[i];
-			if (result.getName().equals(name))
-			{
-				return result;
-			}
-		}
-		return null;
-	}
+        for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+            VAlign result = VALUES_ARRAY[i];
+            if (result.getName().equals(name)) {
+                return result;
+            }
+        }
+        return null;
+    }
 
 	/**
-	 * Returns the '<em><b>VAlign</b></em>' literal with the specified integer value.
-	 * <!-- begin-user-doc -->
+     * Returns the '<em><b>VAlign</b></em>' literal with the specified integer value.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static VAlign get(int value)
 	{
-		switch (value)
-		{
-			case TOP_VALUE: return TOP;
-			case MIDDLE_VALUE: return MIDDLE;
-			case BOTTOM_VALUE: return BOTTOM;
-		}
-		return null;
-	}
+        switch (value) {
+            case TOP_VALUE: return TOP;
+            case MIDDLE_VALUE: return MIDDLE;
+            case BOTTOM_VALUE: return BOTTOM;
+        }
+        return null;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	private final int value;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	private final String name;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances.
-	 * <!-- begin-user-doc -->
+     * Only this class can construct instances.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	private VAlign(int value, String name, String literal)
 	{
-		this.value = value;
-		this.name = name;
-		this.literal = literal;
-	}
+        this.value = value;
+        this.name = name;
+        this.literal = literal;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getValue()
 	{
-	  return value;
-	}
+      return value;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String getName()
 	{
-	  return name;
-	}
+      return name;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String getLiteral()
 	{
-	  return literal;
-	}
+      return literal;
+    }
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string representation.
-	 * <!-- begin-user-doc -->
+     * Returns the literal value of the enumerator, which is its string representation.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString()
 	{
-		return literal;
-	}
+        return literal;
+    }
 	
 } //VAlign

@@ -34,132 +34,126 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class AnchorManualImpl extends AnchorTypeImpl implements AnchorManual
 {
 	/**
-	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPosition()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPosition()
+     * @generated
+     * @ordered
+     */
 	protected EList<AnchorPosition> position;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected AnchorManualImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.ANCHOR_MANUAL;
-	}
+        return ShapesPackage.Literals.ANCHOR_MANUAL;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<AnchorPosition> getPosition()
 	{
-		if (position == null)
-		{
-			position = new EObjectContainmentEList<AnchorPosition>(AnchorPosition.class, this, ShapesPackage.ANCHOR_MANUAL__POSITION);
-		}
-		return position;
-	}
+        if (position == null) {
+            position = new EObjectContainmentEList<AnchorPosition>(AnchorPosition.class, this, ShapesPackage.ANCHOR_MANUAL__POSITION);
+        }
+        return position;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_MANUAL__POSITION:
-				return ((InternalEList<?>)getPosition()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_MANUAL__POSITION:
+                return ((InternalEList<?>)getPosition()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_MANUAL__POSITION:
-				return getPosition();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_MANUAL__POSITION:
+                return getPosition();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_MANUAL__POSITION:
-				getPosition().clear();
-				getPosition().addAll((Collection<? extends AnchorPosition>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_MANUAL__POSITION:
+                getPosition().clear();
+                getPosition().addAll((Collection<? extends AnchorPosition>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_MANUAL__POSITION:
-				getPosition().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_MANUAL__POSITION:
+                getPosition().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_MANUAL__POSITION:
-				return position != null && !position.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_MANUAL__POSITION:
+                return position != null && !position.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //AnchorManualImpl

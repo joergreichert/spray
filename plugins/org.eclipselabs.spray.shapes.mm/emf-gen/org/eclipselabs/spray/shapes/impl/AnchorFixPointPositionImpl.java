@@ -28,205 +28,201 @@ import org.eclipselabs.spray.shapes.ShapesPackage;
 public class AnchorFixPointPositionImpl extends AnchorPositionPosImpl implements AnchorFixPointPosition
 {
 	/**
-	 * The default value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getXcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getXcor()
+     * @generated
+     * @ordered
+     */
 	protected static final int XCOR_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getXcor() <em>Xcor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getXcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getXcor()
+     * @generated
+     * @ordered
+     */
 	protected int xcor = XCOR_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getYcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getYcor()
+     * @generated
+     * @ordered
+     */
 	protected static final int YCOR_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getYcor() <em>Ycor</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getYcor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getYcor()
+     * @generated
+     * @ordered
+     */
 	protected int ycor = YCOR_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected AnchorFixPointPositionImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return ShapesPackage.Literals.ANCHOR_FIX_POINT_POSITION;
-	}
+        return ShapesPackage.Literals.ANCHOR_FIX_POINT_POSITION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getXcor()
 	{
-		return xcor;
-	}
+        return xcor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setXcor(int newXcor)
 	{
-		int oldXcor = xcor;
-		xcor = newXcor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR, oldXcor, xcor));
-	}
+        int oldXcor = xcor;
+        xcor = newXcor;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR, oldXcor, xcor));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public int getYcor()
 	{
-		return ycor;
-	}
+        return ycor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setYcor(int newYcor)
 	{
-		int oldYcor = ycor;
-		ycor = newYcor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR, oldYcor, ycor));
-	}
+        int oldYcor = ycor;
+        ycor = newYcor;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR, oldYcor, ycor));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
-				return getXcor();
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
-				return getYcor();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
+                return getXcor();
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
+                return getYcor();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
-				setXcor((Integer)newValue);
-				return;
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
-				setYcor((Integer)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
+                setXcor((Integer)newValue);
+                return;
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
+                setYcor((Integer)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
-				setXcor(XCOR_EDEFAULT);
-				return;
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
-				setYcor(YCOR_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
+                setXcor(XCOR_EDEFAULT);
+                return;
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
+                setYcor(YCOR_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
-				return xcor != XCOR_EDEFAULT;
-			case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
-				return ycor != YCOR_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__XCOR:
+                return xcor != XCOR_EDEFAULT;
+            case ShapesPackage.ANCHOR_FIX_POINT_POSITION__YCOR:
+                return ycor != YCOR_EDEFAULT;
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString()
 	{
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (xcor: ");
-		result.append(xcor);
-		result.append(", ycor: ");
-		result.append(ycor);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (xcor: ");
+        result.append(xcor);
+        result.append(", ycor: ");
+        result.append(ycor);
+        result.append(')');
+        return result.toString();
+    }
 
 } //AnchorFixPointPositionImpl

@@ -23,19 +23,19 @@ import org.eclipse.emf.common.util.EList;
 public interface AnchorManual extends AnchorType
 {
 	/**
-	 * Returns the value of the '<em><b>Position</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipselabs.spray.shapes.AnchorPosition}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Position</b></em>' containment reference list.
+     * The list contents are of type {@link org.eclipselabs.spray.shapes.AnchorPosition}.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Position</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Position</em>' containment reference list.
-	 * @see org.eclipselabs.spray.shapes.ShapesPackage#getAnchorManual_Position()
-	 * @model containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Position</em>' containment reference list.
+     * @see org.eclipselabs.spray.shapes.ShapesPackage#getAnchorManual_Position()
+     * @model containment="true"
+     * @generated
+     */
 	EList<AnchorPosition> getPosition();
 
 } // AnchorManual
