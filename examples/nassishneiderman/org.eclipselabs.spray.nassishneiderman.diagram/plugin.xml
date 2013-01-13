@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Sun Dec 23 10:34:03 CET 2012 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the Nassi_Shneiderman_Diagram diagram type"
+              id="org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramDiagramType"
+              name="Nassi_Shneiderman_Diagram Graphiti Diagram Type"
+              type="Nassi_Shneiderman_Diagram">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramDiagramTypeProvider"
+              description="This is my editor for the Nassi_Shneiderman_Diagram diagram type"
+              id="org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramDiagramTypeProvider"
+              name="Nassi_Shneiderman_Diagram editor">
+              <diagramType
+                    id="org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramImageProvider"
+                       id="org.eclipselabs.spray.nassishneiderman.diagram.diagram.Nassi_Shneiderman_DiagramImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="Nassi_Shneiderman_Diagram.PropertyContributor">
+                  <propertyCategory category="Nassi_Shneiderman_DiagramCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="Nassi_Shneiderman_Diagram.PropertyContributor">
+                  <propertyTab label="Main" category="Nassi_Shneiderman_DiagramCategory"
+                      id="Nassi_Shneiderman_Diagram.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Nassi_Shneiderman_Diagram.PropertyContributor">
+          <propertySection tab="Nassi_Shneiderman_Diagram.main.tab"
+           class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.property.SequenceCaseSection"
+           filter="org.eclipselabs.spray.nassishneiderman.diagram.property.SequenceFilter"
+           id="Nassi_Shneiderman_Diagram.main.tab.Sequence.case">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Nassi_Shneiderman_Diagram.PropertyContributor">
+          <propertySection tab="Nassi_Shneiderman_Diagram.main.tab"
+           class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.property.ActionBlockActionNameSection"
+           filter="org.eclipselabs.spray.nassishneiderman.diagram.property.ActionBlockFilter"
+           id="Nassi_Shneiderman_Diagram.main.tab.ActionBlock.actionName">
+          </propertySection>
+          <propertySection tab="Nassi_Shneiderman_Diagram.main.tab"
+           class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.property.ActionBlockActionDescriptionSection"
+           filter="org.eclipselabs.spray.nassishneiderman.diagram.property.ActionBlockFilter"
+           afterSection="Nassi_Shneiderman_Diagram.main.tab.ActionBlock.actionName"
+           id="Nassi_Shneiderman_Diagram.main.tab.ActionBlock.actionDescription">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Nassi_Shneiderman_Diagram.PropertyContributor">
+          <propertySection tab="Nassi_Shneiderman_Diagram.main.tab"
+           class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.nassishneiderman.diagram.property.TestFirstBlockConditionSection"
+           filter="org.eclipselabs.spray.nassishneiderman.diagram.property.TestFirstBlockFilter"
+           id="Nassi_Shneiderman_Diagram.main.tab.TestFirstBlock.condition">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+    
+    
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="Nassi_Shneiderman_Diagram"
+                     id="org.eclipselabs.spray.Nassi_Shneiderman_Diagram">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.Nassi_Shneiderman_Diagram"
+                     class="org.eclipselabs.spray.nassishneiderman.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     id="org.eclipselabs.spray.Nassi_Shneiderman_Diagram.NewDiagramWizard"
+                     name="New Nassi_Shneiderman_Diagram Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+        </plugin>

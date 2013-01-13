@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="nassishneiderman" nsURI="http://www.eclipselabs.org/spray/nassishneiderman/domain"
+    nsPrefix="nsd">
+  <eClassifiers xsi:type="ecore:EClass" name="Algorithm">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sequence" eType="#//Sequence"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Sequence">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="case" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="blocks" upperBound="-1"
+        eType="#//Block" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Block" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionBlock" eSuperTypes="#//Block">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BranchingBlock" eSuperTypes="#//Block">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trueSequence" eType="#//Sequence"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="falseSequence" eType="#//Sequence"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MultipleBranchingBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sequences" upperBound="-1"
+        eType="#//Sequence" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestBlock" eSuperTypes="#//Block">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sequence" eType="#//Sequence"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestFirstBlock" eSuperTypes="#//TestBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TestLastBlock" eSuperTypes="#//TestBlock"/>
+</ecore:EPackage>

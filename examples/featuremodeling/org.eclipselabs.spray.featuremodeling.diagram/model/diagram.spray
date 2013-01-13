@@ -1,0 +1,24 @@
+import fmp.*
+
+diagram FeatureDiagram for Project style DiagramDefaultStyle
+
+class Feature {
+	shape FeatureShape {
+		name into featureName
+	}
+	behavior {
+		create into metaMetaModel palette "Nodes" askFor name
+	}
+}
+
+class Reference icon "connection16.gif" {
+	connection ArrowConnection {
+		from origin;
+		to feature;
+	}
+	behavior {
+		create into children palette "Nodes" askFor id
+	}
+}
+
+

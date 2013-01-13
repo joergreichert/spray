@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.contain.domain/src" editDirectory="/org.eclipselabs.spray.contain.domain.edit/src"
+    editorDirectory="/org.eclipselabs.spray.contain.domain.editor/src" modelPluginID="org.eclipselabs.spray.contain.domain"
+    modelName="Contain" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false">
+  <foreignModel>contain.ecore</foreignModel>
+  <genPackages prefix="Contain" disposableProviderFactory="true" ecorePackage="contain.ecore#/">
+    <genClasses image="false" ecoreClass="contain.ecore#//E">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute contain.ecore#//E/name"/>
+    </genClasses>
+    <genClasses ecoreClass="contain.ecore#//E1">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference contain.ecore#//E1/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="contain.ecore#//E2"/>
+    <genClasses ecoreClass="contain.ecore#//E3"/>
+  </genPackages>
+</genmodel:GenModel>

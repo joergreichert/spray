@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/joe.mm/src"
+    modelPluginID="joe.mm" modelName="Joe" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>joe.ecore</foreignModel>
+  <genPackages prefix="Joe" disposableProviderFactory="true" ecorePackage="joe.ecore#/">
+    <genClasses ecoreClass="joe.ecore#//Goal">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference joe.ecore#//Goal/strategies"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference joe.ecore#//Goal/subgoals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joe.ecore#//Goal/name"/>
+    </genClasses>
+    <genClasses ecoreClass="joe.ecore#//Strategy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joe.ecore#//Strategy/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

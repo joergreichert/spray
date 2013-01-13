@@ -1,0 +1,34 @@
+import nassishneiderman.*
+
+diagram Nassi_Shneiderman_Diagram for Algorithm style DiagramDefaultStyle
+
+class Sequence alias Algorithm {
+	shape StatementBlockShape {
+		reference blocks into statementBlockStatement
+	}
+    behavior {
+        create into sequence palette "Elements"
+    }    
+}
+
+class ActionBlock alias Action {
+    shape ActionBlockShape {
+    	actionName into action ("Text")
+    }
+    behavior {
+        create palette "Elements"
+    }    
+}
+
+class TestFirstBlock alias WhileLoop {
+	shape PreTestLoopShape {
+		condition into loopCondition
+		reference sequence into loopStatements
+	}
+    behavior {
+        create palette "Elements"
+    }    
+}
+
+
+

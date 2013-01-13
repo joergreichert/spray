@@ -1,0 +1,17 @@
+
+style DiagramDefaultStyle {
+    description = "The default style of the diagram diagram type."
+    // transparency = 0.95
+    // background-color = black
+    // line-color = black
+    // line-style = solid
+    // line-width = 1
+    // font-color = black
+    // font-name = "Tahoma"
+    font-size = 12
+    // font-bold = yes
+}
+
+style CodeStyle extends DiagramDefaultStyle {
+	
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="org.eclipselabs.spray.featuremodeling.domain/src"
+    editDirectory="/fmp/src" editorDirectory="/fmp/src" modelPluginID="ca.uwaterloo.gp.fmp"
+    runtimeJar="true" modelName="fmp" editPluginClass="ca.uwaterloo.gp.fmp.provider.fmpEditPlugin"
+    editorPluginClass="ca.uwaterloo.gp.fmp.presentation.fmpEditorPlugin">
+  <foreignModel>@model</foreignModel>
+  <genPackages prefix="Fmp" basePackage="ca.uwaterloo.gp" resource="XMI" ecorePackage="fmp.ecore#/">
+    <genEnums ecoreEnum="fmp.ecore#//ValueType">
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ValueType/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ValueType/FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ValueType/INTEGER"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ValueType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ValueType/STRING"/>
+    </genEnums>
+    <genEnums ecoreEnum="fmp.ecore#//ConfigState">
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ConfigState/USER_SELECTED"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ConfigState/USER_ELIMINATED"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ConfigState/MACHINE_SELECTED"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ConfigState/MACHINE_ELIMINATED"/>
+      <genEnumLiterals ecoreEnumLiteral="fmp.ecore#//ConfigState/UNDECIDED"/>
+    </genEnums>
+    <genClasses ecoreClass="fmp.ecore#//Feature">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Feature/name"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Feature/valueType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fmp.ecore#//Feature/configurations"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Feature/references"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Feature/typedValue"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Feature/describedNode"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Feature/constraints"/>
+    </genClasses>
+    <genClasses ecoreClass="fmp.ecore#//FeatureGroup"/>
+    <genClasses image="false" ecoreClass="fmp.ecore#//Node">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Node/max"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Node/min"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Node/confs"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Node/origin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fmp.ecore#//Node/children"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Node/properties"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Node/id"/>
+    </genClasses>
+    <genClasses ecoreClass="fmp.ecore#//Reference">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Reference/feature"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="fmp.ecore#//Project">
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Project/model"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Project/metaModel"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Project/metaMetaModel"/>
+    </genClasses>
+    <genClasses ecoreClass="fmp.ecore#//TypedValue">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//TypedValue/integerValue"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//TypedValue/stringValue"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//TypedValue/floatValue"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//TypedValue/featureValue"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="fmp.ecore#//Clonable">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Clonable/state"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Clonable/clones"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference fmp.ecore#//Clonable/prototype"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="fmp.ecore#//Constraint">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute fmp.ecore#//Constraint/text"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

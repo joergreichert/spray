@@ -1,0 +1,10 @@
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://www.joe.com" 
+       class = "joe.JoePackage"
+       genModel = "model/joe.genmodel" /> 
+  </extension>
+
+</plugin>

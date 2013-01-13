@@ -1,0 +1,32 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also diagram.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import contain.*
+
+diagram containDiagram for E1 style DiagramDefaultStyle
+
+class E2 {
+    shape E2Shape {
+    	name into e2Name
+    }
+    behavior {
+        create into elements palette "Elements" askFor name
+    }    
+}
+
+class E3 {
+    shape E3Shape {
+    	name into e3Name
+    }
+    behavior {
+        create into elements palette "Elements" askFor name
+    }    
+}
+
