@@ -30,7 +30,7 @@ Export-Package: org.eclipse.xtext.example.fowlerdsl,
  org.eclipse.xtext.example.fowlerdsl.statemachine.impl,
  org.eclipse.xtext.example.fowlerdsl.statemachine.util,
  org.eclipse.xtext.example.fowlerdsl.validation,
- org.eclipse.xtext.example.fowlerdsl.parseTreeConstruction,
  org.eclipse.xtext.example.fowlerdsl.scoping,
- org.eclipse.xtext.example.fowlerdsl.formatting
+ org.eclipse.xtext.example.fowlerdsl.formatting,
+ org.eclipse.xtext.example.fowlerdsl.serializer
 

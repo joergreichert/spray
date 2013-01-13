@@ -2,41 +2,47 @@ import statemachine.*
 
 diagram Statemachine for Statemachine
 
-class StartState {
-	shape StartStateShape
+class StartState alias StartZustand icon "start.gif" {
+	shape StartNode {
+		precondition into precondition
+	}
 	behavior {
-	    create into states palette "Statemachine"
+		create into states palette "Nodes" askFor name;
 	}
 }
 
-class State {
-	shape RectangleShape {
-		name into stateName  
+class NormalState alias Zustand icon "state.gif" {
+	shape Node {
+		name into name (if(check) "Check: " + name else "Activity: " + name)
+		description into desc
 	}
 	behavior {
-	    create into states palette "Statemachine" askFor name
+		create into states palette "Nodes" askFor name;
+	}
+}
+    
+class FinishState alias EndZustand icon "end.gif" {
+	shape EndNode {
+		postcondition into postcondition
+	}
+	behavior {
+		create into states palette "Nodes" askFor name;
 	}
 }
 
-class Transition {
-	connection TransitionLine {
-		name into connectionText
-		// event.name into connectionText
-		// fromState.name into fromText
-		// toState.name into toText
-	} 
+	
+class Transition alias Uebergang icon "connection.gif" {
+	connection TransitionLine 
 	{
-		from fromState
-		to toState
-	}	 
-	behavior {
-	    create into transitions palette "Statemachine" askFor name
+		name into connectionText (name + (if(event != null && event.trim.length > 0) ": " + event else ""))
+		name into fromText (fromState.name)
+		name into fromText (toState.name)
 	}
-}
-
-class FinishState {
-	shape EndStateShape
-	behavior {
-	    create into states palette "Statemachine"
+	{
+		from fromState;
+		to   toState;
 	}
-}
+	behavior {
+		create into transitions palette "Transitions" askFor name;
+	}
+}	

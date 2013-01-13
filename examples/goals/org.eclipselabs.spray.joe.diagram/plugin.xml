@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Sun Jan 13 17:04:22 CET 2013 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.joe.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.joe.diagram.diagram.JoediagramDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.joe.diagram.diagram.JoediagramDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the joediagram diagram type"
+              id="org.eclipselabs.spray.joe.diagram.diagram.JoediagramDiagramType"
+              name="joediagram Graphiti Diagram Type"
+              type="joediagram">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.joe.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.joe.diagram.diagram.JoediagramDiagramTypeProvider"
+              description="This is my editor for the joediagram diagram type"
+              id="org.eclipselabs.spray.joe.diagram.diagram.JoediagramDiagramTypeProvider"
+              name="joediagram editor">
+              <diagramType
+                    id="org.eclipselabs.spray.joe.diagram.diagram.JoediagramDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.joe.diagram.diagram.JoediagramImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.joe.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.joe.diagram.diagram.JoediagramImageProvider"
+                       id="org.eclipselabs.spray.joe.diagram.diagram.JoediagramImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="joediagram.PropertyContributor">
+                  <propertyCategory category="joediagramCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="joediagram.PropertyContributor">
+                  <propertyTab label="Main" category="joediagramCategory"
+                      id="joediagram.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="joediagram.PropertyContributor">
+          <propertySection tab="joediagram.main.tab"
+           class="org.eclipselabs.spray.joe.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.joe.diagram.property.GoalNameSection"
+           filter="org.eclipselabs.spray.joe.diagram.property.GoalFilter"
+           id="joediagram.main.tab.Goal.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="joediagram.PropertyContributor">
+          <propertySection tab="joediagram.main.tab"
+           class="org.eclipselabs.spray.joe.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.joe.diagram.property.StrategyNameSection"
+           filter="org.eclipselabs.spray.joe.diagram.property.StrategyFilter"
+           id="joediagram.main.tab.Strategy.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+    
+    
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="joediagram"
+                     id="org.eclipselabs.spray.joediagram">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.joediagram"
+                     class="org.eclipselabs.spray.joe.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     descriptionImage="icons/joediagram-32.png"
+                     icon="icons/joediagram-16.png"
+                     id="org.eclipselabs.spray.joediagram.NewDiagramWizard"
+                     name="New joediagram Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+        </plugin>

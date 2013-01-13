@@ -26,7 +26,6 @@ Workflow {
     component = Generator {
         pathRtProject = runtimeProject
         pathUiProject = "${runtimeProject}.ui"
-        pathTestProject = "${runtimeProject}.tests"
         projectNameRt = projectName
         projectNameUi = "${projectName}.ui"
         language = {
@@ -45,10 +44,10 @@ Workflow {
             }
 
             // Serializer 2.0
-            //fragment = serializer.SerializerFragment {}
+            fragment = serializer.SerializerFragment {}
             
             // the serialization component (1.0)
-            fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+            // fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
 
             // a custom ResourceFactory for use with EMF
             fragment = resourceFactory.ResourceFactoryFragment {
@@ -103,7 +102,7 @@ Workflow {
             fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
 
             // generates junit test support classes into Generator#pathTestProject
-            fragment = junit.Junit4Fragment {}
+            //fragment = junit.Junit4Fragment {}
 
             // project wizard (optional)
             // fragment = projectWizard.SimpleProjectWizardFragment {

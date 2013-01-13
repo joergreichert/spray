@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nsd="http://www.eclipselabs.org/spray/nassishneiderman/domain">
+  <nsd:Algorithm/>
+  <nsd:Algorithm>
+    <sequence>
+      <blocks xsi:type="nsd:ActionBlock" actionName="Aktion 1"/>
+      <blocks xsi:type="nsd:TestFirstBlock" condition="a > 0"/>
+      <blocks xsi:type="nsd:BranchingBlock" condition="b > 0"/>
+    </sequence>
+  </nsd:Algorithm>
+</xmi:XMI>

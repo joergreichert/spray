@@ -1,0 +1,29 @@
+import joe.*
+
+diagram joediagram for GoalModel
+
+class Goal {
+	shape GoalShape {
+		name into name
+		reference strategies into strategy
+	}
+	references {
+		subgoals : connection ConnectionShape {
+			name into ^from
+			name into name ( "subgoal" )
+			name into ^to /*(current.name)*/
+		}
+	}
+	behavior {
+		create into goals palette "Elements";
+	}
+} 
+
+class Strategy {
+	shape StrategyShape {
+		name into strategy
+	}
+	behavior {
+		create palette "Elements";
+	}
+}

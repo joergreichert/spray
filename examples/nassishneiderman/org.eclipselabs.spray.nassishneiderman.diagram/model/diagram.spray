@@ -13,11 +13,11 @@ class Sequence alias Algorithm {
 
 class ActionBlock alias Action {
     shape ActionBlockShape {
-    	actionName into action ("Text")
+    	actionName into action
     }
     behavior {
         create palette "Elements"
-    }    
+    }
 }
 
 class TestFirstBlock alias WhileLoop {
@@ -30,5 +30,15 @@ class TestFirstBlock alias WhileLoop {
     }    
 }
 
-
-
+class BranchingBlock {
+    shape ConditionalShape {
+    	condition into conditionalCond
+    	constant trueSequence?.^case into Yes
+    	constant falseSequence?.^case into No
+    	reference trueSequence into condLStatement
+    	reference falseSequence into condRStatement
+    }
+    behavior {
+        create palette "Elements"
+    }    
+}

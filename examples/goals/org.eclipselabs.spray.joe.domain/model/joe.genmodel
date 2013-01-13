@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.joe.domain/src" modelPluginID="org.eclipselabs.spray.joe.domain"
+    modelName="Joe" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false">
+  <foreignModel>../../joe.mm/model/joe.ecore</foreignModel>
+  <genPackages prefix="Joe" disposableProviderFactory="true" ecorePackage="joe.ecore#/">
+    <genClasses ecoreClass="joe.ecore#//Goal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference joe.ecore#//Goal/strategies"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference joe.ecore#//Goal/subgoals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joe.ecore#//Goal/name"/>
+    </genClasses>
+    <genClasses ecoreClass="joe.ecore#//Strategy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joe.ecore#//Strategy/name"/>
+    </genClasses>
+    <genClasses ecoreClass="joe.ecore#//GoalModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference joe.ecore#//GoalModel/goals"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference joe.ecore#//GoalModel/strategies"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

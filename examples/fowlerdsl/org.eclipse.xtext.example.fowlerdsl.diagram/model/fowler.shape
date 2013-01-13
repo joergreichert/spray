@@ -1,31 +1,77 @@
-shape StartStateShape {
-	ellipse style StartEndStyle {
-		size (width=20, height=20)
+shape StartNode	style StartNodeStyle {
+	size-min (width=100,height=100)
+	size-max (width=200,height=100)
+	stretching (horizontal=true,vertical=false)
+	rectangle style LabelRectangeStyle {
+		position (x=0,y=0)
+		size (width=100,height=20)
+		text style LabelRectangeStyle {
+			position (x=0,y=0)
+			size (width=100,height=20)
+			align (horizontal=center,vertical=top)
+			id = precondition
+		}
 	}
-}
-
-shape EndStateShape {
 	ellipse {
-		size (width=20, height=20)
-		style (line-color=black line-width=2)
-		ellipse {
-			style (background-color=black)
-			position (x=5, y=5)
-			size (width=10, height=10)
-		}
+		position (x=38,y=38)
+		size (width=24,height=24)
+		style (background-color=black)
 	}
+	anchor center
 }
 
-shape RectangleShape {
-	rectangle style StateStyle {
-		size (width=100, height=30)
-		text style StateTextStyle {
-			align (horizontal=center, vertical=middle)
-			position (x=0, y=0)
-			size (width=100, height=30)
-			id = stateName
+
+shape Node {
+	stretching (horizontal=true,vertical=true)
+	rounded-rectangle {
+		size (width=200,height=100)
+		curve (width=2,height=2)
+		text style NodeNameStyle {
+			position (x=25,y=5)
+			size (width=150,height=20)
+			align (horizontal=center,vertical=top)
+			id = name
+		}		
+		line {
+			point (x=0,y=27)
+			point (x=200,y=27)
+			style (line-width=2)
+		}
+		text style NodeDescStyle {
+			position (x=15,y=30)
+			size (width=170,height=65)
+			align (horizontal=left,vertical=top)
+			id = desc
 		}
 	}
+	anchor center
+}
+
+
+shape EndNode style EndNodeStyle {
+	size-min (width=100,height=50)
+	size-max (width=200,height=50)
+	stretching (horizontal=true,vertical=false)
+	ellipse {
+		position (x=38,y=12)
+		size (width=24,height=24)
+		ellipse {
+			position (x=6,y=6)
+			size (width=12,height=12)
+			style (background-color=black)
+		}
+	}
+	rectangle style LabelRectangeStyle {
+		position (x=0,y=40)
+		size (width=100,height=20)
+		text {
+			position (x=0,y=0)
+			size (width=100,height=20)
+			align (horizontal=center,vertical=bottom)
+			id = postcondition
+		}
+	}
+	anchor center
 }
 
 connection TransitionLine style TransitionStyle {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="FeatureDiagram" name="features" snapToGrid="true" pictogramLinks="//@link //@children.0/@link //@children.0/@children.0/@link //@children.0/@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.1/@children.0/@children.0/@link" version="0.9.1">
+  <properties key="URI" value="platform:/resource/org.eclipselabs.spray.featuremodeling.diagrams/features.fmp#/"/>
+  <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" filled="true" lineVisible="true" transparency="0.0" width="1000" height="1000"/>
+  <link>
+    <businessObjects href="features.fmp#/"/>
+  </link>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <properties key="ID" value="FeatureShape.containerShape"/>
+    <properties key="L_TYPE" value="TOP"/>
+    <properties key="L_SPACING" value="0"/>
+    <properties key="L_MARGIN" value="0"/>
+    <properties key="L_FLEX" value="true"/>
+    <properties key="L_VIS" value="true"/>
+    <properties key="IS_SHAPE_FROM_DSL" value="true"/>
+    <properties key="current-height-shape" value="100"/>
+    <properties key="current-width-shape" value="100"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="100" height="100" x="60" y="40" style="//@styles.0"/>
+    <link>
+      <businessObjects href="features.fmp#//@children.0"/>
+    </link>
+    <anchors xsi:type="pi:ChopboxAnchor"/>
+    <children xsi:type="pi:ContainerShape" visible="true">
+      <properties key="ID" value="FeatureShape.shape_1"/>
+      <properties key="IS_COMPARFTMENT" value="false"/>
+      <properties key="CAN_MOVE" value="false"/>
+      <properties key="L_MINW" value="100"/>
+      <properties key="L_MINH" value="100"/>
+      <properties key="L_H_STR" value="false"/>
+      <properties key="L_VIS" value="true"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" width="100" height="100" style="//@styles.0"/>
+      <link>
+        <businessObjects href="features.fmp#//@children.0"/>
+      </link>
+      <children visible="true">
+        <properties key="ID" value="FeatureShape.shape_2"/>
+        <properties key="L_MINW" value="90"/>
+        <properties key="L_MINH" value="90"/>
+        <properties key="L_H_STR" value="false"/>
+        <properties key="L_VIS" value="true"/>
+        <properties key="SHAPEDSL_TEXT_ID" value="featureName"/>
+        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="100" height="28" x="5" y="5" style="//@styles.0" verticalAlignment="ALIGNMENT_TOP" value="Feature 1">
+          <properties key="SHAPEDSL_TEXT_ID" value="featureName"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="features.fmp#//@children.0"/>
+        </link>
+      </children>
+    </children>
+  </children>
+  <children xsi:type="pi:ContainerShape" visible="true" active="true">
+    <properties key="ID" value="FeatureShape.containerShape"/>
+    <properties key="L_TYPE" value="TOP"/>
+    <properties key="L_SPACING" value="0"/>
+    <properties key="L_MARGIN" value="0"/>
+    <properties key="L_FLEX" value="true"/>
+    <properties key="L_VIS" value="true"/>
+    <properties key="IS_SHAPE_FROM_DSL" value="true"/>
+    <properties key="current-height-shape" value="100"/>
+    <properties key="current-width-shape" value="100"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="100" height="100" x="60" y="180" style="//@styles.0"/>
+    <link>
+      <businessObjects href="features.fmp#//@children.1"/>
+    </link>
+    <anchors xsi:type="pi:ChopboxAnchor"/>
+    <children xsi:type="pi:ContainerShape" visible="true">
+      <properties key="ID" value="FeatureShape.shape_1"/>
+      <properties key="IS_COMPARFTMENT" value="false"/>
+      <properties key="CAN_MOVE" value="false"/>
+      <properties key="L_MINW" value="100"/>
+      <properties key="L_MINH" value="100"/>
+      <properties key="L_H_STR" value="false"/>
+      <properties key="L_VIS" value="true"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" width="100" height="100" style="//@styles.0"/>
+      <link>
+        <businessObjects href="features.fmp#//@children.1"/>
+      </link>
+      <children visible="true">
+        <properties key="ID" value="FeatureShape.shape_2"/>
+        <properties key="L_MINW" value="90"/>
+        <properties key="L_MINH" value="90"/>
+        <properties key="L_H_STR" value="false"/>
+        <properties key="L_VIS" value="true"/>
+        <properties key="SHAPEDSL_TEXT_ID" value="featureName"/>
+        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="100" height="28" x="5" y="5" style="//@styles.0" verticalAlignment="ALIGNMENT_TOP" value="Feature 2">
+          <properties key="SHAPEDSL_TEXT_ID" value="featureName"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="features.fmp#//@children.1"/>
+        </link>
+      </children>
+    </children>
+  </children>
+  <styles background="//@colors.1" foreground="//@colors.2" lineWidth="1" filled="true" lineVisible="true" transparency="0.0" id="DiagramDefaultStyle" description="The default style of the diagram diagram type." font="//@fonts.1" stretchH="false" stretchV="false" proportional="false"/>
+  <colors red="249" green="238" blue="227"/>
+  <colors red="255" green="255" blue="255"/>
+  <colors/>
+  <fonts name="Arial" size="8"/>
+  <fonts name="Arial" size="12"/>
+</pi:Diagram>

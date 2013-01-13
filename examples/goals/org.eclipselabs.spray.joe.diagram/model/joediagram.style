@@ -1,0 +1,4 @@
+style GoalStyle {
+	background-color = dark-green
+	font-color = yellow
+}
