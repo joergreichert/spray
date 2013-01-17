@@ -31,7 +31,9 @@ import org.eclipselabs.spray.shapes.RoundedRectangleLayout;
 import org.eclipselabs.spray.shapes.Shape;
 import org.eclipselabs.spray.shapes.ShapeDefinition;
 import org.eclipselabs.spray.shapes.ShapesPackage;
+import org.eclipselabs.spray.shapes.ShapestyleLayout;
 import org.eclipselabs.spray.shapes.Text;
+import org.eclipselabs.spray.styles.GradientRef;
 
 import com.google.inject.Inject;
 
@@ -419,4 +421,13 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
         return textElements;
     }
+    
+    @Check
+    void checkNoGradient(ShapestyleLayout layout) {
+        if(layout.getLayout() != null) {
+        	if(layout.getLayout().getBackground() instanceof GradientRef) {
+                error("Using a gradient as background is not supported inside the shape DSL. Please use the style DSL for this.", ShapesPackage.Literals.SHAPESTYLE_LAYOUT__LAYOUT);
+        	}
+        }
+    }    
 }
