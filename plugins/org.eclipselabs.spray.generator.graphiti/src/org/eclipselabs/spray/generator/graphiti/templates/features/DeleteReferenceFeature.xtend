@@ -6,6 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipse.emf.ecore.EReference
 
 
 class DeleteReferenceFeature extends FileGenerator<MetaReference> {
@@ -135,9 +136,9 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
                     
             «IF target.upperBound != 1»
                     «target.EReferenceType.itfName» toBeRemoved = null;
-                    for (final «target.EReferenceType.name» rule : object.get«target.name.toFirstUpper»()) {
-                        if( rule.getName().equals(element)){
-                            toBeRemoved = rule;
+                    for (final Object rule : object.get«target.name.toFirstUpper»()) {
+                        if( ((«target.EReferenceType.name») rule).get«target.stringAttribute»().equals(element)){
+                            toBeRemoved = («target.EReferenceType.name») rule;
                         }
                     }    
                     if( toBeRemoved != null ){
@@ -153,4 +154,14 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
             }
         }
     '''
+    
+    def String getStringAttribute(EReference ref) {
+    	val nameOrIds = ref.EReferenceType.EAllAttributes.filter[name.equals("name") || name.equals("id")]
+    	if(nameOrIds.size > 0) {
+    		nameOrIds.head.name.toFirstUpper
+    	} else {
+	    	val stringAtts = ref.EReferenceType.EAllAttributes.filter[EAttributeType.name.equals("EString")]
+	    	stringAtts.head?.name.toFirstUpper
+    	}
+    }
 }
