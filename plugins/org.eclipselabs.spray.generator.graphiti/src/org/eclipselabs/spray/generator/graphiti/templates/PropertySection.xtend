@@ -249,7 +249,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
                 int index = «propertyName»Widget.getSelectionIndex();
             «IF ( ! eAttribute.derived) && (eAttribute.changeable)»
                 «IF isEnum»
-                    «eAttribute.EAttributeType.name» value = «eAttribute.EAttributeType.name».VALUES.get(index);
+                    «eAttribute.EAttributeType.name» value = («eAttribute.EAttributeType.name») «eAttribute.EAttributeType.name».VALUES.get(index);
                     bc.set«eAttribute.name.toFirstUpper»(value);
                 «ELSEIF isBoolean»
                        boolean newValue = (index == 0 ? false : true);
