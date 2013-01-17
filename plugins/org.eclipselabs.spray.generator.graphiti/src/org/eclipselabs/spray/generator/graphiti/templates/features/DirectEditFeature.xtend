@@ -123,9 +123,11 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 		Text gAlg = (Text) context.getGraphicsAlgorithm();
 		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
+		«IF property?.attribute?.name != null»
 		if(id.equals("«property.key.simpleName»")) {
 		    return eClass.get«property.attribute.name.toFirstUpper»();
 		}
+		«ENDIF»
 		«ENDFOR»
 		return "";
 	'''
@@ -134,9 +136,11 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 		Text gAlg = (Text) context.getGraphicsAlgorithm();
 		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
+		«IF property?.attribute?.name != null»
 		if(id.equals("«property.key.simpleName»")) {
 		    eClass.set«property.attribute.name.toFirstUpper»(value);
 		}
+		«ENDIF»
 		«ENDFOR»
 	'''
 	
