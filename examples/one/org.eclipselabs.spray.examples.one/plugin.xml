@@ -28,10 +28,10 @@
           <extension
               point="org.eclipse.graphiti.ui.diagramTypes">
             <diagramType
-              description="This is the diagram type for the mod4j diagram type"
+              description="This is the diagram type for the Mod4j diagram type"
               id="org.eclipselabs.spray.examples.mod4j.diagram.Mod4jDiagramType"
-              name="mod4j Graphiti Diagram Type"
-              type="mod4j">
+              name="Mod4j Graphiti Diagram Type"
+              type="Mod4j">
             </diagramType>
           </extension>
         
@@ -39,9 +39,9 @@
               point="org.eclipse.graphiti.ui.diagramTypeProviders">
             <diagramTypeProvider
               class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.diagram.Mod4jDiagramTypeProvider"
-              description="This is my editor for the mod4j diagram type"
+              description="This is my editor for the Mod4j diagram type"
               id="org.eclipselabs.spray.examples.mod4j.diagram.Mod4jDiagramTypeProvider"
-              name="mod4j editor">
+              name="Mod4j editor">
               <diagramType
                     id="org.eclipselabs.spray.examples.mod4j.diagram.Mod4jDiagramType">
               </diagramType>
@@ -61,219 +61,443 @@
         
           <extension
               point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-              <propertyContributor contributorId="mod4j.PropertyContributor">
-                  <propertyCategory category="mod4jCategory">
+              <propertyContributor contributorId="Mod4j.PropertyContributor">
+                  <propertyCategory category="Mod4jCategory">
                   </propertyCategory>
               </propertyContributor>
           </extension>
         
           <extension
               point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-              <propertyTabs contributorId="mod4j.PropertyContributor">
-                  <propertyTab label="Main" category="mod4jCategory"
-                      id="mod4j.main.tab">
+              <propertyTabs contributorId="Mod4j.PropertyContributor">
+                  <propertyTab label="Main" category="Mod4jCategory"
+                      id="Mod4j.main.tab">
                   </propertyTab>
               </propertyTabs>
           </extension>
         <extension
             point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="mod4j.PropertyContributor">
-          <propertySection tab="mod4j.main.tab"
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.EnumerationNameSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.EnumerationFilter"
-           id="mod4j.main.tab.Enumeration.name">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.EnumerationDescriptionSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.EnumerationFilter"
-           afterSection="mod4j.main.tab.Enumeration.name"
-           id="mod4j.main.tab.Enumeration.description">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="mod4j.PropertyContributor">
-          <propertySection tab="mod4j.main.tab"
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessClassNameSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.BusinessClassFilter"
-           id="mod4j.main.tab.BusinessClass.name">
+           id="Mod4j.main.tab.BusinessClass.name">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessClassDescriptionSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.BusinessClassFilter"
-           afterSection="mod4j.main.tab.BusinessClass.name"
-           id="mod4j.main.tab.BusinessClass.description">
+           afterSection="Mod4j.main.tab.BusinessClass.name"
+           id="Mod4j.main.tab.BusinessClass.description">
           </propertySection>
             </propertySections>
         </extension>
         
         <extension
             point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="mod4j.PropertyContributor">
-          <propertySection tab="mod4j.main.tab"
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PackageNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.PackageFilter"
+           id="Mod4j.main.tab.Package.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PackageDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.PackageFilter"
+           afterSection="Mod4j.main.tab.Package.name"
+           id="Mod4j.main.tab.Package.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PackageNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.PackageFilter"
+           id="Mod4j.main.tab.Package.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PackageDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.PackageFilter"
+           afterSection="Mod4j.main.tab.Package.name"
+           id="Mod4j.main.tab.Package.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessClassNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessClassFilter"
+           id="Mod4j.main.tab.BusinessClass.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessClassDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessClassFilter"
+           afterSection="Mod4j.main.tab.BusinessClass.name"
+           id="Mod4j.main.tab.BusinessClass.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessClassNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessClassFilter"
+           id="Mod4j.main.tab.BusinessClass.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessClassDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessClassFilter"
+           afterSection="Mod4j.main.tab.BusinessClass.name"
+           id="Mod4j.main.tab.BusinessClass.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           id="Mod4j.main.tab.StringProperty.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.name"
+           id="Mod4j.main.tab.StringProperty.description">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDataTypeSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.description"
+           id="Mod4j.main.tab.StringProperty.dataType">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyNullableSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.dataType"
+           id="Mod4j.main.tab.StringProperty.nullable">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDerivedSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.nullable"
+           id="Mod4j.main.tab.StringProperty.derived">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyWritableSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.derived"
+           id="Mod4j.main.tab.StringProperty.writable">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyPersistencySection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.writable"
+           id="Mod4j.main.tab.StringProperty.persistency">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyHasDefaultSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.persistency"
+           id="Mod4j.main.tab.StringProperty.hasDefault">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyRegularExpressionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.hasDefault"
+           id="Mod4j.main.tab.StringProperty.regularExpression">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyMinLengthSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.regularExpression"
+           id="Mod4j.main.tab.StringProperty.minLength">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyMaxLengthSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.minLength"
+           id="Mod4j.main.tab.StringProperty.maxLength">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDefaultValueSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.maxLength"
+           id="Mod4j.main.tab.StringProperty.defaultValue">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           id="Mod4j.main.tab.StringProperty.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.name"
+           id="Mod4j.main.tab.StringProperty.description">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDataTypeSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.description"
+           id="Mod4j.main.tab.StringProperty.dataType">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyNullableSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.dataType"
+           id="Mod4j.main.tab.StringProperty.nullable">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDerivedSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.nullable"
+           id="Mod4j.main.tab.StringProperty.derived">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyWritableSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.derived"
+           id="Mod4j.main.tab.StringProperty.writable">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyPersistencySection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.writable"
+           id="Mod4j.main.tab.StringProperty.persistency">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyHasDefaultSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.persistency"
+           id="Mod4j.main.tab.StringProperty.hasDefault">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyRegularExpressionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.hasDefault"
+           id="Mod4j.main.tab.StringProperty.regularExpression">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyMinLengthSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.regularExpression"
+           id="Mod4j.main.tab.StringProperty.minLength">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyMaxLengthSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.minLength"
+           id="Mod4j.main.tab.StringProperty.maxLength">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.StringPropertyDefaultValueSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.StringPropertyFilter"
+           afterSection="Mod4j.main.tab.StringProperty.maxLength"
+           id="Mod4j.main.tab.StringProperty.defaultValue">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           id="Mod4j.main.tab.BoolProperty.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.name"
+           id="Mod4j.main.tab.BoolProperty.description">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyDataTypeSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.description"
+           id="Mod4j.main.tab.BoolProperty.dataType">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyNullableSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.dataType"
+           id="Mod4j.main.tab.BoolProperty.nullable">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyDerivedSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.nullable"
+           id="Mod4j.main.tab.BoolProperty.derived">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyWritableSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.derived"
+           id="Mod4j.main.tab.BoolProperty.writable">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyPersistencySection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.writable"
+           id="Mod4j.main.tab.BoolProperty.persistency">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyHasDefaultSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.persistency"
+           id="Mod4j.main.tab.BoolProperty.hasDefault">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BoolPropertyDefaultValueSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BoolPropertyFilter"
+           afterSection="Mod4j.main.tab.BoolProperty.hasDefault"
+           id="Mod4j.main.tab.BoolProperty.defaultValue">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.UniqueRuleNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.UniqueRuleFilter"
+           id="Mod4j.main.tab.UniqueRule.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.UniqueRuleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.UniqueRuleFilter"
+           afterSection="Mod4j.main.tab.UniqueRule.name"
+           id="Mod4j.main.tab.UniqueRule.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessRuleNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessRuleFilter"
+           id="Mod4j.main.tab.BusinessRule.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessRuleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessRuleFilter"
+           afterSection="Mod4j.main.tab.BusinessRule.name"
+           id="Mod4j.main.tab.BusinessRule.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessRuleNameSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessRuleFilter"
+           id="Mod4j.main.tab.BusinessRule.name">
+          </propertySection>
+          <propertySection tab="Mod4j.main.tab"
+           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.BusinessRuleDescriptionSection"
+           filter="org.eclipselabs.spray.examples.mod4j.property.BusinessRuleFilter"
+           afterSection="Mod4j.main.tab.BusinessRule.name"
+           id="Mod4j.main.tab.BusinessRule.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="Mod4j.PropertyContributor">
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationNameSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           id="mod4j.main.tab.Association.name">
+           id="Mod4j.main.tab.Association.name">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationDescriptionSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.name"
-           id="mod4j.main.tab.Association.description">
+           afterSection="Mod4j.main.tab.Association.name"
+           id="Mod4j.main.tab.Association.description">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationSourceRoleNameSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.description"
-           id="mod4j.main.tab.Association.sourceRoleName">
+           afterSection="Mod4j.main.tab.Association.description"
+           id="Mod4j.main.tab.Association.sourceRoleName">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationSourceMultiplicitySection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.sourceRoleName"
-           id="mod4j.main.tab.Association.sourceMultiplicity">
+           afterSection="Mod4j.main.tab.Association.sourceRoleName"
+           id="Mod4j.main.tab.Association.sourceMultiplicity">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationTargetRoleNameSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.sourceMultiplicity"
-           id="mod4j.main.tab.Association.targetRoleName">
+           afterSection="Mod4j.main.tab.Association.sourceMultiplicity"
+           id="Mod4j.main.tab.Association.targetRoleName">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationTargetMultiplicitySection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.targetRoleName"
-           id="mod4j.main.tab.Association.targetMultiplicity">
+           afterSection="Mod4j.main.tab.Association.targetRoleName"
+           id="Mod4j.main.tab.Association.targetMultiplicity">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationCompositeSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.targetMultiplicity"
-           id="mod4j.main.tab.Association.composite">
+           afterSection="Mod4j.main.tab.Association.targetMultiplicity"
+           id="Mod4j.main.tab.Association.composite">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationBidirectionalSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.composite"
-           id="mod4j.main.tab.Association.bidirectional">
+           afterSection="Mod4j.main.tab.Association.composite"
+           id="Mod4j.main.tab.Association.bidirectional">
           </propertySection>
-          <propertySection tab="mod4j.main.tab"
+          <propertySection tab="Mod4j.main.tab"
            class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AssociationOrderedSection"
            filter="org.eclipselabs.spray.examples.mod4j.property.AssociationFilter"
-           afterSection="mod4j.main.tab.Association.bidirectional"
-           id="mod4j.main.tab.Association.ordered">
+           afterSection="Mod4j.main.tab.Association.bidirectional"
+           id="Mod4j.main.tab.Association.ordered">
           </propertySection>
             </propertySections>
         </extension>
         
     
     
-        // Find all clases that are shown as lists in the compartments
-          <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="mod4j.PropertyContributor">
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.EnumerationLiteralNameSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.EnumerationLiteralFilter"
-           id="mod4j.main.tab.EnumerationLiteral.name">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.EnumerationLiteralDescriptionSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.EnumerationLiteralFilter"
-          afterSection="mod4j.main.tab.EnumerationLiteral.name"
-           id="mod4j.main.tab.EnumerationLiteral.description">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.EnumerationLiteralPersistedValueSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.EnumerationLiteralFilter"
-          afterSection="mod4j.main.tab.EnumerationLiteral.description"
-           id="mod4j.main.tab.EnumerationLiteral.persistedValue">
-          </propertySection>
-            </propertySections>
-        </extension>
-          <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="mod4j.PropertyContributor">
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyNameSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-           id="mod4j.main.tab.Property.name">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyDescriptionSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.name"
-           id="mod4j.main.tab.Property.description">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyDataTypeSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.description"
-           id="mod4j.main.tab.Property.dataType">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyNullableSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.dataType"
-           id="mod4j.main.tab.Property.nullable">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyDerivedSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.nullable"
-           id="mod4j.main.tab.Property.derived">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyWritableSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.derived"
-           id="mod4j.main.tab.Property.writable">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyPersistencySection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.writable"
-           id="mod4j.main.tab.Property.persistency">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.PropertyHasDefaultSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.PropertyFilter"
-          afterSection="mod4j.main.tab.Property.persistency"
-           id="mod4j.main.tab.Property.hasDefault">
-          </propertySection>
-            </propertySections>
-        </extension>
-          <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="mod4j.PropertyContributor">
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AbstractBusinessRuleNameSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.AbstractBusinessRuleFilter"
-           id="mod4j.main.tab.AbstractBusinessRule.name">
-          </propertySection>
-          <propertySection tab="mod4j.main.tab"           
-           class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.mod4j.property.AbstractBusinessRuleDescriptionSection"
-           filter="org.eclipselabs.spray.examples.mod4j.property.AbstractBusinessRuleFilter"
-          afterSection="mod4j.main.tab.AbstractBusinessRule.name"
-           id="mod4j.main.tab.AbstractBusinessRule.description">
-          </propertySection>
-            </propertySections>
-        </extension>
             <extension
                   point="org.eclipse.ui.newWizards">
                   <category
-                     name="mod4j"
-                     id="org.eclipselabs.spray.mod4j">
+                     name="Mod4j"
+                     id="org.eclipselabs.spray.Mod4j">
                      </category>
                <wizard
-                     category="org.eclipselabs.spray.mod4j"
+                     category="org.eclipselabs.spray.Mod4j"
                      class="org.eclipselabs.spray.examples.mod4j.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
-                     descriptionImage="icons/mod4j-32.png"
-                     icon="icons/mod4j-16.png"
-                     id="org.eclipselabs.spray.mod4j.NewDiagramWizard"
-                     name="New mod4j Diagram"
+                     descriptionImage="icons/Mod4j-32.png"
+                     icon="icons/Mod4j-16.png"
+                     id="org.eclipselabs.spray.Mod4j.NewDiagramWizard"
+                     name="New Mod4j Diagram"
                      preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
                      project="false">
                </wizard>
