@@ -23,78 +23,74 @@ import com.google.common.base.Predicate;
  */
 public class StyleScopeProvider extends XbaseScopeProvider {
 
-	@Override
-	public IScope getScope(EObject context, EReference reference) {
-		if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
-			GradientRef gradientRef = EcoreUtil2.getContainerOfType(context,
-					GradientRef.class);
-			if (gradientRef != null) {
-				return getGradientTypeScope(gradientRef);
-			}
-			Style style = EcoreUtil2.getContainerOfType(context, Style.class);
-			if (style != null) {
-				return getStyleTypeScope(style);
-			}
-		}
-		final Style style = EcoreUtil2.getContainerOfType(context, Style.class);
-		if (style != null && reference != null) {
-			IScope allStyleScope = super.getScope(context, reference);
-			Predicate<IEObjectDescription> styleScopeFilter = new Predicate<IEObjectDescription>() {
-				
-				public boolean apply(IEObjectDescription eoDesc) {
-					if(styleDoesNotInheritItself(style, eoDesc) && styleDoesNotInheritItselfTransitively(style, eoDesc)) {
-						return true;
-					}
-					return false;
-				}
-			};
-			return new FilteringScope(allStyleScope, styleScopeFilter);
-		}
-		if(reference != null) {
-			return super.getScope(context, reference);
-		} else {
-			return IScope.NULLSCOPE;
-		}
-	}
-	
-	private boolean styleDoesNotInheritItself(Style currentStyle, IEObjectDescription styleToExtend) {
-		return styleToExtend.getName() != null && !styleToExtend.getName().toString().equals(currentStyle.getName());
-	}
-	
-	private boolean styleDoesNotInheritItselfTransitively(Style currentStyle, IEObjectDescription eoDesc) {
-		if(eoDesc.getEObjectOrProxy() instanceof Style) {
-			Style styleToExtend = (Style) eoDesc.getEObjectOrProxy();
-			return styleDoesNotInheritItselfTransitively(currentStyle, styleToExtend);
-		}
-		return true;
-	}
-	
-	private boolean styleDoesNotInheritItselfTransitively(Style currentStyle, Style styleToExtend) {
-		Style superStyle = styleToExtend.getSuperStyleFromDsl();
-		if(superStyle != null) {
-			if(currentStyle.equals(superStyle)) {
-				return false;
-			} else {
-				return styleDoesNotInheritItselfTransitively(currentStyle, superStyle);
-			}
-		}
-		return true;
-	}
-	
+    @Override
+    public IScope getScope(EObject context, EReference reference) {
+        if (reference == TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE) {
+            GradientRef gradientRef = EcoreUtil2.getContainerOfType(context, GradientRef.class);
+            if (gradientRef != null) {
+                return getGradientTypeScope(gradientRef);
+            }
+            Style style = EcoreUtil2.getContainerOfType(context, Style.class);
+            if (style != null) {
+                return getStyleTypeScope(style);
+            }
+        }
+        final Style style = EcoreUtil2.getContainerOfType(context, Style.class);
+        if (style != null && reference != null) {
+            IScope allStyleScope = super.getScope(context, reference);
+            Predicate<IEObjectDescription> styleScopeFilter = new Predicate<IEObjectDescription>() {
 
-	protected IScope getStyleTypeScope(Style style) {
-		IScope typesScope = delegateGetScope(style,
-				TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-		Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
-		IScope result = new FilteringScope(typesScope, stylesFilter);
-		return result;
-	}
+                public boolean apply(IEObjectDescription eoDesc) {
+                    if (styleDoesNotInheritItself(style, eoDesc) && styleDoesNotInheritItselfTransitively(style, eoDesc)) {
+                        return true;
+                    }
+                    return false;
+                }
+            };
+            return new FilteringScope(allStyleScope, styleScopeFilter);
+        }
+        if (reference != null) {
+            return super.getScope(context, reference);
+        } else {
+            return IScope.NULLSCOPE;
+        }
+    }
 
-	protected IScope getGradientTypeScope(GradientRef gradientRef) {
-		IScope typesScope = delegateGetScope(gradientRef,
-				TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
-		Predicate<IEObjectDescription> gradientFilter = new GradientScopeRestrictor();
-		IScope result = new FilteringScope(typesScope, gradientFilter);
-		return result;
-	}
+    private boolean styleDoesNotInheritItself(Style currentStyle, IEObjectDescription styleToExtend) {
+        return styleToExtend.getName() != null && !styleToExtend.getName().toString().equals(currentStyle.getName());
+    }
+
+    private boolean styleDoesNotInheritItselfTransitively(Style currentStyle, IEObjectDescription eoDesc) {
+        if (eoDesc.getEObjectOrProxy() instanceof Style) {
+            Style styleToExtend = (Style) eoDesc.getEObjectOrProxy();
+            return styleDoesNotInheritItselfTransitively(currentStyle, styleToExtend);
+        }
+        return true;
+    }
+
+    private boolean styleDoesNotInheritItselfTransitively(Style currentStyle, Style styleToExtend) {
+        Style superStyle = styleToExtend.getSuperStyleFromDsl();
+        if (superStyle != null) {
+            if (currentStyle.equals(superStyle)) {
+                return false;
+            } else {
+                return styleDoesNotInheritItselfTransitively(currentStyle, superStyle);
+            }
+        }
+        return true;
+    }
+
+    protected IScope getStyleTypeScope(Style style) {
+        IScope typesScope = delegateGetScope(style, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> stylesFilter = new StyleScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, stylesFilter);
+        return result;
+    }
+
+    protected IScope getGradientTypeScope(GradientRef gradientRef) {
+        IScope typesScope = delegateGetScope(gradientRef, TypesPackage.Literals.JVM_PARAMETERIZED_TYPE_REFERENCE__TYPE);
+        Predicate<IEObjectDescription> gradientFilter = new GradientScopeRestrictor();
+        IScope result = new FilteringScope(typesScope, gradientFilter);
+        return result;
+    }
 }

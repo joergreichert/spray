@@ -283,7 +283,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
             System.out.print("  ");
         }
         GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-        System.out.println(SprayLayoutService.getId(shape) + " ==> " + ga.getClass() + " X : " + ga.getX() + " Y : " + ga.getY() + " W : " + ga.getWidth() + " H : " + ga.getHeight());
+        System.out.println(SprayLayoutService.getId(shape) + " ==> " + ga.getClass().getSimpleName() + " X : " + ga.getX() + " Y : " + ga.getY() + " W : " + ga.getWidth() + " H : " + ga.getHeight());
         if (shape instanceof ContainerShape) {
             for (Shape child : ((ContainerShape) shape).getChildren()) {
                 print(child, level + 1);
@@ -299,7 +299,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
         GraphicsAlgorithm ga = expressionShape.getGraphicsAlgorithm();
         ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(expressionShape);
         SprayLayoutData data = SprayLayoutService.getLayoutData(expressionShape);
-        System.out.println(SprayLayoutService.getId(expressionShape) + " ==> " + ga.getClass() + " Layout : " + mgr.getClass().getSimpleName() + " margin : " + mgr.getMargin() + " spacing: " + mgr.getSpacing() + " MinW : " + data.getMinimumWidth() + " MinH : " + data.getMinimumHeight());
+        System.out.println(SprayLayoutService.getId(expressionShape) + " ==> " + ga.getClass().getSimpleName() + " Layout : " + mgr.getClass().getSimpleName() + " margin : " + mgr.getMargin() + " spacing: " + mgr.getSpacing() + " MinW : " + data.getMinimumWidth() + " MinH : " + data.getMinimumHeight());
         if (expressionShape instanceof ContainerShape) {
             for (Shape child : ((ContainerShape) expressionShape).getChildren()) {
                 printLayout(child, level + 1);

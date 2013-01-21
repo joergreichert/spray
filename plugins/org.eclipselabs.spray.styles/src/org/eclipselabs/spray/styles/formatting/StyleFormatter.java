@@ -35,16 +35,16 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
         c.setAutoLinewrap(120);
 
         handleBlocks(c);
-        
+
         List<Keyword> bracketsToIgnore = new ArrayList<Keyword>();
         bracketsToIgnore.add(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1());
 
         for (Pair<Keyword, Keyword> kw : grammar.findKeywordPairs("(", ")")) {
-        	if(!bracketsToIgnore.contains(kw.getFirst())) {
+            if (!bracketsToIgnore.contains(kw.getFirst())) {
                 c.setSpace(" ").before(kw.getFirst());
                 c.setNoSpace().after(kw.getFirst());
                 c.setNoSpace().before(kw.getSecond());
-        	}
+            }
         }
 
         for (Keyword kw : grammar.findKeywords("=")) {
@@ -60,7 +60,7 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
         handleNoSpaceBeforeINT(c);
 
         handleLineWrapBeforeKeywords(c);
-        
+
         c.setLinewrap().around(grammar.getGradientAccess().getDescriptionAssignment_4_2());
         c.setLinewrap().around(grammar.getGradientColorAreaRule());
 
@@ -71,11 +71,8 @@ public class StyleFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap().around(grammar.getHighlightingValuesAccess().getMultiselectedAssignment_3_2());
         c.setLinewrap().around(grammar.getHighlightingValuesAccess().getAllowedAssignment_4_2());
         c.setLinewrap().around(grammar.getHighlightingValuesAccess().getUnallowedAssignment_5_2());
-        
-        c.setIndentation(
-        		grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1(), 
-        		grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6()
-        );
+
+        c.setIndentation(grammar.getHighlightingValuesAccess().getLeftParenthesisKeyword_1(), grammar.getHighlightingValuesAccess().getRightParenthesisKeyword_6());
     }
 
     protected void handleLineWrapBeforeKeywords(FormattingConfig c) {

@@ -25,19 +25,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface StyleContainer extends EObject
 {
 	/**
-	 * Returns the value of the '<em><b>Style Container Element</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipselabs.spray.styles.StyleContainerElement}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Style Container Element</b></em>' containment reference list.
+     * The list contents are of type {@link org.eclipselabs.spray.styles.StyleContainerElement}.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Style Container Element</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Style Container Element</em>' containment reference list.
-	 * @see org.eclipselabs.spray.styles.StylesPackage#getStyleContainer_StyleContainerElement()
-	 * @model containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Style Container Element</em>' containment reference list.
+     * @see org.eclipselabs.spray.styles.StylesPackage#getStyleContainer_StyleContainerElement()
+     * @model containment="true"
+     * @generated
+     */
 	EList<StyleContainerElement> getStyleContainerElement();
 
 } // StyleContainer

@@ -27,150 +27,146 @@ import org.eclipselabs.spray.styles.Transparent;
 public class TransparentImpl extends ColorOrGradientImpl implements Transparent
 {
 	/**
-	 * The default value of the '{@link #isTransparent() <em>Transparent</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #isTransparent() <em>Transparent</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isTransparent()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isTransparent()
+     * @generated
+     * @ordered
+     */
 	protected static final boolean TRANSPARENT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isTransparent() <em>Transparent</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #isTransparent() <em>Transparent</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isTransparent()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #isTransparent()
+     * @generated
+     * @ordered
+     */
 	protected boolean transparent = TRANSPARENT_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TransparentImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return StylesPackage.Literals.TRANSPARENT;
-	}
+        return StylesPackage.Literals.TRANSPARENT;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public boolean isTransparent()
 	{
-		return transparent;
-	}
+        return transparent;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setTransparent(boolean newTransparent)
 	{
-		boolean oldTransparent = transparent;
-		transparent = newTransparent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.TRANSPARENT__TRANSPARENT, oldTransparent, transparent));
-	}
+        boolean oldTransparent = transparent;
+        transparent = newTransparent;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.TRANSPARENT__TRANSPARENT, oldTransparent, transparent));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
-			case StylesPackage.TRANSPARENT__TRANSPARENT:
-				return isTransparent();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case StylesPackage.TRANSPARENT__TRANSPARENT:
+                return isTransparent();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
-			case StylesPackage.TRANSPARENT__TRANSPARENT:
-				setTransparent((Boolean)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case StylesPackage.TRANSPARENT__TRANSPARENT:
+                setTransparent((Boolean)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
-			case StylesPackage.TRANSPARENT__TRANSPARENT:
-				setTransparent(TRANSPARENT_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case StylesPackage.TRANSPARENT__TRANSPARENT:
+                setTransparent(TRANSPARENT_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
-			case StylesPackage.TRANSPARENT__TRANSPARENT:
-				return transparent != TRANSPARENT_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case StylesPackage.TRANSPARENT__TRANSPARENT:
+                return transparent != TRANSPARENT_EDEFAULT;
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString()
 	{
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (transparent: ");
-		result.append(transparent);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (transparent: ");
+        result.append(transparent);
+        result.append(')');
+        return result.toString();
+    }
 
 } //TransparentImpl

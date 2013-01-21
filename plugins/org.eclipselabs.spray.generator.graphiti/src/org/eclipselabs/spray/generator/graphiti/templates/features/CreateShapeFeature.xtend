@@ -165,6 +165,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
          */
         protected «metaClass.itfName» create«metaClass.visibleName»(final ICreateContext context) {
             «if(createBehavior != null) { handleAskFor(metaClass, createBehavior.askFor) }»
+            ContainerShape targetContainer = context.getTargetContainer();
             boolean isContainment = false;
             final Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
             «FOR behavior: metaClass.behaviors.filter(m | m instanceof CompartmentBehavior)»
@@ -180,17 +181,6 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
             }
             «ENDFOR»
             «ENDFOR»
-            «IF containmentRef != null»
-            if (!isContainment) {
-                // add the element to containment reference
-                «modelClassName» model = modelService.getModel();
-                «IF containmentRef.many»
-                    model.get«containmentRef.name.toFirstUpper»().add(newClass);
-                «ELSE»
-                model.set«containmentRef.name.toFirstUpper»(newClass);
-                «ENDIF»   
-            }
-            «ENDIF»
 //              And now the NEW stuff
             «var result = metaClass.referencesTo»
             «FOR cls : result »
@@ -205,6 +195,8 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                             return newClass;
                         «ELSE»
                             domainObject.set«cls.reference.name.toFirstUpper»(newClass);
+                            // clear the shapes for the previous «cls.reference.name.toFirstUpper»
+                            targetContainer.getChildren().clear();
                             setDoneChanges(true);
                             return newClass;
                         «ENDIF»
@@ -213,6 +205,19 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
                 // NOT containment 
                 «ENDIF»
             «ENDFOR»
+            «IF containmentRef != null»
+            if (!isContainment) {
+                // add the element to containment reference
+                «modelClassName» model = modelService.getModel();
+                «IF containmentRef.many»
+                    model.get«containmentRef.name.toFirstUpper»().add(newClass);
+                «ELSE»
+                // clear the shapes for the previous model
+                targetContainer.getChildren().clear();
+                model.set«containmentRef.name.toFirstUpper»(newClass);
+                «ENDIF»   
+            }
+            «ENDIF»
             setDoneChanges(true);
             return newClass;
         }

@@ -21,24 +21,24 @@ import org.eclipselabs.spray.styles.StylesPackage;
 public class ColorOrGradientImpl extends MinimalEObjectImpl.Container implements ColorOrGradient
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ColorOrGradientImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return StylesPackage.Literals.COLOR_OR_GRADIENT;
-	}
+        return StylesPackage.Literals.COLOR_OR_GRADIENT;
+    }
 
 } //ColorOrGradientImpl

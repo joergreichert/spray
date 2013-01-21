@@ -6,7 +6,7 @@ package org.eclipselabs.spray.styles;
  */
 public class StyleStandaloneSetup extends StyleStandaloneSetupGenerated {
 
-	public static void doSetup() {
-		new StyleStandaloneSetup().createInjectorAndDoEMFRegistration();
-	}
+    public static void doSetup() {
+        new StyleStandaloneSetup().createInjectorAndDoEMFRegistration();
+    }
 }

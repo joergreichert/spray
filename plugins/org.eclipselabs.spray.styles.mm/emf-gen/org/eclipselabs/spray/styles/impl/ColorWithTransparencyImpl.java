@@ -21,24 +21,24 @@ import org.eclipselabs.spray.styles.StylesPackage;
 public class ColorWithTransparencyImpl extends MinimalEObjectImpl.Container implements ColorWithTransparency
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ColorWithTransparencyImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return StylesPackage.Literals.COLOR_WITH_TRANSPARENCY;
-	}
+        return StylesPackage.Literals.COLOR_WITH_TRANSPARENCY;
+    }
 
 } //ColorWithTransparencyImpl

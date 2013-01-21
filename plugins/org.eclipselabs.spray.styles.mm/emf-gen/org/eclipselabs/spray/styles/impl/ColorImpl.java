@@ -19,24 +19,24 @@ import org.eclipselabs.spray.styles.StylesPackage;
 public class ColorImpl extends ColorOrGradientImpl implements Color
 {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ColorImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass()
 	{
-		return StylesPackage.Literals.COLOR;
-	}
+        return StylesPackage.Literals.COLOR;
+    }
 
 } //ColorImpl

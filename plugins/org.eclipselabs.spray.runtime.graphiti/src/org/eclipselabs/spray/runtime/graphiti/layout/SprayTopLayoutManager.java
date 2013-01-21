@@ -27,7 +27,6 @@ public class SprayTopLayoutManager extends SprayAbstractLayoutManager {
         int width = 0;
         int height = 0;
         debug("TopLayoutManager.layout() " + SprayLayoutService.getId(shape));
-        print(shape, 0);
         for (Shape child : shape.getChildren()) {
             ISprayLayoutManager mgr = SprayLayoutService.getLayoutManager(child);
             mgr.layout();
@@ -35,6 +34,8 @@ public class SprayTopLayoutManager extends SprayAbstractLayoutManager {
             height = Math.max(height, child.getGraphicsAlgorithm().getHeight());
         }
         layoutService.setSize(shape.getGraphicsAlgorithm(), width, height);
+        System.out.println("SHAPE HIERARCHY AFTER TopLayout.layoyt() executed");
+        print(shape, 0);
         level--;
     }
 

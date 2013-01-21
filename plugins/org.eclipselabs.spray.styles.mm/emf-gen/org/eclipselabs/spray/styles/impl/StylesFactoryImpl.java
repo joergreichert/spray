@@ -22,388 +22,382 @@ import org.eclipselabs.spray.styles.*;
 public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory
 {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
+     * Creates the default factory implementation.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static StylesFactory init()
 	{
-		try
-		{
-			StylesFactory theStylesFactory = (StylesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipselabs.org/spray/styles/Style"); 
-			if (theStylesFactory != null)
-			{
-				return theStylesFactory;
-			}
-		}
-		catch (Exception exception)
-		{
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new StylesFactoryImpl();
-	}
+        try {
+            StylesFactory theStylesFactory = (StylesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipselabs.org/spray/styles/Style"); 
+            if (theStylesFactory != null) {
+                return theStylesFactory;
+            }
+        }
+        catch (Exception exception) {
+            EcorePlugin.INSTANCE.log(exception);
+        }
+        return new StylesFactoryImpl();
+    }
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StylesFactoryImpl()
 	{
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public EObject create(EClass eClass)
 	{
-		switch (eClass.getClassifierID())
-		{
-			case StylesPackage.STYLE_CONTAINER: return createStyleContainer();
-			case StylesPackage.STYLE_CONTAINER_ELEMENT: return createStyleContainerElement();
-			case StylesPackage.STYLE: return createStyle();
-			case StylesPackage.GRADIENT: return createGradient();
-			case StylesPackage.STYLE_LAYOUT: return createStyleLayout();
-			case StylesPackage.GRADIENT_LAYOUT: return createGradientLayout();
-			case StylesPackage.HIGHLIGHTING_VALUES: return createHighlightingValues();
-			case StylesPackage.GRADIENT_COLOR_AREA: return createGradientColorArea();
-			case StylesPackage.COLOR_OR_GRADIENT: return createColorOrGradient();
-			case StylesPackage.COLOR_WITH_TRANSPARENCY: return createColorWithTransparency();
-			case StylesPackage.COLOR: return createColor();
-			case StylesPackage.RGB_COLOR: return createRGBColor();
-			case StylesPackage.GRADIENT_REF: return createGradientRef();
-			case StylesPackage.COLOR_CONSTANT_REF: return createColorConstantRef();
-			case StylesPackage.TRANSPARENT: return createTransparent();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eClass.getClassifierID()) {
+            case StylesPackage.STYLE_CONTAINER: return createStyleContainer();
+            case StylesPackage.STYLE_CONTAINER_ELEMENT: return createStyleContainerElement();
+            case StylesPackage.STYLE: return createStyle();
+            case StylesPackage.GRADIENT: return createGradient();
+            case StylesPackage.STYLE_LAYOUT: return createStyleLayout();
+            case StylesPackage.GRADIENT_LAYOUT: return createGradientLayout();
+            case StylesPackage.HIGHLIGHTING_VALUES: return createHighlightingValues();
+            case StylesPackage.GRADIENT_COLOR_AREA: return createGradientColorArea();
+            case StylesPackage.COLOR_OR_GRADIENT: return createColorOrGradient();
+            case StylesPackage.COLOR_WITH_TRANSPARENCY: return createColorWithTransparency();
+            case StylesPackage.COLOR: return createColor();
+            case StylesPackage.RGB_COLOR: return createRGBColor();
+            case StylesPackage.GRADIENT_REF: return createGradientRef();
+            case StylesPackage.COLOR_CONSTANT_REF: return createColorConstantRef();
+            case StylesPackage.TRANSPARENT: return createTransparent();
+            default:
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue)
 	{
-		switch (eDataType.getClassifierID())
-		{
-			case StylesPackage.COLOR_CONSTANTS:
-				return createColorConstantsFromString(eDataType, initialValue);
-			case StylesPackage.LINE_STYLE:
-				return createLineStyleFromString(eDataType, initialValue);
-			case StylesPackage.YES_NO_BOOL:
-				return createYesNoBoolFromString(eDataType, initialValue);
-			case StylesPackage.GRADIENT_ALLIGNMENT:
-				return createGradientAllignmentFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eDataType.getClassifierID()) {
+            case StylesPackage.COLOR_CONSTANTS:
+                return createColorConstantsFromString(eDataType, initialValue);
+            case StylesPackage.LINE_STYLE:
+                return createLineStyleFromString(eDataType, initialValue);
+            case StylesPackage.YES_NO_BOOL:
+                return createYesNoBoolFromString(eDataType, initialValue);
+            case StylesPackage.GRADIENT_ALLIGNMENT:
+                return createGradientAllignmentFromString(eDataType, initialValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue)
 	{
-		switch (eDataType.getClassifierID())
-		{
-			case StylesPackage.COLOR_CONSTANTS:
-				return convertColorConstantsToString(eDataType, instanceValue);
-			case StylesPackage.LINE_STYLE:
-				return convertLineStyleToString(eDataType, instanceValue);
-			case StylesPackage.YES_NO_BOOL:
-				return convertYesNoBoolToString(eDataType, instanceValue);
-			case StylesPackage.GRADIENT_ALLIGNMENT:
-				return convertGradientAllignmentToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eDataType.getClassifierID()) {
+            case StylesPackage.COLOR_CONSTANTS:
+                return convertColorConstantsToString(eDataType, instanceValue);
+            case StylesPackage.LINE_STYLE:
+                return convertLineStyleToString(eDataType, instanceValue);
+            case StylesPackage.YES_NO_BOOL:
+                return convertYesNoBoolToString(eDataType, instanceValue);
+            case StylesPackage.GRADIENT_ALLIGNMENT:
+                return convertGradientAllignmentToString(eDataType, instanceValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StyleContainer createStyleContainer()
 	{
-		StyleContainerImpl styleContainer = new StyleContainerImpl();
-		return styleContainer;
-	}
+        StyleContainerImpl styleContainer = new StyleContainerImpl();
+        return styleContainer;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StyleContainerElement createStyleContainerElement()
 	{
-		StyleContainerElementImpl styleContainerElement = new StyleContainerElementImpl();
-		return styleContainerElement;
-	}
+        StyleContainerElementImpl styleContainerElement = new StyleContainerElementImpl();
+        return styleContainerElement;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Style createStyle()
 	{
-		StyleImpl style = new StyleImpl();
-		return style;
-	}
+        StyleImpl style = new StyleImpl();
+        return style;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Gradient createGradient()
 	{
-		GradientImpl gradient = new GradientImpl();
-		return gradient;
-	}
+        GradientImpl gradient = new GradientImpl();
+        return gradient;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StyleLayout createStyleLayout()
 	{
-		StyleLayoutImpl styleLayout = new StyleLayoutImpl();
-		return styleLayout;
-	}
+        StyleLayoutImpl styleLayout = new StyleLayoutImpl();
+        return styleLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public GradientLayout createGradientLayout()
 	{
-		GradientLayoutImpl gradientLayout = new GradientLayoutImpl();
-		return gradientLayout;
-	}
+        GradientLayoutImpl gradientLayout = new GradientLayoutImpl();
+        return gradientLayout;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public HighlightingValues createHighlightingValues()
 	{
-		HighlightingValuesImpl highlightingValues = new HighlightingValuesImpl();
-		return highlightingValues;
-	}
+        HighlightingValuesImpl highlightingValues = new HighlightingValuesImpl();
+        return highlightingValues;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public GradientColorArea createGradientColorArea()
 	{
-		GradientColorAreaImpl gradientColorArea = new GradientColorAreaImpl();
-		return gradientColorArea;
-	}
+        GradientColorAreaImpl gradientColorArea = new GradientColorAreaImpl();
+        return gradientColorArea;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ColorOrGradient createColorOrGradient()
 	{
-		ColorOrGradientImpl colorOrGradient = new ColorOrGradientImpl();
-		return colorOrGradient;
-	}
+        ColorOrGradientImpl colorOrGradient = new ColorOrGradientImpl();
+        return colorOrGradient;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ColorWithTransparency createColorWithTransparency()
 	{
-		ColorWithTransparencyImpl colorWithTransparency = new ColorWithTransparencyImpl();
-		return colorWithTransparency;
-	}
+        ColorWithTransparencyImpl colorWithTransparency = new ColorWithTransparencyImpl();
+        return colorWithTransparency;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Color createColor()
 	{
-		ColorImpl color = new ColorImpl();
-		return color;
-	}
+        ColorImpl color = new ColorImpl();
+        return color;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public RGBColor createRGBColor()
 	{
-		RGBColorImpl rgbColor = new RGBColorImpl();
-		return rgbColor;
-	}
+        RGBColorImpl rgbColor = new RGBColorImpl();
+        return rgbColor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public GradientRef createGradientRef()
 	{
-		GradientRefImpl gradientRef = new GradientRefImpl();
-		return gradientRef;
-	}
+        GradientRefImpl gradientRef = new GradientRefImpl();
+        return gradientRef;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ColorConstantRef createColorConstantRef()
 	{
-		ColorConstantRefImpl colorConstantRef = new ColorConstantRefImpl();
-		return colorConstantRef;
-	}
+        ColorConstantRefImpl colorConstantRef = new ColorConstantRefImpl();
+        return colorConstantRef;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Transparent createTransparent()
 	{
-		TransparentImpl transparent = new TransparentImpl();
-		return transparent;
-	}
+        TransparentImpl transparent = new TransparentImpl();
+        return transparent;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ColorConstants createColorConstantsFromString(EDataType eDataType, String initialValue)
 	{
-		ColorConstants result = ColorConstants.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        ColorConstants result = ColorConstants.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertColorConstantsToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public LineStyle createLineStyleFromString(EDataType eDataType, String initialValue)
 	{
-		LineStyle result = LineStyle.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        LineStyle result = LineStyle.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertLineStyleToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public YesNoBool createYesNoBoolFromString(EDataType eDataType, String initialValue)
 	{
-		YesNoBool result = YesNoBool.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        YesNoBool result = YesNoBool.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertYesNoBoolToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public GradientAllignment createGradientAllignmentFromString(EDataType eDataType, String initialValue)
 	{
-		GradientAllignment result = GradientAllignment.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
+        GradientAllignment result = GradientAllignment.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String convertGradientAllignmentToString(EDataType eDataType, Object instanceValue)
 	{
-		return instanceValue == null ? null : instanceValue.toString();
-	}
+        return instanceValue == null ? null : instanceValue.toString();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StylesPackage getStylesPackage()
 	{
-		return (StylesPackage)getEPackage();
-	}
+        return (StylesPackage)getEPackage();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
+     * @deprecated
+     * @generated
+     */
 	@Deprecated
 	public static StylesPackage getPackage()
 	{
-		return StylesPackage.eINSTANCE;
-	}
+        return StylesPackage.eINSTANCE;
+    }
 
 } //StylesFactoryImpl

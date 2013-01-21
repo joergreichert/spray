@@ -41,7 +41,7 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
         for (GradientColorArea colorArea : colorAreas) {
             gradientAreaOffset.add(colorArea.getOffset());
         }
-        
+
         // Check Start-Offset is 0.0
         double startOffset = gradientAreaOffset.get(0);
         if (startOffset != 0.0 && EcoreUtil.equals(gradientColorArea, colorAreas.get(0))) {
@@ -219,5 +219,5 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
             }
         }
     }
-    
+
 }
