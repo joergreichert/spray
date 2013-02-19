@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.templates
+package org.eclipselabs.spray.xtext.generator
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject

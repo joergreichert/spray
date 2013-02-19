@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.templates;
+package org.eclipselabs.spray.xtext.generator;
 
 import javax.inject.Inject;
 

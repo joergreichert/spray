@@ -12,7 +12,6 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory
 import org.eclipselabs.spray.generator.graphiti.templates.Filter
 import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule
-import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile
 import org.eclipselabs.spray.generator.graphiti.templates.Plugin
 import org.eclipselabs.spray.generator.graphiti.templates.PluginActivator
 import org.eclipselabs.spray.generator.graphiti.templates.PropertySection
@@ -50,6 +49,7 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.SprayGraphitiGenerator.*
 import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.xtext.generator.JavaGenFile
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider

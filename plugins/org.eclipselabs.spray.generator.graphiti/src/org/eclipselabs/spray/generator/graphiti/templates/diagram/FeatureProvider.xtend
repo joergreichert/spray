@@ -3,7 +3,6 @@ package org.eclipselabs.spray.generator.graphiti.templates.diagram
 import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.List
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
@@ -11,12 +10,11 @@ import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-
-import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions

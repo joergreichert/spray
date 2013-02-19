@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
+import org.eclipselabs.spray.xtext.generator.JavaGenFile;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Before;
 import org.junit.Test;

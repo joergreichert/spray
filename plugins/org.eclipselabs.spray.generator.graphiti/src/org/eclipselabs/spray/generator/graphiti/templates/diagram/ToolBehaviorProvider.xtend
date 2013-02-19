@@ -1,23 +1,22 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
 import com.google.inject.Inject
-
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipselabs.spray.generator.common.StringHelpers
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.SprayPackage
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
-import org.eclipselabs.spray.generator.common.StringHelpers
 
 class ToolBehaviorProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions

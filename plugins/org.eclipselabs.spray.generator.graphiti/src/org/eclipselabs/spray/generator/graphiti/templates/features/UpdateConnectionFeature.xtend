@@ -1,13 +1,12 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 
 class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
     @Inject extension NamingExtensions

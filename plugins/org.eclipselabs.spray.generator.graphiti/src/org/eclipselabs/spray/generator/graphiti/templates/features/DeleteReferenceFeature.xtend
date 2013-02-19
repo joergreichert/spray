@@ -1,12 +1,12 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipse.emf.ecore.EReference
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.MetaReference
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import org.eclipse.emf.ecore.EReference
 
 
 class DeleteReferenceFeature extends FileGenerator<MetaReference> {

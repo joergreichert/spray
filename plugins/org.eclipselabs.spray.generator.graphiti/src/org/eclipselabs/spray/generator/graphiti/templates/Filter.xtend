@@ -6,6 +6,7 @@ import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 
 class Filter extends FileGenerator<EClass> {

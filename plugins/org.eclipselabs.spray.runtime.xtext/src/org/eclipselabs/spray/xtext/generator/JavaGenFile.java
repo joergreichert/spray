@@ -1,7 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.templates;
-
-import org.eclipselabs.spray.generator.graphiti.util.SprayOutputConfigurationProvider;
-import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
+package org.eclipselabs.spray.xtext.generator;
 
 import com.google.inject.Inject;
 

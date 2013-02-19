@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.3.0,2.4.0)";visibility:=ree
  org.eclipse.text;bundle-version="3.5.100",
  org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
  org.antlr.runtime,
- org.eclipse.jdt.core
+ org.eclipse.jdt.core,
+ org.eclipselabs.spray.generator.common
 Import-Package: org.apache.commons.logging,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
