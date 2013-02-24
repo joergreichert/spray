@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<platform-version-name>juno</platform-version-name>
+		<platform-version-name>kepler</platform-version-name>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
 		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
@@ -36,11 +36,11 @@
 		<build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<fornax-oaw-m2-plugin.version>3.4.0</fornax-oaw-m2-plugin.version>
-		<xtend-maven-plugin.version>2.3.1</xtend-maven-plugin.version>
-		<xtend-library.version>2.3.1</xtend-library.version>
+		<xtend-maven-plugin.version>2.4.0</xtend-maven-plugin.version>
+		<xtend-library.version>2.4.0</xtend-library.version>
 		<jacoco-maven-plugin.version>0.6.0.201210061924</jacoco-maven-plugin.version>
 		<junit-version>4.10</junit-version>
-		<local-build-platform.version>[3.8,4.3)</local-build-platform.version>		
+		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>		
 		<ui.test.vmargs></ui.test.vmargs>
 		<coverageAgent></coverageAgent>
 		<it.coverage.argLine></it.coverage.argLine>
