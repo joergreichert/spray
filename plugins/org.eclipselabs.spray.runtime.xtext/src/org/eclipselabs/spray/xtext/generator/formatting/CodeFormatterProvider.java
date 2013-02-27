@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.formatting;
+package org.eclipselabs.spray.xtext.generator.formatting;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.xtext.generator;
+package org.eclipselabs.spray.xtext.generator.filesystem;
 
 import org.eclipse.xtext.generator.IFileSystemAccess;
 

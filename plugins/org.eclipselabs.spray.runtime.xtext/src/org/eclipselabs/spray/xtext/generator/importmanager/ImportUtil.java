@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.xtext.generator;
+package org.eclipselabs.spray.xtext.generator.importmanager;
 
 import org.eclipse.xtext.common.types.JvmTypeReference;
 

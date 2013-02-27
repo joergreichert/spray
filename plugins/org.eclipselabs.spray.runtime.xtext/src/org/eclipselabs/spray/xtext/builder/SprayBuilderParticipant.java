@@ -15,7 +15,7 @@ import org.eclipse.xtext.builder.BuilderParticipant;
 import org.eclipse.xtext.builder.DerivedResourceMarkers;
 import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import org.eclipselabs.spray.xtext.generator.SprayOutputConfiguration;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfiguration;
 
 import com.google.inject.Inject;
 

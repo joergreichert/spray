@@ -21,7 +21,7 @@ import org.eclipselabs.spray.mm.spray.Diagram;
 import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.SprayFactory;
-import org.eclipselabs.spray.xtext.generator.ImportUtil;
+import org.eclipselabs.spray.xtext.generator.importmanager.ImportUtil;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

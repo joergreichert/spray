@@ -1,8 +1,9 @@
-package org.eclipselabs.spray.xtext.generator;
+package org.eclipselabs.spray.xtext.generator.filesystem;
 
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.generator.OutputConfiguration;
+import org.eclipselabs.spray.xtext.generator.IPostProcessor;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

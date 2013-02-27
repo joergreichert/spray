@@ -1,10 +1,9 @@
-package org.eclipselabs.spray.xtext.generator;
+package org.eclipselabs.spray.xtext.generator.filesystem;
 
 import javax.inject.Inject;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.xtext.generator.IFileSystemAccess;
-import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
 
 /**
  * Class to support generation of base and extension files.

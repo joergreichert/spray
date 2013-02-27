@@ -49,7 +49,7 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.SprayGraphitiGenerator.*
 import org.eclipselabs.spray.generator.common.ProjectProperties
-import org.eclipselabs.spray.xtext.generator.JavaGenFile
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider

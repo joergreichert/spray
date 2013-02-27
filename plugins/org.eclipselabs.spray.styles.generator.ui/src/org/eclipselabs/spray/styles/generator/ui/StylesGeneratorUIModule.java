@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.ui;
+package org.eclipselabs.spray.styles.generator.ui;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -11,10 +11,10 @@ import org.eclipselabs.spray.xtext.generator.filesystem.IFileSystemAccessUtil;
 
 import com.google.inject.Binder;
 
-public class GraphitiGeneratorUIModule extends AbstractGenericModule {
+public class StylesGeneratorUIModule extends AbstractGenericModule {
     private final AbstractUIPlugin plugin;
 
-    public GraphitiGeneratorUIModule(AbstractUIPlugin plugin) {
+    public StylesGeneratorUIModule(AbstractUIPlugin plugin) {
         this.plugin = plugin;
     }
 

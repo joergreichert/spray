@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.xtext.generator;
+package org.eclipselabs.spray.xtext.generator.outputconfig;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.xtext.generator.OutputConfiguration;

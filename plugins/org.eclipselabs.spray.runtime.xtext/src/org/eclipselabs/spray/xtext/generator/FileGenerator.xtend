@@ -2,8 +2,10 @@ package org.eclipselabs.spray.xtext.generator
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipselabs.spray.xtext.generator.ImportUtil
+import org.eclipselabs.spray.xtext.generator.importmanager.ImportUtil
 import org.eclipselabs.spray.generator.common.templates.TemplateUtil
+import org.eclipselabs.spray.xtext.generator.filesystem.GenFile
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
 class FileGenerator<T super EObject> extends TemplateUtil {
     @Inject ImportUtil importUtil

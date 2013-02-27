@@ -8,10 +8,10 @@ import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.service.AbstractGenericModule;
 import org.eclipse.xtext.xbase.XbaseFactory;
-import org.eclipselabs.spray.generator.graphiti.formatting.CodeFormatterProvider;
-import org.eclipselabs.spray.generator.graphiti.formatting.JavaPostProcessor;
-import org.eclipselabs.spray.generator.graphiti.util.SprayOutputConfigurationProvider;
 import org.eclipselabs.spray.xtext.generator.IPostProcessor;
+import org.eclipselabs.spray.xtext.generator.formatting.CodeFormatterProvider;
+import org.eclipselabs.spray.xtext.generator.formatting.JavaPostProcessor;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 import com.google.inject.Binder;

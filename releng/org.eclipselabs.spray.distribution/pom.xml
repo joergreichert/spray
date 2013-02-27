@@ -44,7 +44,9 @@
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
@@ -86,7 +88,9 @@
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
@@ -178,8 +182,10 @@
                 <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
                 <module>../../plugins/org.eclipselabs.spray.xtext</module>
                 <module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
-                <module>../../plugins/org.eclipselabs.spray.styles</module>
-                <module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
                 <module>../../plugins/org.eclipselabs.spray.shapes</module>
                 <module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
                 <module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
@@ -250,7 +256,9 @@
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>

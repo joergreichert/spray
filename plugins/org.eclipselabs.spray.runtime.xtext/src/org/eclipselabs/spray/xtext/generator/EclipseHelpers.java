@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copied and adapted from www.mod4j.org.
  *******************************************************************************/
-package org.eclipselabs.spray.generator.common;
+package org.eclipselabs.spray.xtext.generator;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.generator.graphiti.ui;
+package org.eclipselabs.spray.runtime.xtext.ui.filesystem;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
