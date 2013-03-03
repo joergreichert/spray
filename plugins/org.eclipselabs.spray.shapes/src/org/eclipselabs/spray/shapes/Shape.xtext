@@ -9,9 +9,9 @@ ShapeContainer:
     shapeContainerElement+=ShapeContainerElement*;
 
 Import:
-    'import' importedNamespace=QualifiedNameWithWildCard;
+    'import' importedNamespace=ShapesQualifiedNameWithWildCard;
 
-QualifiedNameWithWildCard returns ecore::EString:
+ShapesQualifiedNameWithWildCard returns ecore::EString:
     QualifiedName ('.' '*')?;
 
 ShapeContainerElement:

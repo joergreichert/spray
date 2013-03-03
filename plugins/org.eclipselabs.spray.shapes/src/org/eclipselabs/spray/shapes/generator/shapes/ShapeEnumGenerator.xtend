@@ -11,7 +11,7 @@ import org.eclipselabs.spray.shapes.Ellipse
 import org.eclipselabs.spray.shapes.Polygon
 import org.eclipselabs.spray.shapes.Rectangle
 import org.eclipselabs.spray.shapes.Compartment
-import com.ibm.icu.util.CompactByteArray
+import java.util.List
 
 class ShapeEnumGenerator {
 	
@@ -30,7 +30,7 @@ class ShapeEnumGenerator {
 		'''
 	}
 	
-	def dispatch searchTextIds(ShapeDefinition s) {
+	def dispatch List<String> searchTextIds(ShapeDefinition s) {
 		val ids = new ArrayList<String>();
 		for(Shape shape : s.shape) {
 			if(shape instanceof Text) {
@@ -47,20 +47,20 @@ class ShapeEnumGenerator {
 		ids
 	}
 	
-	def dispatch searchTextIds(Line shape) {
+	def dispatch List<String> searchTextIds(Line shape) {
 		new ArrayList<String>()
 	}
-	def dispatch searchTextIds(Polyline shape) {
+	def dispatch List<String> searchTextIds(Polyline shape) {
 		new ArrayList<String>()
 	}
-	def dispatch searchTextIds(RoundedRectangle shape) {
+	def dispatch List<String> searchTextIds(RoundedRectangle shape) {
 		val ids = new ArrayList<String>()
 		for(child : shape.shape) {
 			ids.addAll(child.searchTextIds)
 		}
 		ids
 	}
-	def dispatch searchTextIds(Rectangle shape) {
+	def dispatch List<String> searchTextIds(Rectangle shape) {
 		val ids = new ArrayList<String>()
 		if( shape?.compartmentInfo?.id != null ){
 			ids.add(shape.compartmentInfo.id.value)
@@ -70,7 +70,7 @@ class ShapeEnumGenerator {
 		}
 		ids
 	}
-	def dispatch searchTextIds(Ellipse shape) {
+	def dispatch List<String> searchTextIds(Ellipse shape) {
 		val ids = new ArrayList<String>()
 		if( shape?.compartmentInfo?.id != null ){
 			ids.add(shape.compartmentInfo.id.value)
@@ -80,19 +80,19 @@ class ShapeEnumGenerator {
 		}
 		ids
 	}
-	def dispatch searchTextIds(Polygon shape) {
+	def dispatch List<String> searchTextIds(Polygon shape) {
 		val ids = new ArrayList<String>()
 		for(child : shape.shape) {
 			ids.addAll(child.searchTextIds)
 		}
 		ids
 	}
-	def dispatch searchTextIds(Text shape) {
+	def dispatch List<String> searchTextIds(Text shape) {
 		val ids = new ArrayList<String>()
 		ids.add(shape.body.value)
 		ids
 	}
-	def dispatch searchTextIds(Compartment shape) {
+	def dispatch List<String> searchTextIds(Compartment shape) {
 		val ids = new ArrayList<String>()
 		ids.add(shape.shape.id.value)
 		ids

@@ -26,10 +26,14 @@ import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.impl.GaServiceImpl;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**
@@ -43,7 +47,6 @@ import org.eclipse.graphiti.util.IColorConstant;
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-@SuppressWarnings("restriction")
 public class SprayGaService implements IGaService {
 	protected IGaService delegate;
 
@@ -60,12 +63,6 @@ public class SprayGaService implements IGaService {
 	public IDimension calculateSize(GraphicsAlgorithm ga,
 			boolean considerLineWidth) {
 		return delegate.calculateSize(ga, considerLineWidth);
-	}
-
-	@Override
-	@Deprecated
-	public void deleteFont(AbstractText abstractText) {
-		delegate.deleteFont(abstractText);
 	}
 
 	@Override
@@ -582,4 +579,25 @@ public class SprayGaService implements IGaService {
 		return delegate.createPlainStyle(styleContainer, id);
 	}
 
+	@Override
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText) {
+		return delegate.createTextStyleRegion(abstractText);
+	}
+
+	@Override
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText,
+			int start, int end) {
+		return delegate.createTextStyleRegion(abstractText, start, end);
+	}
+
+	@Override
+	public TextStyle createTextStyle(TextStyleRegion region) {
+		return delegate.createTextStyle(region);
+	}
+
+	@Override
+	public TextStyle createTextStyle(TextStyleRegion region, boolean underline,
+			boolean strikeout, UnderlineStyle underlineStyle) {
+		return delegate.createTextStyle(region, underline, strikeout, underlineStyle);
+	}
 }
