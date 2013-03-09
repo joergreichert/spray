@@ -9,8 +9,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipselabs.spray.styles,
  org.eclipselabs.spray.runtime.xtext,
  org.eclipse.jdt.core,
- org.eclipse.xtext.xbase
+ org.eclipse.xtext.xbase,
+ org.eclipse.xtext.generator,
+ org.eclipse.xtext.ecore,
+ org.eclipselabs.spray.generator.common,
+ org.apache.commons.logging
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: %providerName
-Export-Package: org.eclipselabs.spray.styles.generator
+Export-Package: org.eclipselabs.spray.styles.generator,
+ org.eclipselabs.spray.styles.generator.util

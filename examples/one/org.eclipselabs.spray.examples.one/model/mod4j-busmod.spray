@@ -19,12 +19,18 @@ behavior Redraw {
     custom redraw "Redraw Diagram"; 
 }
 
+behavior Collapsable {
+    custom collapse "Collapse Diagram element"; 
+    custom expand "Expand Diagram element"; 
+}
+
 class BusinessClass alias BusinessClassNameOnly {
     shape ClassNameOnlyShape {
         name into  textId1
     }
     behavior {
-        create into types palette "Shapes" askFor name  
+        create into types palette "Shapes" askFor name;
+        group Collapsable;
     }
 }
 // Package represented by a rectangle
@@ -72,6 +78,7 @@ class BusinessClass icon "ecore/EClass.gif" {
     // Enable create feature for this class and add it to the palette "Shapes"
         create into types palette "Shapes" askFor name;
         group Redraw
+        group Collapsable
     }
 }
 

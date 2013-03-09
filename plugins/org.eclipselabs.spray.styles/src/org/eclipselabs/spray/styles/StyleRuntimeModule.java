@@ -29,9 +29,4 @@ public class StyleRuntimeModule extends org.eclipselabs.spray.styles.AbstractSty
     public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
         return DefaultDeclarativeQualifiedNameProvider.class;
     }
-
-    @Override
-    public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
-        return org.eclipselabs.spray.styles.generator.StyleGenerator.class;
-    }
 }

@@ -8,8 +8,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator;
-import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper;
 import org.eclipselabs.spray.shapes.AnchorFixPointPosition;
 import org.eclipselabs.spray.shapes.AnchorPositionPos;
 import org.eclipselabs.spray.shapes.AnchorRelativePosition;
@@ -33,6 +31,8 @@ import org.eclipselabs.spray.shapes.ShapeDefinition;
 import org.eclipselabs.spray.shapes.ShapesPackage;
 import org.eclipselabs.spray.shapes.ShapestyleLayout;
 import org.eclipselabs.spray.shapes.Text;
+import org.eclipselabs.spray.shapes.util.ShapeSizeCalculator;
+import org.eclipselabs.spray.shapes.util.ShapeSizeWrapper;
 import org.eclipselabs.spray.styles.GradientRef;
 
 import com.google.inject.Inject;
