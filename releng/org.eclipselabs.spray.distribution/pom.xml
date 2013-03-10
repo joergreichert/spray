@@ -48,7 +48,9 @@
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
@@ -92,7 +94,9 @@
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 			</modules>
 		</profile>		
@@ -186,8 +190,10 @@
 				<module>../../plugins/org.eclipselabs.spray.styles.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
-                <module>../../plugins/org.eclipselabs.spray.shapes</module>
-                <module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
                 <module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
                 <module>../../examples/one/org.eclipselabs.spray.examples.one</module>
@@ -260,7 +266,9 @@
 				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
