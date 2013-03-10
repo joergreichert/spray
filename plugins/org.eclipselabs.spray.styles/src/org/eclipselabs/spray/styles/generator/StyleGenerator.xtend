@@ -24,7 +24,6 @@ import org.eclipselabs.spray.styles.Transparent
 import org.eclipselabs.spray.styles.YesNoBool
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
 
-import static org.eclipselabs.spray.styles.generator.StyleGenerator.*
 import org.eclipselabs.spray.generator.common.ProjectProperties
 
 
