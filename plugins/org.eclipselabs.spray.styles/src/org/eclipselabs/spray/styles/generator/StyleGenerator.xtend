@@ -121,24 +121,24 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 		 */
 		@SuppressWarnings("all")
 		public class «s.className» extends «s.createSuperStyle» {
-		    
-		    /**
+		
+			/**
 			 * This method creates a Style and returns the defined style.
 			 * Description: «s.description»
 			 */
-		    @Override
+			@Override
 			public Style newStyle(Diagram diagram) {
 				IGaService gaService = Graphiti.getGaService();
-				
+
 				// Creating Style with given id and description
 				Style style = super.newStyle(diagram);
 				style.setId("«s.name»");
 				style.setDescription("«s.description»");
-				
+
 				«s.layout.createLayout»
 				return style;
 			}
-			
+
 		    /**
 			 * This method returns the font color for the style. 
 			 * The font color will be returned separated, because Graphiti allows just the foreground color.
@@ -148,16 +148,14 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 			public Color getFontColor(Diagram diagram) {
 				«s.layout.createFontColor»
 			}
-	
+
 			 /**
 			 * This method returns Color Schema of the Style
 			 */
 			public AdaptedGradientColoredAreas getColorSchema() {
 				«s.layout.createStyleColorSchema»
 			}
-			
-			
-		}	
+		}
 		'''
 	}
 
@@ -187,20 +185,20 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 
     def createLayout(StyleLayout l) {
         '''
-        «l.createTransparencyAttributes»		
-		
-		«IF l.checkColorSchemaNecessary == false»
-        	«l.createBackgroundAttributes»
-        «ENDIF»
-		
-        «l.createLineAttributes»
+		«l.createTransparencyAttributes»
 
-        «l.createFontAttributes»
-		
-        «IF l.checkColorSchemaNecessary»
-        	«setColorSchema»
+		«IF l.checkColorSchemaNecessary == false»
+            «l.createBackgroundAttributes»
         «ENDIF»
-		
+
+		«l.createLineAttributes»
+
+		«l.createFontAttributes»
+
+        «IF l.checkColorSchemaNecessary»
+		    «setColorSchema»
+        «ENDIF»
+
         '''
     }
 

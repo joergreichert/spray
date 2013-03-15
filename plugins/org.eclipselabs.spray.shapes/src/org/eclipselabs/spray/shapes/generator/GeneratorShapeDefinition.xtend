@@ -102,10 +102,9 @@ class GeneratorShapeDefinition {
 				
 				// layout data
 				«IF shapeDefs.shape.get(0).compartment != null»
-«««				SprayLayoutService.setCompartment(containerShape, true);
-				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				SprayLayoutType containerLayout = SprayLayoutType.FIT;
 				«ELSE»
-				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				SprayLayoutType containerLayout = SprayLayoutType.FIT;
 				«ENDIF»
 				SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
 				SprayLayoutService.getLayoutData(containerShape).setVisible(true);
