@@ -27,7 +27,11 @@ class ShapeGenerator implements IGenerator {
     private static Log   LOGGER       = LogFactory::getLog("ShapeGenerator");
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-        LOGGER.info("Spray generating shapes for model " + resource.URI)
+        if (!resource.URI.lastSegment().endsWith(ProjectProperties::SHAPES_FILE_EXTENSION)) {
+            LOGGER.info("Shape generator is NOT producing Graphiti code for model " + resource.URI)
+            return;
+        }
+        LOGGER.info("Shape generator is producing Graphiti code for model " + resource.URI)
         ProjectProperties::setModelUri(resource.URI)
         if( ! resource.loaded ){
             resource.load(null);

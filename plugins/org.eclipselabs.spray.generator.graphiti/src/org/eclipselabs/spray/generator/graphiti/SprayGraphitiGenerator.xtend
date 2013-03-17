@@ -96,11 +96,11 @@ class SprayGraphitiGenerator implements IGenerator {
         //var String modelPath = resource.getURI().devicePath;
         //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
         if (!resource.URI.lastSegment().endsWith(ProjectProperties::SPRAY_FILE_EXTENSION)) {
-            LOGGER.info("Spray NOT generating Graphiti for model " + resource.URI)
+            LOGGER.info("Spray generator is NOT producing Graphiti code for model " + resource.URI)
             return;
         }
-        LOGGER.info("Spray generating Graphiti for model " + resource.URI)
-        
+        LOGGER.info("Spray generator is producing Graphiti code for model " + resource.URI)
+
         ProjectProperties::setModelUri(resource.URI)
 
         val JavaGenFile java = genFileProvider.get()

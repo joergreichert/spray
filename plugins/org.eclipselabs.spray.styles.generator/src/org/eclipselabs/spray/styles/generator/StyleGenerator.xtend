@@ -35,6 +35,11 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
     private static Log   LOGGER       = LogFactory::getLog("StyleGenerator");
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+        if (!resource.URI.lastSegment().endsWith(ProjectProperties::STYLES_FILE_EXTENSION)) {
+            LOGGER.info("Style generator is NOT producing Graphiti code for model " + resource.URI)
+            return;
+        }
+        LOGGER.info("Style generator is producing Graphiti code for model " + resource.URI)
 	    ProjectProperties::setModelUri(resource.URI)
 		super.doGenerate(resource, fsa);
 		doGenerateGradient(resource, fsa)
@@ -52,7 +57,7 @@ class StyleGenerator extends JvmModelGenerator implements IGenerator {
 	}
 	
 	def void doGenerateGradient(Resource resource, IFileSystemAccess fsa) {
-        LOGGER.info("Spray generating gradient for model " + resource.URI)
+        LOGGER.info("Spray: generating gradient for model " + resource.URI)
 		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
       		fsa.doGenerateGradient(gradient)
    		}
