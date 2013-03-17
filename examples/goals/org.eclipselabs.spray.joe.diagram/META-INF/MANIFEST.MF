@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray.joe.diagram
 Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.joe.diagram; singleton:=true
 Bundle-Activator: org.eclipselabs.spray.joe.diagram.Activator
 Bundle-ActivationPolicy: lazy
@@ -23,7 +23,9 @@ Require-Bundle: org.eclipse.ui,
  com.google.guava;bundle-version="10.0.1",
  com.google.inject;bundle-version="3.0.0",
  javax.inject;bundle-version="1.0.0",
- org.eclipselabs.spray.joe.domain
+ org.eclipselabs.spray.joe.domain,
+ org.eclipselabs.spray.styles.generator,
+ org.eclipselabs.spray.shapes.generator
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib,
