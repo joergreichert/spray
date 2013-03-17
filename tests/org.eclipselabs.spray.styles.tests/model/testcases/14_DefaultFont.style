@@ -1,8 +1,0 @@
-style DefaultFont {
-    description = "A style with white background and black foreground."
-    transparency = 0.95
-    background-color = black
-    line-color = black
-	line-style = solid
-    line-width = 1
-}

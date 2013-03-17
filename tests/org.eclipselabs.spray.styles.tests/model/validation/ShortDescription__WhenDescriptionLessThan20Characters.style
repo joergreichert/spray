@@ -1,6 +1,0 @@
-style Style {
-/* XPECT validationIssues at '"too short"' ---
-warning "The description should have more than 20 characters."
---- */
-	description = "too short"
-}

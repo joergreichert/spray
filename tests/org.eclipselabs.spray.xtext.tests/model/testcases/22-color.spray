@@ -1,6 +1,0 @@
-// Color Constant with RGB value
-diagram test for BusinessDomainDsl.BusinessDomainModel
-
-class BusinessDomainDsl.BusinessClass {
-    container  ( fill=RGB(255,255,255)) {}
-}

@@ -1,0 +1,19 @@
+application SprayDiagramEditor "Spray Diagram Editor"
+	description "Describing domain specific visual editors"
+	page Workbench "The initial Spray IDE workbench window"
+		screens
+			emptyWorkbench "specification/userinterfaces/screens/EmptyWorkbench.PNG"
+			projectWizardComplete "specification/userinterfaces/screens/projectwizard_3b.png"
+		widgets
+			Button newWizard "File -> New ..."
+	end page
+	dialog newWizardDialog "Select a wizard"
+		description "Common dialog to select a project wizard"
+		screens
+			projectWizardSelection "specification/userinterfaces/screens/projectwizard_1.png" widgets
+			Label SprayProject "Spray -> Spray Project"
+		options
+			Next "Next"
+			Cancel "Cancel"
+	end dialog
+end application

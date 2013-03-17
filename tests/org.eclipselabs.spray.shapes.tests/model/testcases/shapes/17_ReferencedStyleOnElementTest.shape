@@ -1,6 +1,0 @@
-shape ReferencedStyleOnElementTest {
-	ellipse style JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-		position (x=0, y=0)
-		size (width=10, height=10)
-	}
-}

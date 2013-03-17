@@ -1,6 +1,0 @@
-style MydiagramDefaultStyle extends JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-/* XPECT validationIssues at 'RGB(0,0,256)' ---
-error "The blue color should be defined between 0 and 255."
---- */
-	font-color = RGB(0,0,256)
-}

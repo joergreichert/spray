@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<cnt:E1 xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cnt="http://www.example.com/contain">
-  <elements xsi:type="cnt:E2" name="E21"/>
-  <elements xsi:type="cnt:E3" name="E31"/>
-  <elements xsi:type="cnt:E2" name="E22"/>
-  <elements xsi:type="cnt:E3" name="E32"/>
-  <elements xsi:type="cnt:E3" name="E33"/>
-</cnt:E1>

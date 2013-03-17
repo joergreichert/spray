@@ -1,7 +1,0 @@
-shape CornerAnchorsTest {
-	ellipse {
-		position (x=0, y=0)
-		size (width=10, height=10)
-	}
-	anchor corners
-}

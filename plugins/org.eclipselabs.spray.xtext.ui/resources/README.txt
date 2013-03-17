@@ -1,1 +1,0 @@
-Place files below "newProjectFiles" that should be copied to projects created withe New Project Wizard.

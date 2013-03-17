@@ -1,0 +1,38 @@
+//Dummy primitives
+
+primitive string 
+primitive integer
+primitive real 
+primitive boolean 
+primitive void
+
+ 
+ 
+//widgets
+application App {
+	event onAppStart : void
+	event onAppQuit : void
+}
+
+scene Page {
+	operation show() : void
+	operation hide() : void
+	property image : string
+//	event started : void
+//	event stopped : void
+//	property visible : boolean
+}
+
+widget Button {
+	event onClick : void	
+	operation deactivate () : void
+}
+
+widget Label {
+	property text : string
+}
+
+widget Textfield {
+	property text : string
+}
+

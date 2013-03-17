@@ -1,19 +1,9 @@
 bin
 target
 .DS_Store
-plugin.xml_gen
-screenshots
-/plugins/org.xspray.mm/text/
 .netrc
 *.bak
-/releng/scripts/release2.sh
 Copy of*
 Copy* of src-gen
-products
-docs/org.eclipselabs.spray.doc.dev/docs/
-docs/org.eclipselabs.spray.doc.user/docs/
-docs/org.eclipselabs.spray.styles.doc/docs/
-docs/org.eclipselabs.spray.shapes.doc/docs/
-/examples/one/org.eclipselabs.spray.examples.one/src/plugin.xml
 *.ec
 *.zip

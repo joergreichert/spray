@@ -1,3 +1,0 @@
-http://en.bpmn-community.org/reference_processes/
-http://oryx.bpmn-community.org:80/backend/poem/model/4268/png
-http://oryx.bpmn-community.org:80/backend/poem/model/3574/png

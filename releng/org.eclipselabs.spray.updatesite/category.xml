@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/org.eclipselabs.spray.feature.sdk_0.0.0.jar" id="org.eclipselabs.spray.feature.sdk" version="0.0.0">
-      <category name="spray"/>
-   </feature>
-   <category-def name="spray" label="Spray"/>
-</site>

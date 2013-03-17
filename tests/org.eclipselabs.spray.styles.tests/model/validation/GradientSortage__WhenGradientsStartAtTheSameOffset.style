@@ -1,9 +1,0 @@
-gradient Gradient {
-	area (color = blue, offset = 0.0)
-	area (color = green, offset = 0.4)
-/* XPECT validationIssues at 'color = yellow, offset = |0.4' ---
-error "This offset should be bigger than 0.4. Please take care about the sortage of the gradient areas."
---- */
-	area (color = yellow, offset = 0.4)
-	area (color = gray, offset = 1.0)
-}

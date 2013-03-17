@@ -1,6 +1,0 @@
-style Style {
-/* XPECT validationIssues at '1.1' ---
-error "The tranparency should be between 0.0 and 1.0."
---- */
-	transparency = 1.1
-}

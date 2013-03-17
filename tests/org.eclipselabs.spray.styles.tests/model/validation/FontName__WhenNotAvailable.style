@@ -1,6 +1,0 @@
-style Style {
-/* XPECT validationIssues at 'XXX' ---
-warning "The selected font is not installed on the system (default 'Arial' will be taken)."
---- */
-	font-name = "XXX"
-}

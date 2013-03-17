@@ -1,0 +1,19 @@
+report "Spray" {
+	output formats(pdf html)
+	style file "specification/configurations/styles/spray_style.css"
+	logo file "specification/configurations/styles/Spray-Logo-Icon-120.png"
+	language en
+	
+	chapters {
+		usecase package org.eclipselabs.spray.requirements.actors
+		usecase package org.eclipselabs.spray.requirements.domain
+		usecase package org.eclipselabs.spray.requirements.diagrameditor
+		user interface application SprayDiagramEditor
+	}
+	entity diagrams configuration {
+		show class diagram as default
+	}
+	usecase diagrams configuration {
+		show use cases overview diagram as default
+	}
+}

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<fmp:Feature xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fmp="http:///fmp.ecore">
-  <children xsi:type="fmp:Feature" id="Feature 1" name="Feature 1"/>
-  <children xsi:type="fmp:Feature" id="Feature 2" name="Feature 2"/>
-</fmp:Feature>
