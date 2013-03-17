@@ -57,7 +57,7 @@ class LayoutExtensions {
         w
     }
     
-    def placingDefs(ConnectionDefinition shapeDef) {
+    def Iterable<Integer> placingDefs(ConnectionDefinition shapeDef) {
     	shapeDef.eContents.filter(typeof(PlacingDefinition)).map(pd|pd.width())
     }
     
@@ -111,16 +111,16 @@ class LayoutExtensions {
     def dispatch int y (RoundedRectangle shape, boolean child) { shape.yoffset + if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0 }
     def dispatch int width (RoundedRectangle shape) { shape.layout.common.width }
     def dispatch int height (RoundedRectangle shape) { shape.layout.common.heigth }
-    def rx (RoundedRectangle shape) { shape.layout.curveWidth }
-    def ry (RoundedRectangle shape) { shape.layout.curveHeight }
+    def int rx (RoundedRectangle shape) { shape.layout.curveWidth }
+    def int ry (RoundedRectangle shape) { shape.layout.curveHeight }
     def dispatch int x (CDRoundedRectangle shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor + shape.placingSpaceXShift else 0) }
     def dispatch int y (CDRoundedRectangle shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor + shape.placingSpaceYShift else 0) }
     def dispatch int xWithoutShift (CDRoundedRectangle shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) }
     def dispatch int yWithoutShift (CDRoundedRectangle shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) }
     def dispatch int width (CDRoundedRectangle shape) { shape.layout.common.width }
     def dispatch int height (CDRoundedRectangle shape) { shape.layout.common.heigth }
-    def rx (CDRoundedRectangle shape) { shape.layout.curveWidth }
-    def ry (CDRoundedRectangle shape) { shape.layout.curveHeight }
+    def int rx (CDRoundedRectangle shape) { shape.layout.curveWidth }
+    def int ry (CDRoundedRectangle shape) { shape.layout.curveHeight }
 
 	// Ellipse
     def int x1 (Ellipse shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) }
@@ -129,18 +129,18 @@ class LayoutExtensions {
     def int y2 (Ellipse shape, boolean child) { shape.yoffset + shape.layout.common.ycor + shape.height }
     def dispatch int x (Ellipse shape, boolean child) { shape.xoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) + shape.rx }
     def dispatch int y (Ellipse shape, boolean child) { shape.yoffset + (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) + shape.ry}
-    def rx (Ellipse shape) { shape.layout.common.width/2 }
-    def ry (Ellipse shape) { shape.layout.common.heigth/2 }
-    def isCircle (Ellipse shape) { shape.rx==shape.ry }
+    def int rx (Ellipse shape) { Double::valueOf(shape.layout.common.width/2).intValue }
+    def int ry (Ellipse shape) { Double::valueOf(shape.layout.common.heigth/2).intValue }
+    def boolean isCircle (Ellipse shape) { shape.rx==shape.ry }
     def dispatch int width (Ellipse shape) { shape.layout.common.width }
     def dispatch int height (Ellipse shape) { shape.layout.common.heigth }
     def dispatch int x (CDEllipse shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor + shape.placingSpaceXShift else 0) + shape.rx }
     def dispatch int y (CDEllipse shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor + shape.placingSpaceYShift else 0) + shape.ry}
     def dispatch int xWithoutShift (CDEllipse shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.xcor else 0) + shape.rx }
     def dispatch int yWithoutShift (CDEllipse shape, boolean child) { (if(child || shape.eContainer instanceof ShapeContainerElement) shape.layout.common.ycor else 0) + shape.ry}
-    def rx (CDEllipse shape) { shape.layout.common.width/2 }
-    def ry (CDEllipse shape) { shape.layout.common.heigth/2 }
-    def isCircle (CDEllipse shape) { shape.rx==shape.ry }
+    def int rx (CDEllipse shape) { Double::valueOf(shape.layout.common.width/2).intValue }
+    def int ry (CDEllipse shape) { Double::valueOf(shape.layout.common.heigth/2).intValue }
+    def boolean isCircle (CDEllipse shape) { shape.rx==shape.ry }
     def dispatch int width (CDEllipse shape) { shape.layout.common.width }
     def dispatch int height (CDEllipse shape) { shape.layout.common.heigth }
     
@@ -217,23 +217,23 @@ class LayoutExtensions {
     def dispatch int parentX(Object shape) { 0 }
     def dispatch int parentY(Object shape) { 0 }
     
-    def minXPoint(List<Point> points) {
+    def Integer minXPoint(List<Point> points) {
     	findPoint(points, [Point p|p.xcor], [Integer c1, Integer c2|c1 - c2]).head
     }
 
-    def maxXPoint(List<Point> points) {
+    def Integer maxXPoint(List<Point> points) {
     	findPoint(points, [Point p|p.xcor], [Integer c1, Integer c2|c2 - c1]).head
     }
 
-    def minYPoint(List<Point> points) {
+    def Integer minYPoint(List<Point> points) {
     	findPoint(points, [Point p|p.ycor], [Integer c1, Integer c2|c1 - c2]).head
     }
 
-    def maxYPoint(List<Point> points) {
+    def Integer maxYPoint(List<Point> points) {
     	findPoint(points, [Point p|p.ycor], [Integer c1, Integer c2|c2 - c1]).head
     }
     
-    def findPoint(List<Point> points, (Point) => Integer coord, (Integer, Integer) => Integer compare) {
+    def List<Integer> findPoint(List<Point> points, (Point) => Integer coord, (Integer, Integer) => Integer compare) {
     	points.map(p|coord.apply(p)).sort[coord1, coord2| compare.apply(coord1, coord2) ]
     }
     
@@ -311,7 +311,7 @@ class LayoutExtensions {
         }
     }
     
-    def private dotDashArray(StyleLayout layout) {
+    def private String dotDashArray(StyleLayout layout) {
     	val ellipse = EcoreUtil2::getContainerOfType(layout, typeof(Ellipse))
     	if(ellipse != null) {
     		val b = ellipse.bowLength
@@ -319,7 +319,7 @@ class LayoutExtensions {
     	} else "2,2"
     }
 
-    def private dotDashDashArray(StyleLayout layout) {
+    def private String dotDashDashArray(StyleLayout layout) {
     	val ellipse = EcoreUtil2::getContainerOfType(layout, typeof(Ellipse))
     	if(ellipse != null) {
     		val b = ellipse.bowLength
@@ -327,7 +327,7 @@ class LayoutExtensions {
     	} else "8,6"
     }
 
-    def private dashDotDashArray(StyleLayout layout) {
+    def private String dashDotDashArray(StyleLayout layout) {
     	val ellipse = EcoreUtil2::getContainerOfType(layout, typeof(Ellipse))
     	if(ellipse != null) {
     		val b = ellipse.bowLength
@@ -335,7 +335,7 @@ class LayoutExtensions {
     	} else "8,4,2,4"
     }
 
-    def private dashDotDotDashArray(StyleLayout layout) {
+    def private String dashDotDotDashArray(StyleLayout layout) {
     	val ellipse = EcoreUtil2::getContainerOfType(layout, typeof(Ellipse))
     	if(ellipse != null) {
     		val b = ellipse.bowLength
@@ -343,43 +343,43 @@ class LayoutExtensions {
     	} else "8,4,2,4,2,4"
     }
     
-    def bowLength(Ellipse ellipse) {
+    def double bowLength(Ellipse ellipse) {
     	Math::PI * ellipse.rx * 2 / 180
     }
     
-	def integerValue(Double doubleValue) {
+	def int integerValue(Double doubleValue) {
 		Double::valueOf(doubleValue).nullSafeIntValue
 	}    
 
-    def placingSpaceXShift(EObject shape) {
+    def int placingSpaceXShift(EObject shape) {
     	val connectionDefinition = EcoreUtil2::getContainerOfType(shape, typeof(ConnectionDefinition))
     	if(connectionDefinition != null) connectionDefinition.placingSpaceXShift else 0
     }
 	
-    def placingSpaceXShift(ConnectionDefinition shape) {
+    def int placingSpaceXShift(ConnectionDefinition shape) {
     	val x = shape.placing.map(pd|Double::valueOf(defaultConnectionX1 + defaultConnectionWidth * pd.offset + pd.shapeCon.xWithoutShift(true)).nullSafeIntValue).sort.head
     	if(x == null || x > 0) 0 else Math::abs(x)
     }
 
-    def placingSpaceAdditionalWidth(ConnectionDefinition shape) {
+    def int placingSpaceAdditionalWidth(ConnectionDefinition shape) {
     	shape.placing.map(pd|Double::valueOf(defaultConnectionX1 + (defaultConnectionWidth * pd.offset + (pd.shapeCon.xWithoutShift(true) + pd.shapeCon.width)) - defaultConnectionWidth).nullSafeIntValue).sort.last
     }
     
-    def nullSafeIntValue(Double doubleValue) {
+    def int nullSafeIntValue(Double doubleValue) {
     	if(doubleValue == null) 0 else doubleValue.intValue
     }
 
-    def placingSpaceYShift(EObject shape) {
+    def int placingSpaceYShift(EObject shape) {
     	val connectionDefinition = EcoreUtil2::getContainerOfType(shape, typeof(ConnectionDefinition))
     	if(connectionDefinition != null) connectionDefinition.placingSpaceYShift else 0
     }
 
-    def placingSpaceYShift(ConnectionDefinition shape) {
+    def int placingSpaceYShift(ConnectionDefinition shape) {
     	val y = shape.placing.map(pd|Math::abs(defaultConnectionY1 + pd.shapeCon.yWithoutShift(true))).sort.head
     	if(y == null || y > 0) 0 else Math::abs(y)
     }
     
-    def placingSpaceAdditionalHeight(ConnectionDefinition shape) {
+    def int placingSpaceAdditionalHeight(ConnectionDefinition shape) {
     	shape.placing.map(pd|Double::valueOf(defaultConnectionY2 + (defaultConnectionHeight * pd.offset + (pd.shapeCon.yWithoutShift(true) + pd.shapeCon.height)) - defaultConnectionHeight).nullSafeIntValue).sort.last
     }
     
@@ -398,9 +398,9 @@ class LayoutExtensions {
     }
     
     // Colors
-    def dispatch color (RGBColor color) '''#«color.red.toHexString»«color.green.toHexString»«color.blue.toHexString»'''
-    def dispatch color (ColorConstantRef color) { color.value.name }
-    def dispatch color (ColorWithTransparency color) { "white" }
-    def hasTransparency (ShapestyleLayout ssl) { ssl.layout.transparency != Double::MIN_VALUE }
-    def transparency (ShapestyleLayout ssl) { ssl.layout.transparency }
+    def dispatch CharSequence color (RGBColor color) '''#«color.red.toHexString»«color.green.toHexString»«color.blue.toHexString»'''
+    def dispatch CharSequence color (ColorConstantRef color) { color.value.name }
+    def dispatch CharSequence color (ColorWithTransparency color) { "white" }
+    def boolean hasTransparency (ShapestyleLayout ssl) { ssl.layout.transparency != Double::MIN_VALUE }
+    def double transparency (ShapestyleLayout ssl) { ssl.layout.transparency }
 }

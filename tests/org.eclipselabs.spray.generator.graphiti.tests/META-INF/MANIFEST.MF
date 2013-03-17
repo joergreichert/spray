@@ -9,6 +9,5 @@ Require-Bundle: org.eclipse.xtext.junit4;bundle-version="2.0.1",
  org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.3",
  org.eclipselabs.spray.testhelper;bundle-version="0.0.4",
  org.eclipse.emf.ecore,
- org.junit4;bundle-version="4.8.1",
  org.mod4j.dsl.businessdomain.mm;bundle-version="1.4.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
