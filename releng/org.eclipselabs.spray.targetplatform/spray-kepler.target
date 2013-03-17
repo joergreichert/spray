@@ -28,8 +28,8 @@
 			<repository location="http://download.eclipse.org/technology/swtbot/snapshots/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.0.v201303171111"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.0.v201303171111"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.0.v201303171631"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.0.v201303171631"/>
 			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/latest"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
