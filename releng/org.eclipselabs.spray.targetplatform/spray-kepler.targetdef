@@ -29,8 +29,8 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 	
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/latest {
-		org.eclipse.xtext.sdk 2.4.0.v201303171111,
-		org.eclipse.xtend.sdk 2.4.0.v201303171111
+		org.eclipse.xtext.sdk 2.4.0.v201303171536,
+		org.eclipse.xtend.sdk 2.4.0.v201303171536
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {

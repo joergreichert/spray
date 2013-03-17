@@ -42,10 +42,10 @@
 	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303171125.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303171125">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.xtext.sdk_2.4.0.v201303171111.jar" id="org.eclipse.xtext.sdk" version="2.4.0.v201303171111">
+	<feature url="features/org.eclipse.xtext.sdk_2.4.0.v201303171536.jar" id="org.eclipse.xtext.sdk" version="2.4.0.v201303171536">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.xtend.sdk_2.4.0.v201303171111.jar" id="org.eclipse.xtend.sdk" version="2.4.0.v201303171111">
+	<feature url="features/org.eclipse.xtend.sdk_2.4.0.v201303171536.jar" id="org.eclipse.xtend.sdk" version="2.4.0.v201303171536">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/org.eclipselabs.xtext.utils.unittesting.feature_0.9.3.201204261440.jar" id="org.eclipselabs.xtext.utils.unittesting.feature" version="0.9.3.201204261440">
