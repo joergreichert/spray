@@ -16,7 +16,7 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
-import org.eclipselabs.spray.xtext.generator.ImportUtil
+import org.eclipselabs.spray.xtext.generator.importmanager.ImportUtil
 import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipse.xtext.EcoreUtil2.*

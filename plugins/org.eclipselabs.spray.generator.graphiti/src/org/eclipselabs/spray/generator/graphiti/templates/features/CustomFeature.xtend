@@ -1,7 +1,7 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
 import org.eclipselabs.spray.mm.spray.CustomBehavior
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 

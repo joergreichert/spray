@@ -10,17 +10,14 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayConnection
 import org.eclipselabs.spray.runtime.graphiti.shape.DefaultSprayShape
-import org.eclipselabs.spray.shapes.generator.GeneratorConnectionDefinition
-import org.eclipselabs.spray.shapes.generator.GeneratorShapeDefinition
 import org.eclipselabs.spray.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.ShapeDefinition
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class ShapeJvmModelInferrer extends AbstractModelInferrer {
 
 	@Inject extension TypeReferences typeReferences
     @Inject extension JvmTypesBuilder
-    @Inject extension GeneratorShapeDefinition shapeGenerator
-    @Inject extension GeneratorConnectionDefinition connectionGenerator
     @Inject extension IJvmTypeProvider$Factory typeProviderFactory
 
    	def void infer(ShapeDefinition element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
@@ -70,19 +67,19 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
 	}	
 	
 	def dispatch String getPackageName(ShapeDefinition shapeDefinition) {
-		shapeGenerator.packageName
+		ProjectProperties::shapesPackage
 	}
 	
 	def dispatch String getPackageName(ConnectionDefinition connectionDefinition) {
-		connectionGenerator.packageName
+		ProjectProperties::shapesPackage
 	}	
 	
 	def dispatch String getClassName(ShapeDefinition shapeDefinition) {
-		shapeGenerator.className(shapeDefinition)
+		shapeDefinition.name.toFirstUpper
 	}
 	
 	def dispatch String getClassName(ConnectionDefinition connectionDefinition) {
-		connectionGenerator.className(connectionDefinition)
+		connectionDefinition.name.toFirstUpper
 	}	
 }
 

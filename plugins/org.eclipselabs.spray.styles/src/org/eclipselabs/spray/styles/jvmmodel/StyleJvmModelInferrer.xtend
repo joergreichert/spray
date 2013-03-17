@@ -9,18 +9,15 @@ import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
-import org.eclipselabs.spray.styles.generator.GradientGenerator
 import org.eclipselabs.spray.styles.Gradient
 import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayGradient
-import org.eclipselabs.spray.styles.generator.StyleGenerator
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class StyleJvmModelInferrer extends AbstractModelInferrer {
 
 	@Inject extension TypeReferences typeReferences
     @Inject extension JvmTypesBuilder
-    @Inject extension StyleGenerator styleGenerator
-    @Inject extension GradientGenerator gradientGenerator
     @Inject extension IJvmTypeProvider$Factory typeProviderFactory
 
 	def void infer(Style element, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
@@ -53,19 +50,19 @@ class StyleJvmModelInferrer extends AbstractModelInferrer {
 	}
 	
 	def dispatch String getPackageName(Style style) {
-		styleGenerator.packageName(style)
+		ProjectProperties::stylesPackage
 	}
 	
 	def dispatch String getPackageName(Gradient gradient) {
-		gradientGenerator.packageName(gradient)
+		ProjectProperties::gradientsPackage
 	}	
 	
 	def dispatch String getClassName(Style style) {
-		styleGenerator.className(style)
+		style.name.toFirstUpper
 	}
 	
 	def dispatch String getClassName(Gradient gradient) {
-		gradientGenerator.className(gradient)
+		gradient.name.toFirstUpper
 	}	
 	
 	def dispatch JvmTypeReference calculateSuperTypeRef(Style style) {

@@ -5,8 +5,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.service.AbstractGenericModule;
-import org.eclipselabs.spray.generator.graphiti.ui.util.EclipseFileSystemAccessUtil;
-import org.eclipselabs.spray.xtext.generator.IFileSystemAccessUtil;
+import org.eclipselabs.spray.runtime.xtext.ui.filesystem.EclipseFileSystemAccessUtil;
+import org.eclipselabs.spray.runtime.xtext.ui.filesystem.EclipseResourceFileSystemAccessExt;
+import org.eclipselabs.spray.xtext.generator.filesystem.IFileSystemAccessUtil;
 
 import com.google.inject.Binder;
 

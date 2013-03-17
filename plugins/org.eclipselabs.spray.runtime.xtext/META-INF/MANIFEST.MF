@@ -23,13 +23,18 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.3.0,2.4.0)";visibility:=ree
  org.eclipse.text;bundle-version="3.5.100",
  org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
  org.antlr.runtime,
- org.eclipse.jdt.core
+ org.eclipse.jdt.core,
+ org.eclipselabs.spray.generator.common
 Import-Package: org.apache.commons.logging,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.styles.postprocess,
  org.eclipselabs.spray.xtext.builder,
  org.eclipselabs.spray.xtext.generator,
+ org.eclipselabs.spray.xtext.generator.filesystem,
+ org.eclipselabs.spray.xtext.generator.formatting,
+ org.eclipselabs.spray.xtext.generator.importmanager,
+ org.eclipselabs.spray.xtext.generator.outputconfig,
  org.eclipselabs.spray.xtext.naming,
  org.eclipselabs.spray.xtext.scoping,
  org.eclipselabs.spray.xtext.util

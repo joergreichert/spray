@@ -4,12 +4,12 @@ import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.service.AbstractGenericModule;
-import org.eclipselabs.spray.generator.graphiti.formatting.CodeFormatterProvider;
-import org.eclipselabs.spray.generator.graphiti.formatting.JavaPostProcessor;
-import org.eclipselabs.spray.generator.graphiti.util.SprayOutputConfigurationProvider;
 import org.eclipselabs.spray.xtext.generator.IPostProcessor;
-import org.eclipselabs.spray.xtext.generator.ImportUtil;
-import org.eclipselabs.spray.xtext.generator.JavaIoFileSystemAccessExt;
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaIoFileSystemAccessExt;
+import org.eclipselabs.spray.xtext.generator.formatting.CodeFormatterProvider;
+import org.eclipselabs.spray.xtext.generator.formatting.JavaPostProcessor;
+import org.eclipselabs.spray.xtext.generator.importmanager.ImportUtil;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 
 import com.google.inject.Binder;
 import com.google.inject.Scopes;

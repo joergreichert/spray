@@ -1,16 +1,16 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipse.emf.ecore.EClass
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
+import org.eclipselabs.spray.mm.spray.CompartmentBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import org.eclipselabs.spray.mm.spray.SprayStyleRef
-import org.eclipselabs.spray.mm.spray.CompartmentBehavior
-import org.eclipse.emf.ecore.EClass
-import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     

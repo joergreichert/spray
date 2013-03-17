@@ -1,14 +1,14 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import com.google.inject.Inject
+import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.mm.spray.MetaClass
+import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
-import com.google.inject.Inject
-import org.eclipselabs.spray.mm.spray.ShapeFromDsl
-import org.eclipselabs.spray.mm.spray.ConnectionInSpray
-import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment
 
 class DirectEditFeature extends FileGenerator<MetaClass> {
 	

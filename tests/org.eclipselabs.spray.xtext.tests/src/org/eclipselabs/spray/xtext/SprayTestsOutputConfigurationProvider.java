@@ -3,7 +3,7 @@ package org.eclipselabs.spray.xtext;
 import java.util.Set;
 
 import org.eclipse.xtext.generator.OutputConfiguration;
-import org.eclipselabs.spray.generator.graphiti.util.SprayOutputConfigurationProvider;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 
 /**
  * Redirects output to System Temp folder

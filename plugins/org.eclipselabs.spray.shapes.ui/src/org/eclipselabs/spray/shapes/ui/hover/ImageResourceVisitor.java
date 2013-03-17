@@ -20,7 +20,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import static org.eclipselabs.spray.shapes.generator.ImageConstants.*;
+import static org.eclipselabs.spray.shapes.util.ImageConstants.*;
 
 public class ImageResourceVisitor implements IResourceVisitor {
 	private final Map<String, String> shapeToSvgPath;

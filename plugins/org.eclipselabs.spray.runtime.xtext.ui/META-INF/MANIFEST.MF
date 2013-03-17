@@ -18,4 +18,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.log4j
-Export-Package: org.eclipselabs.spray.runtime.xtext.ui.linking
+Export-Package: org.eclipselabs.spray.runtime.xtext.ui.filesystem,
+ org.eclipselabs.spray.runtime.xtext.ui.linking

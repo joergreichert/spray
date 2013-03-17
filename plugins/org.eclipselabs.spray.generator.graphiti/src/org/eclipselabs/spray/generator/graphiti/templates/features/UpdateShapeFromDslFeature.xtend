@@ -1,14 +1,14 @@
 package org.eclipselabs.spray.generator.graphiti.templates.features
 
 import com.google.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.templates.FileGenerator
+import org.eclipse.xtext.xbase.XExpression
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 import org.eclipselabs.spray.generator.graphiti.util.mm.DiagramExtensions
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import org.eclipse.xtext.xbase.XExpression
-import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
 
 /*
  * Template for generating Graphiti Update feature for a ContainerInSpray representing a MetaClass

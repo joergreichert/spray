@@ -12,7 +12,6 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory
 import org.eclipselabs.spray.generator.graphiti.templates.Filter
 import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule
-import org.eclipselabs.spray.generator.graphiti.templates.JavaGenFile
 import org.eclipselabs.spray.generator.graphiti.templates.Plugin
 import org.eclipselabs.spray.generator.graphiti.templates.PluginActivator
 import org.eclipselabs.spray.generator.graphiti.templates.PropertySection
@@ -50,6 +49,7 @@ import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 
 import static org.eclipselabs.spray.generator.graphiti.SprayGraphitiGenerator.*
 import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
 class SprayGraphitiGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
@@ -96,11 +96,11 @@ class SprayGraphitiGenerator implements IGenerator {
         //var String modelPath = resource.getURI().devicePath;
         //var String propertiesPath = StringHelpers::replaceLastSubstring(modelPath, "spray", "properties")
         if (!resource.URI.lastSegment().endsWith(ProjectProperties::SPRAY_FILE_EXTENSION)) {
-            LOGGER.info("Spray NOT generating Graphiti for model " + resource.URI)
+            LOGGER.info("Spray generator is NOT producing Graphiti code for model " + resource.URI)
             return;
         }
-        LOGGER.info("Spray generating Graphiti for model " + resource.URI)
-        
+        LOGGER.info("Spray generator is producing Graphiti code for model " + resource.URI)
+
         ProjectProperties::setModelUri(resource.URI)
 
         val JavaGenFile java = genFileProvider.get()

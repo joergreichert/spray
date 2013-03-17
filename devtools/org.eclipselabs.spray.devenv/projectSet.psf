@@ -58,13 +58,17 @@
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.runtime.xtext"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.runtime.xtext.ui"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.shapes"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.shapes.generator"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.shapes.mm"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.shapes.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.shapes.ui"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.shapes.generator.ui"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.styles"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.styles.generator"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.styles.mm"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.styles.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.styles.ui"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.styles.generator.ui"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,releng/org.eclipselabs.spray.targetplatform"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.testhelper"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,releng/org.eclipselabs.spray.updatesite"/>
@@ -85,11 +89,15 @@
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1323551392248_12" label="Spray Styles" name="Spray Styles">
 		<item elementID="=org.eclipselabs.spray.styles" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.styles.generator" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.styles.generator.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.styles.mm" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.styles.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1323551369329_11" label="Spray Shapes" name="Spray Shapes">
 		<item elementID="=org.eclipselabs.spray.shapes" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.shapes.generator" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.shapes.generator.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.shapes.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.shapes.mm" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
