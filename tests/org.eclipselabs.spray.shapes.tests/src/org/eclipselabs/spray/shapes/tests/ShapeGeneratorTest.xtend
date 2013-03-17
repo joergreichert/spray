@@ -17,7 +17,7 @@ import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
-class StyleGeneratorTest {
+class ShapeGeneratorTest {
 	@Inject extension ParseHelper<ShapeContainer> parseHelper
 	@Inject extension ShapeGenerator shapeGenerator
 	
@@ -99,7 +99,7 @@ class StyleGeneratorTest {
 				sprayStyle.getStyle(diagram).setStretchV(false);	   
 				
 				// layout data
-				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				SprayLayoutType containerLayout = SprayLayoutType.FIT;
 				SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
 				SprayLayoutService.getLayoutData(containerShape).setVisible(true);
 				
@@ -228,7 +228,7 @@ class StyleGeneratorTest {
 				sprayStyle.getStyle(diagram).setStretchV(false);	   
 				
 				// layout data
-				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				SprayLayoutType containerLayout = SprayLayoutType.FIT;
 				SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
 				SprayLayoutService.getLayoutData(containerShape).setVisible(true);
 				
@@ -357,7 +357,7 @@ class StyleGeneratorTest {
 				sprayStyle.getStyle(diagram).setStretchV(false);	   
 				
 				// layout data
-				SprayLayoutType containerLayout = SprayLayoutType.TOP;
+				SprayLayoutType containerLayout = SprayLayoutType.FIT;
 				SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
 				SprayLayoutService.getLayoutData(containerShape).setVisible(true);
 				
