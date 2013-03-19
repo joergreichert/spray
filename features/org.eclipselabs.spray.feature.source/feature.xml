@@ -92,6 +92,20 @@
          unpack="false"/>
 
    <plugin
+         id="org.eclipselabs.spray.shapes.generator.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.spray.shapes.generator.ui.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.eclipselabs.spray.styles.source"
          download-size="0"
          install-size="0"
@@ -100,6 +114,20 @@
 
    <plugin
          id="org.eclipselabs.spray.styles.ui.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.spray.styles.generator.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.spray.styles.generator.ui.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
