@@ -39,7 +39,7 @@ public class GraphitiGeneratorModule extends AbstractGenericModule {
     }
 
     public void configureJavaFormatterConfig(Binder binder) {
-        binder.bind(String.class).annotatedWith(Names.named(CodeFormatterProvider.JDT_FORMATTER_CONFIG)).toInstance("org/eclipselabs/spray/generator/graphiti/formatting/formatter.xml");
+        binder.bind(String.class).annotatedWith(Names.named(CodeFormatterProvider.JDT_FORMATTER_CONFIG)).toInstance("org/eclipselabs/spray/xtext/generator/formatting/formatter.xml");
     }
 
     public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
