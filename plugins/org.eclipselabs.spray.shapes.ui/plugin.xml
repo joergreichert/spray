@@ -191,12 +191,6 @@
     </extension>
 
    <extension
-         point="org.eclipse.xtext.builder.participant">
-      <participant
-            class="org.eclipselabs.spray.shapes.ui.ShapeExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
-      </participant>
-   </extension>
-   <extension
             point="org.eclipse.ui.preferencePages">
         <page
             category="org.eclipselabs.spray.shapes.Shape"

@@ -10,13 +10,13 @@
 	<extension
 	    point="org.eclipse.ui.keywords">
 	    <keyword
-	        id="org.eclipselabs.spray.styles.ui.keyword_Style"
-	        label="Style"/>
+	        id="org.eclipselabs.spray.shapes.ui.keyword_Shape"
+	        label="Shape"/>
 	</extension>
 	<extension
 			point="org.eclipse.ui.preferencePages">
 		<page
-		    	category="org.eclipselabs.spray.styles.Style"
+		    	category="org.eclipselabs.spray.shapes.Shape"
 		    	class="org.eclipselabs.spray.shapes.generator.ui.internal.ExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
 		    	id="org.eclipselabs.spray.shapes.Shape.compiler.preferencePage"
 		    	name="Compiler">
