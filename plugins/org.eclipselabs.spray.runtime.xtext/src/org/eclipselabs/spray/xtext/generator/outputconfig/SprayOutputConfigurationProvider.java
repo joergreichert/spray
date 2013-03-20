@@ -26,6 +26,7 @@ public class SprayOutputConfigurationProvider implements IOutputConfigurationPro
         srcGenOutput.setOverrideExistingResources(true);
         srcGenOutput.setCreateOutputDirectory(true);
         srcGenOutput.setCleanUpDerivedResources(true);
+        //        srcGenOutput.setCanClearOutputDirectory(true);
         srcGenOutput.setSetDerivedProperty(true);
         CONFIGURATIONS.add(srcGenOutput);
 

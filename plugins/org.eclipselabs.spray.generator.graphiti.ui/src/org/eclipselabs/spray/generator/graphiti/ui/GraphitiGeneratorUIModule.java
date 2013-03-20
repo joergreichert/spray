@@ -8,6 +8,7 @@ import org.eclipse.xtext.service.AbstractGenericModule;
 import org.eclipselabs.spray.runtime.xtext.ui.filesystem.EclipseFileSystemAccessUtil;
 import org.eclipselabs.spray.runtime.xtext.ui.filesystem.EclipseResourceFileSystemAccessExt;
 import org.eclipselabs.spray.xtext.generator.filesystem.IFileSystemAccessUtil;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 
 import com.google.inject.Binder;
 
@@ -16,6 +17,10 @@ public class GraphitiGeneratorUIModule extends AbstractGenericModule {
 
     public GraphitiGeneratorUIModule(AbstractUIPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    public Class<? extends org.eclipse.xtext.generator.IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+        return SprayOutputConfigurationProvider.class;
     }
 
     @Override

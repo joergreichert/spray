@@ -25,6 +25,7 @@ import org.eclipselabs.spray.shapes.ui.linking.shape.ShapeResourceVisitor;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleEditorOpener;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleResourceVisitor;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 import org.eclipselabs.spray.xtext.ui.builder.SprayBuilderParticipant;
 import org.eclipselabs.spray.xtext.ui.builder.SprayResourceDescriptionManager;
 import org.eclipselabs.spray.xtext.ui.contentassist.SprayJdtTypesProposalPriorities;
@@ -55,6 +56,10 @@ public class SprayUiModule extends AbstractSprayUiModule {
 
     public SprayUiModule(AbstractUIPlugin plugin) {
         super(plugin);
+    }
+
+    public Class<? extends org.eclipse.xtext.generator.IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+        return SprayOutputConfigurationProvider.class;
     }
 
     public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {

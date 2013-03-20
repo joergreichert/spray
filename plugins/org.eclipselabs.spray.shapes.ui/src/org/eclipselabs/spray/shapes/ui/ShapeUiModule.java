@@ -23,6 +23,7 @@ import org.eclipselabs.spray.shapes.ui.linking.StyleResourceVisitor;
 import org.eclipselabs.spray.shapes.ui.outline.ShapeOutlinePage;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeHighlightingConfiguration;
 import org.eclipselabs.spray.shapes.ui.syntaxcoloring.ShapeTokenToAttributeIdMapper;
+import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 
 import com.google.inject.Binder;
 
@@ -34,12 +35,16 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
         super(plugin);
     }
 
+    public Class<? extends org.eclipse.xtext.generator.IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+        return SprayOutputConfigurationProvider.class;
+    }
+
     public Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
         return ShapeTokenToAttributeIdMapper.class;
     }
 
     @Override
-	public void configure(Binder binder) {
+    public void configure(Binder binder) {
         super.configure(binder);
         binder.bind(TokenTypeToStringMapper.class).to(ShapeTokenToAttributeIdMapper.class);
     }
@@ -52,41 +57,41 @@ public class ShapeUiModule extends org.eclipselabs.spray.shapes.ui.AbstractShape
     public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
         return ShapeOutlinePage.class;
     }
-    
+
     @Override
     public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
         return ShapeLinkingHelper.class;
     }
-    
+
     public Class<? extends StyleEditorOpener> bindStyleEditorOpener() {
         return StyleEditorOpener.class;
     }
-    
+
     public Class<? extends StyleResourceVisitor> bindStyleResourceVisitor() {
         return StyleResourceVisitor.class;
     }
-    
-    public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
-		return ShapesEObjectHoverProvider.class;
-	}
 
-	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
-		return ShapesEObjectDocumentationProvider.class;
-	}   
-	
-	public Class<? extends ImageResourceVisitor> bindImageResourceVisitor() {
-		return ImageResourceVisitor.class;
-	}
-	
-	public Class<? extends IResourceDescription.Manager> bindIResourceDescription$Manager() {
-		return ShapeResourceDescriptionManager.class;
-	}	
-	
-	public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
-		return ShapeBuilderParticipant.class;
-	} 	
-	
+    public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+        return ShapesEObjectHoverProvider.class;
+    }
+
+    public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
+        return ShapesEObjectDocumentationProvider.class;
+    }
+
+    public Class<? extends ImageResourceVisitor> bindImageResourceVisitor() {
+        return ImageResourceVisitor.class;
+    }
+
+    public Class<? extends IResourceDescription.Manager> bindIResourceDescription$Manager() {
+        return ShapeResourceDescriptionManager.class;
+    }
+
+    public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
+        return ShapeBuilderParticipant.class;
+    }
+
     public Class<? extends TerminalsProposalProvider> bindTerminalsProposalProvider() {
         return TerminalsProposalProvider.class;
-    }	
+    }
 }
