@@ -18,11 +18,14 @@
 			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.0.201212170307"/>
 			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.0.v20130319-1346"/>
 			<unit id="org.eclipse.swt" version="3.102.0.v20130314-1502"/>
+			<repository location="http://download.eclipse.org/releases/staging"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.0.v201303201134"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.0.v201303201134"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.0.v201303191501"/>
 			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.0.v201303191413"/>
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.0.v201303200605"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.0.v201303200605"/>
-			<repository location="http://download.eclipse.org/releases/staging"/>
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.0.201303171125"/>
