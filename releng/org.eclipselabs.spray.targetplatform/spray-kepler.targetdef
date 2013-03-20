@@ -18,11 +18,14 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.gef.sdk 3.9.0.201212170307,
 		org.eclipse.zest.sdk 1.5.0.201212170307,
 		org.eclipse.graphiti.sdk.plus.feature 0.10.0.v20130319-1346,
-		org.eclipse.swt 3.102.0.v20130314-1502 noFeature,
+		org.eclipse.swt 3.102.0.v20130314-1502 noFeature
+	}
+	
+	"Xtext/Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases {
+		org.eclipse.xtext.sdk 2.4.0.v201303201134,
+		org.eclipse.xtend.sdk 2.4.0.v201303201134,
 		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201303191501,
-		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413,
-		org.eclipse.xtext.sdk 2.4.0.v201303200605,
-		org.eclipse.xtend.sdk 2.4.0.v201303200605
+		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/snapshots/ {
