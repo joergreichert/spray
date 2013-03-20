@@ -1,14 +1,12 @@
 package org.eclipselabs.spray.xtext.validation;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
@@ -46,12 +44,12 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
     /**
      * Add additional EReferences for type conformance validation of expressions.
      */
-    @Override
-    protected Set<EReference> getTypeConformanceCheckedReferences() {
-        Set<EReference> references = new HashSet<EReference>(super.getTypeConformanceCheckedReferences());
-        references.add(SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__VALUE);
-        return references;
-    }
+    //    @Override
+    //    protected Set<EReference> getTypeConformanceCheckedReferences() {
+    //        Set<EReference> references = new HashSet<EReference>(super.getTypeConformanceCheckedReferences());
+    //        references.add(SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__VALUE);
+    //        return references;
+    //    }
 
     @Check
     public void checkGenModelAvailable(MetaClass clazz) {
