@@ -129,7 +129,7 @@ public class SprayProjectCreator extends AbstractPluginProjectCreator {
 
     @Override
     protected List<String> getImportedPackages() {
-        return Lists.newArrayList("org.apache.log4j", "org.apache.commons.logging", "org.eclipse.xtext.xbase.lib", "org.eclipse.xtext.service", "org.eclipse.xtext.ui.editor", "org.eclipse.xtext.ui.guice", "org.eclipse.xtext.ui.resource", "org.eclipse.xtext.util");
+        return Lists.newArrayList("org.apache.log4j", "org.apache.commons.logging", "org.eclipse.xtext.xbase.lib", "org.eclipse.xtext.service", "org.eclipse.xtext.ui.editor", "org.eclipse.xtext.ui.guice", "org.eclipse.xtext.ui.resource", "org.eclipse.xtext.util", "org.eclipselabs.spray.styles.generator.util");
     }
 
     @Override
