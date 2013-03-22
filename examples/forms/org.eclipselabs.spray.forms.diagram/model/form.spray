@@ -1,0 +1,60 @@
+import Forms.*
+
+diagram forms for Form style FormDefaultStyle
+
+class Section {
+	shape SectionShape {
+		reference inputElements into sectionCompartment
+	} 
+	behavior {
+	    create into sections palette "Sections"
+	}
+}
+
+class InputField {
+	shape InputFieldShape {
+		text into nameId
+		constant "Input Text" into valueId
+	}
+	behavior {
+	    create palette "Input Types"
+	}
+}
+
+class PasswordField {
+	shape InputFieldShape {
+		text into nameId
+		constant "******" into valueId
+	}
+	behavior {
+	    create palette "Input Types"
+	}
+}
+
+class ButtonField {
+	shape ButtonShape {
+		text into nameId
+	}
+	behavior {
+	    create palette "Input Types"
+	}
+}
+
+class CheckboxField {
+	shape CheckBoxInputShape {
+		text into nameId
+		reference values into checkBoxCompartment
+	}
+	behavior {
+	    create palette "Input Types"
+	}
+}
+
+class CheckboxValues {
+	shape CheckBoxValueShape {
+		 value into valueId
+	}
+	behavior {
+	    create palette "CheckBox Input Types"
+	}
+}
