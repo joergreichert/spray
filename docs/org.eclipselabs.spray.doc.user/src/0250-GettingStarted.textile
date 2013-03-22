@@ -18,6 +18,8 @@ First we have to create or reuse a meta model of a business domain that can be r
 
 !images/GenModelGenerate.png!
 
+* Add the _model_ path to the build path --> _Select model Folder_, On the context menu _Build Path_ / _Use as Source Folder_ 
+* Add Xtext nature to the project --> _Select the project_, On the context menu _Configure_ / _Add Xtext nature_
 * Now you have to export the packages of the just generated classes: In the MANIFEST editor switch to the tab "Runtime" and "Add...". the three packages to the "Exported packages" section.
 * Use the quick fix to solve the problems in the MANIFEST.MF (sets the singleton directive) 
 
