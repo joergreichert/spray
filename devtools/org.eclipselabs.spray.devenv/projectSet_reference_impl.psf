@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+	<provider id="org.eclipse.egit.core.GitProvider">
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.ui"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/reference_impl/org.eclipse.xtext.example.fowlerdsl.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/reference_impl/org.eclipse.xtext.example.fowlerdsl.eef"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/fowlerdsl/FowlerDslTest"/>
+	</provider>
+	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1358358934930_95" label="Spray Example FowlerDSL Reference Implementation" name="Spray Example FowlerDSL Reference Implementation">
+		<item elementID="=org.eclipse.xtext.example.fowlerdsl.eef" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=FowlerDslTest" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipse.xtext.example.fowlerdsl.diagram.reference" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+	</workingSets>
+</psf>
