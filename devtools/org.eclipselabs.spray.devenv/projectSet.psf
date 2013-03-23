@@ -42,6 +42,7 @@
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.xtext"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,tests/org.eclipselabs.spray.xtext.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,plugins/org.eclipselabs.spray.xtext.ui"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,master,examples/one/org.mod4j.dsl.businessdomain.mm"/>
 	</provider>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219591752_7" label="Spray Runtime" name="Spray Runtime">
 		<item elementID="=org.eclipselabs.spray.runtime.graphiti.xtext" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
@@ -80,6 +81,7 @@
 		<item elementID="=org.eclipselabs.spray.styles.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.testhelper" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.xtext.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.mod4j.dsl.businessdomain.mm" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321710453624_22" label="Spray Docs" name="Spray Docs">
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.doc.dev" type="4"/>
