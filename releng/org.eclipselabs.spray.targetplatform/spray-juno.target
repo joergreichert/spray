@@ -20,6 +20,7 @@
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.3.0.v201206120758"/>
 			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.3.0.v201206110920"/>
 			<unit id="org.eclipse.swt" version="3.100.1.v4236b"/>
+			<unit id="org.eclipse.egit.feature.group" version="2.2.0.201212191850-r"/>
 			<repository location="http://download.eclipse.org/releases/juno"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -36,6 +37,11 @@
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
 			<repository location="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201303252114"/>
+			<unit id="org.eclipse.jdt.junit.runners.feature.feature.group" version="0.1.0.201303252037"/>
+			<repository location="http://meysholdt.github.com/Xpect/updatesite/xtext_2_3"/>
 		</location>
 	</locations>
 	<environment>

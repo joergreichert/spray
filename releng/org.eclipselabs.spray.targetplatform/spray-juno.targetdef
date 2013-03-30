@@ -18,7 +18,8 @@ TargetDefinition "Spray Target Platform - Eclipse 4.2"
 		org.eclipse.graphiti.sdk.plus.feature 0.9.2.v20130211-0913,
 		org.eclipse.emf.mwe2.language.sdk 2.3.0.v201206120758,
 		org.eclipse.emf.mwe2.runtime.sdk 2.3.0.v201206110920,
-		org.eclipse.swt 3.100.1.v4236b noFeature
+		org.eclipse.swt 3.100.1.v4236b noFeature,
+		org.eclipse.egit 2.2.0.201212191850-r
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site {
@@ -34,4 +35,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.2"
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
 		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440
+	}
+	
+	"Xpect" http://meysholdt.github.com/Xpect/updatesite/xtext_2_3 {
+		org.xpect.sdk 0.1.0.201303252114,
+		org.eclipse.jdt.junit.runners.feature 0.1.0.201303252037
 	}
