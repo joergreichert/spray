@@ -1,0 +1,8 @@
+application bpmn20 "BPMN 2.0: Receipt process"
+
+	page receiptDiagram
+	 	screens receiptDiagramEditor
+	 		"specification/userinterfaces/screens/example_bpmn20.PNG"
+	end page
+	
+end application

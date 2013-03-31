@@ -1,0 +1,160 @@
+package org.eclipselabs.spray.requirements.entities.bpmn20
+
+	entity BPMNModelElement
+		name : String
+		description : String
+		modelElements -> BPMNModelElement*
+	
+	entity BPMNEventStartDefault extends BPMNModelElement
+	
+	entity BPMNEventEndDefault extends BPMNModelElement
+	
+	entity BPMNEventEndUsed extends BPMNModelElement
+	
+	entity BPMNEventMail extends BPMNModelElement
+
+	entity BPMNEventMailDash extends BPMNModelElement
+	
+	entity BPMNEventMailDouble extends BPMNModelElement
+	
+	entity BPMNEventMailDoubleDash extends BPMNModelElement
+	
+	entity BPMNEventMailInvertDouble extends BPMNModelElement
+	
+	entity BPMNEventMailInvertBold extends BPMNModelElement
+	
+	entity BPMNEventTimerDefault extends BPMNModelElement
+	
+	entity BPMNEventTimerDash extends BPMNModelElement
+	
+	entity BPMNEventTimerDouble extends BPMNModelElement
+	
+	entity BPMNEventTimerDoubleDash extends BPMNModelElement
+	
+	entity BPMNEventEskalationStart extends BPMNModelElement
+	
+	entity BPMNEventEskalationDash extends BPMNModelElement
+	
+	entity BPMNEventEskalationDouble extends BPMNModelElement
+	
+	entity BPMNEventEskalationDoubelDash extends BPMNModelElement
+	
+	entity BPMNEventEskalationDoubelInvert extends BPMNModelElement
+	
+	entity BPMNEventEskalationBoldInvert extends BPMNModelElement
+	
+	entity BPMNEventIfDefault extends BPMNModelElement
+	
+	entity BPMNEventIfDash extends BPMNModelElement
+	
+	entity BPMNEventIfDouble extends BPMNModelElement
+	
+	entity BPMNEventIfDoubleDash extends BPMNModelElement
+	
+	entity BPMNEventLinkEntered extends BPMNModelElement
+	
+	entity BPMNEventLinkTriggerd extends BPMNModelElement
+	
+	entity BPMNEventErrorDefault extends BPMNModelElement
+	
+	entity BPMNEventErrorDouble extends BPMNModelElement
+	
+	entity BPMNEventErrorBoldInvert extends BPMNModelElement
+	
+	entity BPMNEventCancelDouble extends BPMNModelElement
+	
+	entity BPMNEventCancelBoldInvert extends BPMNModelElement
+	
+	entity BPMNEventCompensationDefault extends BPMNModelElement
+	
+	entity BPMNEventCompensationDouble extends BPMNModelElement
+	
+	entity BPMNEventCompensationDoubleInvert extends BPMNModelElement
+	
+	entity BPMNEventCompensationBoldInvert extends BPMNModelElement
+	
+	entity BPMNEventSignalDefault extends BPMNModelElement
+	
+	entity BPMNEventSignalDash extends BPMNModelElement
+	
+	entity BPMNEventSignalDouble extends BPMNModelElement
+	
+	entity BPMNEventSignalDoubleDash extends BPMNModelElement
+	
+	entity BPMNEventSignalDoubleInvert extends BPMNModelElement
+	
+	entity BPMNEventSignalBoldInvert extends BPMNModelElement
+	
+	entity BPMNEventMultiDefault extends BPMNModelElement
+	
+	entity BPMNEventMultiDash extends BPMNModelElement
+	
+	entity BPMNEventMultiDouble extends BPMNModelElement
+	
+	entity BPMNEventMultiDoubleDash extends BPMNModelElement
+	
+	entity BPMNEventMultiDoubleInvert extends BPMNModelElement
+	
+	entity BPMNEventMultiBoldInvert extends BPMNModelElement
+	
+	entity BPMNEventParallelDefault extends BPMNModelElement
+	
+	entity BPMNEventParallelDash extends BPMNModelElement
+	
+	entity BPMNEventParallelDouble extends BPMNModelElement
+	
+	entity BPMNEventParallelDoubleDash extends BPMNModelElement
+	
+	entity BPMNEventTermination extends BPMNModelElement
+	
+	entity BPMNActivityTask extends BPMNModelElement
+	
+	entity BPMNActivityTransaction extends BPMNModelElement
+	
+	entity BPMNActivityEventSubProcess extends BPMNModelElement
+	
+	entity BPMNActivityCallActivity extends BPMNModelElement
+	
+	entity BPMNGatewayXOR1 extends BPMNModelElement
+	
+	entity BPMNGatewayXOR2 extends BPMNModelElement
+	
+	entity BPMNGatewayEvent extends BPMNModelElement
+	
+	entity BPMNGatewayAnd extends BPMNModelElement
+	
+	entity BPMNGatewayOR extends BPMNModelElement
+	
+	entity BPMNGatewayComplex extends BPMNModelElement
+	
+	entity BPMNGatewayXEvent extends BPMNModelElement
+	
+	entity BPMNGatewayAndEvent extends BPMNModelElement
+	
+	entity BPMNConversationDefault extends BPMNModelElement
+	
+	entity BPMNConversationBold extends BPMNModelElement
+	
+	entity BPMNOneData extends BPMNModelElement
+	
+	entity BPMNListData extends BPMNModelElement
+	
+	entity BPMNDataStorage extends BPMNModelElement
+	
+	entity BPMNSequenceFlow extends BPMNModelElement
+		fromElement -> BPMNModelElement 
+		toElement -> BPMNModelElement 
+	
+	entity BPMNDefaultFlow extends BPMNModelElement
+		fromElement -> BPMNModelElement 
+		toElement -> BPMNModelElement 
+	
+	entity BPMNConditionalFlow extends BPMNModelElement
+		fromElement -> BPMNModelElement 
+		toElement -> BPMNModelElement 
+	
+	entity BPMNDataAssoziation extends BPMNModelElement
+		fromElement -> BPMNModelElement 
+		toElement -> BPMNModelElement 
+
+end package

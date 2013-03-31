@@ -1,0 +1,7 @@
+package org.eclipselabs.spray.requirements.entities.emf
+
+	entity EClass
+	entity EReference
+	entity EAttribute
+	
+end package

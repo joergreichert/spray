@@ -1,0 +1,26 @@
+package org.eclipselabs.spray.requirements.entities.^statemachine
+
+	entity Statemachine
+		states -> State* 
+		transitions -> Transition*
+	
+	entity State
+		name : String
+	
+	entity NormalState extends State
+		check : boolean
+		description : String
+	
+	entity StartState extends State
+		precondition : String
+	
+	entity FinishState extends State
+		postcondition : String
+	
+	entity Transition
+		name : String
+		fromState -> State
+		toState -> State
+		event : String
+
+end package

@@ -1,0 +1,213 @@
+datatype HAlign "LEFT or CENTER or RIGHT"
+datatype VAlign "TOP or MIDDLE or BOTTOM"
+datatype ConnectionStyle "freeform or manhatten"
+datatype AnchorPredefiniedEnum "center or corners"
+datatype TextType "text or wrapped-text"
+datatype CompartmentLayout "FIXED or VERTICAL or HORIZONTAL or FIT"
+
+package org.eclipselabs.spray.requirements.entities.shapes
+
+	import org.eclipselabs.spray.requirements.entities.styles.*
+	import org.eclipselabs.spray.requirements.entities.jvmtypes.*
+
+	entity ShapeContainer
+		imports -> Import* 
+		shapeContainerElement -> ShapeContainerElement* 
+	
+	entity Import
+		importedNamespace : String 
+	
+	entity ShapeContainerElement
+		name : String 
+		style -> ShapeStyleRef 
+	
+	entity ConnectionDefinition extends ShapeContainerElement
+		connectionStyle : ConnectionStyle 
+		layout -> ShapestyleLayout 
+		placing -> PlacingDefinition* 
+	
+	entity ShapeDefinition extends ShapeContainerElement
+		shapeLayout -> ShapeLayout 
+		shape -> Shape* 
+		description -> Description 
+		anchor -> Anchor 
+	
+	entity PlacingDefinition
+		offset : double 
+		distance : int
+		angle : int
+		shapeCon -> ShapeConnection
+	
+	entity Anchor
+		type -> AnchorType 
+	
+	entity AnchorType
+	
+	entity AnchorPredefinied extends AnchorType
+		value : AnchorPredefiniedEnum 
+	
+	entity AnchorManual extends AnchorType
+		position -> AnchorPosition* 
+	
+	entity AnchorPosition
+		pos -> AnchorPositionPos 
+	
+	entity AnchorPositionPos
+	
+	entity AnchorRelativePosition extends AnchorPositionPos
+		xoffset : double
+		yoffset : double
+	
+	entity AnchorFixPointPosition extends AnchorPositionPos
+		xcor : int 
+		ycor : int 
+	
+	entity Shape
+		style -> ShapeStyleRef 
+	
+	entity ShapeConnection
+		style -> ShapeStyleRef 
+	
+	entity CDLine extends ShapeConnection
+		layout -> LineLayout 
+	
+	entity CDPolyline extends ShapeConnection
+		layout -> PolyLineLayout 
+	
+	entity CDRectangle extends ShapeConnection
+		layout -> RectangleEllipseLayout 
+	
+	entity CDRoundedRectangle extends ShapeConnection
+		layout -> RoundedRectangleLayout 
+	
+	entity CDPolygon extends ShapeConnection
+		layout -> PolyLineLayout 
+	
+	entity CDEllipse extends ShapeConnection
+		layout -> RectangleEllipseLayout 
+	
+	entity CDText extends ShapeConnection
+		texttype : TextType 
+		layout -> TextLayout 
+		body -> TextBody 
+	
+	entity Line extends Shape
+		layout -> LineLayout 
+	
+	entity Polyline extends Shape
+		layout -> PolyLineLayout 
+	
+	entity Rectangle extends Shape
+		compartmentInfo -> CompartmentInfo 
+		layout -> RectangleEllipseLayout 
+		shape -> Shape* 
+	
+	entity RoundedRectangle extends Shape
+		layout -> RoundedRectangleLayout
+		shape -> Shape* 
+	
+	entity Polygon extends Shape
+		layout -> PolyLineLayout 
+		shape -> Shape* 
+	
+	entity Ellipse extends Shape
+		compartmentInfo -> CompartmentInfo 
+		layout -> RectangleEllipseLayout 
+		shape -> Shape* 
+	
+	entity Text extends Shape
+		texttype : TextType 
+		layout -> TextLayout 
+		body -> TextBody 
+	
+	entity CompartmentInfo
+		compartmentLayout : CompartmentLayout 
+		stretchH : boolean 
+		stretchV : boolean
+		spacing : int
+		margin : int
+		invisible : boolean
+		id -> TextBody
+	
+	entity Compartment
+		compartmentLayout : CompartmentLayout 
+		shape -> CompartmentShape 
+	
+	entity CompartmentShape
+		layout -> RectangleEllipseLayout 
+		id -> TextBody
+	
+	entity CompartmentRectangle extends CompartmentShape
+	
+	entity CompartmentRoundedRectangle
+		layout -> RoundedRectangleLayout 
+		id -> TextBody
+	
+	entity CompartmentPolygon
+		layout -> PolyLineLayout 
+		id ->TextBody
+	
+	entity CompartmentEllipse extends CompartmentShape
+	
+	entity Description
+		style -> ShapeStyleRef 
+		hAlign : HAlign 
+		vAlign : VAlign 
+		body -> TextBody 
+	
+	entity ShapeLayout
+		minwidth : int
+		minheight : int
+		maxwidth : int
+		maxheight : int
+		stretchH : boolean
+		stretchV : boolean
+		proportional : boolean
+	
+	entity RectangleEllipseLayout
+		common -> CommonLayout
+		layout -> ShapestyleLayout 
+	
+	entity LineLayout
+		point -> Point*
+		layout -> ShapestyleLayout
+	
+	entity PolyLineLayout
+		point -> Point* 
+		layout -> ShapestyleLayout 
+	
+	entity RoundedRectangleLayout
+		common -> CommonLayout 
+		curveWidth : int
+		curveHeight : int
+		layout -> ShapestyleLayout 
+	
+	entity TextLayout
+		common -> CommonLayout 
+		hAlign : HAlign 
+		vAlign : VAlign 
+		layout -> ShapestyleLayout 
+	
+	entity ShapestyleLayout
+		layout -> StyleLayout 
+	
+	entity ShapeStyleRef
+		javaStyle -> JvmTypeReference 
+		dslStyle -> Style 
+	
+	entity CommonLayout
+		xcor : int
+		ycor : int
+		width : int
+		heigth : int
+	
+	entity TextBody
+		value : String
+	
+	entity Point
+		xcor : int
+		ycor : int
+		curveBefore : int
+		curveAfter : int
+	
+end package	

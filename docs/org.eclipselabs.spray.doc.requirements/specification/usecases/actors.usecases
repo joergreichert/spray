@@ -1,0 +1,15 @@
+package org.eclipselabs.spray.requirements.actors
+
+	actors
+		SprayDeveloper 
+			"The person who provides bugfixes and new Spray features."
+		SprayBuildManager 
+			"The person who delivers new Spray releases / update sites."
+		DomainExpert 
+			"The person who defines the domain meta model."
+		DiagramEditorCreator
+			"The person who defines / generates the diagram editor for a given domain meta model."
+		DiagramEditorUser
+			"The person who uses the generated diagram editor to create a new domain model."
+
+end package

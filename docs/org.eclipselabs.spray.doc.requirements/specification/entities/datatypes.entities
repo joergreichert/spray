@@ -1,0 +1,5 @@
+datatype String "sequence of characters"
+datatype double "real number"
+datatype float "floating number"
+datatype int "Integer"
+datatype boolean "true or false"

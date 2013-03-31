@@ -1,12 +1,3 @@
-package org.eclipselabs.spray.requirements.actors
-
-	actors
-		DiagramEditorCreator
-		"The person responsible for defining the diagram editor"
-		DomainExpert "The person responsible for defining the domain model"
-end package
-
-
 package org.eclipselabs.spray.requirements.domain
 	import actors from org.eclipselabs.spray.requirements.actors
 
@@ -26,18 +17,86 @@ end package
 
 package org.eclipselabs.spray.requirements.diagrameditor
 	import actors from org.eclipselabs.spray.requirements.actors
-
+	import entities from org.eclipselabs.spray.requirements.entities.spray
+	import requirements from org.eclipselabs.spray.requirements.issues
+	import pages from SprayDiagramEditor
 
 	usecase UC1 "Create a new Spray project"
 		actors DiagramEditorCreator
 		preconditions "Domain model exists" requires
 			org.eclipselabs.spray.requirements.domain.UC1
-
+		requirements issue0021
+		pages Workbench, newWizardDialog 
+		
 		basic flow
-			step 1 "Define a project name"
-			step 2 "Define a location"
-		end flow with postcondition "postcondition"
+			step 01 "Open New Wizard dialog" on emptyWorkbench
+			step 02 "Select Spray project wizard" on projectWizardSelection
+			step 03 "Give a project name" on projectWizardComplete
+				alternatives
+					if "Should be other project name" 
+						then "Give a new project name" 
+				else if "Leave default project name" then
+			step 04 "Select project location" on projectWizardComplete
+				alternatives
+					if "Should be other project location" 
+						then "Select new project location" 
+				else if "Leave default location" then
+			step 05 "Select diagram type name (to be used by the generated diagram editor)" on projectWizardComplete
+				alternatives
+					if "Should be other diagram type name" 
+						then "Give new diagram type name" 
+				else if "Leave diagram type name derived from project name" then 
+			step 06 "Select meta model" on projectWizardComplete
+				alternatives
+					if "Ecore file is placed in workspace" 
+						then alternative flow "Select meta model from workspace" 
+							continue with step 07
+					if "Meta model should be selected from registered EPackages" 
+						then alternative flow "Select meta model from EPackage registry"
+							continue with step 07 
+				else 
+			step 07 "Select EMF generation model" on projectWizardComplete
+				alternatives
+					if "No meta model is selected" then continue with step 06 
+					if "Should be other EMF generation model" 
+						then alternative flow "Select EMF generation model from workspace"
+							continue with step 09 
+				else if "Leave genmodel file derived from selected meta model in step before" then 
+			step 09 "Select EClass (type) to use as root element for diagram model" on projectWizardComplete
+			step 10 "Select domain model file extension"
+				alternatives
+					if "Should be other file extension" 
+						then "Give new file extension" 
+				else if "Leave file extension derived from domain model EPackage name" then 
+			step 11 "Finalize Spray project wizard"
+		end flow with postcondition "Spray project created in workspace"
 
+		alternative flow "Select meta model from workspace" 
+			step 1 "Browse workspace" on projectWizardComplete
+			step 2 "Select Ecore file"
+		end flow with postcondition "meta model selected"
+
+		alternative flow "Select meta model from EPackage registry" 
+			step 1 "Browse registered EPackages" on projectWizardComplete
+			step 2 "Select meta model EPackage"
+		end flow with postcondition "meta model selected"
+			
+		alternative flow "Select EMF generation model from workspace" 
+			step 1 "Browse workspace" on projectWizardComplete
+			step 2 "Select genmodel file"
+		end flow with postcondition "genmodel file selected"
+		
+		exception flow "Invalid project name" if "Project name contains invalid characters" then 
+			step 1 "Remove invalid characters from project name" 
+		end flow with postcondition	"Spray project wizard uses a valid project name"
+			
+		exception flow "Duplicate project name" if "There is already a project in the workspace with the given name" then 
+			step 1 "Choose a different project name not used by any existing projects in the workspace" 
+		end flow with postcondition	"Spray project wizard uses a unique project name"
+
+		exception flow "Incomplete fields" if "Not all required fields of the wizard are filled" then 
+			step 1 "Fill all required fields in the wizard page with valid values" 
+		end flow with postcondition	"Spray project wizard is finalizable"
 	end usecase
 
 
@@ -79,6 +138,13 @@ package org.eclipselabs.spray.requirements.diagrameditor
 
 	usecase UC8 "Create a new diagram definition"
 		actors DiagramEditorCreator
+		entities Diagram
+		
+		basic flow
+			step 1 "Map domain model root to diagram" using Diagram
+			step 2 "Map domain model elements to nodes" using MetaClass
+				
+		end flow with postcondition "Diagram editor model defined"
 
 	end usecase
 end package

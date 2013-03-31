@@ -1,0 +1,49 @@
+package org.eclipselabs.spray.requirements.entities.lwc2012
+
+	entity LWCModelElement
+		name : String
+		description : String
+		modelElements -> LWCModelElement* 
+	
+	entity LWCHeatExchanger extends LWCModelElement
+	
+	entity LWCPipe extends LWCModelElement
+		fromElement -> LWCModelElement 
+		toElement -> LWCModelElement
+	
+	entity LWCSourceExhaustStart extends LWCModelElement
+		fromElement -> LWCSystemEnd 
+		toElement -> LWCModelElement
+		
+	entity LWCVesselVertical extends LWCModelElement
+	
+	entity LWCVesselHorizontal extends LWCModelElement
+	
+	entity LWCValve extends LWCModelElement
+	
+	entity LWCValveManuel extends LWCModelElement
+	
+	entity LWCValveControl extends LWCModelElement
+	
+	entity LWCPump extends LWCModelElement
+	
+	entity LWCPumpVacuum extends LWCModelElement
+	
+	entity LWCSystemEnd extends LWCModelElement
+	
+	entity LWCJoint extends LWCModelElement
+	
+	entity LWCLocationNoLine extends LWCModelElement
+		value : String
+	
+	entity LWCLocationSolidLine extends LWCModelElement
+		value : String
+	
+	entity LWCLocationDashLine extends LWCModelElement
+		value : String
+	
+	entity LWCSourceExhaustEnd extends LWCModelElement
+		fromElement -> LWCModelElement
+		toElement -> LWCSystemEnd
+
+end package

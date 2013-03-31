@@ -1,0 +1,11 @@
+package org.eclipselabs.spray.requirements.examples.bpmn20
+	import actors from org.eclipselabs.spray.requirements.actors
+
+	
+	usecase UC1 "Create new BPMN 2.0 diagram"
+		actors DiagramEditorUser
+		
+	end usecase
+		
+
+end package

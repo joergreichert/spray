@@ -1,0 +1,8 @@
+application petrinet "Elevator"
+
+	page elevatorDiagram
+	 	screens elevatorDiagramEditor
+	 		"specification/userinterfaces/screens/example_petrinet.PNG"
+	end page
+	
+end application

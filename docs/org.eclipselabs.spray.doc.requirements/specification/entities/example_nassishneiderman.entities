@@ -1,0 +1,32 @@
+package org.eclipselabs.spray.requirements.entities.nassishneiderman
+
+	entity Algorithm
+		sequence -> Sequence
+	
+	entity Sequence
+		case : String
+		blocks -> Block*
+	
+	entity Block
+	
+	entity ActionBlock extends Block
+		actionName : String
+		actionDescription : String
+	
+	entity BranchingBlock extends Block
+		condition : String
+		trueSequence -> Sequence
+		falseSequence -> Sequence
+	
+	entity MultipleBranchingBlock
+		sequences -> Sequence* 
+	
+	entity TestBlock extends Block
+		condition : String
+		sequence -> Sequence
+	
+	entity TestFirstBlock extends TestBlock
+	
+	entity TestLastBlock extends TestBlock
+	
+end package

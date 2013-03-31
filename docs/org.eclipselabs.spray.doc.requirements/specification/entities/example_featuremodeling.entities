@@ -1,0 +1,61 @@
+datatype ValueType "
+	FEATURE or
+	FLOAT or
+	INTEGER or
+	NONE or
+	STRING 
+"
+	
+datatype ConfigState "
+	USER_SELECTED or
+	USER_ELIMINATED or
+	MACHINE_SELECTED or
+	MACHINE_ELIMINATED or
+	UNDECIDED
+"
+
+package org.eclipselabs.spray.requirements.entities.featuremodeling
+
+	entity Feature extends Clonable
+		name : String
+		valueType : ValueType
+		configurations -> Feature*
+		references -> Reference* 
+		typedValue -> TypedValue
+		describedNode -> Node 
+		constraints -> Constraint*
+	
+	entity FeatureGroup extends Node
+	
+	entity Node
+		max : int
+		min : int
+		confs -> Node* 
+		origin -> Node
+		children -> Node* 
+		properties -> Feature
+		id : String
+	
+	entity Reference extends Clonable
+		feature -> Feature
+	
+	entity Project
+		model -> Feature 
+		metaModel -> Feature
+		metaMetaModel ->Feature
+	
+	entity TypedValue
+		integerValue : int
+		stringValue : String
+		floatValue : float
+		featureValue -> Feature
+	
+	entity Clonable extends Node
+		state : ConfigState
+		clones -> Clonable*
+		prototype -> Clonable
+	
+	entity Constraint
+		text : String
+
+end package

@@ -1,0 +1,8 @@
+application featureModeling "Minimal feature diagram"
+
+	page featureModelingDiagram
+	 	screens featureModelingDiagramEditor
+	 		"specification/userinterfaces/screens/example_featuremodeling.png"
+	end page
+	
+end application

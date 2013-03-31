@@ -1,0 +1,8 @@
+application lwc2012 "Heat exchanger"
+
+	page heatExchangerDiagram
+	 	screens heatExchangerDiagramEditor
+	 		"specification/userinterfaces/screens/example_lwc2012.PNG"
+	end page
+	
+end application

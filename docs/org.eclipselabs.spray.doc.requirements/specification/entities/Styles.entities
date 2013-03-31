@@ -1,0 +1,105 @@
+datatype GradientAllignment "HORIZONTAL or VERTICAL or NULL"
+
+datatype ColorConstants "
+	WHITE or
+	LIGHT_LIGHT_GRAY or
+	LIGHT_GRAY or
+	GRAY or
+	DARK_GRAY or
+	BLACK or
+	RED or
+	LIGHT_ORANGE or
+	ORANGE or
+	DARK_ORANGE or
+	YELLOW or
+	GREEN or
+	LIGHT_GREEN or
+	DARK_GREEN or
+	CYAN or
+	LIGHT_BLUE or
+	BLUE or
+	DARK_BLUE or
+	NULL
+"
+	
+datatype LineStyle "
+	SOLID or
+	DOT or
+	DASH or
+	DASHDOT or
+	DASHDOTDOT or
+	NULL
+"	
+
+datatype YesNoBool "YES or NO or NULL"
+
+
+package org.eclipselabs.spray.requirements.entities.styles 
+
+	import org.eclipselabs.spray.requirements.entities.jvmtypes.*
+
+	entity StyleContainer
+		styleContainerElement -> StyleContainerElement
+	
+	entity StyleContainerElement
+		name : String
+		description : String
+
+	entity Style extends StyleContainerElement
+		superStyle -> JvmTypeReference 
+		superStyleFromDsl -> Style
+		layout -> StyleLayout 
+
+
+	entity Gradient extends StyleContainerElement
+		layout -> GradientLayout 
+	
+	entity StyleLayout
+		transparency : double
+		background -> ColorOrGradient 
+		gradient_orientation : GradientAllignment 
+		highlighting -> HighlightingValues 
+		lineColor -> ColorWithTransparency 
+		lineWidth : int
+		lineStyle : LineStyle
+		fontName : String 
+		fontColor -> Color
+		fontSize : int
+		fontItalic : YesNoBool
+		fontBold : YesNoBool
+	
+	entity GradientLayout
+		area -> GradientColorArea* 
+	
+	entity HighlightingValues
+		selected -> ColorOrGradient 
+		multiselected -> ColorOrGradient 
+		allowed -> ColorOrGradient 
+		unallowed -> ColorOrGradient 
+	
+	entity GradientColorArea
+		color -> Color 
+		offset : double 
+	
+	entity ColorOrGradient
+	
+	entity ColorWithTransparency
+	
+	entity Color extends ColorWithTransparency
+	
+	entity RGBColor extends Color
+		red : int 
+		green : int 
+		blue : int
+	
+	entity GradientRef extends ColorOrGradient
+		gradientRef -> JvmTypeReference 
+		gradientRefFromDsl -> Gradient 
+	
+	entity ColorConstantRef extends Color
+		value : ColorConstants
+	
+	entity Transparent extends ColorWithTransparency
+		transparent : boolean
+
+end package

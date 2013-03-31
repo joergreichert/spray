@@ -1,0 +1,24 @@
+package org.eclipselabs.spray.requirements.entities.forms
+
+	entity Form
+		sections -> Section*
+	
+	entity Section
+		inputElements -> InputElement*
+	
+	entity InputElement
+		text : String
+	
+	entity InputField extends InputElement
+	
+	entity PasswordField extends InputElement
+	
+	entity CheckboxField extends InputElement
+		values -> CheckboxValues*
+	
+	entity CheckboxValues
+		value : String
+	
+	entity ButtonField extends InputElement
+
+end package

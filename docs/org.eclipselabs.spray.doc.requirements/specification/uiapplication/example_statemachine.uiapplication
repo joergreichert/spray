@@ -1,0 +1,8 @@
+application statemachine "Grandma's secret compartment"
+
+	page secretCompartmentDiagram
+	 	screens secretCompartmentDiagramEditor
+	 		"specification/userinterfaces/screens/example_statemachine.png"
+	end page
+	
+end application

@@ -1,0 +1,7 @@
+datatype JvmEnumerationLiteral
+
+package org.eclipselabs.spray.requirements.entities.jvmtypes
+	
+	entity JvmTypeReference
+	
+end package

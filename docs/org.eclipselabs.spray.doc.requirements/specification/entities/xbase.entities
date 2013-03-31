@@ -1,0 +1,5 @@
+package org.eclipselabs.spray.requirements.entities.xbase
+
+	entity XExpression
+	
+end package

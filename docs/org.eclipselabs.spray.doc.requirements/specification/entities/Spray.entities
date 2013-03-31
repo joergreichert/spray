@@ -1,0 +1,104 @@
+datatype Figure
+
+package org.eclipselabs.spray.requirements.entities.spray
+
+	import org.eclipselabs.spray.requirements.entities.jvmtypes.*
+	import org.eclipselabs.spray.requirements.entities.emf.*
+	import org.eclipselabs.spray.requirements.entities.xbase.*
+	import org.eclipselabs.spray.requirements.entities.shapes.*
+	import org.eclipselabs.spray.requirements.entities.styles.*
+	
+	entity Diagram extends NamedElement
+		imports -> Import*
+		modelType -> EClass
+		behaviourGroups -> BehaviorGroup*
+		metaClasses -> MetaClass
+		style -> SprayStyleRef
+	
+	entity ShapeInSpray extends SprayElement
+		alias : String
+		represents -> MetaClass 
+	
+	entity SprayElement extends NamedElement
+	
+	entity ConnectionInSpray extends ShapeInSpray
+		from -> EReference 
+		to -> EReference
+		connection -> ConnectionReference
+		properties -> ShapePropertyAssignment*
+	
+	entity MetaClass
+		alias : String
+		representedBy -> ShapeInSpray 
+		diagram -> Diagram 
+		references -> MetaReference* 
+		icon : String
+		behaviors -> Behavior*
+		behaviorGroups -> BehaviorGroup*
+		type -> EClass*
+		hasStyle -> Style 
+		style -> SprayStyleRef
+	
+	entity MetaReference extends SprayElement
+		representedBy -> ConnectionInSpray 
+		metaClass -> MetaClass 
+		target -> EReference 
+	
+	entity Behavior
+		name : String
+		metaClass -> MetaClass
+		label : String
+		paletteCompartment : String
+		realizedBy -> JvmTypeReference 
+	
+	entity CreateBehavior extends Behavior
+		containmentReference -> EReference 
+		askFor -> EAttribute 
+	
+	entity CustomBehavior extends Behavior
+	
+	entity BehaviorGroup extends SprayElement
+		behaviors -> Behavior*
+	
+	entity Import
+		importedNamespace : String* 
+	
+	entity NamedElement
+		name : String
+	
+	entity ShapeFromDsl extends ShapeInSpray
+		properties -> ShapePropertyAssignment*
+		references -> ShapeCompartmentAssignment*
+		shape -> ShapeReference 
+	
+	entity ShapePropertyAssignment
+		key -> ShapeDslKey
+		value -> XExpression
+		attribute -> EAttribute
+	
+	entity SprayStyleRef
+		javaStyle -> JvmTypeReference 
+		dslStyle -> Style 
+	
+	entity CompartmentBehavior extends Behavior
+		compartmentReference -> EReference* 
+	
+	entity ShapeCompartmentAssignment
+		value -> XExpression 
+		reference -> EReference 
+		shape -> ShapeFromDsl
+		shapeDslKey -> ShapeDslKey 
+	
+	entity ShapeReference
+		dslShape -> ShapeDefinition
+		jvmShape -> JvmTypeReference 
+	
+	entity ConnectionReference
+		jvmConnection -> JvmTypeReference 
+		dslConnection -> ConnectionDefinition 
+	
+	entity ShapeDslKey
+		jvmKey : JvmEnumerationLiteral 
+		dslKey : String 
+
+end package

@@ -1,0 +1,2118 @@
+package org.eclipselabs.spray.requirements.issues 
+	"This package contains all requirements grabbed in the Spray Google Code issues: http://code.google.com/a/eclipselabs.org/p/spray/issues/list"
+
+	requirement issue0001 "Patch for /wiki/Spray_DSL_Ideas.wiki" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Patch"
+	
+	requirement issue0002 "There is a path hard coded in JavaGenFile.java." 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0003 "Downgrade version to 0.1.0" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0004 "Add feature projects" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Task" "Component: Build"
+	
+	requirement issue0005 "Add Maven POMs" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Task" "Component: Build"
+	
+	requirement issue0006 "Use real cross-references for rule MetaClass" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL"
+	
+	requirement issue0007 "Enable referencing of IColorConstant instances as color" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Styles DSL"
+	
+	requirement issue0008 "Provide working SWTBot Tests for the example project" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Test" "Examples"
+	
+	requirement issue0009 "Derive grammar from Xbase" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Language"
+	
+	requirement issue0010 "Include dependent artifacts into p2-repository" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Task" "Component: Build"
+	
+	requirement issue0011 "Execute Xtext generator in the build" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Task" "Component: Build"
+	
+	requirement issue0012 "Change the path handling so the Graphiti generator can be used inside an automated build" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0013 "Xtend: use typeof() instead of instanceof in filter" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0014 "Use @Inject instead of new operator in Xtend" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority-Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0015 "Make generation of timestamps configurable in properties file" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Code generator" "Properties file"
+	
+	requirement issue0016 "Trigger generator on changing the properties file" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Code generator" "Properties file"
+	
+	requirement issue0017 "Integrate JDT Formatter" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement"
+	
+	requirement issue0018 "Task: Generate org.xspray.mm classes in the build process" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Task"
+	
+	requirement issue0019 "Installation instructions" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Documentation"
+	
+	requirement issue0020 "Missing package in example from CI build" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0021 "Provide Xspray new project wizard" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Spray project wizard"
+	
+	requirement issue0022 "The generation gap classes are placed in src-gen, should be placed in src" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0023 "DSL and generator does not support defining figures containing images" 
+		type functional
+		comment "Duplicate of issue0121"
+		status done 
+		labels "Priority: Medium" "Type: Enhancement"
+	
+	requirement issue0024 "Provide Spray diagram wizard" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Low" "Type: Enhancement" "Component: Code generator" "Spray project wizard"
+	
+	requirement issue0025 "Could not build Xspray locally" 
+		type functional
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0026 "MWE2 UI not installed in Spray SDK" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0027 "Rename projects to prefix org.eclipselabs.spray" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0028 "Add feature/plugin properties" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0029 "Add content assist for Icons" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: UI" "Usability"
+	
+	requirement issue0030 "Generated class names should start with capital letter" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0031 "Use ImportUtil to manage imports in templates" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0032 "Cannot open generated diagram editor" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: High" "Type: Defect" "Component: UI"
+	
+	requirement issue0033 "Move complete generator logic to o.e.s.generator.graphiti" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0034 "Allow user defined RGB color values" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Styles DSL"
+	
+	requirement issue0035 "Remove dependencies to Graphiti plugins from DSL plugins" 
+		type non-functional
+		comment	"The o.e.s.xtext.ui plugin has dependencies to the Spray Graphiti plugins. This dependency must be removed.
+
+				 It has to be investigated if the extension point org.eclipse.xtext.ui.shared.overridingGuiceModule can be used to achieve this."
+		stakeholder "Spray developer"
+		status ready
+		labels "Type: Task" "Priority: Low" "Plug-in structure"
+	
+	requirement issue0036 "Provide documentation plugin" 
+		stakeholder "Spray developer"
+		status done 
+		labels "Type: Task" "Component: Documentation"
+	
+	requirement issue0037 "Remove extension keyword" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language"
+	
+	requirement issue0038 "The referenced package 'http://www.eclipse.org/xtext/common/JavaVMTypes' was imported from a different location." 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0039 "Use spray.target in the build" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0040 "Error in code generation of CreateConnectionFeatures array in feature provider" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0041 "Upgrade to Tycho 0.13.0" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0042 "Compartments" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Component: Code generator" "Shapes DSL"
+	
+	requirement issue0043 "Compilation errors in wizard-generated project" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Spray project wizard"
+	
+	requirement issue0044 "Compilation errors in wizard-generated project: Couldn't resolve reference to JvmIdentifiableElement" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Spray project wizard"
+	
+	requirement issue0045 "Allow usage of genmodel in workspace" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language"
+	
+	requirement issue0046 "Couldn't resolve reference to Module 'org.eclipselabs.spray.xtext.generator.SprayGenerator'." 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0047 "mod4j-busmod.properties projectPath not consistent usable in build and in Eclipse" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build" "Properties file"
+	
+	requirement issue0048 "Sign Jars" 
+		type functional
+		comment "The resulting Jars are unsigned. We have to sign them in the build.
+				Question: Were to get a key from?
+				We would need a valid certificate. We won't get the funding yet. 
+				--> Postponed"
+		status open 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0049 "Upgrade to Xtext 2.1.0" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0050 "Palette contains group XXX" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Palette"
+	
+	requirement issue0051 "Code is not generated for example project" 
+		type functional
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0052 "Provide possibility to set the file extensions of the businessmodel" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Code generator"
+	
+	requirement issue0053 "Import org.eclipse.xtext.ecore is missing in graphiti generator" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Critical" "Type: Defect" "Component: Build"
+	
+	requirement issue0054 "Automatic code generation does not work in runtime eclipse" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Critical" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0055 "maven clean deletes org.eclipselabs.spray.xtext.jvmmodel.SprayJvmModelInferrer (java class)" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0056 "Plugin providers injection as singleton" 
+		type functional
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0057 "eContainer should be selectable for connection ends" 
+		type functional
+		comment	"The from and to attribute of a connection should accept eContainer.
+				This allows modelling connections for which one of the ends is the semantic container. E.g UML Generalization.
+				
+				class Generalizaton  :
+				    connection (width=1) [
+				        from eContainer;
+				        to general;
+				]
+				
+				Currently eContainer is not available, since it is an eOperation property of EObject Class and not an eStructuralFeature. "
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Medium" "Component: Language" "Spray DSL" "Component: Code generator" "Connection"
+	
+	requirement issue0058 "A business element should be attachable to diagrams" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Component: Code generator"
+	
+	requirement issue0059 "Vertical resize of containers is ignored" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0060 "Connections should have a container Property " 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Component: Code generator"
+	
+	requirement issue0061 "Custom Figures" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Shapes DSL"
+	
+	requirement issue0062 "Spray Editor must close when project closes" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: UI"
+	
+	requirement issue0063 "Files generated into folder with project name" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0064 "SprayUserGuide.pdf Install introduction update sites url wrong" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Documentation"
+	
+	requirement issue0065 "SprayUserGuide.pdf: Choose the Diagram Type busmod" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Documentation"
+	
+	requirement issue0066 "Language should use curly brackets" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Usability"
+	
+	requirement issue0067 "Develop Shapes DSL" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Type: Task" "Component: Language" "Shapes DSL" "Component: Code generator"
+	
+	requirement issue0068 "Improve default look and feel" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Type: Task" "Component: Code generator" "Usability" "Generated diagram editor"
+	
+	requirement issue0069 "Add aliases for Shape elements" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language"
+	
+	requirement issue0070 "Xtext Grammar shows error Cannot find compatible feature type in sealed EClass" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language"
+	
+	requirement issue0071 "Fix alias for metaclasses" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Type: Task" "Component: Code generator"
+	
+	requirement issue0072 "Improve formatter for the Spray DSL" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Enhancement" "Component: Language" "Spray DSL"
+	
+	requirement issue0073 "Class is regenerated in src-gen although it has been moved to src before" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0074 "Properties View does not work anymore" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Defect" "Generated diagram editor" "Component: Code generator" "Properties view"
+	
+	requirement issue0075 "alias specification not applied to property classes generation" 
+		type functional
+		comment "No fix needed: There is opnly one property sheet for a domain class,  therefore all aliases can use the property sheet of their domain class.  There is no need for a separate property sheet for an alias"
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0076 "Layout application not appropriate" 
+		type functional
+		comment "Won't fix: This old way of doing containers is now replaced by the compartments integrated into the shape DSL. This issue is therefore not relevant anymore."
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Enhancement" "Component: Language" "Shapes DSL" "Component: Code generator" "Generated diagram editor" "Compartments"
+	
+	requirement issue0077 "Palette definition not intuitive" 
+		type non-functional
+		comment	"When I first defined a diagram editor in the Spray DSL, I wrote something like that:
+				
+				class State :
+				   container  (  ) 
+				   {
+				      text (  )  { name };			
+				   }
+				
+				Then I opened the diagram editor and wondered, that there is no palette. I found out, that I have to define additionally
+				
+				   behavior {
+				      create palette \"PaletteName\";
+				   }
+				
+				I think this counterintuitive. First, an entry in the palette is essential. By default Graphiti defines the compartments Objects and Connections and put nodes in Objects and References in Connections. The Spray Generator always overrides the IPaletteCompartmentEntry[] getPalette() method in the ToolBehaviourProviderBase, so if you forget to define the palette, you get surprised. 
+				That the palette is managed as a behavior is a technical aspect of Graphiti and is not obvious to the user. 
+				
+				I would suggest defining palette this way:
+				
+				paletteCompartments {
+				   classes alias \"The classes\"
+				   references alias \"The references\"
+				} 
+				
+				class State :
+				   paletteCompartment classes
+				   container  (  ) 
+				   {
+				      text (  )  { name };			
+				   }
+				
+				If there is no palette compartments defined the getPalette() in ToolBehaviourProviderBase should not be overridden or at least the code in the overridden method should call super.getPalette().
+				
+				This is just a proposal, have your thoughts on it.
+				
+				Just a side note, the referenced attributes types there seems no way to define the palette compartment, they are always placed in a compartment named Create. With my proposal, you can write that:
+				
+				paletteCompartments {
+				   ...
+				   attributes alias \"The attributes\"
+				} 
+				
+				class ...:
+				   container ... {
+				      ...
+				      reference actions attribute name palette attributes
+				   }"
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Low" "Component: Language" "Spray DSL" "Usability" "Palette"
+	
+	requirement issue0078 "References should only be allowed to containment features" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL"
+	
+	requirement issue0079 "Provide ability of semantic validation in the diagrams" 
+		type functional
+		comment	"In Graphiti you can use decorators, e.g. add a warn or error marker to an element in the diagram when it violates certain semantic rules.
+
+				Spray should support such validations. The validation rules could be defined either 
+				 * in generated Java gap classes or
+				 * in the Spray DSL itself or 
+				 * if the domain model is Xtext based, their Java Validator might be reused
+				
+				
+				For defining decorators, the DefaultToolBehaviorProvider.getDecorators(PictogramElement pe) can be used.
+				
+				With  issue#93  XtextValidationDecoratorProvider is introduced. It implements the newly added interface IRenderingDecoratorProvider, which can be used from Spray specific tool behavior providers."
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Low" "Component: Language" "Spray DSL" "Validation"
+	
+	requirement issue0080 "Metamodel Cleanup" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Task" "Component: Language"
+	
+	requirement issue0081 "Upgrade to Xtext 2.1.1" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0082 "Rename Behaviour to Behavior" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Usability"
+	
+	requirement issue0083 "Spray UI Activator does not start when genmodel cannot be registered" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language"
+	
+	requirement issue0084 "default package name in Spray project wizard" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Spray project wizard"
+	
+	requirement issue0085 "Model EClass wizard" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Spray project wizard"
+	
+	requirement issue0086 "Please explain, how to support Graphiti default shapes" 
+		type functional
+		comment	"Currently there is already a rule Rectangle in the Spray DSL, but the generator does not handle it yet. I naively tried to implement a further dispatch createShape operation for type Rectangle, but ended up with a lot of compilation errors in other parts of the generated code. 
+				
+				There is lot of registrations and setting properties, I did not understand. For creating good looking diagrams (color gradients and so on), at least the default shapes should be supported. But for that, there must exist an understanding, how the code works and how the code can be (in first sight manually) extended to introduce rectangles.    
+				
+				        def dispatch createShape (Rectangle rectangle) '''
+				            «val varname = rectangle.shapeName.toFirstLower»
+				            // Part is Rectangle
+				            {
+				                String type = \"«rectangle.fullyQualifiedName»\";
+				                // create shape for text and set text graphics algorithm
+				                Shape «varname» = peCreateService.createShape(textContainer, false);
+				                Rectangle rectangle = gaService.createRectangle(getDiagram());
+				                rectangle.setBackground(manageColor(«rectangle.lineColor»));
+				                rectangle.setForeground(manageColor(«rectangle.fillColor»));
+				                gaService.setLocationAndSize(rectangle, 0, 0, 0, 0);
+				                peService.setPropertyValue(«varname», \"MODEL_TYPE\", type);
+				                peService.setPropertyValue(«varname», ISprayContainer.CONCEPT_SHAPE_KEY, ISprayContainer.RECTANGLE);
+				                // create link and wire it
+				                link(«varname», addedModelElement);
+				            }
+				        '''"
+		stakeholder "Spray Developer"
+		status open
+		labels "Type: Task" "Priority: Low" "Spray DSL" "Shapes DSL" "Component: Code generator"
+	
+	requirement issue0087 "Build fails while testing" 
+		status done 
+		stakeholder "Spray Developer"
+		labels "Operating System: Windows" "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0088 "New Spray Project Wizard and files without an extension" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Spray project wizard"
+	
+	requirement issue0089 "Copy generated plugin.xml to project root until deactivated" 
+		type functional
+		comment	"When starting with a new project, the plugin.xml is generated to the src-gen folder. It must be manually copied and merged to the project root.
+				
+				Usually during start up of a project it is not required to make manual changes, so the plugin.xml should be overwritten by default, until this feature is deactivated.
+				
+				This should be either be configured through the Spray properties file, or by leveraging Output configurations. This may also be combined, so that the runtime OutputConfigurationProvider evaluates the Spray properties file.
+				
+				there should be a property in properties file (and an option in the project creation wizard before):
+				
+				override.plugin.xml 
+				
+				with possible values:
+				 * yes: always overridden by each generation
+				 * no: never overridden by each generation
+				 * ask: show a confirmation dialog to the user to let him decide whether to override the file - this dialog should be only shown if the new plug-in.xml would differ from the existing one.
+				
+				alternative solution: http://5ise.quanxinquanyi.de/2013/01/11/avoiding-manual-merge-when-generating-plugin-xml-with-xtextxtend/?utm_source=rss&utm_medium=rss&utm_campaign=avoiding-manual-merge-when-generating-plugin-xml-with-xtextxtend"
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Defect" "Priority: Medium" "Component: Code generator" "Usability" "Properties file" "Spray project wizard"
+	
+	requirement issue0090 "Add Spray to Eclipse Marketplace" 
+		type functional
+		comment	"In order to get more installations of Spray the project should be integrated into the Eclipse Marketplace.
+				
+				According to the news there are already over 1 Million software installations done through the Marketplace.
+				[http://www.heise.de/open/meldung/Ueber-1-Million-Installationen-ueber-den-Eclipse-Marketplace-1377957.html]"
+		stakeholder "Spray developer"
+		status open
+		labels "Type: Task" "Priority: Medium" "Project marketing"
+	
+	requirement issue0091 "Evaluate ZEST Layout Feature" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Generated diagram editor"
+	
+	requirement issue0092 "Split CI builds" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Task" "Component: Build"
+	
+	requirement issue0093 "Introduce runtime plugin for Xtext related extensions" 
+		type functional
+		status done 
+		stakeholder "Spray developer"
+		labels "Type: Enhancement" "Plug-in structure"
+	
+	requirement issue0094 "Use xtend-maven-plugin, remove xtend-gen sources from repository" 
+		type functional
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Build"
+	
+	requirement issue0095 "Upgrade to Xtext 2.2.0"
+		status done  
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0096 "name in source.name cannot be resolved anymore"
+		status done  
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0097 "Creating a new project with Spray Wizard fails because RegisterPlatformGenmodelListener is null" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Spray project wizard"
+	
+	requirement issue0098 "Content propsoal in Styles DSL Editor causes exception" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Styles DSL" "Type: Defect" "Component: Language" "Component: UI"
+	
+	requirement issue0099 "Shape Generator runs on NPE" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Shapes DSL" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0100 "Styles postprocessor classes must be compiled in separate module" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: High" "Type: Defect" "Component: Code generator" "Styles DSL"
+	
+	requirement issue0101 "Compartment entry has no displayed name" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Generated diagram editor" "Component: Code generator"
+	
+	requirement issue0102 "Displayed shape name is incomplete" 
+		status done  
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Generated diagram editor" "Component: Code generator"
+	
+	requirement issue0103 "Shapes are not movable anymore" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Generated diagram editor" "Component: Code generator"
+	
+	requirement issue0104 "Metamodel import from developer workspace in DSL not resolvable" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Low" "Type: Defect" "Component: UI" "Component: Language" "Spray DSL"
+	
+	requirement issue0105 "Allow more than one connection reference with node definition" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Defect" "Component: Language" "Spray DSL"
+	
+	requirement issue0106 "Code generator assumes fix name attribute at EClass instances" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0107 "CreateConnectionFeature List in FeatureProvider lacks comma" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0108 "references to containments in the references {  } section of a class are not supported yet" 
+		type functional
+		status done 
+		comment "Won't fix: As this kind of container will be replaced by the new compartments in the shape DSL,  this issue is no longer relevant."
+		stakeholder "Diagram editor user"
+		labels "Priority: Low" "Type: Enhancement" "Component: Language" "Spray DSL" "Compartments"
+	
+	requirement issue0109 "Add implicit import for java.lang" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Shapes DSL"
+	
+	requirement issue0110 "Remove description attribute, use multi-line type functional comment instead" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Styles DSL"
+	
+	requirement issue0111 "Shape Formatter" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Shapes DSL" "Component: UI" "Usability"
+	
+	requirement issue0112 "Shape Outline" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: UI" "Shapes DSL"
+	
+	requirement issue0113 "SPRAY imports are not verified" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Validation"
+	
+	requirement issue0114 "Shape parameters shall be used in any assignment" 
+		type functional
+		comment	"shape FormShape(java.lang.String formqualified) {
+					 rectangle {
+					 	position(x=0,y=0)
+					 	size(width=60,height=20)
+					 	text {
+					 		align(horizontal=center, vertical=middle)
+					 		position(x=5, y=5)
+					 		size(width=60,height=20)
+					 		value=formqualified
+					 	}
+					 }
+					 
+					}
+					
+				Currently it is not possible to use a supplied parameter for position, width etc.
+					
+				Really nice would be:
+					
+					shape FormShape(java.lang.String formqualified, java.lang.Integer shapewidth) {
+					 rectangle {
+					 	position(x=0,y=0)
+					 	size(width=shapewidth,height=20)
+					 	text {
+					 		align(horizontal=center, vertical=middle)
+					 		position(x=5, y=5)
+					 		size(width=shapewidth,height=20)
+					 		value=formqualified
+					 	}
+					 }
+					 
+					}
+					
+				I'm aware of, that isn't that easy and raises further issues. On the other hand it opens many possibilities."
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Low" "Component: Language" "Shapes DSL" "Size & position"
+	
+	requirement issue0115 "Support arithmetic operations within shapes" 
+		type functional
+		comment	"shape FormShape(java.lang.String formqualified) {
+					 rectangle {
+					 	position(x=0,y=0)
+					 	size(width=60,height=20)
+					 	text {
+					 		align(horizontal=center, vertical=middle)
+					 		position(x=5, y=5)
+					 		size(width=60,height=20)
+					 		value=formqualified
+					 	}
+					 }
+					 
+					}
+					
+				Currently width etc are all integer constants. Nice would be to use arithmetic expressions. This would be very handy on complexer Shapes."
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Low" "Component: Language" "Shapes DSL" "Size & position"
+	
+	requirement issue0116 "Access to Graphiti Diagram Units" 
+		type functional
+		comment	"It would be very handy to have access to Graphiti Diagram Units."
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Medium" "Component: Language" "Shapes DSL" "Size & position"
+	
+	requirement issue0117 "Nested Shaped References" 
+		type functional
+		comment	"It would be very handy to have nested Shape References (Reuse of already defined shapes, or even externally defined shapes -- or even reference Shape Libraries)
+				
+				shape A {
+				  
+				}
+				
+				shape B {
+				}
+				
+				shape C {
+				  shape A {
+				    assignments
+				  }
+				  shape B {
+				    assignments
+				  }
+				}"
+		stakeholder "Diagram editor creator"
+		status in-progress
+		labels "Type: Enhancement" "Priority: Medium" "Component: Language" "Shapes DSL" "Compartments"
+	
+	requirement issue0118 "Allow import in shapes" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Shapes DSL"
+	
+	requirement issue0119 "icon path shall be relative to project root" 
+		type functional
+		comment "Won't fix: warning sufficient for missing icon"
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL"
+	
+	requirement issue0120 "Font-Selector shall also define selected size " 
+		type functional
+		comment	"Font-Selector is nice, but it should also define font-size etc. if data is available, which may not be the case on all plattforms, but shall not override existing values."
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Medium" "Component: Language" "Styles DSL" "Usability"
+	
+	requirement issue0121 "Shape: Image support is missing" 
+		type functional
+		comment	"There is not image support within shapes.
+				
+				shape <ShapeIdent> {
+				  image {
+				    ...
+				  }
+				}
+				
+				or 
+				
+				shape <ShapeIdent> {
+				  image(...)
+				}
+
+				The following code that is currently manually to write should be generated:
+				http://groups.google.com/group/spray-users/msg/1b3856103b6c7353"
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Medium" "Component: Language" "Shapes DSL"
+	
+	requirement issue0122 "Shape settings have no effect" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Shapes DSL"
+	
+	requirement issue0123 "Make generator extensible without need to change the source" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0124 "Spray Generators do not respect genmodel settings" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0125 "Installation instructions"
+		status done  
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Documentation" "Component: Build"
+	
+	requirement issue0126 "askFor has no effect for connections" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0127 "Couldn't resolve reference to root EClass of a model" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Critical" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0128 "Spray update site doesn't work anymore" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0129 "Installation into Eclipse Juno" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0130 "Add SVG Shape Generator" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Code generator" "Shapes DSL" "SVG"
+	
+	requirement issue0131 "Reduce plugin dependencies of Spray diagram plugin" 
+		stakeholder "Spray developer"
+		status done 
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0132 "Develop Spray Diagram for Shapes DSL" 
+		type functional
+		comment	"I got already multiple times feedback that a visual editor for Shapes would be desired. And why not develop such an editor with Spray itself? It should be doable with Spray and a good proof by eating our own dogfood."
+		stakeholder "Diagram editor creator"
+		status open
+		labels "Type: Enhancement" "Priority: Low" "Component: Language" "Shapes DSL" "Usability"
+	
+	requirement issue0133 "Switch from AbstractModelInferrer to IJvmDeclaredTypeAcceptor" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Code generator"
+	
+	requirement issue0134 "Installation of Spray via Release Update Site fails because of missing dependencies" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0135 "Spray cannot resolve reference to JvmIdentifiableElements like eClass and name when using custom ecore" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0136 "Xtext tests that do not suppress serialization fail on Windows" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Medium" "Type: Defect" "Component: Test" "Component: Build"
+	
+	requirement issue0137 "Unable to load ExecutableExtensionFactory" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Defect" "Component: Build" "Generated diagram editor"
+	
+	requirement issue0138 "Initially generated *DefaultStyle.java does not compile" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0139 "Install cannot be completed due to conflicting dependencies" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: High" "Type: Defect" "Component: Build"
+	
+	requirement issue0140 "Shape preview in Xtext hover" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Enhancement" "Component: Language" "Spray DSL" "Shapes DSL" "Component: UI" "Usability"
+	
+	requirement issue0141 "Context menu entry Show properties view predefined" 
+		type functional
+		comment	"A very common use case is to show the properties for a selected element in generated diagram editor. 
+
+				When the properties is not opened yet you currently have to use Window -> Show View -> Others -> General/Properties. 
+				
+				There should be a context menu entry available for every graphical element that should trigger to open respectively (re-)activate the properties view.
+				
+				This context menu entry could be proposed as predefined custom behavior inside the Spray DSL editor."
+		stakeholder "Diagram editor user"
+		status open
+		labels "Type: Enhancement" "Priority: Low" "Generated diagram editor" "Usability" "Properties view"
+	
+	requirement issue0142 "Enable linking to referenced domain model element" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0143 "Migrated connection DSL template proposal to new syntax" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0144 "Fix create behavior template askFor reference" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0145 "Adapt Spray DSL formatter to syntax changes" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0146 "Include all example projects into the automated build" 
+		comment	"Currently only org.eclipselabs.spray.examples.one is included. 
+				
+				The following projects have to be included:
+				* BPMN
+				 * de.htwg.2012.bpmn.mm
+				 * org.eclipselabs.spray.examples.bpmn
+				* LWC 2012
+				 * de.htwg.2012.lwc.mm
+				 * org.eclipselabs.spray.examples.lwc2012
+				* Petrinets
+				 * de.htwg.petrinet.mm
+				 * org.eclipselabs.spray.examples.petrinet
+				* Fowler DSL / Statemachine
+				
+				What actions are required for the inclusion?
+				* mavenize projects
+				* add mwe2 Workflows for starting the generators (style, shape, spray)
+				* clean up and extend projects if necessary (Fowler DSL, styles and shapes in example.one)
+				
+				A successful build of the example projects is always a helpful indicator of a working Spray.
+				* add to modules in releng pom"
+		stakeholder "Spray developer"
+		status open
+		labels "Type: Task" "Priority: High" "Examples" "Component: Build"
+	
+	requirement issue0147 "Document JaCoCo setup in Spray developer documentation" 
+		type non-functional
+		comment	"The Spray build supports code coverage measurement via JaCoCo. This should be documented in the Spray developer guide."
+		stakeholder "Spray developer"
+		status open
+		labels "Type: Task" "Priority: Low" "Component: Build" "Component: Documentation"
+	
+	requirement issue0148 "Document Sonar in Spray developer guide" 
+		type non-functional
+		comment	"The Spray build supports metrics collection via Sonar. This should be documented in the Spray developer guide. The guide should also cover which components are to exclude from investigation (how to exclude the generated code parts). Further the usage of Sonar (web interface as well as Eclipse plug-in) should be shown."
+		stakeholder "Spray developer"
+		status open
+		labels "Type: Task" "Priority: Low" "Component: Build" "Component: Documentation"
+	
+	requirement issue0149 "Investigate out of memory in xtend-maven-plugin in local build" 
+		status done 
+		stakeholder "Spray developer"
+		labels "Priority: Low" "Type: Task" "Component: Build"
+	
+	requirement issue0150 "Improve performance of domain model completion in Spray DSL" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Spray DSL" "Component: UI" "Performance"
+	
+	requirement issue0151 "comments in Shape and Styles DSL are not colored like comments" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Language" "Shapes DSL" "Styles DSL" "Component: UI"	
+
+	requirement issue0152 "A generated Spray projects in Juno still imports org.eclipse.xtext.xtend2.lib" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0153 "org.eclipselabs.spray.styles not included in generated MANIFEST.MF" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0154 "Empty compartment name for connection" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0155 "Prepare Spray 0.5 release" 
+		type non-functional
+		comment	"We should make a release of the current state of Spray as Spray 0.5.
+				
+				* refresh documentation (user, developer)
+				* fix tests
+				* Juno version
+				* Indigo version? (should a Indigo version maintained, what about branches, should the eclipse_juno branch switched to master, and the current master as eclipse_indigo?)
+				
+				* what about a Spray product build
+				
+				* other things."
+		stakeholder "Spray developer"
+		status open
+		labels "Type: Task" "Priority: High" "Component: Build" "Examples" "Component: Documentation" "Component: Test" "Quality assurance" "Release"
+	
+	requirement issue0156 "NPE at SprayScopeProvider.scope_Connection_from" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0157 "A bulk of PackageNotFoundExceptions after each Scope call" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0158 "Exception at save of diagram file edited with generated Graphiti editor" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0159 "ClassCastException when creating new diagram shape" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: UI" "Component: Language" "Shapes DSL"
+	
+	requirement issue0160 "Referencing a style definition has no effect" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0161 "Link referenced shapes and styles definition not only to the generated Java file" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Shapes DSL" "Styles DSL" "Component: UI"
+	
+	requirement issue0162 "Propose gradient definition also at style attribute within shape definition" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Language" "Shapes DSL"
+	
+	requirement issue0163 "Better auto completion support in Shape and Styles DSL" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Usability" "Component: Language" "Shapes DSL" "Styles DSL"
+	
+	requirement issue0164 "Sort / prioritize elements in proposals" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Enhancement" "Spray DSL" "Component: Language" "Component: UI" "Usability"
+	
+	requirement issue0165 "Write a concept / overview of all scenarios creating diagram elements" 
+		type functional
+		comment	"Currently there are quite a lot of restrictions in building up an domain model by creation of diagram elements. It should be documented inside the developer guide or in a wiki page, which creation scenarios are thinkable and whose of them are already support resp. what have to be done in Spray to enable the not yet supported scenarios.
+				
+				Some examples:
+				 * handling of containment and non-containment relationships in the domain meta model
+				 * handling of recursion in the domain meta model
+				 * handling of the scenario, where multiple diagram elements maps to one domain model element / feature
+				 * handling of the scenario, where one diagram element maps to multiple domain model elements / features
+				 * handling of the scenario, where the existence / appearance of a diagram element depends on value of domain model features
+				 * handling of the scenario, where the existence / appearance of a diagram element depends on the existence of a certain structure in the domain model
+				 * handling of the scenario, where the a domain model element appears for better visibility multiple times in a diagram (example: level that appears in multiple hierarchies)
+				 * handling of the scenario, where a containment relationship in the domain model is depicted as nested shapes in a diagram
+				 * handling of the scenario, where a containment relationship in the domain model is depicted by (styled) connection lines between diagram elements
+				 * other scenarios ..."
+		stakeholder "Spray developer"
+		labels "Type: Task" "Priority: Medium" "Component: Documentation" "Requirements engineering"
+	
+	requirement issue0166 "Write scoping and proposal tests" 
+		type functional
+		comment "use Xtext XPECT to define Scoping (and auto completion) tests"
+		status in-progress 
+		stakeholder "Spray developer"
+		labels "Type: Task" "Component: Test" "Component: Build"
+	
+	requirement issue0167 "Figures on the same level are marked as one would exeed the dimensions of the other" 
+		type functional
+		comment "The following shape is marked with the warning: \"The height of all subelements is bigger than max_height of the shape.\"
+				
+				shape MyShape {
+				     rectangle  {
+				         position(x=0,y=0)
+				         size(width=50,height=50)
+				     }
+				     ellipse {
+				         position(x=50,y=50)
+				         size(width=50,height=150)
+				     }     
+				}
+				
+				As the both figures have no common parent there should be no restriction in width and height (in Graphiti code these both figures may contained within a invisible rectangle that would receive the max dimension derived by width, height and position of its contained figures).
+				
+				Only in the following the construct the validation would be ok, as the ellipse is nested inside the rectangle and thus should not exceed the dimensions of its containing figure:
+				
+				shape MyShape2 {
+				     rectangle  {
+				         position(x=0,y=0)
+				         size(width=50,height=50)
+				         ellipse {
+				             position(x=5,y=5)
+				             size(width=50,height=50)
+				         }     
+				     }
+				}
+				
+				If you have a look at the org.eclipselabs.spray.shapes.validation.ShapeJavaValidator that works with global variables, you see how tricky the calculation of the validation is."
+		stakeholder "Diagram editor creator"
+		status open 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Shapes DSL" "Validation"
+	
+	requirement issue0168 "Enable definition of connection by given start and end element" 
+		type functional
+		comment "Currently there must exist a domain meta model element that can be mapped to a connection. This domain meta model element holds references to the start and the end element. But the more common case is, that there two elements that have uni- o bi-directional association to each other without such an extra third element.
+				
+				In the DSL it should be possible, to write something like this:
+				
+				classes Element1 alias e1, Element2 alias e2 {
+				    connection  ( )
+				    {
+				        from e1.element2Reference // this is the reference of type Element2
+				        to   e2.element1Reference // this is the reference of type Element1
+				    }
+				}
+				
+				In the example above there is a bi-directional association between Element1 and Element2 assumed. Note that there might be different association roles between Element1 and Element2 defined like Person.parents->Person*, Person.siblings->Person*
+				
+				The following example shows the case when there is only a uni-directional relationship from Element2 to Element1, i.e. Element1 does not know that it is referenced by Element2:
+				
+				classes Element1 alias e1, Element2 alias e2 {
+				    connection  ( )
+				    {
+				        from e1 // this is the reference of type Element2
+				        to   e2.element1Reference // this is the reference of type Element1
+				    }
+				}
+				
+				If there is only one relationship feature on each Element of the corresponding type the relationship feature may left off in the definition:
+				
+				classes Element1 alias e1, Element2 alias e2 {
+				    connection  ( )
+				    {
+				        from e1 // this is the reference of type Element2
+				        to   e2 // this is the reference of type Element1
+				    }
+				}
+				
+				This is currently possible using:
+				
+				class BusinessClass alias FullClass {
+				      container  ( fill=dark_green ) 
+				    {
+				          text ( )  { \"<<\"+eClass.name+\">> \" + name};
+				    }   
+				    references {   
+				         superclass : connection( )
+				    }
+				    behavior {
+				        create into types palette \"Shapes\"  askFor name ; 
+				    }
+				
+				The superclass is just an EReference in the domain model.  I think it makes sense to define this inside the meta class in which the reference is defined, as is done here."
+		stakeholder "Diagram editor creator"
+		status open 
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Spray DSL" "Connection"
+	
+	requirement issue0169 "Enable creation of element that are not direct children of the model root" 
+		type functional
+		comment "Domain model:
+				
+				A <>-ab- B
+				B <>-bc- D
+				
+				Currently it is only possible to define 
+				
+				diagram aDiagram for A
+				
+				class B {
+				   ...
+				   behavior {
+				       create into ab palette \"Elements\";
+				   }
+				}
+				
+				but it is not possible yet to define 
+				
+				class C {
+				   ...
+				   behavior {
+				       create into ab.bd palette \"Elements\";
+				   }
+				}
+				
+				(with ab.bd navigating from A to C over B, in the diagram the representation of C have to be nested into the representation of B).
+				
+				Jos' answer: The ab.cd is only clear when you know from which B you start when creating a C.  So you need to drag the C on top of  B to create it,  but then it would logically be rendered inside the B shape.  This is how it works with compartments now.  Howe else would you know to which B to add C.
+				Children of other nodes (except root) can be created inside compartments of their parent node."
+		stakeholder "Diagram editor creator"
+		status open 
+		labels "Priority: Medium" "Type: Enhancement" "Component: Language" "Spray DSL" "Compartments"
+	
+	requirement issue0170 "Catch NPEs in model inferrer code" 
+		type functional
+		comment "Won't fix: moved away from model inferer for now"
+		status done
+		stakeholder "Spray developer" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Component: Build"
+	
+	requirement issue0171 "Provide trace model for shape and style DSL" 
+		type functional
+		comment "By switching style and shape DSL to use a model inferrer it would be nice to insert trace points in the model inferrer code to enable debugging between Shape DSL and generated Shape Java class resp. Style DSL and generated Style Java class."
+		status open 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Enhancement"
+	
+	requirement issue0172 "Add dynamic compartments to Shapes DSL" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: High" "Type: Task" "Component: Code generator" "Component: Language" "Shapes DSL" "Generated diagram editor" "Compartments"
+	
+	requirement issue0173 "Fix documentation before 0.5 release" 
+		status open 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Task" "Component: Documentation"
+	
+	requirement issue0174 "Add wizard option to decide about one file or two file model variant" 
+		type functional
+		comment "Won't fix: In would like to reject this issue.  Having the domain model stored in the same resource as the Graphiti model is nice for making a quick example,  but these two things should in practice always be separated. I think it is bad design to combine them."
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Low" "Type: Enhancement" "Component: Code generator" "Spray project wizard" "Generated diagram editor"
+	
+	requirement issue0175 "Have a look at setDoneChanges(true) in CreateFeature of Connections" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0176 "Renable SVG generator after switch to model inferrer in Shapes DSL" 
+		status done
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "SVG"
+	
+	requirement issue0177 "Enable linking to style and gradients under their simple name" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Shapes DSL" "Spray DSL" "Component: UI" "Usability"
+			
+	requirement issue0178 "Remove workaround for Duplicate JVMIdentifiableElement" 
+		comment "Won't fix: moved away from model inferer for now"
+		status done 
+		stakeholder "Spray developer" 
+		labels "Priority: Low" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0179 "Make Maven build work under Windows for projects using model inferrer" 
+		type functional
+		comment "fixed: moved away from model inferer for now"
+		status done 
+		stakeholder "Spray developer" 
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0180 "IllegalArgumentException in DefaultSprayStyle" 
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0181 "Fix coordinates for SVG generation" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Type: Task" "Component: Code generator" "Shapes DSL" "SVG"
+	
+	requirement issue0182 "Compartments can also be other shapes than rectangles" 
+		type functional
+		comment "Currently a compartment is a rectangle (hard-coded). Instead the user should be able to define any closed shape (rectangle, rounded-rectangle, ellipse, polygon) as a compartment.  Need to add this option to the DSL and to the code generator"
+		status ready 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Task" "Component: Code generator" "Component: Language" "Shapes DSL" "Compartments"
+	
+	requirement issue0183 "Nested compartments are selectable " 
+		type functional
+		status done 
+		stakeholder "Diagram editor user"
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Component: Language" "Shapes DSL" "Compartments" "Generated diagram editor"
+	
+	requirement issue0184 "SVG-generation folder" 
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Code generator" "Shapes DSL" "SVG"
+	
+	requirement issue0185 "Gradient, Style and Shape Generator should support Generation Gap Pattern" 
+		type functional
+		comment "The artifacts generated from the Spray DSL follow the Generation Gap Pattern, so that there is a base and a gap class generated for each artifact, where the Gap class may moved to src folder to adapt it with manually written code. 
+				
+				This should be true also for the artifacts derived from Gradient, Style and Shape definition."
+		status in-progress 
+		stakeholder "Diagram editor creator"
+		labels "Type: Task" "Component: Code generator" "Shapes DSL" "Styles DSL"
+	
+	requirement issue0186 "Gradient, Style and Shape generator should respect *.properties file entries" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Low" "Type: Defect" "Component: Code generator" "Shapes DSL" "Styles DSL" "Properties file"
+	
+	requirement issue0187 "Integrate Xtext builder participants of DSLs with each other" 
+		comment "Currently the builder participants / generators of the different DSLs do know nothing about each other. So a change e.g. in the Style DSL that has no effect to references to style definitions in other DSLs may break the Java code basis as the generated Style Java code may not be compatible to the other generated Java code that uses this code. 
+				
+				So it would be best practice to always trigger the generator for all DSL artifacts that are potentially affected by the change in a DSL artifact, e.g. the Shape generator is also invoked when a style has changed as a shape can reference a style.
+				
+				
+				scenarios:
+				
+				1.  *.style file changed
+				1.1 style file contains only style definitions
+				    * (re-)generate the Java file for the style definition
+				    * if a style name has changed (or even deleted) this makes all elements dirty that references this style (as the reference should be broken then):
+				      * style definitions that have defined this style as super style
+				      * shape and connection definitions that references this style
+				      * mapping definitions in .spray files that references this style
+				    * if the style references a gradient that has been not generated yet in Java this generation should be triggered within this build
+				    * if the style references a super style that has been not generated yet in Java this generation should be triggered within this build
+				1.2 style file contains only gradient definitions
+				    * (re-)generate the Java file for the gradient definition
+				    * if a gradient name has changed (or even deleted) this makes all elements dirty that references this gradient (as the reference should be broken then):
+				      * style definitions that references this gradient
+				1.3 style file contains gradient and style definitions
+				    * apply first 1.2 and then 1.1 as styles may depend on existing Gradient Java files
+				2.  *.shape file changed
+				    * (re-)generate the Java file for the shape definition
+				    * if a shape name has changed (or even deleted) this makes all elements dirty that references this shape (as the reference should be broken then):
+				      * mapping definitions in .spray files that references this shape
+				    * if the shape references a style that has been not generated yet in Java this generation should be triggered within this build
+				3.  *.spray file changed
+				    * (re-)generate the Java files derived from the mapping definitions (i.e. all Graphiti feature classes as well as some more Graphiti related classes)
+				    * if in the Spray file a style is referenced that has been not generated yet in Java this generation should be triggered within this build
+				    * if in the Spray file a shape is referenced that has been not generated yet in Java this generation should be triggered within this build
+				4.  domain model changed
+				    * this should make Spray files dirty that references elements from the domain model
+				5.  Workspace start
+				    * it should be checked if there already Java files generated for .spray, .shape and .style files contained in a project if not so, the generation should be triggered (so it is not necessary to make existing files dirty or call explicitly clear project to trigger the generation) - this check could be done e.g. in the Activator class"
+		status ready 
+		stakeholder "Diagram editor creator"
+		labels "Priority: Medium" "Type: Enhancement" "Component: Code generator" "Component: UI"
+	
+	requirement issue0188 "SVG-Generator Bugs (Size and Compartments)" 
+		type functional
+		comment " * fixed position calculation (absolute and container relative works now)
+				 * added style interpretation (currently only directly annotated style
+				information)
+				 * added connection decoration interpretation
+				 * still missing: 
+				  * font attribute interpretation
+				  * interpretation of text align
+				  * interpretation of placing's radius and angle, 
+				  * referenced style interpretation
+				  * gradients interpretation
+				  * color interpretation based on numbers"
+		status in-progress 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Shapes DSL" "Styles DSL" "SVG" "Compartments"
+	
+	requirement issue0189 "Using Container and Shape together" 
+		type functional
+		comment "Hi,
+				
+				I'm trying to use the Container object with a Shape.
+				
+				Something like this:
+				
+				container()
+				{
+				    shape myDecoratingShape {}
+				    
+				    text ( ) { \"<<\"+capabilityName+\">>\" }
+				    reference measurements attribute measurementName;
+				}
+				
+				The problem is when I put a Shape (containing rectangles, etc...) inside a container and attempt to draw it,
+				all I get is a line.
+				
+				I suppose what I really want to do is embed the container within the shape its self.
+				
+				Is this possible and if so how do you go about doing it?
+
+				Jos' answer: Shapes and containers cannot be used together at this moment. I am working on integrating the containers into the shape DSL to allow exactly what you want. See issue http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=172."
+		status ready
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Enhancement" "Compartments" "Component: Language" "Spray DSL" "Shapes DSL" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0190 "Define shape and style for anchors" 
+		type functional
+		comment "Anchors currently are circles with light grey fill.  It would ne nice to be able to use other shapes as anchors and to give them a style."
+		status ready 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Low" "Type: Enhancement" "Component: Code generator" "Component: Language" "Shapes DSL"
+	
+	requirement issue0191 "Spray model editor gets weird eception if properties file does not exist" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Critical" "Type: Defect" "Component: Code generator" "Component: UI" "Properties file"
+	
+	requirement issue0192 "Reference to EClass cannot be resolved in Juno Modelling + Graphiti + Spray" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0193 "Unhandled parameter types: [null] in SVG generator" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "SVG" "Component: Code generator"
+	
+	requirement issue0194 "Moving of elements not working" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Component: Code generator" "Operating System: All" "Priority: Critical" "Type: Defect" "Generated diagram editor"
+	
+	requirement issue0195 "AbortCompilation: Pb(324) - class cannot be resolved, indirectly referenced" 
+		status ready
+		comment "I've had seen this from time to time, too. Maybe a problem with type inference, where the return type of method should be defined explicitly or there is a dependent library missing on the classpath, I will have a look at it.
+				
+				https://bugs.eclipse.org/bugs/show_bug.cgi?id=352706" 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0196 "NPE in adjustPriority(...)" 
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0197 "Change documentation to use compartments" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Task" "Component: Documentation" "Compartments" "Spray DSL" "Shapes DSL"
+	
+	requirement issue0198 "Allow the user to change the order of the shapes in a compartment" 
+		type functional
+		comment "From Fabio:  In a compartment the order of the shapes currently always is the order in which they were added.  It would be useful to allow users to change this order. E.g. you start with
+				
+				Class: MyClass
+				-          PropertyOne
+				-          PropertyTwo
+				
+				Now the user wants to switch this properties in a different way (PropertyTwo before PropertyOne)
+				
+				MyClass
+				-          PropertyTwo
+				-          PropertyOne"
+		status ready 
+		stakeholder "Diagram editor user" 
+		labels "Type:Enhancement" "Compartments" "Spray DSL" "Shapes DSL" "Generated diagram editor" "Component: Code generator"
+	
+	requirement issue0199 "Class cast exception in style DSL" 
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Styles DSL" "Component: UI"
+	
+	requirement issue0200 "Fix outline views" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Type: Task" "Component: UI" "Component: Language" "Shapes DSL" "Styles DSL" "Spray DSL"
+			
+	requirement issue0201 "Constant generated with white spaces" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Low" "Type: Defect" "Spray DSL" "Component: Code generator"
+	
+	requirement issue0202 "Write automated tests for the generated diagram editors" 
+		status open 
+		comment "There are currently some bugs in the generated diagram editors that should be disovered inside the automated build.
+				
+				I have checked in some example diagram projects done with our example DSL projects:
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.diagrams
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagrams
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagrams
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.diagrams
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/examples/one/org.eclipselabs.spray.examples.one.diagrams
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/examples/petrinet/org.eclipselabs.spray.examples.petrinet.diagrams
+				
+				For how to test, see the following resources:
+				
+				Graphiti Dark Feature Processing
+				 * http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.graphiti.doc%2Fresources%2Fdocu%2Fgfw%2Fdark-feature-processing.htm
+				 * http://5ise.quanxinquanyi.de/2012/08/06/testing-graphiti-applications-with-dark-feature-processing/
+				
+				Graphiti SWTBot Tests
+				 * http://git.eclipse.org/c/gmp/org.eclipse.gmp.graphiti.git/tree/tests/org.eclipse.graphiti.bot.tests
+				 * I (Joerg) actually developed some Graphiti SWTBot tests to, I should make the generic factored out super/helper classes available to Spray
+				
+				See also the already existing SWTBot test for the Spray wizard (that currently fails)
+				 * http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=8
+				 * http://code.google.com/a/eclipselabs.org/p/spray/source/browse/tests/org.eclipselabs.spray.examples.one.tests/pom.xml
+				
+				
+				The tests should be part of the example project builds: After having build the diagram DSL project an Eclipse instance should be started with the just build diagram DSL plug-in and creating a new diagram, adding and updating shapes should be tested either as SWTBot tests or dark feature processing tests.
+				
+				For test concepts see here:
+				https://spray.ci.cloudbees.com/job/spray-docs-build/lastSuccessfulBuild/artifact/docs/org.eclipselabs.spray.doc.dev/docs/html/SprayDeveloperGuide.html#TestingthegeneratedGraphitieditor"
+		stakeholder "Spray developer" 
+		labels "Type: Task" "Component: Test" "Component: Code generator"
+	
+	requirement issue0203 "Drag and drop of shapes only takes the top shape" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0204 "Default implementation for associating EObjects to associations" 
+		type functional
+		comment "I just tested this a week ago, there seem to be no EObjects linked with connections so they appear as red dotted lines:
+				
+				http://spray.eclipselabs.org.codespot.com/git/examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.diagrams/receipt/receipt.PNG"
+		status ready 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0205 "Resize of shapes containing texts ugly" 
+		type functional
+		comment "Also experienced one week ago, when resizing a shape containing a text, e.g. dragging the right edge of the shape more and more to the right, the text wanders torwards the right edge until it disappears.
+				
+				http://spray.eclipselabs.org.codespot.com/git/examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.diagrams/receipt/receipt.PNG
+
+				Jos' answer: I see, the horizontal-align=center of the text is taken in relationship with the text object,  not in relation with the parent rectangle. And the text size grows shrinks with the text,  which it should not."
+		status ready 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0206 "Referenced gradient leads to shape generator abort" 
+		type functional
+		comment "style
+				
+				style MyDefaultStyle {
+				    description = \"The default style of the graphiti diagram type.\"
+				    transparency = 1.00
+				    // background-color = black
+				    line-color = black
+				    line-style = solid
+				    line-width = 1
+				    font-color = black
+				    font-name = \"Tahoma\"
+				    font-size = 12
+				    font-bold = yes
+				}
+				
+				style EntryStyle extends MyDefaultStyle {
+					background-color = EntryGradient
+					gradient-orientation = vertical
+				}
+				
+				gradient EntryGradient {
+					area (color = red, offset = 0.0)
+					area (color = white, offset = 1.0)
+				}
+				
+				gradient LoopGradient {
+					area (color = green, offset = 0.0)
+					area (color = white, offset = 1.0)
+				}
+				
+				
+				shape
+				
+				shape EntryFigure {
+					ellipse {
+						position (x=0, y=0)
+						size (width=50, height=50)
+						style (background-color=black)
+						ellipse {
+							style (
+								background-color = EntryGradient
+								gradient-orientation = vertical
+							)
+							position (x=2, y=2)
+							size (width=46, height=46)
+						}
+					}
+				}
+				
+				
+				Shape Generator aborts.
+				
+				Jos' answer: Found the problem.  Gradient as backgropund color needs to be treated differently from other colors.  In the Styles DSL this is done correctly, need to do it the same way in the shapes DSL."
+		stakeholder "Diagram editor creator" 
+		status in-progress 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Shapes DSL" "Styles DSL"
+	
+	requirement issue0207 "Non compiling code for some shapes using polygons" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Shapes DSL"
+	
+	requirement issue0208 "The textid and compartment id in the Spray DSl should be checked" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Type: Task" "Component: Language" "Spray DSL" "Validation"
+	
+	requirement issue0209 "References to domain model ecore works only after workspace restart" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0210 "Reference to gradient in DSL is not proposed" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Styles DSL"
+	
+	requirement issue0211 "Propose block to bind parameters to shape definition" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI" "Usability"
+	
+	requirement issue0212 "Wrong default style is generated when there are multiple Spray projects" 
+		type non-functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0213 "No or not interpreted property for gradient package name" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0214 "Do not create [dsl_name].properties file anymore" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Backward compatibility" "Component: Code generator" "Component: UI" "Properties file"
+	
+	requirement issue0215 "Discover colliding imports" 
+		type functional
+		comment "Giving a referenced shape the same name as used for the referenced domain model object will result in a conflicting import, where the a class with the same simple name is tried to imported from different packages. Such conflict may occur also in other situations. 
+				
+				class Transition {
+					connection Transition {
+						name into connectionText
+						// event.name into connectionText
+						// fromState.name into fromText
+						// toState.name into toText
+					} 
+				
+				The generator should discover such conflicts and should use for one class the import and for the other class full qualified access. A matter of the Spray import manager."
+		status open 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Low" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0216 "Duplicate entries in generated properties view" 
+		type functional
+		comment "see the appended screenshot for an example. The name feature appears twice. I guess this is because the direct properties as well as the inherited properties of the current class are merged with the properties within its superclass hierarchy: http://spray.eclipselabs.org.codespot.com/issues/attachment?aid=2160000000&name=fowlerdsl.png&token=_S-X7jrZjZTmqJ1SIhnSdGO_Ymw%3A1364587972852&inline=1&thumb=1"
+		status open 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Generated diagram editor" "Component: Code generator" "Properties view"
+	
+	requirement issue0217 "Better handling of text size" 
+		type functional
+		comment "Currently you're forced to give position, width/height and id inside a text definition otherwise you end up with a strange error message:
+				
+				rule ruleCommonLayout failed predicate: 
+				 {getUnorderedGroupHelper().canLeave(grammarAccess.getCommonLayoutAccess().getUnorderedGroup_1())}?
+				
+				text {
+				   position (x=0, y=0)
+				   size (width=20, height=10)
+				   id = fromText
+				}
+				
+				Width and height are dependent on the text style (font, font size, character spacing, ...)
+				
+				So defining a text size has only an effect if the font size defined by the style is lower or equal to the stated size (visible when backgound-color is not set to transparent) otherwise the for style calculated size is applied and in consequence the text representation is cut of at the boundaries of the container holding the text."
+		status open 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Low" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0218 "ClassCastException StyleScopeProvider cannot be cast to XbaseScopeProvider" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Styles DSL"
+	
+	requirement issue0219 "Browse workspace in new project wizard does not work" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Spray project wizard"
+	
+	requirement issue0220 "Migrate org.eclipselabs.spray:org.eclipselabs.spray.xtext.tests" 
+		comment "The tests in org.eclipselabs.spray:org.eclipselabs.spray.xtext.tests are still based on using containers inside Spray DSL. This have to be changed to reference shapes form shape DSL files. 
+				
+				So the test setup have to be changed in a way that shapes and styles are resolved as valid EMF resources." 
+		status open
+		stakeholder "Spray developer" 
+		labels "Type: Task" "Component: Test" "Component: Code generator"
+	
+	requirement issue0221 "Migrate org.eclipselabs.spray.shapes.tests" 
+		status done 
+		stakeholder "Spray developer" 
+		labels "Type: Task" "Component: Test" "Component: Code generator" "Shapes DSL"
+	
+	requirement issue0222 "Review org.eclipselabs.spray:org.eclipselabs.spray.generator.graphiti.tests"
+		comment "The tests for asserting the expected for the Spray generator are themselves generated now. 
+				
+				The test assertions have to be checked against the actual produced generated code at runtime to verify that there are no differences due to not resolved shapes/styles/genmodels or other influences.
+				
+				This check might be done by comparing the actual generated code (to be copied inside the test project) with the code fragments to be generated as assertions (actually the generation approach has been chosen to avoid platform dependent differences in line break characters).
+				
+				There also some issues with generated code assertions because of trailing empty lines inside the generated code.
+				
+				When the generated test cases are verified add test case generators for the other example projects." 
+		status open 
+		stakeholder "Spray developer" 
+		labels "Type: Task" "Component: Test" "Component: Code generator"
+	
+	requirement issue0223 "Regenerate and implement test cases on platform level for example Spray projects"
+		comment "There has been unit test case stubs pregenerated for the example one Spray project (a test class for each generated class (e.g. add feature, update feature and so on was generated). These has been removed as they were no longer valid for the now generated code.
+				
+				Regenerate those test case stubs for the new generated code basis AND check if it is feasible to implement valid unit tests (maybe with some mocking) on top of them." 
+		status open 
+		stakeholder "Spray developer" 
+		labels "Type: Task" "Component: Test" "Component: Code generator"
+	
+	requirement issue0224 "Editing .shape file results in opening the generated .svg file" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Shapes DSL" "Component: Language" "Component: UI"
+	
+	requirement issue0225 "Activator is invalid/not found in runtime Eclipse" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Build" "Backward compatibility"
+	
+	requirement issue0226 "Add EMF SDK to Spray 3rd party update site" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Type: Task" "Component: Build"
+	
+	requirement issue0227 "Update Spray completion templates to not include container node anymore" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0228 "Update project template to do not use removed container nodes" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Spray DSL"
+	
+	requirement issue0229 "No proposal after alias" 
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: UI" "Component: Language"
+	
+	requirement issue0230 "Inner compartment does not fill its container" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Compartments" "Generated diagram editor"
+			
+	requirement issue0231 "Initial creation of or change in of EMF domain model project not recognized in Spray project" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Spray DSL" "Component: UI"
+	
+	requirement issue0232 "Provide quickfixes for shape and style definitions" 
+		type non-functional
+		status done 
+		labels "Type: Enhancement" "Component: Language" "Spray DSL" "Shapes DSL" "Component: UI" "Usability"
+	
+	requirement issue0233 "Allow to pass constant values to referenced shape" 
+		type functional
+		comment "Currently it is only possible to pass values to a referenced shape in by referencing a feature of the domain model:
+				
+				class ActionBlock alias Action {
+				    shape ActionBlockShape {
+				    	actionName into action
+				    }
+				    behavior {
+				        create palette \"Elements\"
+				    }    
+				}
+				
+				shape ActionBlockShape {
+				    stretching(horizontal=true,vertical=true)
+				    rectangle {
+				        position(x=0,y=0)
+				        size(width=100,height=100)
+				        text {
+				       		position(x=5,y=5)
+				 	        size(width=90,height=90)
+				 	        id = action
+				        }
+				    }
+				}
+				
+				So in the example actionName must be a feature of ActionBlock.
+				
+				class ActionBlock alias Action {
+				    shape ActionBlockShape {
+				    	actionName into action
+				    }
+				
+				As workaround you can write:
+				
+				class ActionBlock alias Action {
+				    shape ActionBlockShape {
+				    	actionName into action (\"Constant text\")
+				    }
+				
+				But you still need an existing feature of the domain model element.
+				
+				What you actually want to write is:
+				
+				class ActionBlock alias Action {
+				    shape ActionBlockShape {
+				    	\"Constant text\" into action
+				    }
+				
+				Or even more constant direct in shape:
+				
+				shape ActionBlockShape {
+				    stretching(horizontal=true,vertical=true)
+				    rectangle {
+				        position(x=0,y=0)
+				        size(width=100,height=100)
+				        text {
+				       		position(x=5,y=5)
+				 	        size(width=90,height=90)
+				 	        id = \"Constant text\"
+				        }
+				    }
+				}
+				
+				(The last version is actually a separate issue).
+				
+				
+				before:
+				
+				    shape UniqueRuleShape {
+				        name into uniqueRuleName ( \"Rule: \" + name )
+				        reference properties into properties
+				    }
+				
+				Now it is additional possible to write 
+				
+				    shape UniqueRuleShape {
+				        constant \"Rule\" + name into uniqueRuleName
+				        reference properties into properties
+				    }
+				
+				And with the last syntax you can leave out the feature:
+				
+				    shape UniqueRuleShape {
+				        constant \"Rule\" into uniqueRuleName
+				        reference properties into properties
+				    }
+				
+				We should consider to deprecate the bracket syntax so we can leave out the keyword 'constant': 
+				
+				    shape UniqueRuleShape {
+				        \"Rule\" + name into uniqueRuleName
+				        reference properties into properties
+				    }
+				
+				The constant syntax does not work as described here: 
+				http://groups.google.com/group/spray-users/msg/3c2c7c962bbd5951
+				
+				Reason is, that the EMF feature was used for generating the DirectEditingFeature. That does not work anymore when with 'constant \"Rule\" into uniqueRuleName' no feature is set. So as workaround constant name into uniqueRuleName ( \"Rule\" ) is currently only possible."
+		status in-progress 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect"
+	
+	requirement issue0234 "Containment element got lost" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0235 "Support compartments also for connections" 
+		type functional
+		comment "See http://groups.google.com/group/spray-users/browse_thread/thread/8f3b10ebfcbcea29
+				
+				Could be useful when connection labels should be dependent on the containment hierarchy."
+		status open 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Enhancement" "Compartments" 
+	
+	requirement issue0236 "Problems with properties view when using compartments" 
+		type functional
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator" "Generated diagram editor" "Properties view"
+	
+	requirement issue0237 "Make Spray working in Eclipse Kepler (4.3)" 
+		status in-progress 
+		stakeholder "Spray developer" 
+		labels "Priority: Low" "Type: Task" "Component: Build"
+	
+	requirement issue0238 "overridingGuiceModule.exsd not exported" 
+		type functional
+		status done 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Component: Build"
+	
+	requirement issue0239 "produce diagram elements manually" 
+		type functional
+		comment "it would be very nice of one could invoke diagram elements like connections and businessmodels manually in order to parse a file which should be represented as a spray diagram"
+		status open 
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Enhancement" "Shapes DSL" "Interpreter"
+	
+	requirement issue0240 "Spray projects in one workspace mess each other up" 
+		comment "I updated Spray last week from here https://spray.ci.cloudbees.com/job/spray-assembly-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/
+				
+				My previous version dated back to September 2012. After I fixed some syntax problems (You really need to update the user documentation) the following thing happened.
+				
+				What steps will reproduce the problem?
+				1. I have a spray project a.b.c.mydiagram based on a.b.c.mydiagram.model
+				2. I create a second spray project in the same workspace a.b.c.mydiagram_newSpray based on the same model
+				3. In the first project a.b.c.mydiagram I make some change in mydiagram.spray and code is generated again.
+				
+				What is the expected output? 
+				I expect small cosmetic changes to the source files
+				
+				What do you see instead?
+				all files are generated under the package a.b.c.mydiagram_newSpray (still in the correct project). And ofcourse all old files from a.b.c.mydiagram are removed.
+				
+				If I create yet another project with some other name, and change the first project, the naming of the third project is used.
+				
+				What version of the product are you using? On what operating system?
+				I am using Eclipse Juno x64 with Graphiti 0.10 and Spray updated last Tuesday the 12th Feb. on Windows 7 Pro x64
+				
+				Joerg's answer: Please note that we did some changes how configuration is loaded and applied. So configuration is now expected to be in a file named spray.properties, this file was named differently before. That spray.properties is created when creating a new Spray project. So when you open your the spray file of your old project with the Spray editor of the current version an empty spray.properties file is generated as fall back. The empty spray.properties file is causing this strange behavior. This shall be handled. As work around you have to copy the content of the old properties file into the new one."
+		status ready
+		stakeholder "Diagram editor creator" 
+		labels "Priority: Medium" "Type: Defect" "Backward compatibility" "Component: UI"
+	
+	requirement issue0241 "Fix problems with update feature for connections" 
+		type functional
+		comment "see http://groups.google.com/group/spray-users/browse_thread/thread/743290420ddc93cf, duplicate of issue 204?"
+		status open 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Generated diagram editor"
+	
+	requirement issue0242 "Allow resizing of compartments with non-xy-layout" 
+		type functional
+		comment "Resizing of compartments with vertical resp. horizontal layout is currently not supported. Only by resizing one of its contained elements the size of the compartment is changable (as it is then recalculated for the compartment). The other way round would mean that there should exist a strategy that transforms a resize request at the compartment to resize requests to its contained elements (still with respect to layout manager).
+				
+				See: http://groups.google.com/group/spray-users/browse_thread/thread/743290420ddc93cf"
+		status open 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Low" "Type: Enhancement" "Compartments" "Component: Code generator" "Generated diagram editor"
+	
+	requirement issue0243 "Import Package missing in generated Spray MANIFEST" 
+		status done 
+		stakeholder "Diagram editor user" 
+		labels "Operating System: All" "Priority: High" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0244 "plugin.xml just in src-gen" 
+		comment "What steps will reproduce the problem?
+				1. Create a new Spray project (following steps in the 5 minutes tutorial)
+				2. Wait for generation of diagram
+				
+				What is the expected output? What do you see instead?
+				The plugin.xml file is generated in the project folder (at least at the first time). But the plugin.xml appears just in the src-gen folder.
+
+				--> will be fixed in conjunction with issue #89"
+		status ready 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Code generator"
+	
+	requirement issue0245 "reference section in metaclass"
+		comment "What steps will reproduce the problem?
+				1. Run Spray-Runtime
+				2. Import archive file in workspace
+				3. Open petrinet.spray
+				4. Try the content assist before \"targetTransitions\" or \"targetPlaces\"
+				
+				What is the expected output? What do you see instead?
+				A context menu opens with a content assist. 
+				No content assist at all shows up!" 
+		status open 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
+	
+	requirement issue0246 "No connection shape on reference section" 
+		type functional
+		comment "What steps will reproduce the problem?
+				1. Run Spray-Runtime
+				2. Import archive file in workspace (example archive file can be found on issue 245)
+				3. Open petrinet.shape
+				4. Create a connection shape
+				5. Open petrinet.spray
+				6. Add the created connection shape after the connection keyword in the line beginning with \"targetTransitions\" or \"targetPlaces\"
+				
+				What is the expected output? What do you see instead?
+				Expected: The generated \"AddReferenceFeature\" fetches the defined shape.
+				But, following code will generated (just a free form connection)
+				
+				public PictogramElement add(final IAddContext context) {
+				        final IAddConnectionContext addConContext = (IAddConnectionContext) context;
+				        Place addedDomainObject = (Place) context.getNewObject();
+				
+				        // CONNECTION WITH POLYLINE
+				        final Connection connection = peCreateService.createFreeFormConnection(getDiagram());
+				        connection.setStart(addConContext.getSourceAnchor());
+				        connection.setEnd(addConContext.getTargetAnchor());"
+		status open 
+		stakeholder "Diagram editor user" 
+		labels "Priority: Medium, Type-Defect" "Component: Code generator" "Shapes DSL" "Spray DSL"
+		
+end package

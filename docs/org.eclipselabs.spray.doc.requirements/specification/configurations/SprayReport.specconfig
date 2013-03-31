@@ -6,9 +6,41 @@ report "Spray" {
 	
 	chapters {
 		usecase package org.eclipselabs.spray.requirements.actors
-		usecase package org.eclipselabs.spray.requirements.domain
 		usecase package org.eclipselabs.spray.requirements.diagrameditor
+		usecase package org.eclipselabs.spray.requirements.domain
 		user interface application SprayDiagramEditor
+		user interface flow Spray
+		entity package org.eclipselabs.spray.requirements.entities.spray
+		entity package org.eclipselabs.spray.requirements.entities.shapes
+		entity package org.eclipselabs.spray.requirements.entities.styles
+		entity package org.eclipselabs.spray.requirements.entities.mod4j
+		usecase package org.eclipselabs.spray.requirements.examples.mod4j
+		user interface application mod4j
+		usecase package org.eclipselabs.spray.requirements.examples.bpmn20
+		entity package org.eclipselabs.spray.requirements.entities.bpmn20
+		user interface application bpmn20
+		usecase package org.eclipselabs.spray.requirements.examples.lwc2012
+		entity package org.eclipselabs.spray.requirements.entities.lwc2012
+		user interface application lwc2012
+		usecase package org.eclipselabs.spray.requirements.examples.petrinet
+		entity package org.eclipselabs.spray.requirements.entities.petrinet
+		user interface application petrinet
+		usecase package org.eclipselabs.spray.requirements.examples.statemachine
+		entity package org.eclipselabs.spray.requirements.entities.statemachine
+		user interface application statemachine
+		usecase package org.eclipselabs.spray.requirements.examples.nassishneiderman
+		entity package org.eclipselabs.spray.requirements.entities.nassishneiderman
+		user interface application nassiShneiderman
+		usecase package org.eclipselabs.spray.requirements.examples.forms
+		entity package org.eclipselabs.spray.requirements.entities.forms
+		user interface application forms
+		usecase package org.eclipselabs.spray.requirements.examples.featuremodeling
+		user interface application featureModeling
+		entity package org.eclipselabs.spray.requirements.entities.featuremodeling
+		requirements package org.eclipselabs.spray.requirements.issues
+		entity package org.eclipselabs.spray.requirements.entities.emf
+		entity package org.eclipselabs.spray.requirements.entities.jvmtypes
+		entity package org.eclipselabs.spray.requirements.entities.xbase
 	}
 	entity diagrams configuration {
 		show class diagram as default

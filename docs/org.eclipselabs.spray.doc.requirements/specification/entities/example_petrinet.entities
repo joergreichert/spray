@@ -1,0 +1,23 @@
+package org.eclipselabs.spray.requirements.entities.petrinet
+
+	entity PetriNode extends PetriModel
+	
+	entity PlaceEClass extends PetriNode
+		token -> TokenEClass 
+	
+	entity TokenEClass extends PetriNode
+	
+	entity TransitionEClass extends PetriNode
+	
+	entity ArcEClass extends PetriEdge
+		petriFrom -> PetriNode 
+		petriTo -> PetriNode
+	
+	entity PetriModel
+		name : String
+		description : String
+		petriModels -> PetriModel*
+	
+	entity PetriEdge extends PetriModel
+	
+end package

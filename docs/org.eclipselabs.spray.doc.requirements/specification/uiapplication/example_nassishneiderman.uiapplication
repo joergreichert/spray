@@ -1,0 +1,8 @@
+application nassiShneiderman "Greatest common divisor"
+
+	page gcdDiagram
+	 	screens gcdDiagramEditor
+	 		"specification/userinterfaces/screens/example_nassishneiderman.png"
+	end page
+	
+end application

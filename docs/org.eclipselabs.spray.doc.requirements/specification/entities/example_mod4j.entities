@@ -1,0 +1,124 @@
+datatype Multiplicity "
+	ZeroMany or
+	One or
+	ZeroOne or
+	OneMany
+"	
+	
+datatype DateTimeAccuracy "
+	Millisecond or
+	Second or
+	Minute or
+	Hour or
+	Day or
+	Month or
+	Year
+"	
+	
+datatype PersistencyMode "
+	ReadWrite or
+	Read or
+	None
+"
+
+package org.eclipselabs.spray.requirements.entities.mod4j
+	
+	entity ModelElement
+		name : String
+		description : String
+	
+	entity BusinessDomainModel extends ModelElement
+		enumerations -> Enumeration* 
+		types -> AbstractType* 
+		associations -> Association*
+		packages -> Package*
+	
+	entity BusinessClass extends AbstractBusinessClass
+		businessRules -> AbstractBusinessRule* 
+		superClass -> BusinessClass 
+		associationsTo -> Association* 
+	
+	entity Property extends ModelElement
+		dataType : String
+		nullable : boolean 
+		derived : boolean
+		writable : boolean
+		persistency : PersistencyMode 
+		hasDefault : boolean
+		owningType -> AbstractType
+	
+	entity Enumeration extends ModelElement
+		enumerationLiterals -> EnumerationLiteral*
+		model -> BusinessDomainModel 
+	
+	entity EnumerationLiteral extends ModelElement
+		persistedValue : int
+		enumeration -> Enumeration 
+	
+	entity AbstractBusinessRule extends ModelElement
+		businessClass -> BusinessClass 
+	
+	entity BoolProperty extends Property
+		defaultValue : boolean
+	
+	entity DateTimeProperty extends Property
+		accuracy : DateTimeAccuracy
+		defaultValue : String
+	
+	entity EnumerationProperty extends Property
+		type -> Enumeration 
+		defaultValueAsString : String
+	
+	entity IntegerProperty extends Property
+		minValue : int
+		maxValue : int
+		defaultValue : int
+	
+	entity StringProperty extends Property
+		regularExpression : String
+		minLength : int
+		maxLength : int
+		defaultValue : String
+	
+	entity AbstractType extends ModelElement
+		properties -> Property*
+		model -> BusinessDomainModel
+	
+	entity BlobBinaryProperty extends Property
+	
+	entity BlobTextProperty extends Property
+
+	entity Association extends ModelElement
+		source -> BusinessClass
+		target -> AbstractBusinessClass
+		sourceRoleName : String
+		sourceMultiplicity : Multiplicity
+		targetRoleName : String
+		targetMultiplicity : Multiplicity
+		composite : boolean
+		bidirectional : boolean
+		ordered : boolean
+		model -> BusinessDomainModel
+	
+	entity DecimalProperty extends Property
+		minValue : float
+		maxValue : float
+		minInclusive : boolean
+		maxInclusive : boolean
+		defaultValue : float
+	
+	entity AbstractBusinessClass extends AbstractType
+		associationsFrom -> Association*
+	
+	entity BusinessClassReference extends AbstractBusinessClass
+		referredModel : String
+	
+	entity UniqueRule extends AbstractBusinessRule
+		properties -> Property* 
+	
+	entity BusinessRule extends AbstractBusinessRule
+	
+	entity Package extends ModelElement
+		classes -> BusinessClass* 
+
+end package
