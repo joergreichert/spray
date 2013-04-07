@@ -2085,7 +2085,7 @@ package org.eclipselabs.spray.requirements.issues
 				What is the expected output? What do you see instead?
 				A context menu opens with a content assist. 
 				No content assist at all shows up!" 
-		status open 
+		status done 
 		stakeholder "Diagram editor user" 
 		labels "Priority: Medium" "Type: Defect" "Component: Language" "Spray DSL" "Component: UI"
 	
@@ -2114,5 +2114,142 @@ package org.eclipselabs.spray.requirements.issues
 		status open 
 		stakeholder "Diagram editor user" 
 		labels "Priority: Medium, Type-Defect" "Component: Code generator" "Shapes DSL" "Spray DSL"
+
+	requirement issue0247 "Compartment in Rectangle with Superclass"
+		comment "Hi together,
+
+			I want to visualize for example a webpage with a lot of controls in graphiti spray. I create a ecore-model with Tab, this tab contains pages (= container) which contains a lot of widgets (Labels, Buttons, etc.).
+			
+			The question is why I can't reference a superclass (=widget) for the container to the buttons or labels. This will not showing in the Toolbar and the code-generating getting error in SprayToolBehaviorProvider (because of not generating the class).
+			
+			I attach the ecore-model und spray shapes files. Can you tell me how to do this with the superclass, or should I separatly references all widgets to container like pages?
+			
+			The other question is, is it the right way to visualizate if I use a class (in the image it is SketchDomainModel) that reference to all classes in ecore.
+			
+			Thanks for helping.
+			
+			Greez Dowbar
+			
+			What version of the product are you using? On what operating system?: 0.5.0
+			
+			Please provide any additional information below: Eclipse Juno 4.2.2
+
+			Another question is, if I want to use the widget in the toolbar the \"SketchDomainModel\"-Class should known all the widget class in ecore, is it?
+
+			Answer Joerg Reichert:
+
+				Hi Dowbar,
+				
+				you can actually structure your domain model this way:
+				
+				SketchDomainModel
+				* tabs : Tab [0..*]
+				  * pages : Page [0..*]
+				* widgets : Widget [0..*]
+				      * subWidgets : Widget [0..*]
+				* Toolbar extends Widget
+				* Button extends Widget
+				
+				In Spray you define the mapping this way:
+				
+				diagram spray for SketchDomainModel style SprayDefaultStyle
+				
+				class Tab icon \"ecore/EClass.gif\" {
+				   shape TabShape {
+				      reference pages into tabCompartment
+				   }
+				   behavior {
+				      create into tabs palette \"Container\";
+				   }
+				}
+				
+				class Page icon \"ecore/EClass.gif\" {
+				   shape PageShape {
+				      reference widgets into pageCompartment
+				   }
+				   behavior {
+				      create palette \"Container\";
+				   }
+				}
+				
+				class Toolbar icon \"ecore/EClass.gif\" {
+				   shape ToolbarShape {
+				      reference subWidgets into toolbarCompartment
+				   }
+				   behavior {
+				      create palette \"Widget\";
+				   }
+				}
+				
+				class Button icon \"ecore/EClass.gif\" {
+				   shape ButtonShape {
+				      name into buttonID
+				   }
+				   behavior {
+				      create palette \"Widget\";
+				   }
+				}
+				
+				You see, you only have to leave off the \"into ...\" part. Adding a button to a toolbar inside the diagram will add the button domain object to the subWidgets of the toolbar domain object as the mapping definition for Toolbar states \"reference subWidgets into ...\".
+				
+				Best regards,
+				Joerg"
+		status done 
+		labels "Priority: Medium" "Type: Defect" "Component: Language" "Compartments" "Spray DSL"
+
+	requirement issue0248 "Styling Text"
+		comment "Hello,
+
+			I created a Shape with a text and the text I want to style with transparency and setting a font-color. But no changes will do if I try it. What is the issue for this siutation. 
+			
+			If I setup the BackgroundColor of this Text, it works fine. Seems not all attributes of styling works.
+			
+			Here my exmaple code.
+			
+			shape TabShape {
+				stretching(horizontal=false, vertical=false)
+				rectangle style TabStyle {
+					compartment (
+						id = tabCompartment
+						layout = fixed
+						spacing=2
+						margin=2
+					)
+					position (x=0, y=20)
+					size (width=600, height=400)
+					style (background-color=RGB (192, 192, 192))
+				}
+				text{
+						align(horizontal=center,vertical=middle)
+						position(x=0, y=0)
+						size(width=600,height=20)
+						style(background-color=blue font-color=red transparency=0.1)
+						id=tabID
+				}
+			}
+			
+			Thanks a lot for regarding.
+			
+			Greez
+			
+			dowbar
+
+			Answer Joerg Reichert:
+
+				Reproduced, only 
+				
+				        element_2.setBackground(gaService.manageColor(diagram, new ColorConstant(192, 192, 192)));
+				
+				is generated inside TabShape.java although font-color has been specified in Shape DSL file.
+				
+				As workaround you can put the other style information pieces inside the TabStyle that is referenced at the rectangle. This will be then applied to the contained text, too, as the styles are applied to all contained elements, see generated TabShape.java:
+				
+				        ISprayStyle style_2 = new sketch.diagram.styles.TabStyle();
+				        element_2.setStyle(style_2.getStyle(diagram));
+				        gaService.setLocationAndSize(element_2, 0, 20, 600, 400);
+				        SprayLayoutService.setLayoutData(shape_2, 600, 400, true);
+				        element_2.setBackground(gaService.manageColor(diagram, new ColorConstant(192, 192, 192)));"
+		status ready
+		labels "Priority: Low" "Type: Defect" "Component: Code generator" "Shapes DSL"  
 		
 end package
