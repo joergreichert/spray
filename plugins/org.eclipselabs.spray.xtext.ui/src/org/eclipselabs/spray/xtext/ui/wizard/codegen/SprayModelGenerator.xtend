@@ -28,7 +28,7 @@ class SprayModelGenerator {
         // Add import statements here
         import «getPackage(info.epackageURI, info.modelTypeName)».*
         
-        diagram «info.getDiagramTypeName» for «info.modelTypeName.substring(info.modelTypeName.lastIndexOf('.')+1)» style «info.getDiagramTypeName.toFirstUpper»DefaultStyle
+        diagram My«info.getDiagramTypeName» for «info.modelTypeName.substring(info.modelTypeName.lastIndexOf('.')+1)» style «info.getDiagramTypeName.toFirstUpper»DefaultStyle
         
         
         // Add class mappings here. Refer to EClasses here. Don't forget to configure a
