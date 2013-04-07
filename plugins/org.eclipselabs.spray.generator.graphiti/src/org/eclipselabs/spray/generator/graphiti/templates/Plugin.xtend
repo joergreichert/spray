@@ -17,6 +17,7 @@ class Plugin extends TemplateUtil {
         <?eclipse version="3.0"?>
         «pluginHeader(this)»
         <plugin>
+		   <!-- AUTOGEN START -->
            <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
            <extension
                  point="org.eclipse.ui.editors">
@@ -109,6 +110,7 @@ class Plugin extends TemplateUtil {
     
     
             «generate_newDiagramWizard(diagram)»
+            <!-- AUTOGEN END -->
         </plugin>
     '''
     

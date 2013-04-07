@@ -2,12 +2,17 @@ package org.eclipselabs.spray.xtext.ui.wizard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -41,6 +46,37 @@ public class SprayProjectCreator extends AbstractPluginProjectCreator {
     private NewProjectGenerator             newProjectGenerator;
     @Inject
     private IWorkspaceRoot                  root;
+
+    @Override
+    protected IProject createProject(IProgressMonitor monitor) {
+        IProject project = super.createProject(monitor);
+        try {
+            IProjectDescription desc = project.getDescription();
+            ICommand[] buildSpecs = desc.getBuildSpec();
+            List<ICommand> commands = new ArrayList<ICommand>();
+            for (ICommand buildSpec : buildSpecs) {
+                commands.add(buildSpec);
+            }
+            ICommand command = createPluginXMLUpdateBuilderCommand(project);
+            // commands.add(command);
+            desc.setBuildSpec(commands.toArray(new ICommand[commands.size()]));
+            project.setDescription(desc, monitor);
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
+        return project;
+    }
+
+    protected ICommand createPluginXMLUpdateBuilderCommand(IProject project) throws CoreException {
+        ICommand command = project.getDescription().newCommand();
+        command.setBuilderName("org.eclipse.ui.externaltools.ExternalToolBuilder");
+        command.setBuilding(IncrementalProjectBuilder.FULL_BUILD, true);
+        command.setBuilding(IncrementalProjectBuilder.INCREMENTAL_BUILD, true);
+        Map<String, String> args = new HashMap<String, String>();
+        args.put("LaunchConfigHandle", "<project>/.externalToolBuilders/Update plugin.xml.launch");
+        command.setArguments(args);
+        return command;
+    }
 
     @Override
     protected SprayProjectInfo getProjectInfo() {
