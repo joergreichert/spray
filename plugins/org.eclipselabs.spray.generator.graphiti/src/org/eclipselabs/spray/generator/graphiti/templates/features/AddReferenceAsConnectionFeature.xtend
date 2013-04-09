@@ -8,7 +8,6 @@ import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
-
 class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     @Inject extension NamingExtensions
     @Inject extension MetaReferenceExtensions
@@ -82,9 +81,16 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+        import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.algorithms.Polyline;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
+        «IF reference.representedBy.connection != null»
+        import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
+        import «reference.representedBy.connection.qualifiedName»;
+        «ENDIF»
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
@@ -106,43 +112,52 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     def generate_add (MetaReference reference) '''
         «val target=reference.target»
         «overrideHeader()»
-        public PictogramElement add(final IAddContext context) {
-            final IAddConnectionContext addConContext = (IAddConnectionContext) context;
-            «reference.metaClass.type.itfName» addedDomainObject = («reference.metaClass.itfName») context.getNewObject();
-        «IF target.upperBound == 1»
-            removeExisting(context);
-        «ENDIF»        
-          
-            // CONNECTION WITH POLYLINE
-            final Connection connection = peCreateService.createFreeFormConnection(getDiagram());
-            connection.setStart(addConContext.getSourceAnchor());
-            connection.setEnd(addConContext.getTargetAnchor());
-     
-            // TRY
-            final AnchorContainer parent = connection.getStart().getParent();
-            final EObject start = (EObject) getBusinessObjectForPictogramElement(parent);
-            final AnchorContainer child = connection.getEnd().getParent();
-            final EObject end = (EObject) getBusinessObjectForPictogramElement(child);
-            //END TRY
-    
-            final Polyline polyline = gaService.createPolyline(connection);
-            polyline.setLineWidth(1);
-«««            polyline.setForeground(manageColor(«reference.lineColor»));
-             
-            // create link and wire it
-            peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
-            peService.setPropertyValue(connection, PROPERTY_REFERENCE, (String)context.getProperty(PROPERTY_REFERENCE));
-            peService.setPropertyValue(connection, PROPERTY_TARGETOBJECT, (String)context.getProperty(PROPERTY_TARGETOBJECT));
-            link(connection, addedDomainObject);
-    
-            // add static graphical decorator
-            // ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-            //      No arrows
-            //        createArrow(cd);
-            decorateConnection (addConContext, connection);
-            setDoneChanges(true);
-            return connection;
-        }
+		public PictogramElement add(final IAddContext context) {
+			final IAddConnectionContext addConContext = (IAddConnectionContext) context;
+			«reference.metaClass.type.itfName» addedDomainObject = («reference.metaClass.itfName») context.getNewObject();
+			«IF target.upperBound == 1»
+			removeExisting(context);
+			«ENDIF»        
+			
+			«IF reference.representedBy.connection == null»
+			// CONNECTION WITH POLYLINE
+			final Connection connection = peCreateService.createFreeFormConnection(getDiagram());
+			connection.setStart(addConContext.getSourceAnchor());
+			connection.setEnd(addConContext.getTargetAnchor());
+			
+			// TRY
+			final AnchorContainer parent = connection.getStart().getParent();
+			final EObject start = (EObject) getBusinessObjectForPictogramElement(parent);
+			final AnchorContainer child = connection.getEnd().getParent();
+			final EObject end = (EObject) getBusinessObjectForPictogramElement(child);
+			//END TRY
+			
+			final Polyline polyline = gaService.createPolyline(connection);
+			polyline.setLineWidth(1);
+			«««polyline.setForeground(manageColor(«reference.lineColor»));
+
+			// add static graphical decorator
+			// ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
+			//      No arrows
+			//        createArrow(cd);
+			decorateConnection (addConContext, connection);
+			«ELSE»
+			ISprayStyle style = new DefaultSprayStyle();
+			ISprayConnection iSprayConnection = new «reference.representedBy.connection.simpleName»(getFeatureProvider());
+			Connection connection = (Connection) iSprayConnection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
+			«ENDIF»
+			// create link and wire it
+			peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
+			peService.setPropertyValue(connection, PROPERTY_REFERENCE, (String)context.getProperty(PROPERTY_REFERENCE));
+			peService.setPropertyValue(connection, PROPERTY_TARGETOBJECT, (String)context.getProperty(PROPERTY_TARGETOBJECT));
+			link(connection, addedDomainObject);
+			for(ConnectionDecorator conDecorator : connection.getConnectionDecorators()) {
+				link(conDecorator, addedDomainObject);
+			}
+			
+			setDoneChanges(true);
+			return connection;
+		}
     '''
     
     def generate_canAdd (MetaReference reference) '''
