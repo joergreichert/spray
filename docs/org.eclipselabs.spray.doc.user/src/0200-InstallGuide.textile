@@ -4,7 +4,7 @@ h2. Install Spray
 
 A _very_ short introduction on how to install spray.
 
-* Install "Eclipse Juno IDE (= Eclipse 4.2.1)":http://www.eclipse.org/downloads/packages. Eclipse Classic or Eclipse Modeling Tools are appropriate Eclipse packages. (If you want to use the latest Spray release, 0.4.0, in favor of the latest stable CI build. please download and install Eclipse Indigo (= 3.7.2) instead). 
+* Install "Eclipse Juno IDE (= Eclipse 4.2.2)":http://www.eclipse.org/downloads/packages. Eclipse Classic or Eclipse Modeling Tools are appropriate Eclipse packages. (If you want to use the latest Spray release, 0.4.0, in favor of the latest stable CI build. please download and install Eclipse Indigo (= 3.7.2) instead). 
 * Start a new workspace
 * Open _Help / Install New Software_
 * Add the Spray 3rd party dependencies Update Site and press enter

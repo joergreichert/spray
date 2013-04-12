@@ -4,7 +4,7 @@ This secting will contain information about
 * mapping to the DSL concepts to Graphiti concepts
 * implementation of expressions
 * scoping
-* nodel interferer 
+* model interferer 
 * usage of injection
 * etc.
 
