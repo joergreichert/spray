@@ -29,7 +29,7 @@ public class SprayPluginProjectFactory extends PluginProjectFactory {
         addToContent(content, exportedPackages, "Export-Package");
         addToContent(content, importedPackages, "Import-Package");
 
-        content.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
+        content.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.6\n");
 
         final IFolder metaInf = project.getFolder("META-INF");
         SubMonitor subMonitor = SubMonitor.convert(progressMonitor, 2);
