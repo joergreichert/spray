@@ -1,23 +1,25 @@
 package org.eclipselabs.spray.shapes.tests
 
 import com.google.inject.Inject
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.junit.runner.RunWith
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
-import org.eclipselabs.spray.shapes.generator.ShapeGenerator
 import org.eclipse.xtext.generator.InMemoryFileSystemAccess
-import org.junit.Test
+import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipselabs.spray.shapes.ShapeContainer
 import org.eclipselabs.spray.shapes.ShapeDefinition
-import org.eclipselabs.spray.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.generator.ShapeGenerator
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
+import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.junit.Test
+import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
+import com.google.inject.Provider
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
 class ShapeGeneratorTest {
+    @Inject Provider<JavaGenFile> genFileProvider
 	@Inject extension ParseHelper<ShapeContainer> parseHelper
 	@Inject extension ShapeGenerator shapeGenerator
 	
@@ -33,10 +35,12 @@ class ShapeGeneratorTest {
 	@Test
 	def testGenerateShapeModelLine() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.generateJava(shapeModelLine.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.generateJava(shapeModelLine.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShape.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelLineExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -77,12 +81,12 @@ class ShapeGeneratorTest {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		
 		@SuppressWarnings("all")
-		public class MyShape extends DefaultSprayShape {
+		public class MyShapeBase extends DefaultSprayShape {
 		    
 			public static enum TextIds {
 			}
 			
-			public MyShape(IFeatureProvider fp) {
+			public MyShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -162,10 +166,12 @@ class ShapeGeneratorTest {
 	@Test
 	def testGenerateShapeModelPolyline() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.generateJava(shapeModelPolyline.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.generateJava(shapeModelPolyline.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShape.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelPolylineExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -206,12 +212,12 @@ class ShapeGeneratorTest {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		
 		@SuppressWarnings("all")
-		public class MyShape extends DefaultSprayShape {
+		public class MyShapeBase extends DefaultSprayShape {
 		    
 			public static enum TextIds {
 			}
 			
-			public MyShape(IFeatureProvider fp) {
+			public MyShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -291,10 +297,12 @@ class ShapeGeneratorTest {
 	@Test
 	def testGenerateShapeModelRectangle() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.generateJava(shapeModelRectangle.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.generateJava(shapeModelRectangle.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShape.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelRectangleExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -335,12 +343,12 @@ class ShapeGeneratorTest {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		
 		@SuppressWarnings("all")
-		public class MyShape extends DefaultSprayShape {
+		public class MyShapeBase extends DefaultSprayShape {
 		    
 			public static enum TextIds {
 			}
 			
-			public MyShape(IFeatureProvider fp) {
+			public MyShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
