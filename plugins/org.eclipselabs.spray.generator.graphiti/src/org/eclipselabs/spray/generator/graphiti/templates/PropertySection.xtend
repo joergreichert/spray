@@ -225,7 +225,9 @@ class PropertySection extends FileGenerator<EAttribute>  {
                     }
                     return bc.get«eAttribute.name.toFirstUpper»().getName();
             «ELSEIF isBoolean»
-                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper) »
+««« FIX for issue http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=256                       
+«««                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper)»
+                       «val name =  "is" + eAttribute.name.toFirstUpper»
                     return ( bc.«name»() ? "true" : "false" );
             «ENDIF»
                 }
@@ -254,7 +256,9 @@ class PropertySection extends FileGenerator<EAttribute>  {
                     bc.set«eAttribute.name.toFirstUpper»(value);
                 «ELSEIF isBoolean»
                        boolean newValue = (index == 0 ? false : true);
-                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper)»
+««« FIX for issue http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=256                       
+«««                       «val name =  if( eAttribute.name.startsWith("is") ) eAttribute.name else  ("is" + eAttribute.name.toFirstUpper)»
+                       «val name =  "is" + eAttribute.name.toFirstUpper»
                     if( newValue != bc.«name»() ) { 
                         bc.set«eAttribute.name.toFirstUpper»(newValue );
                     }
