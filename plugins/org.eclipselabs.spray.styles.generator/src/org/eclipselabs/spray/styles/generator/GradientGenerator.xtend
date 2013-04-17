@@ -37,13 +37,8 @@ class GradientGenerator extends FileGenerator<Gradient> {
         «extensionHeader(this)»
         package «gradient.packageName»;
          
-        import org.eclipse.graphiti.features.IFeatureProvider;
-         
         public class «gradient.gapClassName» extends «gradient.className» {
          
-            public «gradient.gapClassName»(IFeatureProvider fp) {
-        		super(fp);
-        	}
         }
     '''	
 	
