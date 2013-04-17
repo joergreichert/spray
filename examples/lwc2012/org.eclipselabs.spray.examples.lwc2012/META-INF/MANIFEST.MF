@@ -23,7 +23,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtext.ui,
  org.eclipselabs.spray.shapes,
  org.eclipselabs.spray.styles,
- de.htwg.2012.lwc.mm,
+ org.eclipselabs.spray.examples.lwc2012.domain,
  org.eclipselabs.spray.shapes.generator,
  org.eclipselabs.spray.styles.generator
 Import-Package: org.apache.log4j,
