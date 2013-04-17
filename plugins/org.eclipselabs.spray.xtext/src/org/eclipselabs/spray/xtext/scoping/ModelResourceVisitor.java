@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -70,7 +71,7 @@ public class ModelResourceVisitor implements IResourceVisitor {
         String locationURI = resource.getLocationURI().toString();
         URI genModelURI;
         if (locationURI.endsWith(".genmodel")) {
-            String location = resource.getLocation().makeRelativeTo(wsRoot.getLocation()).toString();
+            String location = getLocationRelativeToWorkspace(resource);
             genModelURI = createPlatformResourceURI("/" + location);
             if (isNotRegisteredYet(nameToGenModelURI, name, genModelURI)) {
                 nameToGenModelURI.put(name, genModelURI);
@@ -104,6 +105,11 @@ public class ModelResourceVisitor implements IResourceVisitor {
                 }
             }
         }
+    }
+
+    private String getLocationRelativeToWorkspace(IFile resource) {
+        IProject project = resource.getProject();
+        return project.getName() + "/" + resource.getProjectRelativePath().toString();
     }
 
     /**
