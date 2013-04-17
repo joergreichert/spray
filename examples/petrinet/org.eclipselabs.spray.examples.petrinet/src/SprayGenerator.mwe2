@@ -6,7 +6,7 @@ Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
 		registerGeneratedEPackage = "PetriNet.PetriNetPackage"
-		registerGenModelFile = "platform:/resource/de.htwg.petrinet.mm/model/PetriNet.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipselabs.spray.examples.petrinet.domain/model/PetriNet.genmodel"
 		scanClassPath=true
 	}
 

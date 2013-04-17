@@ -6,7 +6,7 @@ Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
 		registerGeneratedEPackage = "BPMN.BPMNPackage"
-		registerGenModelFile = "platform:/resource/de.htwg.2012.bpmn.mm/model/bpmn.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipselabs.spray.examples.bpmn.domain/model/bpmn.genmodel"
 		scanClassPath=true
 	}
 	

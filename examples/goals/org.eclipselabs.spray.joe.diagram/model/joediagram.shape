@@ -1,29 +1,34 @@
 shape GoalShape {
 	rectangle style GoalStyle {
-		size (width=100,height=200)
-		text {
-			size (width=90,height=100)
-			align (horizontal = center, vertical = middle)	
+		size (width=100, height=200)
+		text style GoalStyle {
+			position (x=5, y=5)
+			size (width=90, height=90)
+			align (horizontal=center, vertical=middle)
 			id = name
 		}
 		line {
-			point(x=0,y=0)
-			point(x=0,y=1000)
+			point (x=0, y=0)
+			point (x=0, y=1000)
 		}
-		rectangle {
+		rectangle style GoalStyle {
 			compartment (
 				layout = vertical
-				stretching (horizontal=true, vertical=true)
-				id = strategy				
+				stretching (
+					horizontal=true,
+					vertical=true
+				)
+				id = strategy
 			)
-			size (width=100,height=100)
-		}		
+			position (x=0, y=100)
+			size (width=100, height=100)
+		}
 	}
 }
 
 shape StrategyShape {
 	text {
-		size (width=100,height=100)
+		size (width=100, height=100)
 		id = strategy
 	}
 }
@@ -35,20 +40,20 @@ connection ConnectionShape {
 		text {
 			size (width=50, height=50)
 			id = from
-		} 
+		}
 	}
 	placing {
 		position (offset=0.5)
 		text {
 			size (width=50, height=50)
 			id = name
-		} 
+		}
 	}
 	placing {
 		position (offset=0.8)
 		text {
 			size (width=50, height=50)
 			id = to
-		} 
-	}	
+		}
+	}
 }

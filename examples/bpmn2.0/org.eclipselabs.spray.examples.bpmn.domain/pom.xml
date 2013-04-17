@@ -10,8 +10,6 @@
 		<relativePath>../../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>de.htwg</groupId>
-	<artifactId>de.htwg.2012.bpmn.mm</artifactId>
+	<artifactId>org.eclipselabs.spray.examples.bpmn.domain</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<version>1.0.0.qualifier</version>
 </project>
