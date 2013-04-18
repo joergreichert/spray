@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.htwg.2012.bpmn.mm/src"
-    modelPluginID="de.htwg.2012.bpmn.mm" modelName="Bpmn" importerID="org.eclipse.emf.importer.ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.examples.bpmn.domain/src"
+    modelPluginID="org.eclipselabs.spray.examples.bpmn.domain" modelName="Bpmn" importerID="org.eclipse.emf.importer.ecore"
     copyrightFields="false">
   <foreignModel>bpmn.ecore</foreignModel>
   <genPackages prefix="BPMN" disposableProviderFactory="true" ecorePackage="bpmn.ecore#/">
