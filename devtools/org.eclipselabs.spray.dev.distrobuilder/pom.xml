@@ -143,6 +143,12 @@
 								<!-- Workspace Mechanic -->            
 					            <updatesite url="http://workspacemechanic.eclipselabs.org.codespot.com/git.update/mechanic/"/>
 					            <installunit name="com.google.eclipse.mechanic.feature.group"/>
+					            
+					            <!-- Spray -->
+					            <updatesite url="https://spray.ci.cloudbees.com/job/spray-assembly-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/"/>
+					            <installunit name="org.eclipselabs.spray.feature.sdk.feature.group"/>
+					            <installunit name="org.eclipselabs.spray.feature.sdk.source.feature.group"/>
+					            
 					        </builder>
 					        </target>
 						</configuration>
