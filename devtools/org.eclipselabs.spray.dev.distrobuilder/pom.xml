@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.eclipselabs.spray.dev</groupId>
+	<artifactId>distrobuilder</artifactId>
+	<packaging>pom</packaging>
+	<version>0.5.0-SNAPSHOT</version>
+	<description />
+
+	<properties>
+		<ftp.server>mirror.netcologne.de</ftp.server>
+		<ftp.path>eclipse/eclipse/downloads/drops</ftp.path>
+		<ftp.director.path>eclipse/tools/buckminster/products</ftp.director.path>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<taskdef name="builder"
+								        classname="at.bestsolution.releng.distrobuilder.ant.DistroBuilderTaskDef" />
+    							<mkdir dir="builder"/>
+    							<mkdir dir="repos/shared"/>
+    							<mkdir dir="targets/4.2.2/macosx/x86_64"/>
+    							<mkdir dir="targets/4.2.2/win32/x86_64"/>
+    							
+    							<get 
+    								src="http://${ftp.server}/${ftp.director.path}/director_latest.zip" 
+    								dest="${project.build.directory}/director_latest.zip"
+    								skipexisting="true"
+    								/>
+
+								<unzip src="${project.build.directory}/director_latest.zip" dest="${project.build.directory}"/>
+								<chmod file="${project.build.directory}/director/director" perm="+x"/>
+								
+    							<get 
+    								src="http://mirror.netcologne.de/eclipse/eclipse/downloads/drops4/R-4.2.2-201302041200/eclipse-SDK-4.2.2-macosx-cocoa-x86_64.tar.gz" 
+    								dest="targets/4.2.2/macosx/x86_64/eclipse-SDK-4.2.2-macosx-cocoa-x86_64.tar.gz"
+    								skipexisting="true"
+    								/>
+    							<get 
+    								src="http://mirror.netcologne.de/eclipse/eclipse/downloads/drops4/R-4.2.2-201302041200/eclipse-SDK-4.2.2-win32-x86_64.zip" 
+    								dest="targets/4.2.2/win32/x86_64/eclipse-SDK-4.2.2-win32-x86_64.zip"
+    								skipexisting="true"
+    								/>
+					       <echo>Build Distribution</echo>
+					        <builder
+					            builddirectory="${project.build.directory}/build"
+					            p2directorexecutable="${project.build.directory}/director/director"
+					            targetdirectory="${basedir}/targets"
+					            staticreposdirectory="${basedir}/repos"
+					            distdirectory="${project.build.directory}/dist"
+					            appname="Spray"
+					            version="${project.version}">
+					            
+					            <updatesite url="http://download.eclipse.org/releases/juno"/>
+					 
+					 			<!-- Eclipse Platform -->
+					            <installunit name="org.eclipse.egit.feature.group"/>
+					            <installunit name="org.eclipse.mylyn.ide.ui"/>
+					            <installunit name="org.eclipse.mylyn.builds.sdk.feature.group"/>
+					            
+					            <!-- Eclipse General Purpose Tools -->
+					            <installunit name="org.eclipse.m2e.feature.feature.group"/>
+					            <installunit name="org.eclipse.wb.rcp.feature.feature.group"/>
+					            <installunit name="org.eclipse.wb.swt.feature.feature.group"/>
+					            <installunit name="org.eclipse.wb.core.feature.feature.group"/>
+					            <installunit name="org.eclipse.wb.doc.user.feature.feature.group"/>
+					            <installunit name="org.eclipse.wb.core.ui.feature.feature.group"/>
+					            <installunit name="org.eclipse.wb.doc.user.feature.feature.group"/>
+					            
+					            <!-- Eclipse Modeling -->
+					            <installunit name="org.eclipse.emf.sdk.feature.group"/>
+					            <installunit name="org.eclipse.emf.mwe.sdk.feature.group"/>
+					            <installunit name="org.eclipse.graphiti.sdk.plus.feature.feature.group"/>
+					            <installunit name="org.eclipse.zest.sdk.feature.group"/>
+					
+								<!-- Xtext, MWE2 -->
+					            <updatesite url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+					            <installunit name="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.3.0.v201206120758"/>
+					            <installunit name="org.eclipse.emf.mwe2.language.sdk.source.feature.group" version="2.3.0.v201206120758"/>
+					            <installunit name="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.3.0.v201206110920"/>
+					            <installunit name="org.eclipse.emf.mwe2.runtime.sdk.source.feature.group" version="2.3.0.v201206110920"/>
+					            <installunit name="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947"/>
+					            <installunit name="org.eclipse.xtext.sdk.source.feature.group" version="2.3.1.v201208210947"/>
+					            <installunit name="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.3.1.v201208210947"/>
+					            <installunit name="org.eclipse.xtext.xtend2.sdk.source.feature.group" version="2.3.1.v201208210947"/>
+					            <installunit name="org.eclipse.xtext.xtend2.m2e.feature.group" version="2.3.1.v201208210947"/>
+					
+					
+								<!-- SWTBot -->
+					            <updatesite url="http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site"/>
+					            <installunit name="org.eclipse.swtbot.ide.feature.group"/>
+					
+								<!-- Xtext Extensions -->
+					            <updatesite url="http://download.itemis.com/updates/releases/2.0.0/"/>
+					            <installunit name="de.itemis.xtext.antlr.sdk.feature.group"/>
+					            <installunit name="de.itemis.xtext.antlr.sdk.source.feature.group"/>
+					            <updatesite url="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
+					            <installunit name="org.eclipselabs.xtext.utils.unittesting.feature.feature.group"/>
+					            <updatesite url="http://www.xpect-tests.org/updatesite/nightly/"/>
+					            <installunit name="org.xpect.sdk.feature.group"/>
+					            <installunit name="org.xpect.sdk.source.feature.group"/>
+					            <!-- <installunit name="org.eclipse.jdt.junit.runners.feature.feature.group"/> -->
+					
+								<!-- ECLEmma -->
+					            <updatesite url="http://update.eclemma.org"/>
+					            <installunit name="com.mountainminds.eclemma.feature.feature.group"/>
+					
+								<!-- Mylyn Extensions -->
+								<!--
+					            <updatesite url="http://knittig.de/googlecode-mylyn-connector/update/"/>
+					            <installunit name="com.googlecode.mylyn.feature.group"/>
+					            -->
+					
+								<!-- AnyEdit -->
+								<!--
+					            <updatesite url="http://andrei.gmxhome.de/eclipse"/>
+					            <installunit name="AnyEditTools.feature.group"/>
+								-->
+								
+								<!-- b3 -->
+					            <updatesite url="http://download.eclipse.org/modeling/emft/b3/updates-4.2"/>
+					            <installunit name="org.eclipse.b3.aggregator.editor.feature.feature.group"/>
+					            
+								<!-- Workspace Mechanic -->            
+					            <updatesite url="http://workspacemechanic.eclipselabs.org.codespot.com/git.update/mechanic/"/>
+					            <installunit name="com.google.eclipse.mechanic.feature.group"/>
+					        </builder>
+					        </target>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+					  <groupId>ant</groupId>
+					  <artifactId>ant-optional</artifactId>
+					  <version>1.5.2</version>
+					</dependency>
+					<dependency>
+						<groupId>commons-net</groupId>
+						<artifactId>commons-net</artifactId>
+						<version>3.2</version>
+					</dependency>
+				    <dependency>
+				    	<groupId>at.bestsolution.releng.distrobuilder</groupId>
+				    	<artifactId>at.bestsolution.releng.distrobuilder</artifactId>
+				    	<version>0.0.1-SNAPSHOT</version>
+				    </dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<pluginRepositories>
+		<!-- NetComponents -->
+		<pluginRepository>
+			<id>soapui.org</id>
+			<name>soapui.org</name>
+			<url>http://www.soapui.org/repository/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+		<!-- Distrobuilder -->
+		<pluginRepository>
+			<id>cloudbees.kthoms.snapshot</id>
+			<url>https://repository-kthoms.forge.cloudbees.com/snapshot/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>
+
+

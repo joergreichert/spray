@@ -1,0 +1,25 @@
+<settings>
+    <activeProfiles>
+        <activeProfile>external-repositories</activeProfile>
+    </activeProfiles>
+    <profiles>
+        <profile>
+            <id>external-repositories</id>
+            <repositories>
+	<!-- NetComponents -->
+	<repository>
+		<id>soapui.org</id>
+		<url>http://www.soapui.org/repository/maven2</url>
+	</repository>
+	<!-- Distrobuilder -->
+	<repository>
+		<id>cloudbees.kthoms.snapshot</id>
+		<url>https://repository-kthoms.forge.cloudbees.com/snapshot/</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+	</repository>
+            </repositories>
+        </profile>
+    </profiles>
+</settings>

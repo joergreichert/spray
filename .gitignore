@@ -17,3 +17,4 @@ docs/org.eclipselabs.spray.shapes.doc/docs/
 /examples/one/org.eclipselabs.spray.examples.one/src/plugin.xml
 *.ec
 *.zip
+/devtools/org.eclipselabs.spray.dev.distrobuilder/targets/
