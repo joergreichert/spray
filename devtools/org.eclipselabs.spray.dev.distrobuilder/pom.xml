@@ -33,6 +33,7 @@
     							<mkdir dir="repos/shared"/>
     							<mkdir dir="targets/4.2.2/macosx/x86_64"/>
     							<mkdir dir="targets/4.2.2/win32/x86_64"/>
+    							<mkdir dir="targets/4.2.2/linux/x86_64"/>
     							
     							<get 
     								src="http://${ftp.server}/${ftp.director.path}/director_latest.zip" 
@@ -53,6 +54,12 @@
     								dest="targets/4.2.2/win32/x86_64/eclipse-SDK-4.2.2-win32-x86_64.zip"
     								skipexisting="true"
     								/>
+    							<get 
+    								src="http://mirror.netcologne.de/eclipse/eclipse/downloads/drops4/R-4.2.2-201302041200/eclipse-SDK-4.2.2-linux-gtk-x86_64.tar.gz" 
+    								dest="targets/4.2.2/linux/x86_64/eclipse-SDK-4.2.2-linux-gtk-x86_64.tar.gz"
+    								skipexisting="true"
+    								/>
+    								
 					       <echo>Build Distribution</echo>
 					        <builder
 					            builddirectory="${project.build.directory}/build"
