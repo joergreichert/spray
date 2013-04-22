@@ -147,7 +147,6 @@
 					            <!-- Spray -->
 					            <updatesite url="https://spray.ci.cloudbees.com/job/spray-assembly-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/"/>
 					            <installunit name="org.eclipselabs.spray.feature.sdk.feature.group"/>
-					            <installunit name="org.eclipselabs.spray.feature.sdk.source.feature.group"/>
 					            
 					        </builder>
 					        </target>
