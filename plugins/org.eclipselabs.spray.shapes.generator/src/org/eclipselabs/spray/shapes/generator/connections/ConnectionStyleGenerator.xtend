@@ -1,9 +1,9 @@
 package org.eclipselabs.spray.shapes.generator.connections
 
-import org.eclipselabs.spray.styles.YesNoBool
-import org.eclipselabs.spray.styles.LineStyle
 import com.google.inject.Inject
 import org.eclipselabs.spray.shapes.ShapestyleLayout
+import org.eclipselabs.spray.styles.LineStyle
+import org.eclipselabs.spray.styles.YesNoBool
 import org.eclipselabs.spray.styles.generator.StyleGenerator
 
 class ConnectionStyleGenerator {

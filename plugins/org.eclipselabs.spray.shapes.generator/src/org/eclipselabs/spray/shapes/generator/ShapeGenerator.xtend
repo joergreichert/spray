@@ -18,11 +18,15 @@ import org.eclipselabs.spray.shapes.ShapeDefinition
 import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
 import static org.eclipselabs.spray.shapes.generator.ShapeGenerator.*
 import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.shapes.generator.shapes.ShapeDefinitionGenerator
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
+import com.google.inject.Provider
+import org.eclipselabs.spray.shapes.generator.shapes.ConnectionDefinitionGenerator
 
 class ShapeGenerator implements IGenerator {
-
-	@Inject GeneratorShapeDefinition shapeDefinition
-    @Inject GeneratorConnectionDefinition connectionDefinition 
+    @Inject Provider<JavaGenFile> genFileProvider
+	@Inject ShapeDefinitionGenerator shapeDefinition
+    @Inject ConnectionDefinitionGenerator connectionDefinition 
     @Inject GeneratorSVGDefinition svgDefinition 
     private static Log   LOGGER       = LogFactory::getLog("ShapeGenerator");
 	
@@ -36,10 +40,14 @@ class ShapeGenerator implements IGenerator {
         if( ! resource.loaded ){
             resource.load(null);
         }
+        
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+        
    		val svgOutputConfName = "svgOutputConf"
    		fsa.addSVGOutputConfiguration(svgOutputConfName)
         for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
-            fsa.generateJava(shapeContainerElement)
+            java.generateJava(shapeContainerElement)
         }
         for(shapeContainerElement : resource.allContents.toIterable.filter(typeof(ShapeContainerElement))) {
             val svgContent = svgDefinition.compile(shapeContainerElement)
@@ -47,12 +55,14 @@ class ShapeGenerator implements IGenerator {
         }
 	}
 	
-	def dispatch generateJava(IFileSystemAccess fsa, ShapeDefinition shape) {
-           fsa.generateFile(shapeDefinition.filepath(shape), shapeDefinition.compile(shape))
+	def dispatch generateJava(JavaGenFile java, ShapeDefinition shape) {
+		java.hasExtensionPoint = true
+		shapeDefinition.generate(shape, java)
 	}
 	
-	def dispatch generateJava(IFileSystemAccess fsa, ConnectionDefinition connection) {
-		fsa.generateFile(connectionDefinition.filepath(connection), connectionDefinition.compile(connection))
+	def dispatch generateJava(JavaGenFile java, ConnectionDefinition connection) {
+		java.hasExtensionPoint = true
+		connectionDefinition.generate(connection, java)
 	}	
 	
 	def private addSVGOutputConfiguration(IFileSystemAccess fsa, String svgOutputConfName) {

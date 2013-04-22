@@ -17,7 +17,8 @@ class GeneratorConnectionDefinition {
 	def packageName() { ProjectProperties::shapesPackage }
 	def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage)  }
 	def filepath(ConnectionDefinition c) { packagePath + c.className + ".java" }
-	def className(ConnectionDefinition c) { c.name.toFirstUpper }
+	def gapClassName(ConnectionDefinition c) { c.name.toFirstUpper }
+	def className(ConnectionDefinition c) { c.gapClassName + "Base" }
 	
 	def compile(ConnectionDefinition c) {
 		'''

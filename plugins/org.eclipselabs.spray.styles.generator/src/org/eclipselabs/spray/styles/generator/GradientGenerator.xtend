@@ -7,16 +7,42 @@ import org.eclipselabs.spray.styles.ColorConstantRef
 import org.eclipselabs.spray.styles.RGBColor
 import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
 import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.xtext.generator.FileGenerator
+import org.eclipselabs.spray.xtext.generator.filesystem.GenFile
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
-class GradientGenerator {
+class GradientGenerator extends FileGenerator<Gradient> {
 	def filepath(Gradient g) { g.packagePath + g.className + ".java" }
-	def className(Gradient g) { g.name.toFirstUpper }
+	def gapClassName(Gradient g) { g.name.toFirstUpper }
+	def className(Gradient g) { g.name.toFirstUpper + "Base" }
     def packageName(Gradient s) { ProjectProperties::gradientsPackage }
     def packagePath(Gradient s) { ProjectProperties::toPath(ProjectProperties::gradientsPackage) }
 	
 	int elementIndex = 0
 	
-	def compile(Gradient g) {
+	override generate(Gradient gradient, GenFile genFile) {
+		(genFile as JavaGenFile).setPackageAndClass(gradient.packageName, gradient.gapClassName)
+		super.generate(gradient, genFile)
+	}
+
+    override CharSequence generateBaseFile(Gradient gradient) {
+    	compile(gradient)
+    }
+
+    override CharSequence generateExtensionFile(Gradient gradient) {
+        mainExtensionPointFile(gradient)
+    }
+
+    def mainExtensionPointFile(Gradient gradient) '''
+        «extensionHeader(this)»
+        package «gradient.packageName»;
+         
+        public class «gradient.gapClassName» extends «gradient.className» {
+         
+        }
+    '''	
+	
+	def private compile(Gradient g) {
 		'''
 		«g.head»
 		

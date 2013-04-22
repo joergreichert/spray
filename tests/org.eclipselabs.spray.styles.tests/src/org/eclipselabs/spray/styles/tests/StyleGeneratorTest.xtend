@@ -1,25 +1,28 @@
 package org.eclipselabs.spray.styles.tests
 
 import com.google.inject.Inject
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.junit.runner.RunWith
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider
-import org.eclipselabs.spray.styles.generator.StyleGenerator
+import com.google.inject.Provider
 import org.eclipse.xtext.generator.InMemoryFileSystemAccess
-import org.junit.Test
-import org.eclipselabs.spray.styles.StyleContainer
+import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.junit4.util.ParseHelper
+import org.eclipselabs.spray.styles.Gradient
 import org.eclipselabs.spray.styles.Style
+import org.eclipselabs.spray.styles.StyleContainer
+import org.eclipselabs.spray.styles.generator.StylesGenerator
+import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
+import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
+import org.junit.Test
+import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
-import org.eclipselabs.spray.styles.Gradient
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(StyleTestsInjectorProvider))
 class StyleGeneratorTest {
+    @Inject Provider<JavaGenFile> genFileProvider
 	@Inject extension ParseHelper<StyleContainer> parseHelper
-	@Inject extension StyleGenerator styleGenerator
+	@Inject extension StylesGenerator styleGenerator
 	
 	def private styleModelFull() '''
 		style MyStyle {
@@ -47,10 +50,12 @@ class StyleGeneratorTest {
 	@Test
 	def testGenerateStyleModelFull() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.doGenerateStyle(styleModelFull.parse.styleContainerElement.filter(typeof(Style)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.doGenerateStyle(styleModelFull.parse.styleContainerElement.filter(typeof(Style)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTstyles/MyStyle.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTstyles/MyStyleBase.java", entries.head.key)
 		assertEquals("Expected file content generated", styleModelFullExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -75,84 +80,82 @@ class StyleGeneratorTest {
 		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
 		
 		
+		/**
+		 * This is a generated Style class for Spray.
+		 * Description: My description
+		 */
+		@SuppressWarnings("all")
+		public class MyStyleBase extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+		
 			/**
-			 * This is a generated Style class for Spray.
+			 * This method creates a Style and returns the defined style.
 			 * Description: My description
 			 */
-			@SuppressWarnings("all")
-			public class MyStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-			    
-			    /**
-				 * This method creates a Style and returns the defined style.
-				 * Description: My description
-				 */
-			    @Override
-				public Style newStyle(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					
-					// Creating Style with given id and description
-					Style style = super.newStyle(diagram);
-					style.setId("MyStyle");
-					style.setDescription("My description");
-					
-					        // transparency value
-					        style.setTransparency(0.5);
-					
-					
-					        // line attributes
-					        style.setLineVisible(true);
-					        style.setForeground(gaService.manageColor(diagram, IColorConstant.GRAY));
-					        style.setLineWidth(3);
-					        style.setLineStyle(LineStyle.DASHDOT);
-					
-					        // font attributes
-					        String fontName = "Arial";
-					        int fontSize = 18;
-					        boolean fontItalic = true;
-					        boolean fontBold = true;
-					        style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-					
-					        gaService.setRenderingStyle(style, getColorSchema());
-					
-					return style;
-				}
-				
-			    /**
-				 * This method returns the font color for the style. 
-				 * The font color will be returned separated, because Graphiti allows just the foreground color.
-				 * The foreground color will be used for lines and fonts at the same time.
-				 */
-				@Override
-				public Color getFontColor(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					return gaService.manageColor(diagram, IColorConstant.BLUE);
-				}
+			@Override
+			public Style newStyle(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
 		
-				 /**
-				 * This method returns Color Schema of the Style
-				 */
-				public AdaptedGradientColoredAreas getColorSchema() {
-					final AdaptedGradientColoredAreas agca =
-					StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
-					agca.setDefinedStyleId("LWC2012CorporateStyle_Color_Schema_ID");
-					agca.setGradientType(IGradientType.HORIZONTAL);
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
-																GradientUtilClass.getOneColorGradient("000000"));
-																
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
-																GradientUtilClass.getOneColorGradient("006400"));
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED,
-																GradientUtilClass.getOneColorGradient("006464"));
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED,
-																GradientUtilClass.getOneColorGradient("0064C8"));
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN,
-																GradientUtilClass.getOneColorGradient("640000"));
-					return agca;
-				}
+				// Creating Style with given id and description
+				Style style = super.newStyle(diagram);
+				style.setId("MyStyle");
+				style.setDescription("My description");
+		
+				// transparency value
+				style.setTransparency(0.5);
 				
 				
-			}	
-		'''
+				// line attributes
+				style.setLineVisible(true);
+				style.setForeground(gaService.manageColor(diagram, IColorConstant.GRAY));
+				style.setLineWidth(3);
+				style.setLineStyle(LineStyle.DASHDOT);
+				
+				// font attributes
+				String fontName = "Arial";
+				int fontSize = 18;
+				boolean fontItalic = true;
+				boolean fontBold = true;
+				style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
+				
+				gaService.setRenderingStyle(style, getColorSchema());
+				
+				return style;
+			}
+		
+		    /**
+			 * This method returns the font color for the style. 
+			 * The font color will be returned separated, because Graphiti allows just the foreground color.
+			 * The foreground color will be used for lines and fonts at the same time.
+			 */
+			@Override
+			public Color getFontColor(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
+				return gaService.manageColor(diagram, IColorConstant.BLUE);
+			}
+		
+			 /**
+			 * This method returns Color Schema of the Style
+			 */
+			public AdaptedGradientColoredAreas getColorSchema() {
+				final AdaptedGradientColoredAreas agca =
+				StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+				agca.setDefinedStyleId("LWC2012CorporateStyle_Color_Schema_ID");
+				agca.setGradientType(IGradientType.HORIZONTAL);
+				agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
+															GradientUtilClass.getOneColorGradient("000000"));
+															
+				agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
+															GradientUtilClass.getOneColorGradient("006400"));
+				agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED,
+															GradientUtilClass.getOneColorGradient("006464"));
+				agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED,
+															GradientUtilClass.getOneColorGradient("0064C8"));
+				agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN,
+															GradientUtilClass.getOneColorGradient("640000"));
+				return agca;
+			}
+		}
+	'''
 		
 	def private styleModelMin() '''
 		style MyMinStyle {
@@ -162,10 +165,12 @@ class StyleGeneratorTest {
 	@Test
 	def testGenerateStyleModelMin() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.doGenerateStyle(styleModelMin.parse.styleContainerElement.filter(typeof(Style)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.doGenerateStyle(styleModelMin.parse.styleContainerElement.filter(typeof(Style)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTstyles/MyMinStyle.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTstyles/MyMinStyleBase.java", entries.head.key)
 		assertEquals("Expected file content generated", styleModelMinExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -190,62 +195,60 @@ class StyleGeneratorTest {
 		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
 		
 		
+		/**
+		 * This is a generated Style class for Spray.
+		 * Description: 
+		 */
+		@SuppressWarnings("all")
+		public class MyMinStyleBase extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+		
 			/**
-			 * This is a generated Style class for Spray.
+			 * This method creates a Style and returns the defined style.
 			 * Description: 
 			 */
-			@SuppressWarnings("all")
-			public class MyMinStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-			    
-			    /**
-				 * This method creates a Style and returns the defined style.
-				 * Description: 
-				 */
-			    @Override
-				public Style newStyle(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					
-					// Creating Style with given id and description
-					Style style = super.newStyle(diagram);
-					style.setId("MyMinStyle");
-					style.setDescription("");
-					
-					        // transparency value
-					
-					// background attributes
-					
-					        // line attributes
-					
-					        // font attributes
-					        String fontName = style.getFont().getName();
-					        int fontSize = style.getFont().getSize();
-					        boolean fontItalic = style.getFont().isItalic();
-					        boolean fontBold = style.getFont().isBold();
-					        style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-					
-					
-					return style;
-				}
-				
-			    /**
-				 * This method returns the font color for the style. 
-				 * The font color will be returned separated, because Graphiti allows just the foreground color.
-				 * The foreground color will be used for lines and fonts at the same time.
-				 */
-				@Override
-				public Color getFontColor(Diagram diagram) {
-					return super.getFontColor(diagram);
-				}
+			@Override
+			public Style newStyle(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
 		
-				 /**
-				 * This method returns Color Schema of the Style
-				 */
-				public AdaptedGradientColoredAreas getColorSchema() {
-					return null;	
-				}
+				// Creating Style with given id and description
+				Style style = super.newStyle(diagram);
+				style.setId("MyMinStyle");
+				style.setDescription("");
+		
+				// transparency value
+				
+				// background attributes
+				
+				// line attributes
+				
+				// font attributes
+				String fontName = style.getFont().getName();
+				int fontSize = style.getFont().getSize();
+				boolean fontItalic = style.getFont().isItalic();
+				boolean fontBold = style.getFont().isBold();
+				style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 				
 				
-			}	
+				return style;
+			}
+		
+		    /**
+			 * This method returns the font color for the style. 
+			 * The font color will be returned separated, because Graphiti allows just the foreground color.
+			 * The foreground color will be used for lines and fonts at the same time.
+			 */
+			@Override
+			public Color getFontColor(Diagram diagram) {
+				return super.getFontColor(diagram);
+			}
+		
+			 /**
+			 * This method returns Color Schema of the Style
+			 */
+			public AdaptedGradientColoredAreas getColorSchema() {
+				return null;	
+			}
+		}
 	'''		
 	
 	def private styleModelOther() '''
@@ -263,10 +266,12 @@ class StyleGeneratorTest {
 	@Test
 	def testGenerateStyleModelOther() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.doGenerateStyle(styleModelOther.parse.styleContainerElement.filter(typeof(Style)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.doGenerateStyle(styleModelOther.parse.styleContainerElement.filter(typeof(Style)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTstyles/MyOtherStyle.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTstyles/MyOtherStyleBase.java", entries.head.key)
 		assertEquals("Expected file content generated", styleModelOtherExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -291,67 +296,65 @@ class StyleGeneratorTest {
 		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
 		
 		
+		/**
+		 * This is a generated Style class for Spray.
+		 * Description: 
+		 */
+		@SuppressWarnings("all")
+		public class MyOtherStyleBase extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+		
 			/**
-			 * This is a generated Style class for Spray.
+			 * This method creates a Style and returns the defined style.
 			 * Description: 
 			 */
-			@SuppressWarnings("all")
-			public class MyOtherStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-			    
-			    /**
-				 * This method creates a Style and returns the defined style.
-				 * Description: 
-				 */
-			    @Override
-				public Style newStyle(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					
-					// Creating Style with given id and description
-					Style style = super.newStyle(diagram);
-					style.setId("MyOtherStyle");
-					style.setDescription("");
-					
-					        // transparency value
-					
-					// background attributes
-					style.setFilled(true);
-					style.setBackground(gaService.manageColor(diagram, IColorConstant.BLUE));
-					
-					        // line attributes
-					        style.setLineVisible(false);
-					        style.setForeground(null);
-					
-					        // font attributes
-					        String fontName = "Times New Roman";
-					        int fontSize = style.getFont().getSize();
-					        boolean fontItalic = false;
-					        boolean fontBold = false;
-					        style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-					
-					
-					return style;
-				}
-				
-			    /**
-				 * This method returns the font color for the style. 
-				 * The font color will be returned separated, because Graphiti allows just the foreground color.
-				 * The foreground color will be used for lines and fonts at the same time.
-				 */
-				@Override
-				public Color getFontColor(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					return gaService.manageColor(diagram, IColorConstant.BLUE);
-				}
+			@Override
+			public Style newStyle(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
 		
-				 /**
-				 * This method returns Color Schema of the Style
-				 */
-				public AdaptedGradientColoredAreas getColorSchema() {
-					return null;	
-				}
+				// Creating Style with given id and description
+				Style style = super.newStyle(diagram);
+				style.setId("MyOtherStyle");
+				style.setDescription("");
+		
+				// transparency value
+				
+				// background attributes
+				style.setFilled(true);
+				style.setBackground(gaService.manageColor(diagram, IColorConstant.BLUE));
+				
+				// line attributes
+				style.setLineVisible(false);
+				style.setForeground(null);
+				
+				// font attributes
+				String fontName = "Times New Roman";
+				int fontSize = style.getFont().getSize();
+				boolean fontItalic = false;
+				boolean fontBold = false;
+				style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 				
 				
-			}	
+				return style;
+			}
+		
+		    /**
+			 * This method returns the font color for the style. 
+			 * The font color will be returned separated, because Graphiti allows just the foreground color.
+			 * The foreground color will be used for lines and fonts at the same time.
+			 */
+			@Override
+			public Color getFontColor(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
+				return gaService.manageColor(diagram, IColorConstant.BLUE);
+			}
+		
+			 /**
+			 * This method returns Color Schema of the Style
+			 */
+			public AdaptedGradientColoredAreas getColorSchema() {
+				return null;	
+			}
+		}
 	'''
 	
 	def private styleModelInheritence() '''
@@ -368,12 +371,14 @@ class StyleGeneratorTest {
 	@Test
 	def testGenerateStyleModelInheritence() {
 		val fsa = new InMemoryFileSystemAccess
-		styleModelInheritence.parse.styleContainerElement.filter(typeof(Style)).forEach(style|fsa.doGenerateStyle(style))
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		styleModelInheritence.parse.styleContainerElement.filter(typeof(Style)).forEach(style|java.doGenerateStyle(style))
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 2, entries.size)
-		val parentEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTstyles/MyParentStyle.java"))
+		val parentEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTstyles/MyParentStyleBase.java"))
 		assertNotNull(/*"In expected file output generated for parent style", "DEFAULT_OUTPUTstyles/MyParentStyle.java",*/ parentEntry)
-		val childEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTstyles/MyChildStyle.java"))
+		val childEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTstyles/MyChildStyleBase.java"))
 		assertNotNull(/*"In expected file output generated for child style", "DEFAULT_OUTPUTstyles/MyChildStyle.java",*/ childEntry)
 		assertEquals("Expected file content generated for child style", styleModelInheritenceExpectedChildContent.toString, childEntry.value.toString)
 	}	
@@ -400,63 +405,61 @@ class StyleGeneratorTest {
 		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
 		
 		
+		/**
+		 * This is a generated Style class for Spray.
+		 * Description: 
+		 */
+		@SuppressWarnings("all")
+		public class MyChildStyleBase extends MyParentStyle {
+		
 			/**
-			 * This is a generated Style class for Spray.
+			 * This method creates a Style and returns the defined style.
 			 * Description: 
 			 */
-			@SuppressWarnings("all")
-			public class MyChildStyle extends MyParentStyle {
-			    
-			    /**
-				 * This method creates a Style and returns the defined style.
-				 * Description: 
-				 */
-			    @Override
-				public Style newStyle(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					
-					// Creating Style with given id and description
-					Style style = super.newStyle(diagram);
-					style.setId("MyChildStyle");
-					style.setDescription("");
-					
-					        // transparency value
-					
-					// background attributes
-					
-					        // line attributes
-					
-					        // font attributes
-					        String fontName = style.getFont().getName();
-					        int fontSize = style.getFont().getSize();
-					        boolean fontItalic = style.getFont().isItalic();
-					        boolean fontBold = style.getFont().isBold();
-					        style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-					
-					
-					return style;
-				}
-				
-			    /**
-				 * This method returns the font color for the style. 
-				 * The font color will be returned separated, because Graphiti allows just the foreground color.
-				 * The foreground color will be used for lines and fonts at the same time.
-				 */
-				@Override
-				public Color getFontColor(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					return gaService.manageColor(diagram, IColorConstant.BLACK);
-				}
+			@Override
+			public Style newStyle(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
 		
-				 /**
-				 * This method returns Color Schema of the Style
-				 */
-				public AdaptedGradientColoredAreas getColorSchema() {
-					return null;	
-				}
+				// Creating Style with given id and description
+				Style style = super.newStyle(diagram);
+				style.setId("MyChildStyle");
+				style.setDescription("");
+		
+				// transparency value
+				
+				// background attributes
+				
+				// line attributes
+				
+				// font attributes
+				String fontName = style.getFont().getName();
+				int fontSize = style.getFont().getSize();
+				boolean fontItalic = style.getFont().isItalic();
+				boolean fontBold = style.getFont().isBold();
+				style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 				
 				
-			}	
+				return style;
+			}
+		
+		    /**
+			 * This method returns the font color for the style. 
+			 * The font color will be returned separated, because Graphiti allows just the foreground color.
+			 * The foreground color will be used for lines and fonts at the same time.
+			 */
+			@Override
+			public Color getFontColor(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
+				return gaService.manageColor(diagram, IColorConstant.BLACK);
+			}
+		
+			 /**
+			 * This method returns Color Schema of the Style
+			 */
+			public AdaptedGradientColoredAreas getColorSchema() {
+				return null;	
+			}
+		}
 	'''
 	
 	def private gradientModel() '''
@@ -473,14 +476,16 @@ class StyleGeneratorTest {
 	@Test
 	def testGenerateGradientModel() {
 		val fsa = new InMemoryFileSystemAccess
-		fsa.doGenerateStyle(gradientModel.parse.styleContainerElement.filter(typeof(Style)).head)
-		fsa.doGenerateGradient(gradientModel.parse.styleContainerElement.filter(typeof(Gradient)).head)
+        val JavaGenFile java = genFileProvider.get()
+        java.access = fsa
+		java.doGenerateStyle(gradientModel.parse.styleContainerElement.filter(typeof(Style)).head)
+		java.doGenerateGradient(gradientModel.parse.styleContainerElement.filter(typeof(Gradient)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 2, entries.size)
-		val gradientEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTgradients/MyGradient.java"))
+		val gradientEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTgradients/MyGradientBase.java"))
 		assertNotNull(/*"In expected file output generated for child style", "DEFAULT_OUTPUTgradients/MyGradient.java",*/ gradientEntry)
 		assertEquals("Expected file content generated for child style", gradientModelExpectedGradientContent.toString, gradientEntry.value.toString)
-		val styleEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTstyles/MyStyle.java"))
+		val styleEntry = entries.findFirst(e|e.key.equals("DEFAULT_OUTPUTstyles/MyStyleBase.java"))
 		assertNotNull(/*"In expected file output generated for style", "DEFAULT_OUTPUTstyles/MyStyle.java",*/ styleEntry)
 		assertEquals("Expected file content generated for child style", gradientModelExpectedStyleContent.toString, styleEntry.value.toString)
 	}	
@@ -505,7 +510,7 @@ class StyleGeneratorTest {
 		 * Description: 
 		 */
 		@SuppressWarnings("all")
-		public class MyGradient extends PredefinedColoredAreas implements ISprayGradient {
+		public class MyGradientBase extends PredefinedColoredAreas implements ISprayGradient {
 		    
 		    /**
 		     * This method returns the gradient color area.
@@ -542,68 +547,66 @@ class StyleGeneratorTest {
 		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
 		
 		
+		/**
+		 * This is a generated Style class for Spray.
+		 * Description: 
+		 */
+		@SuppressWarnings("all")
+		public class MyStyleBase extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
+		
 			/**
-			 * This is a generated Style class for Spray.
+			 * This method creates a Style and returns the defined style.
 			 * Description: 
 			 */
-			@SuppressWarnings("all")
-			public class MyStyle extends org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-			    
-			    /**
-				 * This method creates a Style and returns the defined style.
-				 * Description: 
-				 */
-			    @Override
-				public Style newStyle(Diagram diagram) {
-					IGaService gaService = Graphiti.getGaService();
-					
-					// Creating Style with given id and description
-					Style style = super.newStyle(diagram);
-					style.setId("MyStyle");
-					style.setDescription("");
-					
-					        // transparency value
-					
-					
-					        // line attributes
-					
-					        // font attributes
-					        String fontName = style.getFont().getName();
-					        int fontSize = style.getFont().getSize();
-					        boolean fontItalic = style.getFont().isItalic();
-					        boolean fontBold = style.getFont().isBold();
-					        style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
-					
-					        gaService.setRenderingStyle(style, getColorSchema());
-					
-					return style;
-				}
-				
-			    /**
-				 * This method returns the font color for the style. 
-				 * The font color will be returned separated, because Graphiti allows just the foreground color.
-				 * The foreground color will be used for lines and fonts at the same time.
-				 */
-				@Override
-				public Color getFontColor(Diagram diagram) {
-					return super.getFontColor(diagram);
-				}
+			@Override
+			public Style newStyle(Diagram diagram) {
+				IGaService gaService = Graphiti.getGaService();
 		
-				 /**
-				 * This method returns Color Schema of the Style
-				 */
-				public AdaptedGradientColoredAreas getColorSchema() {
-					final AdaptedGradientColoredAreas agca =
-					StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
-					agca.setDefinedStyleId("LWC2012CorporateStyle_Color_Schema_ID");
-					agca.setGradientType(IGradientType.HORIZONTAL);
-					agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
-																new gradients.MyGradient().getGradientColoredAreas( ));
-																
-					return agca;
-				}
+				// Creating Style with given id and description
+				Style style = super.newStyle(diagram);
+				style.setId("MyStyle");
+				style.setDescription("");
+		
+				// transparency value
 				
 				
-			}	
+				// line attributes
+				
+				// font attributes
+				String fontName = style.getFont().getName();
+				int fontSize = style.getFont().getSize();
+				boolean fontItalic = style.getFont().isItalic();
+				boolean fontBold = style.getFont().isBold();
+				style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
+				
+				gaService.setRenderingStyle(style, getColorSchema());
+				
+				return style;
+			}
+		
+		    /**
+			 * This method returns the font color for the style. 
+			 * The font color will be returned separated, because Graphiti allows just the foreground color.
+			 * The foreground color will be used for lines and fonts at the same time.
+			 */
+			@Override
+			public Color getFontColor(Diagram diagram) {
+				return super.getFontColor(diagram);
+			}
+		
+			 /**
+			 * This method returns Color Schema of the Style
+			 */
+			public AdaptedGradientColoredAreas getColorSchema() {
+				final AdaptedGradientColoredAreas agca =
+				StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+				agca.setDefinedStyleId("LWC2012CorporateStyle_Color_Schema_ID");
+				agca.setGradientType(IGradientType.HORIZONTAL);
+				agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
+															new gradients.MyGradient().getGradientColoredAreas( ));
+															
+				return agca;
+			}
+		}
 	'''		
 }

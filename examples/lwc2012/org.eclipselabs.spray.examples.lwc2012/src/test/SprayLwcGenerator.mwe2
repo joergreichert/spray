@@ -6,23 +6,23 @@ Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
 		registerGeneratedEPackage = "LanguageWorkbenchCompetition.LanguageWorkbenchCompetitionPackage"
-		registerGenModelFile = "platform:/resource/de.htwg.2012.lwc.mm/model/LWC.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipselabs.spray.examples.lwc2012.domain/model/LWC.genmodel"
 		scanClassPath=true
 	}
 	
 	component = @org.eclipselabs.spray.styles.generator.StyleGenerator auto-inject {
         clean = "false"
         validate = "false"
-        modelPath = "model,../de.htwg.2012.lwc.mm/model"
+        modelPath = "model,../org.eclipselabs.spray.examples.lwc2012.domain/model"
     }
 	
     component = @org.eclipselabs.spray.shapes.generator.ShapeGenerator auto-inject {
         clean = "false"
-        modelPath = "model,../de.htwg.2012.lwc.mm/model"
+        modelPath = "model,../org.eclipselabs.spray.examples.lwc2012.domain/model"
     }
 	
 	component = @org.eclipselabs.spray.generator.graphiti.SprayGenerator auto-inject {
 		clean = "false"
-		modelPath = "model,../de.htwg.2012.lwc.mm/model"
+		modelPath = "model,../org.eclipselabs.spray.examples.lwc2012.domain/model"
 	}
 }

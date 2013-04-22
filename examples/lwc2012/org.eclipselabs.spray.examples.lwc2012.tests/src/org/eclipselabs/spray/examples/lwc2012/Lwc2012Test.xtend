@@ -20,19 +20,21 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.eclipselabs.spray.generator.graphiti.SprayGenerator
 import org.eclipselabs.spray.shapes.generator.ShapeGenerator
-import org.eclipselabs.spray.styles.generator.StyleGenerator
+import org.eclipselabs.spray.styles.generator.StylesGenerator
 
 import static org.junit.Assert.*
 import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.styles.Gradient
 import org.eclipselabs.spray.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.ConnectionDefinition
+import com.google.inject.Provider
+import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Lwc2012TestsInjectorProvider))
 class Lwc2012Test {
 	@Inject Injector injector
-	@Inject StyleGenerator styleGenerator
+	@Inject StylesGenerator styleGenerator
 	@Inject ShapeGenerator shapeGenerator
 	@Inject SprayGenerator sprayGenerator
 	

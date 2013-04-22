@@ -23,7 +23,7 @@ public class StylesGeneratorModule extends AbstractGenericModule {
     }
 
     public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
-        return StyleGenerator.class;
+        return StylesGenerator.class;
     }
 
     public Class<? extends IFileSystemAccess> bindJavaIoFileSystemAccess() {
