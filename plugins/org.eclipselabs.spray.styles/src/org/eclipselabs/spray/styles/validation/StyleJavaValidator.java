@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.eclipselabs.spray.generator.common.ReservedKeyWords;
 import org.eclipselabs.spray.styles.ColorWithTransparency;
 import org.eclipselabs.spray.styles.Gradient;
 import org.eclipselabs.spray.styles.GradientColorArea;
@@ -218,6 +219,24 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
                 warning("If the line-width is 0, the line is invisible (line-style is deprecated).", StylesPackage.Literals.STYLE_LAYOUT__LINE_STYLE, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, lineStyle.toString());
             }
         }
+    }
+    
+    @Check
+    void checkUsingReservedKeyWords(Style style) {
+        if (getReservedKeyWords().contains(style.getName())) {
+            error("The keyword used as style name is reserved. Please add a pre- or suffix.", StylesPackage.Literals.STYLE_CONTAINER_ELEMENT__NAME);
+        }
+    }
+
+    @Check
+    void checkUsingReservedKeyWords(Gradient gradient) {
+        if (getReservedKeyWords().contains(gradient.getName())) {
+            error("The keyword used as gradient name is reserved. Please add a pre- or suffix.", StylesPackage.Literals.STYLE_CONTAINER_ELEMENT__NAME);
+        }
+    }
+
+    private List<String> getReservedKeyWords() {
+        return Arrays.asList(ReservedKeyWords.RESERVED_KEY_WORDS);
     }
 
 }
