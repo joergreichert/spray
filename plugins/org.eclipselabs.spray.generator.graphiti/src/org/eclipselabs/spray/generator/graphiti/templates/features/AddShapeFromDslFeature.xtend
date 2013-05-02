@@ -64,7 +64,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
-        import «container.shape.qualifiedName»;
+        import «container.shape.qualifiedName»Shape;
         «IF styleRef != null »
         import «styleRef.qualifiedName»;
         «ELSE»
@@ -135,7 +135,7 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 «ELSE»
                 final ISprayStyle style = new DefaultSprayStyle();
                 «ENDIF»
-                final ISprayShape shape = new «container.shape.simpleName»(getFeatureProvider());
+                final ISprayShape shape = new «container.shape.simpleName»Shape(getFeatureProvider());
                 final ContainerShape conShape = shape.getShape(targetContainer, style);
                 final IGaService gaService = Graphiti.getGaService();
                 gaService.setLocation(conShape.getGraphicsAlgorithm(), context.getX(), context.getY());

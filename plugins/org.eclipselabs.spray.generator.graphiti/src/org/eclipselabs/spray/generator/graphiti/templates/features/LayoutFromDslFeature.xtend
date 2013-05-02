@@ -45,7 +45,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractLayoutFeature;
         import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
-        import «ProjectProperties::shapesPackage».«container.shape.simpleName»;
+        import «ProjectProperties::shapesPackage».«container.shape.simpleName»Shape;
         
         // MARKER_IMPORT
         
@@ -56,7 +56,7 @@ class LayoutFromDslFeature extends FileGenerator<ShapeFromDsl> {
         
             public «className»(final IFeatureProvider fp) {
                 super(fp);
-                layoutManager =  new «container.shape.simpleName»(fp).getShapeLayout( );
+                layoutManager =  new «container.shape.simpleName»Shape(fp).getShapeLayout( );
             }
          
             «generate_canLayout(container)»

@@ -58,7 +58,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayTopLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayDiagramLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
-		import «ProjectProperties::shapesPackage».«container.shape.simpleName»;
+		import «ProjectProperties::shapesPackage».«container.shape.simpleName»Shape;
 
 		// MARKER_IMPORT
 
@@ -69,7 +69,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 
 			public «className»(final IFeatureProvider fp) {
 				super(fp);
-				layoutManager =  new «container.shape.simpleName»(fp).getShapeLayout( );
+				layoutManager =  new «container.shape.simpleName»Shape(fp).getShapeLayout( );
 			}
 
 			«var references = container.represents.referencesTo»
