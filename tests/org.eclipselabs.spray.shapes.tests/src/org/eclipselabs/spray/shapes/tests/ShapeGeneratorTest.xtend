@@ -86,7 +86,7 @@ class ShapeGeneratorTest {
 			public static enum TextIds {
 			}
 			
-			public MyShapeBase(IFeatureProvider fp) {
+			public MyShapeShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -217,7 +217,7 @@ class ShapeGeneratorTest {
 			public static enum TextIds {
 			}
 			
-			public MyShapeBase(IFeatureProvider fp) {
+			public MyShapeShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -348,7 +348,7 @@ class ShapeGeneratorTest {
 			public static enum TextIds {
 			}
 			
-			public MyShapeBase(IFeatureProvider fp) {
+			public MyShapeShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
