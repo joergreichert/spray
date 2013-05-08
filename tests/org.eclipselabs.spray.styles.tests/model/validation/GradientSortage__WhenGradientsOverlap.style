@@ -1,4 +1,4 @@
-gradient Gradient {
+gradient MyGradient {
 	area (color = blue, offset = 0.0)
 	area (color = green, offset = 0.4)
 /* XPECT validationIssues at '0.3' ---

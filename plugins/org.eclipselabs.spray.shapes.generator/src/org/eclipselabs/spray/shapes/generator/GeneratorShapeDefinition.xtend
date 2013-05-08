@@ -21,7 +21,7 @@ class GeneratorShapeDefinition {
     def packageName() { ProjectProperties::shapesPackage }
     def packagePath() { ProjectProperties::toPath(ProjectProperties::shapesPackage)   }
 	def filepath(ShapeDefinition s) { packagePath + s.className + ".java" }
-	def gapClassName(ShapeDefinition s) { s.name.toFirstUpper }
+	def gapClassName(ShapeDefinition s) { s.name.toFirstUpper + "Shape" }
 	def className(ShapeDefinition s) { s.gapClassName + "Base" }
 	
 	def dispatch compartment(Shape shape) {

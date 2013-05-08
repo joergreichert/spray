@@ -1,7 +1,7 @@
 /* XPECT validationIssues at 'Style' ---
 warning "If the line-color is transparent, the line-style is deprecated."
 --- */
-style Style {
+style MyStyle {
 	line-color = transparent
 	line-width = 0
 	line-style = solid

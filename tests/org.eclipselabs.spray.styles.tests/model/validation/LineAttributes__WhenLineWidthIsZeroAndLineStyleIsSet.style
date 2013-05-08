@@ -1,7 +1,7 @@
 /* XPECT validationIssues at 'Style' ---
 warning "If the line-width is 0, the line is invisible (line-style is deprecated)."
 --- */
-style Style {
+style MyStyle {
 	line-width = 0
 	line-style = solid
 }

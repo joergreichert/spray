@@ -1,6 +1,7 @@
 package org.eclipselabs.spray.shapes.validation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.eclipselabs.spray.generator.common.ReservedKeyWords;
 import org.eclipselabs.spray.shapes.AnchorFixPointPosition;
 import org.eclipselabs.spray.shapes.AnchorPositionPos;
 import org.eclipselabs.spray.shapes.AnchorRelativePosition;
@@ -421,13 +423,31 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
         }
         return textElements;
     }
-    
+
     @Check
     void checkNoGradient(ShapestyleLayout layout) {
-        if(layout.getLayout() != null) {
-        	if(layout.getLayout().getBackground() instanceof GradientRef) {
+        if (layout.getLayout() != null) {
+            if (layout.getLayout().getBackground() instanceof GradientRef) {
                 error("Using a gradient as background is not supported inside the shape DSL. Please use the style DSL for this.", ShapesPackage.Literals.SHAPESTYLE_LAYOUT__LAYOUT);
-        	}
+            }
         }
-    }    
+    }
+
+    @Check
+    void checkUsingReservedKeyWords(ShapeDefinition shape) {
+        if (getReservedKeyWords().contains(shape.getName())) {
+            error("The keyword used as shape name is reserved. Please add a pre- or suffix.", ShapesPackage.Literals.SHAPE_CONTAINER_ELEMENT__NAME);
+        }
+    }
+
+    @Check
+    void checkUsingReservedKeyWords(ConnectionDefinition connection) {
+        if (getReservedKeyWords().contains(connection.getName())) {
+            error("The keyword used as connection name is reserved. Please add a pre- or suffix.", ShapesPackage.Literals.SHAPE_CONTAINER_ELEMENT__NAME);
+        }
+    }
+
+    private List<String> getReservedKeyWords() {
+        return Arrays.asList(ReservedKeyWords.RESERVED_KEY_WORDS);
+    }
 }

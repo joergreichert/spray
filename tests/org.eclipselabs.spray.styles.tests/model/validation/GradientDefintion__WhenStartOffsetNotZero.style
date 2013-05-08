@@ -1,4 +1,4 @@
-gradient Gradient {
+gradient MyGradient {
 /* XPECT validationIssues at '0.1' ---
 warning "A gradient should always start with an offset of 0.0."
 --- */

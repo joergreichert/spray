@@ -1,6 +1,6 @@
 /* XPECT validationIssues at 'Gradient' ---
 warning "A gradient should always end with an offset of 1.0."
 --- */
-gradient Gradient {
+gradient MyGradient {
 	area (color = blue, offset = 0.0)
 }

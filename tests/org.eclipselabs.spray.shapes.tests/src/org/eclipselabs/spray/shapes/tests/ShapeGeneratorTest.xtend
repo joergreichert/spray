@@ -40,7 +40,7 @@ class ShapeGeneratorTest {
 		java.generateJava(shapeModelLine.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeBase.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelLineExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -81,12 +81,12 @@ class ShapeGeneratorTest {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		
 		@SuppressWarnings("all")
-		public class MyShapeBase extends DefaultSprayShape {
+		public class MyShapeShapeBase extends DefaultSprayShape {
 		    
 			public static enum TextIds {
 			}
 			
-			public MyShapeBase(IFeatureProvider fp) {
+			public MyShapeShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -171,7 +171,7 @@ class ShapeGeneratorTest {
 		java.generateJava(shapeModelPolyline.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeBase.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelPolylineExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -212,12 +212,12 @@ class ShapeGeneratorTest {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		
 		@SuppressWarnings("all")
-		public class MyShapeBase extends DefaultSprayShape {
+		public class MyShapeShapeBase extends DefaultSprayShape {
 		    
 			public static enum TextIds {
 			}
 			
-			public MyShapeBase(IFeatureProvider fp) {
+			public MyShapeShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
@@ -302,7 +302,7 @@ class ShapeGeneratorTest {
 		java.generateJava(shapeModelRectangle.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
 		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
-		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeBase.java", entries.head.key)
+		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelRectangleExpectedContent.toString, entries.head.value.toString)
 	}
 	
@@ -343,12 +343,12 @@ class ShapeGeneratorTest {
 		import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 		
 		@SuppressWarnings("all")
-		public class MyShapeBase extends DefaultSprayShape {
+		public class MyShapeShapeBase extends DefaultSprayShape {
 		    
 			public static enum TextIds {
 			}
 			
-			public MyShapeBase(IFeatureProvider fp) {
+			public MyShapeShapeBase(IFeatureProvider fp) {
 				super(fp);
 			}
 			
