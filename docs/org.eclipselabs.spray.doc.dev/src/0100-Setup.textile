@@ -124,6 +124,7 @@ We are targeting for Eclipse Indigo. A "target platform definition":http://help.
 * Import the project from path @releng/org.eclipselabs.spray.targetplatform@
 * Open Workspace properties, go to _Plug-in Development / Target Platform_
 * Here you should see _Spray Target Platform_. Check it and press _Apply_.
+** As alternative you can also use the locally built target platform by Add... -> Nothing -> Name: Local Spray Target, Add... -> Directory, Next -> Location: <your local path to the cloned Spray git repository>/releng/org.eclipselabs.spray.repository/target/repository.
 
 !images/targetplatform.png!
  
