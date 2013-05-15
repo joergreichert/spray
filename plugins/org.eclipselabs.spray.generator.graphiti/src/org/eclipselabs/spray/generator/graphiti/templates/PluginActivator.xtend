@@ -8,7 +8,7 @@ import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 
-class PluginActivator extends FileGenerator<Diagram>  {
+class PluginActivator extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
     
     override CharSequence generateBaseFile(Diagram modelElement) {

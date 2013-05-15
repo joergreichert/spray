@@ -120,7 +120,8 @@ h3. Add Spray Jenkins connector to Eclipse
 
 h2. Target Platform
  
-We are targeting for Eclipse Indigo. A "target platform definition":http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.pde.doc.user/concepts/target.htmis is provided in @releng/org.eclipselabs.spray.targetplatform/spray.target@. To set this target platform:
+We are targeting for Eclipse Indigo. A "target platform definition":http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.pde.doc.user/concepts/target.htm 
+is provided in @releng/org.eclipselabs.spray.targetplatform/spray.target@. To set this target platform:
 * Import the project from path @releng/org.eclipselabs.spray.targetplatform@
 * Open Workspace properties, go to _Plug-in Development / Target Platform_
 * Here you should see _Spray Target Platform_. Check it and press _Apply_.
@@ -138,7 +139,7 @@ The target platform contains the following features
 * xtext-utils unittesting - "http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x":http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
 * SWT Bot - "http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site":http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site
  
-Distributions with Eclipse Indigo + Xtext 2.0 can be found here: "http://download.itemis.com/distros/":http://download.itemis.com/distros/
+Distributions with Eclipse Indigo + Xtext 2.x can be found here: "http://download.itemis.com/distros/":http://download.itemis.com/distros/
  
 
 h2. Workspace Setup
