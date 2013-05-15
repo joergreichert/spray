@@ -40,7 +40,7 @@
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201303252114"/>
-			<unit id="org.eclipse.jdt.junit.runners.feature.feature.group" version="0.1.0.201303252037"/>
+			<unit id="org.eclipse.jdt.junit.runners.feature.feature.group" version="0.1.0.201304022321"/>
 			<repository location="http://meysholdt.github.com/Xpect/updatesite/xtext_2_3"/>
 		</location>
 	</locations>

@@ -39,5 +39,5 @@ TargetDefinition "Spray Target Platform - Eclipse 4.2"
 	
 	"Xpect" http://meysholdt.github.com/Xpect/updatesite/xtext_2_3 {
 		org.xpect.sdk 0.1.0.201303252114,
-		org.eclipse.jdt.junit.runners.feature 0.1.0.201303252037
+		org.eclipse.jdt.junit.runners.feature 0.1.0.201304022321
 	}
