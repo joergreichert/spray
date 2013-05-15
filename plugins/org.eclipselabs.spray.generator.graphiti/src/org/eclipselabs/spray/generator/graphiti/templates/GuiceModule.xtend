@@ -3,7 +3,6 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
-
 class GuiceModule extends FileGenerator<Diagram> {
     
     override CharSequence generateBaseFile(Diagram modelElement) {

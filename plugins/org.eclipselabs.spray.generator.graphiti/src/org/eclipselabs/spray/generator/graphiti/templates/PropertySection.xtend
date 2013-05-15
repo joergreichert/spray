@@ -10,7 +10,6 @@ import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import static org.eclipselabs.spray.generator.graphiti.util.MetaModel.*
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
-
 class PropertySection extends FileGenerator<EAttribute>  {
     @Inject extension NamingExtensions
     

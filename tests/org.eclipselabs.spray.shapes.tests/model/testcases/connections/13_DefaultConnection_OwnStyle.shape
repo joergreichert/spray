@@ -1,5 +1,5 @@
 connection DefaultConnection {
-	style (background-color=blue)	
+	style (background-color=blue)
 	placing {
 		position (offset=0.0, radius=10, angle=0)
 		ellipse {

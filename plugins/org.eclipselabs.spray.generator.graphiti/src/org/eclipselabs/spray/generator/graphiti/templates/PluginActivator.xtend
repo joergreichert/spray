@@ -7,7 +7,6 @@ import org.eclipselabs.spray.mm.spray.Diagram
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
-
 class PluginActivator extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
     
