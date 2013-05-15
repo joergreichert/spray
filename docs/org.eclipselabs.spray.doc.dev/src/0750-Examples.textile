@@ -1,0 +1,128 @@
+h1. Examples
+
+Examples help in several ways: they 
+* demonstrate the abilities of Spray to potential users
+* could be a starting point for developing own Spray projects
+* assist developers to test the current Spray code base 
+
+h2. Established examples
+
+The following example projects are mature although there are still things to be improved.
+
+h3. Business Model (Mod4j)
+
+| *origin:* | "Mod4j Business Domain Model DSL":http://www.mod4j.org/documentation/1.3.0/user-guide/mod4j-user-guide.html#d0e685 |
+| *kind:* | boxes and lines / compartments |
+| *description:* | Modeling of class diagrams (with classes, associations between classes, inheritence relations, attributes (name + type) and rules assigned to classes) |
+
+h3. Heat Exchanger (LWC 2012)
+
+| *origin:* | "Piping & Instrumentation Domain Model (pdf)":http://www.languageworkbenches.net/images/1/19/LWC2012_Piping_%26_Instrumentation.pdf |
+| *kind:* | boxes and lines / complex shapes and styling |
+| *description:* | Modeling of technical construction plans |
+
+h3. BPMN 2.0
+
+| *origin:* | "OMG BPMN 2.0 Spec (pdf)":http://www.omg.org/spec/BPMN/2.0/PDF, see also "BPMN 2.0 EMF meta model":http://www.eclipse.org/modeling/mdt/?project=bpmn2 and "BPMN 2.0 modeler":http://eclipse.org/bpmn2-modeler/ |
+| *kind:* | boxes and lines / complex shapes and styling |
+| *description:* | Workflow modeling |
+
+h3. Petri Nets
+
+| *origin:* | "Petri Net Markup Language (PNML, ISO/IEC 15909)":http://www.pnml.org/ |
+| *kind:* | boxes and lines / compartments |
+| *description:* | Modeling of execution behavior of distributed systems |
+
+h2. Examples in early state 
+
+The following example projects are still in development and do not yet deliver the value they should.
+
+h3. Forms
+
+| *origin:* | home grown |
+| *kind:* | compartments |
+| *description:* | Modeling of UI forms (textfields, buttons, ...) |
+
+h3. Statemachine (Fowler DSL)
+
+| *origin:* | "Martin Fowler's Statemachine DSL Example":http://www.informit.com/articles/article.aspx?p=1592379 |
+| *kind:* | boxes and lines |
+| *description:* | Modeling states and transitions between states triggered by events. |
+
+h3. Nassi-Shneiderman-Diagram
+
+| *origin:* | "Structogram":http://www.cs.umd.edu/hcil/members/bshneiderman/nsd/, "initial input from user forum":https://groups.google.com/d/msg/spray-users/1nJPGJdyEn4/Th4YPJG6qI0J |
+| *kind:* | compartments |
+| *description:* | Modeling of a program flow in form of structured flowcharts. |
+
+h3. Feature Modeling
+
+| *origin:* | "Staged Configuration Through Specialization and Multi-Level Configuration of Feature Models (pdf)":http://gp.uwaterloo.ca/sites/default/files/spip05b.pdf, see also "Feature Modeling plug-in":http://gp.uwaterloo.ca/fmp/ and "EMF feature model":http://www.eclipse.org/featuremodel/ |
+| *kind:* | boxes and lines / line decoration |
+| *description:* | Modeling product line configurations |
+
+h2. Examples only for testing
+
+The following example projects are purely for testing and do not serve a higher purpose.
+
+h3. Containment
+
+| *origin:* | "input from user forum":https://groups.google.com/d/msg/spray-users/WC1sPE8bh9s/Gem1tS2emi8J |
+| *kind:* | boxes |
+| *description:* | Modeling of EClasses that become containments to its domain model root. |
+
+h3. Goals
+
+| *origin:* | "input from user forum":https://groups.google.com/d/msg/spray-dev/jiRcbpnFJjQ/8MLVwFRTPwgJ |
+| *kind:* | boxes and lines |
+| *description:* | Testing the usage of the different connection modes. |
+
+h2. Ideas for future example projects
+
+In the following only ideas for possible example projects are listed.
+
+h3. Taipan
+
+| *origin:* | "GMF example":http://wiki.eclipse.org/Graphical_Modeling_Framework/Tutorial/Part_1#Taipan_Example |
+| *kind:* | boxes and lines / containment |
+| *description:* | Modeling of shipping routes |
+
+h3. Mindmap
+
+| *origin:* | "GMF example":http://wiki.eclipse.org/Graphical_Modeling_Framework/Tutorial/Part_1#Your_first_diagram_editor.2C_step_by_step_:_Mindmap_editor |
+| *kind:* | boxes and lines |
+| *description:* | Visually structuring ideas. |
+
+h3. Game Of Life
+
+| *origin:* | "Wikipedia":http://en.wikipedia.org/wiki/Conway's_Game_of_Life, "Bitstorm Java Applet":http://www.bitstorm.org/gameoflife/ |
+| *kind:* | shapes / simulation |
+| *description:* | Simulation. |
+
+h3. Chess
+
+| *origin:* | "Graphiti example":http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.graphiti.doc%2Fresources%2Fdocu%2Fexamples%2FChess.htm |
+| *kind:* | shapes / compartments |
+| *description:* | Testing moving rules. |
+
+h3. Component diagram
+
+| *origin:* | "UML component diagrams":http://www.agilemodeling.com/style/componentDiagram.htm |
+| *kind:* | Boxes and lines. |
+| *description:* | Modeling the components of a software system, e.g. the plug-in structure of the Spray project. |
+
+h3. Sequence diagram
+
+| *origin:* | "UML sequence diagrams":http://www.agilemodeling.com/style/sequenceDiagram.htm |
+| *kind:* | Boxes and lines. |
+| *description:* | Modeling interaction scenarios (e.g. method call sequences). Testing lines connected to lines. |
+
+h3. Floor plan
+
+| *origin:* | "Sweet Home 3D":http://www.sweethome3d.com/ |
+| *kind:* | shapes / compartments |
+| *description:* | Modeling complex structures with complex shapes. |
+
+
+
+

@@ -145,8 +145,8 @@ bc..
 class Association {
     connection AssociationConnection  {
         name into assocText
-    }
-    ( ) {
+    } 
+    {
         from source;
         to target;
     }
