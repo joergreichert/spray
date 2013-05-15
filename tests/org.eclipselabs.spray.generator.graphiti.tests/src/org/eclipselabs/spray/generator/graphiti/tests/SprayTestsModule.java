@@ -2,6 +2,7 @@ package org.eclipselabs.spray.generator.graphiti.tests;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
@@ -26,6 +27,9 @@ public class SprayTestsModule extends AbstractGenericModule {
     static class TestGenModelHelper extends GenModelHelper {
         @Override
         public String getJavaInterfaceName(EClass eClass) {
+            if (eClass.getEPackage()==EcorePackage.eINSTANCE) {
+                return super.getJavaInterfaceName(eClass);
+            }
             return "samplepackage." + eClass.getName();
         }
     }
