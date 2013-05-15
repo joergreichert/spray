@@ -48,7 +48,7 @@ class DiagramExtensions {
     /**
      * Returns all generateable CustomBehavior instances for the diagram. Not generateable are those that are realized by a concrete JVM type
      */
-    def dispatch Iterable<CustomBehavior> getBehaviorsForTemplate (Diagram diagram, CustomFeature template) {
+    def Iterable<CustomBehavior> getBehaviorsForTemplate (Diagram diagram, CustomFeature template) {
         diagram.metaClasses.map(mc|mc.allBehaviors).flatten.toSet.filter(typeof(CustomBehavior)).filter(b|b.realizedBy==null)
     }
     
