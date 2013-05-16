@@ -1,0 +1,3 @@
+h1. How To
+
+In the following sections certain details about the development environment and implementation details are explained in detail. 

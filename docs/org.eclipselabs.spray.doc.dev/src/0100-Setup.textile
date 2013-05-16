@@ -10,13 +10,46 @@ You can new clone Git from the command line or use Eclipse, which is explained i
 
 h2. Developer IDE
 
-h3. IDE
+h3. Prebuild IDE
 
-Download latest Eclipse Juno Classic appropriate for your platform: "http://www.eclipse.org/downloads/packages/eclipse-classic-422/junosr2":http://www.eclipse.org/downloads/packages/eclipse-classic-422/junosr2
+Spray provides an Eclipse distribution with all features that are required to develop Spray. Download the distribution for your operating system here: "https://spray.ci.cloudbees.com/job/spray-distrobuilder/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.distrobuilder/target/dist":https://spray.ci.cloudbees.com/job/spray-distrobuilder/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.distrobuilder/target/dist
 
-h3. Update Sites
+The IDE contains the following features:
+* Eclipse Platform
+** Eclipse SDK
+** "PDE":http://www.eclipse.org/pde/
+* Collaboration Tools
+** "EGit":http://www.eclipse.org/egit/ - Eclipse team provider for Git
+** "Mylyn":http://www.eclipse.org/mylyn/
+** "Mylyn Connector for Google Code":http://code.google.com/p/googlecode-mylyn-connector/
+** "Workspace Mechanic":http://code.google.com/a/eclipselabs.org/p/workspacemechanic/
+** "Mylyn WikiText":http://wiki.eclipse.org/Mylyn/Incubator/WikiText
+* Software Build
+** "Maven Integration for Eclipse (m2e)":http://wiki.eclipse.org/Maven_Integration
+** "Mylyn Builds":http://projects.eclipse.org/projects/mylyn.builds
+* Eclipse Modeling
+** "EMF - Eclipse Modeling Framework":http://www.eclipse.org/modeling/emf/
+** "Xtext":http://www.eclipse.org/Xtext/
+** "Xtend":www.eclipse.org/xtend/
+** Xtext Antlr
+** "Graphiti":http://www.eclipse.org/graphiti/
+** Zest SDK
+** MWE - Modeling Workflow Engine
+** MWE2
+* Testing Tools
+** SWT Bot
+** "xtext-utils unittesting":http://code.google.com/a/eclipselabs.org/p/xtext-utils/wiki/Unit_Testing
+** "Xpect":https://github.com/meysholdt/Xpect
+* Quality Assurance Tools
+** "EclEmma Java Code Coverage":http://www.eclemma.org/
+** "Copyright Wizard":http://www.wdev91.com/?p=cpw
+* UI Builder
+** SWT Designer
+** Window Builder 
 
-The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 4.2 distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. When you already cloned the Spray repository, then choose the file
+h3. Manual Feature Installation
+
+If you wish to install the Spray IDE features onto your existing Eclipse installation, configure the required update sites and install the features mentioned above. The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 4.x distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. When you already cloned the Spray repository, then choose the file
 
 bc. <path to your locally cloned Spray Git repository>/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
 
@@ -24,39 +57,9 @@ otherwise import the file from the CI server:
 
 bc. https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
 
-This xml file will add all required update sites to visit later when installing the plug-ins for the development environment. 
+This XML file will add all required update sites to visit later when installing the plug-ins for the development environment. 
 
-h3. Features to Install
-
-Choose now _Help -> Install New Software_. Choose the following update site in "Work with": Spray Development Environment, this will install
-
-* http://download.eclipse.org/releases/juno
-** Eclipse SDK 3.8.0 (org.eclipse.sdk.feature.group)
-** PDE 3.8.0 (org.eclipse.pde.feature.group)
-** MWE SDK 1.2.1 (org.eclipse.emf.mwe.sdk.feature.group)
-** MWE 2 language SDK 2.3.0 (org.eclipse.emf.mwe2.language.sdk.feature.group,org.eclipse.emf.mwe2.language.sdk.source.feature.group)
-** MWE 2 runtime SDK 2.3.0 (org.eclipse.emf.mwe2.runtime.sdk.feature.group,org.eclipse.emf.mwe2.runtime.sdk.source.feature.group)(org.eclipse.emf.mwe2.runtime.sdk.feature.group,org.eclipse.emf.mwe2.runtime.sdk.source.feature.group)
-** EMF - Eclipse Modeling Framework SDK 2.8.0 (org.eclipse.emf.sdk.feature.group)
-** Xtext SDK 2.3.0 (org.eclipse.xtext.sdk.feature.group,org.eclipse.xtext.sdk.source.feature.group)
-** Xtend SDK 2.3.0 (org.eclipse.xtext.xtend2.sdk.feature.group,org.eclipse.xtext.xtend2.sdk.source.feature.group)
-** Graphiti SDK 0.9.0 (org.eclipse.graphiti.sdk.plus.feature.feature.group)
-** Mylyn 3.7.0 (org.eclipse.mylyn.ide.ui)
-** Mylyn Builds 0.9.0 (org.eclipse.mylyn.builds.sdk.feature.group)
-** EGit 1.3.0 (org.eclipse.egit.feature.group)
-** m2e 1.1.0 (org.eclipse.m2e.feature.feature.group)
-** Zest SDK 1.3.0 (org.eclipse.zest.sdk.feature.group)
-** SWT Designer (org.eclipse.wb.rcp.feature.feature.group,org.eclipse.wb.swt.feature.feature.group)
-** Window Builder (org.eclipse.wb.core.feature.feature.group,org.eclipse.wb.doc.user.feature.feature.group,org.eclipse.wb.core.ui.feature.feature.group)
-* http://download.itemis.com/updates/releases/2.0.0/
-** Xtext Antlr 2.0.0 (de.itemis.xtext.antlr.sdk.feature.group,de.itemis.xtext.antlr.sdk.source.feature.group)
-* http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site
-** SWT Bot 2.0.5 (org.eclipse.swtbot.ide.feature.group)
-* http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
-** xtext-utils unittesting (org.eclipselabs.xtext.utils.unittesting.feature.feature.group)
-* http://update.eclemma.org
-** EclEmma Java Code Coverage 1.5.3 (com.mountainminds.eclemma.feature.feature.group)
-* http://knittig.de/googlecode-mylyn-connector/update/
-** Mylyn Connector for Google Code 0.1.0 (com.googlecode.mylyn.feature.group)
+Now install the features with the Eclipse Update Manager (_Help -> Install New Software_).
 
 h3. Installing through P2 director launch config
 
@@ -68,11 +71,65 @@ If you have already installed one of the above mentioned features you might expe
 
 For example, if you need to upgrade Xtext, uninstall *all* Xtext features, and the install Xtext SDK again with Install New Software.
 
+h2. Workspace Setup
+
+
+
+h3. Team Project Set
+
+You can use our predefined team project set file to get the Spray projects into your workspace. This will automatically clone the Git repository and mport the projects.
+
+* File > Import... > Team/Team Project Set, Next
+* URL: "http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf":http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
+
+When creating a new workspace make sure to set the following settings:
+
+h3. Workspace Preferences
+
+The Workspace Mechanic is a useful tool to manage common preferences for setting up workspaces. It basically scans configured directories for preference files (@*.epf@). These settings are provided in the @org.eclipselabs.spray.devenv@ project.
+
+To configure the settings directory open the Workspace Preferences and go to Workspace Mechanic. On the preference page, add a new task source. Take the absolute path to the @org.eclipselabs.spray.devenv/preferences@ directory.
+
+!images/mechanic-1.png! 
+
+After closing the preferences dialog the Workspace Mechanic will scan the configuration from the devenv directory. A hover dialog will pop up in the bottom right corner and remind to you to fix the workspace setup. 
+
+!images/mechanic-3.png! 
+
+Click on "View and correct configuration issues" and fix the setup.
+ 
+In @org.eclipselabs.spray.devenv@ there is a Java formatter configuration @formatter.xml@ used in this project.
+Apply this formatter before committing anything.
+
+h3. Add Spray task repository to Eclipse 
+
+* Window > Show View > Other... > Mylyn/Task Repositories
+* Open context menu in Task Repositories view > Add task repositories...
+* Google Code, Next
+** URL: Paste "http://code.google.com/a/eclipselabs.org/p/spray/":http://code.google.com/a/eclipselabs.org/p/spray/
+** Label: Spray
+** unselect Anonymous, if you later want to push code
+** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password), Finish
+!images/mylyn_1.png!
+* Add New Query
+* use predefined query > Open issues
+!images/mylyn_2.png!
+* Window > Show View > Other... > Mylyn/Task List
+
+h3. Add Spray Jenkins connector to Eclipse 
+
+* Window > Show View > Other... > Mylyn/Builds
+* Click on the first of the icons in the right of the view header > Hudson (supports Jenkins), Next
+** Server: "https://spray.ci.cloudbees.com":https://spray.ci.cloudbees.com
+** Label: Spray
+** select Anonymous
+** click on Refresh button
+** select job "spray-ci-build"
+** Finish
+* click on spray-ci-build to show the current job status 
+
 h3. Add Spray Git repository to Eclipse 
 
-You can use our predefined team project set file to get the Spray projects into your workspace:
-* File > Import... > Team/Team Project Set, Next
-* File: <path to your locally cloned Spray Git repository>/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
 
 This will clone the Spray repository into your Eclipse workspace folder, create a number of working sets and add the projects to the working sets. To see the working sets go to the "View menu" icon of the Package Explorer and select Working Sets as Top Level Elements.
 
@@ -91,32 +148,6 @@ If you had cloned the Spray repository locally and want to use that repository:
 
 If you want to apply the Spray workset configuration without being forced to clone the Spray repository again, you can copy devtools/org.eclipselabs.spray.devenv/workingsets.xml to </path/to/workspace/.metadata>/.plugins/org.eclipse.ui.workbench/workingsets.xml
 
-h3. Add Spray task repository to Eclipse 
-
-* Window > Show View > Other... > Mylyn/Task Repositories
-* Open context menu in Task Repositories view > Add task repositories...
-* Google Code, Next
-** URL: Paste http://code.google.com/a/eclipselabs.org/p/spray/
-** Label: Spray
-** unselect Anonymous, if you later want to push code
-** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password), Finish
-!images/mylyn_1.png!
-* Add New Query
-* use predefined query > Open issues
-!images/mylyn_2.png!
-* Window > Show View > Other... > Mylyn/Task List
-
-h3. Add Spray Jenkins connector to Eclipse 
-
-* Window > Show View > Other... > Mylyn/Builds
-* Click on the first of the icons in the right of the view header > Hudson (supports Jenkins), Next
-** Server: https://spray.ci.cloudbees.com
-** Label: Spray
-** select Anonymous
-** click on Refresh button
-** select job "spray-ci-build"
-** Finish
-* click on spray-ci-build to show the current job status 
 
 h2. Target Platform
  
@@ -142,16 +173,4 @@ The target platform contains the following features
  
 Distributions with Eclipse Indigo + Xtext 2.x can be found here: "http://download.itemis.com/distros/":http://download.itemis.com/distros/
  
-
-h2. Workspace Setup
-
-When creating a new workspace make sure to set the following settings:
- 
-Resource encoding: UTF-8.
- 
-Project settings are stored in the @devtools/org.eclipselabs.spray.devenv@> project. Whenever possible, project specific settings should be applied and the settings file checked in.
- 
-In @org.eclipselabs.spray.devenv@ there is a Java formatter configuration @formatter.xml@ used in this project.
-Apply this formatter before committing anything.
-
 

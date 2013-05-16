@@ -120,6 +120,11 @@
 									<!-- Workspace Mechanic -->
 									<updatesite url="http://workspacemechanic.eclipselabs.org.codespot.com/git.update/mechanic/" />
 									<installunit name="com.google.eclipse.mechanic.feature.group" />
+									
+									<!-- Copyright Wizard -->
+									<!--  -->
+									<updatesite url="http://www.wdev91.com/update/" />
+									<installunit name="com.wdev91.eclipse.copyright.feature.feature.group" />
 
 									<!-- Spray -->
 									<installunit name="org.eclipselabs.spray.feature.sdk.feature.group" />

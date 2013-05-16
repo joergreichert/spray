@@ -1,0 +1,33 @@
+h2. Distrobuilder
+
+The Spray Developer IDE is created with the "Distrobuilder":https://github.com/tomsontom/distrobuilder toolkit from Tom Schindl. This tool creates Eclipse distributions based on existing distributions and installs a set of features from existing p2 repositories with the "p2 director application":http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_director.html.
+
+The distrobuilder toolkit is providing a Java API and an Ant task. Spray is calling this Ant script from Maven. We do not use Ant directly, since on the Cloudbees server we cannot add custom Ant task easily to the Ant distribution used on the Jenkins build server. But with Maven, we can call Ant with a custom classpath with Maven dependencies. Since the distrobuilder's jar is not available on a public repository, we have uploaded it to a private repository at Cloudbees.
+
+The distribution build is described by just a "single Maven POM":http://code.google.com/a/eclipselabs.org/p/spray/source/browse/devtools/org.eclipselabs.spray.dev.distrobuilder/pom.xml in the project "@org.eclipselabs.spray.dev.distrobuilder@":http://code.google.com/a/eclipselabs.org/p/spray/source/browse/devtools/#devtools%2Forg.eclipselabs.spray.dev.distrobuilder. The POM mainly executes the @maven-antrun-plugin@. In the called Ant script the following tasks are done:
+
+* Declare the custom distrobuilder Ant task @at.bestsolution.releng.distrobuilder.ant.DistroBuilderTaskDef@
+* Create the directory structure required for the Distrobuilder as described in the "README":https://github.com/tomsontom/distrobuilder
+* Download and unpack the p2 director
+* Download Eclipse SDKs for Windows, Mac OSX and Linux
+* Call the Distrobuilder. Configure the update sites to get software from and the installable units to install from there.
+bc.. 
+<builder builddirectory="${project.build.directory}/build" p2directorexecutable="${project.build.directory}/director/director"
+ targetdirectory="${basedir}/targets" staticreposdirectory="${basedir}/repos" distdirectory="${project.build.directory}/dist"
+ appname="Spray" version="${project.version}">
+
+ <updatesite url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/" />
+ <installunit name="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.3.0.v201206120758" />
+ <installunit name="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.3.0.v201206110920" />
+ <installunit name="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947" />
+ <installunit name="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.3.1.v201208210947" />
+ <installunit name="org.eclipse.xtext.xtend2.m2e.feature.group" version="2.3.1.v201208210947" />
+bc. 
+
+To build the distributions simply go to the @org.eclipselabs.spray.dev.distrobuilder@ directory and call
+
+bc. mvn -s settings.xml clean package
+
+The resulting distributions can then be found in the directory @target/dist@.
+
+

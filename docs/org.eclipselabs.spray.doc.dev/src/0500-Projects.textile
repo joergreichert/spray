@@ -14,6 +14,7 @@ h2. Source Management
 ** target
 ** bin
 ** plugin.xml_gen
+** xtend-gen
 * Experimental features must be added on a branch until stabilized. This branch may be shared on the remote repository if it is of interest of other developers to contribute or review the changes.
 
 h2. Adding a new Plugin project
@@ -24,7 +25,7 @@ h3. Manifest
 bc.. 
 # /**
 #  * <copyright>
-#  * Copyright (c) 2011 The Spray Project.
+#  * Copyright (c) 2013 The Spray Project.
 #  * All rights reserved.   This program and the accompanying materials
 #  * are made available under the terms of the Eclipse Public License v1.0
 #  * which accompanies this distribution, and is available at
