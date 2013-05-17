@@ -166,7 +166,7 @@ public class StringHelpers {
 
     public static String toJavaIdentifier(String source) {
         String result = source.replaceAll(" ", "_");
-        result = result.replaceAll("[)(*&^%$#@!\"':;<>?,./]", "_");
+        result = result.replaceAll("[)(*&^%$#@!\"':;<>?,./-]", "_");
         return result;
     }
 }
