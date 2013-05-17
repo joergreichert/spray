@@ -120,6 +120,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
                 final String value = getValue(type, eClass);
                 final Text text = (Text) decorator.getGraphicsAlgorithm();
                 text.setValue(value);
+                setDoneChanges(true);
             }
             return true;
         }

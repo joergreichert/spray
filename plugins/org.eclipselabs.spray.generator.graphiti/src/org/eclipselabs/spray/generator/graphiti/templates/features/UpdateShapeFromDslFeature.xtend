@@ -184,6 +184,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                             «ELSE»
                             text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
                             «ENDIF»
+                            setDoneChanges(true);
                         }
                         «ENDFOR»
                     }
