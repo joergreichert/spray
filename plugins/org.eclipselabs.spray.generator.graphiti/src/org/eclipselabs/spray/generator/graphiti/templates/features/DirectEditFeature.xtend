@@ -9,10 +9,13 @@ import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipselabs.spray.generator.graphiti.util.SprayCompiler
+import org.eclipse.xtext.xbase.XExpression
 
 class DirectEditFeature extends FileGenerator<MetaClass> {
 	
 	@Inject extension NamingExtensions
+	@Inject extension SprayCompiler
 	
 	override generateExtensionFile(MetaClass modelElement) {
 		modelElement.mainExtensionPointFile(javaGenFile.className);
@@ -39,6 +42,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
         «header(this)»
         package «feature_package()»;
         
+        import com.google.common.base.Function;
         import org.eclipse.graphiti.features.IFeatureProvider;
         import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -88,9 +92,9 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 		    PictogramElement pe = context.getPictogramElement();
 		    «metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
 		    «IF metaclass.representedBy instanceof ShapeFromDsl»
-		    «(metaclass.representedBy as ShapeFromDsl).properties.generate_initialValue»
+		    «(metaclass.representedBy as ShapeFromDsl).properties.generate_initialValue(metaclass)»
 		    «ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
-		    «(metaclass.representedBy as ConnectionInSpray).properties.generate_initialValue»
+		    «(metaclass.representedBy as ConnectionInSpray).properties.generate_initialValue(metaclass)»
 		    «ELSE»
 		    return "";
 		    «ENDIF»
@@ -111,37 +115,71 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 		    final PictogramElement pe = context.getPictogramElement();
 		    «metaclass.itfName» eClass = («metaclass.itfName») getBusinessObjectForPictogramElement(pe);
 		    «IF metaclass.representedBy instanceof ShapeFromDsl»
-		    «(metaclass.representedBy as ShapeFromDsl).properties.generate_setValue»
+		    «(metaclass.representedBy as ShapeFromDsl).properties.generate_setValue(metaclass)»
 		    «ELSEIF (metaclass.representedBy instanceof ConnectionInSpray) && ((metaclass.representedBy as ConnectionInSpray).connection != null)»
-		    «(metaclass.representedBy as ConnectionInSpray).properties.generate_setValue»
+		    «(metaclass.representedBy as ConnectionInSpray).properties.generate_setValue(metaclass)»
 		    «ENDIF»
 		    updatePictogramElement(pe);
 		}
 	'''   
 	
-	def generate_initialValue(ShapePropertyAssignment[] properties) '''
+	def generate_initialValue(ShapePropertyAssignment[] properties, MetaClass metaclass) '''
 		Text gAlg = (Text) context.getGraphicsAlgorithm();
 		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
-		«IF property?.attribute?.name != null»
-		if(id.equals("«property.key.simpleName»")) {
-		    return eClass.get«property.attribute.name.toFirstUpper»();
-		}
-		«ENDIF»
-		«ENDFOR»
+			{
+				«IF property.value != null»
+					«property.value.propertyAssignmentFunction("gAlgValue", "String", metaclass.itfName, "eClass")»
+					if(id.equals("«property.key.simpleName»")) {
+						«IF property?.attribute?.name != null»
+						    return eClass.get«property.attribute.name.toFirstUpper»();
+						«ELSE»
+							return gAlgValue;
+						«ENDIF»	
+					}
+				«ELSE»
+					«IF property?.attribute?.name != null»
+						if(id.equals("«property.key.simpleName»")) {
+						    return eClass.get«property.attribute.name.toFirstUpper»();
+						}
+					«ENDIF»
+				«ENDIF»
+			}
+		«ENDFOR»	
 		return "";
 	'''
 	
-	def generate_setValue(ShapePropertyAssignment[] properties) '''
+	def generate_setValue(ShapePropertyAssignment[] properties, MetaClass metaclass) '''
 		Text gAlg = (Text) context.getGraphicsAlgorithm();
 		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
-		«IF property?.attribute?.name != null»
-		if(id.equals("«property.key.simpleName»")) {
-		    eClass.set«property.attribute.name.toFirstUpper»(value);
-		}
-		«ENDIF»
+			{
+				«IF property.value != null»
+					«property.value.propertyAssignmentFunction("gAlgValue", "String", metaclass.itfName, "eClass")»
+					if(id.equals("«property.key.simpleName»")) {
+						«IF property?.attribute?.name != null»
+						    eClass.set«property.attribute.name.toFirstUpper»(value);
+						«ELSE»
+							gAlg.setValue(gAlgValue);
+						«ENDIF»	
+					}
+				«ELSE»	
+					«IF property?.attribute?.name != null»
+						if(id.equals("«property.key.simpleName»")) {
+						    eClass.set«property.attribute.name.toFirstUpper»(value);
+						}
+					«ENDIF»
+				«ENDIF»
+			}
 		«ENDFOR»
+	'''
+	
+	def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''
+   		«returnType» «valueName» = new Function<«metaClassName», «returnType»>() {
+   			public «returnType» apply(«metaClassName» modelElement) {
+   				«xexp.compileForPropertyAssignement("returnedValue", "modelElement")»
+   			}
+   		}.apply(«metaClassAttribute»); 
 	'''
 	
 }
