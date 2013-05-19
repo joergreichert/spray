@@ -50,7 +50,6 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipse.xtext.xbase.lib.ObjectExtensions;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
-        import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
         public abstract class «className» extends AbstractUpdateFeature {

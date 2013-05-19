@@ -51,7 +51,6 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractCreateFeature;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
-        import «metaClass.javaInterfaceName»;
         import org.eclipse.graphiti.features.context.IAreaContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.features.context.impl.AddContext;

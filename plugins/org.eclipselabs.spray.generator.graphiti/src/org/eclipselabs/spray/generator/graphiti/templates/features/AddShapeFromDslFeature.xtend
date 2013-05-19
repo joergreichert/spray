@@ -71,8 +71,6 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         «ENDIF»
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
-        
-        import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
 
         @SuppressWarnings("unused")

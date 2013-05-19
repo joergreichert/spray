@@ -58,8 +58,6 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
-        
-        import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
         public abstract class «className» extends AbstractUpdateFeature {
@@ -81,7 +79,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     '''
 
     def generate_canUpdate (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.itfName»
         «overrideHeader()»
         public boolean canUpdate(final IUpdateContext context) {
             // return true, if linked business object is a EClass
@@ -92,7 +90,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     '''
 
     def generate_updateNeeded (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.itfName»
         «overrideHeader()»
         public IReason updateNeeded(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
@@ -122,7 +120,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         «overrideHeader()»
         public boolean update(IUpdateContext context) {
             «IF !connection.properties.empty»
-		        «val metaClassName = connection.represents.name»
+		        «val metaClassName = connection.represents.itfName»
 		        final PictogramElement pictogramElement = context.getPictogramElement();
 		        final «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
 		        «handleNotEmptyConnectionProperties»
@@ -144,7 +142,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     '''
     
 	def generate_searchChilds(ConnectionInSpray connection) '''
-    	protected void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.name» eClass, List<String> changedTypes, boolean performUpdate) {
+    	protected void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.itfName» eClass, List<String> changedTypes, boolean performUpdate) {
     		if(gAlg instanceof Text) {
     			Text text = (Text) gAlg;
     			String id = peService.getPropertyValue(gAlg, TEXT_ID);
