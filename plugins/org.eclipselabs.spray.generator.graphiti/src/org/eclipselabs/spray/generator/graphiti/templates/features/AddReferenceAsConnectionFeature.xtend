@@ -89,7 +89,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
         import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
-        import «reference.representedBy.connection.qualifiedName»;
+        import «reference.representedBy.connection.qualifiedName»Connection;
         «ENDIF»
         // MARKER_IMPORT
         
@@ -143,7 +143,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             decorateConnection (addConContext, connection);
             «ELSE»
             ISprayStyle style = new DefaultSprayStyle();
-            ISprayConnection iSprayConnection = new «reference.representedBy.connection.simpleName»(getFeatureProvider());
+            ISprayConnection iSprayConnection = new «reference.representedBy.connection.simpleName»Connection(getFeatureProvider());
             Connection connection = (Connection) iSprayConnection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
             «ENDIF»
             // create link and wire it
