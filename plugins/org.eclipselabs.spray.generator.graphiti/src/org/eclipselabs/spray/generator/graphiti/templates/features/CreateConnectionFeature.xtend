@@ -143,7 +143,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
             final «from.itfName» source = get«from.name»(sourceAnchor);
             final «to.itfName» target = get«to.name»(targetAnchor);
             «IF containmentRef.EType==from»
-                final «from.name» container = source;
+                final «from.itfName» container = source;
             «ELSE»
                 // containment reference is not a feature of source
                 final «containmentRef.EContainingClass.itfName» container = org.eclipse.xtext.EcoreUtil2.getContainerOfType(source, «containmentRef.EContainingClass.itfName».class);
