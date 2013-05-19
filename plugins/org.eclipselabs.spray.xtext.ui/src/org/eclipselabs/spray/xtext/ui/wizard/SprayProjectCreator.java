@@ -58,7 +58,7 @@ public class SprayProjectCreator extends AbstractPluginProjectCreator {
                 commands.add(buildSpec);
             }
             ICommand command = createPluginXMLUpdateBuilderCommand(project);
-            // commands.add(command);
+            commands.add(command);
             desc.setBuildSpec(commands.toArray(new ICommand[commands.size()]));
             project.setDescription(desc, monitor);
         } catch (CoreException e) {

@@ -85,7 +85,9 @@ This defines that the class @BusinessClass@ from our domain (ecore) model is rep
 After saving the model the editor sources will be automatically generated to the @src-gen@ folder of the project.
 
 p. 
-Replace the plugin.xml in the project root (in the beginning there is even no plugin.xml in the project root) with the plugin.xml from src-gen. 
+Replace the plugin.xml in the project root (in the beginning there is even no plugin.xml in the project root) with the plugin.xml from src-gen.
+
+*Update:* With the current Spray snapshot version all projects created via Spray project wizard will contain an initial plugin.xml as well as a mechanism that updates the plugin.xml in project root after each save in the project.   
 
 h3. Test the editor
 

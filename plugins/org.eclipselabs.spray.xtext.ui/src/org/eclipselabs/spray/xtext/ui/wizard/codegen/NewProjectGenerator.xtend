@@ -3,15 +3,18 @@ package org.eclipselabs.spray.xtext.ui.wizard.codegen
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo
 import org.eclipse.xtext.generator.IFileSystemAccess
 import com.google.inject.Inject
+import org.eclipselabs.spray.generator.graphiti.templates.Plugin
 
 class NewProjectGenerator {
     @Inject SprayModelGenerator generateModel
+    @Inject Plugin generatePlugin
     
     def doGenerate (SprayProjectInfo projectInfo, IFileSystemAccess fsa) {
         generateModel.doGenerate(projectInfo, fsa)
         generateBuildProperties(projectInfo, fsa)
-//        generateAntUpdatePluginXmlLaunch(projectInfo, fsa)
-//        generateAntUpdatePluginXml(projectInfo, fsa)
+        generateAntUpdatePluginXmlLaunch(projectInfo, fsa)
+        generateAntUpdatePluginXml(projectInfo, fsa)
+        generatePluginXml(projectInfo, fsa)
     }
     
     def generateBuildProperties (SprayProjectInfo pi, IFileSystemAccess fsa) {
@@ -20,6 +23,7 @@ class NewProjectGenerator {
                    «pi.javaGenSrcDir»/,\
                    «pi.sprayModelDir»/
         bin.includes = META-INF/,\
+        			   ant-update-plugin-xml.xml,\
                        plugin.xml,\
                        icons/,\
                        «pi.sprayModelDir»/
@@ -29,37 +33,95 @@ class NewProjectGenerator {
     
     def generateAntUpdatePluginXml(SprayProjectInfo pi, IFileSystemAccess fsa) {
 		val content = '''
-			<!-- see http://5ise.quanxinquanyi.de/2013/01/11/avoiding-manual-merge-when-generating-plugin-xml-with-xtextxtend/ --> 
-			<project>
-			   <target name="update">
+			<!-- see http://5ise.quanxinquanyi.de/2013/01/11/avoiding-manual-merge-when-generating-plugin-xml-with-xtextxtend/ -->
+			<project default="updateAll">
+				
+				<target name="findFile">
+					<fileset id="matches" dir="${basedir}">
+					    <filename name="plugin.xml"/>
+					</fileset>
+					<condition property="foundFile">
+						<resourcecount when="greater" count="0" refid="matches" />
+					</condition>
+				</target>	
 			
-			       <replaceregexp file  = "plugin.xml"
-			             match = "\s*&lt;/plugin>\s*"
-			             replace = ""
-			       		flags = "sg"/>
+				<target name="ensureFileExists" depends="findFile" unless="foundFile">
+					<copy file="src-gen/plugin.xml" todir="${basedir}" />
+					<antcall target="findFile" />
+				</target>	
+
+				<target name="updateAll" depends="ensureFileExists" if="foundFile">
 			
-			             <replaceregexp file="plugin.xml"
-			               match="\&lt;!-- AUTOGEN START -->.*\&lt;!-- AUTOGEN END -->"
-			               replace=""
-			               flags="sg"
-							/>
+					«generateAntCall("plugin_diagramtype.xml", "DIAGRAM TYPE")»
 			
-					<concat destfile="plugin.xml" append="yes">&lt;!-- AUTOGEN START --></concat>
+					«generateAntCall("plugin_diagramtypeprovider.xml", "DIAGRAM TYPE PROVIDER")»
 			
-			        <concat destfile="plugin.xml" append="yes">
-			        	  <fileset dir="src-gen" includes="plugin.xml"/>
+					«generateAntCall("plugin_graphitieditor.xml", "GRAPHITI EDITOR EXTENSION")»
 			
-			        </concat>
+					«generateAntCall("plugin_imageprovider.xml", "IMAGE PROVIDER")»
 			
-			        <concat destfile="plugin.xml" append="yes"> &lt;!-- AUTOGEN END -->
-			&lt;/plugin>
-			</concat>
-			    </target>
+					«generateAntCall("plugin_newdiagramwizard.xml", "NEW DIAGRAM WIZARD")»
+			
+					«generateAntCall("plugin_propertysections.xml", "PROPERTY SECTIONS")»
+			
+					«generateAntCall("plugin_propertytabs.xml", "PROPERTY TAB")»
+					
+				</target>
+			
+				<target name="findInFile">
+					<fileset id="matches" dir="${basedir}">
+					    <filename name="plugin.xml"/>
+						<containsregexp 
+							expression="${commentSegment}"/>
+					</fileset>
+					<condition property="foundInFile">
+						<resourcecount when="greater" count="0" refid="matches" />
+					</condition>
+				</target>
+				
+				<target name="readSegmentFileContent" depends="findInFile" if="foundInFile">
+					<loadfile property="segmentFileContent" srcfile="${basedir}/src-gen/${segmentFileName}" />
+				</target>	
+			
+				<target name="updateWithContent" depends="readSegmentFileContent" if="segmentFileContent">
+			
+					<replaceregexp 
+						file="plugin.xml" 
+						match="${commentMatchString}" 
+						replace="&lt;!-- ${commentSegment} AUTOGEN START -->${line.separator}
+							${segmentFileContent}
+							&lt;!-- ${commentSegment} AUTOGEN END -->" 
+						flags="gis" 
+						byline="false" 
+					/>
+					<echo message="Regenerating content of ${commentMatchString} in plugin.xml with content from ${segmentFileName}" />
+				</target>
+			
+				<target name="updateWithEmptyContent" depends="readSegmentFileContent" unless="segmentFileContent">
+					<replaceregexp 
+						file="plugin.xml" 
+						match="${commentMatchString}" 
+						replace="&lt;!-- ${commentSegment} AUTOGEN START -->${line.separator}
+						&lt;!-- ${commentSegment} AUTOGEN END -->" 
+						flags="gis" 
+						byline="false" 
+					/>
+				</target>
+			
+				<target name="update" depends="updateWithEmptyContent, updateWithContent" />
 			
 			</project>
 		'''
        fsa.generateFile("ant-update-plugin-xml.xml", pi.projectName, content);
     }
+    
+    def private generateAntCall(String segmentFileName, String commentSegment) '''
+		<antcall target="update">
+			<param name="segmentFileName" value="«segmentFileName»" />
+			<param name="commentSegment" value="«commentSegment»" />
+			<param name="commentMatchString" value="&lt;!-- «commentSegment» AUTOGEN START --&gt;(.+?)\&lt;!-- «commentSegment» AUTOGEN END --&gt;" />
+		</antcall>
+    '''
     
     def generateAntUpdatePluginXmlLaunch(SprayProjectInfo pi, IFileSystemAccess fsa) {
     	val content = '''
@@ -71,12 +133,17 @@ class NewProjectGenerator {
 				<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 				<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
 				<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="«pi.projectName»"/>
-				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${project_loc}/ant-update-plugin-xml.xml"/>
+				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc}/«pi.projectName»/ant-update-plugin-xml.xml"/>
 				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_RUN_BUILD_KINDS" value="full,incremental,"/>
 				<booleanAttribute key="org.eclipse.ui.externaltools.ATTR_TRIGGERS_CONFIGURED" value="true"/>
-				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${project_loc}"/>
+				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc}/«pi.projectName»"/>
 			</launchConfiguration>
     	'''
        fsa.generateFile("/.externalToolBuilders/Update plugin.xml.launch", pi.projectName, content);
     }
+    
+    def generatePluginXml(SprayProjectInfo pi, IFileSystemAccess fsa) {
+    	val content = generatePlugin.generateStub("My" + pi.getDiagramTypeName)
+        fsa.generateFile("plugin.xml", pi.projectName, content);
+	}    
 }
