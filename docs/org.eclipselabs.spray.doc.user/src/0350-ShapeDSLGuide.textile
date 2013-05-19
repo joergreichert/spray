@@ -91,6 +91,150 @@ bc. anchor {
     
 This example defines a fixed anchor, where the coordinates for the position are with a fixed value.
 
+h2. Shape Property Assignment
+
+A common use case is to display values from the domain model inside the shape. Thus the Shape DSL offers the possibility to declare place holders inside the text shape. In the following example @boxName@ is the id of the place holder for the text to be displayed in the shape.
+
+bc.. 
+
+shape Box {
+	rectangle {
+		position (x=0, y=0)
+		size (width=100, height=100)
+		text {
+			position (x=5, y=5)
+			size (width=90, height=90)
+			align (horizontal=center, vertical=middle)
+			id = boxName
+		}
+	}
+}
+
+p. 
+
+When referencing the shape inside the Spray DSL you can bind String properties of the meta class to the place holders defined inside the shape. In the example below @name@ is String property of the class @MyClass@ that is bound to the place holder @boxName@ in the shape definition. This makes shape definitions reusable for different domain classes and it is also useful for complex shapes that consists of multiple texts.
+
+bc.. 
+
+class MyClass {
+    shape Box {
+    	name into boxName
+    }
+    ...   
+}
+
+p. 
+
+Beside the direct mapping of properties to place holders it is also possible to use expressions for the mapping.
+
+bc.. 
+
+class MyClass {
+    shape Box {
+    	name into boxName ("name: " + name)
+    }
+    ...   
+}
+
+p. 
+
+So for an instance of @MyClass@ with @name@ value "classOne" the shape will display "name: classOne". Using the direct editing feature at the shape offers you to alter the value of @name@ only. When you change it to "classTwo" the value of @MyClass@'s name feature will be updated and the shape will display now "name: classTwo".
+
+The Spray DSL allows to pass String constants as well:
+
+bc.. 
+
+class MyClass {
+    shape Box {
+    	constant "fixName" into boxName
+    }
+    ...   
+}
+
+p. 
+
+Btw. the following syntax would lead to the same display String as above, although direct editing for @name@ is working here. 
+
+bc.. 
+
+class MyClass {
+    shape Box {
+    	name into boxName ("fixName")
+    }
+    ...   
+}
+
+p. 
+
+The example below seems to be identical to expressions example above, but now direct editing would not change the display string. Only changing the @name@ feature in the properties view (or directly in the domain model file and the using update in the diagram) will alter the display string.
+
+bc.. 
+
+class MyClass {
+    shape Box {
+    	constant "name: " + name into boxName
+    }
+    ...   
+}
+
+p. 
+
+Passing properties to connection shapes works analogous:
+
+bc.. 
+
+connection Association {
+	connection-type freeform
+	placing {
+		position(offset=0.0, radius=10, angle=0)
+		text {
+			position (x=0, y=0)
+			size (width=100,height=50)
+			id = Left
+		}
+	}
+	placing {
+		position(offset=0.4, radius=10, angle=0)
+		text {
+			position (x=0, y=0)
+			size (width=100,height=50)
+			id = Middle
+		}
+	}	
+	placing {
+		position(offset=0.8, radius=10, angle=0)
+		text {
+			position (x=0, y=0)
+			size (width=100,height=50)
+			id = Right
+		}
+	}
+}
+
+p. 
+
+For explanation of the connection definition syntax see later this documentation.
+
+bc.. 
+
+class MyConnection {
+    connection Association {
+        constant source.name into Left
+        name into Middle
+        constant target.name into Right
+    }
+    {
+        from source;
+        to target;
+    }
+    ...
+}
+
+p. 
+
+As you can see in the example the names of the connected objects are used at the connection line endings and the name of the association object is used as name decorator of the connection line placed in the center.
+ 
+
 h2. Compartments
 
 A compartment is a shape in which other shapes may be placed through the palette or by drag and drop within the diagram.
@@ -342,7 +486,7 @@ h2. Practise Examples
 
 In this chapter some examples will be explained and described in detail.
 
-h3. Cure - Example
+h3. Curve - Example
 
 The rounding options are used for the distance on the line before and after the point begins. In our example we defined, that 40 pixels before the bottom-right point the rounding starts and 20 pixels after the bottom-right point the rounding ends.
 
@@ -430,7 +574,7 @@ A @connection@ is an element to connect two or more shapes which each other. Eve
 
 bc. connection BPMN_DefaultFlow {
     placing {
-        position(offset=1.0,distance=0,angle=0,active=false)
+        position(offset=1.0,radius=0,angle=0)
         polygon {
             point(x=-10,y=10)
             point(x=0,y=0)
@@ -439,7 +583,7 @@ bc. connection BPMN_DefaultFlow {
         }
     }
     placing {
-        position(offset=0.05,distance=0,angle=0,active=false)
+        position(offset=0.05,radius=0,angle=0)
         line{
             point(x=0,y=-10)
             point(x=5,y=10)
@@ -452,11 +596,11 @@ h3. Placing
 
 If a custom visual behavior around the @connection@ element is needed, a @placing@ could be used. Each @placing@ describes the content that is placed arround of a @connection@. Every @placing@ requires an element named @position@ where the value for the alignment will be set. 
 
-bc. position(offset=1.0,distance=0,angle=0,active=false)
+bc. position(offset=1.0,radius=0,angle=0)
 
 !images/shapes_connection.png!
 
-A @position@ attribute got four diffrent values @offset@, @distance@, @angle@ and @active@. The @offset@ is the position value among the line from left(@offset=0.0@) to right(@offset=1.0@), the @distance@ is the gap with a specified @angle@ between the connection and the element which is placed. The @angle@ can be specified in degree from 0 to 360. Imagine a circle with 4 quadrants, then the first quadrant is from 0 to 90 degree, the second is from 90 to 180 and so on. The last value of the @position@ is the @active@ which is a boolean value. If the @active@ is true the @placing@ element can be move belatedly, if not the position is fixed.
+A @position@ attribute got four diffrent values @offset@, @radius@ and @angle@. The @offset@ is the position value among the line from left(@offset=0.0@) to right(@offset=1.0@), the @radius@ is the gap with a specified @angle@ between the connection and the element which is placed. The @angle@ can be specified in degree from 0 to 360. Imagine a circle with 4 quadrants, then the first quadrant is from 0 to 90 degree, the second is from 90 to 180 and so on. 
 
 Visual attributes are shown in the following figure for a better imagination.
 
