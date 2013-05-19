@@ -1,158 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <?eclipse version="3.0"?>
-        <!--
-         Generated on Fri Mar 22 12:39:36 CET 2013 by Spray Plugin.xtend
-         This file will be generated oinly once if it need to be regenerated, remove this file.
-         
-        -->
-        <plugin>
-           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
-           <extension
-                 point="org.eclipse.ui.editors">
-              <editor
-                  class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramEditor"
-                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
-                  default="true"
-                  extensions="diagram"
-                  icon="icons/diagram.gif"
-                  id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramEditor"
-                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
-                  name="%_diagram_editor_name">
-               <contentTypeBinding
-                     contentTypeId="org.eclipse.graphiti.content.diagram">
-               </contentTypeBinding>
-              </editor>
-           </extension>
-           -->
-        
-          <extension
-              point="org.eclipse.graphiti.ui.diagramTypes">
-            <diagramType
-              description="This is the diagram type for the forms diagram type"
-              id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramType"
-              name="forms Graphiti Diagram Type"
-              type="forms">
-            </diagramType>
-          </extension>
-        
-          <extension
-              point="org.eclipse.graphiti.ui.diagramTypeProviders">
-            <diagramTypeProvider
-              class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramTypeProvider"
-              description="This is my editor for the forms diagram type"
-              id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramTypeProvider"
-              name="forms editor">
-              <diagramType
-                    id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramType">
-              </diagramType>
-                <imageProvider
-                       id="org.eclipselabs.spray.forms.diagram.diagram.FormsImageProvider">
-                 </imageProvider>
-            </diagramTypeProvider>
-          </extension>
-        
-           <extension
-                 point="org.eclipse.graphiti.ui.imageProviders">
-              <imageProvider
-                    class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.diagram.FormsImageProvider"
-                       id="org.eclipselabs.spray.forms.diagram.diagram.FormsImageProvider">
-              </imageProvider>
-           </extension>
-        
-          <extension
-              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-              <propertyContributor contributorId="forms.PropertyContributor">
-                  <propertyCategory category="formsCategory">
-                  </propertyCategory>
-              </propertyContributor>
-          </extension>
-        
-          <extension
-              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-              <propertyTabs contributorId="forms.PropertyContributor">
-                  <propertyTab label="Main" category="formsCategory"
-                      id="forms.main.tab">
-                  </propertyTab>
-              </propertyTabs>
-          </extension>
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="forms.PropertyContributor">
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="forms.PropertyContributor">
-          <propertySection tab="forms.main.tab"
-           class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.InputFieldTextSection"
-           filter="org.eclipselabs.spray.forms.diagram.property.InputFieldFilter"
-           id="forms.main.tab.InputField.text">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="forms.PropertyContributor">
-          <propertySection tab="forms.main.tab"
-           class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.PasswordFieldTextSection"
-           filter="org.eclipselabs.spray.forms.diagram.property.PasswordFieldFilter"
-           id="forms.main.tab.PasswordField.text">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="forms.PropertyContributor">
-          <propertySection tab="forms.main.tab"
-           class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.ButtonFieldTextSection"
-           filter="org.eclipselabs.spray.forms.diagram.property.ButtonFieldFilter"
-           id="forms.main.tab.ButtonField.text">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="forms.PropertyContributor">
-          <propertySection tab="forms.main.tab"
-           class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.CheckboxFieldTextSection"
-           filter="org.eclipselabs.spray.forms.diagram.property.CheckboxFieldFilter"
-           id="forms.main.tab.CheckboxField.text">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="forms.PropertyContributor">
-          <propertySection tab="forms.main.tab"
-           class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.CheckboxValuesValueSection"
-           filter="org.eclipselabs.spray.forms.diagram.property.CheckboxValuesFilter"
-           id="forms.main.tab.CheckboxValues.value">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-    
-    
-            <extension
-                  point="org.eclipse.ui.newWizards">
-                  <category
-                     name="forms"
-                     id="org.eclipselabs.spray.forms">
-                     </category>
-               <wizard
-                     category="org.eclipselabs.spray.forms"
-                     class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
-                     descriptionImage="icons/forms-32.png"
-                     icon="icons/forms-16.png"
-                     id="org.eclipselabs.spray.forms.NewDiagramWizard"
-                     name="New forms Diagram"
-                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
-                     project="false">
-               </wizard>
-            </extension>
-        </plugin>
+<?eclipse version="3.0"?>
+<!--
+ Generated on Sun May 19 17:44:45 CEST 2013 by Spray Plugin.xtend
+ This file will be generated oinly once if it need to be regenerated, remove this file.
+ 
+-->
+<plugin>
+  
+  <!-- GRAPHITI EDITOR EXTENSION AUTOGEN START -->
+     <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+       class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramEditor"
+       contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+       default="true"
+       extensions="diagram"
+       icon="icons/diagram.gif"
+       id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramEditor"
+       matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+       name="%_diagram_editor_name">
+    <contentTypeBinding
+          contentTypeId="org.eclipse.graphiti.content.diagram">
+    </contentTypeBinding>
+   </editor>
+</extension>
+-->
+     <!-- GRAPHITI EDITOR EXTENSION AUTOGEN END -->
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypes">
+    <!-- DIAGRAM TYPE AUTOGEN START -->
+     <diagramType
+  description="This is the diagram type for the forms diagram type"
+  id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramType"
+  name="forms Graphiti Diagram Type"
+  type="forms">
+</diagramType>
+     <!-- DIAGRAM TYPE AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    <!-- DIAGRAM TYPE PROVIDER AUTOGEN START -->
+     <diagramTypeProvider
+  class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramTypeProvider"
+  description="This is my editor for the forms diagram type"
+  id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramTypeProvider"
+  name="forms editor">
+  <diagramType
+        id="org.eclipselabs.spray.forms.diagram.diagram.FormsDiagramType">
+  </diagramType>
+    <imageProvider
+           id="org.eclipselabs.spray.forms.diagram.diagram.FormsImageProvider">
+     </imageProvider>
+</diagramTypeProvider>
+     <!-- DIAGRAM TYPE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.imageProviders">
+    <!-- IMAGE PROVIDER AUTOGEN START -->
+     <imageProvider
+      class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.diagram.FormsImageProvider"
+         id="org.eclipselabs.spray.forms.diagram.diagram.FormsImageProvider">
+</imageProvider>
+     <!-- IMAGE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="forms.PropertyContributor">
+       <propertyCategory category="formsCategory">
+       </propertyCategory>
+    </propertyContributor>
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs contributorId="forms.PropertyContributor">
+      <!-- PROPERTY TAB AUTOGEN START -->
+     <propertyTab label="Main" category="formsCategory"
+    id="forms.main.tab">
+</propertyTab>
+     <!-- PROPERTY TAB AUTOGEN END -->
+    </propertyTabs>
+  </extension>
+  
+  <!-- PROPERTY SECTIONS AUTOGEN START -->
+     <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="forms.PropertyContributor">
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="forms.PropertyContributor">
+  <propertySection tab="forms.main.tab"
+   class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.InputFieldTextSection"
+   filter="org.eclipselabs.spray.forms.diagram.property.InputFieldFilter"
+   id="forms.main.tab.InputField.text">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="forms.PropertyContributor">
+  <propertySection tab="forms.main.tab"
+   class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.PasswordFieldTextSection"
+   filter="org.eclipselabs.spray.forms.diagram.property.PasswordFieldFilter"
+   id="forms.main.tab.PasswordField.text">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="forms.PropertyContributor">
+  <propertySection tab="forms.main.tab"
+   class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.ButtonFieldTextSection"
+   filter="org.eclipselabs.spray.forms.diagram.property.ButtonFieldFilter"
+   id="forms.main.tab.ButtonField.text">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="forms.PropertyContributor">
+  <propertySection tab="forms.main.tab"
+   class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.CheckboxFieldTextSection"
+   filter="org.eclipselabs.spray.forms.diagram.property.CheckboxFieldFilter"
+   id="forms.main.tab.CheckboxField.text">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="forms.PropertyContributor">
+  <propertySection tab="forms.main.tab"
+   class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.forms.diagram.property.CheckboxValuesValueSection"
+   filter="org.eclipselabs.spray.forms.diagram.property.CheckboxValuesFilter"
+   id="forms.main.tab.CheckboxValues.value">
+  </propertySection>
+    </propertySections>
+</extension>
+
+     <!-- PROPERTY SECTIONS AUTOGEN END -->
+  
+  <!-- NEW DIAGRAM WIZARD AUTOGEN START -->
+     <extension
+      point="org.eclipse.ui.newWizards">
+      <category
+         name="forms"
+         id="org.eclipselabs.spray.forms">
+         </category>
+   <wizard
+         category="org.eclipselabs.spray.forms"
+         class="org.eclipselabs.spray.forms.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+         descriptionImage="icons/forms-32.png"
+         icon="icons/forms-16.png"
+         id="org.eclipselabs.spray.forms.NewDiagramWizard"
+         name="New forms Diagram"
+         preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+         project="false">
+   </wizard>
+</extension>
+     <!-- NEW DIAGRAM WIZARD AUTOGEN END -->
+  
+</plugin>

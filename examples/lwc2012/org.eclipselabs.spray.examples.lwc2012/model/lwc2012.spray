@@ -8,7 +8,7 @@
  * See also mydiagram.properties to configure generator properties.  
  *************************************************************************************/
 // Add import statements here, e.g.
-import LanguageWorkbenchCompetition.*   
+import LanguageWorkbenchCompetition.*
 diagram LWC for LWCModelElement // style LWC2012CorporateStyle   
 
 class LWCVesselHorizontal alias Horizontal {  

@@ -1,183 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <?eclipse version="3.0"?>
-        <!--
-         Generated on Wed Jul 18 20:14:09 CEST 2012 by Spray Plugin.xtend
-         This file will be generated oinly once if it need to be regenerated, remove this file.
-         
-        -->
-        <plugin>
-           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
-           <extension
-                 point="org.eclipse.ui.editors">
-              <editor
-                  class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramEditor"
-                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
-                  default="true"
-                  extensions="diagram"
-                  icon="icons/diagram.gif"
-                  id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramEditor"
-                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
-                  name="%_diagram_editor_name">
-               <contentTypeBinding
-                     contentTypeId="org.eclipse.graphiti.content.diagram">
-               </contentTypeBinding>
-              </editor>
-           </extension>
-           -->
-        
-          <extension
-              point="org.eclipse.graphiti.ui.diagramTypes">
-            <diagramType
-              description="This is the diagram type for the petrinet diagram type"
-              id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramType"
-              name="petrinet Graphiti Diagram Type"
-              type="petrinet">
-            </diagramType>
-          </extension>
-        
-          <extension
-              point="org.eclipse.graphiti.ui.diagramTypeProviders">
-            <diagramTypeProvider
-              class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramTypeProvider"
-              description="This is my editor for the petrinet diagram type"
-              id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramTypeProvider"
-              name="petrinet editor">
-              <diagramType
-                    id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramType">
-              </diagramType>
-                <imageProvider
-                       id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetImageProvider">
-                 </imageProvider>
-            </diagramTypeProvider>
-          </extension>
-        
-           <extension
-                 point="org.eclipse.graphiti.ui.imageProviders">
-              <imageProvider
-                    class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.diagram.PetrinetImageProvider"
-                       id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetImageProvider">
-              </imageProvider>
-           </extension>
-        
-          <extension
-              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-              <propertyContributor contributorId="petrinet.PropertyContributor">
-                  <propertyCategory category="petrinetCategory">
-                  </propertyCategory>
-              </propertyContributor>
-          </extension>
-        
-          <extension
-              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-              <propertyTabs contributorId="petrinet.PropertyContributor">
-                  <propertyTab label="Main" category="petrinetCategory"
-                      id="petrinet.main.tab">
-                  </propertyTab>
-              </propertyTabs>
-          </extension>
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="petrinet.PropertyContributor">
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.PlaceEClassNameSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.PlaceEClassFilter"
-           id="petrinet.main.tab.PlaceEClass.name">
-          </propertySection>
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.PlaceEClassDescriptionSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.PlaceEClassFilter"
-           afterSection="petrinet.main.tab.PlaceEClass.name"
-           id="petrinet.main.tab.PlaceEClass.description">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="petrinet.PropertyContributor">
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassNameSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
-           id="petrinet.main.tab.TransitionEClass.name">
-          </propertySection>
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassDescriptionSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
-           afterSection="petrinet.main.tab.TransitionEClass.name"
-           id="petrinet.main.tab.TransitionEClass.description">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="petrinet.PropertyContributor">
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassNameSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
-           id="petrinet.main.tab.TransitionEClass.name">
-          </propertySection>
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassDescriptionSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
-           afterSection="petrinet.main.tab.TransitionEClass.name"
-           id="petrinet.main.tab.TransitionEClass.description">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="petrinet.PropertyContributor">
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TokenEClassNameSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.TokenEClassFilter"
-           id="petrinet.main.tab.TokenEClass.name">
-          </propertySection>
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TokenEClassDescriptionSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.TokenEClassFilter"
-           afterSection="petrinet.main.tab.TokenEClass.name"
-           id="petrinet.main.tab.TokenEClass.description">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="petrinet.PropertyContributor">
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.ArcEClassNameSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.ArcEClassFilter"
-           id="petrinet.main.tab.ArcEClass.name">
-          </propertySection>
-          <propertySection tab="petrinet.main.tab"
-           class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.ArcEClassDescriptionSection"
-           filter="org.eclipselabs.spray.examples.petrinet.property.ArcEClassFilter"
-           afterSection="petrinet.main.tab.ArcEClass.name"
-           id="petrinet.main.tab.ArcEClass.description">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-    
-    
-        // Find all clases that are shown as lists in the compartments
-            <extension
-                  point="org.eclipse.ui.newWizards">
-                  <category
-                     name="petrinet"
-                     id="org.eclipselabs.spray.petrinet">
-                     </category>
-               <wizard
-                     category="org.eclipselabs.spray.petrinet"
-                     class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
-                     descriptionImage="icons/petrinet-32.png"
-                     icon="icons/petrinet-16.png"
-                     id="org.eclipselabs.spray.petrinet.NewDiagramWizard"
-                     name="New petrinet Diagram"
-                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
-                     project="false">
-               </wizard>
-            </extension>
-        </plugin>
+<?eclipse version="3.0"?>
+<!--
+ Generated on Sun May 19 17:30:51 CEST 2013 by Spray Plugin.xtend
+ This file will be generated oinly once if it need to be regenerated, remove this file.
+ 
+-->
+<plugin>
+  
+  <!-- GRAPHITI EDITOR EXTENSION AUTOGEN START -->
+     <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+       class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramEditor"
+       contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+       default="true"
+       extensions="diagram"
+       icon="icons/diagram.gif"
+       id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramEditor"
+       matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+       name="%_diagram_editor_name">
+    <contentTypeBinding
+          contentTypeId="org.eclipse.graphiti.content.diagram">
+    </contentTypeBinding>
+   </editor>
+</extension>
+-->
+     <!-- GRAPHITI EDITOR EXTENSION AUTOGEN END -->
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypes">
+    <!-- DIAGRAM TYPE AUTOGEN START -->
+     <diagramType
+  description="This is the diagram type for the petrinet diagram type"
+  id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramType"
+  name="petrinet Graphiti Diagram Type"
+  type="petrinet">
+</diagramType>
+     <!-- DIAGRAM TYPE AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    <!-- DIAGRAM TYPE PROVIDER AUTOGEN START -->
+     <diagramTypeProvider
+  class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramTypeProvider"
+  description="This is my editor for the petrinet diagram type"
+  id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramTypeProvider"
+  name="petrinet editor">
+  <diagramType
+        id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetDiagramType">
+  </diagramType>
+    <imageProvider
+           id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetImageProvider">
+     </imageProvider>
+</diagramTypeProvider>
+     <!-- DIAGRAM TYPE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.imageProviders">
+    <!-- IMAGE PROVIDER AUTOGEN START -->
+     <imageProvider
+      class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.diagram.PetrinetImageProvider"
+         id="org.eclipselabs.spray.examples.petrinet.diagram.PetrinetImageProvider">
+</imageProvider>
+     <!-- IMAGE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="petrinet.PropertyContributor">
+       <propertyCategory category="petrinetCategory">
+       </propertyCategory>
+    </propertyContributor>
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs contributorId="petrinet.PropertyContributor">
+      <!-- PROPERTY TAB AUTOGEN START -->
+     <propertyTab label="Main" category="petrinetCategory"
+    id="petrinet.main.tab">
+</propertyTab>
+     <!-- PROPERTY TAB AUTOGEN END -->
+    </propertyTabs>
+  </extension>
+  
+  <!-- PROPERTY SECTIONS AUTOGEN START -->
+     <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="petrinet.PropertyContributor">
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.PlaceEClassNameSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.PlaceEClassFilter"
+   id="petrinet.main.tab.PlaceEClass.name">
+  </propertySection>
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.PlaceEClassDescriptionSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.PlaceEClassFilter"
+   afterSection="petrinet.main.tab.PlaceEClass.name"
+   id="petrinet.main.tab.PlaceEClass.description">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="petrinet.PropertyContributor">
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassNameSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
+   id="petrinet.main.tab.TransitionEClass.name">
+  </propertySection>
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassDescriptionSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
+   afterSection="petrinet.main.tab.TransitionEClass.name"
+   id="petrinet.main.tab.TransitionEClass.description">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="petrinet.PropertyContributor">
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassNameSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
+   id="petrinet.main.tab.TransitionEClass.name">
+  </propertySection>
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TransitionEClassDescriptionSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.TransitionEClassFilter"
+   afterSection="petrinet.main.tab.TransitionEClass.name"
+   id="petrinet.main.tab.TransitionEClass.description">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="petrinet.PropertyContributor">
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TokenEClassNameSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.TokenEClassFilter"
+   id="petrinet.main.tab.TokenEClass.name">
+  </propertySection>
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.TokenEClassDescriptionSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.TokenEClassFilter"
+   afterSection="petrinet.main.tab.TokenEClass.name"
+   id="petrinet.main.tab.TokenEClass.description">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="petrinet.PropertyContributor">
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.ArcEClassNameSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.ArcEClassFilter"
+   id="petrinet.main.tab.ArcEClass.name">
+  </propertySection>
+  <propertySection tab="petrinet.main.tab"
+   class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.petrinet.property.ArcEClassDescriptionSection"
+   filter="org.eclipselabs.spray.examples.petrinet.property.ArcEClassFilter"
+   afterSection="petrinet.main.tab.ArcEClass.name"
+   id="petrinet.main.tab.ArcEClass.description">
+  </propertySection>
+    </propertySections>
+</extension>
+
+     <!-- PROPERTY SECTIONS AUTOGEN END -->
+  
+  <!-- NEW DIAGRAM WIZARD AUTOGEN START -->
+     <extension
+      point="org.eclipse.ui.newWizards">
+      <category
+         name="petrinet"
+         id="org.eclipselabs.spray.petrinet">
+         </category>
+   <wizard
+         category="org.eclipselabs.spray.petrinet"
+         class="org.eclipselabs.spray.examples.petrinet.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+         descriptionImage="icons/petrinet-32.png"
+         icon="icons/petrinet-16.png"
+         id="org.eclipselabs.spray.petrinet.NewDiagramWizard"
+         name="New petrinet Diagram"
+         preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+         project="false">
+   </wizard>
+</extension>
+     <!-- NEW DIAGRAM WIZARD AUTOGEN END -->
+  
+</plugin>

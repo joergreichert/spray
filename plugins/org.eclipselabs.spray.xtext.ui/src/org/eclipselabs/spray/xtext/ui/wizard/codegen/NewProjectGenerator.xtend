@@ -133,10 +133,10 @@ class NewProjectGenerator {
 				<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 				<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
 				<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="«pi.projectName»"/>
-				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc}/«pi.projectName»/ant-update-plugin-xml.xml"/>
+				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/«pi.projectName»/ant-update-plugin-xml.xml}"/>
 				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_RUN_BUILD_KINDS" value="full,incremental,"/>
 				<booleanAttribute key="org.eclipse.ui.externaltools.ATTR_TRIGGERS_CONFIGURED" value="true"/>
-				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc}/«pi.projectName»"/>
+				<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/«pi.projectName»}"/>
 			</launchConfiguration>
     	'''
        fsa.generateFile("/.externalToolBuilders/Update plugin.xml.launch", pi.projectName, content);
