@@ -39,7 +39,7 @@ class ShapeTypeStyleGenerator {
 				int fontSize = «l.layout.fontSize»;
 			«ENDIF»
 			«IF(l.layout.fontColor == null)»
-				«attName».setForeground(gaService.manageColor(diagram,style.getForeground());
+				«attName».setForeground(style.getForeground());
 			«ELSE»
 				«attName».setForeground(gaService.manageColor(diagram,«l.layout.fontColor.createColorValue»));
 			«ENDIF»
