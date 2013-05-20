@@ -40,10 +40,6 @@ class Plugin extends TemplateUtil {
     	  
     	  <extension
     	       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-    	  </extension>
-    	  
-    	  <extension
-    	       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
     	    <propertyContributor contributorId="«diagramName».PropertyContributor">
     	       <propertyCategory category="«diagramName»Category">
     	       </propertyCategory>
@@ -97,10 +93,6 @@ class Plugin extends TemplateUtil {
     	    <!-- IMAGE PROVIDER AUTOGEN START -->
     	    «diagram.generate_imageProvider»
     	    <!-- IMAGE PROVIDER AUTOGEN END -->
-    	  </extension>
-    	  
-    	  <extension
-    	       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
     	  </extension>
     	  
     	  <extension
