@@ -10,56 +10,57 @@ class ShapeTypeStyleGenerator {
 	
 	@Inject extension StyleGenerator 
 	
-	def generateStyleForElement(String attName, ShapestyleLayout ssl) {
-	'''
-	«IF(ssl != null && ssl.layout != null)»
-		«IF(ssl.layout.background != null)»
-		«attName».setBackground(gaService.manageColor(diagram,«ssl.layout.background.createColorValue»));
+	def generateStyleForElement(String attName, ShapestyleLayout ssl) '''
+		«IF(ssl != null && ssl.layout != null)»
+			«IF(ssl.layout.background != null)»
+				«attName».setBackground(gaService.manageColor(diagram,«ssl.layout.background.createColorValue»));
+			«ENDIF»
+			«IF(ssl.layout.transparency != Double::MIN_VALUE)»
+				«attName».setTransparency(«ssl.layout.transparency»);
+			«ENDIF»
+			«createLineAttributes(attName, ssl)»
+			«createFontAttributes(attName, ssl)»
 		«ENDIF»
-		«IF(ssl.layout.transparency != Double::MIN_VALUE)»
-		«attName».setTransparency(«ssl.layout.transparency»);		
-		«ENDIF»
-		«createLineAttributes(attName, ssl)»
-		«createFontAttributes(attName, ssl)»
-	«ENDIF»
 	'''
-	}
 	
-	def createFontAttributes(String attName, ShapestyleLayout l) {
-        '''
-		«IF (l.layout.fontName != null || l.layout.fontSize != Integer::MIN_VALUE || l.layout.fontItalic != YesNoBool::NULL || l.layout.fontBold != YesNoBool::NULL)»
+	def createFontAttributes(String attName, ShapestyleLayout l) '''
+		«IF (l.layout.fontName != null || l.layout.fontSize != Integer::MIN_VALUE || l.layout.fontItalic != YesNoBool::NULL || 
+			l.layout.fontBold != YesNoBool::NULL || l.layout.fontColor != null)»
 		{
 			Style style = «attName».getStyle();
 			«IF l.layout.fontName == null»
-			String fontName = style.getFont().getName();
+				String fontName = style.getFont().getName();
 			«ELSE»
-			String fontName = "«l.layout.fontName»";
+				String fontName = "«l.layout.fontName»";
 			«ENDIF»
 			«IF l.layout.fontSize == Integer::MIN_VALUE»
-			int fontSize = style.getFont().getSize();
+				int fontSize = style.getFont().getSize();
 			«ELSE»
-			int fontSize = «l.layout.fontSize»;
+				int fontSize = «l.layout.fontSize»;
+			«ENDIF»
+			«IF(l.layout.fontColor == null)»
+				«attName».setForeground(gaService.manageColor(diagram,style.getForeground());
+			«ELSE»
+				«attName».setForeground(gaService.manageColor(diagram,«l.layout.fontColor.createColorValue»));
 			«ENDIF»
 			«IF l.layout.fontItalic == YesNoBool::NULL»
-			boolean fontItalic = style.getFont().isItalic();
+				boolean fontItalic = style.getFont().isItalic();
 			«ELSE»
-			boolean fontItalic = «l.layout.fontItalic.transformYesNoToBoolean»;
+				boolean fontItalic = «l.layout.fontItalic.transformYesNoToBoolean»;
 			«ENDIF»
 			«IF l.layout.fontBold == YesNoBool::NULL»
-			boolean fontBold = style.getFont().isBold();
+				boolean fontBold = style.getFont().isBold();
 			«ELSE»
-			boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;
+				boolean fontBold = «l.layout.fontBold.transformYesNoToBoolean»;
 			«ENDIF»
 			style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
 		}
 		«ENDIF»
-        '''    
-    }
+	'''    
     
-    def createLineAttributes(String attName, ShapestyleLayout ssl){
-    	'''
+    def createLineAttributes(String attName, ShapestyleLayout ssl) '''
     	«IF(ssl.layout.lineColor != null)»
-			«attName».setForeground(gaService.manageColor(diagram,«ssl.layout.lineColor.createColorValue»));    	
+			«attName».setForeground(gaService.manageColor(diagram,«ssl.layout.lineColor.createColorValue»));
     	«ENDIF»
     	«IF(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL)»
   			«attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);	
@@ -67,6 +68,5 @@ class ShapeTypeStyleGenerator {
     	«IF(ssl.layout.lineWidth != Integer::MIN_VALUE)»
     		«attName».setLineWidth(«ssl.layout.lineWidth»);
     	«ENDIF»    	
-    	'''
-    }
+   	'''
 }
