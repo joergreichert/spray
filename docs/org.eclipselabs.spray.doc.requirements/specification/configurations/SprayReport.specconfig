@@ -6,8 +6,11 @@ report "Spray" {
 	
 	chapters {
 		usecase package org.eclipselabs.spray.requirements.actors
-		usecase package org.eclipselabs.spray.requirements.diagrameditor
 		usecase package org.eclipselabs.spray.requirements.domain
+		usecase package org.eclipselabs.spray.requirements.diagrameditor
+		usecase package org.eclipselabs.spray.requirements.diagrammapping
+		usecase package org.eclipselabs.spray.requirements.shapes
+		usecase package org.eclipselabs.spray.requirements.styling
 		user interface application SprayDiagramEditor
 		user interface flow Spray
 		entity package org.eclipselabs.spray.requirements.entities.spray

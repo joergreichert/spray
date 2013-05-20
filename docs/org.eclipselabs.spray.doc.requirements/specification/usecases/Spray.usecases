@@ -1,0 +1,54 @@
+package org.eclipselabs.spray.requirements.diagrammapping
+	import actors from org.eclipselabs.spray.requirements.actors
+	import entities from org.eclipselabs.spray.requirements.entities.spray
+	import requirements from org.eclipselabs.spray.requirements.issues
+
+	usecase UC001 "Create a new diagram definition"
+		actors DiagramEditorCreator
+		entities Diagram
+		
+		basic flow
+			step 1 "Map domain model root to diagram" using Diagram
+			step 2 "Map domain model elements to nodes" using MetaClass
+				
+		end flow with postcondition "Diagram editor model defined"
+
+	end usecase
+	
+	usecase UC101 "Define drill down behavior"
+		goals "To generate multiple diagram editors for different parts of the model and enable to browse from one to the other editor (drill down feature)"
+		
+	end usecase
+	
+	usecase UC102 "Map containment relationships in the domain model to be represented as connection line in the diagram"
+		
+	end usecase
+	
+	usecase UC103 "Declare events for which post processing gap classes should be generated"
+		requirements issue0258
+			
+	end usecase
+	
+	usecase UC104 "Define interaction behavior"
+		goals "Example: Click on existing connections between A and B creates new node C and the existing connection AB is replaced with two new connections, AC and CB"
+			
+	end usecase	
+	
+	usecase UC105 "Define integration points to other frameworks, tools, views etc."
+		goals "Examples: Integration with existing model browser, see also Sphinx (http://www.eclipse.org/sphinx/)"
+	
+	end usecase
+	
+	usecase UC106 "Enable simulation within generated diagram editor"
+	end usecase
+
+	usecase UC107 "Enable Xtext auto completion in diagram editor shapes"
+	end usecase
+
+	usecase UC108 "Serialization of Xtext domain model when saving diagram"
+	end usecase
+
+	usecase UC109 "Use shape library (jar at classpath containing shape files)"
+	end usecase
+		
+end package

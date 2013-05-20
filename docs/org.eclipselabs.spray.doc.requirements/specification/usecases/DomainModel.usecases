@@ -1,0 +1,19 @@
+package org.eclipselabs.spray.requirements.domain
+	import actors from org.eclipselabs.spray.requirements.actors
+
+	usecase UC001 "Create a new domain model"
+		actors DomainExpert, DiagramEditorCreator
+
+	end usecase
+
+
+	usecase UC002 "Import an existing domain model"
+		actors DomainExpert, DiagramEditorCreator
+
+	end usecase
+	
+	usecase UC003 "Develop domain model iteratively with the diagram editor"
+		actors DomainExpert, DiagramEditorCreator
+
+	end usecase	
+end package

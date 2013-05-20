@@ -1,30 +1,12 @@
-package org.eclipselabs.spray.requirements.domain
-	import actors from org.eclipselabs.spray.requirements.actors
-
-
-	usecase UC1 "Create a new domain model"
-		actors DomainExpert, DiagramEditorCreator
-
-	end usecase
-
-
-	usecase UC2 "Import an existing domain model"
-		actors DomainExpert, DiagramEditorCreator
-
-	end usecase
-end package
-
-
 package org.eclipselabs.spray.requirements.diagrameditor
 	import actors from org.eclipselabs.spray.requirements.actors
-	import entities from org.eclipselabs.spray.requirements.entities.spray
 	import requirements from org.eclipselabs.spray.requirements.issues
 	import pages from SprayDiagramEditor
 
-	usecase UC1 "Create a new Spray project"
+	usecase UC001 "Create a new Spray project"
 		actors DiagramEditorCreator
 		preconditions "Domain model exists" requires
-			org.eclipselabs.spray.requirements.domain.UC1
+			org.eclipselabs.spray.requirements.domain.UC001
 		requirements issue0021
 		pages Workbench, newWizardDialog 
 		
@@ -98,53 +80,9 @@ package org.eclipselabs.spray.requirements.diagrameditor
 			step 1 "Fill all required fields in the wizard page with valid values" 
 		end flow with postcondition	"Spray project wizard is finalizable"
 	end usecase
-
-
-	usecase UC2 "Create a new shape definition file"
-		actors DiagramEditorCreator
-
+	
+	usecase UC002 "Create/Import Spray project from existing examples"
+		requirements issue0250
 	end usecase
 
-
-	usecase UC3 "Create a new style definition file"
-		actors DiagramEditorCreator
-
-	end usecase
-
-
-	usecase UC4 "Create a new diagram definition file"
-		actors DiagramEditorCreator
-
-	end usecase
-
-
-	usecase UC5 "Create a new shape definition"
-		actors DiagramEditorCreator
-
-	end usecase
-
-
-	usecase UC6 "Create a new style definition"
-		actors DiagramEditorCreator
-
-	end usecase
-
-
-	usecase UC7 "Create a new gradient definition"
-		actors DiagramEditorCreator
-
-	end usecase
-
-
-	usecase UC8 "Create a new diagram definition"
-		actors DiagramEditorCreator
-		entities Diagram
-		
-		basic flow
-			step 1 "Map domain model root to diagram" using Diagram
-			step 2 "Map domain model elements to nodes" using MetaClass
-				
-		end flow with postcondition "Diagram editor model defined"
-
-	end usecase
 end package
