@@ -31,7 +31,7 @@ class TemplateUtil extends Object {
     def pluginHeader(Object templateClass) '''
         <!--
          Generated «timestamp()»by Spray «templateClass.getClass().simpleName».xtend
-         This file will be generated oinly once if it need to be regenerated, remove this file.
+         This file will be generated only once if it need to be regenerated, remove this file.
          
         -->
     '''
