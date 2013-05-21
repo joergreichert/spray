@@ -4,7 +4,7 @@ style TransparentLinecolor {
 	background-color = green
 	line-color = transparent
 	line-width = 0
-	font-color = RGB(45,45,87)
+	//font-color = RGB(45,45,87)
 	font-name = "Arial"
 	font-size = 7
 	font-italic = no
