@@ -4,18 +4,21 @@
 	<target name="set-version" description="Modifies artifacts to set a release version">
 		<!-- Read the last entered values for defaults -->
 		<property file="version.properties"/>
+		<tstamp>
+			<format property="QUALIFIER" pattern="yyyyMMdd-HHmm"/>
+		</tstamp>
 		<input message="Please enter the new release version (MAJOR.MINOR.MICRO):" addproperty="version.main" defaultvalue="${version_main}"/>
-		<input message="Set to DEVELOPMENT version?" validargs="y,n" addproperty="version.development" defaultvalue="${version_development}"/>
+		<input message="Set to DEVELOPMENT version (n=RELEASE)?" validargs="y,n" addproperty="version.development" defaultvalue="${version_development}"/>
 		<condition property="version.mvn" value="${version.main}-SNAPSHOT">
 			<equals arg1="${version.development}" arg2="y"/>
 		</condition>
 		<condition property="version.osgi" value="${version.main}.qualifier">
 			<equals arg1="${version.development}" arg2="y"/>
 		</condition>
-		<condition property="version.mvn" value="${version.main}">
+		<condition property="version.mvn" value="${version.main}.v${QUALIFIER}">
 			<equals arg1="${version.development}" arg2="n"/>
 		</condition>
-		<condition property="version.osgi" value="${version.main}">
+		<condition property="version.osgi" value="${version.main}.v${QUALIFIER}">
 			<equals arg1="${version.development}" arg2="n"/>
 		</condition>
 
