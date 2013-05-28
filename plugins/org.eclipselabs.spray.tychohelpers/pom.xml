@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.eclipselabs.spray</groupId>
 		<artifactId>org.eclipselabs.spray.parent</artifactId>
-		<version>0.5.0-SNAPSHOT</version>
+		<version>0.5.0-SNAPSHOT</version><!-- X -->
 		<relativePath>../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
 	</parent>
 
@@ -22,5 +22,5 @@
 			</plugin>
 		</plugins>
 	</build>
-    <version>0.5.0-SNAPSHOT</version>
+    <version>0.5.0-SNAPSHOT</version><!-- X -->
 </project>
