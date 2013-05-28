@@ -69,8 +69,6 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
         import «connection.connection.qualifiedName»Connection;
         import com.google.common.base.Function;
-        
-        import «metaClass.javaInterfaceName»;
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
@@ -96,12 +94,12 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             /**
          * {@inheritDoc}
          * 
-         * @return <code>true</code> if given business object is an {@link «metaClass.name»} and context is of type {@link IAddConnectionContext}
+         * @return <code>true</code> if given business object is an {@link «metaClass.itfName»} and context is of type {@link IAddConnectionContext}
          */
          @Override
          public boolean canAdd(IAddContext context) {
             if (context instanceof IAddConnectionContext
-                && context.getNewObject() instanceof «metaClass.name») {
+                && context.getNewObject() instanceof «metaClass.itfName») {
                 return true;
             }
             return false;
@@ -114,7 +112,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         public PictogramElement add(IAddContext context) {
             IAddConnectionContext addConContext = (IAddConnectionContext) context;
             // TODO: Domain object
-            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
             «IF styleRef != null »
             ISprayStyle style = new «styleRef.simpleName»();
             «ELSE»
@@ -147,7 +145,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 //        «IF connection.fromLabel != null»
 //        «overrideHeader»
 //        protected GraphicsAlgorithm createConnectionFromLabel (IAddConnectionContext context, Connection connection) {
-//            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+//            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
 //            ConnectionDecorator fromDecorator = peCreateService.createConnectionDecorator(connection, true, 0.0, true);
 //            Text fromText = gaService.createDefaultText(getDiagram(), fromDecorator);
 //            gaLayoutService.setLocation(fromText, 10, 20);
@@ -156,7 +154,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 //            link(fromDecorator, addedDomainObject);
 //            return fromText;
 //        }
-//        protected String getFromLabel («metaClass.name» addedDomainObject) {
+//        protected String getFromLabel («metaClass.itfName» addedDomainObject) {
 //            «valueGenerator(connection.fromLabel, "addedDomainObject")»
 //        }
 //        «ENDIF»
@@ -167,7 +165,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 //        «IF connection.toLabel != null»
 //        «overrideHeader»
 //        protected GraphicsAlgorithm createConnectionToLabel (IAddConnectionContext context, Connection connection) {
-//            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+//            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
 //            ConnectionDecorator toDecorator = peCreateService.createConnectionDecorator(connection, true, 1.0, true);
 //            Text text = gaService.createDefaultText(getDiagram(), toDecorator);
 //            
@@ -180,7 +178,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 //            return text;
 //        }
 //
-//        protected String getToLabel («metaClass.name» addedDomainObject) {
+//        protected String getToLabel («metaClass.itfName» addedDomainObject) {
 //            «valueGenerator(connection.toLabel, "addedDomainObject")»
 //        }
 //        «ENDIF»
@@ -191,7 +189,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 //        «IF connection.connectionLabel != null»
 //        «overrideHeader»
 //        protected GraphicsAlgorithm createConnectionLabel (IAddConnectionContext context, Connection connection) {
-//            «metaClass.name» addedDomainObject = («metaClass.name») context.getNewObject();
+//            «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
 //            ConnectionDecorator connectionDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 //            Text sourceText = gaService.createDefaultText(getDiagram(), connectionDecorator);
 //            gaLayoutService.setLocation(sourceText, 10, 0);
@@ -201,7 +199,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
 //            return sourceText;
 //        }
 //
-//        protected String getConnectionLabel («metaClass.name» addedDomainObject) {
+//        protected String getConnectionLabel («metaClass.itfName» addedDomainObject) {
 //            «valueGenerator(connection.connectionLabel, "addedDomainObject")»
 //        }
 //        «ENDIF»

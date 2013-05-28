@@ -1,12 +1,8 @@
 package org.eclipselabs.spray.shapes.ui.quickfix;
 
-import java.util.List;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.Diagnostic;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
@@ -22,12 +18,8 @@ import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolution;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipselabs.spray.shapes.ui.quickfix.AbstractStyleDSLModificationJob.ModificationJobType;
-import org.eclipselabs.spray.styles.StylesPackage;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
@@ -44,7 +36,7 @@ public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Inject
 	private ResourceDescriptionsProvider resourceDescriptionsProvider;
-
+	
 	@Fix(Diagnostic.LINKING_DIAGNOSTIC)
 	public void handleMissingLink(final Issue issue,
 			IssueResolutionAcceptor acceptor) {
@@ -71,7 +63,7 @@ public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
 			IssueResolutionAcceptor acceptor, ModificationJobType jobType) {
 		URI shapeDSLURI = issue.getUriToProblem();
 		if (shapeDSLURI != null) {
-			URI styleDSLURI = getStyleDSLURI(issue.getUriToProblem());
+			URI styleDSLURI = getStyleDSLURI(issue.getUriToProblem(), jobType);
 			if (styleDSLURI != null) {
 				ISemanticModification modificationForDefinition = getModificationForDefinition(
 						issue, shapeDSLURI, styleDSLURI, jobType);
@@ -119,43 +111,10 @@ public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
 		};
 	}
 
-	private URI getStyleDSLURI(final URI uriToProblem) {
+	private URI getStyleDSLURI(final URI uriToProblem, LinkingQuickfixModificationJob linkingQuickfixModificationJob) {
 		if (dscriptions == null) {
 			dscriptions = resourceDescriptionsProvider.createResourceDescriptions();
 		}
-		final String spraySegment = uriToProblem.lastSegment();
-		final String lastSegment = spraySegment.substring(0,
-				spraySegment.length() - ".shape".length())
-				+ ".style";
-		List<IResourceDescription> filteredDescs = IteratorExtensions
-				.toList(Iterables.filter(
-						dscriptions.getAllResourceDescriptions(),
-						new Predicate<IResourceDescription>() {
-							public boolean apply(IResourceDescription desc) {
-								return desc.getURI().lastSegment()
-										.equals(lastSegment);
-							}
-						}).iterator());
-		URI uri = null;
-		if (filteredDescs.size() > 0) {
-			uri = filteredDescs.get(0).getURI();
-			List<IEObjectDescription> containers = IteratorExtensions
-					.toList(filteredDescs
-							.get(0)
-							.getExportedObjectsByType(
-									StylesPackage.Literals.STYLE_CONTAINER_ELEMENT)
-							.iterator());
-			if (containers.size() > 0) {
-				uri = containers.get(0).getEObjectURI();
-			} else {
-				// no quick fix, when there is a [shape-filename].style but with
-				// empty content
-				uri = null;
-			}
-		} else {
-			// no quick fix, when there is no [shape-filename].style resource
-			uri = null;
-		}
-		return uri;
+        return linkingQuickfixModificationJob.getDSLURI(dscriptions, uriToProblem);
 	}
 }

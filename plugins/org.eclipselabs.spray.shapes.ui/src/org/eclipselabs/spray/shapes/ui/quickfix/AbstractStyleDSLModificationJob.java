@@ -1,19 +1,30 @@
 package org.eclipselabs.spray.shapes.ui.quickfix;
 
+import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.validation.Issue;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipselabs.spray.styles.Gradient;
 import org.eclipselabs.spray.styles.GradientLayout;
 import org.eclipselabs.spray.styles.Style;
 import org.eclipselabs.spray.styles.StyleContainer;
 import org.eclipselabs.spray.styles.StyleLayout;
 import org.eclipselabs.spray.styles.StylesFactory;
+import org.eclipselabs.spray.styles.StylesPackage;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 public abstract class AbstractStyleDSLModificationJob extends IUnitOfWork.Void<XtextResource> {
-    public enum ModificationJobType {
+    public enum ModificationJobType implements LinkingQuickfixModificationJob {
         STYLE,
         GRADIENT;
 
@@ -26,6 +37,47 @@ public abstract class AbstractStyleDSLModificationJob extends IUnitOfWork.Void<X
             }
             return job;
         }
+
+		@Override
+		public URI getDSLURI(IResourceDescriptions dscriptions, URI uriToProblem) {
+			final String spraySegment = uriToProblem.trimFragment().lastSegment();
+			final String lastSegment = spraySegment.substring(0,
+					spraySegment.length() - ".shape".length())
+					+ ".style";
+			final String uriToShapeFile = uriToProblem.trimFragment()
+					.trimSegments(1)
+					.appendSegment(lastSegment).toString();
+			List<IResourceDescription> filteredDescs = IteratorExtensions
+					.toList(Iterables.filter(
+							dscriptions.getAllResourceDescriptions(),
+							new Predicate<IResourceDescription>() {
+								public boolean apply(IResourceDescription desc) {
+									return desc.getURI().trimFragment().toString()
+											.equals(uriToShapeFile);
+								}
+							}).iterator());
+			URI uri = null;
+			if (filteredDescs.size() > 0) {
+				uri = filteredDescs.get(0).getURI();
+				List<IEObjectDescription> containers = IteratorExtensions
+						.toList(filteredDescs
+								.get(0)
+								.getExportedObjectsByType(
+										StylesPackage.Literals.STYLE_CONTAINER_ELEMENT)
+								.iterator());
+				if (containers.size() > 0) {
+					uri = containers.get(0).getEObjectURI();
+				} else {
+					// no quick fix, when there is a [shape-filename].shape but with
+					// empty content
+					uri = null;
+				}
+			} else {
+				// no quick fix, when there is no [shape-filename].shape resource
+				uri = null;
+			}
+			return uri;
+		}
     }
 
     private IXtextDocument shapeXtextDocument;

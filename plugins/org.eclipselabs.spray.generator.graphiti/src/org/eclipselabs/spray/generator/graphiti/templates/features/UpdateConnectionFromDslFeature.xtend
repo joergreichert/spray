@@ -9,6 +9,7 @@ import org.eclipselabs.spray.mm.spray.ConnectionInSpray
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.ShapePropertyAssignment
 
 class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     @Inject extension NamingExtensions
@@ -40,6 +41,9 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         «header(this)»
         package «feature_package()»;
         
+        import java.util.ArrayList;
+        import java.util.List;
+        
         import org.eclipse.emf.ecore.EObject;
         import com.google.common.base.Function;
         import org.eclipse.graphiti.features.IFeatureProvider;
@@ -54,8 +58,6 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
-        
-        import «connection.represents.javaInterfaceName»;
         // MARKER_IMPORT
                 
         public abstract class «className» extends AbstractUpdateFeature {
@@ -69,14 +71,15 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             «generate_canUpdate(connection)»
             «generate_updateNeeded(connection)»
             «generate_update(connection)»
-            «generate_searchChilds(connection)»
-            «generate_getValue(connection)»
+            «IF !connection.properties.empty»
+            	«generate_searchChilds(connection)»
+            «ENDIF»
             «generate_additionalMethods(connection)»
         }
     '''
 
     def generate_canUpdate (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.itfName»
         «overrideHeader()»
         public boolean canUpdate(final IUpdateContext context) {
             // return true, if linked business object is a EClass
@@ -87,7 +90,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     '''
 
     def generate_updateNeeded (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
+        «val metaClassName = connection.represents.itfName»
         «overrideHeader()»
         public IReason updateNeeded(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
@@ -95,80 +98,87 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
             if ( ! (bo instanceof «metaClassName»)) {
                 return Reason.createFalseReason();
             }
-            «metaClassName» eClass = («metaClassName») bo;
-
-«««            if (pictogramElement instanceof Connection) {
-«««                final Connection free = (Connection) pictogramElement;
-«««                for(ConnectionDecorator dec : free.getConnectionDecorators()) {
-«««                    final GraphicsAlgorithm gAlg = dec.getGraphicsAlgorithm();
-«««                    searchChilds(gAlg, eClass);
-«««                }
-«««            }
-            return Reason.createTrueReason();
+            «IF !connection.properties.empty»
+	            «metaClassName» eClass = («metaClassName») bo;
+	            if(pictogramElement instanceof Connection) {
+	                final Connection conShape = (Connection) pictogramElement;
+	                List<String> changedTypes = new ArrayList<String>();
+	                for(ConnectionDecorator dec : conShape.getConnectionDecorators()) {
+	                    final GraphicsAlgorithm gAlg = dec.getGraphicsAlgorithm();
+	                    searchChilds(gAlg, eClass, changedTypes, false);
+	                    if(!changedTypes.isEmpty()) {
+	                    	return Reason.createTrueReason(changedTypes.toString());
+	                    }
+	                }
+	            }
+            «ENDIF»
+            return Reason.createFalseReason();
         }
     '''
 
     def generate_update (ConnectionInSpray connection) '''
-        «val metaClassName = connection.represents.name»
         «overrideHeader()»
         public boolean update(IUpdateContext context) {
-            final PictogramElement pictogramElement = context.getPictogramElement();
-            final «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
-            
-            if(pictogramElement instanceof Connection) {
-                final Connection conShape = (Connection) pictogramElement;
-                for(ConnectionDecorator dec : conShape.getConnectionDecorators()) {
-                    final GraphicsAlgorithm gAlg = dec.getGraphicsAlgorithm();
-                    searchChilds(gAlg, eClass);
-                }
-            }
-
-            return true;
+            «IF !connection.properties.empty»
+		        «val metaClassName = connection.represents.itfName»
+		        final PictogramElement pictogramElement = context.getPictogramElement();
+		        final «metaClassName» eClass = («metaClassName») getBusinessObjectForPictogramElement(pictogramElement);
+		        «handleNotEmptyConnectionProperties»
+            «ELSE»
+            	return false;
+            «ENDIF»
         }
     '''
     
+    def handleNotEmptyConnectionProperties() '''
+		if(pictogramElement instanceof Connection) {
+			final Connection conShape = (Connection) pictogramElement;
+			for(ConnectionDecorator dec : conShape.getConnectionDecorators()) {
+				final GraphicsAlgorithm gAlg = dec.getGraphicsAlgorithm();
+				searchChilds(gAlg, eClass, new ArrayList<String>(), true);
+			}
+		}
+		return true;
+    '''
+    
 	def generate_searchChilds(ConnectionInSpray connection) '''
-    	protected void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.name» eClass) {
+    	protected void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.itfName» eClass, List<String> changedTypes, boolean performUpdate) {
     		if(gAlg instanceof Text) {
     			Text text = (Text) gAlg;
     			String id = peService.getPropertyValue(gAlg, TEXT_ID);
-    			«FOR property : connection.properties»
-    			if(id.equals("«property.key.simpleName»")) {
-    				«IF property.value != null»
-    				«property.value.propertyAssignmentFunction("value", "String", connection.represents.name, "eClass")»
-    				text.setValue(value);
-    				«ELSE»
-    				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
-    				«ENDIF»
+    			«connection.properties.map[generate_setTextValue(connection)].join()»
+    		} else {
+    			for(GraphicsAlgorithm gAlgChild : gAlg.getGraphicsAlgorithmChildren()) {
+    				searchChilds(gAlgChild, eClass, changedTypes, performUpdate);
     			}
-    			«ENDFOR»
-    		}
-    		for(GraphicsAlgorithm gAlgChild : gAlg.getGraphicsAlgorithmChildren()) {
-    			searchChilds(gAlgChild, eClass);
     		}
     	}
     '''
     
-    def generate_getValue (ConnectionInSpray connection) '''
-        protected String getValue(final String type, final «connection.represents.name» eClass) {
-            String result = "";
-«««            «IF connection.fromLabel != null»
-«««            if(PROPERTY_MODEL_TYPE_CONNECTION_FROM_LABEL.equals(type) ){
-«««                «valueGenerator(connection.fromLabel, "eClass")»
-«««            }
-«««            «ENDIF»
-«««            «IF connection.toLabel!=null»
-«««            if(PROPERTY_MODEL_TYPE_CONNECTION_TO_LABEL.equals(type) ){
-«««                «valueGenerator(connection.toLabel, "eClass")»
-«««            }
-«««            «ENDIF»
-«««            «IF connection.connectionLabel!=null»
-«««            if(PROPERTY_MODEL_TYPE_CONNECTION_LABEL.equals(type) ){
-«««                «valueGenerator(connection.connectionLabel, "eClass")»
-«««            }
-«««            «ENDIF»
-            return result;
-        }
+    def generate_setTextValue(ShapePropertyAssignment property, ConnectionInSpray connection) '''
+		if(id.equals("«property.key.simpleName»")) {
+			if(performUpdate) {
+				«IF property.value != null»
+				«property.value.propertyAssignmentFunction("value", "String", connection.represents.itfName, "eClass")»
+				text.setValue(value);
+				«ELSE»
+				text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
+				«ENDIF»
+				setDoneChanges(true);
+			} else {
+				«IF property.value != null»
+					«property.value.propertyAssignmentFunction("eClassValue", "String", connection.represents.itfName, "eClass")»
+				«ELSE»
+					String eClassValue = eClass.get«property.attribute.name.toFirstUpper»();
+				«ENDIF»
+				String gAlgorithmValue = text.getValue();
+				if(eClassValue != null) {
+					if(!eClassValue.equals(gAlgorithmValue)) {
+						changedTypes.add("«property.key.simpleName»");
+					}
+				}
+			}
+		}
     '''
    
 	def propertyAssignmentFunction(XExpression xexp, String valueName, String returnType, String metaClassName, String metaClassAttribute) '''

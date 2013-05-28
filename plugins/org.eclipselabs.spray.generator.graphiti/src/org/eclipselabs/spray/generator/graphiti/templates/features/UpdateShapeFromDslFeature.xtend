@@ -59,8 +59,6 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractUpdateFeature;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
-        
-        import «container.represents.javaInterfaceName»;
         // MARKER_IMPORT
         
         public abstract class «className» extends AbstractUpdateFeature {
@@ -184,6 +182,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                             «ELSE»
                             text.setValue(eClass.get«property.attribute.name.toFirstUpper»());
                             «ENDIF»
+                            setDoneChanges(true);
                         }
                         «ENDFOR»
                     }

@@ -377,13 +377,13 @@ class NamingExtensions {
      * Computes the qualified Interface name of the EClass and shortens it using the shortName() function.
      */
     def String getItfName (MetaClass clazz) {
-        this.getJavaInterfaceName(clazz.type).shortName
+        this.getJavaInterfaceName(clazz.type)
     }
     /**
      * Computes the qualified Interface name of the EClass and shortens it using the shortName() function.
      */
     def String getItfName (EClass clazz) {
-        this.getJavaInterfaceName(clazz).shortName
+        this.getJavaInterfaceName(clazz)
     }
 
     def String getJavaInterfaceName (MetaClass clazz) {

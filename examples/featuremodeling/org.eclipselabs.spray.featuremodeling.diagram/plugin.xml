@@ -1,167 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <?eclipse version="3.0"?>
-        <!--
-         Generated on Sun Jan 13 15:32:47 CET 2013 by Spray Plugin.xtend
-         This file will be generated oinly once if it need to be regenerated, remove this file.
-         
-        -->
-        <plugin>
-           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
-           <extension
-                 point="org.eclipse.ui.editors">
-              <editor
-                  class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramEditor"
-                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
-                  default="true"
-                  extensions="diagram"
-                  icon="icons/diagram.gif"
-                  id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramEditor"
-                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
-                  name="%_diagram_editor_name">
-               <contentTypeBinding
-                     contentTypeId="org.eclipse.graphiti.content.diagram">
-               </contentTypeBinding>
-              </editor>
-           </extension>
-           -->
-        
-          <extension
-              point="org.eclipse.graphiti.ui.diagramTypes">
-            <diagramType
-              description="This is the diagram type for the FeatureDiagram diagram type"
-              id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramType"
-              name="FeatureDiagram Graphiti Diagram Type"
-              type="FeatureDiagram">
-            </diagramType>
-          </extension>
-        
-          <extension
-              point="org.eclipse.graphiti.ui.diagramTypeProviders">
-            <diagramTypeProvider
-              class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramTypeProvider"
-              description="This is my editor for the FeatureDiagram diagram type"
-              id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramTypeProvider"
-              name="FeatureDiagram editor">
-              <diagramType
-                    id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramType">
-              </diagramType>
-                <imageProvider
-                       id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramImageProvider">
-                 </imageProvider>
-            </diagramTypeProvider>
-          </extension>
-        
-           <extension
-                 point="org.eclipse.graphiti.ui.imageProviders">
-              <imageProvider
-                    class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramImageProvider"
-                       id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramImageProvider">
-              </imageProvider>
-           </extension>
-        
-          <extension
-              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-              <propertyContributor contributorId="FeatureDiagram.PropertyContributor">
-                  <propertyCategory category="FeatureDiagramCategory">
-                  </propertyCategory>
-              </propertyContributor>
-          </extension>
-        
-          <extension
-              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-              <propertyTabs contributorId="FeatureDiagram.PropertyContributor">
-                  <propertyTab label="Main" category="FeatureDiagramCategory"
-                      id="FeatureDiagram.main.tab">
-                  </propertyTab>
-              </propertyTabs>
-          </extension>
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="FeatureDiagram.PropertyContributor">
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureMaxSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
-           id="FeatureDiagram.main.tab.Feature.max">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureMinSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
-           afterSection="FeatureDiagram.main.tab.Feature.max"
-           id="FeatureDiagram.main.tab.Feature.min">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureIdSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
-           afterSection="FeatureDiagram.main.tab.Feature.min"
-           id="FeatureDiagram.main.tab.Feature.id">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureStateSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
-           afterSection="FeatureDiagram.main.tab.Feature.id"
-           id="FeatureDiagram.main.tab.Feature.state">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureNameSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
-           afterSection="FeatureDiagram.main.tab.Feature.state"
-           id="FeatureDiagram.main.tab.Feature.name">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureValueTypeSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
-           afterSection="FeatureDiagram.main.tab.Feature.name"
-           id="FeatureDiagram.main.tab.Feature.valueType">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-        <extension
-            point="org.eclipse.ui.views.properties.tabbed.propertySections">
-            <propertySections contributorId="FeatureDiagram.PropertyContributor">
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceMaxSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceFilter"
-           id="FeatureDiagram.main.tab.Reference.max">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceMinSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceFilter"
-           afterSection="FeatureDiagram.main.tab.Reference.max"
-           id="FeatureDiagram.main.tab.Reference.min">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceIdSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceFilter"
-           afterSection="FeatureDiagram.main.tab.Reference.min"
-           id="FeatureDiagram.main.tab.Reference.id">
-          </propertySection>
-          <propertySection tab="FeatureDiagram.main.tab"
-           class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceStateSection"
-           filter="org.eclipselabs.spray.featuremodeling.diagram.property.ReferenceFilter"
-           afterSection="FeatureDiagram.main.tab.Reference.id"
-           id="FeatureDiagram.main.tab.Reference.state">
-          </propertySection>
-            </propertySections>
-        </extension>
-        
-    
-    
-            <extension
-                  point="org.eclipse.ui.newWizards">
-                  <category
-                     name="FeatureDiagram"
-                     id="org.eclipselabs.spray.FeatureDiagram">
-                     </category>
-               <wizard
-                     category="org.eclipselabs.spray.FeatureDiagram"
-                     class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
-                     descriptionImage="icons/FeatureDiagram-32.png"
-                     icon="icons/FeatureDiagram-16.png"
-                     id="org.eclipselabs.spray.FeatureDiagram.NewDiagramWizard"
-                     name="New FeatureDiagram Diagram"
-                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
-                     project="false">
-               </wizard>
-            </extension>
-        </plugin>
+<?eclipse version="3.0"?>
+<!--
+ Generated on Sun May 19 17:38:08 CEST 2013 by Spray Plugin.xtend
+ This file will be generated oinly once if it need to be regenerated, remove this file.
+ 
+-->
+<plugin>
+  
+  <!-- GRAPHITI EDITOR EXTENSION AUTOGEN START -->
+     <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+       class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramEditor"
+       contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+       default="true"
+       extensions="diagram"
+       icon="icons/diagram.gif"
+       id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramEditor"
+       matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+       name="%_diagram_editor_name">
+    <contentTypeBinding
+          contentTypeId="org.eclipse.graphiti.content.diagram">
+    </contentTypeBinding>
+   </editor>
+</extension>
+-->
+     <!-- GRAPHITI EDITOR EXTENSION AUTOGEN END -->
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypes">
+    <!-- DIAGRAM TYPE AUTOGEN START -->
+     <diagramType
+  description="This is the diagram type for the FeatureDiagram diagram type"
+  id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramType"
+  name="FeatureDiagram Graphiti Diagram Type"
+  type="FeatureDiagram">
+</diagramType>
+     <!-- DIAGRAM TYPE AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    <!-- DIAGRAM TYPE PROVIDER AUTOGEN START -->
+     <diagramTypeProvider
+  class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramTypeProvider"
+  description="This is my editor for the FeatureDiagram diagram type"
+  id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramTypeProvider"
+  name="FeatureDiagram editor">
+  <diagramType
+        id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramDiagramType">
+  </diagramType>
+    <imageProvider
+           id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramImageProvider">
+     </imageProvider>
+</diagramTypeProvider>
+     <!-- DIAGRAM TYPE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.imageProviders">
+    <!-- IMAGE PROVIDER AUTOGEN START -->
+     <imageProvider
+      class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramImageProvider"
+         id="org.eclipselabs.spray.featuremodeling.diagram.diagram.FeatureDiagramImageProvider">
+</imageProvider>
+     <!-- IMAGE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="FeatureDiagram.PropertyContributor">
+       <propertyCategory category="FeatureDiagramCategory">
+       </propertyCategory>
+    </propertyContributor>
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs contributorId="FeatureDiagram.PropertyContributor">
+      <!-- PROPERTY TAB AUTOGEN START -->
+     <propertyTab label="Main" category="FeatureDiagramCategory"
+    id="FeatureDiagram.main.tab">
+</propertyTab>
+     <!-- PROPERTY TAB AUTOGEN END -->
+    </propertyTabs>
+  </extension>
+  
+  <!-- PROPERTY SECTIONS AUTOGEN START -->
+     <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="FeatureDiagram.PropertyContributor">
+  <propertySection tab="FeatureDiagram.main.tab"
+   class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureMaxSection"
+   filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
+   id="FeatureDiagram.main.tab.Feature.max">
+  </propertySection>
+  <propertySection tab="FeatureDiagram.main.tab"
+   class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureMinSection"
+   filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
+   afterSection="FeatureDiagram.main.tab.Feature.max"
+   id="FeatureDiagram.main.tab.Feature.min">
+  </propertySection>
+  <propertySection tab="FeatureDiagram.main.tab"
+   class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureIdSection"
+   filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
+   afterSection="FeatureDiagram.main.tab.Feature.min"
+   id="FeatureDiagram.main.tab.Feature.id">
+  </propertySection>
+  <propertySection tab="FeatureDiagram.main.tab"
+   class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureStateSection"
+   filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
+   afterSection="FeatureDiagram.main.tab.Feature.id"
+   id="FeatureDiagram.main.tab.Feature.state">
+  </propertySection>
+  <propertySection tab="FeatureDiagram.main.tab"
+   class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureNameSection"
+   filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
+   afterSection="FeatureDiagram.main.tab.Feature.state"
+   id="FeatureDiagram.main.tab.Feature.name">
+  </propertySection>
+  <propertySection tab="FeatureDiagram.main.tab"
+   class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.featuremodeling.diagram.property.FeatureValueTypeSection"
+   filter="org.eclipselabs.spray.featuremodeling.diagram.property.FeatureFilter"
+   afterSection="FeatureDiagram.main.tab.Feature.name"
+   id="FeatureDiagram.main.tab.Feature.valueType">
+  </propertySection>
+    </propertySections>
+</extension>
+
+     <!-- PROPERTY SECTIONS AUTOGEN END -->
+  
+  <!-- NEW DIAGRAM WIZARD AUTOGEN START -->
+     <extension
+      point="org.eclipse.ui.newWizards">
+      <category
+         name="FeatureDiagram"
+         id="org.eclipselabs.spray.FeatureDiagram">
+         </category>
+   <wizard
+         category="org.eclipselabs.spray.FeatureDiagram"
+         class="org.eclipselabs.spray.featuremodeling.diagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+         descriptionImage="icons/FeatureDiagram-32.png"
+         icon="icons/FeatureDiagram-16.png"
+         id="org.eclipselabs.spray.FeatureDiagram.NewDiagramWizard"
+         name="New FeatureDiagram Diagram"
+         preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+         project="false">
+   </wizard>
+</extension>
+     <!-- NEW DIAGRAM WIZARD AUTOGEN END -->
+  
+</plugin>

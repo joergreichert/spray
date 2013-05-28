@@ -48,6 +48,7 @@ Export-Package: org.eclipselabs.spray.shapes.ui.contentassist,
  org.eclipselabs.spray.shapes.ui.internal,
  org.eclipselabs.spray.shapes.ui.linking.connection,
  org.eclipselabs.spray.shapes.ui.linking.shape,
+ org.eclipselabs.spray.shapes.ui.quickfix,
  org.eclipselabs.spray.shapes.ui.syntaxcoloring,
  org.eclipselabs.spray.shapes.ui.templates
 Bundle-Activator: org.eclipselabs.spray.shapes.ui.internal.ShapeActivator

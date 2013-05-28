@@ -5,7 +5,7 @@ style TransparentBackground {
 	line-color = black
 	line-style = dot
 	line-width = 8
-	font-color = very-light-gray
+	//font-color = very-light-gray
 	font-name = "Arial"
 	font-size = 15
 	font-bold = yes

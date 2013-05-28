@@ -138,6 +138,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
                     final Text text = (Text) cs.getGraphicsAlgorithm();
                     text.setValue(businessName);
                     layoutPictogramElement(cs.getContainer().getContainer());
+                    setDoneChanges(true);
                     return true;
                 }
             }

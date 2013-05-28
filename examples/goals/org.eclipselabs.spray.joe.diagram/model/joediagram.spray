@@ -10,8 +10,8 @@ class Goal {
 	references {
 		subgoals : connection ConnectionShape {
 			name into ^from
-			name into name ( "subgoal" )
-			name into ^to /*(current.name)*/
+			constant "subgoal" into name
+			name into ^to (this.name)
 		}
 	}
 	behavior {

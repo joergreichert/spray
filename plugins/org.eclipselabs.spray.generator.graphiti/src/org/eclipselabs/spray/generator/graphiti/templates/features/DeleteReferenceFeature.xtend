@@ -137,8 +137,8 @@ class DeleteReferenceFeature extends FileGenerator<MetaReference> {
             «IF target.upperBound != 1»
                     «target.EReferenceType.itfName» toBeRemoved = null;
                     for (final Object rule : object.get«target.name.toFirstUpper»()) {
-                        if( ((«target.EReferenceType.name») rule).get«target.stringAttribute»().equals(element)){
-                            toBeRemoved = («target.EReferenceType.name») rule;
+                        if( ((«target.EReferenceType.itfName») rule).get«target.stringAttribute»().equals(element)){
+                            toBeRemoved = («target.EReferenceType.itfName») rule;
                         }
                     }    
                     if( toBeRemoved != null ){

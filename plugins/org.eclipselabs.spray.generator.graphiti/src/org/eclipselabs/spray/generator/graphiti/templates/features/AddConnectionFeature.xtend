@@ -112,7 +112,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             /**
          * {@inheritDoc}
          * 
-         * @return <code>true</code> if given business object is an {@link «metaClass.name»} and context is of type {@link IAddConnectionContext}
+         * @return <code>true</code> if given business object is an {@link «metaClass.itfName»} and context is of type {@link IAddConnectionContext}
          */
          @Override
          public boolean canAdd(final IAddContext context) {

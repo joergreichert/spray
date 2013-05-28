@@ -106,17 +106,17 @@ class CreateReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         public boolean canStartConnection(final ICreateConnectionContext context) {
             // return true if start anchor belongs to a EClass of the right type
             Anchor sourceAnchor = getDslShapeAnchor(context.getSourcePictogramElement());
-            final «reference.metaClass.itfName» «reference.metaClass.itfName.toFirstLower» = («reference.metaClass.itfName») get«reference.metaClass.type.name»(sourceAnchor);
-            if («reference.metaClass.itfName.toFirstLower» == null) {
+            final «reference.metaClass.itfName» «reference.metaClass.name.toFirstLower» = («reference.metaClass.itfName») get«reference.metaClass.type.name»(sourceAnchor);
+            if («reference.metaClass.name.toFirstLower» == null) {
                 return false;
             }
             «IF target.many && target.upperBound >= 0»
                 // multi-valued reference with fixed upper bound. can only be started if maximum size is not reached yet
                 final int maxSize = «target.upperBound»;
-                return «reference.metaClass.itfName.toFirstLower».get«target.name.toFirstUpper»().size() < maxSize;
+                return «reference.metaClass.name.toFirstLower».get«target.name.toFirstUpper»().size() < maxSize;
             «ELSEIF !target.many»
                 // single valued reference. can only be started if the reference is not set yet.
-                return «reference.metaClass.itfName.toFirstLower».get«target.name.toFirstUpper»() == null;
+                return «reference.metaClass.name.toFirstLower».get«target.name.toFirstUpper»() == null;
             «ELSE»
                 return true;
             «ENDIF»

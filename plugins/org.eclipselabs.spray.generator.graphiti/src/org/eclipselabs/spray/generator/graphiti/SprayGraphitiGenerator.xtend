@@ -145,6 +145,14 @@ class SprayGraphitiGenerator implements IGenerator {
 
     def generatePluginXml(Diagram diagram, IFileSystemAccess fsa) {
         fsa.generateFile("plugin.xml", plugin.generate(diagram))
+        // segments
+        fsa.generateFile("plugin_diagramtype.xml", plugin.generate_diagramType(diagram.name))
+        fsa.generateFile("plugin_diagramtypeprovider.xml", plugin.generate_diagramTypeProvider(diagram, diagram.name))
+        fsa.generateFile("plugin_graphitieditor.xml", plugin.generate_graphitiEditorExtension(diagram))
+        fsa.generateFile("plugin_imageprovider.xml", plugin.generate_imageProvider(diagram))
+        fsa.generateFile("plugin_newdiagramwizard.xml", plugin.generate_newDiagramWizard(diagram))
+        fsa.generateFile("plugin_propertysections.xml", plugin.generate_propertySections(diagram, diagram.name))
+        fsa.generateFile("plugin_propertytabs.xml", plugin.generate_propertyTab(diagram.name))
     }
     
     def generatePluginActivator(Diagram diagram, JavaGenFile java, PluginActivator activator) {

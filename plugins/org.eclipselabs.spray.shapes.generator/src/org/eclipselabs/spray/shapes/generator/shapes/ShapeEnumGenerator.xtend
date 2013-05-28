@@ -1,17 +1,16 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
 import java.util.ArrayList
+import org.eclipselabs.spray.shapes.Compartment
+import org.eclipselabs.spray.shapes.Ellipse
+import org.eclipselabs.spray.shapes.Line
+import org.eclipselabs.spray.shapes.Polygon
+import org.eclipselabs.spray.shapes.Polyline
+import org.eclipselabs.spray.shapes.Rectangle
+import org.eclipselabs.spray.shapes.RoundedRectangle
 import org.eclipselabs.spray.shapes.Shape
 import org.eclipselabs.spray.shapes.ShapeDefinition
 import org.eclipselabs.spray.shapes.Text
-import org.eclipselabs.spray.shapes.Line
-import org.eclipselabs.spray.shapes.Polyline
-import org.eclipselabs.spray.shapes.RoundedRectangle
-import org.eclipselabs.spray.shapes.Ellipse
-import org.eclipselabs.spray.shapes.Polygon
-import org.eclipselabs.spray.shapes.Rectangle
-import org.eclipselabs.spray.shapes.Compartment
-import com.ibm.icu.util.CompactByteArray
 
 class ShapeEnumGenerator {
 	
@@ -20,11 +19,11 @@ class ShapeEnumGenerator {
 		'''
 		public static enum TextIds {
 			«FOR id : ids»
-			«IF !(ids.last == id)»
-			«id»,
-			«ELSE»
-			«id»
-			«ENDIF»
+				«IF !(ids.last == id)»
+					«id»,
+				«ELSE»
+					«id»
+				«ENDIF»
 			«ENDFOR»
 		}
 		'''
