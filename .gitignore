@@ -19,3 +19,4 @@ docs/org.eclipselabs.spray.shapes.doc/docs/
 *.zip
 /devtools/org.eclipselabs.spray.dev.distrobuilder/targets/
 src-gen
+/releng/org.eclipselabs.spray.distribution/scripts/version.properties
