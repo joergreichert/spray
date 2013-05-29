@@ -2251,5 +2251,75 @@ package org.eclipselabs.spray.requirements.issues
 				        element_2.setBackground(gaService.manageColor(diagram, new ColorConstant(192, 192, 192)));"
 		status ready
 		labels "Priority: Low" "Type: Defect" "Component: Code generator" "Shapes DSL"  
+
+
+	requirement issue0249 "Shape preview in hover under Ubuntu is not visible"
+		//"Priority-Medium, Type-Defect","Defect","NoFixNeeded","Medium","","de.abg.reichert.joerg",
+	
+	requirement issue0250  "Provide project wizards to create example projects"
+		//","Task","Accepted","Low","","de.abg.reichert.joerg",,"Priority-Low, Type-Task"
+	
+	requirement issue0251 "Provide overview picture of plug-in project structure in developer guide"
+		// ","Task","New","","","",,"Type-Task"
+	
+	requirement issue0252 "Clean up preference tree" 
+		// ","Task","New","Low","","",,"Priority-Low, Type-Task"
+
+	requirement issue0253 "Provide file wizards for creating new Style, Shape and Spray files"
+		// ","Task","New","Low","","de.abg.reichert.joerg",,"Priority-Low, Type-Task"
+	
+	requirement issue0254 "Export Spray Project"
+		// ","Defect","Accepted","Medium","","de.abg.reichert.joerg",,"Priority-Medium, Type-Defect"
+	
+	requirement issue0255 "Update to Xtext and Xtend 2.4.0"
+		// ","Task","New","High","","de.abg.reichert.joerg",,"Priority-High, Type-Task"
+	
+	requirement issue0256 "Spray generator produce invalid method calls when referenced EMF attribute starts with 'is'"
+		// ","Defect","Fixed","Medium","","de.abg.reichert.joerg",,"Component-Codegen, Priority-Medium, Type-Defect"
+	
+	requirement issue0257 "Using compartment in rounded-rectangle"
+		// ","Defect","Duplicate","Medium","","",,"Priority-Medium, Type-Defect"
+	
+	requirement issue0258 "Shape value to EMF model"
+		// ","Enhancement","New","Medium","","de.abg.reichert.joerg",,"Component-Codegen, Priority-Medium, Type-Enhancement"
+	
+	requirement issue0259 "Genmodel can not be found on Git projects"
+		// ","Defect","Fixed","High","","de.abg.reichert.joerg",,"Component-Language, OpSys-All, Priority-High, Type-Defect, Usability"
+	
+	requirement issue0260 "Discover and handle colliding imports" 
+		// ","Defect","New","Medium","","de.abg.reichert.joerg",,"Priority-Medium, Type-Defect"
+	
+	requirement issue0261 "Code generator uses hard coded paths (src, src-gen) in some places"
+		// ","Defect","New","Medium","","de.abg.reichert.joerg",,"Priority-Medium, Type-Defect"
+	
+	requirement issue0262 "Remove calls of API marked as deprecated"
+		// ","Task","New","","","",,"Type-Task"
+	
+	requirement issue0263 "Quick fix applied to file in wrong project"
+		//","Defect","Fixed","Medium","","de.abg.reichert.joerg",,"Priority-Medium, Type-Defect"
+	requirement issue0264 "Shapes and Styles generated code with smaller overridable methods"
+		// ","Task","New","","","",,"Type-Task"
+	
+	requirement issue0265 "Change color of Shape"
+		// ","Defect","New","Medium","","",,"Priority-Medium, Type-Defect"
+
+	requirement issue0266 "Allow adding anchor shapes at runtime (special case of compartment)"
+		// ","Enhancement","New","Medium","","",,"Priority-Medium, Type-Enhancement"
+
+	requirement issue0267 "Naming-Problem on Imported and Domain-Model Classes"
+		// ","Defect","Fixed","Medium","","fabio.filippelli",,"Priority-Medium, Type-Defect"
+
+	requirement issue0268 "New shape class name scheme not applied to inner connection references"
+		// ","Defect","New","Medium","","fabio.filippelli",,"Priority-Medium, Type-Defect"
+		
+		
+	/* potential issues:
+	 * - better autocompletion: reorder elements, take line breaks in consideration, ...
+	 * - Spray + Xcore (http://wiki.eclipse.org/Xcore)
+	 * - Spray + EEF (http://wiki.eclipse.org/EEF)
+	 * - Spray + e4 (http://wiki.eclipse.org/E4)
+	 * - Migrate generated code to new features of Graphiti Juno/Kepler (e.g. Graphiti editor in an e4 view) - what about backward compatibility? 
+	 */
+	
 		
 end package

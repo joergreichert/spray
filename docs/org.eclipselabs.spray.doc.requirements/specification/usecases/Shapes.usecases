@@ -1,0 +1,19 @@
+package org.eclipselabs.spray.requirements.shapes
+	import actors from org.eclipselabs.spray.requirements.actors
+	import requirements from org.eclipselabs.spray.requirements.issues
+
+	usecase UC001 "Create a new shape definition"
+		actors DiagramEditorCreator
+
+	end usecase
+	
+	usecase UC002 "Create a new connection definition"
+		actors DiagramEditorCreator
+
+	end usecase	
+	
+	usecase UC101 "Calculate widths and sizes using surrounding shapes"
+		requirements issue0114, issue0115
+
+	end usecase	
+end package

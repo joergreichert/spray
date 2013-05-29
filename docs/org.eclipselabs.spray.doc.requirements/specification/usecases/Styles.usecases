@@ -1,0 +1,18 @@
+package org.eclipselabs.spray.requirements.styling
+	import actors from org.eclipselabs.spray.requirements.actors
+
+	usecase UC001 "Create a new style definition"
+		actors DiagramEditorCreator
+
+	end usecase
+
+
+	usecase UC002 "Create a new gradient definition"
+		actors DiagramEditorCreator
+
+	end usecase
+	
+	usecase UC101 "Import/Export Style definition from/to CSS"
+
+	end usecase	
+end package
