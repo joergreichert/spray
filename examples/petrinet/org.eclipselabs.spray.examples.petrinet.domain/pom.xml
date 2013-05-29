@@ -13,5 +13,4 @@
 	<groupId>de.htwg</groupId>
 	<artifactId>org.eclipselabs.spray.examples.petrinet.domain</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<version>1.0.0.qualifier</version>
 </project>
