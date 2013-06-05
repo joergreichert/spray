@@ -50,8 +50,7 @@ Export-Package: org.eclipselabs.spray.shapes.ui.contentassist,
  org.eclipselabs.spray.shapes.ui.linking.shape,
  org.eclipselabs.spray.shapes.ui.quickfix,
  org.eclipselabs.spray.shapes.ui.syntaxcoloring,
- org.eclipselabs.spray.shapes.ui.templates
+ org.eclipselabs.spray.shapes.ui.templates,
+ org.eclipselabs.spray.shapes.ui.quickfix
 Bundle-Activator: org.eclipselabs.spray.shapes.ui.internal.ShapeActivator
-Bundle-ClassPath: .,
- lib/batik-all-1.6.jar,
- lib/xerces-2.11.jar
+Bundle-ClassPath: .,lib/batik-all-1.6.jar,lib/xerces-2.11.jar

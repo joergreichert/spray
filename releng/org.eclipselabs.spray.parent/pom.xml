@@ -15,8 +15,8 @@
 	<properties>
 		<platform-version-name>kepler</platform-version-name>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
-		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
+		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20130118183705/repository</orbit-site>
+		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-kepler/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<tycho-version>0.17.0</tycho-version>
@@ -364,36 +364,6 @@
 					<id>spray-dependencies</id>
 					<layout>p2</layout>
 					<url>file:../../releng/org.eclipselabs.spray.repository/target/repository</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>remote-build-snapshot</id>
-			<activation>
-				<property>
-					<name>!local-build</name>
-				</property>
-			</activation>
-			<repositories>
-				<repository>
-					<id>spray-dependencies</id>
-					<layout>p2</layout>
-					<url>${spray-ci-targetrepository}</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>remote-build-release</id>
-			<activation>
-				<property>
-					<name>remote-build-release</name>
-				</property>
-			</activation>
-			<repositories>
-				<repository>
-					<id>spray-dependencies</id>
-					<layout>p2</layout>
-					<url>http://spray.eclipselabs.org.codespot.com/git.distribution/releases/</url>
 				</repository>
 			</repositories>
 		</profile>

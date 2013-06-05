@@ -24,13 +24,13 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/snapshots/ {
-		org.eclipse.swtbot.eclipse 2.1.0.201302221524,
-		org.eclipse.swtbot.eclipse.gef 2.1.0.201302221524
+		org.eclipse.swtbot.eclipse 2.1.0.201302261614,
+		org.eclipse.swtbot.eclipse.gef 2.1.0.201302261614
 	}
 	
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
 		org.eclipse.xtext.sdk 2.4.0.v201302051002,
-		org.eclipse.xtend.sdk 2.4.0.v2013020510027
+		org.eclipse.xtend.sdk 2.4.0.v201302051002
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {

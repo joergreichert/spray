@@ -23,13 +23,13 @@
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.0.201302221524"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.0.201302221524"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.0.201302261614"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.0.201302261614"/>
 			<repository location="http://download.eclipse.org/technology/swtbot/snapshots/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.0.v201302051002"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.0.v2013020510027"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.0.v201302051002"/>
 			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">

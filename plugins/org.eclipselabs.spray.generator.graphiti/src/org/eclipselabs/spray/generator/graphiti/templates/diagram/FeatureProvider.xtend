@@ -404,6 +404,6 @@ class FeatureProvider extends FileGenerator<Diagram> {
      * bo.eClass()==BusinessDomainDslPackage.Literals.ASSOCIATION && "Assoc1".equals(alias)
      */
     def generate_metaClassSwitchCondition (MetaClass cls) '''
-        bo.eClass()==«cls.type.EPackageClassName.shortName».Literals.«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF»
+        bo.eClass()==«cls.type.literalConstant» && «IF cls.alias==null»alias==null«ELSE»"«cls.alias»".equals(alias)«ENDIF»
     '''
 }
