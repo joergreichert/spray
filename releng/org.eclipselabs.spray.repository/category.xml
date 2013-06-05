@@ -48,9 +48,6 @@
 	<feature url="features/org.eclipse.swtbot.eclipse_2.1.0.201303171125.jar" id="org.eclipse.swtbot.eclipse" version="2.1.0.201303171125">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303100321.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303100321">
-		<category name="3rdparty"/>
-	</feature>
 	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303171125.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303171125">
 		<category name="3rdparty"/>
 	</feature>
