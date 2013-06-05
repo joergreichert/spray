@@ -23,9 +23,9 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>spray-juno.target</file>
+									<file>spray-kepler.target</file>
 									<type>target</type>
-									<classifier>spray-juno</classifier>
+									<classifier>spray-kepler</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>
