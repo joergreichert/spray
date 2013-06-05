@@ -24,8 +24,8 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/snapshots/ {
-		org.eclipse.swtbot.eclipse 2.1.0.201302261614,
-		org.eclipse.swtbot.eclipse.gef 2.1.0.201302261614
+		org.eclipse.swtbot.eclipse 2.1.0.201303100321,
+		org.eclipse.swtbot.eclipse.gef 2.1.0.201303100321
 	}
 	
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
