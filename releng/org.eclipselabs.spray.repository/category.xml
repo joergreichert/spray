@@ -39,10 +39,10 @@
 	<feature url="features/org.eclipse.egit_2.2.0.201212191850-r.jar" id="org.eclipse.egit" version="2.2.0.201212191850-r">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.swtbot.eclipse_2.1.0.201302261614.jar" id="org.eclipse.swtbot.eclipse" version="2.1.0.201302261614">
+	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303100321.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303100321">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201302261614.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201302261614">
+	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303100321.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303100321">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/org.eclipse.xtext.sdk_2.4.0.v201302051002.jar" id="org.eclipse.xtext.sdk" version="2.4.0.v201302051002">
