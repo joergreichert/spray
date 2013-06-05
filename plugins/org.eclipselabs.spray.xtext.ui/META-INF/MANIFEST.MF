@@ -45,7 +45,6 @@ Require-Bundle: org.eclipselabs.spray.mm,
  org.eclipselabs.spray.generator.common;bundle-version="0.5.0"
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
- org.eclipse.xtend2.lib,
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.xtext.ui,

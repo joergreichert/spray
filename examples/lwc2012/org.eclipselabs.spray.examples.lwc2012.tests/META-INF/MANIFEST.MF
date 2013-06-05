@@ -7,7 +7,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipselabs.spray.examples.lwc2012;bundle-version="0.5.0",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.4.0,2.5.0)",
  org.eclipse.xtext.junit4;bundle-version="[2.4.0,2.5.0)",
- org.junit4;bundle-version="4.8.1",
  com.google.inject;bundle-version="3.0.0",
  org.eclipse.xtext;bundle-version="[2.4.0,2.5.0)",
  org.eclipse.xtext.xbase;bundle-version="[2.4.0,2.5.0)",
@@ -17,4 +16,5 @@ Require-Bundle: org.eclipselabs.spray.examples.lwc2012;bundle-version="0.5.0",
  org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.0",
  org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
  org.eclipselabs.spray.styles.generator;bundle-version="0.5.0",
- org.eclipselabs.spray.shapes.generator;bundle-version="0.5.0"
+ org.eclipselabs.spray.shapes.generator;bundle-version="0.5.0",
+ org.junit;bundle-version="4.11.0"
