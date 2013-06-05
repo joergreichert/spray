@@ -77,7 +77,7 @@ class StyleGeneratorTest {
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass;
 		
 		
 		/**
@@ -192,7 +192,7 @@ class StyleGeneratorTest {
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass;
 		
 		
 		/**
@@ -293,7 +293,7 @@ class StyleGeneratorTest {
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass;
 		
 		
 		/**
@@ -402,7 +402,7 @@ class StyleGeneratorTest {
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass;
 		
 		
 		/**
@@ -544,7 +544,7 @@ class StyleGeneratorTest {
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass;
 		
 		
 		/**

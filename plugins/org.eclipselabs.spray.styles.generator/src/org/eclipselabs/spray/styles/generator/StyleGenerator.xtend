@@ -12,7 +12,7 @@ import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.styles.StyleLayout
 import org.eclipselabs.spray.styles.Transparent
 import org.eclipselabs.spray.styles.YesNoBool
-import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 import org.eclipselabs.spray.xtext.generator.filesystem.GenFile
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
@@ -87,7 +87,7 @@ class StyleGenerator extends FileGenerator<Style> {
 		import org.eclipse.graphiti.util.IGradientType;
 		import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 		import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-		import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
+		import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass;
 
 		'''
 	}
@@ -358,6 +358,6 @@ class StyleGenerator extends FileGenerator<Style> {
 		'''GradientUtilClass.getOneColorGradient(«cg»)'''
 	}
 	
-	def dispatch createColorHexValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c)»''' }
-	def dispatch createColorHexValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c)»''' }
+	def dispatch createColorHexValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c.value.name)»''' }
+	def dispatch createColorHexValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c.red, c.green, c.blue)»''' }
 }

@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.styles.generator.util;
+package org.eclipselabs.spray.runtime.graphiti.styles;
 
 import java.awt.Color;
 import java.lang.reflect.Field;
@@ -9,19 +9,16 @@ import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.util.ColorConstant;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
-import org.eclipselabs.spray.styles.ColorConstantRef;
-import org.eclipselabs.spray.styles.RGBColor;
 
 public class GradientUtilClass extends PredefinedColoredAreas {
 
-    public static String colorConstantToHexString(ColorConstantRef c) {
+    public static String colorConstantToHexString(String colorName) {
 
         Class<?> colorConstant = org.eclipse.graphiti.util.ColorConstant.class;
 
         try {
-            Field f = colorConstant.getField(c.getValue().getName().toUpperCase());
+            Field f = colorConstant.getField(colorName.toUpperCase());
             ColorConstant constant = (ColorConstant) f.get(colorConstant);
             Color color = new Color(constant.getRed(), constant.getGreen(), constant.getBlue());
             return Integer.toHexString((color.getRGB() & 0xffffff) | 0x1000000).substring(1).toUpperCase();
@@ -44,8 +41,8 @@ public class GradientUtilClass extends PredefinedColoredAreas {
 
     }
 
-    public static String RGBColorToHexString(RGBColor c) {
-        Color color = new Color(c.getRed(), c.getGreen(), c.getBlue());
+    public static String RGBColorToHexString(int red, int green, int blue) {
+        Color color = new Color(red, green, blue);
         return Integer.toHexString((color.getRGB() & 0xffffff) | 0x1000000).substring(1).toUpperCase();
     }
 
@@ -62,21 +59,21 @@ public class GradientUtilClass extends PredefinedColoredAreas {
 
     }
 
-    //	public static GradientColoredAreas getOneColorGradient(ColorConstantRef c){
-    //		// Create Gradient
-    //			final GradientColoredAreas gradientColoredAreas = 
-    //						StylesFactory.eINSTANCE.createGradientColoredAreas();
-    //
-    //			final EList<GradientColoredArea> gcas =
-    //						gradientColoredAreas.getGradientColor();
-    //				
-    //			String hexColor = colorConstantToHexString(c);
-    //				
-    //			addGradientColoredArea(gcas,hexColor,0,LocationType.LOCATION_TYPE_RELATIVE,
-    //									   hexColor,100,LocationType.LOCATION_TYPE_RELATIVE);
-    //				
-    //			return gradientColoredAreas;
-    //		
-    //	}
+//    	public static GradientColoredAreas getOneColorGradient(String colorName){
+//    		// Create Gradient
+//    			final GradientColoredAreas gradientColoredAreas = 
+//    						StylesFactory.eINSTANCE.createGradientColoredAreas();
+//    
+//    			final EList<GradientColoredArea> gcas =
+//    						gradientColoredAreas.getGradientColor();
+//    				
+//    			String hexColor = colorConstantToHexString(colorName);
+//    				
+//    			addGradientColoredArea(gcas,hexColor,0,LocationType.LOCATION_TYPE_RELATIVE,
+//    									   hexColor,100,LocationType.LOCATION_TYPE_RELATIVE);
+//    				
+//    			return gradientColoredAreas;
+//    		
+//    	}
 
 }

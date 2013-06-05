@@ -5,7 +5,7 @@ import org.eclipselabs.spray.styles.GradientLayout
 import org.eclipselabs.spray.styles.GradientColorArea
 import org.eclipselabs.spray.styles.ColorConstantRef
 import org.eclipselabs.spray.styles.RGBColor
-import org.eclipselabs.spray.styles.generator.util.GradientUtilClass
+import org.eclipselabs.spray.runtime.graphiti.styles.GradientUtilClass
 import org.eclipselabs.spray.generator.common.ProjectProperties
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 import org.eclipselabs.spray.xtext.generator.filesystem.GenFile
@@ -112,7 +112,7 @@ class GradientGenerator extends FileGenerator<Gradient> {
 		'''addGradientColoredArea(gcas,"«first.color.createColorValue»",«offset_1»,org.eclipse.graphiti.mm.algorithms.styles.LocationType.LOCATION_TYPE_RELATIVE, "«second.color.createColorValue»",«offset_2»,org.eclipse.graphiti.mm.algorithms.styles.LocationType.LOCATION_TYPE_RELATIVE);'''
 	}
 	
-	def dispatch createColorValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c)»''' }
-	def dispatch createColorValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c)»''' }
+	def dispatch createColorValue(ColorConstantRef c) {'''«GradientUtilClass::colorConstantToHexString(c.value.name)»''' }
+	def dispatch createColorValue(RGBColor c) { '''«GradientUtilClass::RGBColorToHexString(c.red, c.green, c.blue)»''' }
 	def increaseCounter(){ elementIndex = elementIndex + 1 }
 }
