@@ -6,16 +6,16 @@
 	<feature url="features/de.itemis.xtext.antlr.feature_2.0.0.v201108011202.jar" id="de.itemis.xtext.antlr.feature" version="2.0.0.v201108011202">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.sdk_4.3.0.v20121214-192315-7V7p-DQ83136bVSKu6nHz0H1OpcB49NFNUp52ZqfZnHfL.jar" id="org.eclipse.sdk" version="4.3.0.v20121214-192315-7V7p-DQ83136bVSKu6nHz0H1OpcB49NFNUp52ZqfZnHfL">
+	<feature url="features/org.eclipse.sdk_4.3.0.v20130314-1730.jar" id="org.eclipse.sdk" version="4.3.0.v20130314-1730">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.pde_3.9.0.v20120730-104211-7c7zFsGFFt6ZrEdCxXM0lKp0L.jar" id="org.eclipse.pde" version="3.9.0.v20120730-104211-7c7zFsGFFt6ZrEdCxXM0lKp0L">
+	<feature url="features/org.eclipse.pde_3.9.0.v20130314-1330.jar" id="org.eclipse.pde" version="3.9.0.v20130314-1330">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/org.eclipse.emf.sdk_2.9.0.v20130204-1146.jar" id="org.eclipse.emf.sdk" version="2.9.0.v20130204-1146">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.emf.transaction.sdk_1.7.0.201212181754.jar" id="org.eclipse.emf.transaction.sdk" version="1.7.0.201212181754">
+	<feature url="features/org.eclipse.emf.transaction.sdk_1.7.0.201303111537.jar" id="org.eclipse.emf.transaction.sdk" version="1.7.0.201303111537">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/org.eclipse.emf.eef.sdk-feature_1.1.1.201206051542.jar" id="org.eclipse.emf.eef.sdk-feature" version="1.1.1.201206051542">
@@ -39,16 +39,19 @@
 	<feature url="features/org.eclipse.egit_2.2.0.201212191850-r.jar" id="org.eclipse.egit" version="2.2.0.201212191850-r">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303100321.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303100321">
+	<feature url="features/org.eclipse.swtbot.eclipse_2.1.0.201303171125.jar" id="org.eclipse.swtbot.eclipse" version="2.1.0.201303171125">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303100321.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303100321">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.xtext.sdk_2.4.0.v201302051002.jar" id="org.eclipse.xtext.sdk" version="2.4.0.v201302051002">
+	<feature url="features/org.eclipse.swtbot.eclipse.gef_2.1.0.201303171125.jar" id="org.eclipse.swtbot.eclipse.gef" version="2.1.0.201303171125">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.xtend.sdk_2.4.0.v201302051002.jar" id="org.eclipse.xtend.sdk" version="2.4.0.v201302051002">
+	<feature url="features/org.eclipse.xtext.sdk_2.4.0.v201303170706.jar" id="org.eclipse.xtext.sdk" version="2.4.0.v201303170706">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.xtend.sdk_2.4.0.v201303170706.jar" id="org.eclipse.xtend.sdk" version="2.4.0.v201303170706">
 		<category name="3rdparty"/>
 	</feature>
 	<feature url="features/org.eclipselabs.xtext.utils.unittesting.feature_0.9.3.201204261440.jar" id="org.eclipselabs.xtext.utils.unittesting.feature" version="0.9.3.201204261440">
