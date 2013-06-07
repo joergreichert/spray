@@ -37,10 +37,7 @@ Workflow {
 
             // generates Java API for the generated EPackages
             fragment = ecore.EcoreGeneratorFragment {
-            // referencedGenModels = "
-            //  platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel,
-            //  platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel
-            // "
+            	emfRuntimeVersion = "2.9"
             }
 
             // Serializer 2.0
@@ -77,10 +74,10 @@ Workflow {
             fragment = builder.BuilderIntegrationFragment {}
 
             // generator API
-//            fragment = generator.GeneratorFragment {
-//                generateMwe = true
-//                generateJavaMain = true
-//            }
+            fragment = generator.GeneratorFragment {
+                generateMwe = true
+                generateJavaMain = true
+            }
 
             // formatter API
             fragment = formatting.FormatterFragment {}
@@ -102,7 +99,7 @@ Workflow {
             fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
 
             // generates junit test support classes into Generator#pathTestProject
-            //fragment = junit.Junit4Fragment {}
+            fragment = junit.Junit4Fragment {}
 
             // project wizard (optional)
             // fragment = projectWizard.SimpleProjectWizardFragment {
