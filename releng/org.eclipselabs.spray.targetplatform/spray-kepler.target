@@ -9,23 +9,23 @@
 			<repository location="http://download.itemis.com/updates/releases/2.0.0/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.sdk.feature.group" version="4.3.0.v20130530-1801"/>
-			<unit id="org.eclipse.pde.feature.group" version="3.9.0.v20130530-1553"/>
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.0.v20130603-0742"/>
+			<unit id="org.eclipse.sdk.feature.group" version="4.3.0.v20130526-2205"/>
+			<unit id="org.eclipse.pde.feature.group" version="3.9.0.v20130526-2000"/>
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.0.v20130527-0426"/>
 			<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.7.0.201305221412"/>
 			<unit id="org.eclipse.emf.eef.sdk-feature.feature.group" version="1.2.0.201301111054"/>
 			<unit id="org.eclipse.gef.sdk.feature.group" version="3.9.0.201305060205"/>
 			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.0.201305060205"/>
-			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.0.v20130605-1155"/>
-			<unit id="org.eclipse.swt" version="3.102.0.v20130530-1600"/>
-			<repository location="http://download.eclipse.org/releases/staging"/>
+			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.0.v20130529-0649"/>
+			<unit id="org.eclipse.swt" version="3.102.0.v20130522-1423"/>
+			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.1.v201304180855"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.1.v201304180855"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.2.v201306040922"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.2.v201306040922"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.0.v201306040943"/>
 			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.0.v201306040844"/>
-			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306031427"/>
