@@ -141,7 +141,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
 
             private ModifyListener nameListener = new ModifyListener() {
                 public void modifyText(ModifyEvent arg0) {
-                    TransactionalEditingDomain editingDomain = getDiagramEditor().getEditingDomain();
+                    TransactionalEditingDomain editingDomain = getDiagramContainer().getDiagramBehavior().getEditingDomain();
                     editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
                         @Override
                         protected void doExecute() {
@@ -237,7 +237,7 @@ class PropertySection extends FileGenerator<EAttribute>  {
              
             private SelectionListener nameListener = new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
-                    TransactionalEditingDomain editingDomain = getDiagramEditor().getEditingDomain();
+                    TransactionalEditingDomain editingDomain = getDiagramContainer().getDiagramBehavior().getEditingDomain();
                     editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
                         @Override
                         protected void doExecute() {
