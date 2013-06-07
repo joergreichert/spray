@@ -21,11 +21,11 @@
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.2.v201306040922"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.2.v201306040922"/>
-			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.0.v201306040943"/>
-			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.0.v201306040844"/>
-			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.1.v201304180855"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.1.v201304180855"/>
+			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.0.v201303191501"/>
+			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.0.v201303191413"/>
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306031427"/>

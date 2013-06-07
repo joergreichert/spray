@@ -21,19 +21,19 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.swt 3.102.0.v20130522-1423 noFeature
 	}
 	
-//	"Xtext/Xtend Releases" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases {
-//		org.eclipse.xtext.sdk 2.4.1.v201304180855,
-//		org.eclipse.xtend.sdk 2.4.1.v201304180855,
-//		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201303191501,
-//		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413
-//	}
-
-	"Xtext/Xtend Milestones" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
-		org.eclipse.xtext.sdk 2.4.2.v201306040922,
-		org.eclipse.xtend.sdk 2.4.2.v201306040922,
-		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201306040943,
-		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306040844
+	"Xtext/Xtend Releases" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases {
+		org.eclipse.xtext.sdk 2.4.1.v201304180855,
+		org.eclipse.xtend.sdk 2.4.1.v201304180855,
+		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201303191501,
+		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413
 	}
+
+//	"Xtext/Xtend Milestones" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
+//		org.eclipse.xtext.sdk 2.4.2.v201306040922,
+//		org.eclipse.xtend.sdk 2.4.2.v201306040922,
+//		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201306040943,
+//		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306040844
+//	}
 	
 //	"Xtext/Xtend Snapshots" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/snapshots {
 //		org.eclipse.xtext.sdk ,
