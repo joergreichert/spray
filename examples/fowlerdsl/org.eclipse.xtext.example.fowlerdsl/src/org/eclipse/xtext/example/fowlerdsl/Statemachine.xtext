@@ -4,36 +4,33 @@ generate statemachine "http://www.eclipse.org/xtext/example/fowlerdsl/Statemachi
 
 Statemachine :
      {Statemachine}
+	('events' 
+		events+=Event+ 
+	'end')?
+	('resetEvents' 
+		resetEvents+=[Event]+ 
+	'end')?
+	('commands' 
+		commands+=Command+ 
+	'end')?
 	states+=State*
-	transitions+=Transition*
+;
+
+Event:
+	name=ID code=ID
+;
+
+Command:
+	name=ID code=ID
 ;
 
 State:
-	StartState|FinishState|NormalState
-;
-
-NormalState:
-	'state' name=ID check?='isCheck' ('{'
-		'description:' description=STRING
-	'}')?
-;
-
-StartState:
-	'startstate' name=ID ('{'
-		'precondition:' precondition=STRING
-	'}')?
-;
-
-FinishState:
-	'finalstate' name=ID ('{'
-		'postcondition:' postcondition=STRING
-	'}')?
+	'state' name=ID
+		('actions' '{' actions+=[Command]+ '}')?
+		transitions+=Transition*
+	'end'
 ;
 
 Transition:
-	'transition' name=ID
-		'from' fromState=[State]
-		'to' toState=[State]
-		'triggeredBy' event=STRING
-	'end'
+	event=[Event] '=>' state=[State]
 ;
