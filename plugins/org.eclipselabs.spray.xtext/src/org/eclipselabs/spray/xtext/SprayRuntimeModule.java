@@ -72,4 +72,8 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
     public Class<? extends TextBodyFetcher> bindTextBodyFetcher() {
         return TextBodyFetcher.class;
     }
+
+    public void configureLinkingIScopeProvider(com.google.inject.Binder binder) {
+        binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(org.eclipse.xtext.linking.LinkingScopeProviderBinding.class).to(SprayScopeProvider.class);
+    }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
@@ -41,7 +42,11 @@ public abstract class DSLResourceVisitor<T> implements IResourceVisitor {
 			}
 			if (javaProject != null) {
 				try {
-					javaProject.getProject().accept(this);
+					IProject project = javaProject.getProject();
+					project.accept(this);
+					for(IProject referencedProject : project.getReferencedProjects()) {
+						referencedProject.accept(this);
+					}
 				} catch (CoreException e) {
 					e.printStackTrace();
 				}

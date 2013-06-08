@@ -146,7 +146,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                     return false;
                 }
             };
-            return MapBasedScope.createScope(IScope.NULLSCOPE, Scopes.scopedElementsFor(Iterables.filter(metaClass.getType().getEAllAttributes(), filterPredicate)));
+            return Scopes.scopeFor(Iterables.filter(metaClass.getType().getEAllAttributes(), filterPredicate));
         } else {
             return IScope.NULLSCOPE;
         }
