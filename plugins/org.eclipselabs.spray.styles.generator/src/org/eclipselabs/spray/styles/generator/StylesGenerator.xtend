@@ -16,9 +16,6 @@ import org.eclipselabs.spray.styles.Gradient
 import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
-import static org.eclipselabs.spray.styles.generator.StylesGenerator.*
-
-
 class StylesGenerator extends JvmModelGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider
     @Inject extension GradientGenerator gradientGenerator

@@ -1,8 +1,6 @@
 package org.eclipselabs.spray.styles.tests;
 
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.parameterized.InjectParameter;
 import org.eclipse.xtext.junit4.parameterized.Offset;
@@ -13,7 +11,6 @@ import org.eclipse.xtext.junit4.parameterized.Xpect;
 import org.eclipse.xtext.junit4.parameterized.XpectLines;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.junit4.validation.ValidatorTester;
-import org.eclipse.xtext.util.Pair;
 import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider;
 import org.eclipselabs.spray.styles.validation.StyleJavaValidator;
 import org.junit.runner.RunWith;

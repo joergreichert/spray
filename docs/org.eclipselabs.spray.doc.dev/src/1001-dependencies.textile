@@ -1,0 +1,23 @@
+h2. Dependencies
+
+How to manage dependencies.
+
+
+h2. Resolve "Discouraged access" warnings
+
+Access rules assure that restricted API ist not used accidently. But sometimes we need to access API that is not public
+for downstream plugins. This is especially the case for non-final API of Xtext like Xbase.
+
+You will see annoying warnings like these: 
+
+Discouraged access: The type XExpression is not accessible due to restriction on required project org.eclipselabs.spray.generator.graphiti 
+
+To resolve them we need to configure access rules. Open the Java Build Path, go to the Libraries folder and open the "Plug-in Dependencies tree". Then select "Access Rules" and press Edit.
+
+Add a rule with resolution "Accessible" for pattern "org/eclipse/xtext/xbase/**" (or the package you need).
+
+!images/accessrules_1.png! 
+
+!images/accessrules_2.png! 
+
+!images/accessrules_3.png! 

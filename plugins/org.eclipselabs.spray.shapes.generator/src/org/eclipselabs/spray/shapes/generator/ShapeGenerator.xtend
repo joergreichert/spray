@@ -4,6 +4,7 @@
 package org.eclipselabs.spray.shapes.generator
 
 import com.google.inject.Inject
+import com.google.inject.Provider
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.eclipse.emf.ecore.resource.Resource
@@ -11,17 +12,15 @@ import org.eclipse.xtext.generator.AbstractFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.OutputConfiguration
+import org.eclipselabs.spray.generator.common.ProjectProperties
 import org.eclipselabs.spray.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.ShapeDefinition
-
-import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
-import static org.eclipselabs.spray.shapes.generator.ShapeGenerator.*
-import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.shapes.generator.shapes.ConnectionDefinitionGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeDefinitionGenerator
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
-import com.google.inject.Provider
-import org.eclipselabs.spray.shapes.generator.shapes.ConnectionDefinitionGenerator
+
+import static org.eclipselabs.spray.shapes.generator.ImageConstants.*
 
 class ShapeGenerator implements IGenerator {
     @Inject Provider<JavaGenFile> genFileProvider

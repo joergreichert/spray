@@ -14,7 +14,6 @@ public class StyleExtendedGenerator extends Generator {
             @Override
             public Injector createInjector() {
                 return Guice.createInjector(new XtextRuntimeModule() {
-                    @SuppressWarnings("restriction")
                     public java.lang.Class<? extends org.eclipse.xtext.xtext.ecoreInference.IXtext2EcorePostProcessor> bindIXtext2EcorePostProcessor() {
                         return StyleXtext2EcorePostProcessor.class;
                     }

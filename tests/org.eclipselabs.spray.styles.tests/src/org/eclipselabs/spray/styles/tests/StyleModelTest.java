@@ -18,7 +18,7 @@ public class StyleModelTest extends XtextTest {
 
     @Before
     public void before() {
-        super.before();
+        super._before();
         suppressSerialization();
     }
 
@@ -28,7 +28,7 @@ public class StyleModelTest extends XtextTest {
         if (issues != null) {
            assertConstraints(issues.warningsOnly().allOfThemContain("The selected font is not installed on the system (default 'Arial' will be taken)."));
         }
-        super.after();
+        super._after();
     }
 
     @Test

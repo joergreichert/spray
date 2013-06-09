@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 
 import com.google.inject.Inject;
 
-@SuppressWarnings("restriction")
 @RunWith(ParameterizedXtextRunner.class)
 @InjectWith(StyleTestsInjectorProvider.class)
 @ResourceURIs(baseDir = "model/formatter", fileExtensions = "style")
