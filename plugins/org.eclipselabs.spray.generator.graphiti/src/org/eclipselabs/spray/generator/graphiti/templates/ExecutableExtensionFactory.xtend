@@ -3,11 +3,11 @@ package org.eclipselabs.spray.generator.graphiti.templates
 import com.google.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.Diagram
+import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import static org.eclipselabs.spray.generator.common.templates.TemplateUtil.*
 
-class ExecutableExtensionFactory extends org.eclipselabs.spray.xtext.generator.FileGenerator<Diagram>  {
+class ExecutableExtensionFactory extends FileGenerator<Diagram>  {
     @Inject extension NamingExtensions
     
     override CharSequence generateBaseFile(Diagram modelElement) {

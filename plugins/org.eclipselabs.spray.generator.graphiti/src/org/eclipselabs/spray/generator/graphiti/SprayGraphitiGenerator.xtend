@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import org.eclipselabs.spray.generator.common.ProjectProperties
 import org.eclipselabs.spray.generator.graphiti.templates.ExecutableExtensionFactory
 import org.eclipselabs.spray.generator.graphiti.templates.Filter
 import org.eclipselabs.spray.generator.graphiti.templates.GuiceModule
@@ -46,9 +47,6 @@ import org.eclipselabs.spray.mm.spray.CustomBehavior
 import org.eclipselabs.spray.mm.spray.Diagram
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
-
-import static org.eclipselabs.spray.generator.graphiti.SprayGraphitiGenerator.*
-import org.eclipselabs.spray.generator.common.ProjectProperties
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 
 class SprayGraphitiGenerator implements IGenerator {

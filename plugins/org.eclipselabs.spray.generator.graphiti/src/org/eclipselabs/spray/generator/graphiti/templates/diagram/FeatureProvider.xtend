@@ -12,13 +12,11 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
 import org.eclipselabs.spray.xtext.generator.FileGenerator
-import org.eclipselabs.spray.xtext.util.GenModelHelper
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 
 class FeatureProvider extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
-    @Inject extension GenModelHelper
     @Inject extension DiagramExtensions
     @Inject extension MetaClassExtensions
     

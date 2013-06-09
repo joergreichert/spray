@@ -1,7 +1,5 @@
 package org.eclipselabs.spray.runtime.xtext.ui.xtextindex;
 
-import java.util.ArrayList;
-
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -19,8 +17,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 
 public class IEObjectDescriptionViewer extends ViewPart {
 
@@ -125,14 +121,4 @@ public class IEObjectDescriptionViewer extends ViewPart {
         // Set the focus
     }
 
-    private void findAll() {
-        ArrayList<String> result = new ArrayList<String>();
-        // ViewDefinitions
-        for (IEObjectDescription object : AppInjectedAccess.getit().createResourceDescriptions().getExportedObjects()) {
-            result.add(object.getQualifiedName().getLastSegment());
-        }
-        //        for (String string : result) {
-        //            System.out.println("Export " + string);
-        //        }
-    }
 }

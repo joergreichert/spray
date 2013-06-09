@@ -136,7 +136,6 @@ public class SprayLayoutManager implements ISprayConstants {
 
     public void resizeElementsRecursive(ContainerShape shape, double widthFactor, double heightFactor) {
         System.out.println("SprayLayoutManager.resizeElementsRecursive() for shape " + SprayLayoutService.getId(shape));
-        GraphicsAlgorithm a = shape.getGraphicsAlgorithm();
         if (shape.getChildren().size() == 0) {
             return;
         } else {
