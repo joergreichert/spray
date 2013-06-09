@@ -249,13 +249,13 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
         Set<EPackage> ePackages = new HashSet<EPackage>();
         if (project != null) {
             List<String> alreadyImported = packageSelector.getAlreadyImported(container);
-            ePackages.addAll(packageSelector.getFilteredEPackages(model));
+            Iterables.addAll(ePackages, packageSelector.getFilteredEPackages(model));
             createImportProposals(context, acceptor, project, alreadyImported, new ArrayList<EPackage>(ePackages));
         }
     }
 
     private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, IJavaProject javaProject, List<String> alreadyImported, List<EPackage> ePackages) {
-        List<EPackage> filteredEPackages = packageSelector.filterAccessibleEPackages(javaProject, ePackages);
+        Iterable<EPackage> filteredEPackages = packageSelector.filterAccessibleEPackages(javaProject, ePackages);
         for (EPackage ePackage : filteredEPackages) {
             createImportProposals(context, acceptor, alreadyImported, ePackage);
         }

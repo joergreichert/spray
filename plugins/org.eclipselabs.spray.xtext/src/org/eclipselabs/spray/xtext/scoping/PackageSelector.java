@@ -41,15 +41,15 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class PackageSelector {
-    private static final Logger           LOGGER                 = Logger.getLogger(PackageSelector.class);
-    private Map<IContainer, Boolean>      projectToChanged       = new HashMap<IContainer, Boolean>();
-    private Map<IProject, List<EPackage>> javaProjectToEPackages = new HashMap<IProject, List<EPackage>>();
-    private JavaProjectHelper             javaProjectHelper      = new JavaProjectHelper();
-    private boolean                       workspaceChanged       = true;
+    private static final Logger               LOGGER                 = Logger.getLogger(PackageSelector.class);
+    private Map<IContainer, Boolean>          projectToChanged       = new HashMap<IContainer, Boolean>();
+    private Map<IProject, Iterable<EPackage>> javaProjectToEPackages = new HashMap<IProject, Iterable<EPackage>>();
+    private JavaProjectHelper                 javaProjectHelper      = new JavaProjectHelper();
+    private boolean                           workspaceChanged       = true;
 
-    public List<EPackage> getFilteredEPackages(EObject modelElement) {
+    public Iterable<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = javaProjectHelper.getJavaProject(modelElement);
-        List<EPackage> ePackages = null;
+        Iterable<EPackage> ePackages = null;
         if (project != null && !projectsHasChangedSinceLastRun(project) && !workspaceChanged) {
             ePackages = javaProjectToEPackages.get(project.getProject());
         }
@@ -229,7 +229,7 @@ public class PackageSelector {
         return alreadyImported;
     }
 
-    public List<EPackage> filterAccessibleEPackages(IJavaProject javaProject, List<EPackage> ePackages) {
+    public Iterable<EPackage> filterAccessibleEPackages(IJavaProject javaProject, Iterable<EPackage> ePackages) {
         List<EPackage> filteredEPackages = new ArrayList<EPackage>();
         try {
             GenPackage genPackage = null;

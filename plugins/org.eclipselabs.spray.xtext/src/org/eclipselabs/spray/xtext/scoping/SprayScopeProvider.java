@@ -3,21 +3,6 @@
  */
 package org.eclipselabs.spray.xtext.scoping;
 
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE;
-import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -76,6 +61,21 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.COMPARTMENT_BEHAVIOR__COMPARTMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__FROM;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CONNECTION_IN_SPRAY__TO;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__ASK_FOR;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.CREATE_BEHAVIOR__CONTAINMENT_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.DIAGRAM__MODEL_TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_CLASS__TYPE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.META_REFERENCE__TARGET;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_COMPARTMENT_ASSIGNMENT__REFERENCE;
+import static org.eclipselabs.spray.mm.spray.SprayPackage.Literals.SHAPE_PROPERTY_ASSIGNMENT__ATTRIBUTE;
 
 /**
  * This class contains custom scoping description.
@@ -546,8 +546,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
     }
 
     private IScope scopeEClasses(EObject context, final Predicate<EClassifier>... filters) {
-        List<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
-        List<EPackage> importedEPackages = getImportedPackages(context);
+        Iterable<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
+        Iterable<EPackage> importedEPackages = getImportedPackages(context);
         Set<EClassifier> eClassifiers = new HashSet<EClassifier>();
         for (EPackage pack : ePackages) {
             iteratePackage(pack, eClassifiers);
@@ -555,8 +555,8 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         return createScope(eClassifiers, importedEPackages, filters);
     }
 
-    private List<EPackage> getImportedPackages(EObject context) {
-        List<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
+    private Iterable<EPackage> getImportedPackages(EObject context) {
+        Iterable<EPackage> ePackages = packageSelector.getFilteredEPackages(context);
         List<EPackage> importedEPackages = new ArrayList<EPackage>();
         List<String> alreadyImported = packageSelector.getAlreadyImportedForElement(context);
         String name;
@@ -569,7 +569,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         return importedEPackages;
     }
 
-    private IScope createScope(final Set<EClassifier> eClassifiers, final List<EPackage> ePackages, final Predicate<EClassifier>... filters) {
+    private IScope createScope(final Set<EClassifier> eClassifiers, final Iterable<EPackage> ePackages, final Predicate<EClassifier>... filters) {
         Iterable<EClassifier> filtered = getFiltered(eClassifiers, filters);
         List<IEObjectDescription> global = new ArrayList<IEObjectDescription>();
         // getEObjectDescriptionsForPackages(ePackages, global);
@@ -625,7 +625,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
         return qnClassifiers;
     }
 
-    private Iterable<IEObjectDescription> getEObjectDescriptionsForSimpleNames(final List<EPackage> ePackages, Iterable<EClassifier> filtered) {
+    private Iterable<IEObjectDescription> getEObjectDescriptionsForSimpleNames(final Iterable<EPackage> ePackages, Iterable<EClassifier> filtered) {
         Function<EClassifier, IEObjectDescription> classToObjDesc = new Function<EClassifier, IEObjectDescription>() {
             @Override
             public IEObjectDescription apply(EClassifier from) {
@@ -640,7 +640,7 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 }
             }
 
-            private boolean containsPackage(List<EPackage> ePackages, EPackage ePackage) {
+            private boolean containsPackage(Iterable<EPackage> ePackages, EPackage ePackage) {
                 for (EPackage p : ePackages) {
                     if (p.getName() != null && p.getName().equals(ePackage.getName()) && p.getNsURI() != null && p.getNsURI().equals(ePackage.getNsURI())) {
                         return true;

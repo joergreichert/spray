@@ -161,7 +161,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
     @Check
     public void checkImports(final Import imp) {
         if (imp.getImportedNamespace().endsWith(".*")) {
-            List<EPackage> ePackages = packageSelector.getFilteredEPackages(imp);
+            Iterable<EPackage> ePackages = packageSelector.getFilteredEPackages(imp);
             for (EPackage ePackage : ePackages) {
                 if ((ePackage.getName() + ".*").equals(imp.getImportedNamespace())) {
                     return;
