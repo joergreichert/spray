@@ -80,6 +80,7 @@ h3. JUnit tests
 ** optional the expected result, e.g. testGetSomething_WhenNullIsPassed__NullExpected
 * the instance of the class to to test should be declared as global variable and assigned in a with @Before annotated setup method   
 * in a Maven pom these test should be execute either with the Maven-Surefire plugin or as alternative with the Tycho-Surefire plug-in, but then without the use of the UI test harness
+* A Test Suite class @AllUnitTests.java@ is provided in the main package of the test plugin that collects all test classes which are executable as "plain" unit tests (i.e. no plugin test)
 
 h3. Mocking
 
@@ -98,6 +99,7 @@ h3. Xtext tests
 * beside checking the parsing and serializing of DSL models you can also test things like scoping and validation
 * for further insight in how to test Xtext DSLs also checkout Moritz Eysholdt's "presentation":http://www.slideshare.net/meysholdt/testdriven-development-of-xtext-dsls covering that topic
 * Xtext tests can be executed headless, i.e. as JUnit tests
+* The test cases are added to the @AllUnitTests.java@ test suite
 
 h3. JUnit plug-in tests
 
@@ -106,6 +108,7 @@ h3. JUnit plug-in tests
 * some other error states only occur in a Eclipse RCP product having the Spray feature installed (e.g. build.properties does not include all required files) 
 * in a Maven pom these test should be execute with the Tycho-Surefire plug-in with setting the use of the UI test harness to true
 * note that those non headless tests will not work on the Jenkins build server hosted by CloudBees, as this host on Linux machine, so their execution is disable there
+* A Test Suite class @AllPluginTests.java@ is provided in the main package of the test plugin that collects all test classes which must be executed as plugin tests.
 
 h3. UI tests
 
@@ -114,6 +117,7 @@ h3. UI tests
 * UI tests tend to be brittle and are hard to read and maintain, so they should be use when the functionality to test cannot be coverage by other test means
 ** depend on the performance of the Computer where they are executed (reactions too slow or too fast, have to work with sleeps and cope with threading issues)
 ** behave sometimes different on different platforms (UI elements cannot be found that have been found in a test run under a different operating system)
+* The test cases are added to the @AllPluginTests.java@ test suite
 
 h3. Measuring test coverage
 

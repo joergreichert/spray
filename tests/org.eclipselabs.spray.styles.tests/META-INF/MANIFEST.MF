@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.jface.text,
  org.eclipse.platform;bundle-version="4.2.0",
- org.eclipselabs.spray.styles.generator
+ org.eclipselabs.spray.styles.generator,
+ org.eclipselabs.spray.generator.common
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipselabs.spray.runtime.graphiti.styles,
