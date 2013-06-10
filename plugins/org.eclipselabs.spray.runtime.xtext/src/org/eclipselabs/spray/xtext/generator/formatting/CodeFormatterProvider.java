@@ -54,8 +54,12 @@ public class CodeFormatterProvider implements Provider<CodeFormatter>{
 		BufferedReader reader = null;
 		
 		try {
-		   InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
 		   final Properties formatterOptions = new Properties();
+		   InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+		   if (is == null) {
+		       LOG.warn("Could not read formatter config "+filename+". Using defaults.");
+		       return formatterOptions;
+		   }
 			if ( filename.endsWith(".xml")) {
 			   Pattern pattern = Pattern.compile("<setting id=\"([^\"]*)\" value=\"([^\"]*)\"\\/>");
 			   reader = new BufferedReader(new InputStreamReader(is));
