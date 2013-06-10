@@ -1,0 +1,17 @@
+// Connections
+// multiple connection references of the same feature are not allowed
+import BusinessDomainDsl.*
+diagram test for BusinessDomainModel
+
+class BusinessClass {
+    container () {
+        text () { name };
+    }
+    references {
+        associationsTo : connection ();
+        associationsTo : connection ();
+    }
+    behavior {
+        create into types palette "Shapes"  askFor name ; 
+    }
+}    

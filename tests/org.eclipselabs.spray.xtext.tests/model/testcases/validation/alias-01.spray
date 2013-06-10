@@ -1,0 +1,25 @@
+/*
+XPECT_IMPORT test.shape
+ */
+
+import BusinessDomainDsl.*
+
+diagram test for BusinessDomainModel
+
+/* XPECT validationIssues at 'Class1' ---
+error "The anchor offset (yoffset) should be defined in the range 0.0 and 1.0."
+--- */
+class BusinessClass alias Class1 {
+// XPECT elementsInScope at test_shape --> rule_shape, class_shape 
+	shape test_shape 
+	behavior {
+		create into types palette "elements" askFor name
+	}
+}
+
+class BusinessRule alias Class1 {
+	shape rule_shape 
+	behavior {
+		create palette "elements"
+	}
+}

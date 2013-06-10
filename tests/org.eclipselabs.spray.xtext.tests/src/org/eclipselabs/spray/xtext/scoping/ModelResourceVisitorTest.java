@@ -1,5 +1,9 @@
 package org.eclipselabs.spray.xtext.scoping;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,17 +23,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class ModelResourceVisitorTest {
 	private final String workspaceURIStr = "C:/test/";
-	private final String ecoreURIStr = workspaceURIStr + "test_prj/test.ecore";
-	private final String genModelURIStr = workspaceURIStr + "test_prj/test.genmodel";
+	private final String projectName = "test_prj";
+	private final String ecoreURIStr = workspaceURIStr + projectName + "/test.ecore";
+	private final String genModelURIStr = workspaceURIStr + projectName + "/test.genmodel";
 	private final String ecoreEMFURIStr = "file:///" + ecoreURIStr;
 	private final String genModelEMFURIStr = "file:///" + genModelURIStr;
-	private final String genModelWorkspaceRelativeURIStr = "/test_prj/test.genmodel";
+	private final String genModelProjectRelativeURIStr = "test.genmodel";
+	private final String genModelWorkspaceRelativeURIStr = "/" + projectName + "/" + genModelProjectRelativeURIStr;
 	private final String ePackageNsURI = "http://www.test.org/test";
 	private final String ePackageName = "test_pack";
 	
@@ -113,7 +115,7 @@ public class ModelResourceVisitorTest {
 				ePackageToGenModelMap, ePackageMap, ecoreURI, genModelURI,
 				ecoreResource, wsRoot);
 		
-		IProject project = mock(IProject.class);
+		IContainer project = mock(IContainer.class);
 		when(project.getName()).thenReturn("test_prj");
 		IContainer binFolder = mock(IContainer.class);
 		when(binFolder.getName()).thenReturn("bin");
@@ -123,6 +125,7 @@ public class ModelResourceVisitorTest {
 		when(modelFolder.getName()).thenReturn("model");
 		when(project.members()).thenReturn(new IResource[] { binFolder, targetFolder, modelFolder });
 		when(modelFolder.members()).thenReturn(new IResource[] { ecoreFile, genModelFile });
+		
 		sut.visit(project);
 		
 		assertEquals("EPackages size", 1, ePackageMap.size());
@@ -132,23 +135,20 @@ public class ModelResourceVisitorTest {
 	}
 	
 	/**
-	 * Creates a Mock IFile
 	 * @param wsRoot
-	 * @return Mock for test_prj/test.genmodel
+	 * @return
 	 */
 	private IFile modelGenModelFile(final IWorkspaceRoot wsRoot) {
 		IFile genModelFile = mock(IFile.class);
+		IProject genModelFileProject = mock(IProject.class);
+		when(genModelFileProject.getName()).thenReturn(projectName);
+		when(genModelFile.getProject()).thenReturn(genModelFileProject);
+		when(genModelFile.getProjectRelativePath()).thenReturn(new Path(genModelProjectRelativeURIStr));
 		when(genModelFile.getName()).thenReturn("test");
 		when(genModelFile.getFileExtension()).thenReturn("genmodel");
 		when(genModelFile.getLocationURI()).thenReturn(java.net.URI.create(genModelURIStr));
 		when(wsRoot.getLocation()).thenReturn(new Path(workspaceURIStr));
 		when(genModelFile.getLocation()).thenReturn(new Path(genModelURIStr));
-
-        IProject project = mock(IProject.class);
-        when(project.getName()).thenReturn("test_prj");
-        when(genModelFile.getProject()).thenReturn(project);
-        when(genModelFile.getProjectRelativePath()).thenReturn(new Path("test.genmodel"));
-		
 		return genModelFile;
 	}
 
