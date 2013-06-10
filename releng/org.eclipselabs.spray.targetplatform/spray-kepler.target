@@ -28,13 +28,17 @@
 			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306031427"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201306031427"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306071537"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201306071537"/>
 			<repository location="http://download.eclipse.org/technology/swtbot/snapshots/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
 			<repository location="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201305311135"/>
+			<repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
 		</location>
 	</locations>
 	<environment>
