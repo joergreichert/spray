@@ -2,8 +2,8 @@ package org.eclipselabs.spray.xtext.customizing;
 
 import org.eclipse.xtext.conversion.impl.QualifiedNameValueConverter;
 import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
+import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -11,7 +11,7 @@ import com.google.inject.Inject;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(XtextRunner.class)
+@RunWith(XtextRunner2.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class QualifiedNameValueConverterTest {
     @Inject

@@ -54,7 +54,7 @@ public class SprayFormatterTest extends XtextTest {
 		assertEquals("Expected formatted result", expected, actual);
 	}
 
-	public String getExpectedFormattedString(String path) {
+	private String getExpectedFormattedString(String path) {
 		URI uri = URI.createURI(resourceRoot + "/" + path);
 		EObject model = loadModel(resourceSet, uri, getRootObjectType(uri));
 		ICompositeNode rootNode = ((XtextResource) model.eResource())

@@ -1,8 +1,5 @@
 package org.eclipselabs.spray.xtext.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.ecore.EClassifier;
@@ -11,7 +8,7 @@ import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,14 +16,17 @@ import BusinessDomainDsl.BusinessDomainDslPackage;
 
 import com.google.inject.Inject;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 @RunWith(XtextRunner.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class GenModelHelperTest {
     @Inject
     private GenModelHelper fixture;
 
-    @BeforeClass
-    public static void before() {
+    @Before
+    public void before() {
         // Normally, this should not be necessary, but the InjectorProvider only works for 
         // the first test case
         StandaloneSetup setup = new StandaloneSetup();
