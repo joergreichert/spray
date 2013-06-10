@@ -21,3 +21,4 @@ docs/org.eclipselabs.spray.shapes.doc/docs/
 src-gen
 /releng/org.eclipselabs.spray.distribution/scripts/version.properties
 *.orig
+/tests/org.eclipselabs.spray.generator.graphiti.tests/shapepreviews/
