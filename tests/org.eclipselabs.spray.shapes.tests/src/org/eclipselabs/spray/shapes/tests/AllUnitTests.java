@@ -11,8 +11,6 @@ import org.junit.runners.Suite.SuiteClasses;
 /**
  * Test suite with all tests that are executable as plain unit tests (no plugin
  * test).
- * 
- * @author Karsten Thoms
  */
 @RunWith(Suite.class)
 @SuiteClasses({ ConnectionModelTest.class,
