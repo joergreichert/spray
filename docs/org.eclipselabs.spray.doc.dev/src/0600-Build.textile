@@ -196,6 +196,15 @@ The Ant script @org.eclipselabs.spray.distribution/scripts/build.xml@ contains a
 
 It is recommended to have no uncommitted changes in your Git repo before executing this script.
 
+h3. Setting Xtext version
+
+For Spray it is important that only the version of Xtext is installed against it was build. Xtext guarantees compatibility on the micro version number, but for an increment in the minor version number there is no guarantee that Spray will run on it. Thus we constraint the usage of Xtext in dependencies to the current minor version range. This is done in the @MANIFEST.MF@ Require-Bundle section with the modifier @bundle-version@. For example, to allow Xtext version 2.4.x the version constraint string is
+
+bc. require-bundle="[2.4.0,2.5.0)"
+
+This includes the range from 2.4.0 (inclusive) until 2.5.0 (exclusive).
+
+The @build.xml@ script contains a target @set-version-xtext@ which replaces @bundle-version@ constraints by the given input. 
 
 h1. Continuous Integration
  
