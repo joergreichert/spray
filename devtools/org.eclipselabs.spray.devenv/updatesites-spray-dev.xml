@@ -10,4 +10,5 @@
    <site url="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x" selected="true" name="Xtext Utils: Unit testing" />
    <site url="http://download.itemis.com/updates/releases/2.0.0/" selected="true" name="Xtext ANTLR" />
    <site url="http://knittig.de/googlecode-mylyn-connector/update/" selected="true" name="Google Code Mylyn Connector" />
+   <site url="http://www.xpect-tests.org/updatesite/nightly/" selected="true" name="Xpect Update Site"/>
 </bookmarks>
