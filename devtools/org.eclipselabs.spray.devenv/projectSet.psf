@@ -3,6 +3,8 @@
 	<provider id="org.eclipse.egit.core.GitProvider">
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.dev.feature"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.dev.updatesite"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.dev.pde"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.dev.pde.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.devenv"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,releng/org.eclipselabs.spray.distribution"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,docs/org.eclipselabs.spray.doc.common"/>
@@ -104,6 +106,8 @@
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321714057986_24" label="Spray Dev" name="Spray Dev">
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.updatesite" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.feature" type="4"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.pde" type="4"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.pde.tests" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.devenv" type="4"/>
 	</workingSets>
 </psf>

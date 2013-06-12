@@ -1,0 +1,46 @@
+h2. Target Platform
+
+h3. Updating .target files
+
+Maintenance of the target platform is an important, but also annoying task. The tooling for defining and maintaining Target Definition files is quite bad.
+
+Especially when building against nightly builds of features we have to update the target platform frequently. It often happens then that versions of Installable Units are not available anymore. Then one has to figure out what version are existing on the given repositories and update the .target files.
+
+To make this task easier a tool is provided in plugin @org.eclipselabs.spray.dev.pde@. The headless Eclipse application @org.eclipselabs.spray.dev.pde.targetPlatformUpdater@ reads a given @.target@ files and queries the repositories defined in the file for their installable units and the available versions. Then it picks the latest version and updates the document. The document is then written to original file, or to a new file.
+
+To invoke this application create a launch config for application @org.eclipselabs.spray.dev.pde.targetPlatformUpdater@ and pass the arguments 'srcUrl' (required) and 'targetUrl' (optional). 
+
+!images/targetplatform_update_1.png!
+
+!images/targetplatform_update_2.png!
+
+The console output looks like follows:
+
+bc.. 
+
+INFO: Parsing target definition
+INFO: Reading repository http://download.itemis.com/updates/releases/2.0.0/
+INFO: Updating IU versions
+INFO: Reading repository http://download.eclipse.org/releases/kepler
+INFO: Updating IU versions
+INFO: Found newer version for IU org.eclipse.sdk.feature.group. Updating from 4.3.0.v20130526-2205 to 4.3.0.v20130530-1801
+INFO: Found newer version for IU org.eclipse.pde.feature.group. Updating from 3.9.0.v20130526-2000 to 3.9.0.v20130530-1553
+INFO: Found newer version for IU org.eclipse.emf.sdk.feature.group. Updating from 2.9.0.v20130527-0426 to 2.9.0.v20130603-0742
+INFO: Found newer version for IU org.eclipse.graphiti.sdk.plus.feature.feature.group. Updating from 0.10.0.v20130529-0649 to 0.10.0.v20130605-1155
+INFO: Found newer version for IU org.eclipse.swt. Updating from 3.102.0.v20130522-1423 to 3.102.0.v20130530-1600
+INFO: Reading repository http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases
+INFO: Updating IU versions
+INFO: Reading repository http://download.eclipse.org/technology/swtbot/snapshots/
+INFO: Updating IU versions
+INFO: Reading repository http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
+INFO: Updating IU versions
+INFO: Reading repository http://www.xpect-tests.org/updatesite/nightly/
+INFO: Updating IU versions
+INFO: Found newer version for IU org.xpect.sdk.feature.group. Updating from 0.1.0.201305311135 to 0.1.0.201306110942
+INFO: Reading repository http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/
+INFO: Updating IU versions
+INFO: Updating XML document
+INFO: Writing XML document to file:/Users/thoms/git/spray/spray/releng/org.eclipselabs.spray.targetplatform/spray-kepler-updated.target
+
+p. 
+
