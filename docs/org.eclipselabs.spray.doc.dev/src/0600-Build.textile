@@ -54,10 +54,13 @@ bc..
 [INFO] ------------------------------------------------------------------------
 [
 
+p.  
+In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
+
 h3. Build Spray projects
 
+bc. 
 mvn clean install -Dlocal-build -Dskip.ui.tests
-
 
 p. 
 Maven will download all required artifacts and plugins automatically and at the end you should get
@@ -65,28 +68,41 @@ Maven will download all required artifacts and plugins automatically and at the 
 bc.. 
 [INFO] Reactor Summary:
 [INFO]
-[INFO] Eclipselabs Spray ................................. SUCCESS [0.620s]
-[INFO] org.eclipselabs.spray.mm .......................... SUCCESS [14.537s]
-[INFO] org.eclipselabs.spray.generator.graphiti .......... SUCCESS [2.444s]
-[INFO] org.eclipselabs.spray.runtime.graphiti ............ SUCCESS [0.819s]
-[INFO] org.eclipselabs.spray.xtext ....................... SUCCESS [24.335s]
-[INFO] org.eclipselabs.spray.xtext.ui .................... SUCCESS [1.720s]
-[INFO] org.mod4j.dsl.businessdomain.mm ................... SUCCESS [1.143s]
-[INFO] org.eclipselabs.spray.examples.one ................ SUCCESS [1.431s]
-[INFO] org.eclipselabs.spray.xtext.tests ................. SUCCESS [5.161s]
-[INFO] org.eclipselabs.spray.examples.one.tests .......... SUCCESS [48.009s]
-[INFO] org.eclipselabs.spray.feature ..................... SUCCESS [0.233s]
-[INFO] org.eclipselabs.spray.feature.source .............. SUCCESS [0.178s]
-[INFO] org.eclipselabs.spray.feature.sdk ................. SUCCESS [0.246s]
-[INFO] org.eclipselabs.spray.releng.repository ........... SUCCESS [19.032s]
+[INFO] org.eclipselabs.spray.targetplatform .............. SUCCESS [0.156s]
+[INFO] org.eclipselabs.spray.parent ...................... SUCCESS [0.065s]
+[INFO] org.eclipselabs.spray.generator.common ............ SUCCESS [5.482s]
+[INFO] org.eclipselabs.spray.styles.mm ................... SUCCESS [6.128s]
+[INFO] org.eclipselabs.spray.shapes.mm ................... SUCCESS [7.426s]
+[INFO] org.eclipselabs.spray.mm .......................... SUCCESS [6.414s]
+[INFO] org.eclipselabs.spray.runtime.graphiti ............ SUCCESS [0.766s]
+[INFO] org.eclipselabs.spray.runtime.xtext ............... SUCCESS [3.782s]
+[INFO] org.eclipselabs.spray.styles ...................... SUCCESS [22.686s]
+[INFO] org.eclipselabs.spray.shapes ...................... SUCCESS [27.211s]
+[INFO] org.eclipselabs.spray.xtext ....................... SUCCESS [24.618s]
+[INFO] org.eclipselabs.spray.generator.graphiti .......... SUCCESS [8.607s]
+[INFO] org.eclipselabs.spray.runtime.xtext.ui ............ SUCCESS [0.777s]
+[INFO] org.eclipselabs.spray.styles.ui ................... SUCCESS [1.594s]
+[INFO] org.eclipselabs.spray.shapes.ui ................... SUCCESS [1.874s]
+[INFO] org.eclipselabs.spray.xtext.ui .................... SUCCESS [5.017s]
+[INFO] org.eclipselabs.spray.generator.graphiti.ui ....... SUCCESS [0.289s]
+[INFO] org.eclipselabs.spray.runtime.graphiti.xtext ...... SUCCESS [0.197s]
+[INFO] org.eclipselabs.spray.runtime.graphiti.zest ....... SUCCESS [0.140s]
+[INFO] org.eclipselabs.spray.styles.generator ............ SUCCESS [2.091s]
+[INFO] org.eclipselabs.spray.styles.generator.ui ......... SUCCESS [0.313s]
+[INFO] org.eclipselabs.spray.shapes.generator ............ SUCCESS [14.417s]
+[INFO] org.eclipselabs.spray.shapes.generator.ui ......... SUCCESS [0.322s]
+[INFO] org.eclipselabs.spray.tychohelpers ................ SUCCESS [0.166s]
+[INFO] org.eclipselabs.spray.examples.petrinet.domain .... SUCCESS [0.323s]
+[INFO] org.eclipselabs.spray.examples.petrinet ........... SUCCESS [12.172s]
+[INFO] org.eclipselabs.spray.examples.bpmn.domain ........ SUCCESS [0.548s]
+[INFO] org.eclipselabs.spray.examples.bpmn ............... SUCCESS [17.480s]
+[INFO] org.eclipselabs.spray.testhelper .................. SUCCESS [0.280s]
+[INFO] org.eclipselabs.spray.styles.tests ................ SUCCESS [21.491s]
+[INFO] org.eclipselabs.spray.shapes.tests ................ SUCCESS [14.735s]
+[INFO] Eclipselabs Spray ................................. SUCCESS [0.005s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
 p. 
- 
-In directory
-@releng/org.eclipselabs.spray.repository/target/repository@
-an Eclipse P2 repository is built, which contains all plugins and sources.
 
 
 h3. Disable execution of UI tests
