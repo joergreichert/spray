@@ -188,6 +188,14 @@ h4. Profile @codeCoverage@
 
 TODO: Describe
 
+h2. Version management
+
+h3. Setting Spray version
+
+The Ant script @org.eclipselabs.spray.distribution/scripts/build.xml@ contains a goal named @set-version@, which allows to set the global Spray release version. A launch config has been added to the @launch@ folder of the project. When executed it will replace all version identifiers. The changes are not committed then yet.
+
+It is recommended to have no uncommitted changes in your Git repo before executing this script.
+
 
 h1. Continuous Integration
  
