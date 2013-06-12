@@ -63,7 +63,7 @@
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.sdk</artifactId>
-							<version>[4.2.0,4.3.0)</version>
+							<version>[4.2.0,5.0.0)</version>
 						</dependency>
 					</dependencies>
 					<includes>
@@ -74,6 +74,10 @@
 					<goal>test</goal>
 				</goals>
 			</plugin>            
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
         </plugins>
     </build>
 </project>
