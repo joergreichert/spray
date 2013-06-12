@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="spray-release" basedir="." default="set-version">
+	<macrodef name="git"><!-- see http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/ -->
+		<attribute name="command" />
+		<attribute name="dir" default="" />
+		<attribute name="failonerror" default="false"/>
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command}" />
+			<exec executable="git" dir="@{dir}">
+				<arg line="@{command}" />
+				<args />
+			</exec>
+		</sequential>
+	</macrodef>
+	<tstamp>
+		<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
+	</tstamp>
 
 	<target name="set-version" description="Modifies artifacts to set a release version">
 		<!-- Read the last entered values for defaults -->
@@ -39,8 +55,8 @@
 		<echo message="" />
 		<!-- search for version setting in pom.xml files that are marked with X in comment -->
 		<replaceregexp>
-			<regexp pattern="&lt;version&gt;(.*)&lt;/version&gt;&lt;!--\s*X\s*--&gt;" />
-			<substitution expression="&lt;version&gt;${version.mvn}&lt;/version&gt;&lt;!-- X --&gt;" />
+			<regexp pattern="&lt;version&gt;(.*)&lt;/version&gt;" />
+			<substitution expression="&lt;version&gt;${version.mvn}&lt;/version&gt;" />
 			<fileset id="path.pom" dir="../../..">
 				<include name="**/pom.xml" />
 				<exclude name="**/target/**" />
@@ -60,6 +76,8 @@
 				<include name="**/META-INF/MANIFEST.MF" />
 				<exclude name="**/target/**" />
 				<exclude name="**/org.mod4j.dsl.businessdomain.mm/META-INF/MANIFEST.MF" />
+				<exclude name="**/org.eclipse.xtext.example.fowlerdsl/META-INF/MANIFEST.MF" />
+				<exclude name="**/org.eclipse.xtext.example.fowlerdsl.ui/META-INF/MANIFEST.MF" />
 			</fileset>
 		</replaceregexp>
 		<replaceregexp flags="g">
@@ -107,5 +125,46 @@
 		<echo message="${path.doc}" />
 
 	</target>
+	
+	<target name="set-version-xtext" description="Sets the Xtext version constraints in MANIFEST.MF">
+		<!-- Read the last entered values for defaults -->
+		<property file="version.properties" />
+		<input message="Please enter the new Xtext version:" addproperty="version.xtext" defaultvalue="${version_xtext}" />
+		<!-- MANIFEST.MF -->
+		<replaceregexp>
+			<regexp pattern='org\.eclipse\.xtext\.(?!example)(.*);bundle-version=".*\"(.*)' />
+			<substitution expression='org.eclipse.xtext.\1;bundle-version="${version.xtext}"\2' />
+			<fileset id="path.manifest" dir="../../..">
+				<include name="**/META-INF/MANIFEST.MF" />
+				<exclude name="**/target/**" />
+			</fileset>
+		</replaceregexp>
+		<propertyfile file="version.properties" comment="Build version">
+			<entry key="version_xtext" value="${version.xtext}" />
+		</propertyfile>
+		
+	</target>
 
+	<target name="release-prepare">
+		<!-- Read the last entered values for defaults -->
+		<property file="version.properties" />
+		
+		<echo>[spray-release] create release branch</echo>
+		<git command="branch release-${version_main}"/>
+
+		<echo>[spray-release] checkout the release branch</echo>
+		<git command="checkout release-${version_main}"/>
+
+		<echo>[spray-release] using build qualifier: ${QUALIFIER}</echo>
+		<echo>[spray-release] update version to ${version_main}.v${QUALIFIER}</echo>
+		<antcall target="-modify-artifacts">
+			<property name="version.main" value="${version_main}"/>
+			<property name="version.mvn" value="${version_main}.v${QUALIFIER}"/>
+			<property name="version.osgi" value="${version_main}.v${QUALIFIER}"/>
+
+		</antcall>
+	</target>
+	<target name="status">
+		<git command="status"/>
+	</target>
 </project>
