@@ -80,7 +80,7 @@ h3. Team Project Set
 You can use our predefined team project set file to get the Spray projects into your workspace. This will automatically clone the Git repository and mport the projects.
 
 * File > Import... > Team/Team Project Set, Next
-* URL: "http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf":http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
+* URL: "@http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf@":http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
 
 When creating a new workspace make sure to set the following settings:
 
@@ -106,7 +106,7 @@ h3. Add Spray task repository to Eclipse
 * Window > Show View > Other... > Mylyn/Task Repositories
 * Open context menu in Task Repositories view > Add task repositories...
 * Google Code, Next
-** URL: Paste "http://code.google.com/a/eclipselabs.org/p/spray/":http://code.google.com/a/eclipselabs.org/p/spray/
+** URL: Paste "@http://code.google.com/a/eclipselabs.org/p/spray/@":http://code.google.com/a/eclipselabs.org/p/spray/
 ** Label: Spray
 ** unselect Anonymous, if you later want to push code
 ** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password), Finish
@@ -127,6 +127,10 @@ h3. Add Spray Jenkins connector to Eclipse
 ** select job "spray-ci-build"
 ** Finish
 * click on spray-ci-build to show the current job status 
+
+!images/build_view_1.png!
+
+!images/build_view_3.png!
 
 h3. Add Spray Git repository to Eclipse 
 

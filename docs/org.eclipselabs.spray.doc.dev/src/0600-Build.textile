@@ -2,12 +2,24 @@ h1. Build Management
 
 h2. Built within Eclipse
 
+As developer you will usually work just with the projects in the workspace and do not care about how Spray is built from command-line or on the continuous integration server. But also here you will face some build steps that require your manual work.
+
+Typically there are launch configurations (files with @.launch@ extension) that facilitate these tasks.
+
+h3. Generate DSL implementation
+
 After a clean checkout it is required to run the workflows to produce implementation code in a specific order:
 
 * org.eclipselabs.spray.styles/GenerateStyles.mwe2.launch
 * org.eclipselabs.spray.shapes/GenerateShapes.mwe2.launch
 * org.eclipselabs.spray.mm/GenerateSprayMM.mwe2.launch
 * org.eclipselabs.spray.xtext/GenerateSpray.mwe2.launch
+
+h3. Build documentation
+
+The documentation is generated using Ant. You will find the following launch configurations to create the documents:
+* Developer doc: @org.eclipselabs.spray.doc.dev/org.eclipselabs.spray.doc.dev generate-help-build.xml.launch@
+* User doc: @org.eclipselabs.spray.doc.user/org.eclipselabs.spray.doc.user generate-help-build.xml.launch@ 
 
 h2. Spray Maven Build
 
