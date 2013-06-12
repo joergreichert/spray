@@ -11,13 +11,43 @@ After a clean checkout it is required to run the workflows to produce implementa
 
 h2. Spray Maven Build
 
-Spray is using Maven Tycho for building. You need a Maven 3 installation.
+Spray is using Maven Tycho for building. You need a Maven 3 installation. Usually you should have "m2e":http://eclipse.org/m2e/ installed, which has a Maven 3 installation embedded. If you want to run builds from command-line get a "Maven distribution":http://maven.apache.org/download.cgi and add the @bin@ folder to system path.
 
-To build Spray, change to the @/releng/org.eclipselabs.spray.distribution@ directory and enter
+Configure the environment variable @MAVEN_OPTS@ to value "@-XX:MaxPermSize=150m -Xmx768m@".
+
+Builds are run from the @/releng/org.eclipselabs.spray.distribution@ directory. Open a command-line window here.
+
+h3. Build target platform repository
+
+In directory @/releng/org.eclipselabs.spray.distribution@ execute: 
 
 bc. 
-mvn clean install -Pskip.ui.tests,modules-all
+mvn clean install -Pmodules-targetplatform
 
+This first build will create a p2 repository, which serves as a local target platform repository. The repository contains all bundles and features that are required to build the Spray projects. This build has only to be executed when the target platform changes.
+
+p. 
+Maven will download all required artifacts and plugins automatically and at the end you should get
+
+bc.. 
+[INFO] Reactor Summary:
+[INFO]
+[INFO] org.eclipselabs.spray.targetplatform .............. SUCCESS [0.211s]
+[INFO] org.eclipselabs.spray.parent ...................... SUCCESS [0.174s]
+[INFO] org.eclipselabs.spray.repository.parent ........... SUCCESS [0.050s]
+[INFO] org.eclipselabs.spray.releng.repository ........... SUCCESS [38.918s]
+[INFO] Eclipselabs Spray ................................. SUCCESS [0.004s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[
+
+h3. Build Spray projects
+
+mvn clean install -Dlocal-build -Dskip.ui.tests
+
+
+p. 
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
 bc.. 
@@ -46,6 +76,14 @@ In directory
 @releng/org.eclipselabs.spray.repository/target/repository@
 an Eclipse P2 repository is built, which contains all plugins and sources.
 
+
+h3. Disable execution of UI tests
+
+The build executes UI tests developed with "SWTBot":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, add the @skip-ui-tests@ property:
+
+bc. 
+mvn -Dskip-ui-tests clean install
+
 h2. Parent POM
 
 Spray's Parent POM can be found at @releng/org.eclipselabs.spray.parent/pom.xml@.
@@ -60,12 +98,84 @@ bc. mvn versions:display-plugin-updates
 
 h2. Profiles
 
-h3. Profile @skip-ui-tests@
 
-The build executes UI tests developed with "SWTBot":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, activate the @skip-ui-tests@ profile:
+h3. Repository selection profiles
 
-bc. 
-mvn clean install -Pskip-ui-tests
+h4. Profile @local-build@
+
+This profile will select the locally built target platform repository to resolve dependencies. When activated it is not required to query the remote target platform repository, which boosts the startup time of the build. It requires that the local target platform repository was materialized before (see "Build target platform repository").
+
+The profile is activated by the presence of the property @local-build@. To activate it set the property.
+
+When testing target platform updates before making them effective for all users and builds it is recommended to build the target platform repository locally and test the build against it by activating this profile.
+
+bc. mvn -Dlocal-build ...
+
+When this profile is activated the profile @remote-build@ gets deactivated.
+
+h4. Profile @remote-build@ 
+
+This profile is activated by default. The target platform will be computed from the remotely build target platform repository on the Cloudbees server. Since the target platform repository is already an aggregated one
+
+h3. Modules selection profiles
+
+Spray contains a lot of sub projects. Running a build over all projects is usually not feasible, since it is a long-running task. Thus the user will usually activate one profile that selects a sub set of modules.
+
+The profiles are defined in @/releng/org.eclipselabs.spray.distribution/pom.xml@.
+
+h4. Profile @modules-default@
+
+The @modules-default@ is activated by default, i.e. the user does not have to specify anything. The contained modules are:
+* all plugins from the @/plugins@ directory
+* all plugin tests from the @/tests@ directory
+* example "Businessdomain DSL" from @/examples/one@
+* example "Petrinet" from @/examples/petrinet@
+* example "LWC2012" from @/examples/lwc2012@
+* example "BPMN 2.0" from @/examples/bpmn2.0@
+
+h4. Profile @withoutExamplesAndTestProjects@
+
+TODO: Describe
+
+h4. Profile @onlyExamplesAndTests@
+
+TODO: Describe
+
+h4. Profile @modules-targetplatform@
+
+TODO: Describe
+
+h4. Profile @modules-assembly@
+
+TODO: Describe
+
+h4. Profile @modules-docs@
+
+TODO: Describe
+
+h4. Profile @modules-all@
+
+TODO: Describe
+
+h4. Profile @withoutExamplesAndTestProjects@
+
+TODO: Describe
+
+h3. Static code analysis profiles
+
+
+h4. Profile @sonarLocal@
+
+TODO: Describe
+
+h4. Profile @sonarRemote@
+
+TODO: Describe
+
+h4. Profile @codeCoverage@
+
+TODO: Describe
+
 
 h1. Continuous Integration
  

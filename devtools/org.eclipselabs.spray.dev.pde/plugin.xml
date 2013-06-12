@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated TargetDefinition -->
+      <package
+            uri="http://code.google.com/a/eclipselabs.org/p/spray/targetdef"
+            class="org.eclipselabs.spray.dev.pde.targetdef.TargetDefPackage"
+            genModel="src/TargetDefinition.genmodel"/>
+   </extension>
+   <extension
+         id="targetPlatformUpdater"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="org.eclipselabs.spray.dev.pde.UpdateTargetPlatformApp">
+         </run>
+      </application>
+   </extension>
+
+</plugin>

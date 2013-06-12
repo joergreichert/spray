@@ -84,6 +84,11 @@ h3. Build
 * Copy the @pom.xml@ from @org.eclipselabs.spray.generator.graphiti@. Exchange the plugin's name in @<artifactId>org.eclipselabs.spray.generator.graphiti</artifactId>@ by the project's name. 
 * Open @releng/org.eclipselabs.spray.distribution/pom.xml@ and add the plugin as additional module
 
+h3. Project Set
+
+Open the team project sets (*.psf) and add the project
+* To @<provider>@ section
+* To one of the working sets
 
 h2. Dependency Management
 
