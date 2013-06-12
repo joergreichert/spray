@@ -2,6 +2,13 @@ h2. Dependencies
 
 How to manage dependencies.
 
+h2. Update Maven plugin versions
+
+Go to directory @releng/org.eclipselabs.spray.distribution@ and "check for plugin updates":http://mojo.codehaus.org/versions-maven-plugin/examples/display-plugin-updates.html :
+
+bc. mvn versions:display-plugin-updates
+
+When the report shows some plugin updates or non-configured versions then change this in the parent POM @releng/org.eclipselabs.spray.parent/pom.xml@.
 
 h2. Resolve "Discouraged access" warnings
 
