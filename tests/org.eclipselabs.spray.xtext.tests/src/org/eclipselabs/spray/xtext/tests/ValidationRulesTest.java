@@ -24,37 +24,37 @@ public class ValidationRulesTest extends XtextTest {
 		EPackage.Registry.INSTANCE.put(BusinessDomainDslPackage.eNS_URI, BusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
 
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
     }
 
     @Test
     public void test_alias_01() {
-        testFile("validation/alias-01.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/alias-01.spray", "mod4j/BusinessDomainDsl.ecore");
         assertConstraints(issues.oneOfThemContains("Duplicate alias name line1"));
     }
 
     @Test
     public void test_alias_02() {
-        testFile("validation/alias-02.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/alias-02.spray", "mod4j/BusinessDomainDsl.ecore");
         assertConstraints(issues.oneOfThemContains("Duplicate alias name BC1"));
     }
 
     //@Ignore
     @Test
     public void test_connection_01() {
-        testFile("validation/connection-01.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/connection-01.spray", "mod4j/BusinessDomainDsl.ecore");
         assertConstraints(issues.oneOfThemContains("Duplicate connection reference: associationsTo : connection ()"));
     }
 
     @Test
     public void test_connection_02() {
-        testFile("validation/connection-02.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/connection-02.spray", "mod4j/BusinessDomainDsl.ecore");
         assertConstraints(issues.errorsOnly().theOneAndOnlyContains("Couldn't resolve reference to EReference 'businessRules'"));
     }
 
     @Test
     public void test_import_notexists() {
-        testFile("validation/import_notexists.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/import_notexists.spray", "mod4j/BusinessDomainDsl.ecore");
         assertConstraints(issues.errorsOnly().sizeIs(1));
         assertConstraints(issues.theOneAndOnlyContains("The import foo.bar cannot be resolved"));
     }

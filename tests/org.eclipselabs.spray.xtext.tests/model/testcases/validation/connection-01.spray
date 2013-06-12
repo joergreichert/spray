@@ -1,13 +1,16 @@
-// Connections
-// multiple connection references of the same feature are not allowed
+/*
+XPECT_IMPORT test.shape
+ */
 import BusinessDomainDsl.*
+
 diagram test for BusinessDomainModel
 
 class BusinessClass {
-    container () {
-        text () { name };
-    }
+    shape test_shape
     references {
+/* XPECT validationIssues at 'associationsTo' ---
+error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
+--- */
         associationsTo : connection ();
         associationsTo : connection ();
     }

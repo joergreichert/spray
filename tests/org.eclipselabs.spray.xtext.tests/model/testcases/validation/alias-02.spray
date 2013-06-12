@@ -1,7 +1,13 @@
-// ALIASES
-// Two classes with same alias name not allowed
-diagram test for BusinessDomainDsl.BusinessDomainModel
+/*
+XPECT_IMPORT test.shape
+ */
+import BusinessDomainDsl.*
 
+diagram test for BusinessDomainModel
+
+/* XPECT validationIssues at 'BC1' ---
+error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
+--- */
 class BusinessDomainDsl.BusinessClass alias BC1 {
     container () {
     }

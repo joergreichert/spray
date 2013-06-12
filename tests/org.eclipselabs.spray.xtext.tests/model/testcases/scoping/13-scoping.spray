@@ -4,8 +4,6 @@ import BusinessDomainDsl.*
 
 diagram test for BusinessDomainModel
 
-class BusinessClass {
-    behavior {
-        create into types
-    }
+class BoolProperty { 
+    shape class_shape
 }

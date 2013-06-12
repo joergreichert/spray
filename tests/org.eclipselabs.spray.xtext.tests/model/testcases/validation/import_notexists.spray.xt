@@ -1,5 +1,0 @@
-// invalid import
-import foo.bar
-import BusinessDomainDsl.*
-
-diagram test for BusinessDomainModel
