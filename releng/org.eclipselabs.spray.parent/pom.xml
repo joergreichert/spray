@@ -25,7 +25,8 @@
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
 		<maven-install-plugin.version>2.4</maven-install-plugin.version>
-		<maven-surefire-plugin.version>2.14</maven-surefire-plugin.version>
+		<maven-site-plugin.version>3.3</maven-site-plugin.version>
+		<maven-surefire-plugin.version>2.15</maven-surefire-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<maven-scm-plugin.version>1.8.1</maven-scm-plugin.version>
 		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
@@ -38,7 +39,7 @@
 		<fornax-oaw-m2-plugin.version>3.4.0</fornax-oaw-m2-plugin.version>
 		<xtend-maven-plugin.version>2.4.1</xtend-maven-plugin.version>
 		<xtend-library.version>2.4.1</xtend-library.version>
-		<jacoco-maven-plugin.version>0.6.0.201210061924</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.6.3.201306030806</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
 		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>		
 		<ui.test.vmargs></ui.test.vmargs>
@@ -157,7 +158,17 @@
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-p2-repository-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
 					<version>${tycho-version}</version>
 				</plugin>
 				<!-- APACHE MAVEN PLUGINS -->
@@ -183,6 +194,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
 					<version>${maven-install-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
