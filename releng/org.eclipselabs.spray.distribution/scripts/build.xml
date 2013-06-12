@@ -1,116 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="spray-release" basedir="." default="set-version">
-	
+
 	<target name="set-version" description="Modifies artifacts to set a release version">
 		<!-- Read the last entered values for defaults -->
-		<property file="version.properties"/>
+		<property file="version.properties" />
 		<tstamp>
-			<format property="QUALIFIER" pattern="yyyyMMdd-HHmm"/>
+			<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
 		</tstamp>
-		<input message="Please enter the new release version (MAJOR.MINOR.MICRO):" addproperty="version.main" defaultvalue="${version_main}"/>
-		<input message="Set to DEVELOPMENT version (n=RELEASE)?" validargs="y,n" addproperty="version.development" defaultvalue="${version_development}"/>
+		<input message="Please enter the new release version (MAJOR.MINOR.MICRO):" addproperty="version.main" defaultvalue="${version_main}" />
+		<input message="Set to DEVELOPMENT version (n=RELEASE)?" validargs="y,n" addproperty="version.development" defaultvalue="${version_development}" />
 		<condition property="version.mvn" value="${version.main}-SNAPSHOT">
-			<equals arg1="${version.development}" arg2="y"/>
+			<equals arg1="${version.development}" arg2="y" />
 		</condition>
 		<condition property="version.osgi" value="${version.main}.qualifier">
-			<equals arg1="${version.development}" arg2="y"/>
+			<equals arg1="${version.development}" arg2="y" />
 		</condition>
 		<condition property="version.mvn" value="${version.main}.v${QUALIFIER}">
-			<equals arg1="${version.development}" arg2="n"/>
+			<equals arg1="${version.development}" arg2="n" />
 		</condition>
 		<condition property="version.osgi" value="${version.main}.v${QUALIFIER}">
-			<equals arg1="${version.development}" arg2="n"/>
+			<equals arg1="${version.development}" arg2="n" />
 		</condition>
 
 		<propertyfile file="version.properties" comment="Build version">
-			<entry key="version_main" value="${version.main}"/>
-			<entry key="version_development" value="${version.development}"/>
-			<entry key="version_mvn" value="${version.mvn}"/>
-			<entry key="version_osgi" value="${version.osgi}"/>
+			<entry key="version_main" value="${version.main}" />
+			<entry key="version_development" value="${version.development}" />
+			<entry key="version_mvn" value="${version.mvn}" />
+			<entry key="version_osgi" value="${version.osgi}" />
 		</propertyfile>
-		
-		<antcall target="-modify-artifacts"/>
+
+		<antcall target="-modify-artifacts" />
 	</target>
 
 	<target name="-modify-artifacts" if="version.main">
-		<echo message="VERSION MAIN: ${version.main}"/>
-		<echo message="VERSION MVN: ${version.mvn}"/>
-		<echo message="VERSION OSGI: ${version.osgi}"/>
-		<echo message=""/>
+		<echo message="VERSION MAIN: ${version.main}" />
+		<echo message="VERSION MVN: ${version.mvn}" />
+		<echo message="VERSION OSGI: ${version.osgi}" />
+		<echo message="" />
 		<!-- search for version setting in pom.xml files that are marked with X in comment -->
 		<replaceregexp>
-			<regexp pattern="&lt;version&gt;(.*)&lt;/version&gt;&lt;!--\s*X\s*--&gt;"/>
-			<substitution expression= "&lt;version&gt;${version.mvn}&lt;/version&gt;&lt;!-- X --&gt;"/>
-			<fileset id="path.pom"
-				dir="../../..">
-				<include name="**/pom.xml"/>
-				<exclude name="**/target/**"/>
+			<regexp pattern="&lt;version&gt;(.*)&lt;/version&gt;&lt;!--\s*X\s*--&gt;" />
+			<substitution expression="&lt;version&gt;${version.mvn}&lt;/version&gt;&lt;!-- X --&gt;" />
+			<fileset id="path.pom" dir="../../..">
+				<include name="**/pom.xml" />
+				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message=""/>
-		<property name="path.pom" refid="path.pom"/>
-		<echo message="Modified Maven POMs:"/>
-		<echo message="--------------------"/>
-		<echo message="${path.pom}"/>
+		<echo message="" />
+		<property name="path.pom" refid="path.pom" />
+		<echo message="Modified Maven POMs:" />
+		<echo message="--------------------" />
+		<echo message="${path.pom}" />
 
 		<!-- MANIFEST.MF -->
 		<replaceregexp>
-			<regexp pattern="Bundle-Version: .*"/>
-			<substitution expression= "Bundle-Version: ${version.osgi}"/>
-			<fileset id="path.manifest"
-				dir="../../..">
-				<include name="**/META-INF/MANIFEST.MF"/>
-				<exclude name="**/target/**"/>
-				<exclude name="**/org.mod4j.dsl.businessdomain.mm/META-INF/MANIFEST.MF"/>
+			<regexp pattern="Bundle-Version: .*" />
+			<substitution expression="Bundle-Version: ${version.osgi}" />
+			<fileset id="path.manifest" dir="../../..">
+				<include name="**/META-INF/MANIFEST.MF" />
+				<exclude name="**/target/**" />
+				<exclude name="**/org.mod4j.dsl.businessdomain.mm/META-INF/MANIFEST.MF" />
 			</fileset>
 		</replaceregexp>
 		<replaceregexp flags="g">
-			<regexp pattern="org\.eclipselabs\.spray.(.*);bundle-version=&quot;.*&quot;"/>
-			<substitution expression= "org\.eclipselabs\.spray.\1;bundle-version=&quot;${version.main}&quot;"/>
-			<fileset id="path.manifest"
-				dir="../../..">
-				<include name="**/META-INF/MANIFEST.MF"/>
-				<exclude name="**/target/**"/>
+			<regexp pattern="org\.eclipselabs\.spray.(.*);bundle-version=&quot;.*&quot;" />
+			<substitution expression="org\.eclipselabs\.spray.\1;bundle-version=&quot;${version.main}&quot;" />
+			<fileset id="path.manifest" dir="../../..">
+				<include name="**/META-INF/MANIFEST.MF" />
+				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message=""/>
-		<property name="path.manifest" refid="path.manifest"/>
-		<echo message="Modified bundle manifests:"/>
-		<echo message="--------------------------"/>
-		<echo message="${path.manifest}"/>
+		<echo message="" />
+		<property name="path.manifest" refid="path.manifest" />
+		<echo message="Modified bundle manifests:" />
+		<echo message="--------------------------" />
+		<echo message="${path.manifest}" />
 
 		<!-- feature.xml -->
 		<replaceregexp>
-			<regexp pattern="(\s\s+)version=&quot;.*&quot;"/>
-			<substitution expression= "\1version=&quot;${version.osgi}&quot;"/>
-			<fileset id="path.feature"
-				dir="../../..">
-				<include name="**/feature.xml"/>
-				<exclude name="**/target/**"/>
+			<regexp pattern="(\s\s+)version=&quot;.*&quot;" />
+			<substitution expression="\1version=&quot;${version.osgi}&quot;" />
+			<fileset id="path.feature" dir="../../..">
+				<include name="**/feature.xml" />
+				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message=""/>
-		<property name="path.feature" refid="path.feature"/>
-		<echo message="Modified feature.xml:"/>
-		<echo message="--------------------------"/>
-		<echo message="${path.feature}"/>
+		<echo message="" />
+		<property name="path.feature" refid="path.feature" />
+		<echo message="Modified feature.xml:" />
+		<echo message="--------------------------" />
+		<echo message="${path.feature}" />
 
 		<!-- Documentation -->
 		<replaceregexp flags="g">
-			<regexp pattern="org\.eclipselabs\.spray.(.*);bundle-version=&quot;.*&quot;"/>
-			<substitution expression= "org\.eclipselabs\.spray.\1;bundle-version=&quot;${version.main}&quot;"/>
-			<fileset id="path.doc"
-				dir="../../..">
-				<include name="**/*.textile"/>
-				<exclude name="**/target/**"/>
+			<regexp pattern="org\.eclipselabs\.spray.(.*);bundle-version=&quot;.*&quot;" />
+			<substitution expression="org\.eclipselabs\.spray.\1;bundle-version=&quot;${version.main}&quot;" />
+			<fileset id="path.doc" dir="../../..">
+				<include name="**/*.textile" />
+				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message=""/>
-		<property name="path.doc" refid="path.doc"/>
-		<echo message="Modified doc files:"/>
-		<echo message="--------------------------"/>
-		<echo message="${path.doc}"/>
-	
+		<echo message="" />
+		<property name="path.doc" refid="path.doc" />
+		<echo message="Modified doc files:" />
+		<echo message="--------------------------" />
+		<echo message="${path.doc}" />
+
 	</target>
 
 </project>
