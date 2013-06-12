@@ -1,4 +1,6 @@
-// invalid import
+/* XPECT validationIssues at 'foo.bar' ---
+error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
+--- */
 import foo.bar
 import BusinessDomainDsl.*
 

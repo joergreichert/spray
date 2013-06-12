@@ -7,7 +7,10 @@ import BusinessDomainDsl.*
 diagram test for BusinessDomainModel
 
 /* XPECT validationIssues at 'Class1' ---
-error "The anchor offset (yoffset) should be defined in the range 0.0 and 1.0."
+error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
+error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
+error "Duplicate SprayElement 'Class1'"
+error "Duplicate SprayElement 'Class1'"
 --- */
 class BusinessClass alias Class1 {
 // XPECT elementsInScope at test_shape --> rule_shape, class_shape 

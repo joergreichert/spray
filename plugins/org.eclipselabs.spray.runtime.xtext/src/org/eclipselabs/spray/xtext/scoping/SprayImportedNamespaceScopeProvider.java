@@ -18,10 +18,10 @@ public class SprayImportedNamespaceScopeProvider extends XbaseImportedNamespaceS
     private final List<ImportNormalizer> implicitImports_notignoreCase = new ArrayList<ImportNormalizer>(2);
 
     public SprayImportedNamespaceScopeProvider() {
-        implicitImports_ignoreCase.addAll(super.getImplicitImports(true));
-        implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles"), true, true));
-        implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles", "gradients"), true, true));
-        implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "shapes"), true, true));
+//        implicitImports_ignoreCase.addAll(super.getImplicitImports(true));
+//        implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles"), true, true));
+//        implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles", "gradients"), true, true));
+//        implicitImports_ignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "shapes"), true, true));
         implicitImports_notignoreCase.addAll(super.getImplicitImports(false));
         implicitImports_notignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles"), true, false));
         implicitImports_notignoreCase.add(new ImportNormalizer(QualifiedName.create("org", "eclipselabs", "spray", "styles", "gradients"), true, true));

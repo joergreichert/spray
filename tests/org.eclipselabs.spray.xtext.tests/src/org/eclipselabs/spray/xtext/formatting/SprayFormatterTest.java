@@ -39,7 +39,7 @@ public class SprayFormatterTest extends XtextTest {
 		EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI,
 				GenModelPackage.eINSTANCE);
 
-		EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(
+		EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(
 				BusinessDomainDslPackage.eNS_URI,
 				URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
 	}

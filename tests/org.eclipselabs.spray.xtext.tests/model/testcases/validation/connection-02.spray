@@ -1,13 +1,14 @@
-// Connections
-// multiple connection references to not contained as well as to contained features
+/*
+XPECT_IMPORT test.shape
+ */
 import BusinessDomainDsl.*
+
 diagram test for BusinessDomainModel
 
 class BusinessClass {
-    container () {
-        text () { name };
-    }
+    shape test_shape
     references {
+// XPECT noValidationIssues at 'superclass' ---
         superclass : connection ();
         associationsTo : connection ();
         businessRules : connection ();

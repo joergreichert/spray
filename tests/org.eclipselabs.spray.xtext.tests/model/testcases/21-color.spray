@@ -1,9 +1,0 @@
-// Referring to Color Constant with import
-import org.eclipse.graphiti.util.IColorConstant
-
-diagram test for BusinessDomainDsl.BusinessDomainModel
-
-
-class BusinessDomainDsl.BusinessClass {
-    container  ( fill=IColorConstant::WHITE) {}
-}

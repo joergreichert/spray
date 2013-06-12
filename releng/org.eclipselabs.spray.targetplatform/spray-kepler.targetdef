@@ -10,23 +10,27 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 	
 	"Eclipse Kepler" http://download.eclipse.org/releases/kepler {
-		org.eclipse.sdk 4.3.0.v20130526-2205,
-		org.eclipse.pde 3.9.0.v20130526-2000,
-		org.eclipse.emf.sdk 2.9.0.v20130527-0426,
+		org.eclipse.sdk 4.3.0.v20130530-1801,
+		org.eclipse.pde 3.9.0.v20130530-1553,
+		org.eclipse.emf.sdk 2.9.0.v20130603-0742,
 		org.eclipse.emf.transaction.sdk 1.7.0.201305221412,
 		org.eclipse.emf.eef.sdk-feature 1.2.0.201301111054,
 		org.eclipse.gef.sdk 3.9.0.201305060205,
 		org.eclipse.zest.sdk 1.5.0.201305060205,
-		org.eclipse.graphiti.sdk.plus.feature 0.10.0.v20130529-0649,
-		org.eclipse.swt 3.102.0.v20130522-1423 noFeature
+		org.eclipse.graphiti.sdk.plus.feature 0.10.0.v20130605-1155,
+		org.eclipse.swt 3.102.0.v20130530-1600 noFeature,
+		org.eclipse.xtext.sdk 2.4.2.v201306040922,
+		org.eclipse.xtend.sdk 2.4.2.v201306040922,
+		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201306040943,
+		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306040844
 	}
 	
-	"Xtext/Xtend Releases" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases {
-		org.eclipse.xtext.sdk 2.4.1.v201304180855,
-		org.eclipse.xtend.sdk 2.4.1.v201304180855,
-		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201303191501,
-		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413
-	}
+//	"Xtext/Xtend Releases" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases {
+//		org.eclipse.xtext.sdk 2.4.1.v201304180855,
+//		org.eclipse.xtend.sdk 2.4.1.v201304180855,
+//		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201303191501,
+//		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413
+//	}
 
 //	"Xtext/Xtend Milestones" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
 //		org.eclipse.xtext.sdk 2.4.2.v201306040922,
@@ -43,8 +47,8 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 //	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/snapshots/ {
-		org.eclipse.swtbot.eclipse 2.1.1.201306031427,
-		org.eclipse.swtbot.eclipse.gef 2.1.1.201306031427
+		org.eclipse.swtbot.eclipse 2.1.1.201306120947,
+		org.eclipse.swtbot.eclipse.gef 2.1.1.201306120947
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {

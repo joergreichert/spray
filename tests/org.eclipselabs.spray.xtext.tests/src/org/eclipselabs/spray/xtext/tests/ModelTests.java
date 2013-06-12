@@ -22,7 +22,7 @@ public class ModelTests extends XtextTest {
     public static void init() {
     	EPackage.Registry.INSTANCE.put(BusinessDomainDslPackage.eNS_URI, BusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
     }
 
     @Before
@@ -44,49 +44,26 @@ public class ModelTests extends XtextTest {
 
     @Test
     public void test_10_scoping() {
-        testFile("testcases/10-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/10-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
     }
 
     @Test
     public void test_11_scoping() {
-        testFile("testcases/11-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/11-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
         withoutCreateBehaviorWarnings();
     }
 
     @Test
     public void test_12_scoping() {
-        testFile("testcases/12-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/12-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
     }
 
     @Test
     public void test_13_scoping() {
-        testFile("testcases/13-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/13-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
         withoutCreateBehaviorWarnings();
     }
 
-    @Test
-    public void test_20_color() {
-        testFile("testcases/20-color.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_21_color() {
-        testFile("testcases/21-color.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_22_color() {
-        testFile("testcases/22-color.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_23_color() {
-        testFile("testcases/23-color.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
 
     @Test
     public void test_30_expression_text() {

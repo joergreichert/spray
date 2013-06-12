@@ -60,7 +60,7 @@ public class PackageSelectorTest {
 		final ResourceSet rs = mock(ResourceSet.class);
         URI genModelLoc = URI.createFileURI(genModelURIStr);
 		final Resource genModelResource = mock(Resource.class);
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(ePackageNsURI, genModelLoc);
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(ePackageNsURI, genModelLoc);
 		when(rs.getResource(genModelLoc, true)).thenReturn(genModelResource);
 		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
 		GenPackage genPackage = GenModelFactory.eINSTANCE.createGenPackage();

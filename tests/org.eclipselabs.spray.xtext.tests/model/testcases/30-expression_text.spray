@@ -1,6 +1,8 @@
-diagram test for BusinessDomainDsl.BusinessDomainModel
+import BusinessDomainDsl.*
 
-class BusinessDomainDsl.BusinessClass {
+diagram test for BusinessDomainModel
+
+class BusinessClass {
     container  () {
        // text expression without feature call
        text ( )  "<<" + " >>"
