@@ -230,19 +230,38 @@ We use Cloudbees' DEV@Cloud as infrastructure for a Continuous Integration build
  
 h2. Build Jobs
  
-h3. Spray CI Build
+h3. Job @spray-ci-build@
 
 Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-build/":https://spray.ci.cloudbees.com/job/spray-ci-build/
 
 Pulls branch @master@ of the Git repository every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
 
-h3. Spray Experimental Build
+h3. Job @spray-docs-build@
+
+Runs the generation of documentation. The latest build is archived and linked on the Spray project homepage.
+
+* Build URL: "https://spray.ci.cloudbees.com/job/spray-docs-build/":https://spray.ci.cloudbees.com/job/spray-docs-build/
+* Git Branch: kepler
+* Activated profiles: @skip-ui-tests@ @remote-build-snapshot@ @modules-docs@
+* Deactivated profiles: @modules-default@
+* Schedule: midnight
+
+h3. Job @spray-ci-targetplatform@
+
+TODO: Describe
+
+h3. Job @spray-distrobuilder@
+
+TODO: Describe
+
+h3. Job @spray-ci-experimental@
 
 Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-experimental/":https://spray.ci.cloudbees.com/job/spray-ci-experimental/
 
 Pulls branch @experimental@ of the Git repository every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
 
 You can push your repository state any time to the @experimental@ branch if you want to test things on the build that might break it, like when changing the build configuration or introducing new dependencies.
+
 
 h2. Job configuration
 
