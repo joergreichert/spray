@@ -244,6 +244,11 @@ Pulls branch @experimental@ of the Git repository every 15 minutes. Build mail 
 
 You can push your repository state any time to the @experimental@ branch if you want to test things on the build that might break it, like when changing the build configuration or introducing new dependencies.
 
+h2. Job configuration
+
+h3. Headless UI tests
+
+A build on the Cloudbees Jenkins service cannot start an UI. To execute the UI tests anyway Xvnc server is started within the build. Additionally the metacity window manager is started as a pre-build step with Shell execution. The required hints to solve this issue were found in the blog entry "How to run UI tests on hudson.eclipse.org server (on a server without a window manager activated by default)":http://www.bonitasoft.org/blog/eclipse/how-to-run-ui-tests-on-hudson-eclipse-org-server-on-a-server-without-a-window-manager-activated-by-default/ 
 
 h2. Administration
 
