@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="spray-release" basedir="." default="set-version">
-	<macrodef name="git"><!-- see http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/ -->
+	<!-- Read the last entered values for defaults -->
+	<property file="release.properties" />
+	<macrodef name="git">
+		<!-- see http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/ -->
 		<attribute name="command" />
 		<attribute name="dir" default="" />
-		<attribute name="failonerror" default="false"/>
+		<attribute name="failonerror" default="false" />
 		<element name="args" optional="true" />
 		<sequential>
 			<echo message="git @{command}" />
@@ -13,13 +16,29 @@
 			</exec>
 		</sequential>
 	</macrodef>
-	<tstamp>
-		<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
-	</tstamp>
+	<macrodef name="assertDirAvailable">
+		<!-- see http://stackoverflow.com/questions/1163998/do-i-have-any-way-to-check-the-existence-of-a-directory-in-ant-not-a-file -->
+		<attribute name="dir" />
+		<sequential>
+			<fail message="The directory '@{dir}' was expected to be available but is not">
+				<condition>
+					<not>
+						<available file="@{dir}" type="dir" />
+					</not>
+				</condition>
+			</fail>
+		</sequential>
+	</macrodef>
+	<macrodef name="assertPropertySet">
+		<!-- see http://stackoverflow.com/questions/1163998/do-i-have-any-way-to-check-the-existence-of-a-directory-in-ant-not-a-file -->
+		<attribute name="key" />
+		<sequential>
+			<fail message="The property '@{key}' is required but not set" unless="@{key}">
+			</fail>
+		</sequential>
+	</macrodef>
 
 	<target name="set-version" description="Modifies artifacts to set a release version">
-		<!-- Read the last entered values for defaults -->
-		<property file="version.properties" />
 		<tstamp>
 			<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
 		</tstamp>
@@ -38,7 +57,7 @@
 			<equals arg1="${version.development}" arg2="n" />
 		</condition>
 
-		<propertyfile file="version.properties" comment="Build version">
+		<propertyfile file="release.properties" comment="Build version">
 			<entry key="version_main" value="${version.main}" />
 			<entry key="version_development" value="${version.development}" />
 			<entry key="version_mvn" value="${version.mvn}" />
@@ -125,7 +144,7 @@
 		<echo message="${path.doc}" />
 
 	</target>
-	
+
 	<target name="set-version-xtext" description="Sets the Xtext version constraints in MANIFEST.MF">
 		<!-- Read the last entered values for defaults -->
 		<property file="version.properties" />
@@ -142,29 +161,104 @@
 		<propertyfile file="version.properties" comment="Build version">
 			<entry key="version_xtext" value="${version.xtext}" />
 		</propertyfile>
-		
+
 	</target>
 
-	<target name="release-prepare">
-		<!-- Read the last entered values for defaults -->
-		<property file="version.properties" />
-		
+	<target name="release-prepare" depends="release-prepare-dev">
+		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT"/>
+		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases"/>
+
 		<echo>[spray-release] create release branch</echo>
-		<git command="branch release-${version_main}"/>
+		<git command="branch release-${version_main}" />
 
 		<echo>[spray-release] checkout the release branch</echo>
-		<git command="checkout release-${version_main}"/>
+		<git command="checkout release-${version_main}" />
 
 		<echo>[spray-release] using build qualifier: ${QUALIFIER}</echo>
 		<echo>[spray-release] update version to ${version_main}.v${QUALIFIER}</echo>
 		<antcall target="-modify-artifacts">
-			<property name="version.main" value="${version_main}"/>
-			<property name="version.mvn" value="${version_main}.v${QUALIFIER}"/>
-			<property name="version.osgi" value="${version_main}.v${QUALIFIER}"/>
-
+			<param name="version.main" value="${version_main}" />
+			<param name="version.mvn" value="${version_main}.v${QUALIFIER}" />
+			<param name="version.osgi" value="${version_main}.v${QUALIFIER}" />
 		</antcall>
+
+		<echo>[spray-release] commit and tag the changes</echo>
+		<git command="commit -s -a -m '[spray-release] new release ${version_main}.v${QUALIFIER}'"/>
+
+		<antcall target="release-build"/>
+		
+		<git command="commit -s -a -m '[spray-release] checking in sources generated within the build'"/>
+
+		<echo>[spray-release] create release tag v${version_main}</echo>
+		<git command="tag v${version_main}"/>
+	
+		<echo>[spray-release] rename repositories</echo>
+		<move 
+			file  ="../org.eclipselabs.spray.repository/target/org.eclipselabs.spray.releng.repository.zip"
+			toFile="../org.eclipselabs.spray.repository/target/spray-3rdparty-${version_main}.zip"/>
+		<move 
+			file  ="../org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite.zip"
+			toFile="../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip"/>
+
+		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
+		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases">
+			<fileset dir="../org.eclipselabs.spray.updatesite/target/repository" includes="**"/>
+		</copy>
+
+		<echo>[spray-release] commit files in the spray.distribution repository</echo>
+		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
+		<git command="tag v${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 	</target>
+	
+	<target name="release-build" description="performs the release build">
+		<echo>[spray-release] perform release build</echo>
+		<exec executable="mvn" dir="..">
+			<!-- Maven goals -->
+			<arg line="clean install"/>
+			<!-- Profiles -->
+			<arg line="-Pskip-ui-tests,modules-default,modules-targetplatform,modules-assembly,modules-docs"/> 
+		</exec>
+	</target>
+	
+	<target name="release-prepare-dev" description="Increment version to next development version, prepared on a branch">
+		<git command="checkout ${branch_main}"/>
+		<echo>[spray-release] create dev branch ${branch_main}-${version_next}</echo>
+		<git command="branch ${branch_main}-${version_next}" />
+		<git command="checkout ${branch_main}-${version_next}" />
+		<echo>[spray-release] set version to ${version_next}</echo>
+		<antcall target="-modify-artifacts">
+			<param name="version.main" value="${version_next}" />
+			<param name="version.mvn" value="${version_next}-SNAPSHOT" />
+			<param name="version.osgi" value="${version_next}.qualifier" />
+		</antcall>
+		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'"/>
+		<echo>[spray-release] prepared development branch</echo>
+		<git command="checkout ${branch_main}"/>
+	</target>
+	
+	<target name="release-promote" description="Promote the release build results">
+		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT"/>
+		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases"/>
+		<echo>[spray-release] push spray repository</echo>
+		<git command="checkout ${branch_main}"/>
+		<git command="push origin ${branch_main}"/>
+
+		<echo>[spray-release] push spray.distribution repository</echo>
+		<git command="push origin master" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
+		
+		<echo>[spray-release] Process successfully completed.</echo>
+		<echo>Please upload ../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip to the project downloads http://code.google.com/a/eclipselabs.org/p/spray/downloads/list.</echo>
+	</target>
+
 	<target name="status">
-		<git command="status"/>
+		<git command="status" />
+	</target>
+	
+	<target name="release-cleanup">
+		<echo>[spray-release] Remove release branch</echo>
+		<git command="branch -D release-${version_main}"/>
+		<git command="branch -D ${branch_main}-${version_next}"/>
+		<git command="checkout ${branch_main}"/>
 	</target>
 </project>
+
