@@ -1,4 +1,4 @@
-/* XPECT formatted ---
+/* XPECT formatted --- 
 style MydiagramDefaultStyle {
 	description = "The default style of the mydiagram diagram type."
 	transparency = 0.95
