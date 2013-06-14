@@ -216,7 +216,9 @@
 			<!-- Maven goals -->
 			<arg line="clean install"/>
 			<!-- Profiles -->
-			<arg line="-Pskip-ui-tests,modules-default,modules-targetplatform,modules-assembly,modules-docs"/> 
+			<arg line="-Pskip-ui-tests,modules-default,modules-assembly,modules-docs"/>
+			<!-- JVM args -->
+			<env key="MAVEN_OPTS" value="-Xmx1500m -XX:MaxPermSize=200m"/>
 		</exec>
 	</target>
 	
