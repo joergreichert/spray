@@ -44,6 +44,6 @@ public class ShapeFormatterTest extends AbstractValidatorTester {
 		} else {
 			r = formatter.format(rootNode, rootNode.getOffset(), rootNode.getTotalLength());	
 		}
-		return r.getFormattedText().replaceAll("\\r\\n", "\n");
+		return r.getFormattedText().replaceAll("\\r\\b", "\n") + "\r";
 	}
 }
