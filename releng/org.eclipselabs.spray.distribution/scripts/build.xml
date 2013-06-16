@@ -222,10 +222,7 @@
 		<echo>[spray-release] create release tag v${version_main}</echo>
 		<git command="tag v${version_main}" />
 
-		<echo>[spray-release] rename repositories</echo>
-		<move file="../org.eclipselabs.spray.repository/target/org.eclipselabs.spray.releng.repository.zip" toFile="../org.eclipselabs.spray.repository/target/spray-3rdparty-${version_main}.zip" />
-		<move file="../org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite.zip" toFile="../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip" />
-
+		<git command="tag release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT"/>
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
 		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases">
 			<fileset dir="../org.eclipselabs.spray.updatesite/target/repository" includes="**" />
@@ -251,11 +248,11 @@
 		<echo>[spray-release] perform release build</echo>
 		<exec executable="mvn" dir="..">
 			<!-- Maven goals -->
-			<arg line="clean install" />
+			<arg line="${MAVEN_GOAL}" />
 			<!-- Profiles -->
-			<arg line="-Pskip-ui-tests,modules-default,modules-assembly,modules-docs" />
+			<arg line="-P${MAVEN_PROFILES}" />
 			<!-- JVM args -->
-			<env key="MAVEN_OPTS" value="-Xmx1500m -XX:MaxPermSize=200m" />
+			<env key="MAVEN_OPTS" value="${MAVEN_OPTS}" />
 		</exec>
 	</target>
 
@@ -288,10 +285,12 @@
 		<git command="branch -D ${branch_main}-${version_next}" />
 		<git command="tag -d release-init"/>
 		<git command="checkout ${branch_main}" />
+		<git command="tag -d release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 	</target>
 	
 	<target name="release-rollback" depends="-init">
 		<git command="reset --hard release-init"/>
+		<git command="reset --hard release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<antcall target="release-cleanup"/>
 	</target>
 
