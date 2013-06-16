@@ -22,3 +22,4 @@ src-gen
 /releng/org.eclipselabs.spray.distribution/scripts/version.properties
 *.orig
 /tests/org.eclipselabs.spray.generator.graphiti.tests/shapepreviews/
+/releng/org.eclipselabs.spray.distribution/scripts/user.properties

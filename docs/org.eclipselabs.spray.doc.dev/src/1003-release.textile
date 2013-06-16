@@ -1,0 +1,54 @@
+h2. Release Script
+
+Spray has an Ant build script to support the release process. It is located at @releng/org.eclipselabs.spray.distribution/scripts/build.xml@.
+
+h3. Custom Ant Tasks
+
+When it is required to use custom ant tasks we have the problem that we cannot put them in the library folder of the Ant distribution at Cloudbees. There we only can assume to have a basic Ant distribution. All additional tasks must be made available by referencing their Jars in the classpath of the @<taskef>@ definition.
+
+To avoid the need to check in those jars we are fetching them from the internet using the "Ant Get task":http://ant.apache.org/manual/Tasks/get.html . Thus they are downloaded in the @-fetch-dependencies@ target to a private library folder like follows:
+
+bc.. 
+	<target name="-fetch-dependencies" description="downloads additional jars for task definitions">
+		<mkdir dir="lib" />
+		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
+	</target>
+p. 
+The files are just fetched once, so the download does not happen always. Targets that declare tasks with @<taskdef>@ need to depend on @-fetch-dependencies@.
+
+h3. File upload to Google Code
+
+For uploading the resulting files to the "Downloads section":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list on the Spray project homepage we make use of the "ant-googlecode":http://code.google.com/p/ant-googlecode/ Ant task. Since Spray is hosted et Eclipselabs it needs specialized setup, which is described on this "Wiki page":http://code.google.com/p/ant-googlecode/wiki/EclipseLabs_configuration .
+
+The upload of files to the project homepage is defined in the @release-promote-gcupload@ target.
+
+bc.. 
+<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="lib/ant-googlecode.jar" name="gcupload" />
+<gcupload 
+	username="${gc.user}" 
+	password="${gc.password}" 
+	projectname="spray" 
+	uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
+	ignoreSslCertificateHostname="true"
+	filename="${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf" 
+	targetfilename="SprayDeveloperGuide-${version_main}.pdf" 
+	summary="Spray ${version_main} Developer Guide" 
+	labels="Featured, Type-Docs, OpSys-All" />
+p. 
+
+h3. Setting version
+
+The target @set-version@ queries the user for the version to set for the current and next Spray release. The values entered will be stored in the @release.properties@ file, which is read by the script on executing.
+
+The values entered here will be taken to make replacements in the artifacts. This is done by search & replace using regular expressions. Note that there is "Tycho Versions Plugin":http://www.eclipse.org/tycho/sitedocs/tycho-release/tycho-versions-plugin/set-version-mojo.html which is meant to be used in such a context, but we are not using it. In the past we experienced problems using this plugin, especially it was not that easy to do the replacements in all places that we need.
+
+h3. Dry run
+
+The @release.properties@ file contains a property @dryrun@. When set to @true@ any upload action will not be performed. What actually would be performed is printed out as a message with prefix @***DRYRUN***@.
+
+However, the script still commits to the repository. But since this all happens locally this can be rolled back. See next section for details.
+
+h3. Roll back
+
+During the performance of a release, especially when evolving the release process, many things can go wrong. The release script creates a tag named @release-init@ before doing any modifications to the repository. To reset the repository to this state call the @release-rollback@ target.
+

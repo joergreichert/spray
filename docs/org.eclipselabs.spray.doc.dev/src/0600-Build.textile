@@ -277,19 +277,13 @@ h1. Release Process
 
 Follow these steps if you want to release a new version of Spray. 
 
-A shell script @release.sh@ is prepared to execute all necessary steps. You will need to have checkout out the @spray.distribution@ git repository as a sibling directory to your main Spray repository; the process copies and uploads artifacts within this repository.
+An ant script @org.eclipselabs.spray.distribution/scripts/build.xml@ is prepared to execute all necessary steps. You will need to have checkout out the @spray.distribution@ git repository as a sibling directory to your main Spray repository; the process copies and uploads artifacts within this repository.
  
-* Pull the latest state from the repository
-* Open a command-line and go to the @releng/org.eclipselabs.spray.distribution@ directory
-* Execute from this directory the @scripts/release.sh@ script. The script takes 2 arguments:
-** The first argument is the version to be released
-** The second argument is the next development version
-bc. 
-sh scripts/release.sh 0.3.0 0.4.0
-
+* Pull the latest state from the repository.
+* Open a command-line and go to the @releng/org.eclipselabs.spray.distribution/scripts@ directory
+* Execute from this directory the @build.xml@ script. 
 * Upload the file to the "Downloads":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list section of the project
+* Go to the "Downloads page":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list and remove the "Featured" tag from the artifacts of the older release, then add the "Deprecated" tag.
 * Announce the release on the spray-dev@googlegroups.com mailing list
-
-
 
  

@@ -2,18 +2,33 @@
 <project name="spray-release" basedir="." default="set-version">
 	<!-- Read the last entered values for defaults -->
 	<property file="release.properties" />
+	<property file="user.properties" />
+	<property name="repository_root" value="../../.." description="Path to the root of the Git repository from the folder 'scripts'" />
+	<tstamp>
+		<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
+	</tstamp>
+
 	<macrodef name="git">
 		<!-- see http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/ -->
 		<attribute name="command" />
 		<attribute name="dir" default="" />
 		<attribute name="failonerror" default="false" />
+		<attribute name="dryrun" default="false" />
 		<element name="args" optional="true" />
 		<sequential>
-			<echo message="git @{command}" />
-			<exec executable="git" dir="@{dir}">
-				<arg line="@{command}" />
-				<args />
-			</exec>
+			<if>
+				<equals arg1="@{dryrun}" arg2="false" />
+				<then>
+					<echo message="git @{command}" />
+					<exec executable="git" dir="@{dir}">
+						<arg line="@{command}" />
+						<args />
+					</exec>
+				</then>
+				<else>
+					<echo message="***DRYRUN*** git @{command}" />
+				</else>
+			</if>
 		</sequential>
 	</macrodef>
 	<macrodef name="assertDirAvailable">
@@ -38,12 +53,18 @@
 		</sequential>
 	</macrodef>
 
+	<target name="-init" depends="-fetch-dependencies">
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+			<classpath>
+				<pathelement location="lib/ant-contrib.jar" />
+			</classpath>
+		</taskdef>
+	</target>
+
 	<target name="set-version" description="Modifies artifacts to set a release version">
-		<tstamp>
-			<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
-		</tstamp>
 		<input message="Please enter the new release version (MAJOR.MINOR.MICRO):" addproperty="version.main" defaultvalue="${version_main}" />
 		<input message="Set to DEVELOPMENT version (n=RELEASE)?" validargs="y,n" addproperty="version.development" defaultvalue="${version_development}" />
+		<input message="Please enter the new NEXT release version (MAJOR.MINOR.MICRO):" addproperty="version.next" defaultvalue="${version_next}" />
 		<condition property="version.mvn" value="${version.main}-SNAPSHOT">
 			<equals arg1="${version.development}" arg2="y" />
 		</condition>
@@ -62,6 +83,7 @@
 			<entry key="version_development" value="${version.development}" />
 			<entry key="version_mvn" value="${version.mvn}" />
 			<entry key="version_osgi" value="${version.osgi}" />
+			<entry key="version_next" value="${version.next}" />
 		</propertyfile>
 
 		<antcall target="-modify-artifacts" />
@@ -163,11 +185,18 @@
 		</propertyfile>
 
 	</target>
+	
+	<target name="release" depends="-init, release-prepare, release-promote, release-cleanup" description="Performs a release">
+	
+	</target>
 
-	<target name="release-prepare" depends="release-prepare-dev">
-		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT"/>
-		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases"/>
+	<target name="release-prepare" depends="-init, release-prepare-dev">
+		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT" />
+		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" />
 
+		<echo>[spray-release] mark repository</echo>
+		<git command="tag release-init" />
+			
 		<echo>[spray-release] create release branch</echo>
 		<git command="branch release-${version_main}" />
 
@@ -183,84 +212,159 @@
 		</antcall>
 
 		<echo>[spray-release] commit and tag the changes</echo>
-		<git command="commit -s -a -m '[spray-release] new release ${version_main}.v${QUALIFIER}'"/>
+		<git command="commit -s -a -m '[spray-release] new release ${version_main}.v${QUALIFIER}'" />
 
-		<antcall target="release-build"/>
-		
-		<git command="commit -s -a -m '[spray-release] checking in sources generated within the build'"/>
+		<!-- call the main build -->
+		<antcall target="release-build" />
+
+		<git command="commit -s -a -m '[spray-release] checking in sources generated within the build'" />
 
 		<echo>[spray-release] create release tag v${version_main}</echo>
-		<git command="tag v${version_main}"/>
-	
+		<git command="tag v${version_main}" />
+
 		<echo>[spray-release] rename repositories</echo>
-		<move 
-			file  ="../org.eclipselabs.spray.repository/target/org.eclipselabs.spray.releng.repository.zip"
-			toFile="../org.eclipselabs.spray.repository/target/spray-3rdparty-${version_main}.zip"/>
-		<move 
-			file  ="../org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite.zip"
-			toFile="../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip"/>
+		<move file="../org.eclipselabs.spray.repository/target/org.eclipselabs.spray.releng.repository.zip" toFile="../org.eclipselabs.spray.repository/target/spray-3rdparty-${version_main}.zip" />
+		<move file="../org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite.zip" toFile="../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip" />
 
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
 		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases">
-			<fileset dir="../org.eclipselabs.spray.updatesite/target/repository" includes="**"/>
+			<fileset dir="../org.eclipselabs.spray.updatesite/target/repository" includes="**" />
 		</copy>
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
-		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
-		<git command="tag v${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
-	</target>
-	
-	<target name="release-build" description="performs the release build">
-		<echo>[spray-release] perform release build</echo>
-		<exec executable="mvn" dir="..">
-			<!-- Maven goals -->
-			<arg line="clean install"/>
-			<!-- Profiles -->
-			<arg line="-Pskip-ui-tests,modules-default,modules-assembly,modules-docs"/>
-			<!-- JVM args -->
-			<env key="MAVEN_OPTS" value="-Xmx1500m -XX:MaxPermSize=200m"/>
-		</exec>
-	</target>
-	
-	<target name="release-prepare-dev" description="Increment version to next development version, prepared on a branch">
-		<git command="checkout ${branch_main}"/>
-		<echo>[spray-release] create dev branch ${branch_main}-${version_next}</echo>
-		<git command="branch ${branch_main}-${version_next}" />
-		<git command="checkout ${branch_main}-${version_next}" />
+		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
+		<git command="tag v${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
+		<!-- Release branch is prepared and repository is tagged -->
+		<!-- Now increment main branch to next release version -->
+		
+		<git command="checkout ${branch_main}" />
 		<echo>[spray-release] set version to ${version_next}</echo>
 		<antcall target="-modify-artifacts">
 			<param name="version.main" value="${version_next}" />
 			<param name="version.mvn" value="${version_next}-SNAPSHOT" />
 			<param name="version.osgi" value="${version_next}.qualifier" />
 		</antcall>
-		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'"/>
-		<echo>[spray-release] prepared development branch</echo>
-		<git command="checkout ${branch_main}"/>
+		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'" />
 	</target>
-	
+
+	<target name="release-build" description="performs the release build">
+		<echo>[spray-release] perform release build</echo>
+		<exec executable="mvn" dir="..">
+			<!-- Maven goals -->
+			<arg line="clean install" />
+			<!-- Profiles -->
+			<arg line="-Pskip-ui-tests,modules-default,modules-assembly,modules-docs" />
+			<!-- JVM args -->
+			<env key="MAVEN_OPTS" value="-Xmx1500m -XX:MaxPermSize=200m" />
+		</exec>
+	</target>
+
+	<target name="release-prepare-dev" description="Create a branch, increment version to next development version">
+	</target>
+
 	<target name="release-promote" description="Promote the release build results">
-		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT"/>
-		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases"/>
+		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT" />
+		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" />
 		<echo>[spray-release] push spray repository</echo>
-		<git command="checkout ${branch_main}"/>
-		<git command="push origin ${branch_main}"/>
+		<git command="checkout ${branch_main}" />
+		<git command="push origin ${branch_main}" dryrun="${dryrun}"/>
 
 		<echo>[spray-release] push spray.distribution repository</echo>
-		<git command="push origin master" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
-		
+		<git command="push origin master" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" dryrun="${dryrun}"/>
+
 		<echo>[spray-release] Process successfully completed.</echo>
 		<echo>Please upload ../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip to the project downloads http://code.google.com/a/eclipselabs.org/p/spray/downloads/list.</echo>
+		
+		<antcall target="release-promote-gcupload"/>
 	</target>
 
-	<target name="status">
-		<git command="status" />
+	<target name="status" depends="-init">
+		<git command="status" dryrun="${dryrun}"/>
+	</target>
+
+	<target name="release-cleanup" depends="-init">
+		<echo>[spray-release] Remove release branch</echo>
+		<git command="branch -D release-${version_main}" />
+		<git command="branch -D ${branch_main}-${version_next}" />
+		<git command="tag -d release-init"/>
+		<git command="checkout ${branch_main}" />
 	</target>
 	
-	<target name="release-cleanup">
-		<echo>[spray-release] Remove release branch</echo>
-		<git command="branch -D release-${version_main}"/>
-		<git command="branch -D ${branch_main}-${version_next}"/>
-		<git command="checkout ${branch_main}"/>
+	<target name="release-rollback" depends="-init">
+		<git command="reset --hard release-init"/>
+		<antcall target="release-cleanup"/>
+	</target>
+
+	<target name="-fetch-dependencies" description="Downloads additional jars for task definitions">
+		<mkdir dir="lib" />
+		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
+		<get src="http://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar" dest="lib/ant-contrib.jar" skipexisting="true" />
+	</target>
+
+	<target name="-credentials-enter" description="Enter user credentials for tasks that require authentication" unless="gc.user">
+		<input message="Please enter GoogleCode username" addproperty="gc.user" defaultvalue="${gc_user}" />
+		<input message="Please enter GoogleCode password" addproperty="gc.password" defaultvalue="${gc_password}" />
+		<input message="Store your credentials locally in user.properties? WARNING: Password will be stored non-encrypted!" addproperty="user._storecredentials" validargs="y,n" defaultvalue="y" />
+		<condition property="user.storecredentials">
+			<equals arg1="${user._storecredentials}" arg2="y" />
+		</condition>
+		<antcall target="-credentials-store" />
+	</target>
+
+	<target name="-credentials-store" if="user.storecredentials">
+		<propertyfile file="user.properties" comment="User specific settings">
+			<entry key="gc_user" value="${gc.user}" />
+			<entry key="gc_password" value="${gc.password}" />
+		</propertyfile>
+	</target>
+
+	<target name="release-promote-gcupload" depends="-fetch-dependencies, -credentials-enter" description="Upload PDF docs and p2 repository to project homepage">
+		<assertPropertySet key="gc.user" />
+		<assertPropertySet key="gc.password" />
+		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="lib/ant-googlecode.jar" name="gcupload" />
+		<if>
+			<equals arg1="@{dryrun}" arg2="false" />
+			<then>
+				<echo>[spray-release] Upload ${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
+				<gcupload 
+					username="${gc.user}" 
+					password="${gc.password}" 
+					projectname="spray" 
+					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
+					ignoreSslCertificateHostname="true"
+					filename="${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf" 
+					targetfilename="SprayDeveloperGuide-${version_main}.pdf" 
+					summary="Spray ${version_main} Developer Guide" 
+					labels="Featured, Type-Docs, OpSys-All" />
+				<echo>[spray-release] Upload ${repository_root}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
+				<gcupload 
+					username="${gc.user}" 
+					password="${gc.password}" 
+					projectname="spray" 
+					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
+					ignoreSslCertificateHostname="true"
+					filename="${repository_root}/docs/org.eclipselabs.spray.doc.user/docs/pdf/SprayUserGuide.pdf" 
+					targetfilename="SprayUserGuide-${version_main}.pdf" 
+					summary="Spray ${version_main} User Guide" 
+					labels="Featured, Type-Docs, OpSys-All" />
+				<echo>[spray-release] Upload ${repository_root}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>
+				<gcupload 
+					username="${gc.user}" 
+					password="${gc.password}" 
+					projectname="spray" 
+					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
+					ignoreSslCertificateHostname="true"
+					filename="${repository_root}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip" 
+					targetfilename="spray-${version_main}.zip" 
+					summary="Spray ${version_main} Zipped Repository" 
+					labels="Featured, Type-Archive" />
+			</then>
+			<else>
+				<echo>[spray-release] ***DRYRUN*** Upload ${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
+				<echo>[spray-release] ***DRYRUN*** Upload ${repository_root}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
+				<echo>[spray-release] ***DRYRUN*** Upload ${repository_root}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>			
+			</else>
+		</if>
 	</target>
 </project>
 
