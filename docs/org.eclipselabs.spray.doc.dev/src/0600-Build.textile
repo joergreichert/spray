@@ -29,38 +29,10 @@ Configure the environment variable @MAVEN_OPTS@ to value "@-XX:MaxPermSize=150m
 
 Builds are run from the @/releng/org.eclipselabs.spray.distribution@ directory. Open a command-line window here.
 
-h3. Build target platform repository
-
-In directory @/releng/org.eclipselabs.spray.distribution@ execute: 
-
-bc. 
-mvn clean install -Pmodules-targetplatform
-
-This first build will create a p2 repository, which serves as a local target platform repository. The repository contains all bundles and features that are required to build the Spray projects. This build has only to be executed when the target platform changes.
-
-p. 
-Maven will download all required artifacts and plugins automatically and at the end you should get
-
-bc.. 
-[INFO] Reactor Summary:
-[INFO]
-[INFO] org.eclipselabs.spray.targetplatform .............. SUCCESS [0.211s]
-[INFO] org.eclipselabs.spray.parent ...................... SUCCESS [0.174s]
-[INFO] org.eclipselabs.spray.repository.parent ........... SUCCESS [0.050s]
-[INFO] org.eclipselabs.spray.releng.repository ........... SUCCESS [38.918s]
-[INFO] Eclipselabs Spray ................................. SUCCESS [0.004s]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[
-
-p.  
-In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
-
 h3. Build Spray projects
 
 bc. 
-mvn clean install -Dlocal-build -Dskip.ui.tests
+mvn clean install
 
 p. 
 Maven will download all required artifacts and plugins automatically and at the end you should get
@@ -103,6 +75,38 @@ bc..
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 p. 
+
+The target platform for this build is computed from the one build at Cloudbees. You can build this repository also locally and use it. To do this build the target platform repository (see next section) and activate the profile @local-build@.
+
+bc. mvn clean install -Dlocal-build 
+
+h3. Build target platform repository
+
+In directory @/releng/org.eclipselabs.spray.distribution@ execute: 
+
+bc. 
+mvn clean install -Pmodules-targetplatform
+
+This first build will create a p2 repository, which serves as a local target platform repository. The repository contains all bundles and features that are required to build the Spray projects. This build has only to be executed when the target platform changes.
+
+p. 
+Maven will download all required artifacts and plugins automatically and at the end you should get
+
+bc.. 
+[INFO] Reactor Summary:
+[INFO]
+[INFO] org.eclipselabs.spray.targetplatform .............. SUCCESS [0.211s]
+[INFO] org.eclipselabs.spray.parent ...................... SUCCESS [0.174s]
+[INFO] org.eclipselabs.spray.repository.parent ........... SUCCESS [0.050s]
+[INFO] org.eclipselabs.spray.releng.repository ........... SUCCESS [38.918s]
+[INFO] Eclipselabs Spray ................................. SUCCESS [0.004s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[
+
+p.  
+In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
 
 
 h3. Disable execution of UI tests
