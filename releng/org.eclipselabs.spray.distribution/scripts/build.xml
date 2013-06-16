@@ -248,7 +248,7 @@
 		<echo>[spray-release] perform release build</echo>
 		<exec executable="mvn" dir="..">
 			<!-- Maven goals -->
-			<arg line="${MAVEN_GOAL}" />
+			<arg line="${MAVEN_GOALS}" />
 			<!-- Profiles -->
 			<arg line="-P${MAVEN_PROFILES}" />
 			<!-- JVM args -->
