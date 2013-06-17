@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray.featuremodeling.diagram
 Bundle-Vendor: My Company
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.6.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.featuremodeling.diagram; singleton:=true
 Bundle-Activator: org.eclipselabs.spray.featuremodeling.diagram.Activator
 Bundle-ActivationPolicy: lazy

@@ -53,9 +53,9 @@ To extend the generator you basically need a plugin project. Create one and add 
 
 bc. 
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.0",
- org.eclipselabs.spray.mm;bundle-version="0.5.0",
- org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
+ org.eclipselabs.spray.generator.graphiti;bundle-version="0.6.0",
+ org.eclipselabs.spray.mm;bundle-version="0.6.0",
+ org.eclipselabs.spray.runtime.xtext;bundle-version="0.6.0",
  org.eclipselabs.spray.generator.graphiti.ui
 Import-Package: org.eclipse.xtend2.lib,
  org.eclipse.xtext.xbase.lib
