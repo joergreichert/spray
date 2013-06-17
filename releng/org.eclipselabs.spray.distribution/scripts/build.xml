@@ -230,7 +230,7 @@
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
 		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
-		<git command="tag v${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
+		<git command="tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<!-- Release branch is prepared and repository is tagged -->
 		<!-- Now increment main branch to next release version -->
 		
@@ -280,16 +280,21 @@
 	</target>
 
 	<target name="release-cleanup" depends="-init">
+		<echo>[spray-release] Cleaning up repositories</echo>
+		<git command="checkout ${branch_main}" />
 		<echo>[spray-release] Remove release branch</echo>
 		<git command="branch -D release-${version_main}" />
 		<git command="branch -D ${branch_main}-${version_next}" />
 		<git command="tag -d release-init"/>
-		<git command="checkout ${branch_main}" />
 		<git command="tag -d release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 	</target>
 	
 	<target name="release-rollback" depends="-init">
+		<echo>[spray-release] Remove release tag (if existent)</echo>
+		<git command="tag -d tag v${version_main}"/>
+		<echo>[spray-release] Reset repository 'spray'</echo>
 		<git command="reset --hard release-init"/>
+		<echo>[spray-release] Reset repository 'spray.distribution'</echo>
 		<git command="reset --hard release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<antcall target="release-cleanup"/>
 	</target>
