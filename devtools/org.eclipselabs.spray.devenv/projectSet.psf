@@ -6,6 +6,7 @@
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.dev.pde"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.dev.pde.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.devenv"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,devtools/org.eclipselabs.spray.releng.tools"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,releng/org.eclipselabs.spray.distribution"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,docs/org.eclipselabs.spray.doc.common"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,docs/org.eclipselabs.spray.doc.dev"/>
@@ -109,5 +110,6 @@
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.pde" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.dev.pde.tests" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.devenv" type="4"/>
+	</wo<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.releng.tools" type="4"/>
 	</workingSets>
 </psf>
