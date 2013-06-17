@@ -59,6 +59,11 @@
 				<pathelement location="lib/ant-contrib.jar" />
 			</classpath>
 		</taskdef>
+		<taskdef resource="org/eclipselabs/spray/releng/tools/ant/sprayreleng.properties">
+			<classpath>
+				<pathelement location="lib/spray-releng.jar" />
+			</classpath>
+		</taskdef>
 	</target>
 
 	<target name="set-version" description="Modifies artifacts to set a release version">
@@ -222,13 +227,18 @@
 		<echo>[spray-release] create release tag v${version_main}</echo>
 		<git command="tag v${version_main}" />
 
+		<!-- *** PUT SPRAY p2 REPOSITORY INTO spray.distribution GIT REPO *** -->
 		<git command="tag release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
-		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases">
+		<mkdir dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/${version_main}"/>
+		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/${version_main}">
 			<fileset dir="${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/repository" includes="**" />
 		</copy>
+		<echo>[spray-release] update composite repository</echo>
+		<compositeSite compositeartifactsxml="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/compositeArtifacts.xml" versiontoadd="${version_main}"/>
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
+		<git command="add --all"/>
 		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<git command="tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<!-- Release branch is prepared and repository is tagged -->
@@ -241,9 +251,12 @@
 			<param name="version.mvn" value="${version_next}-SNAPSHOT" />
 			<param name="version.osgi" value="${version_next}.qualifier" />
 		</antcall>
+		<echo>[spray-release] increment versions in release.properties</echo>
+		<versionIncrement releasePropertiesFile="release.properties"/>
+		
 		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'" />
 	</target>
-
+	
 	<target name="release-build" description="performs the release build">
 		<echo>[spray-release] perform release build</echo>
 		<exec executable="mvn" dir="..">
@@ -303,6 +316,7 @@
 		<mkdir dir="lib" />
 		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
 		<get src="http://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar" dest="lib/ant-contrib.jar" skipexisting="true" />
+		<get src="http://repository-spray.forge.cloudbees.com/snapshot/org/eclipselabs/spray/kepler/org.eclipselabs.spray.releng.tools/0.5.0-SNAPSHOT/org.eclipselabs.spray.releng.tools-0.5.0-20130617.193033-1.jar" dest="lib/spray-releng.jar" skipexisting="true" />
 	</target>
 
 	<target name="-credentials-enter" description="Enter user credentials for tasks that require authentication" unless="gc.user">
