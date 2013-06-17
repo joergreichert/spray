@@ -3,7 +3,7 @@
 	<!-- Read the last entered values for defaults -->
 	<property file="release.properties" />
 	<property file="user.properties" />
-	<property name="repository_root" value="../../.." description="Path to the root of the Git repository from the folder 'scripts'" />
+	<property name="PATH_REPOSITORY_ROOT" value="../../.." description="Path to the root of the Git repository from the folder 'scripts'" />
 	<tstamp>
 		<format property="QUALIFIER" pattern="yyyyMMdd-HHmm" />
 	</tstamp>
@@ -225,7 +225,7 @@
 		<git command="tag release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
 		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases">
-			<fileset dir="../org.eclipselabs.spray.updatesite/target/repository" includes="**" />
+			<fileset dir="${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/repository" includes="**" />
 		</copy>
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
@@ -329,44 +329,44 @@
 		<if>
 			<equals arg1="@{dryrun}" arg2="false" />
 			<then>
-				<echo>[spray-release] Upload ${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
+				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
 				<gcupload 
 					username="${gc.user}" 
 					password="${gc.password}" 
 					projectname="spray" 
 					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
 					ignoreSslCertificateHostname="true"
-					filename="${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf" 
+					filename="${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf" 
 					targetfilename="SprayDeveloperGuide-${version_main}.pdf" 
 					summary="Spray ${version_main} Developer Guide" 
 					labels="Featured, Type-Docs, OpSys-All" />
-				<echo>[spray-release] Upload ${repository_root}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
+				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
 				<gcupload 
 					username="${gc.user}" 
 					password="${gc.password}" 
 					projectname="spray" 
 					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
 					ignoreSslCertificateHostname="true"
-					filename="${repository_root}/docs/org.eclipselabs.spray.doc.user/docs/pdf/SprayUserGuide.pdf" 
+					filename="${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.doc.user/docs/pdf/SprayUserGuide.pdf" 
 					targetfilename="SprayUserGuide-${version_main}.pdf" 
 					summary="Spray ${version_main} User Guide" 
 					labels="Featured, Type-Docs, OpSys-All" />
-				<echo>[spray-release] Upload ${repository_root}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>
+				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>
 				<gcupload 
 					username="${gc.user}" 
 					password="${gc.password}" 
 					projectname="spray" 
 					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
 					ignoreSslCertificateHostname="true"
-					filename="${repository_root}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip" 
+					filename="${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip" 
 					targetfilename="spray-${version_main}.zip" 
 					summary="Spray ${version_main} Zipped Repository" 
 					labels="Featured, Type-Archive" />
 			</then>
 			<else>
-				<echo>[spray-release] ***DRYRUN*** Upload ${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
-				<echo>[spray-release] ***DRYRUN*** Upload ${repository_root}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
-				<echo>[spray-release] ***DRYRUN*** Upload ${repository_root}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>			
+				<echo>[spray-release] ***DRYRUN*** Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
+				<echo>[spray-release] ***DRYRUN*** Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
+				<echo>[spray-release] ***DRYRUN*** Upload ${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>			
 			</else>
 		</if>
 	</target>
