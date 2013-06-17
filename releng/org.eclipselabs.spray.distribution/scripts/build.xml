@@ -241,7 +241,7 @@
 		<compositeSite compositeartifactsxml="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/compositeArtifacts.xml" versiontoadd="${version_main}"/>
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
-		<git command="add --all"/>
+		<git command="add --all . releases/${version_main}"/>
 		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<git command="tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<!-- Release branch is prepared and repository is tagged -->
