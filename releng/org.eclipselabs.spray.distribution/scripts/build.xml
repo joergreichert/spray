@@ -222,7 +222,7 @@
 		<echo>[spray-release] create release tag v${version_main}</echo>
 		<git command="tag v${version_main}" />
 
-		<git command="tag release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT"/>
+		<git command="tag release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
 		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases">
 			<fileset dir="../org.eclipselabs.spray.updatesite/target/repository" includes="**" />
