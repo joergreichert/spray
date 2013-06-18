@@ -111,11 +111,6 @@
 				<exclude name="**/org.eclipselabs.spray.releng.tools/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message="" />
-		<property name="path.pom" refid="path.pom" />
-		<echo message="Modified Maven POMs:" />
-		<echo message="--------------------" />
-		<echo message="${path.pom}" />
 
 		<!-- MANIFEST.MF -->
 		<replaceregexp>
@@ -137,11 +132,6 @@
 				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message="" />
-		<property name="path.manifest" refid="path.manifest" />
-		<echo message="Modified bundle manifests:" />
-		<echo message="--------------------------" />
-		<echo message="${path.manifest}" />
 
 		<!-- feature.xml -->
 		<replaceregexp>
@@ -152,11 +142,6 @@
 				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message="" />
-		<property name="path.feature" refid="path.feature" />
-		<echo message="Modified feature.xml:" />
-		<echo message="--------------------------" />
-		<echo message="${path.feature}" />
 
 		<!-- Documentation -->
 		<replaceregexp flags="g">
@@ -167,12 +152,10 @@
 				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
-		<echo message="" />
-		<property name="path.doc" refid="path.doc" />
-		<echo message="Modified doc files:" />
-		<echo message="--------------------------" />
-		<echo message="${path.doc}" />
 
+		<echo>[spray-release] Modified files:</echo>
+		<echo>*******************************</echo>
+		<git command="status"/>
 	</target>
 
 	<target name="set-version-xtext" description="Sets the Xtext version constraints in MANIFEST.MF">
@@ -241,7 +224,7 @@
 		<compositeSite compositeartifactsxml="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/compositeArtifacts.xml" versiontoadd="${version_main}"/>
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
-		<git command="add --all . releases/${version_main}"/>
+		<git command="add --all . releases/${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<git command="tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<!-- Release branch is prepared and repository is tagged -->
