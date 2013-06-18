@@ -102,13 +102,13 @@
 		<echo message="VERSION MVN: ${version.mvn}" />
 		<echo message="VERSION OSGI: ${version.osgi}" />
 		<echo message="" />
-		<!-- search for version setting in pom.xml files that are marked with X in comment -->
 		<replaceregexp>
 			<regexp pattern="&lt;version&gt;(.*)&lt;/version&gt;" />
 			<substitution expression="&lt;version&gt;${version.mvn}&lt;/version&gt;" />
 			<fileset id="path.pom" dir="../../..">
 				<include name="**/pom.xml" />
 				<exclude name="**/target/**" />
+				<exclude name="**/org.eclipselabs.spray.releng.tools/**" />
 			</fileset>
 		</replaceregexp>
 		<echo message="" />
