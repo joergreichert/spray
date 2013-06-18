@@ -69,7 +69,7 @@
 		</taskdef>
 	</target>
 
-	<target name="set-version" description="Modifies artifacts to set a release version">
+	<target name="set-version" description="Modifies artifacts to set a release version" depends="-init">
 		<input message="Please enter the new release version (MAJOR.MINOR.MICRO):" addproperty="version.main" defaultvalue="${version_main}" />
 		<input message="Set to DEVELOPMENT version (n=RELEASE)?" validargs="y,n" addproperty="version.development" defaultvalue="${version_development}" />
 		<input message="Please enter the new NEXT release version (MAJOR.MINOR.MICRO):" addproperty="version.next" defaultvalue="${version_next}" />
@@ -94,10 +94,10 @@
 			<entry key="version_next" value="${version.next}" />
 		</propertyfile>
 
-		<antcall target="-modify-artifacts" />
+		<antcall target="-modify-artifacts"/>
 	</target>
 
-	<target name="-modify-artifacts" if="version.main">
+	<target name="-modify-artifacts" if="version.main" depends="-init">
 		<echo message="VERSION MAIN: ${version.main}" />
 		<echo message="VERSION MVN: ${version.mvn}" />
 		<echo message="VERSION OSGI: ${version.osgi}" />
@@ -232,15 +232,23 @@
 		
 		<git command="checkout ${branch_main}" />
 		<echo>[spray-release] set version to ${version_next}</echo>
-		<antcall target="-modify-artifacts">
-			<param name="version.main" value="${version_next}" />
-			<param name="version.mvn" value="${version_next}-SNAPSHOT" />
-			<param name="version.osgi" value="${version_next}.qualifier" />
-		</antcall>
+		<ant antfile="build.xml" target="-modify-artifacts">
+			<property name="version.main" value="${version_next}" />
+			<property name="version.mvn" value="${version_next}-SNAPSHOT" />
+			<property name="version.osgi" value="${version_next}.qualifier" />
+		</ant>
 		<echo>[spray-release] increment versions in release.properties</echo>
 		<versionIncrement releasePropertiesFile="release.properties"/>
 		
 		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'" />
+	</target>
+	
+	<target name="ss">
+		<ant antfile="build.xml" target="-modify-artifacts">
+			<property name="version.main" value="${version_next}" />
+			<property name="version.mvn" value="${version_next}-SNAPSHOT" />
+			<property name="version.osgi" value="${version_next}.qualifier" />
+		</ant>
 	</target>
 	
 	<target name="release-build" description="performs the release build">
