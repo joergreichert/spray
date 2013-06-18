@@ -321,9 +321,9 @@
 		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
 		<get src="http://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar" dest="lib/ant-contrib.jar" skipexisting="true" />
 		<get src="http://repository-spray.forge.cloudbees.com/snapshot/org/eclipselabs/spray/kepler/org.eclipselabs.spray.releng.tools/0.5.0-SNAPSHOT/org.eclipselabs.spray.releng.tools-0.5.0-20130617.193033-1.jar" dest="lib/spray-releng.jar" skipexisting="true" />
-		<get src="http://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" dest="lib/dom4j.jar"/>
-		<get src="http://repo1.maven.org/maven2/jaxen/jaxen/1.1/jaxen-1.1.jar" dest="lib/jaxen.jar"/>
-		<get src="http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar" dest="lib/commons-io.jar"/>
+		<get src="http://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" dest="lib/dom4j.jar" skipexisting="true" />
+		<get src="http://repo1.maven.org/maven2/jaxen/jaxen/1.1/jaxen-1.1.jar" dest="lib/jaxen.jar" skipexisting="true" />
+		<get src="http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar" dest="lib/commons-io.jar" skipexisting="true" />
 	</target>
 
 	<target name="-credentials-enter" description="Enter user credentials for tasks that require authentication" unless="gc.user">
