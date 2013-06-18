@@ -243,14 +243,6 @@
 		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'" />
 	</target>
 	
-	<target name="ss">
-		<ant antfile="build.xml" target="-modify-artifacts">
-			<property name="version.main" value="${version_next}" />
-			<property name="version.mvn" value="${version_next}-SNAPSHOT" />
-			<property name="version.osgi" value="${version_next}.qualifier" />
-		</ant>
-	</target>
-	
 	<target name="release-build" description="performs the release build">
 		<echo>[spray-release] perform release build</echo>
 		<exec executable="mvn" dir="..">
