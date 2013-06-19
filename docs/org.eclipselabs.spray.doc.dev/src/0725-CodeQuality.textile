@@ -1,0 +1,61 @@
+h1. Code quality
+
+There some tools to measure the code quality. 
+
+h2. Code coverage 
+
+EclEMMA, now called "JaCoCo":http://www.eclemma.org/ (Java Code Coverage), is a tool to measure code and test coverage. 
+These measures delivery hints of code that is not executed while running the application (code coverage) resp. that is not executed when running all tests (test coverage).
+So it can give hint where is unused code or tests are missing. 
+
+p.
+
+As generated code is not of interest when measuring code coverage, those code should be excluded. As code coverage only looks at the compiled classes it cannot separate between src and src-gen, so you have to use name schemes: 
+
+!images/code_coverage/codeCoverageEclipse.png!
+
+In Coverage View you can see the coverage percents for packages, classes and methods.
+
+!images/code_coverage/codeCoverageView.png!
+
+If you click on one of the classes the code parts that have been executed are highlighted in green. Yellow highlighting marks code branches that have been not executed in all combinations. Red parts of the code have been never executed. 
+
+h2. SonarQube
+
+Sonar (now called "SonarQube":http://www.sonarsource.org/) is a tool to measure code quality metrics over time. It consists of a web server and a associated database. There exists also an Eclipse plug-in so you can stay in your favorite IDE.
+
+Just "download":http://www.sonarsource.org/downloads/ the Sonar server distribution, unpack it and follow "the installation guide":http://docs.codehaus.org/display/SONAR/Installation+and+Upgrade
+
+Here also the configuration of Sonar in Maven is explained.
+
+To install the Eclipse plug-in follow "this guide": http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse
+
+In following there are some screenshots documenting the usage of Sonar. Please note that these screenshots have been made in April 2012, so the current Sonar release may differ in some spots.
+
+Register your set up Sonar server in the Eclipse preferences: 
+!images/sonar/01_sonar_preferences.png!
+ 
+!images/sonar/02_add_sonar_server.png!
+ 
+ You can associate you projects in the Eclipse workspace with the Sonar server. This will add a "Sonar nature" to the projects.
+!images/sonar/03_associate.jpg!
+
+You can match you projects with those already known at the server. This works only if a Maven build with having the Sonar profile activated has been run through (and this way already published some data).
+!images/sonar/04_sonar_associate_finding_on_server.png!
+
+There are several views provided by the Eclipse Sonar plug-in that display the graphs you can find on the web server, too: 
+!images/sonar/05_IDE.jpg!
+
+Inside the Java classes markers are created for issues identified by the Sonar analysis:
+!images/sonar/06_IDE2.jpg!
+
+The actual global configuration of Sonar have to be done on the web server: 
+!images/sonar/07_SonarJacocoConfig.png!
+
+!images/sonar/08_SpraySonarExclusions.png!
+
+!images/sonar/09_SonarAWS.png!
+
+
+
+ 
