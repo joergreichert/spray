@@ -44,6 +44,12 @@ public class CompositeSiteTask extends Task {
             throw new BuildException("versionToAdd attribute is required", getLocation());
         }
         
+        log("Updating composite repository descriptors. Add version "+versionToAdd);
+        
+        if (repositoryPath != null && compositeArtifactsXml == null && compositeContentXml == null) {
+            compositeArtifactsXml = new File(repositoryPath, "compositeArtifacts.xml");
+            compositeContentXml = new File(repositoryPath, "compositeContent.xml");
+        }
         modifyRepositoryDescriptorFile(compositeArtifactsXml);
         modifyRepositoryDescriptorFile(compositeContentXml);
     }
@@ -52,6 +58,7 @@ public class CompositeSiteTask extends Task {
         if (compositeXmlFile == null)
             return;
         try {
+            log("Modifify "+compositeXmlFile.getPath());
             SAXReader reader = new SAXReader();
             Document doc = reader.read(compositeXmlFile);
             
