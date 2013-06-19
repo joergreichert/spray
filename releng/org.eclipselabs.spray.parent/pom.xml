@@ -9,7 +9,7 @@
 
 	<groupId>org.eclipselabs.spray.kepler</groupId>
 	<artifactId>org.eclipselabs.spray.parent</artifactId>
-	<version>0.5.0-SNAPSHOT</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -41,7 +41,7 @@
 		<xtend-library.version>2.4.2-SNAPSHOT</xtend-library.version>
 		<jacoco-maven-plugin.version>0.6.3.201306030806</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
-		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>		
+		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>
 		<ui.test.vmargs></ui.test.vmargs>
 		<coverageAgent></coverageAgent>
 		<it.coverage.argLine></it.coverage.argLine>
@@ -50,8 +50,7 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<!-- By default clean xtend-gen if exists, the sources will be produced 
-				by xtend-plugin -->
+			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
@@ -316,8 +315,7 @@
 						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 					</configuration>
 					<dependencies>
-						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" 
-							classpath container -->
+						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" classpath container -->
 						<dependency>
 							<groupId>org.eclipse.xtend</groupId>
 							<artifactId>org.eclipse.xtend.lib</artifactId>
@@ -611,4 +609,26 @@
 		<system>Cloudbees Jenkins</system>
 		<url>https://spray.ci.cloudbees.com/</url>
 	</ciManagement>
+	<distributionManagement>
+		<downloadUrl>http://code.google.com/a/eclipselabs.org/p/spray/downloads/list</downloadUrl>
+		<!-- Webdav repository url are prefixed with dav: -->
+		<repository>
+			<id>spray.cloudbees</id>
+			<name>Spray Release Repository</name>
+			<url>dav:https://repository-spray.forge.cloudbees.com/release/</url>
+		</repository>
+		<snapshotRepository>
+			<id>spray.cloudbees</id>
+			<name>Spray Snapshot Repository</name>
+			<url>dav:https://repository-spray.forge.cloudbees.com/snapshot/</url>
+		</snapshotRepository>
+		<!-- To be able to deploy the site into a "sites" directory under the cloudbees-forge release repo -->
+		<!-- Note: the jspray.cloudbees.site <server> tag has to be setup in your settings.xml -->
+		<!-- Maven command line: mvn site-deploy -->
+		<site>
+			<id>spray.cloudbees.site</id>
+			<name>Spray Site Repository</name>
+			<url>dav:https://repository-javaetmoi.forge.cloudbees.com/release/sites/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
 </project>

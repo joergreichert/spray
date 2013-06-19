@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-SymbolicName: org.eclipselabs.spray.tychohelpers
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.6.0.qualifier
 Bundle-Activator: org.eclipselabs.spray.tychohelpers.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

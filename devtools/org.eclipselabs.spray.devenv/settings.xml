@@ -1,0 +1,33 @@
+<settings>
+	<activeProfiles>
+		<activeProfile>external-repositories</activeProfile>
+	</activeProfiles>
+	<servers>
+		<server>
+			<id>spray.cloudbees</id>
+			<username>kthoms</username>
+			<password>{MyQr1OPIoKQHd5dVwBfZfrVWgJ+tM5Zmmsu6Ljy+vw0=}</password>
+		</server>
+	</servers>
+	<profiles>
+		<profile>
+			<id>external-repositories</id>
+			<repositories>
+				<!-- Distrobuilder -->
+				<repository>
+					<id>cloudbees.kthoms.snapshot</id>
+					<url>https://repository-kthoms.forge.cloudbees.com/snapshot/</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>fornax.release</id>
+					<url>http://fornax.itemis.de/nexus/content/repositories/releases/</url>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+</settings>
