@@ -110,5 +110,13 @@
 			<name>Spray Snapshot Repository</name>
 			<url>dav:https://repository-spray.forge.cloudbees.com/snapshot/</url>
 		</snapshotRepository>
+		<!-- To be able to deploy the site into a "sites" directory under the cloudbees-forge release repo -->
+		<!-- Note: the jspray.cloudbees.site <server> tag has to be setup in your settings.xml -->
+		<!-- Maven command line: mvn site-deploy -->
+		<site>
+			<id>spray.cloudbees.site</id>
+			<name>Spray Site Repository</name>
+			<url>dav:https://repository-spray.forge.cloudbees.com/release/sites/${project.version}/${project.artifactId}</url>
+		</site>
 	</distributionManagement>
 </project>

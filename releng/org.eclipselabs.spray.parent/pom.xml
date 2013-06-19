@@ -628,7 +628,7 @@
 		<site>
 			<id>spray.cloudbees.site</id>
 			<name>Spray Site Repository</name>
-			<url>dav:https://repository-javaetmoi.forge.cloudbees.com/release/sites/${project.artifactId}</url>
+			<url>dav:https://repository-spray.forge.cloudbees.com/release/sites/${project.version}/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 </project>
