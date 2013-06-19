@@ -34,7 +34,9 @@ public class CompositeSiteTaskTest {
         task.setVersionToAdd("0.5.0");
         task.execute();
         
-        String content = FileUtils.readFully(new FileReader(f));
+        reader = new FileReader(f);
+        String content = FileUtils.readFully(reader);
+        reader.close();
         assertTrue (content.contains("0.5.0"));
     }
      

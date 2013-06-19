@@ -221,7 +221,9 @@
 			<fileset dir="${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/repository" includes="**" />
 		</copy>
 		<echo>[spray-release] update composite repository</echo>
-		<compositeSite compositeartifactsxml="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/compositeArtifacts.xml" versiontoadd="${version_main}"/>
+		<compositeSite 
+			repositorypath="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" 
+			versiontoadd="${version_main}"/>
 
 		<echo>[spray-release] commit files in the spray.distribution repository</echo>
 		<git command="add --all . releases/${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
@@ -309,7 +311,7 @@
 		<get src="http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar" dest="lib/commons-io.jar" skipexisting="true" />
 	</target>
 
-	<target name="-credentials-enter" description="Enter user credentials for tasks that require authentication" unless="gc.user">
+	<target name="-credentials-enter" description="Enter user credentials for tasks that require authentication" unless="gc_user">
 		<input message="Please enter GoogleCode username" addproperty="gc.user" defaultvalue="${gc_user}" />
 		<input message="Please enter GoogleCode password" addproperty="gc.password" defaultvalue="${gc_password}" />
 		<input message="Store your credentials locally in user.properties? WARNING: Password will be stored non-encrypted!" addproperty="user._storecredentials" validargs="y,n" defaultvalue="y" />

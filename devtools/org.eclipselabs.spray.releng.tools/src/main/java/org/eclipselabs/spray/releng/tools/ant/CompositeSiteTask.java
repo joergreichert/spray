@@ -14,29 +14,46 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 public class CompositeSiteTask extends Task {
+    private File   repositoryPath;
     private File   compositeArtifactsXml;
+    private File   compositeContentXml;
     private String versionToAdd;
 
+    public void setRepositoryPath(File repositoryPath) {
+        this.repositoryPath = repositoryPath;
+    }
+    
     public void setCompositeArtifactsXml(File compositeArtifactsXml) {
         this.compositeArtifactsXml = compositeArtifactsXml;
     }
 
+    public void setCompositeContentXml(File compositeContentXml) {
+        this.compositeContentXml = compositeContentXml;
+    }
+    
     public void setVersionToAdd(String versionToAdd) {
         this.versionToAdd = versionToAdd;
     }
 
     @Override
     public void execute() throws BuildException {
-        if (compositeArtifactsXml == null) {
-            throw new BuildException("compositeArtifactsXml attribute is required", getLocation());
+        if (compositeArtifactsXml==null && compositeContentXml == null && repositoryPath == null) {
+            throw new BuildException("repositoryPath attribute is required, when compositeArtifactsXml and compositeContentXml are not set", getLocation());
         }
         if (versionToAdd == null) {
             throw new BuildException("versionToAdd attribute is required", getLocation());
         }
         
+        modifyRepositoryDescriptorFile(compositeArtifactsXml);
+        modifyRepositoryDescriptorFile(compositeContentXml);
+    }
+
+    protected void modifyRepositoryDescriptorFile(File compositeXmlFile) {
+        if (compositeXmlFile == null)
+            return;
         try {
             SAXReader reader = new SAXReader();
-            Document doc = reader.read(compositeArtifactsXml);
+            Document doc = reader.read(compositeXmlFile);
             
             Element nodeTimestamp = (Element) doc.selectSingleNode("//property[@name='p2.timestamp']");
             if (nodeTimestamp==null) {
@@ -55,7 +72,7 @@ public class CompositeSiteTask extends Task {
             child.addAttribute("location", versionToAdd);
             nodeChildren.addAttribute("size", Integer.toString(size+1));
             
-            FileWriter fw = new FileWriter(compositeArtifactsXml);
+            FileWriter fw = new FileWriter(compositeXmlFile);
             OutputFormat format = OutputFormat.createPrettyPrint();
             XMLWriter writer = new XMLWriter(fw, format);
             writer.write(doc);
