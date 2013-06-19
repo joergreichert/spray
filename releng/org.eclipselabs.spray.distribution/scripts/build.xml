@@ -153,6 +153,7 @@
 			</fileset>
 		</replaceregexp>
 
+		<git command="add --all"/>
 		<echo>[spray-release] Modified files:</echo>
 		<echo>*******************************</echo>
 		<git command="status"/>
@@ -186,7 +187,7 @@
 		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" />
 
 		<echo>[spray-release] mark repository</echo>
-		<git command="tag release-init" />
+		<git command="tag -f release-init" />
 			
 		<echo>[spray-release] create release branch</echo>
 		<git command="branch release-${version_main}" />
@@ -214,7 +215,7 @@
 		<git command="tag v${version_main}" />
 
 		<!-- *** PUT SPRAY p2 REPOSITORY INTO spray.distribution GIT REPO *** -->
-		<git command="tag release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
+		<git command="tag -f release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
 		<mkdir dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/${version_main}"/>
 		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/${version_main}">
@@ -286,18 +287,22 @@
 		<echo>[spray-release] Remove release branch</echo>
 		<git command="branch -D release-${version_main}" />
 		<git command="branch -D ${branch_main}-${version_next}" />
-		<git command="tag -d release-init"/>
-		<git command="tag -d release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 	</target>
 	
 	<target name="release-rollback" depends="-init">
-		<echo>[spray-release] Remove release tag (if existent)</echo>
-		<git command="tag -d tag v${version_main}"/>
 		<echo>[spray-release] Reset repository 'spray'</echo>
 		<git command="reset --hard release-init"/>
 		<echo>[spray-release] Reset repository 'spray.distribution'</echo>
 		<git command="reset --hard release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
+		<echo>[spray-release] Remove release tag (if existent)</echo>
+		<!-- call this through ant to make sure that release.properties are read with values after reset -->
+		<ant antfile="build.xml" target="-release-rollback-removetags"/>
 		<antcall target="release-cleanup"/>
+	</target>
+	
+	<target name="-release-rollback-removetags" depends="-init">
+		<git command="tag -d tag v${version_main}"/>
+		<git command="tag -d tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 	</target>
 
 	<target name="-fetch-dependencies" description="Downloads additional jars for task definitions">
@@ -312,8 +317,8 @@
 	</target>
 
 	<target name="-credentials-enter" description="Enter user credentials for tasks that require authentication" unless="gc_user">
-		<input message="Please enter GoogleCode username" addproperty="gc.user" defaultvalue="${gc_user}" />
-		<input message="Please enter GoogleCode password" addproperty="gc.password" defaultvalue="${gc_password}" />
+		<input message="Please enter GoogleCode username" addproperty="gc_user"/>
+		<input message="Please enter GoogleCode password" addproperty="gc_password"/>
 		<input message="Store your credentials locally in user.properties? WARNING: Password will be stored non-encrypted!" addproperty="user._storecredentials" validargs="y,n" defaultvalue="y" />
 		<condition property="user.storecredentials">
 			<equals arg1="${user._storecredentials}" arg2="y" />
@@ -323,22 +328,22 @@
 
 	<target name="-credentials-store" if="user.storecredentials">
 		<propertyfile file="user.properties" comment="User specific settings">
-			<entry key="gc_user" value="${gc.user}" />
-			<entry key="gc_password" value="${gc.password}" />
+			<entry key="gc_user" value="${gc_user}" />
+			<entry key="gc_password" value="${gc_password}" />
 		</propertyfile>
 	</target>
 
 	<target name="release-promote-gcupload" depends="-fetch-dependencies, -credentials-enter" description="Upload PDF docs and p2 repository to project homepage">
-		<assertPropertySet key="gc.user" />
-		<assertPropertySet key="gc.password" />
+		<assertPropertySet key="gc_user" />
+		<assertPropertySet key="gc_password" />
 		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="lib/ant-googlecode.jar" name="gcupload" />
 		<if>
 			<equals arg1="@{dryrun}" arg2="false" />
 			<then>
 				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
 				<gcupload 
-					username="${gc.user}" 
-					password="${gc.password}" 
+					username="${gc_user}" 
+					password="${gc_password}" 
 					projectname="spray" 
 					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
 					ignoreSslCertificateHostname="true"
@@ -348,8 +353,8 @@
 					labels="Featured, Type-Docs, OpSys-All" />
 				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.user.dev/docs/pdf/SprayUserGuide.pdf as SprayUserGuide-${version_main}.pdf</echo>
 				<gcupload 
-					username="${gc.user}" 
-					password="${gc.password}" 
+					username="${gc_user}" 
+					password="${gc_password}" 
 					projectname="spray" 
 					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
 					ignoreSslCertificateHostname="true"
@@ -359,8 +364,8 @@
 					labels="Featured, Type-Docs, OpSys-All" />
 				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/org.eclipselabs.spray.releng.updatesite-${version_mvn}.zip as spray-${version_main}.zip</echo>
 				<gcupload 
-					username="${gc.user}" 
-					password="${gc.password}" 
+					username="${gc_user}" 
+					password="${gc_password}" 
 					projectname="spray" 
 					uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
 					ignoreSslCertificateHostname="true"
