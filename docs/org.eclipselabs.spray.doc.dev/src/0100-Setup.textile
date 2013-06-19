@@ -95,6 +95,10 @@ You can use our predefined team project set file to get the Spray projects into 
 
 When creating a new workspace make sure to set the following settings:
 
+h3. Initial Build
+
+When the projects are checked out initially, several projects will not be compilable. This is because the projects require generated sources, which are not checked in. To trigger the generation we make a full build. Run the launch configuration @releng/org.eclipselabs.spray.distribution/launch/spray build default.launch@ or on the command line in project @org.eclipselabs.spray.distribution@ call "@mvn clean install -s settings.xml@".
+
 h3. Workspace Preferences
 
 The Workspace Mechanic is a useful tool to manage common preferences for setting up workspaces. It basically scans configured directories for preference files (@*.epf@). These settings are provided in the @org.eclipselabs.spray.devenv@ project.
