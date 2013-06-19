@@ -178,16 +178,13 @@
 
 	</target>
 	
-	<target name="release" depends="-init, release-prepare, release-promote, release-cleanup" description="Performs a release">
-	
-	</target>
-
-	<target name="release-prepare" depends="-init, release-prepare-dev">
+	<target name="release" depends="-init" description="Performs a release">
 		<assertPropertySet key="PATH_SPRAY_DISTRIBUTION_GIT" />
 		<assertDirAvailable dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" />
 
 		<echo>[spray-release] mark repository</echo>
 		<git command="tag -f release-init" />
+		<git command="tag -f release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 			
 		<echo>[spray-release] create release branch</echo>
 		<git command="branch release-${version_main}" />
@@ -207,7 +204,7 @@
 		<git command="commit -s -a -m '[spray-release] new release ${version_main}.v${QUALIFIER}'" />
 
 		<!-- call the main build -->
-		<antcall target="release-build" />
+		<antcall target="release-build-mvn" />
 
 		<git command="commit -s -a -m '[spray-release] checking in sources generated within the build'" />
 
@@ -215,21 +212,14 @@
 		<git command="tag v${version_main}" />
 
 		<!-- *** PUT SPRAY p2 REPOSITORY INTO spray.distribution GIT REPO *** -->
-		<git command="tag -f release-init" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
 		<echo>[spray-release] copy content of Spray repository to distribution Git repo</echo>
 		<mkdir dir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/${version_main}"/>
 		<copy todir="${PATH_SPRAY_DISTRIBUTION_GIT}/releases/${version_main}">
 			<fileset dir="${PATH_REPOSITORY_ROOT}/releng/org.eclipselabs.spray.updatesite/target/repository" includes="**" />
 		</copy>
-		<echo>[spray-release] update composite repository</echo>
-		<compositeSite 
-			repositorypath="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" 
-			versiontoadd="${version_main}"/>
+		
+		<antcall target="-release-build-compositesite-update"/>
 
-		<echo>[spray-release] commit files in the spray.distribution repository</echo>
-		<git command="add --all . releases/${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
-		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
-		<git command="tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
 		<!-- Release branch is prepared and repository is tagged -->
 		<!-- Now increment main branch to next release version -->
 		
@@ -244,9 +234,24 @@
 		<versionIncrement releasePropertiesFile="release.properties"/>
 		
 		<git command="commit -s -a -m '[spray-release] increment development to version ${version_next}'" />
+		
+		<antcall target="release-promote"/>
+		
+		<antcall target="release-cleanup"/>
 	</target>
 	
-	<target name="release-build" description="performs the release build">
+	<target name="-release-build-compositesite-update" description="Add release to composite site, add and commit release directory" depends="-init">
+		<echo>[spray-release] update composite repository</echo>
+		<compositeSite 
+			repositorypath="${PATH_SPRAY_DISTRIBUTION_GIT}/releases" 
+			versiontoadd="${version_main}"/>	
+		<echo>[spray-release] commit files in the spray.distribution repository</echo>
+		<git command="add --all . releases/${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}"/>
+		<git command="commit -s -a -m '[spray-release] releasing version ${version_main}'" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
+		<git command="tag v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" />
+	</target>
+	
+	<target name="release-build-mvn" description="performs the release build">
 		<echo>[spray-release] perform release build</echo>
 		<exec executable="mvn" dir="..">
 			<!-- Maven goals -->
@@ -310,7 +315,7 @@
 		<!-- TODO: Use Ivy -->
 		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
 		<get src="http://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar" dest="lib/ant-contrib.jar" skipexisting="true" />
-		<get src="http://repository-spray.forge.cloudbees.com/snapshot/org/eclipselabs/spray/kepler/org.eclipselabs.spray.releng.tools/0.5.0-SNAPSHOT/org.eclipselabs.spray.releng.tools-0.5.0-20130617.193033-1.jar" dest="lib/spray-releng.jar" skipexisting="true" />
+		<get src="http://repository-spray.forge.cloudbees.com/snapshot/org/eclipselabs/spray/kepler/org.eclipselabs.spray.releng.tools/1.0-SNAPSHOT/org.eclipselabs.spray.releng.tools-1.0-20130619.092815-1.jar" dest="lib/spray-releng.jar" skipexisting="true" />
 		<get src="http://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" dest="lib/dom4j.jar" skipexisting="true" />
 		<get src="http://repo1.maven.org/maven2/jaxen/jaxen/1.1/jaxen-1.1.jar" dest="lib/jaxen.jar" skipexisting="true" />
 		<get src="http://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar" dest="lib/commons-io.jar" skipexisting="true" />
