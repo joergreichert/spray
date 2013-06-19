@@ -25,11 +25,20 @@ h2. Spray Maven Build
 
 Spray is using Maven Tycho for building. You need a Maven 3 installation. Usually you should have "m2e":http://eclipse.org/m2e/ installed, which has a Maven 3 installation embedded. If you want to run builds from command-line get a "Maven distribution":http://maven.apache.org/download.cgi and add the @bin@ folder to system path.
 
+h3. Maven @settings.xml@
+
+The common Maven settings are located at @devtools/org.eclipselabs.spray.devenv/settings.xml@. This settings file configures the remote repositories that Spray needs (not everything is available through Maven Central) the server settings for deployment onto the Cloudbees Repository.
+
+The password in @settings.xml@ have been encrypted, and you need a proper @settings-security.xml@ file, which is owned by Karsten Thoms. If you have deployment rights you can set your own credentials, or ask Karsten to provide it to you via personal mail.
+
+See the "Maven Password Encryption Guide":http://maven.apache.org/guides/mini/guide-encryption.html for more details.
+ 
+
+h3. Build Spray projects
+
 Configure the environment variable @MAVEN_OPTS@ to value "@-XX:MaxPermSize=150m -Xmx768m@".
 
 Builds are run from the @/releng/org.eclipselabs.spray.distribution@ directory. Open a command-line window here.
-
-h3. Build Spray projects
 
 bc. 
 mvn clean install
@@ -285,8 +294,12 @@ An ant script @org.eclipselabs.spray.distribution/scripts/build.xml@ is prepared
  
 * Pull the latest state from the repository.
 * Open a command-line and go to the @releng/org.eclipselabs.spray.distribution/scripts@ directory
-* Execute from this directory the @build.xml@ script. 
-* Upload the file to the "Downloads":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list section of the project
+* Call @git status@ to make sure that you have no pending changes open.
+* (Optional) Perform @mvn clean install@ to check that the main build would perform without error. The script will invoke this also, but you just make sure that you don't have to rollback changes in the case of failures.
+* Execute from this directory the @build.xml@ script.
+bc. ant release
+
+* If something went wrong during the build call @ant release-rollback@. This will drop the created branches and switches back to the main branch. You may have to call this twice when the build failed after a successful Maven build.
 * Go to the "Downloads page":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list and remove the "Featured" tag from the artifacts of the older release, then add the "Deprecated" tag.
 * Announce the release on the spray-dev@googlegroups.com mailing list
 

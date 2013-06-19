@@ -1,8 +1,16 @@
-h2. Release Script
+h2. Release Management
 
-Spray has an Ant build script to support the release process. It is located at @releng/org.eclipselabs.spray.distribution/scripts/build.xml@.
+h3. Release Script
+
+Spray has an Ant build script to support the release process. It is located at @releng/org.eclipselabs.spray.distribution/scripts/build.xml@. The script makes use of two property files to store required settings for the build:
+
+* @release.properties@: Defines the current version of Spray (@version_main@) and the next version (@version_next@). Further defines local paths and Maven options.
+* @user.properties@: Defines user credentials that are required to upload files. This file won't be checked in (marked in .gitignore), since the user password is unencrypted here.
+
 
 h3. Custom Ant Tasks
+
+h4. Fetching libraries
 
 When it is required to use custom ant tasks we have the problem that we cannot put them in the library folder of the Ant distribution at Cloudbees. There we only can assume to have a basic Ant distribution. All additional tasks must be made available by referencing their Jars in the classpath of the @<taskef>@ definition.
 
@@ -12,9 +20,16 @@ bc..
 	<target name="-fetch-dependencies" description="downloads additional jars for task definitions">
 		<mkdir dir="lib" />
 		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
+		...
 	</target>
 p. 
 The files are just fetched once, so the download does not happen always. Targets that declare tasks with @<taskdef>@ need to depend on @-fetch-dependencies@.
+
+h4. Task compositeSite
+
+This task adds a release to the files @compositeArtifacts.xml@ and @compositeContent.xml@ of the composite update site in the @spray.distribution@ repository.
+
+
 
 h3. File upload to Google Code
 
@@ -52,3 +67,12 @@ h3. Roll back
 
 During the performance of a release, especially when evolving the release process, many things can go wrong. The release script creates a tag named @release-init@ before doing any modifications to the repository. To reset the repository to this state call the @release-rollback@ target.
 
+
+h3. Maven repositories
+
+Cloudbees provides a snapshot and release Maven repository for each project. The repository are accessible via WebDAV, so they can be mounted on your local system. The URLs are:
+
+* @https://<USER>@repository-spray.forge.cloudbees.com/release@
+* @https://<USER>@repository-spray.forge.cloudbees.com/snapshot@
+
+These repositories are configured in the @<distributionManagement>@ section of the Parent POM.
