@@ -27,7 +27,7 @@ Spray is using Maven Tycho for building. You need a Maven 3 installation. Usuall
 
 h3. Maven @settings.xml@
 
-The common Maven settings are located at @devtools/org.eclipselabs.spray.devenv/settings.xml@. This settings file configures the remote repositories that Spray needs (not everything is available through Maven Central) the server settings for deployment onto the Cloudbees Repository.
+The common Maven settings are located at @devtools/org.eclipselabs.spray.distribution/settings.xml@. This settings file configures the remote repositories that Spray needs (not everything is available through Maven Central) the server settings for deployment onto the Cloudbees Repository.
 
 The password in @settings.xml@ have been encrypted, and you need a proper @settings-security.xml@ file, which is owned by Karsten Thoms. If you have deployment rights you can set your own credentials, or ask Karsten to provide it to you via personal mail.
 
