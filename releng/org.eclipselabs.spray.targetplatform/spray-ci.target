@@ -17,8 +17,8 @@
 			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.2.v201306040922"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.0.v201306040943"/>
 			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.0.v201306040844"/>
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306140045"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201306140045"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306190552" />
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201306190552" />
 			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201306110942"/>
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
 			<repository location="https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/"/>
