@@ -21,7 +21,7 @@
 			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201306140045"/>
 			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201306110942"/>
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
-			<repository location="https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-kepler/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/"/>
+			<repository location="https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/"/>
 		</location>
 	</locations>
 	<environment>
