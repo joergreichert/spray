@@ -1,12 +1,15 @@
-// Referring to Color Constant with import
-import org.eclipse.graphiti.util.IColorConstant
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
+ */
 
-diagram test for BusinessDomainDsl.BusinessDomainModel
+import BusinessDomainDsl.*
 
+diagram test for BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass {
-    container  () {
+class BusinessClass {
+    shape class_shape_with_id {
        // text expression with feature call
-       text ( )  name
+       name into shapeId
     }
 }

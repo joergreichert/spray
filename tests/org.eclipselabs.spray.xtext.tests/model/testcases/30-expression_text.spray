@@ -1,10 +1,15 @@
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
+ */
+
 import BusinessDomainDsl.*
 
 diagram test for BusinessDomainModel
 
 class BusinessClass {
-    container  () {
+    shape class_shape_with_id {
        // text expression without feature call
-       text ( )  "<<" + " >>"
+       constant "<<" + " >>" into shapeId
     }
 }

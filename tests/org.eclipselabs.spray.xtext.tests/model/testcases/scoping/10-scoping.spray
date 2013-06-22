@@ -1,5 +1,5 @@
 /*
-XPECT_IMPORT BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
  */
 
 import BusinessDomainDsl.*

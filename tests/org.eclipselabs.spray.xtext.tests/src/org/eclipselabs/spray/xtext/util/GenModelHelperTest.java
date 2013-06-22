@@ -32,7 +32,7 @@ public class GenModelHelperTest {
         StandaloneSetup setup = new StandaloneSetup();
         setup.setPlatformUri("."); // current project is enough here
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        setup.addRegisterGenModelFile("platform:/resource/org.eclipselabs.spray.xtext.tests/model/mod4j/BusinessDomainDsl.genmodel");
+        setup.addRegisterGenModelFile("platform:/resource/org.eclipselabs.spray.xtext.tests/model/testcases/referenced/BusinessDomainDsl.genmodel");
     }
 
     @Test

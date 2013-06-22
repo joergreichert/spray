@@ -1,13 +1,18 @@
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
+ */
+
+import BusinessDomainDsl.*
+
 // ALIASES
 // Aliased MetaClass
-diagram test for BusinessDomainDsl.BusinessDomainModel
+diagram test for BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass {
-    container  () {
-    }
+class BusinessClass {
+    shape class_shape
 }
 
-class BusinessDomainDsl.BusinessClass alias BC1 {
-    container  () {
-    }
+class BusinessClass alias BC1 {
+	shape class_shape
 }

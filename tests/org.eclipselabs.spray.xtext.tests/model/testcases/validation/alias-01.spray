@@ -1,20 +1,17 @@
 /*
-XPECT_IMPORT test.shape
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
  */
 
 import BusinessDomainDsl.*
 
+/* XPECT validationIssues at 'BusinessDomainModel' ---
+error "Duplicate alias name Class1"
+--- */
 diagram test for BusinessDomainModel
 
-/* XPECT validationIssues at 'Class1' ---
-error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
-error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
-error "Duplicate SprayElement 'Class1'"
-error "Duplicate SprayElement 'Class1'"
---- */
 class BusinessClass alias Class1 {
-// XPECT elementsInScope at test_shape --> rule_shape, class_shape 
-	shape test_shape 
+	shape class_shape 
 	behavior {
 		create into types palette "elements" askFor name
 	}

@@ -1,5 +1,10 @@
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
+ */
+
 /* XPECT validationIssues at 'foo.bar' ---
-error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
+error "The import foo.bar cannot be resolved"
 --- */
 import foo.bar
 import BusinessDomainDsl.*

@@ -43,6 +43,11 @@ public class SprayFormatterTest extends AbstractValidatorTester {
 		} else {
 			r = formatter.format(rootNode, rootNode.getOffset(), rootNode.getTotalLength());	
 		}
-		return r.getFormattedText().replaceAll("\\r\\b", "\n") + "\r";
+		return r.getFormattedText().replaceAll("\\r\\b", "\n") + getEnding();
+	}
+	
+	private String getEnding() {
+		String ls = System.getProperty("line.separator");
+		return "\r\n".equals(ls) ? "\r" : "";
 	}
 }

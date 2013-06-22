@@ -1,13 +1,18 @@
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
+ */
+
+import BusinessDomainDsl.*
+
 // Connections
 // multiple connection references to not contained features
-diagram test for BusinessDomainDsl.BusinessDomainModel
+diagram test for BusinessDomainModel
 
-class BusinessDomainDsl.BusinessClass {
-    container () {
-        text () { name }
-    }
+class BusinessClass {
+    shape class_shape
     references {
-        superclass : connection ()
-        associationsTo : connection ()
+        superclass : connection
+        associationsTo : connection
     }
 }

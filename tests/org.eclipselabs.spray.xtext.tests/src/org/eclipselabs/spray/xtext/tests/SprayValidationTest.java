@@ -2,8 +2,10 @@ package org.eclipselabs.spray.xtext.tests;
 
 import java.util.List;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.junit4.InjectWith;
@@ -23,7 +25,10 @@ import org.eclipse.xtext.util.Pair;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.spray.xtext.scoping.SprayScopeProvider;
 import org.eclipselabs.spray.xtext.validation.SprayJavaValidator;
+import org.junit.Before;
 import org.junit.runner.RunWith;
+
+import BusinessDomainDsl.BusinessDomainDslPackage;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
@@ -50,6 +55,13 @@ public class SprayValidationTest {
 	
 	private ValidatorTester<SprayJavaValidator> validatorTester = null;
 
+	public void before() {
+		EPackage.Registry.INSTANCE.put(BusinessDomainDslPackage.eNS_URI,
+				BusinessDomainDslPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI,
+				GenModelPackage.eINSTANCE);
+	}
+	
 	private ValidatorTester<SprayJavaValidator> getValidatorTester() {
 		if(validatorTester == null) {
 			validatorTester = new ValidatorTester<SprayJavaValidator>(sprayJavaValidator, injector);
@@ -60,6 +72,7 @@ public class SprayValidationTest {
 	@ParameterSyntax("('at' offset=OFFSET)")
 	@XpectLines
 	public Iterable<String> validationIssues() throws Exception {
+		before();
 		 AssertableDiagnostics diagnostic = getValidatorTester().validate(offset.getEObject());
 		 Function<Diagnostic, String> transform = new Function<Diagnostic, String>() {
 			
@@ -101,6 +114,7 @@ public class SprayValidationTest {
 	@ParameterSyntax("('at' offset=OFFSET)")
 	@Xpect
 	public void noValidationIssues() {
+		before();
 		getValidatorTester().validate(offset.getEObject()).assertDiagnosticsCount(0);
 	}
 }

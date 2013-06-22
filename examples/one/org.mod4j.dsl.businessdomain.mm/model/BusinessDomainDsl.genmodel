@@ -6,6 +6,9 @@
     copyrightFields="false" interfaceNamePattern="{0}" classNamePattern="">
   <foreignModel>BusinessDomainDsl.ecore</foreignModel>
   <genPackages prefix="BusinessDomainDsl" disposableProviderFactory="true" ecorePackage="BusinessDomainDsl.ecore#/">
+    <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.emf.ecore.xcore.exporter">
+      <genAnnotations source="BusinessDomainDsl.xcore"/>
+    </genAnnotations>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="BusinessDomainDsl.ecore#//Multiplicity">
       <genEnumLiterals ecoreEnumLiteral="BusinessDomainDsl.ecore#//Multiplicity/ZeroMany"/>
       <genEnumLiterals ecoreEnumLiteral="BusinessDomainDsl.ecore#//Multiplicity/One"/>

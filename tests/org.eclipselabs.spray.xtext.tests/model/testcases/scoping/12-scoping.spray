@@ -1,7 +1,8 @@
 /*
-XPECT_IMPORT test.shape
-XPECT_IMPORT BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
  */
+
 import BusinessDomainDsl.*
 
 diagram test for BusinessDomainModel

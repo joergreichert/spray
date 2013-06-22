@@ -1,8 +1,0 @@
-// ALIASES
-// Aliased Shape of type Container
-diagram test for BusinessDomainDsl.BusinessDomainModel
-
-class BusinessDomainDsl.BusinessClass {
-    container alias con1 () {
-    }
-}

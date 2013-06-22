@@ -1,19 +1,21 @@
 /*
-XPECT_IMPORT test.shape
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
  */
+
 import BusinessDomainDsl.*
 
+/* XPECT validationIssues at 'BusinessDomainModel' ---
+error "Duplicate alias name BC1"
+warning "There is no create behavior defined for class BusinessClass"
+warning "There is no create behavior defined for class BusinessClass"
+--- */
 diagram test for BusinessDomainModel
 
-/* XPECT validationIssues at 'BC1' ---
-error "Duplicate AliasableElement 'Class1' in Diagram 'test'"
---- */
-class BusinessDomainDsl.BusinessClass alias BC1 {
-    container () {
-    }
+class BusinessClass alias BC1 {
+    shape class_shape
 }
 
-class BusinessDomainDsl.BusinessClass alias BC1 {
-    container () {
-    }
+class BusinessClass alias BC1 {
+    shape class_shape
 }

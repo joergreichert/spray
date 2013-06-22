@@ -7,7 +7,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
     org.eclipselabs.spray.xtext.customizing.QualifiedNameValueConverterTest.class, 
-    org.eclipselabs.spray.xtext.formatting.SprayFormatterTest.class, 
     org.eclipselabs.spray.xtext.scoping.ModelResourceVisitorTest.class, 
     org.eclipselabs.spray.xtext.scoping.PackageSelectorTest.class, 
     org.eclipselabs.spray.xtext.tests.Mod4jTest.class, 

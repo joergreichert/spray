@@ -80,7 +80,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DateTimeProperty" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="accuracy" eType="#//DateTimeAccuracy"
-        defaultValueLiteral=""/>
+        defaultValueLiteral="Second"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
   </eClassifiers>
@@ -123,7 +123,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetRoleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="targetRoleName"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetMultiplicity" eType="#//Multiplicity"
-        defaultValueLiteral="1"/>
+        defaultValueLiteral="One"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="composite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bidirectional" lowerBound="1"

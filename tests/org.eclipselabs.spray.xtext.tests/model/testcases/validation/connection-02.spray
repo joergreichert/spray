@@ -1,17 +1,18 @@
 /*
-XPECT_IMPORT test.shape
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
  */
 import BusinessDomainDsl.*
 
+// XPECT noValidationIssues at 'BusinessDomainModel' ---
 diagram test for BusinessDomainModel
 
 class BusinessClass {
-    shape test_shape
+    shape class_shape
     references {
-// XPECT noValidationIssues at 'superclass' ---
-        superclass : connection ();
-        associationsTo : connection ();
-        businessRules : connection ();
+        superclass : connection connection_line
+        associationsTo : connection connection_line
+        businessRules : connection connection_line
     }
     behavior {
         create into types palette "Shapes"  askFor name ; 

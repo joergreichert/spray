@@ -1,9 +1,16 @@
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
+ */
+
+import BusinessDomainDsl.*
+
 // ALIASES
 // Aliased Shape of type Connection
-diagram test for BusinessDomainDsl.BusinessDomainModel
+diagram test for BusinessDomainModel
 
-class BusinessDomainDsl.Association {
-    connection alias shape1 () {
+class Association {
+    connection connection_line {
         from source
         to   target
     }

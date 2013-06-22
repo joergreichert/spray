@@ -18,15 +18,12 @@ import BusinessDomainDsl.BusinessDomainDslPackage;
 @RunWith(XtextRunner2.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class ModelTests extends XtextTest {
-    @BeforeClass
-    public static void init() {
+
+	@Before
+    public void before() {
     	EPackage.Registry.INSTANCE.put(BusinessDomainDslPackage.eNS_URI, BusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
-    }
-
-    @Before
-    public void before() {
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/testcases/referenced/BusinessDomainDsl.genmodel"));
         suppressSerialization();
     }
 
@@ -39,83 +36,59 @@ public class ModelTests extends XtextTest {
 
     @Test
     public void test_01_minimal() {
-        testFile("testcases/01-minimal.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/01-minimal.spray", "testcases/referenced/BusinessDomainDsl.ecore");
     }
 
     @Test
     public void test_10_scoping() {
-        testFile("testcases/scoping/10-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/10-scoping.spray", "testcases/referenced/BusinessDomainDsl.ecore");
     }
 
     @Test
     public void test_11_scoping() {
-        testFile("testcases/scoping/11-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/11-scoping.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 
     @Test
     public void test_12_scoping() {
-        testFile("testcases/scoping/12-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/12-scoping.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
     }
 
     @Test
     public void test_13_scoping() {
-        testFile("testcases/scoping/13-scoping.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/scoping/13-scoping.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 
 
     @Test
     public void test_30_expression_text() {
-        testFile("testcases/30-expression_text.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/30-expression_text.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 
     @Test
     public void test_31_expression_text() {
-        testFile("testcases/31-expression_text.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/31-expression_text.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 
     @Test
     public void test_40_alias() {
-        testFile("testcases/40-alias.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_41_alias() {
-        testFile("testcases/41-alias.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_42_alias() {
-        testFile("testcases/42-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/40-alias.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 
     @Test
     public void test_43_alias() {
-        testFile("testcases/43-alias.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_44_alias() {
-        testFile("testcases/44-alias.spray", "mod4j/BusinessDomainDsl.ecore");
-        withoutCreateBehaviorWarnings();
-    }
-
-    @Test
-    public void test_45_alias() {
-        testFile("testcases/45-alias.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/43-alias.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 
     @Test
     public void test_50_alias() {
-        testFile("testcases/50-connection.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/50-connection.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         withoutCreateBehaviorWarnings();
     }
 }

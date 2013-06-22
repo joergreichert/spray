@@ -1,187 +1,158 @@
-﻿/* XPECT formatted ---
+/* XPECT formatted ---
 // Add import statements here                                
 import BusinessDomainDsl.*
 
 diagram Mod4j for BusinessDomainModel // style org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle
-
 // a behavior group  
- 
+
 
 behavior Redraw {
-    custom redraw "Redraw Diagram";
+	custom redraw "Redraw Diagram";
 }
 
 behavior Collapsable {
-    custom collapse "Collapse Diagram element"; 
-    custom expand "Expand Diagram element"; 
+	custom collapse "Collapse Diagram element";
+	custom expand "Expand Diagram element";
 }
 
 class BusinessClass alias BusinessClassNameOnly {
-    shape ClassNameOnlyShape {
-        name into  textId1
-    }
-    behavior {
-        create into types palette "Shapes" askFor name;
-        group Collapsable;
-    }
-}
-// Package represented by a rectangle
+	shape ClassNameOnlyShape {
+		name into textId1
+	}
+	behavior {
+		create into types palette "Shapes" askFor name;
+		group Collapsable;
+	}
+} // Package represented by a rectangle
 
 
 class Package {
-    shape PackageShape {
-        reference classes into classes 
-    }
-    behavior {
-    // Enable create feature for this class and add it to the palette "Shapes"
-        create into packages palette "Shapes" askFor name;
-        group Redraw;
-    }
-}
-
-// Package represented by rectangle that auto layoyts the classes inside
+	shape PackageShape {
+		reference classes into classes
+	}
+	behavior { // Enable create feature for this class and add it to the palette "Shapes"
+		create into packages palette "Shapes" askFor name;
+		group Redraw;
+	}
+} // Package represented by rectangle that auto layoyts the classes inside
 
 
 class Package alias Autopackage {
-    shape AutoPackageShape {
-        reference classes into classes
-    }
-    behavior {
-    // Enable create feature for this class and add it to the palette "Shapes"
-        create into packages palette "Shapes" askFor name;
-    }
-}
-
-// Business class with name at the top and properties and businessrules in the twpo compartments
+	shape AutoPackageShape {
+		reference classes into classes
+	}
+	behavior { // Enable create feature for this class and add it to the palette "Shapes"
+		create into packages palette "Shapes" askFor name;
+	}
+} // Business class with name at the top and properties and businessrules in the twpo compartments
 // All auto layout.
 // Also defines connection for superclass EReference 
 
 
 class BusinessClass icon "ecore/EClass.gif" {
-    shape ClassShape {
-        name into classname
-        reference properties into attributes
-        reference businessRules into businessrules
-    }
-    references {
-        superclass : connection 
-    }
-    behavior {
-    // Enable create feature for this class and add it to the palette "Shapes"
-        create into types palette "Shapes" askFor name;
-        group Redraw
-        group Collapsable
-    }
-}
-
-// Businessclass represented by a simple ahpe. 
+	shape ClassShape {
+		name into classname
+		reference properties into attributes
+		reference businessRules into businessrules
+	}
+	references {
+		superclass : connection
+	}
+	behavior { // Enable create feature for this class and add it to the palette "Shapes"
+		create into types palette "Shapes" askFor name;
+		group Redraw group Collapsable
+	}
+} // Businessclass represented by a simple ahpe. 
 // The compartment may contain both properties and business rules
 
 
 class BusinessClass alias SimpleClass icon "ecore/EClass.gif" {
-    shape SimpleClassShape {
-    //      reference properties into containerId palette "aap"
-        name into classname
-        reference properties into simpleAttributes
-        reference businessRules into simpleAttributes
-    }
-    behavior {
-    // Enable create feature for this class and add it to the palette "Shapes"
-        create into types palette "Shapes";
-    }
-}
-
-// StringProperty represented with its name and type
+	shape SimpleClassShape { //      reference properties into containerId palette "aap"
+		name into classname
+		reference properties into simpleAttributes
+		reference businessRules into simpleAttributes
+	}
+	behavior { // Enable create feature for this class and add it to the palette "Shapes"
+		create into types palette "Shapes";
+	}
+} // StringProperty represented with its name and type
 // Note that there is no into in the create ,  this cannot be created into a refeernce at the top.
 // It can only be created inside a compartment of a business class.
 
 
 class StringProperty {
-    shape TextShape {
-        name into textId2 ( name + " : " + dataType )
-    }
-    behavior {
-        create palette "Properties"
-    }
-}
-
-// String property represented as just its name
+	shape TextShape {
+		name into textId2 ( name + " : " + dataType )
+	}
+	behavior {
+		create palette "Properties"
+	}
+} // String property represented as just its name
 
 
 class StringProperty alias String {
-    shape TextShape {
-        name into textId2
-    }
-    behavior {
-        create palette "Properties"
-    }
-}
-
-// Boolean property represented as just its name
+	shape TextShape {
+		name into textId2
+	}
+	behavior {
+		create palette "Properties"
+	}
+} // Boolean property represented as just its name
 
 
 class BoolProperty {
-    shape TextShape {
-        name into textId2
-    }
-    behavior {
-        create palette "Properties"
-    }
-}
-
-// Unique rule:  the set of properties that needs to be unique is 
+	shape TextShape {
+		name into textId2
+	}
+	behavior {
+		create palette "Properties"
+	}
+} // Unique rule:  the set of properties that needs to be unique is 
 // put into the 'properties' compartment
 
 
 class UniqueRule {
-    shape UniqueRuleShape {
-        name into uniqueRuleName ( "Rule: " + name )
-        reference properties into properties
-    }
-    behavior {
-        create palette "Rules"
-    }
-}
-
-// Businessrule as a nested rectangle.
+	shape UniqueRuleShape {
+		name into uniqueRuleName ( "Rule: " + name )
+		reference properties into properties
+	}
+	behavior {
+		create palette "Rules"
+	}
+} // Businessrule as a nested rectangle.
 // Makes little sense but just to show this can be done
 
 
 class BusinessRule alias BBB icon "ecore/EClass.gif" {
-    shape RectangleShape {
-    }
-    behavior {
-    // Enable create feature for this class and add it to the palette "Shapes"
-        create palette "Shapes";
-    }
-}
-
-// Business rules as a simple text with its name
+	shape RectangleShape {
+	}
+	behavior { // Enable create feature for this class and add it to the palette "Shapes"
+		create palette "Shapes";
+	}
+} // Business rules as a simple text with its name
 
 
 class BusinessRule {
-    shape TextShape {
-        name into textId2
-    }
-    behavior {
-        create palette "Rules"
-    }
-}
-
-// Association
+	shape TextShape {
+		name into textId2
+	}
+	behavior {
+		create palette "Rules"
+	}
+} // Association
 
 
 class Association {
-    connection AssociationConnection {
-        name into assocText
-    }
-    {
-        from source;
-        to target;
-    }
-    behavior {
-        create into associations palette "Connections"
-    }
+	connection AssociationConnection {
+		name into assocText
+	}
+	{
+		from source;
+		to target;
+	}
+	behavior {
+		create into associations palette "Connections"
+	}
 }
 --- */
 // Add import statements here                                

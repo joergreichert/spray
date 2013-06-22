@@ -5,6 +5,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.xtext.junit4.InjectWith;
+import org.eclipse.xtext.validation.Issue;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
@@ -24,37 +25,36 @@ public class ValidationRulesTest extends XtextTest {
 		EPackage.Registry.INSTANCE.put(BusinessDomainDslPackage.eNS_URI, BusinessDomainDslPackage.eINSTANCE);
         EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
 
-        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/mod4j/BusinessDomainDsl.genmodel"));
+        EcorePlugin.getEPackageNsURIToGenModelLocationMap(true).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("classpath:/testcases/referenced/BusinessDomainDsl.genmodel"));
     }
 
     @Test
     public void test_alias_01() {
-        testFile("testcases/validation/alias-01.spray", "mod4j/BusinessDomainDsl.ecore");
-        assertConstraints(issues.oneOfThemContains("Duplicate alias name line1"));
+        testFile("testcases/validation/alias-01.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
+        assertConstraints(issues.oneOfThemContains("Duplicate alias name Class1"));
     }
 
     @Test
     public void test_alias_02() {
-        testFile("testcases/validation/alias-02.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/alias-02.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         assertConstraints(issues.oneOfThemContains("Duplicate alias name BC1"));
     }
 
-    //@Ignore
     @Test
     public void test_connection_01() {
-        testFile("testcases/validation/connection-01.spray", "mod4j/BusinessDomainDsl.ecore");
-        assertConstraints(issues.oneOfThemContains("Duplicate connection reference: associationsTo : connection ()"));
+        testFile("testcases/validation/connection-01.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
+        assertConstraints(issues.oneOfThemContains("Duplicate connection reference: associationsTo"));
     }
 
     @Test
     public void test_connection_02() {
-        testFile("testcases/validation/connection-02.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/connection-02.spray", "testcases/referenced/BusinessDomainDsl.ecore", "testcases/referenced/test.shape");
         assertConstraints(issues.errorsOnly().theOneAndOnlyContains("Couldn't resolve reference to EReference 'businessRules'"));
     }
 
     @Test
     public void test_import_notexists() {
-        testFile("testcases/validation/import_notexists.spray", "mod4j/BusinessDomainDsl.ecore");
+        testFile("testcases/validation/import_notexists.spray", "testcases/referenced/BusinessDomainDsl.ecore");
         assertConstraints(issues.errorsOnly().sizeIs(1));
         assertConstraints(issues.theOneAndOnlyContains("The import foo.bar cannot be resolved"));
     }

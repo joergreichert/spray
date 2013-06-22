@@ -80,7 +80,8 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
         if (element instanceof MetaClass) {
             Diagram diagram = (Diagram) element.eContainer();
             if (element != Iterables.find(diagram.getMetaClassesList(), filter)) {
-                error("Duplicate alias name " + element.getAlias(), element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
+                String alias = element.getAlias();
+                error("Duplicate alias name " + alias, element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
             }
         } else {
             MetaClass clazz = EcoreUtil2.getContainerOfType(element, MetaClass.class);
@@ -88,7 +89,8 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
             elements.remove(clazz);
             // ignore the first element with the alias, but raise errors for all following
             if (element != Iterables.find(elements, filter)) {
-                error("Duplicate alias name " + element.getAlias(), element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
+                String alias = element.getAlias();
+                error("Duplicate alias name " + alias, element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
             }
         }
     }
@@ -110,7 +112,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
         if (name == null) {
             name = EcoreUtil2.getURI(ref.getTarget()).toString();
         }
-        return name + " : connection ()";
+        return name;
     }
 
     private Predicate<? super MetaReference> getDuplicateConnectionReferenceFilter(final MetaReference reference) {
