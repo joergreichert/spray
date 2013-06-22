@@ -8,7 +8,7 @@ EclEMMA, now called "JaCoCo":http://www.eclemma.org/ (Java Code Coverage), is a 
 These measures delivery hints of code that is not executed while running the application (code coverage) resp. that is not executed when running all tests (test coverage).
 So it can give hint where is unused code or tests are missing. 
 
-p.
+p. 
 
 As generated code is not of interest when measuring code coverage, those code should be excluded. As code coverage only looks at the compiled classes it cannot separate between src and src-gen, so you have to use name schemes: 
 
@@ -38,18 +38,22 @@ Register your set up Sonar server in the Eclipse preferences:
 !images/sonar/02_add_sonar_server.png!
  
  You can associate you projects in the Eclipse workspace with the Sonar server. This will add a "Sonar nature" to the projects.
+
 !images/sonar/03_associate.jpg!
 
 You can match you projects with those already known at the server. This works only if a Maven build with having the Sonar profile activated has been run through (and this way already published some data).
 !images/sonar/04_sonar_associate_finding_on_server.png!
 
 There are several views provided by the Eclipse Sonar plug-in that display the graphs you can find on the web server, too: 
+
 !images/sonar/05_IDE.jpg!
 
 Inside the Java classes markers are created for issues identified by the Sonar analysis:
+
 !images/sonar/06_IDE2.jpg!
 
 The actual global configuration of Sonar have to be done on the web server: 
+
 !images/sonar/07_SonarJacocoConfig.png!
 
 !images/sonar/08_SpraySonarExclusions.png!
