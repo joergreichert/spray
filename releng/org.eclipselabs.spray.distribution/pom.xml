@@ -52,8 +52,8 @@
 				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
+				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<!-- TODO: Fix tests and activate -->
-				<!-- <module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>  -->
 				<!-- <module>../../examples/one/org.eclipselabs.spray.examples.one</module>  -->
 				<!-- <module>../../tests/org.eclipselabs.spray.examples.one.tests</module>  -->
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain</module>
