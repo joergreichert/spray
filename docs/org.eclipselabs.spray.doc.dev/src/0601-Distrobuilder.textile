@@ -1,6 +1,6 @@
 h2. Distrobuilder
 
-The Spray Developer IDE is created with the "Distrobuilder":https://github.com/tomsontom/distrobuilder toolkit from Tom Schindl. This tool creates Eclipse distributions based on existing distributions and installs a set of features from existing p2 repositories with the "p2 director application":http://help.eclipse.org/indigo/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_director.html.
+The Spray Developer IDE is created with the "Distrobuilder":https://github.com/tomsontom/distrobuilder toolkit from Tom Schindl. This tool creates Eclipse distributions based on existing distributions and installs a set of features from existing p2 repositories with the "p2 director application":http://help.eclipse.org/kepler/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_director.html.
 
 The distrobuilder toolkit is providing a Java API and an Ant task. Spray is calling this Ant script from Maven. We do not use Ant directly, since on the Cloudbees server we cannot add custom Ant task easily to the Ant distribution used on the Jenkins build server. But with Maven, we can call Ant with a custom classpath with Maven dependencies. Since the distrobuilder's jar is not available on a public repository, we have uploaded it to a private repository at Cloudbees.
 
