@@ -15,11 +15,15 @@ h3. Business Model (Mod4j)
 | *kind:* | boxes and lines / compartments |
 | *description:* | Modeling of class diagrams (with classes, associations between classes, inheritence relations, attributes (name + type) and rules assigned to classes) |
 
+!images/examples/one.png!
+
 h3. Heat Exchanger (LWC 2012)
 
 | *origin:* | "Piping & Instrumentation Domain Model (pdf)":http://www.languageworkbenches.net/images/1/19/LWC2012_Piping_%26_Instrumentation.pdf |
 | *kind:* | boxes and lines / complex shapes and styling |
 | *description:* | Modeling of technical construction plans |
+
+!images/examples/lwc2012.png!
 
 h3. BPMN 2.0
 
@@ -27,11 +31,15 @@ h3. BPMN 2.0
 | *kind:* | boxes and lines / complex shapes and styling |
 | *description:* | Workflow modeling |
 
+!images/examples/bpmn.png!
+
 h3. Petri Nets
 
 | *origin:* | "Petri Net Markup Language (PNML, ISO/IEC 15909)":http://www.pnml.org/ |
 | *kind:* | boxes and lines / compartments |
 | *description:* | Modeling of execution behavior of distributed systems |
+
+!images/examples/petrinet.png!
 
 h2. Examples in early state 
 
@@ -49,17 +57,23 @@ h3. Statemachine (Fowler DSL)
 | *kind:* | boxes and lines |
 | *description:* | Modeling states and transitions between states triggered by events. |
 
+!images/examples/fowlerdsl.png!
+
 h3. Nassi-Shneiderman-Diagram
 
 | *origin:* | "Structogram":http://www.cs.umd.edu/hcil/members/bshneiderman/nsd/, "initial input from user forum":https://groups.google.com/d/msg/spray-users/1nJPGJdyEn4/Th4YPJG6qI0J |
 | *kind:* | compartments |
 | *description:* | Modeling of a program flow in form of structured flowcharts. |
 
+!images/examples/struktogramm.png!
+
 h3. Feature Modeling
 
 | *origin:* | "Staged Configuration Through Specialization and Multi-Level Configuration of Feature Models (pdf)":http://gp.uwaterloo.ca/sites/default/files/spip05b.pdf, see also "Feature Modeling plug-in":http://gp.uwaterloo.ca/fmp/ and "EMF feature model":http://www.eclipse.org/featuremodel/ |
 | *kind:* | boxes and lines / line decoration |
 | *description:* | Modeling product line configurations |
+
+!images/examples/features.png!
 
 h2. Examples only for testing
 
@@ -71,11 +85,15 @@ h3. Containment
 | *kind:* | boxes |
 | *description:* | Modeling of EClasses that become containments to its domain model root. |
 
+!images/examples/contain.png!
+
 h3. Goals
 
 | *origin:* | "input from user forum":https://groups.google.com/d/msg/spray-dev/jiRcbpnFJjQ/8MLVwFRTPwgJ |
 | *kind:* | boxes and lines |
 | *description:* | Testing the usage of the different connection modes. |
+
+!images/examples/goals.png!
 
 h2. Ideas for future example projects
 
