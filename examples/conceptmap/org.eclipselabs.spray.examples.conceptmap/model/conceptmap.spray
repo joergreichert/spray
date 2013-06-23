@@ -1,0 +1,64 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also conceptmap.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import ConceptMapDSL.*
+
+diagram Myconceptmap for ConceptMap style ConceptmapDefaultStyle
+
+class Element {	
+	shape ElementShape {	
+		name into ElementText
+	}
+	behavior {
+	    create into mapelements palette "Elements" askFor name 
+	}	
+}
+
+class DefaultConnection {
+	connection ConnectionShape 
+	{
+		name into ConnectionText
+	}
+	{
+		from fromElement 
+		to toElement
+	}
+	behavior {
+	    create into mapelements palette "Connections"
+	}	
+}
+
+class ArrowConnection {
+	connection ArrowConnectionShape 
+	{
+		name into ArrowText
+	}
+	{
+		from fromElement 
+		to toElement
+	}
+	behavior {
+	    create into mapelements palette "Connections"
+	}	
+}
+
+class DoubleArrowConnection {
+	connection DoubleArrowConnectionShape 
+	{
+		name into DoubleArrowText
+	}
+	{
+		from fromElement to toElement
+	}
+	behavior {
+	    create into mapelements palette "Connections"
+	}
+}
+

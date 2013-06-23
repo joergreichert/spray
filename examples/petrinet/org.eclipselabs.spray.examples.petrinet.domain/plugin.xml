@@ -2,19 +2,15 @@
 <?eclipse version="3.0"?>
 
 <!--
- <copyright>
- </copyright>
-
- $Id$
 -->
 
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://de.htwg.petrinet.mm/"
-            class="PetriNet.PetriNetPackage"
-            genModel="model/PetriNet.genmodel"/>
+            uri="http://spray.eclipselabs.org/examples/Petrinet"
+            class="PetrinetDSL.PetrinetDSLPackage"
+            genModel="model/Petrinet.genmodel"/>
    </extension>
 
 </plugin>

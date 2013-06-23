@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Mon May 06 12:32:19 CEST 2013 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+		   <!-- AUTOGEN START -->
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the erdiagram diagram type"
+              id="org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramDiagramType"
+              name="erdiagram Graphiti Diagram Type"
+              type="erdiagram">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramDiagramTypeProvider"
+              description="This is my editor for the erdiagram diagram type"
+              id="org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramDiagramTypeProvider"
+              name="erdiagram editor">
+              <diagramType
+                    id="org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramImageProvider"
+                       id="org.eclipselabs.spray.examples.erdiagram.diagram.ErdiagramImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="erdiagram.PropertyContributor">
+                  <propertyCategory category="erdiagramCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="erdiagram.PropertyContributor">
+                  <propertyTab label="Main" category="erdiagramCategory"
+                      id="erdiagram.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenEntityNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenEntityFilter"
+           id="erdiagram.main.tab.ChenEntity.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenRelationshipNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenRelationshipFilter"
+           id="erdiagram.main.tab.ChenRelationship.name">
+          </propertySection>
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenRelationshipDescriptionSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenRelationshipFilter"
+           afterSection="erdiagram.main.tab.ChenRelationship.name"
+           id="erdiagram.main.tab.ChenRelationship.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenAttributeNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenAttributeFilter"
+           id="erdiagram.main.tab.ChenAttribute.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenAttributeNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenAttributeFilter"
+           id="erdiagram.main.tab.ChenAttribute.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenAttributeNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenAttributeFilter"
+           id="erdiagram.main.tab.ChenAttribute.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenConnectionValueSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenConnectionFilter"
+           id="erdiagram.main.tab.ChenConnection.value">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenNormalToWeakConnectionValueSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenNormalToWeakConnectionFilter"
+           id="erdiagram.main.tab.ChenNormalToWeakConnection.value">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakEntityNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakEntityFilter"
+           id="erdiagram.main.tab.ChenWeakEntity.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakRelationshipNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakRelationshipFilter"
+           id="erdiagram.main.tab.ChenWeakRelationship.name">
+          </propertySection>
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakRelationshipDescriptionSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakRelationshipFilter"
+           afterSection="erdiagram.main.tab.ChenWeakRelationship.name"
+           id="erdiagram.main.tab.ChenWeakRelationship.description">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakAttributeNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakAttributeFilter"
+           id="erdiagram.main.tab.ChenWeakAttribute.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakAttributeNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakAttributeFilter"
+           id="erdiagram.main.tab.ChenWeakAttribute.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakAttributeNameSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakAttributeFilter"
+           id="erdiagram.main.tab.ChenWeakAttribute.name">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+        <extension
+            point="org.eclipse.ui.views.properties.tabbed.propertySections">
+            <propertySections contributorId="erdiagram.PropertyContributor">
+          <propertySection tab="erdiagram.main.tab"
+           class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.erdiagram.property.ChenWeakConnectionValueSection"
+           filter="org.eclipselabs.spray.examples.erdiagram.property.ChenWeakConnectionFilter"
+           id="erdiagram.main.tab.ChenWeakConnection.value">
+          </propertySection>
+            </propertySections>
+        </extension>
+        
+    
+    
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="erdiagram"
+                     id="org.eclipselabs.spray.erdiagram">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.erdiagram"
+                     class="org.eclipselabs.spray.examples.erdiagram.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     descriptionImage="icons/erdiagram-32.png"
+                     icon="icons/erdiagram-16.png"
+                     id="org.eclipselabs.spray.erdiagram.NewDiagramWizard"
+                     name="New erdiagram Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+            <!-- AUTOGEN END -->
+        </plugin>

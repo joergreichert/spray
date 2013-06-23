@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Mon Apr 22 17:58:07 CEST 2013 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+		   <!-- AUTOGEN START -->
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.examples.conceptmap.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the Myconceptmap diagram type"
+              id="org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapDiagramType"
+              name="Myconceptmap Graphiti Diagram Type"
+              type="Myconceptmap">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.examples.conceptmap.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapDiagramTypeProvider"
+              description="This is my editor for the Myconceptmap diagram type"
+              id="org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapDiagramTypeProvider"
+              name="Myconceptmap editor">
+              <diagramType
+                    id="org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.examples.conceptmap.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapImageProvider"
+                       id="org.eclipselabs.spray.examples.conceptmap.diagram.MyconceptmapImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="Myconceptmap.PropertyContributor">
+                  <propertyCategory category="MyconceptmapCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="Myconceptmap.PropertyContributor">
+                  <propertyTab label="Main" category="MyconceptmapCategory"
+                      id="Myconceptmap.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+    
+    
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="Myconceptmap"
+                     id="org.eclipselabs.spray.Myconceptmap">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.Myconceptmap"
+                     class="org.eclipselabs.spray.examples.conceptmap.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     descriptionImage="icons/Myconceptmap-32.png"
+                     icon="icons/Myconceptmap-16.png"
+                     id="org.eclipselabs.spray.Myconceptmap.NewDiagramWizard"
+                     name="New Myconceptmap Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+            <!-- AUTOGEN END -->
+        </plugin>

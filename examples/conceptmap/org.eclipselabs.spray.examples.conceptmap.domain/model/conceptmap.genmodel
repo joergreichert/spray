@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.examples.conceptmap.domain/src"
+    modelPluginID="org.eclipselabs.spray.examples.conceptmap.domain" modelName="Conceptmap"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false">
+  <foreignModel>conceptmap.ecore</foreignModel>
+  <genPackages prefix="ConceptMapDSL" disposableProviderFactory="true" ecorePackage="conceptmap.ecore#/">
+    <genClasses ecoreClass="conceptmap.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute conceptmap.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="conceptmap.ecore#//ConceptMap">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference conceptmap.ecore#//ConceptMap/mapelements"/>
+    </genClasses>
+    <genClasses ecoreClass="conceptmap.ecore#//MapElements"/>
+    <genClasses ecoreClass="conceptmap.ecore#//Element"/>
+    <genClasses ecoreClass="conceptmap.ecore#//ArrowConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference conceptmap.ecore#//ArrowConnection/fromElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference conceptmap.ecore#//ArrowConnection/toElement"/>
+    </genClasses>
+    <genClasses ecoreClass="conceptmap.ecore#//DoubleArrowConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference conceptmap.ecore#//DoubleArrowConnection/fromElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference conceptmap.ecore#//DoubleArrowConnection/toElement"/>
+    </genClasses>
+    <genClasses ecoreClass="conceptmap.ecore#//DefaultConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference conceptmap.ecore#//DefaultConnection/fromElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference conceptmap.ecore#//DefaultConnection/toElement"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
