@@ -10,17 +10,16 @@ First we have to create or reuse a meta model of a business domain that can be r
 
 !images/empty_emf_project.png!
 
-* Project name: org.mod4j.dsl.businessdomain.mm
-* Download "BusinessDomainDsl.ecore":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.ecore and "BusinessDomainDsl.genmodel":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel
+* Project name: @org.mod4j.dsl.businessdomain.mm@
+* Download "@BusinessDomainDsl.ecore@":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.ecore and "@BusinessDomainDsl.genmodel@":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel
 * put the downloaded files in the model folder of the just created EMF project
-* Download "plugin.xml":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/plugin.xml and put it directly in the EMF project
-* Double click on the BusinessDomainDsl.genmodel and open the context menu at the root element
+* Download "@plugin.xml@":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/plugin.xml and put it directly in the EMF project
+* Double click on the @BusinessDomainDsl.genmodel@ and open the context menu at the root element
 
 !images/GenModelGenerate.png!
 
 * Add the _model_ path to the build path --> _Select model Folder_, On the context menu _Build Path_ / _Use as Source Folder_ 
 * Add Xtext nature to the project --> _Select the project_, On the context menu _Configure_ / _Add Xtext nature_
-* Now you have to export the packages of the just generated classes: In the MANIFEST editor switch to the tab "Runtime" and "Add...". the three packages to the "Exported packages" section.
 * Use the quick fix to solve the problems in the MANIFEST.MF (sets the singleton directive) 
 
 h3. Create a new project
@@ -35,12 +34,13 @@ h3. Create a new project
 !images/projectwizard_2b.png!
 
 * Spray requires that it can find the corresponding genmodel for the EPackage. If it can be found next to the Ecore file it will be added automatically.
+* It must be specified which class will be the root for each diagram. Press _Select Type_ and choose @BusinessDomainDsl.BusinessDomainModel@.
+* It can be chosen which file extension the models will have. By default it will be derived from the EPackage name, @businessdomaindsl@. 
 
 !images/projectwizard_3b.png!
 
 * Press _Next_ (or _Finish_ to skip the next page)
 * The next page lets you modify some settings for Spray's code generator, like package names to use. Leave the defaults and press _Finish_ for now.
-
 !images/projectwizard_4.png!
 
 h3. Define Shape Model
@@ -60,6 +60,9 @@ shape SimpleClassShape {
     }
 }
 p. 
+
+(Gist: "@busmod.shape@":https://gist.github.com/kthoms/5845602)
+ 
 This defines a rectangle shape with an embedded text.  Save this file.
 
 h3. Define Spray Model
@@ -81,18 +84,19 @@ class BusinessClass  {
 }
 
 p. 
+(Gist: "@busmod.spray@":https://gist.github.com/kthoms/5845614)
+
 This defines that the class @BusinessClass@ from our domain (ecore) model is represented by the @SimpleClassShape@ shape.
-After saving the model the editor sources will be automatically generated to the @src-gen@ folder of the project.
 
-p. 
-Replace the plugin.xml in the project root (in the beginning there is even no plugin.xml in the project root) with the plugin.xml from src-gen.
+After saving the model the editor sources will be automatically generated to the @src-gen@ folder of the project. An initial @plugin.xml@ is generated to the project root and is updated after saving the project.
 
-*Update:* With the current Spray snapshot version all projects created via Spray project wizard will contain an initial plugin.xml as well as a mechanism that updates the plugin.xml in project root after each save in the project.   
+At this point your workspace should look like this:
+
+!images/gettingstarted_7.png!
 
 h3. Test the editor
 
 * Start a Runtime Eclipse instance with _Run As / Eclipse Application_. A new Eclipse instance starts with the plugins deployed.
-
 * Create a new project. The type of project does not matter, but for simplicity choose new Java Project and name it "BusmodTest".
 * Right-click on the @src@ folder, choose _File / New / Other -> Examples / Graphiti / Graphiti Diagram_
 !images/gettingstarted_2.png!
