@@ -100,7 +100,7 @@ class BusinessClass alias SimpleClass icon "ecore/EClass.gif" {
 }
 
 // StringProperty represented with its name and type
-// Note that there is no into in the create ,  this cannot be created into a refeernce at the top.
+// Note that there is no 'into' in the create statement, this cannot be created into a reference at the top.
 // It can only be created inside a compartment of a business class.
 
 

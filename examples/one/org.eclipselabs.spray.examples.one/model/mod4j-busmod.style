@@ -25,7 +25,7 @@ style MydiagramDefaultStyle extends JAVA org.eclipselabs.spray.runtime.graphiti.
      font-color = black
 }  
 
-style FontStyle  extends  MydiagramDefaultStyle { 
+style FontStyle extends MydiagramDefaultStyle { 
     background-color = transparent
     
 }
