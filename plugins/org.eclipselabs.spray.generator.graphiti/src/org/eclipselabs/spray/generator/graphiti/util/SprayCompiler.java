@@ -30,8 +30,13 @@ public class SprayCompiler extends XbaseCompiler {
     public String compileForPropertyAssignement(XExpression expression, String valueName, String metaClassVariable) {
         setMetaClassVariable(metaClassVariable);
         ITreeAppendable appendable = new FakeTreeAppendable(new ImportManager(false));
-        IAppendable result = compile(expression, appendable, typeProvider.getExpectedType(expression));
-        return result.toString();
+        try {
+            IAppendable result = compile(expression, appendable, typeProvider.getExpectedType(expression));
+            return result.toString();
+        } catch (NullPointerException e) {
+            // TODO: Fix this
+            return "/*TODO: FixMe*/ return null;";
+        }
     }
 
     public String getReturnTypeForPropertyAssignment(JvmFormalParameter key) {
