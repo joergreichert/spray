@@ -1,0 +1,181 @@
+/*************************************************************************************
+ *
+ * Spray shapes definition
+ * 
+ * This file contains the definition of graphical figures using the Shapes Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+
+// epk-shapes from: http://www.re-wissen.de/opencms/Wissen/Techniken/EPK-Modellierung.html
+
+shape EventShape {
+	polygon {	
+		point (x=20, y=0)
+		point (x=130, y=0)
+		point (x=150, y=50)
+		point (x=130, y=100)
+		point (x=20, y=100)
+		point (x=0, y=50)
+		style(background-color = RGB(255,150,150))
+	} 
+	text {
+		style(background-color = RGB(255,150,150))
+		position (x=20, y=20)
+		size(width=100, height=40)
+		id = eventText
+	}
+}
+
+shape FunctionShape {
+	rounded-rectangle{
+		style(background-color = RGB(150,255,150))
+		curve(width=20,height=20)
+		size(width=150,height=100)
+		
+	}
+	text {
+		style(background-color = RGB(150,255,150))
+		position (x=20, y=20)
+		size(width=110, height=50)
+		id = functionText
+	}
+}
+
+shape ConnectorShape {
+	ellipse {
+		style(
+			background-color = light-gray
+			font-size = 8
+		)
+		size(width=50, height=50)
+	}
+}
+
+shape AndConnectorShape {
+	ellipse {
+		style(
+			background-color = light-gray
+			font-size = 8
+		)
+		size(width=50, height=50)
+	}
+	polyline {
+		point(x=10,y=35)
+		point(x=25,y=10)
+		point(x=40,y=35)
+	}
+}
+
+shape OrConnectorShape {
+	ellipse {
+		style(
+			background-color = light-gray
+			font-size = 8
+		)
+		size(width=50, height=50)
+	}
+	polyline {
+		point(x=10,y=15)
+		point(x=25,y=40)
+		point(x=40,y=15)
+	}
+}
+
+shape XOrConnectorShape { 
+	ellipse {
+		style(
+			background-color = light-gray
+			font-size = 8
+		)
+		size(width=50, height=50)
+	}
+	line { // X line 1
+		point(x=5,y=17)
+		point(x=15,y=33)
+	}
+	line { // X line 2
+		point(x=15,y=17)
+		point(x=5,y=33)
+	}
+	ellipse { // O
+		style (background-color = light-gray)
+		size(width=10,height=16)
+		position(x=20, y=17)
+	}
+	polyline { // ugly R
+		point(x=35,y=33)
+		point(x=35,y=17)
+		point(x=43,y=17)
+		point(x=43,y=25)
+		point(x=35,y=25)
+		point(x=45,y=33)
+	}
+}
+
+shape OrganizationUnitShape {
+	ellipse {
+		style(background-color = RGB(240,240,60))
+		size(width=180,height=70)
+	}
+	line {
+		point(x=20,y=13)
+		point(x=20,y=58)
+	}
+	text {
+		style(background-color = RGB(240,240,60))
+		position(x=25, y=20)
+		size(width=130, height=20)
+		id=orgunitText
+	}
+}
+
+shape InputOutputShape {
+	rectangle {
+		style(background-color = RGB(30,30,240))
+		size(width=150, height=90)
+	}
+	text {
+		style(background-color = RGB(30,30,240))
+		position (x=20, y=20)
+		size(width=110, height=20)
+		id = inoutText
+	}
+}
+
+shape ProcessPathShape{
+	polygon {
+		point (x=40, y=15)
+		point (x=150, y=15)
+		point (x=170, y=65)
+		point (x=150, y=115)
+		point (x=40, y=115)
+		point (x=20, y=65)
+		style(background-color=light-gray)
+	} 
+	rectangle {
+		style(	
+			background-color = light-gray
+			transparency = 0.0
+		) 
+		size(width=150, height=100)
+	}
+	text { 
+		style(background-color=light-gray)
+		position (x=20, y=20)
+		size(width=110, height=20)
+		id = procpathText 
+	}
+}
+
+
+connection ArrowConnectionShape {
+     placing {
+         position (offset=1.0)
+         polygon {
+             point (x=-10, y=-5)
+             point (x=0, y=0)
+             point (x=-10, y=5)
+             style (background-color=black)
+         }
+     }
+ } 

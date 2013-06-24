@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.examples.epk.domain/src"
+    modelPluginID="org.eclipselabs.spray.examples.epk.domain" modelName="Epk" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false">
+  <foreignModel>Epk.ecore</foreignModel>
+  <genPackages prefix="EpkDSL" disposableProviderFactory="true" ecorePackage="Epk.ecore#/">
+    <genClasses ecoreClass="Epk.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Epk.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//Epk">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epk.ecore#//Epk/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epk.ecore#//Epk/edges"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Epk.ecore#//Epk/connections"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//Edge"/>
+    <genClasses ecoreClass="Epk.ecore#//Node"/>
+    <genClasses ecoreClass="Epk.ecore#//Event"/>
+    <genClasses ecoreClass="Epk.ecore#//Function"/>
+    <genClasses ecoreClass="Epk.ecore#//InOutput"/>
+    <genClasses ecoreClass="Epk.ecore#//OrgUnit"/>
+    <genClasses ecoreClass="Epk.ecore#//ProcPath"/>
+    <genClasses ecoreClass="Epk.ecore#//Connector"/>
+    <genClasses ecoreClass="Epk.ecore#//EConnector"/>
+    <genClasses ecoreClass="Epk.ecore#//FConnector"/>
+    <genClasses ecoreClass="Epk.ecore#//DefaultConnection"/>
+    <genClasses ecoreClass="Epk.ecore#//EvToFuConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//EvToFuConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//EvToFuConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//FuToEvConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FuToEvConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FuToEvConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//EvToEConConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//EvToEConConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//EvToEConConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//EConToFuConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//EConToFuConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//EConToFuConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//FuToFConConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FuToFConConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FuToFConConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//FConToEvConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FConToEvConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FConToEvConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//OuToFuConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//OuToFuConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//OuToFuConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//IoToFuConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//IoToFuConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//IoToFuConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//NodeToPpConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//NodeToPpConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//NodeToPpConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//PpToNodeConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//PpToNodeConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//PpToNodeConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//StartEvent"/>
+    <genClasses ecoreClass="Epk.ecore#//EndEvent"/>
+    <genClasses ecoreClass="Epk.ecore#//StartEvToFuConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//StartEvToFuConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//StartEvToFuConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//StartEvToEConConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//StartEvToEConConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//StartEvToEConConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//FuToEndEvConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FuToEndEvConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FuToEndEvConnection/end"/>
+    </genClasses>
+    <genClasses ecoreClass="Epk.ecore#//FConToEndEvConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FConToEndEvConnection/start"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Epk.ecore#//FConToEndEvConnection/end"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

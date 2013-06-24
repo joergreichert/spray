@@ -5,8 +5,8 @@ import org.eclipse.emf.mwe.utils.*
 Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
-		registerGeneratedEPackage = "PetriNet.PetriNetPackage"
-		registerGenModelFile = "platform:/resource/org.eclipselabs.spray.examples.petrinet.domain/model/PetriNet.genmodel"
+		registerGeneratedEPackage = "PetrinetDSL.PetrinetDSLPackage"
+		registerGenModelFile = "platform:/resource/org.eclipselabs.spray.examples.petrinet.domain/model/Petrinet.genmodel"
 		scanClassPath=true
 	}
 

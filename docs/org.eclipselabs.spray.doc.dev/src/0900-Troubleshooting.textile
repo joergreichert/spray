@@ -5,3 +5,7 @@ h2. Moved classes not visible in runtime workspace
 You might experience that if you move a class in the development workspace this class might not be visible in the runtime workspace. This means you might have uncompilable code in the runtime workspace then, although the "missing" class must be definetely there. You can verify this behavior if you open up the Plugin Dependencies of the project in the package explorer. Classes from plugins from the development workspace are linked with their classes folder (usually /bin or /target/classes). Open up the path where you should find the class in doubt. If it is not there, you are facing the issue mentioned here.
 
 There are 2 options to solve it: Clean the workspace before start (check option in the run configuration). But this removes all projects from the runtime workspace. The other alternative is to open the build path of the project in runtime workspace, go to the Libraries tab, remove "Plug-in Dependencies", save, add "Plug-in Dependencies" again. The classes should be there again.
+
+
+
+

@@ -1,0 +1,85 @@
+/*************************************************************************************
+ *
+ * Spray shapes definition
+ * 
+ * This file contains the definition of graphical figures using the Shapes Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+
+shape ElementShape {
+	rounded-rectangle {
+		style (background-color=light-green)		
+		curve (width=15, height=15)
+		position (x=0,y=0)
+		size(width=100, height=50)
+	}
+	text {
+		align(horizontal=center,vertical=middle)
+		style (background-color=light-green)
+		position (x=5, y=16)
+		size (width=80, height=12)
+		id = ElementText
+	}
+}
+
+connection ConnectionShape {
+	placing {
+    	position (offset=0.5)
+    	text {
+    		size (width=40, height=20)
+    		id = ConnectionText
+    	}
+    }	
+}
+
+connection ArrowConnectionShape {
+    placing {
+        position (offset=1.0)
+        polygon {
+            point (x=-10, y=-5)
+            point (x=0, y=0)
+            point (x=-10, y=5)
+            style (background-color=black)
+        }
+    }
+    placing {
+    	position (offset=0.5)
+    	text {
+    		size (width=40, height=20)
+    		id = ArrowText
+    	}
+    }
+    
+}
+
+connection DoubleArrowConnectionShape {
+	style(
+		line-color=black
+		line-style=solid
+	)
+	placing {
+        position (offset=0.0)
+        polygon {
+            point (x=-10, y=-5)
+            point (x=0, y=0)
+            point (x=-10, y=5)
+            style (background-color=black)
+        }
+    }
+    placing {
+        position (offset=1.0)
+        polygon {
+            point (x=-10, y=-5)
+            point (x=0, y=0)
+            point (x=-10, y=5)
+            style (background-color=black)
+        }
+    }
+    placing {
+    	position (offset=0.5)
+    	text {
+    		size (width=40, height=20)
+    		id = DoubleArrowText
+    	}
+    }	
+}

@@ -1,0 +1,266 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also epk.properties to configure generator properties.
+ *************************************************************************************/
+import EpkDSL.*  
+
+diagram epk for Epk style EpkDefaultStyle
+
+class Event {
+	shape EventShape {
+		name into eventText
+	}
+	behavior { 
+		create into nodes palette "Nodes"
+	}
+}
+
+class StartEvent {
+	shape EventShape {
+		name into eventText
+	}
+	behavior {
+		create into nodes palette "Nodes"
+	}
+}
+
+class EndEvent {
+	shape EventShape {
+		name into eventText
+	}
+	behavior {
+		create into nodes palette "Nodes"
+	}
+}
+
+class Function {
+	shape FunctionShape {
+		name into functionText
+	}
+	behavior {
+		create into nodes palette "Nodes"
+	}
+}
+
+class EConnector alias EvAndConnector {
+	shape AndConnectorShape
+		behavior {
+	    create into nodes palette "Connectors" 
+	}
+}
+
+class EConnector alias EvOrConnector {
+	shape OrConnectorShape
+		behavior {
+	    create into nodes palette "Connectors" 
+	}
+}
+
+class EConnector alias EvXORConnector {
+	shape XOrConnectorShape
+	behavior {
+	    create into nodes palette "Connectors" 
+	}
+}
+
+class FConnector alias FuAndConnector {
+	shape AndConnectorShape
+		behavior {
+	    create into nodes palette "Connectors" 
+	}
+}
+
+class FConnector alias FuOrConnector {
+	shape OrConnectorShape
+		behavior {
+	    create into nodes palette "Connectors" 
+	}
+}
+
+class FConnector alias FuXORConnector {
+	shape XOrConnectorShape
+	behavior {
+	    create into nodes palette "Connectors" 
+	}
+}
+
+class OrgUnit alias OrganizationalUnit {
+	shape OrganizationUnitShape {
+		name into orgunitText
+	}
+	behavior {
+	    create into nodes palette "Nodes"
+	}
+}
+
+class InOutput alias Input {
+	shape InputOutputShape {
+		name into inoutText
+	}
+	behavior {
+	    create into nodes palette "Nodes"
+	}	
+}
+
+class InOutput alias Output {
+	shape InputOutputShape {
+		name into inoutText
+	}
+	behavior {
+	    create into nodes palette "Nodes"
+	}	
+}
+
+class ProcPath alias ProcessPath {
+	shape ProcessPathShape {
+		name into procpathText 
+	}
+	behavior {
+	    create into nodes palette "Nodes"
+	}
+}
+
+class EvToFuConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class FuToEvConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class EvToEConConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class EConToFuConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class FuToFConConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class FConToEvConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class OuToFuConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class IoToFuConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class NodeToPpConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class PpToNodeConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class StartEvToFuConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class StartEvToEConConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class FuToEndEvConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}
+
+class FConToEndEvConnection {
+	connection ArrowConnectionShape {
+		from start
+		to end
+	}
+	behavior {
+		create into connections palette "Connections"
+	}
+}

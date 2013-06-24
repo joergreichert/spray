@@ -1,0 +1,295 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also erdiagram.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import ErdiagramDSL.*
+
+diagram erdiagram for Erdiagram style ErdiagramDefaultStyle
+
+// Add class mappings here. Refer to EClasses here. Don't forget to configure a
+// dependency to the plugin defining the EMF metamodel in META-INF/MANIFEST.MF.
+// It is required to have a genmodel for the metamodel.
+//
+// Example class mapping:
+//   class BusinessClass icon "ecore/EClass.gif" {
+//     shape RectangleShape
+//     behavior {
+//       // Enable create feature for this class and add it to the palette "Shapes"
+//       create into types palette "Shapes";
+//     }
+//   }
+//
+// Example association mapping:
+//   class Association icon "connection16.gif" {
+//     connection ArrowConnection {
+//       from source;
+//       to target;
+//     }
+//   }
+
+
+////////////////////////////////////////////////////////////////
+////////////////// CHEN ////////////////////////////////////////
+//////////////////////////////////////////////////////////////// 
+
+
+class ChenEntity {
+	shape ChenEntityShape {
+		name into EntityText
+	}
+	behavior {
+		create into elements palette "ChenElements"
+	}
+}
+
+class ChenRelationship {
+	shape ChenRelationshipShape {
+		name into RelationshipText
+		description into RelationshipDescription
+	}
+	behavior {
+		create into elements palette "ChenElements"
+	}
+}
+
+class ChenAttribute {
+	shape ChenAttributeShape {
+		name into AttributeText
+	}
+	references {
+		parent : connection alias ChenAttributeConnection
+	}
+	behavior {
+		create into elements palette "ChenAttributes";
+	}
+}
+
+class ChenAttribute alias ChenMultivalAttribute {
+	shape ChenMultivalAttributeShape {
+		name into AttributeText
+	}
+	behavior {
+		create into elements palette "ChenAttributes"
+	}
+}
+
+class ChenAttribute alias ChenKeyAttribute {
+	shape ChenKeyAttributeShape {
+		name into AttributeText
+	}
+	behavior {
+		create into elements palette "ChenAttributes"
+	}
+}
+
+class ChenConnection {
+	connection ChenConnectionShape {
+		value into connectionText
+	}
+	{
+		from fromEntity to toRelationship
+	}
+	behavior {
+		create into elements palette "ChenConnections"
+	}
+}
+
+class ChenNormalToWeakConnection {
+	connection ChenConnectionShape {
+		from fromEntity to toRelationship
+	}
+	behavior {
+		create into elements palette "ChenConnections"
+	}
+}
+
+class ChenWeakEntity {
+	shape ChenEntityShape {
+		name into EntityText
+	}
+	behavior {
+		create into elements palette "ChenElements"
+	}
+}
+
+class ChenWeakRelationship {
+	shape ChenWeakRelationshipShape {
+		name into RelationshipText
+		description into RelationshipDescription
+	}
+	behavior {
+		create into elements palette "ChenElements"
+	}
+}
+
+class ChenWeakAttribute {
+	shape ChenAttributeShape {
+		name into AttributeText
+	}
+	references {
+		parent : connection alias ChenWeakAttributeConnection
+	}
+	behavior {
+		create into elements palette "ChenAttributes";
+	}
+}
+
+class ChenWeakAttribute alias ChenWeakMultivalAttribute {
+	shape ChenMultivalAttributeShape {
+		name into AttributeText
+	}
+	behavior {
+		create into elements palette "ChenAttributes";
+	}
+}
+
+class ChenWeakAttribute alias ChenWeakKeyAttribute {
+	shape ChenWeakKeyAttributeShape {
+		name into AttributeText
+	}
+	behavior {
+		create into elements palette "ChenAttributes";
+	}
+}
+
+class ChenWeakConnection {
+	connection ChenWeakConnectionShape {
+		from fromEntity to toRelationship
+	}
+	behavior {
+		create into elements palette "ChenConnections"
+	}
+}
+
+/////////////////////////////////////////////////////////////////
+////////////// Martin-Notation / crow's foot notation ///////////
+/////////////////////////////////////////////////////////////////
+
+
+class MartinEntity {
+	shape MartinEntityShape {
+		name into EntityText
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_11_11_Connection {
+	connection Martin_11_11_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_11_1n_Connection {
+	connection Martin_11_1n_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_11_01_Connection {
+	connection Martin_11_01_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_11_0n_Connection {
+	connection Martin_11_0n_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_1n_1n_Connection {
+	connection Martin_11_11_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_1n_01_Connection {
+	connection Martin_1n_01_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_1n_0n_Connection {
+	connection Martin_1n_0n_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_01_01_Connection {
+	connection Martin_01_01_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_01_0n_Connection {
+	connection Martin_01_0n_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+class MartinConnection alias Martin_0n_0n_Connection {
+	connection Martin_0n_0n_Shape {
+		from start to end
+	}
+	behavior {
+		create into elements palette "Martin"
+	}
+}
+
+/////////////////////////////////////////////////////////////////
+/////////////////// Min-Max notation ////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+class MinmaxEntity {
+	shape MinmaxEntityShape {
+		name into EntityText
+	}
+	behavior {
+		create into elements palette "MinMax"
+	}
+}
+
+class MinmaxConnection {
+	connection MinmaxConnection {
+		from start to end
+	}
+	behavior {
+		create into elements palette "MinMax"
+	}
+}

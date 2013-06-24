@@ -51,6 +51,9 @@ class StylesGenerator extends JvmModelGenerator implements IGenerator {
 	
 	def void doGenerateGradient(Resource resource, JavaGenFile java) {
         LOGGER.info("Spray: generating gradient for model " + resource.URI)
+        if( ! resource.loaded ){
+            resource.load(null);
+        }
 		for(gradient : resource.allContents.toIterable.filter(typeof(Gradient))) {
       		java.doGenerateGradient(gradient)
    		}
