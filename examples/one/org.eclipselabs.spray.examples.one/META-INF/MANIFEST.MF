@@ -29,8 +29,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipselabs.spray.shapes.generator;bundle-version="0.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.eclipselabs.spray.examples.mod4j.diagram,
- org.eclipselabs.spray.examples.mod4j.features,
- org.eclipselabs.spray.examples.mod4j.property;x-friends:="org.eclipselabs.spray.examples.one.tests"
 Import-Package: org.eclipse.xtext.xbase.lib
 Bundle-ClassPath: .

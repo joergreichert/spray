@@ -1,0 +1,76 @@
+/**
+ */
+package EpkDSL;
+
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Start Ev To ECon Connection</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link EpkDSL.StartEvToEConConnection#getStart <em>Start</em>}</li>
+ *   <li>{@link EpkDSL.StartEvToEConConnection#getEnd <em>End</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see EpkDSL.EpkDSLPackage#getStartEvToEConConnection()
+ * @model
+ * @generated
+ */
+public interface StartEvToEConConnection extends DefaultConnection {
+	/**
+	 * Returns the value of the '<em><b>Start</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Start</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Start</em>' reference.
+	 * @see #setStart(StartEvent)
+	 * @see EpkDSL.EpkDSLPackage#getStartEvToEConConnection_Start()
+	 * @model required="true"
+	 * @generated
+	 */
+	StartEvent getStart();
+
+	/**
+	 * Sets the value of the '{@link EpkDSL.StartEvToEConConnection#getStart <em>Start</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Start</em>' reference.
+	 * @see #getStart()
+	 * @generated
+	 */
+	void setStart(StartEvent value);
+
+	/**
+	 * Returns the value of the '<em><b>End</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>End</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>End</em>' reference.
+	 * @see #setEnd(EConnector)
+	 * @see EpkDSL.EpkDSLPackage#getStartEvToEConConnection_End()
+	 * @model required="true"
+	 * @generated
+	 */
+	EConnector getEnd();
+
+	/**
+	 * Sets the value of the '{@link EpkDSL.StartEvToEConConnection#getEnd <em>End</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>End</em>' reference.
+	 * @see #getEnd()
+	 * @generated
+	 */
+	void setEnd(EConnector value);
+
+} // StartEvToEConConnection

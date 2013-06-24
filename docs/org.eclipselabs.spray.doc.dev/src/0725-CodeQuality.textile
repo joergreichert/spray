@@ -1,6 +1,6 @@
 h1. Code quality
 
-There some tools to measure the code quality. 
+There are some tools to measure the code quality. 
 
 h2. Code coverage 
 

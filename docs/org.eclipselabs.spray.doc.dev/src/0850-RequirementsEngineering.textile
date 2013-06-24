@@ -10,7 +10,7 @@ With Yakindu requirements we can describe requirements, use cases, entities, UI 
 
 Out of this models you can generate HTML and PDF requirements specification reports as well as a work break down structure Excel sheet.
 
-!spray_yrt_report.png!
+!images/requirements/spray_yrt_report.png!
 
 Please note that the Spray requirements specification is currently in a very early stage (only rudimentary use cases, entities models just transformed from the existing Ecores and so too technical for a user centered view).
 

@@ -10,7 +10,6 @@
 		<relativePath>../../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>de.htwg</groupId>
 	<artifactId>org.eclipselabs.spray.examples.petrinet.domain</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

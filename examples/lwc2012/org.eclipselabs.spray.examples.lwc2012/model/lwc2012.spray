@@ -56,7 +56,11 @@ class LWCLocationNoLine alias Noline {
 
 class LWCLocationSolidLine alias Solidline {
     shape LWC_Location_SolidLine {
-        name into shapeName ( "#" + name + "#" ) value into valueName ( "#" + value + "#" )
+    	// TODO: changed as long as http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=277 is not resolved
+        // name into shapeName ( "#" + name + "#" ) 
+        name into shapeName 
+        // value into valueName ( "#" + value + "#" )
+        value into valueName
     }
     behavior {
         create into modelElements palette "Locations"

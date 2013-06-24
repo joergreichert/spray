@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <?eclipse version="3.0"?>
+        <!--
+         Generated on Sun Apr 07 12:01:41 CEST 2013 by Spray Plugin.xtend
+         This file will be generated oinly once if it need to be regenerated, remove this file.
+         
+        -->
+        <plugin>
+           <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+           <extension
+                 point="org.eclipse.ui.editors">
+              <editor
+                  class="org.eclipselabs.spray.examples.epk.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.epk.diagram.EpkDiagramEditor"
+                  contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+                  default="true"
+                  extensions="diagram"
+                  icon="icons/diagram.gif"
+                  id="org.eclipselabs.spray.examples.epk.diagram.EpkDiagramEditor"
+                  matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+                  name="%_diagram_editor_name">
+               <contentTypeBinding
+                     contentTypeId="org.eclipse.graphiti.content.diagram">
+               </contentTypeBinding>
+              </editor>
+           </extension>
+           -->
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypes">
+            <diagramType
+              description="This is the diagram type for the epk diagram type"
+              id="org.eclipselabs.spray.examples.epk.diagram.EpkDiagramType"
+              name="epk Graphiti Diagram Type"
+              type="epk">
+            </diagramType>
+          </extension>
+        
+          <extension
+              point="org.eclipse.graphiti.ui.diagramTypeProviders">
+            <diagramTypeProvider
+              class="org.eclipselabs.spray.examples.epk.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.epk.diagram.EpkDiagramTypeProvider"
+              description="This is my editor for the epk diagram type"
+              id="org.eclipselabs.spray.examples.epk.diagram.EpkDiagramTypeProvider"
+              name="epk editor">
+              <diagramType
+                    id="org.eclipselabs.spray.examples.epk.diagram.EpkDiagramType">
+              </diagramType>
+                <imageProvider
+                       id="org.eclipselabs.spray.examples.epk.diagram.EpkImageProvider">
+                 </imageProvider>
+            </diagramTypeProvider>
+          </extension>
+        
+           <extension
+                 point="org.eclipse.graphiti.ui.imageProviders">
+              <imageProvider
+                    class="org.eclipselabs.spray.examples.epk.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.epk.diagram.EpkImageProvider"
+                       id="org.eclipselabs.spray.examples.epk.diagram.EpkImageProvider">
+              </imageProvider>
+           </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+              <propertyContributor contributorId="epk.PropertyContributor">
+                  <propertyCategory category="epkCategory">
+                  </propertyCategory>
+              </propertyContributor>
+          </extension>
+        
+          <extension
+              point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+              <propertyTabs contributorId="epk.PropertyContributor">
+                  <propertyTab label="Main" category="epkCategory"
+                      id="epk.main.tab">
+                  </propertyTab>
+              </propertyTabs>
+          </extension>
+    
+    
+            <extension
+                  point="org.eclipse.ui.newWizards">
+                  <category
+                     name="epk"
+                     id="org.eclipselabs.spray.epk">
+                     </category>
+               <wizard
+                     category="org.eclipselabs.spray.epk"
+                     class="org.eclipselabs.spray.examples.epk.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+                     descriptionImage="icons/epk-32.png"
+                     icon="icons/epk-16.png"
+                     id="org.eclipselabs.spray.epk.NewDiagramWizard"
+                     name="New epk Diagram"
+                     preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+                     project="false">
+               </wizard>
+            </extension>
+        </plugin>

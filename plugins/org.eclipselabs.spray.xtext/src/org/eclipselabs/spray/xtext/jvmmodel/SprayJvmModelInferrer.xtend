@@ -36,7 +36,9 @@ class SprayJvmModelInferrer extends AbstractModelInferrer {
 		
 		acceptor.accept(clazz.toClass(converter.toQualifiedName("org.eclipselabs.spray."+clazz.type.EPackage.name+"."+clazzName)))
 		.initializeLater [
-                members += toField("ecoreClass", eClassJvmType)
+				val field = toField("ecoreClass", eClassJvmType)
+//				field.annotations += toAnnotation(Extension)
+                members += field
                 members += toGetter("ecoreClass", eClassJvmType)
             ]
     }

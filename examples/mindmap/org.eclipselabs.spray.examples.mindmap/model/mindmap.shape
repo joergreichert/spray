@@ -1,0 +1,32 @@
+/*************************************************************************************
+ *
+ * Spray shapes definition
+ * 
+ * This file contains the definition of graphical figures using the Shapes Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+
+shape ElementShape {
+	ellipse {
+		size(width=150, height=80)
+	}
+	text {
+		position(x=15,y=35)
+		size(width=80,height=15)
+		align(horizontal=center,vertical=middle)
+		id = elementText
+	}
+}
+
+shape StartElementShape {
+	ellipse {
+		style (line-width=3)
+		size(width=150, height=80)
+	}
+	text {
+		position(x=15,y=35)
+		size(width=80,height=15)
+		align(horizontal=center,vertical=middle)
+		id = elementText
+	}
+}

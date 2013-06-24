@@ -1,0 +1,36 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also mindmap.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import MindmapDSL.*
+
+
+diagram Mymindmap for Mindmap style MindmapDefaultStyle
+
+class StartElement {
+	shape StartElementShape {
+		name into elementText
+	}
+	behavior {
+		create into mapelements palette "Elements"
+	}
+}
+
+class Element {
+	shape ElementShape {
+		name into elementText
+	}
+	references {
+		parent : connection
+	}
+	behavior {
+		create into mapelements palette "Elements"
+	}
+}
+
