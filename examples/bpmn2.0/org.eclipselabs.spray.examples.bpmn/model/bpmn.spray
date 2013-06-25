@@ -449,6 +449,7 @@ class BPMNDefaultFlow {
 
 class BPMNDataAssoziation {
     connection BPMN_DataAssoziation {
+    	// TODO: Typo, must be 'fromElement'
         from formElement;
         to toElement;
     }
