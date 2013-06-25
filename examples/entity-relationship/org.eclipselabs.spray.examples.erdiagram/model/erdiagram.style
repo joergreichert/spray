@@ -9,13 +9,19 @@
 // Add definition of styles here.
 style ErdiagramDefaultStyle { 
     description = "The default style of the erdiagram diagram type."
-    // transparency = 0.95
-    // background-color = black
+    transparency = 0.10
+    background-color = BlueGradient
+    gradient-orientation = vertical
     // line-color = black
     // line-style = solid
-    // line-width = 1
-    // font-color = black
+    line-width = 2
+    font-color = RGB(151,27,37)
     // font-name = "Tahoma"
-    font-size = 12
+    font-size = 16
     // font-bold = yes
+}
+
+gradient BlueGradient {
+	area(color=RGB(150,192,235), offset=0.0)
+	area(color=RGB(186,208,243), offset=1.0)
 }
