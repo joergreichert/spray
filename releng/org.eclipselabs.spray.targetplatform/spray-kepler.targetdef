@@ -26,24 +26,24 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 	
 //	"Xtext/Xtend Releases" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases {
-//		org.eclipse.xtext.sdk 2.4.1.v201304180855,
-//		org.eclipse.xtend.sdk 2.4.1.v201304180855,
-//		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201303191501,
-//		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201303191413
-//	}
-
-//	"Xtext/Xtend Milestones" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
 //		org.eclipse.xtext.sdk 2.4.2.v201306040922,
 //		org.eclipse.xtend.sdk 2.4.2.v201306040922,
 //		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201306040943,
 //		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306040844
 //	}
+
+//	"Xtext/Xtend Milestones" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones {
+//		org.eclipse.xtext.sdk 2.4.2.v201306120542,
+//		org.eclipse.xtend.sdk 2.4.2.v201306120542,
+//		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201306110940,
+//		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306110341
+//	}
 	
 //	"Xtext/Xtend Snapshots" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/snapshots {
-//		org.eclipse.xtext.sdk ,
-//		org.eclipse.xtend.sdk ,
-//		org.eclipse.emf.mwe2.language.sdk ,
-//		org.eclipse.emf.mwe2.runtime.sdk 
+//		org.eclipse.xtext.sdk 2.4.2.v201306040922,
+//		org.eclipse.xtend.sdk 2.4.2.v201306040922,
+//		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201306040943,
+//		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306040844
 //	}
 
 //	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ {
@@ -52,8 +52,8 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 //	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/snapshots/ {
-		org.eclipse.swtbot.eclipse 2.1.1.201306140045,
-		org.eclipse.swtbot.eclipse.gef 2.1.1.201306140045
+		org.eclipse.swtbot.eclipse 2.1.1.201306221204,
+		org.eclipse.swtbot.eclipse.gef 2.1.1.201306221204
 	}
 
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {

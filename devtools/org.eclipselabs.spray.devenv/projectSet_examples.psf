@@ -1,61 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <psf version="2.0">
 	<provider id="org.eclipse.egit.core.GitProvider">
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagram"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.ui"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/contain/org.eclipselabs.spray.contain.diagram"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/contain/org.eclipselabs.spray.contain.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/contain/org.eclipselabs.spray.contain.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.tests"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/one/org.eclipselabs.spray.examples.one"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/one/org.eclipselabs.spray.examples.one.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,tests/org.eclipselabs.spray.examples.one.tests"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/petrinet/org.eclipselabs.spray.examples.petrinet"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/petrinet/org.eclipselabs.spray.examples.petrinet.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/forms/org.eclipselabs.spray.forms.diagram"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/forms/org.eclipselabs.spray.forms.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/featuremodeling/org.eclipselabs.spray.featuremodeling.diagram"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/featuremodeling/org.eclipselabs.spray.featuremodeling.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/featuremodeling/org.eclipselabs.spray.featuremodeling.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/generatorextension/org.eclipselabs.spray.generator.graphit"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/goals/org.eclipselabs.spray.joe.diagram"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/goals/org.eclipselabs.spray.joe.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/goals/org.eclipselabs.spray.joe.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/nassishneiderman/org.eclipselabs.spray.nassishneiderman.diagram"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/nassishneiderman/org.eclipselabs.spray.nassishneiderman.diagrams"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/nassishneiderman/org.eclipselabs.spray.nassishneiderman.domain"/>
-		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray/,kepler,examples/one/org.mod4j.dsl.businessdomain.mm"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/fowlerdsl/org.eclipse.xtext.example.fowlerdsl.ui"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/contain/org.eclipselabs.spray.contain.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/contain/org.eclipselabs.spray.contain.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/contain/org.eclipselabs.spray.contain.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/conceptmap/org.eclipselabs.spray.examples.conceptmap"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/conceptmap/org.eclipselabs.spray.examples.conceptmap.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/epk/org.eclipselabs.spray.examples.epk"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/epk/org.eclipselabs.spray.examples.epk.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/entity-relationship/org.eclipselabs.spray.examples.erdiagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/entity-relationship/org.eclipselabs.spray.examples.erdiagram.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.tests"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/mindmap/org.eclipselabs.spray.examples.mindmap"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/mindmap/org.eclipselabs.spray.examples.mindmap.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/one/org.eclipselabs.spray.examples.one"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/one/org.eclipselabs.spray.examples.one.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,tests/org.eclipselabs.spray.examples.one.tests"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/petrinet/org.eclipselabs.spray.examples.petrinet"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/petrinet/org.eclipselabs.spray.examples.petrinet.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/featuremodeling/org.eclipselabs.spray.featuremodeling.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/featuremodeling/org.eclipselabs.spray.featuremodeling.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/featuremodeling/org.eclipselabs.spray.featuremodeling.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/forms/org.eclipselabs.spray.forms.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/forms/org.eclipselabs.spray.forms.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/generatorextension/org.eclipselabs.spray.generator.graphit"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/goals/org.eclipselabs.spray.joe.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/goals/org.eclipselabs.spray.joe.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/goals/org.eclipselabs.spray.joe.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/nassishneiderman/org.eclipselabs.spray.nassishneiderman.diagram"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/nassishneiderman/org.eclipselabs.spray.nassishneiderman.diagrams"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/nassishneiderman/org.eclipselabs.spray.nassishneiderman.domain"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/one/org.mod4j.dsl.businessdomain.mm"/>
 	</provider>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219471821_5" label="Spray Example One" name="Spray Example One">
 		<item elementID="=org.eclipselabs.spray.examples.one" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.one.diagrams" type="4"/>
 		<item elementID="=org.mod4j.dsl.businessdomain.mm" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.one.tests" type="4"/>
+		<item elementID="=org.eclipselabs.spray.examples.one.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1341684820391_23" label="Spray Example LWC2012" name="Spray Example LWC2012">
-		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.lwc2012.domain" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.lwc2012.diagrams" type="4"/>
-		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.lwc2012" type="4"/>
-		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.lwc2012.tests" type="4"/>
+		<item elementID="=org.eclipselabs.spray.examples.lwc2012" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.examples.lwc2012.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.examples.lwc2012.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1341684717058_19" label="Spray Example BPMN" name="Spray Example BPMN">
-		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.bpmn.diagrams" type="4"/>
 		<item elementID="=org.eclipselabs.spray.examples.bpmn.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.bpmn.diagrams" type="4"/>
 		<item elementID="=org.eclipselabs.spray.examples.bpmn" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1341684728378_20" label="Spray Example Petri Nets" name="Spray Example Petri Nets">
+		<item elementID="=org.eclipselabs.spray.examples.petrinet.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.examples.petrinet" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.examples.petrinet.diagrams" type="4"/>
-		<item elementID="=org.eclipselabs.spray.examples.petrinet.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1364049273291_95" label="Spray Example Forms" name="Spray Example Forms">
 		<item elementID="=org.eclipselabs.spray.forms.diagram" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
@@ -77,15 +85,31 @@
 		<item elementID="=org.eclipselabs.spray.featuremodeling.diagram" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.featuremodeling.diagrams" type="4"/>
 	</workingSets>
+	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1372100271324_36" label="Spray Example ER Diagram" name="Spray Example ER Diagram">
+		<item elementID="=org.eclipselabs.spray.examples.erdiagram" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.examples.erdiagram.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+	</workingSets>
+	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1372100227098_35" label="Spray Example EPK" name="Spray Example EPK">
+		<item elementID="=org.eclipselabs.spray.examples.epk" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.examples.epk.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+	</workingSets>
+	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1372100192435_34" label="Spray Example Concept Map" name="Spray Example Concept Map">
+		<item elementID="=org.eclipselabs.spray.examples.conceptmap" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.examples.conceptmap.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+	</workingSets>
+	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1372100295551_37" label="Spray Example Mindmap" name="Spray Example Mindmap">
+		<item elementID="=org.eclipselabs.spray.examples.mindmap" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item elementID="=org.eclipselabs.spray.examples.mindmap.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1358359096945_99" label="Spray Example Containment" name="Spray Example Containment">
 		<item elementID="=org.eclipselabs.spray.contain.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item elementID="=org.eclipselabs.spray.contain.diagram" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.contain.diagrams" type="4"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1358359142913_100" label="Spray Example Goals" name="Spray Example Goals">
-		<item elementID="=org.eclipselabs.spray.joe.diagram" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.joe.diagrams" type="4"/>
 		<item elementID="=org.eclipselabs.spray.joe.domain" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.joe.diagrams" type="4"/>
+		<item elementID="=org.eclipselabs.spray.joe.diagram" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1341684874070_25" label="Spray Example Extension" name="Spray Example Extension">
 		<item elementID="=org.eclipselabs.spray.generator.graphiti.ext" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
