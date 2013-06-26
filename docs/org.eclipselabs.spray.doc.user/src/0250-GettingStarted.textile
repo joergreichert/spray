@@ -1,6 +1,6 @@
 h1. Getting Started
 
-h2. 5-Minutes Tutorial
+h2. 15-Minutes Tutorial
 
 h3. Create a new EMF project
 
@@ -63,7 +63,7 @@ p.
 
 (Gist: "@busmod.shape@":https://gist.github.com/kthoms/5845602)
  
-This defines a rectangle shape with an embedded text.  Save this file.
+This defines a rectangle shape with an embedded text. Save this file.
 
 h3. Define Spray Model
 
@@ -123,7 +123,7 @@ h3. Create your first element
 * Type _Person_ in the name field
 * You will see the name being changed in the diagram immediately while you type
 
-h2. Extending the 5 Minute Tutorial
+h2. Extending the 15 Minute Tutorial
 
 This section describes several tutorials to add more functionality to the editor. In these tutorials we assume you start with the models created in the 5 Minute Tutorial. The tutorials in this section can be done individually.
 
