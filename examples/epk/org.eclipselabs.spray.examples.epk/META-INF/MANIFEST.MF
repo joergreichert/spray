@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray.examples.epk
 Bundle-Vendor: My Company
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.5.0.v20130626-1040
 Bundle-SymbolicName: org.eclipselabs.spray.examples.epk; singleton:=true
 Bundle-Activator: org.eclipselabs.spray.examples.epk.Activator
 Bundle-ActivationPolicy: lazy

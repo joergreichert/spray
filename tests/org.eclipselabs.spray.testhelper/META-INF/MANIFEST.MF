@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Spray Testhelper
 Bundle-SymbolicName: org.eclipselabs.spray.testhelper
-Bundle-Version: 0.5.0.qualifier
+Bundle-Version: 0.5.0.v20130626-1040
 Bundle-ClassPath: lib/javassist-3.15.0-GA.jar,
  lib/junit-4.8.1.jar,
  lib/mockito-all-1.8.5.jar,
