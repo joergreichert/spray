@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipselabs.spray.shapes.mm;singleton:=true
-Bundle-Version: 0.5.1.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.mwe2.lib;bundle-version="2.0.1",
  org.eclipse.xtext.common.types,
  org.eclipse.xtext.xbase;bundle-version="[2.4.0,2.5.0)",
- org.eclipselabs.spray.styles.mm;bundle-version="0.5.1"
+ org.eclipselabs.spray.styles.mm;bundle-version="0.5.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.commons.logging;version="1.0.4",
  org.apache.log4j;version="1.2.15",

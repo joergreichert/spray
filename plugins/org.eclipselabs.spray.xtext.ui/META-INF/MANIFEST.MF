@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 0.5.1.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.xtext.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipselabs.spray.mm,
@@ -35,14 +35,14 @@ Require-Bundle: org.eclipselabs.spray.mm,
  org.eclipse.emf.databinding,
  org.eclipse.emf.ecore.editor;bundle-version="2.6.0",
  org.eclipse.core.expressions;bundle-version="3.4.300",
- org.eclipselabs.spray.shapes;bundle-version="0.5.1",
- org.eclipselabs.spray.styles;bundle-version="0.5.1",
+ org.eclipselabs.spray.shapes;bundle-version="0.5.0",
+ org.eclipselabs.spray.styles;bundle-version="0.5.0",
  org.eclipse.graphiti;bundle-version="0.9.0",
  org.eclipselabs.spray.runtime.xtext,
- org.eclipselabs.spray.runtime.xtext.ui;bundle-version="0.5.1",
- org.eclipselabs.spray.shapes.ui;bundle-version="0.5.1",
- org.eclipselabs.spray.styles.ui;bundle-version="0.5.1",
- org.eclipselabs.spray.generator.common;bundle-version="0.5.1"
+ org.eclipselabs.spray.runtime.xtext.ui;bundle-version="0.5.0",
+ org.eclipselabs.spray.shapes.ui;bundle-version="0.5.0",
+ org.eclipselabs.spray.styles.ui;bundle-version="0.5.0",
+ org.eclipselabs.spray.generator.common;bundle-version="0.5.0"
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib

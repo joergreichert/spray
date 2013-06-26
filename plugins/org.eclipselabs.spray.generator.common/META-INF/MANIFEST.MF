@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipselabs.spray.generator.common
-Bundle-Version: 0.5.1.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.eclipselabs.spray.generator.common.CommonActivator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,

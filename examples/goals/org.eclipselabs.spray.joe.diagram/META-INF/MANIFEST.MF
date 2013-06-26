@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipselabs.spray.joe.diagram
 Bundle-Vendor: My Company
-Bundle-Version: 0.5.1.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.joe.diagram; singleton:=true
 Bundle-Activator: org.eclipselabs.spray.joe.diagram.Activator
 Bundle-ActivationPolicy: lazy
