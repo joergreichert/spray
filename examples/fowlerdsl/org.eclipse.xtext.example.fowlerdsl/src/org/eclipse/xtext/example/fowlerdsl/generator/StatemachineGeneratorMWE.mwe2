@@ -1,4 +1,3 @@
-
 module org.eclipse.xtext.example.fowlerdsl.generator.StatemachineGeneratorMWE
 
 import org.eclipse.emf.mwe.utils.*
