@@ -23,3 +23,4 @@ src-gen
 *.orig
 /tests/org.eclipselabs.spray.generator.graphiti.tests/shapepreviews/
 /releng/org.eclipselabs.spray.distribution/scripts/user.properties
+/examples/ecore/org.eclipselabs.spray.examples.ecore/shapepreviews/

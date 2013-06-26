@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+ Generated on Tue Jun 25 23:05:09 CEST 2013 by Spray Plugin.xtend
+ This file will be generated only once if it need to be regenerated, remove this file.
+ 
+-->
+<plugin>
+  
+  <!-- GRAPHITI EDITOR EXTENSION AUTOGEN START -->
+     <!-- Potentially redefine the EDITOR EXTENSION TO ALLOW FOR OUR OWN EDITOR SUBCLASS TO BE USED. 
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+       class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramDiagramEditor"
+       contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+       default="true"
+       extensions="diagram"
+       icon="icons/diagram.gif"
+       id="org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramDiagramEditor"
+       matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+       name="%_diagram_editor_name">
+    <contentTypeBinding
+          contentTypeId="org.eclipse.graphiti.content.diagram">
+    </contentTypeBinding>
+   </editor>
+</extension>
+-->
+     <!-- GRAPHITI EDITOR EXTENSION AUTOGEN END -->
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypes">
+    <!-- DIAGRAM TYPE AUTOGEN START -->
+     <diagramType
+  description="This is the diagram type for the EcoreDiagram diagram type"
+  id="org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramDiagramType"
+  name="EcoreDiagram Graphiti Diagram Type"
+  type="EcoreDiagram">
+</diagramType>
+     <!-- DIAGRAM TYPE AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    <!-- DIAGRAM TYPE PROVIDER AUTOGEN START -->
+     <diagramTypeProvider
+  class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramDiagramTypeProvider"
+  description="This is my editor for the EcoreDiagram diagram type"
+  id="org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramDiagramTypeProvider"
+  name="EcoreDiagram editor">
+  <diagramType
+        id="org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramDiagramType">
+  </diagramType>
+    <imageProvider
+           id="org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramImageProvider">
+     </imageProvider>
+</diagramTypeProvider>
+     <!-- DIAGRAM TYPE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.graphiti.ui.imageProviders">
+    <!-- IMAGE PROVIDER AUTOGEN START -->
+     <imageProvider
+      class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramImageProvider"
+         id="org.eclipselabs.spray.examples.ecore.diagram.EcoreDiagramImageProvider">
+</imageProvider>
+     <!-- IMAGE PROVIDER AUTOGEN END -->
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="Myecore.PropertyContributor">
+       <propertyCategory category="MyecoreCategory">
+       </propertyCategory>
+    </propertyContributor>
+  </extension>
+  
+  <extension
+       point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs contributorId="Myecore.PropertyContributor">
+      <!-- PROPERTY TAB AUTOGEN START -->
+     <propertyTab label="Main" category="EcoreDiagramCategory"
+    id="EcoreDiagram.main.tab">
+</propertyTab>
+     <!-- PROPERTY TAB AUTOGEN END -->
+    </propertyTabs>
+  </extension>
+  
+  <!-- PROPERTY SECTIONS AUTOGEN START -->
+     <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="EcoreDiagram.PropertyContributor">
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassNameSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   id="EcoreDiagram.main.tab.EClass.name">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassInstanceClassNameSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   afterSection="EcoreDiagram.main.tab.EClass.name"
+   id="EcoreDiagram.main.tab.EClass.instanceClassName">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassInstanceClassSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   afterSection="EcoreDiagram.main.tab.EClass.instanceClassName"
+   id="EcoreDiagram.main.tab.EClass.instanceClass">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassDefaultValueSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   afterSection="EcoreDiagram.main.tab.EClass.instanceClass"
+   id="EcoreDiagram.main.tab.EClass.defaultValue">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassInstanceTypeNameSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   afterSection="EcoreDiagram.main.tab.EClass.defaultValue"
+   id="EcoreDiagram.main.tab.EClass.instanceTypeName">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassAbstractSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   afterSection="EcoreDiagram.main.tab.EClass.instanceTypeName"
+   id="EcoreDiagram.main.tab.EClass.abstract">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EClassInterfaceSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EClassFilter"
+   afterSection="EcoreDiagram.main.tab.EClass.abstract"
+   id="EcoreDiagram.main.tab.EClass.interface">
+  </propertySection>
+    </propertySections>
+</extension>
+
+<extension
+    point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections contributorId="EcoreDiagram.PropertyContributor">
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeNameSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   id="EcoreDiagram.main.tab.EAttribute.name">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeOrderedSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.name"
+   id="EcoreDiagram.main.tab.EAttribute.ordered">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeUniqueSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.ordered"
+   id="EcoreDiagram.main.tab.EAttribute.unique">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeLowerBoundSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.unique"
+   id="EcoreDiagram.main.tab.EAttribute.lowerBound">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeUpperBoundSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.lowerBound"
+   id="EcoreDiagram.main.tab.EAttribute.upperBound">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeManySection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.upperBound"
+   id="EcoreDiagram.main.tab.EAttribute.many">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeRequiredSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.many"
+   id="EcoreDiagram.main.tab.EAttribute.required">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeChangeableSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.required"
+   id="EcoreDiagram.main.tab.EAttribute.changeable">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeVolatileSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.changeable"
+   id="EcoreDiagram.main.tab.EAttribute.volatile">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeTransientSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.volatile"
+   id="EcoreDiagram.main.tab.EAttribute.transient">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeDefaultValueLiteralSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.transient"
+   id="EcoreDiagram.main.tab.EAttribute.defaultValueLiteral">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeDefaultValueSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.defaultValueLiteral"
+   id="EcoreDiagram.main.tab.EAttribute.defaultValue">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeUnsettableSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.defaultValue"
+   id="EcoreDiagram.main.tab.EAttribute.unsettable">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeDerivedSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.unsettable"
+   id="EcoreDiagram.main.tab.EAttribute.derived">
+  </propertySection>
+  <propertySection tab="EcoreDiagram.main.tab"
+   class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.examples.ecore.property.EAttributeIDSection"
+   filter="org.eclipselabs.spray.examples.ecore.property.EAttributeFilter"
+   afterSection="EcoreDiagram.main.tab.EAttribute.derived"
+   id="EcoreDiagram.main.tab.EAttribute.iD">
+  </propertySection>
+    </propertySections>
+</extension>
+
+     <!-- PROPERTY SECTIONS AUTOGEN END -->
+  
+  <!-- NEW DIAGRAM WIZARD AUTOGEN START -->
+     <extension
+      point="org.eclipse.ui.newWizards">
+      <category
+         name="EcoreDiagram"
+         id="org.eclipselabs.spray.EcoreDiagram">
+         </category>
+   <wizard
+         category="org.eclipselabs.spray.EcoreDiagram"
+         class="org.eclipselabs.spray.examples.ecore.internal.ExecutableExtensionFactory:org.eclipselabs.spray.runtime.graphiti.wizard.NewDiagramWizard"
+         descriptionImage="icons/EcoreDiagram-32.png"
+         icon="icons/EcoreDiagram-16.png"
+         id="org.eclipselabs.spray.EcoreDiagram.NewDiagramWizard"
+         name="New EcoreDiagram Diagram"
+         preferredPerspectives="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+         project="false">
+   </wizard>
+</extension>
+     <!-- NEW DIAGRAM WIZARD AUTOGEN END -->
+  
+</plugin>

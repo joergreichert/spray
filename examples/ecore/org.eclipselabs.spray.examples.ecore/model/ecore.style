@@ -1,0 +1,32 @@
+/*************************************************************************************
+ *
+ * Spray styles definition
+ * 
+ * This file contains the definition of style classes using the Styles Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+
+// Add definition of styles here.
+style EcoreDefaultStyle {
+    description = "The default style of the ecore diagram type."
+    // transparency = 0.95
+    background-color = BlueGradient
+    gradient-orientation = vertical
+    line-color = dark-gray
+    // line-style = solid
+    // line-width = 1
+    // font-color = black
+    // font-name = "Tahoma"
+    font-size = 14
+    // font-bold = yes
+}
+
+style TextBoxStyle {
+	transparency = 1.0
+	background-color = BlueGradient
+}
+
+gradient BlueGradient {
+	area(color=RGB(147,207,255), offset=0.0)
+	area(color=RGB(40,123,207), offset=1.0)
+}

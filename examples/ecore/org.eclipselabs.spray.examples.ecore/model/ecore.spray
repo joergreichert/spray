@@ -1,0 +1,40 @@
+/*************************************************************************************
+ *
+ * Spray diagram definition
+ * 
+ * This file contains the definition of a graphical editor using the Spray Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *
+ * See also ecore.properties to configure generator properties.
+ *************************************************************************************/
+// Add import statements here
+import ecore.*
+
+diagram EcoreDiagram for EPackage style EcoreDefaultStyle
+
+
+class EClass icon "ecore/EClass.gif" {
+	shape EClassShape {
+		name into classname
+		reference eStructuralFeatures into structuralFeatures
+	}
+	references {
+		eSuperTypes : connection InheritanceConnection
+		eReferences : connection EReferenceConnection {
+			name into name
+		}
+	}
+	behavior {
+	    create into eClassifiers palette "Objects"
+	}
+}
+
+class EAttribute icon "ecore/EAttribute.gif" {
+    shape EStructuralFeatureShape {
+        name into label
+    }
+    behavior {
+        create palette "Objects"
+    }
+}
+

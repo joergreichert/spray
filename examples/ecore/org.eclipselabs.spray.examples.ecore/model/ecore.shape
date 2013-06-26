@@ -1,0 +1,79 @@
+/*************************************************************************************
+ *
+ * Spray shapes definition
+ * 
+ * This file contains the definition of graphical figures using the Shapes Language.
+ * Refer to http://code.google.com/a/eclipselabs.org/p/spray/ for documentation.
+ *************************************************************************************/
+
+shape EClassShape {
+    rounded-rectangle {
+        curve (width=8, height=8)
+        position (x=0, y=0) 
+        size (width=200, height=120)
+        text {
+            position (x=3, y=0)
+            size (width=194, height=14)
+            id = classname
+        }
+        rectangle {
+            compartment (
+                layout = vertical
+                margin=3
+                spacing=3
+                id = structuralFeatures
+            )
+            position (x=1, y=25)
+            size (width=198, height=90)
+            style (line-width=0 line-color=light-blue)
+        }
+    }
+}
+
+shape EStructuralFeatureShape style TextBoxStyle { 
+    stretching (horizontal=false, vertical=false)
+    text {
+        position (x=3, y=0)
+        size (width=192, height=12)
+        id = label
+    }
+    
+}
+
+connection EReferenceConnection {
+    placing {
+        position (offset=0.1, radius=10, angle=0)
+        text {
+        	position (x=0,y=0)
+        	size (width=40, height=14)
+        	id = sourceText
+        }
+    }
+    placing {
+        position (offset=0.5, radius=10, angle=180)
+        text {
+        	position (x=0,y=0)
+        	size (width=40, height=14)
+        	id = name
+        }
+    }
+    placing {
+        position (offset=0.9, radius=10, angle=180)
+        text {
+        	position (x=0,y=0)
+        	size (width=40, height=14)
+        	id = targetText
+        }
+    }
+}
+
+connection InheritanceConnection {
+    placing {
+        position (offset=1.0)
+        polygon {
+            point (x=-10, y=10)
+            point (x=0, y=0)
+            point (x=-10, y=-10)
+        }
+    }
+}
