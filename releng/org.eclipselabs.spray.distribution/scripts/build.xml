@@ -253,7 +253,7 @@
 	
 	<target name="release-build-mvn" description="performs the release build">
 		<echo>[spray-release] perform release build</echo>
-		<exec executable="mvn" dir="..">
+		<exec executable="mvn" dir=".." failonerror="true">
 			<!-- Maven goals -->
 			<arg line="${MAVEN_GOALS}" />
 			<!-- Profiles -->
