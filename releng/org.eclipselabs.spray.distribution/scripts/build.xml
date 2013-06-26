@@ -272,9 +272,11 @@
 		<echo>[spray-release] push spray repository</echo>
 		<git command="checkout ${branch_main}" />
 		<git command="push origin ${branch_main}" dryrun="${dryrun}"/>
+		<git command="push origin v${version_main}" dryrun="${dryrun}"/>
 
 		<echo>[spray-release] push spray.distribution repository</echo>
 		<git command="push origin master" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" dryrun="${dryrun}"/>
+		<git command="push origin v${version_main}" dir="${PATH_SPRAY_DISTRIBUTION_GIT}" dryrun="${dryrun}"/>
 
 		<echo>[spray-release] Process successfully completed.</echo>
 		<echo>Please upload ../org.eclipselabs.spray.updatesite/target/spray-${version_main}.zip to the project downloads http://code.google.com/a/eclipselabs.org/p/spray/downloads/list.</echo>
@@ -338,12 +340,12 @@
 		</propertyfile>
 	</target>
 
-	<target name="release-promote-gcupload" depends="-fetch-dependencies, -credentials-enter" description="Upload PDF docs and p2 repository to project homepage">
+	<target name="release-promote-gcupload" depends="-fetch-dependencies, -credentials-enter, -init" description="Upload PDF docs and p2 repository to project homepage">
 		<assertPropertySet key="gc_user" />
 		<assertPropertySet key="gc_password" />
 		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="lib/ant-googlecode.jar" name="gcupload" />
 		<if>
-			<equals arg1="@{dryrun}" arg2="false" />
+			<equals arg1="${dryrun}" arg2="false" />
 			<then>
 				<echo>[spray-release] Upload ${PATH_REPOSITORY_ROOT}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf as SprayDeveloperGuide-${version_main}.pdf</echo>
 				<gcupload 
