@@ -18,7 +18,7 @@ import org.eclipselabs.spray.shapes.ConnectionDefinition;
 import org.eclipselabs.spray.shapes.ShapeDefinition;
 import org.eclipselabs.spray.shapes.ui.hover.ImageResourceVisitor;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayEObjectHoverProvider extends DefaultEObjectHoverProvider {
     private String                                  typeKey              = "Other";

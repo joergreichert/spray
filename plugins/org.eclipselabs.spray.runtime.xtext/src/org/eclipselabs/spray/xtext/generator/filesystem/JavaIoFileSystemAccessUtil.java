@@ -8,7 +8,7 @@ import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.generator.OutputConfiguration;
 
 import com.google.common.collect.Maps;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class JavaIoFileSystemAccessUtil implements IFileSystemAccessUtil {
     @Inject

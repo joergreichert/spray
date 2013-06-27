@@ -7,7 +7,7 @@ import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import static org.junit.Assert.assertEquals;
 

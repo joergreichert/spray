@@ -20,7 +20,7 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
 import org.eclipselabs.spray.shapes.ui.quickfix.AbstractStyleDSLModificationJob.ModificationJobType;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
 	private IResourceDescriptions dscriptions = null;

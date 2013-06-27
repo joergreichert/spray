@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.tests
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.emf.common.util.URI
 import org.eclipselabs.spray.generator.graphiti.SprayGenerator
 import org.eclipselabs.xtext.utils.unittesting.XtextTest

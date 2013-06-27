@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.tests
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipselabs.spray.shapes.Ellipse

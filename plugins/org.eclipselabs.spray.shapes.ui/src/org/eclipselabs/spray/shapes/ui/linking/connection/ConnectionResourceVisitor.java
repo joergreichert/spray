@@ -13,7 +13,7 @@ import org.eclipselabs.spray.shapes.ConnectionDefinition;
 import org.eclipselabs.spray.shapes.ShapeContainer;
 import org.eclipselabs.spray.shapes.ShapeContainerElement;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class ConnectionResourceVisitor extends DSLResourceVisitor<ConnectionDefinition> {
     private static final String  SHAPE_DSL_FILEEXTENSION = "shape";

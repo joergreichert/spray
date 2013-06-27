@@ -29,7 +29,7 @@ import org.eclipselabs.spray.shapes.ui.quickfix.AbstractStyleDSLModificationJob;
 import org.eclipselabs.spray.shapes.ui.quickfix.LinkingQuickfixModificationJob;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayQuickfixProvider extends DefaultQuickfixProvider {
     private IResourceDescriptions            dscriptions = null;

@@ -5,7 +5,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipselabs.spray.xtext.generator.IPostProcessor;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.name.Named;
 
 public class EclipseResourceFileSystemAccessExt extends EclipseResourceFileSystemAccess2 implements IAdaptable {

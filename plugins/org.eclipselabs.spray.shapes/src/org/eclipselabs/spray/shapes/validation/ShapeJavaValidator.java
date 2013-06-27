@@ -37,7 +37,7 @@ import org.eclipselabs.spray.shapes.util.ShapeSizeCalculator;
 import org.eclipselabs.spray.shapes.util.ShapeSizeWrapper;
 import org.eclipselabs.spray.styles.GradientRef;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class ShapeJavaValidator extends AbstractShapeJavaValidator {
 

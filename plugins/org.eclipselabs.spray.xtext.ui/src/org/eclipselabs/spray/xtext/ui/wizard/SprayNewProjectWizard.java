@@ -8,7 +8,7 @@ import org.eclipse.xtext.ui.wizard.IProjectInfo;
 import org.eclipse.xtext.ui.wizard.XtextNewProjectWizard;
 import org.eclipselabs.spray.xtext.ui.SprayUiModule;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.name.Named;
 
 public class SprayNewProjectWizard extends XtextNewProjectWizard {

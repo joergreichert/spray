@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.util
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EDataType
 import org.eclipselabs.spray.mm.spray.MetaClass

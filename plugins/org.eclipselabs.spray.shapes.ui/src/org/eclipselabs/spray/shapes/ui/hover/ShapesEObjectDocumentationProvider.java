@@ -8,7 +8,7 @@ import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvide
 import org.eclipselabs.spray.shapes.ConnectionDefinition;
 import org.eclipselabs.spray.shapes.ShapeDefinition;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class ShapesEObjectDocumentationProvider extends
 		MultiLineCommentDocumentationProvider {

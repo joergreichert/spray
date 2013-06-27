@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipselabs.spray.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.ConnectionStyle
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerator

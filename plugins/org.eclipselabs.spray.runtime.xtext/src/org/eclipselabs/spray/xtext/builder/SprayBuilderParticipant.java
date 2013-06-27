@@ -17,7 +17,7 @@ import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfiguration;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayBuilderParticipant extends BuilderParticipant {
     @Inject

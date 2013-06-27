@@ -11,7 +11,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalFactory;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * When qualified names of Java types are inserted it might be the case that package segment names

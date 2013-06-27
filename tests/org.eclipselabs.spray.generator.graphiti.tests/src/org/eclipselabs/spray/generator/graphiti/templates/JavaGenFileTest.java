@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @RunWith(XtextRunner2.class)
 @InjectWith(org.eclipselabs.spray.generator.graphiti.tests.SprayTestsInjectorProvider.class)

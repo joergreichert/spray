@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import com.google.inject.Provider
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory

@@ -15,7 +15,7 @@ import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.mm.spray.ShapeInSpray;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Spray specific {@link IQualifiedNameProvider}.

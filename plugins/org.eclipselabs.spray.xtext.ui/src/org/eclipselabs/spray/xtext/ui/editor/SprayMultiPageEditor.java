@@ -19,7 +19,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipselabs.spray.generator.common.ProjectProperties;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayMultiPageEditor extends MultiPageEditorPart implements IResourceChangeListener {
     @Inject

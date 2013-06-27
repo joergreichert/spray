@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.xtext.jvmmodel
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer

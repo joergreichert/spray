@@ -12,7 +12,7 @@ import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.common.types.xtext.ui.XtextResourceSetBasedProjectProvider;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class DomainResourceVisitor extends DSLResourceVisitor<EClassifier> {
     private static final String  ECORE_FILEEXTENSION = "ecore";

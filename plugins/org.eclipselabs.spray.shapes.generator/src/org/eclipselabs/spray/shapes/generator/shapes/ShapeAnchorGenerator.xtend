@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeCalculator
 import org.eclipselabs.spray.shapes.generator.util.ShapeSizeWrapper

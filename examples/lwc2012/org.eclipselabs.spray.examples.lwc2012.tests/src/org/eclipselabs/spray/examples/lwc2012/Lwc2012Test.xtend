@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.examples.lwc2012
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import com.google.inject.Injector
 import java.util.List
 import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowContext

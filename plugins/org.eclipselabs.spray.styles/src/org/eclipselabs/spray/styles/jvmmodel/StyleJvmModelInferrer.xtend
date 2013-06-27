@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.styles.jvmmodel
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.xtext.common.types.JvmDeclaredType
 import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider$Factory

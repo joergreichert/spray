@@ -28,7 +28,7 @@ import org.eclipselabs.spray.xtext.ui.wizard.codegen.NewProjectGenerator;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayProjectCreator extends AbstractPluginProjectCreator {
 

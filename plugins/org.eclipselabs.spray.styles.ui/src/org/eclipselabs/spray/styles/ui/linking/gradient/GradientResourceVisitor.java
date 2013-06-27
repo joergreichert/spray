@@ -13,7 +13,7 @@ import org.eclipselabs.spray.styles.Gradient;
 import org.eclipselabs.spray.styles.StyleContainer;
 import org.eclipselabs.spray.styles.StyleContainerElement;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class GradientResourceVisitor extends DSLResourceVisitor<Gradient> {
 	private static final String STYLE_DSL_FILEEXTENSION = "style";

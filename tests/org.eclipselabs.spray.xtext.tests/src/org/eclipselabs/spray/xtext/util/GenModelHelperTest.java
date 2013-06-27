@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 
 import BusinessDomainDsl.BusinessDomainDslPackage;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

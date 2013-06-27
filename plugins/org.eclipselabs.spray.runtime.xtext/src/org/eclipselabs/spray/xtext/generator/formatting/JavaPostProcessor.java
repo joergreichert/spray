@@ -10,7 +10,7 @@ import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
 import org.eclipselabs.spray.xtext.generator.IPostProcessor;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Parts copied from org.eclipse.xpand2.output.JavaBeautifier

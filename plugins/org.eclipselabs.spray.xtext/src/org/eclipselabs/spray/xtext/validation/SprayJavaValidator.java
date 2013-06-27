@@ -29,7 +29,7 @@ import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayJavaValidator extends AbstractSprayJavaValidator implements IssueCodes {
     @Inject

@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.EcoreUtil2;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 class RegisterPlatformGenmodelListener implements IResourceChangeListener {
     private static final Log      LOG          = LogFactory.getLog(RegisterPlatformGenmodelListener.class);

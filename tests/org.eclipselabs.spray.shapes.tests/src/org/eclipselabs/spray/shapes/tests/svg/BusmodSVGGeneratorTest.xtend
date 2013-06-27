@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.tests.svg
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import java.io.File
 import java.util.Scanner
 import org.eclipse.emf.common.util.URI

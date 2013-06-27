@@ -2,7 +2,7 @@ package org.eclipselabs.spray.xtext.generator.filesystem;
 
 import org.eclipselabs.spray.xtext.generator.outputconfig.SprayOutputConfigurationProvider;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Java generation class supporting the generation of a base and extension class.

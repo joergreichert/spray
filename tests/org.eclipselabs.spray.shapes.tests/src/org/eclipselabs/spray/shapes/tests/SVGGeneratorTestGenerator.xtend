@@ -45,7 +45,7 @@ class SVGGeneratorTestGenerator extends XtextTest {
 		import org.junit.Before
 		import org.junit.Test
 		import org.eclipselabs.spray.shapes.ShapeContainer
-		import com.google.inject.Inject
+		import javax.inject.Inject
 		import java.util.Scanner
 		import java.io.File
 		

@@ -11,7 +11,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass
 import static org.eclipse.xtext.EcoreUtil2.*
 import org.eclipselabs.spray.generator.graphiti.templates.features.CustomFeature
 import org.eclipselabs.spray.mm.spray.CustomBehavior
-import com.google.inject.Inject
+import javax.inject.Inject
 
 class DiagramExtensions {
     @Inject extension MetaClassExtensions 

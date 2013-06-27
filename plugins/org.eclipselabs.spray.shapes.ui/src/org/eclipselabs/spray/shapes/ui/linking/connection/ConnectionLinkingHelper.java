@@ -12,7 +12,7 @@ import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLLinkingHelper;
 import org.eclipselabs.spray.runtime.xtext.ui.linking.DSLResourceVisitor;
 import org.eclipselabs.spray.shapes.ConnectionDefinition;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class ConnectionLinkingHelper extends DSLLinkingHelper<ConnectionDefinition> {
 

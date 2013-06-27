@@ -9,7 +9,7 @@ import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipselabs.spray.xtext.generator.EclipseHelpers;
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaIoFileSystemAccessUtil;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class EclipseFileSystemAccessUtil extends JavaIoFileSystemAccessUtil {
 

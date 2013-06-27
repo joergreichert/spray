@@ -59,7 +59,7 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class MetamodelSelectionComposite extends Composite {
     private DataBindingContext         m_bindingContext;

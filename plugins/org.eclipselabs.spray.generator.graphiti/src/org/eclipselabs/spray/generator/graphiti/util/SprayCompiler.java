@@ -14,7 +14,7 @@ import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @SuppressWarnings("restriction")
 public class SprayCompiler extends XbaseCompiler {

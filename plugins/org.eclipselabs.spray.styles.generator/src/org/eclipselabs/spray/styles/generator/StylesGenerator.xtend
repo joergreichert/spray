@@ -3,7 +3,7 @@
  */
 package org.eclipselabs.spray.styles.generator
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import com.google.inject.Provider
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory

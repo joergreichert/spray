@@ -12,7 +12,7 @@ import org.eclipse.xtext.formatting.impl.FormattingConfig;
 import org.eclipse.xtext.util.Pair;
 import org.eclipselabs.spray.styles.services.StyleGrammarAccess;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * This class contains custom formatting description.

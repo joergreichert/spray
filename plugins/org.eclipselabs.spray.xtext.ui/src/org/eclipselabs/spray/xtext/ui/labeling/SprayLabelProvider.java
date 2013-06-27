@@ -10,7 +10,7 @@ import org.eclipselabs.spray.mm.spray.MetaClass;
 import org.eclipselabs.spray.mm.spray.MetaReference;
 import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Provides labels for a EObjects.

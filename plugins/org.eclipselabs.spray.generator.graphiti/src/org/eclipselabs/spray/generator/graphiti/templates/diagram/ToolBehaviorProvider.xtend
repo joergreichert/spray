@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates.diagram
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.List

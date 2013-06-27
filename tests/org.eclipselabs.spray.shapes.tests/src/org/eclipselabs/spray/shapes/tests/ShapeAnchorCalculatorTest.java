@@ -9,7 +9,7 @@ import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @RunWith(XtextRunner2.class)
 @InjectWith(ShapeTestsInjectorProvider.class)

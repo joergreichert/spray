@@ -38,7 +38,7 @@ import org.eclipse.xtext.util.Pair;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Singleton;
 
 @SuppressWarnings("restriction")

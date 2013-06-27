@@ -7,7 +7,7 @@ import org.eclipselabs.spray.runtime.graphiti.GraphitiRuntimeModule;
 import org.eclipselabs.spray.xtext.SprayRuntimeModule;
 import org.osgi.framework.BundleContext;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Module;
 
 public class SprayActivatorExt extends SprayActivator {

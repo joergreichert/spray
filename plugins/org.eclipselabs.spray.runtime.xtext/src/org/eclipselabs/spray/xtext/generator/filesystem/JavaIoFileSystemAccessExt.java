@@ -5,7 +5,7 @@ import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipselabs.spray.xtext.generator.IPostProcessor;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.name.Named;
 
 public class JavaIoFileSystemAccessExt extends JavaIoFileSystemAccess {

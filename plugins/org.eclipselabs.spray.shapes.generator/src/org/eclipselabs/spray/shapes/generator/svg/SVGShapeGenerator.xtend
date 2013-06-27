@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator.svg
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipselabs.spray.shapes.AnchorManual
 import org.eclipselabs.spray.shapes.AnchorPredefinied

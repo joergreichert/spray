@@ -4,7 +4,7 @@ package org.eclipselabs.spray.generator.graphiti.util.mm
  * Extension methods for type MetaClass
  */
 import org.eclipselabs.spray.mm.spray.MetaClass
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions
 import org.eclipselabs.spray.mm.spray.CreateBehavior
 import org.eclipselabs.spray.mm.spray.ConnectionInSpray

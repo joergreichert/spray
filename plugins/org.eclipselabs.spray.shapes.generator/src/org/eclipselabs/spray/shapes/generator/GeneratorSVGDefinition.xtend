@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipselabs.spray.shapes.generator.svg.SVGShapeGenerator
 import org.eclipselabs.spray.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.generator.svg.LayoutExtensions

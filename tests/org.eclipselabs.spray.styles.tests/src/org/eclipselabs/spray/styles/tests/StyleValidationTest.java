@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Injector;
 
 @RunWith(ParameterizedXtextRunner.class)

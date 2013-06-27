@@ -3,7 +3,7 @@ package org.eclipselabs.spray.generator.graphiti.util.mm
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.runner.RunWith
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.junit.Test
 import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.mm.spray.Diagram

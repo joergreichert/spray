@@ -12,7 +12,7 @@ import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 
 public class ShapeLinkingService extends DefaultLinkingService {

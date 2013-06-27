@@ -13,7 +13,7 @@ import org.eclipselabs.spray.styles.Style;
 import org.eclipselabs.spray.styles.StyleContainer;
 import org.eclipselabs.spray.styles.StyleContainerElement;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class StyleResourceVisitor extends DSLResourceVisitor<Style> {
 	private static final String STYLE_DSL_FILEEXTENSION = "style";

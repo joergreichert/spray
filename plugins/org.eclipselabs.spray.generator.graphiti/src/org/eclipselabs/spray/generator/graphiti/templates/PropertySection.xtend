@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.templates
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EEnum
 import org.eclipselabs.spray.generator.graphiti.util.NamingExtensions

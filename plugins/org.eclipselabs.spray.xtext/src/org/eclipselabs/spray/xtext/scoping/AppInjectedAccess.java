@@ -2,7 +2,7 @@ package org.eclipselabs.spray.xtext.scoping;
 
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * All injected instances can only be injected in a class that is injected itself.

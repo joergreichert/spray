@@ -2,7 +2,7 @@ package org.eclipselabs.spray.shapes.generator.shapes
 
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 import org.eclipselabs.spray.shapes.ShapeDefinition
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipselabs.spray.shapes.generator.GeneratorShapeDefinition
 import org.eclipselabs.spray.xtext.generator.filesystem.GenFile
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile

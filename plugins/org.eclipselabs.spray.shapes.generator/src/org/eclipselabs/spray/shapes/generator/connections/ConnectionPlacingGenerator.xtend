@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator.connections
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.emf.common.util.EList
 import org.eclipselabs.spray.shapes.CDEllipse
 import org.eclipselabs.spray.shapes.CDLine

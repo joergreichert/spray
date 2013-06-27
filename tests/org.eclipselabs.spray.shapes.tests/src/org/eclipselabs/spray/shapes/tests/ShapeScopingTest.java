@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @SuppressWarnings("restriction")
 @RunWith(ParameterizedXtextRunner.class)

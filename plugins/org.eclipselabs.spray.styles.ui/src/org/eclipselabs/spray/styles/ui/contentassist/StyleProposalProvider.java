@@ -34,7 +34,7 @@ import org.eclipselabs.spray.styles.Style;
 import org.eclipselabs.spray.styles.StyleLayout;
 import org.eclipselabs.spray.styles.StylesPackage;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * see

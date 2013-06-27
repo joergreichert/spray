@@ -21,7 +21,7 @@ import org.eclipselabs.spray.shapes.ShapeStyleRef;
 import org.eclipselabs.spray.shapes.ShapesPackage;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeProvider;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * see

@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.shapes.generator.shapes
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.emf.common.util.EList
 import org.eclipselabs.spray.generator.common.ProjectProperties
 import org.eclipselabs.spray.shapes.Description

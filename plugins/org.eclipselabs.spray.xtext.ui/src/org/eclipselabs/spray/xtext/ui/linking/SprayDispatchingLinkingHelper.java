@@ -34,7 +34,7 @@ import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.xtext.ui.linking.domain.DomainLinkingHelper;
 import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
     @Inject

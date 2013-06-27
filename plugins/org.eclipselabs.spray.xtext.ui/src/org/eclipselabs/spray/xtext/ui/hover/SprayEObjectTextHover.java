@@ -12,7 +12,7 @@ import org.eclipse.xtext.xbase.ui.hover.XbaseDispatchingEObjectTextHover;
 import org.eclipselabs.spray.shapes.ConnectionDefinition;
 import org.eclipselabs.spray.shapes.ShapeDefinition;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class SprayEObjectTextHover extends XbaseDispatchingEObjectTextHover {
     private IInformationControlCreatorProvider lastCreatorProvider;

@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.styles.tests
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import com.google.inject.Provider
 import org.eclipse.xtext.generator.InMemoryFileSystemAccess
 import org.eclipse.xtext.junit4.InjectWith

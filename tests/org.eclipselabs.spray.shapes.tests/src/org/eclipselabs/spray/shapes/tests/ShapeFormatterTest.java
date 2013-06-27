@@ -14,7 +14,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider;
 import org.junit.runner.RunWith;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @SuppressWarnings("restriction")
 @RunWith(ParameterizedXtextRunner.class)

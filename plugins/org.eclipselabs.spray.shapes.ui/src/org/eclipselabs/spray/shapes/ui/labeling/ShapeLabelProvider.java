@@ -9,7 +9,7 @@ import org.eclipselabs.spray.shapes.ConnectionDefinition;
 import org.eclipselabs.spray.shapes.Shape;
 import org.eclipselabs.spray.shapes.ShapeContainer;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Provides labels for a EObjects.

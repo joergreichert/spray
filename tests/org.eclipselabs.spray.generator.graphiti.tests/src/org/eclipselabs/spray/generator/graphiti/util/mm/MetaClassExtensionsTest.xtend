@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.generator.graphiti.util.mm
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.spray.mm.spray.SprayFactory

@@ -14,7 +14,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.junit.runner.RunWith;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @RunWith(ParameterizedXtextRunner.class)
 @InjectWith(SprayTestsInjectorProvider.class)

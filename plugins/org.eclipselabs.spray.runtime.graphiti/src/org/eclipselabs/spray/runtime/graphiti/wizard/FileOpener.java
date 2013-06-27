@@ -9,7 +9,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * Copied from org.eclipse.xtext.ui.util in order to avoid dependency on org.eclipse.xtext.ui

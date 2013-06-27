@@ -23,7 +23,7 @@ import BusinessDomainDsl.BusinessDomainDslPackage;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 @RunWith(ParameterizedXtextRunner.class)
 @InjectWith(SprayTestsInjectorProvider.class)

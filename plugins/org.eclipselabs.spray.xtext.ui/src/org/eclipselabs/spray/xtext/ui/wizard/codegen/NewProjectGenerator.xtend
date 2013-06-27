@@ -2,7 +2,7 @@ package org.eclipselabs.spray.xtext.ui.wizard.codegen
 
 import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo
 import org.eclipse.xtext.generator.IFileSystemAccess
-import com.google.inject.Inject
+import javax.inject.Inject
 import org.eclipselabs.spray.generator.graphiti.templates.Plugin
 
 class NewProjectGenerator {

@@ -5,7 +5,7 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.naming.QualifiedName;
 
 import com.google.common.base.Function;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * This function replaces identifiers of a qualified name that matches a language keyword by prefixing it with the ^ character.

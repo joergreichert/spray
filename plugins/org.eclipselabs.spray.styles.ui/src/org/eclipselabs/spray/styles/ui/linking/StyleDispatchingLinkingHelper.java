@@ -17,7 +17,7 @@ import org.eclipselabs.spray.styles.Style;
 import org.eclipselabs.spray.styles.ui.linking.gradient.GradientLinkingHelper;
 import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 public class StyleDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
 	@Inject
