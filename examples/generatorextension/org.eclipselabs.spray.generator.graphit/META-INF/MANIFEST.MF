@@ -5,11 +5,11 @@ Bundle-SymbolicName: org.eclipselabs.spray.generator.graphiti.extension;singleto
 Bundle-Version: 0.5.1.qualifier
 Bundle-Activator: org.eclipselabs.spray.generator.graphiti.ext.Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipselabs.spray.mm;bundle-version="0.5.1",
- org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.1",
- org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.1",
+ org.eclipselabs.spray.mm;bundle-version="0.5.0",
+ org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
+ org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.0",
  org.eclipselabs.spray.generator.graphiti.ui,
- org.eclipselabs.spray.generator.common;bundle-version="0.5.1"
+ org.eclipselabs.spray.generator.common;bundle-version="0.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.xtend2.lib,
