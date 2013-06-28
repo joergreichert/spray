@@ -43,7 +43,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def mainFile (Diagram diagram, String className) '''
+    def mainFile (Diagram it, String className) '''
         «header(this)»
         package «diagram_package()»;
         
@@ -84,42 +84,42 @@ class FeatureProvider extends FileGenerator<Diagram> {
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayFixedLayoutManager;
         import «util_package()».OwnerPropertyDeleteFeature;
-        «IF !diagram.metaClasses.empty»
+        «IF !metaClasses.empty»
         «ENDIF»
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
         public abstract class «className» extends DefaultFeatureProvider {
-            «generate_additionalFields(diagram)»
+            «generate_additionalFields»
             public «className»(final IDiagramTypeProvider dtp) {
                 super(dtp);
             }
         
-            «generate_getAddFeature(diagram)»
-            «generate_getCopyFeature(diagram)»
-            «generate_getCreateFeatures(diagram)»
-            «generate_getCreateConnectionFeatures(diagram)»
-            «generate_getUpdateFeature(diagram)»
-            «generate_getLayoutFeature(diagram)»
-            «generate_getRemoveFeature(diagram)»
-            «generate_getDeleteFeature(diagram)»
-            «generate_getMoveShapeFeature(diagram)»
-            «generate_getPasteFeature(diagram)»
-            «generate_getDirectEditingFeatures(diagram)»
-            «generate_getCustomFeatures(diagram)»
-            «generate_getResizeFeatures(diagram)»
-            «generate_additionalMethods(diagram)»
+            «generate_getAddFeature»
+            «generate_getCopyFeature»
+            «generate_getCreateFeatures»
+            «generate_getCreateConnectionFeatures»
+            «generate_getUpdateFeature»
+            «generate_getLayoutFeature»
+            «generate_getRemoveFeature»
+            «generate_getDeleteFeature»
+            «generate_getMoveShapeFeature»
+            «generate_getPasteFeature»
+            «generate_getDirectEditingFeatures»
+            «generate_getCustomFeatures»
+            «generate_getResizeFeatures»
+            «generate_additionalMethods»
         }
     '''
     
-    def generate_getAddFeature (Diagram diagram) '''
+    def generate_getAddFeature (Diagram it) '''
         «overrideHeader»
         public IAddFeature getAddFeature(final IAddContext context) {
             // is object for add request a EClass or EReference?
             final EObject bo = (EObject) context.getNewObject() ;
             final String reference = (String)context.getProperty(PROPERTY_REFERENCE);
             final String alias = (String)context.getProperty(PROPERTY_ALIAS);
-            «FOR cls : diagram.metaClasses»
+            «FOR cls : metaClasses»
                 if ( «generate_metaClassSwitchCondition(cls)») {
                     if ( reference == null ){
                         return new «cls.addFeatureClassName.shortName»(this);
@@ -134,11 +134,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def generate_getCreateFeatures (Diagram diagram) '''
+    def generate_getCreateFeatures (Diagram it) '''
         «overrideHeader»
         public ICreateFeature[] getCreateFeatures() {
             return new ICreateFeature[] { 
-            «FOR featureClassName : diagram.getCreateFeatureClassNames SEPARATOR ","»
+            «FOR featureClassName : getCreateFeatureClassNames SEPARATOR ","»
                 new «featureClassName»(this) 
             «ENDFOR»
             };
@@ -148,16 +148,16 @@ class FeatureProvider extends FileGenerator<Diagram> {
     /**
      * Computes the class names of all Create Features of the diagram.
      */
-    def private List<String> getCreateFeatureClassNames (Diagram diagram) {
+    def private List<String> getCreateFeatureClassNames (Diagram it) {
         val result = new ArrayList<String>()
         
-        for (mc : diagram.metaClassesForShapes.filter(mc|mc.hasCreateBehavior)) {
+        for (mc : metaClassesForShapes.filter(mc|mc.hasCreateBehavior)) {
             result += mc.createFeatureClassName.shortName
         }
         return result
     }
     
-    def generate_getUpdateFeature (Diagram diagram) '''
+    def generate_getUpdateFeature (Diagram it) '''
         «overrideHeader»
         public IUpdateFeature getUpdateFeature(final IUpdateContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
@@ -173,7 +173,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
                 if (bo == null) {
                 	return null;
                 }
-            «FOR cls : diagram.metaClasses »
+            «FOR cls : metaClasses »
                 «IF ! (cls.representedBy instanceof ConnectionInSpray) »
                 if ( «generate_metaClassSwitchCondition(cls)») { // 11
                     return new «cls.updateFeatureClassName.shortName»(this); 
@@ -192,7 +192,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def generate_getLayoutFeature (Diagram diagram) '''
+    def generate_getLayoutFeature (Diagram it) '''
         «overrideHeader»
         public ILayoutFeature getLayoutFeature(final ILayoutContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
@@ -201,7 +201,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             	return null;
             }
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
-            «FOR cls : diagram.metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
+            «FOR cls : metaClasses.filter(m |! (m.representedBy instanceof ConnectionInSpray) )  »
             if ( «generate_metaClassSwitchCondition(cls)» ) {
                 return new «cls.layoutFeatureClassName.shortName»(this);
             }
@@ -210,11 +210,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
 
-    def generate_getCreateConnectionFeatures (Diagram diagram) '''
+    def generate_getCreateConnectionFeatures (Diagram it) '''
         «overrideHeader»
         public ICreateConnectionFeature[] getCreateConnectionFeatures() {
             return new ICreateConnectionFeature[] {
-                «handleConnections(getMetaclassesRepresentedByConnections(diagram), getMetaReferencesRepresentedByConnections(diagram))»
+                «handleConnections(getMetaclassesRepresentedByConnections, getMetaReferencesRepresentedByConnections)»
             };
         }
     '''
@@ -239,26 +239,26 @@ class FeatureProvider extends FileGenerator<Diagram> {
         «ENDIF»
     '''
     
-    def newCreateConnection(MetaClass cls) '''
-        new «cls.createFeatureClassName.shortName»(this)«»
+    def newCreateConnection(MetaClass it) '''
+        new «createFeatureClassName.shortName»(this)«»
     '''
 
-    def newCreateConnection(MetaReference reference) '''
-        new «reference.createReferenceAsConnectionFeatureClassName.shortName»(this)
+    def newCreateConnection(MetaReference it) '''
+        new «createReferenceAsConnectionFeatureClassName.shortName»(this)
     '''
     
     /**
      * @return The metaclasses in the diagram that are represented as connection and which have a create behavior
      */
     def getMetaclassesRepresentedByConnections(Diagram diagram) {
-        diagram.metaClasses.filter(e|e.representedBy instanceof ConnectionInSpray  && e.hasCreateBehavior)
+        diagram.metaClasses.filter[representedBy instanceof ConnectionInSpray  && hasCreateBehavior]
     }
     
     def Iterable<MetaReference> getMetaReferencesRepresentedByConnections(Diagram diagram) {
-        diagram.metaClasses.map(mclass|mclass.references.filter(ref|ref.representedBy != null)).flatten()    
+        diagram.metaClasses.map[references.filter[representedBy != null]].flatten()
     }
     
-    def generate_getRemoveFeature (Diagram diagram) '''
+    def generate_getRemoveFeature (Diagram it) '''
         «overrideHeader»
         public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
             // Spray specific DefaultRemoveFeature
@@ -267,7 +267,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def generate_getDeleteFeature (Diagram diagram) '''
+    def generate_getDeleteFeature (Diagram it) '''
         public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
             final PictogramElement pictogramElement = context.getPictogramElement();
             final EObject bo = getBusinessObjectForPictogramElement(pictogramElement);
@@ -277,11 +277,11 @@ class FeatureProvider extends FileGenerator<Diagram> {
             final String reference = peService.getPropertyValue(pictogramElement, PROPERTY_REFERENCE);
             final String alias = peService.getPropertyValue(pictogramElement,PROPERTY_ALIAS);
 
-            «FOR cls : diagram.metaClasses »
+            «FOR cls : metaClasses »
             if ( «generate_metaClassSwitchCondition(cls)» ) {
                 if( reference == null ){
                     return new DefaultDeleteFeature(this); 
-                «FOR reference : cls.references.filter(ref|ref.representedBy != null)  »
+                «FOR reference : cls.references.filter[representedBy != null]  »
                 } else if( reference.equals(«reference.literalConstant».getName())){
                     return new «reference.deleteReferenceFeatureClassName.shortName»(this);
                 «ENDFOR»    
@@ -293,7 +293,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def generate_getMoveShapeFeature (Diagram diagram) '''
+    def generate_getMoveShapeFeature (Diagram it) '''
         /** 
          * Ensure that any shape with property {@link ISprayConstants#CAN_MOVE} set to false will not have a move feature.
          */
@@ -304,7 +304,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             EObject eObject = getBusinessObjectForPictogramElement(shape);
             ContainerShape targetContainer = context.getTargetContainer();
             EObject target = getBusinessObjectForPictogramElement(targetContainer);
-            «FOR cls : diagram.metaClassesList.filter(s | (s.representedBy instanceof ShapeFromDsl) )»
+            «FOR cls : metaClassesList.filter[representedBy instanceof ShapeFromDsl]»
             if( eObject instanceof «cls.itfName»){
                 return new  «cls.moveFeatureClassName»(this);
             }
@@ -314,7 +314,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
         }
     '''
     
-    def generate_getCustomFeatures (Diagram diagram) '''
+    def generate_getCustomFeatures (Diagram it) '''
         «overrideHeader»
         public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
             final EObject bo = (EObject) getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
@@ -322,7 +322,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             	return new ICustomFeature[0];
             }
             final String alias = GraphitiProperties.get(context.getPictogramElements()[0], PROPERTY_ALIAS);
-            «FOR metaClass : diagram.metaClasses »
+            «FOR metaClass : metaClasses »
                 «val featureClasses = metaClass.customFeatureClassNames»
                 «IF !featureClasses.isEmpty»
                     if(«generate_metaClassSwitchCondition(metaClass)»){
