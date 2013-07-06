@@ -86,6 +86,7 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.mm.algorithms.Polyline;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
+        import org.eclipselabs.spray.runtime.graphiti.rendering.ConnectionRendering;
         // MARKER_IMPORT
         
         @SuppressWarnings("unused")
@@ -132,7 +133,10 @@ class AddConnectionFeature extends FileGenerator<MetaClass> {
             «metaClass.itfName» addedDomainObject = («metaClass.itfName») context.getNewObject();
 
             final Connection connection = createConnectionLine (addConContext);
-
+            
+            // render the connections between the same Start- and End-Anchor
+            ConnectionRendering.startRendering(addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
+            
             // create link and wire it
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
             «IF metaClass.alias!=null»

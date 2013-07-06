@@ -61,6 +61,7 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
+        import org.eclipselabs.spray.runtime.graphiti.rendering.ConnectionRendering;
         «IF styleRef != null »
         import «styleRef.qualifiedName»;
         «ELSE»
@@ -120,7 +121,10 @@ class AddConnectionFromDslFeature extends FileGenerator<MetaClass> {
             «ENDIF»
             ISprayConnection connection = new «connection.connection.simpleName»Connection(getFeatureProvider());
             Connection result = (Connection) connection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
-
+            
+            // render the connections between the same Start- and End-Anchor
+            ConnectionRendering.startRendering(addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
+            
             // create link and wire it
             peService.setPropertyValue(result , PROPERTY_MODEL_TYPE, «metaClass.literalConstant».getName());
             «IF metaClass.alias!=null»

@@ -58,6 +58,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayTopLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayDiagramLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
+		import org.eclipselabs.spray.runtime.graphiti.rendering.ConnectionRendering;
 		import «ProjectProperties::shapesPackage».«container.shape.simpleName»Shape;
 
 		// MARKER_IMPORT
@@ -153,6 +154,20 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 				//  Only neccesary when contents is moved to xcoordinates < 0
 				mgr.layout();
 				mgr.layout();
+				
+				// Render all connections of the moved element (if necessary)
+				if(sourceShape instanceof AnchorContainer) {
+					AnchorContainer anchorContainer = (AnchorContainer) sourceShape;
+					for(Anchor a : anchorContainer.getAnchors()) {
+						for(Connection incoming : a.getIncomingConnections()) {
+							ConnectionRendering.startRendering(incoming.getStart(), incoming.getEnd());
+						}
+						for(Connection outgoing : a.getOutgoingConnections()) {
+							ConnectionRendering.startRendering(outgoing.getStart(), outgoing.getEnd());
+						}
+					}
+				}
+				
 				return;   
 			}
 			«FOR ref : references.filter(ref | ! ref.reference.containment)»

@@ -67,5 +67,6 @@ public class ReservedKeyWords {
         "Graphiti",
         "ISprayShape",
         "SprayLayoutService",
-        "GraphitiProperties"};
+        "GraphitiProperties",
+        "ConnectionRendering"};
 }
