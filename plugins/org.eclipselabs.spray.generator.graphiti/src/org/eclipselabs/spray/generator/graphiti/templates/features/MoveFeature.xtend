@@ -44,11 +44,15 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 		import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 		import org.eclipse.graphiti.features.context.impl.AddContext;
 		import org.eclipse.graphiti.features.context.impl.RemoveContext;
+		
+		import org.eclipse.graphiti.mm.pictograms.Anchor;
+		import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+		import org.eclipse.graphiti.mm.pictograms.Connection;
 		import org.eclipse.graphiti.mm.pictograms.Diagram;
 		import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 		import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 		import org.eclipse.graphiti.mm.pictograms.Shape;
-
+		
 		import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
 		import org.eclipselabs.spray.runtime.graphiti.ISprayConstants;
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
@@ -59,6 +63,7 @@ class MoveFeature extends FileGenerator<ShapeFromDsl>{
 		import org.eclipselabs.spray.runtime.graphiti.layout.SprayDiagramLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.shape.SprayLayoutManager;
 		import org.eclipselabs.spray.runtime.graphiti.rendering.ConnectionRendering;
+		
 		import «ProjectProperties::shapesPackage».«container.shape.simpleName»Shape;
 
 		// MARKER_IMPORT

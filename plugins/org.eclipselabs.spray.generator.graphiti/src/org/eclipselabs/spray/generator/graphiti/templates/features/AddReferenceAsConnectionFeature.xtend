@@ -85,6 +85,7 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipse.graphiti.mm.algorithms.Polyline;
         import org.eclipse.graphiti.services.IGaService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractAddConnectionFeature;
+        import org.eclipselabs.spray.runtime.graphiti.rendering.ConnectionRendering;
         «IF reference.representedBy.connection != null»
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
         import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
@@ -124,6 +125,9 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             final Connection connection = peCreateService.createFreeFormConnection(getDiagram());
             connection.setStart(addConContext.getSourceAnchor());
             connection.setEnd(addConContext.getTargetAnchor());
+            
+            // render the connections between the same Start- and End-Anchor
+            ConnectionRendering.startRendering(addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
             
             // TRY
             final AnchorContainer parent = connection.getStart().getParent();
