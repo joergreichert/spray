@@ -15,7 +15,38 @@ Another possibility for the user to change the properties of a shape or a connec
 
 !images/feature_properties.png!
 
+h2. Special Rendering of Connections
 
+Hint: Coordinates will be described in square brackets: [x=INT, y=INT]
 
+First of all we need to know the following principles:
 
+* The drawing grid has its start point always in the top left corner (which therefore has the position [0,0]). 
+* When drawing, Graphiti uses the top left corner of the element to describe the elements coordinates on the grid.
+* The standard anchor point of an element in Graphiti is located in the middle of the element (meaning  [x + width/2, y + height/2]).
+* If the user defines own relative anchor points we get the relative position [rx,ry] inside the containing element. This will give us the coordinates [x + rx*width, y + ry*height] for the anchor.
+* If the user defines own fixed anchor points we get the position [fx,fy] inside the containing element. This will give us the coordinates[x + fx, y  + fy] for the anchor.
+* Width and height of an element are always positive, since Graphiti starts drawing from the top left corner of the element.
+* Width, height, x- and y-coordinates are described as Integers in Graphiti.
+* Connections in Graphiti are usually straight lines.
+* Graphiti has the possibility to define bend points for FreeFormConnections.
+
+Our idea is to pull apart the connections, while leaving the anchor points untouched. Therefore we provide a static method to do all the steps and call this method automatically in the add-method of every AddConnection Feature. Additionally moving an element causes also a reset of the bend points, therefore we call this method in the move-Method of every MoveFeature. 
+
+h3. Strategy of Rendering
+
+We start with computing the anchor points (which are either in the middle of their parent element or for user-defined anchors at a relative or fixed point inside the element). Afterwards we compute the center between the two anchor points. This will be the point at which the connections will be pulled apart.
+Next thing we need to do is getting the vector of the connection and with this computing the orthogonal vector to the connection.
+Since we need to know the connections which have the same anchor points, we compute these connections in an extracted method. We iterate through all the connections of start- and end- anchor,  eventually getting the ones we wanted.
+Now we need to handle user-set bend points. We decided we should not add a bend point if the user already added a bend point to the connection. Therefore we will set a property for the connection if we did add a bend point. Now we will proceed according to the following rules:
+
+* If there is any bend point and the property isn’t set, we won’t add our bend point. 
+* If the property is set, but there is more than one bend point, we will remove our property but won’t delete our bend point.
+* If the user moves our bend point we will also only remove the property. We will add two more properties for the connection and store the coordinates of the bend point. Therefore we can decide if the bend point was moved.
+* If there are no user-bend points and the user didn’t move our bend point, we will delete the property as well as our property and then will compute a new bend point.
+
+To get the new bend point we decide in which direction we will move these connections. Either in the direction of the orthogonal vector or the opposite direction. We use a qualified index of equalConnections to decide this. The qualified index only counts the connections which are untouched by the user. This means, only connections to which we can add a bend point.
+We also need to increase the movement of the bend points for each pair of connections, so they won’t collide. We use our standard movement factor and put it into this formula to decide the movement: @new_movement = MOVEMENT_FACTOR *( index_of_connection / 2) + 1)@. Therefore the first two will be moved for exactly our factor, the next two for double the factor, the following two for the triple of our factor and so on.
+To compute the exact bend point we will normalize the orthogonal vector. The connection will then be moved about 10 pixels if the movement factor equals 10.
+When we move our elements now, the bendpoints will stand still in our diagram. Therefore we need to update the bend points when we move elements in the MoveFeature.
 
