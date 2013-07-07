@@ -113,30 +113,27 @@ class GeneratorShapeDefinition {
 				SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
 				SprayLayoutService.getLayoutData(containerShape).setVisible(true);
 				
-				// creates the cascaded elements (figures)
-				«shapeDefs.generateCascadedElements»
+				«cascadedElementsMethodName()»(diagram, containerShape, sprayStyle);
 				
-				// creates the anchors
-				«shapeDefs.createAnchorPoints»
+				createAnchorPoints(containerShape);
 				
 				// Fix the broken coordinate syaten for not active container shapes
 		        SprayAbstractLayoutManager.fixOffset(containerShape);
 				return containerShape;
 			}
 
+			// START GENERATING CASCADED ELEMENTS
+			«shapeDefs.generateCascadedElementMethods("containerShape")»
+			// STOP GENERATING CASCADED ELEMENTS
+
+			public void createAnchorPoints(ContainerShape containerShape) {
+				// creates the anchors
+				«shapeDefs.createAnchorPoints»
+			}
+			
+
 			«shapeDefs.generateGetLayoutMethod»
 			
-«««			«FOR param : s.param»
-«««			«param.parameterType.qualifiedName» «param.name»;
-«««			
-«««			public «param.parameterType.qualifiedName» get«param.name.toFirstUpper»() {
-«««				return this.«param.name»;
-«««			}
-«««			
-«««			public void set«param.name.toFirstUpper»(«param.parameterType.qualifiedName» «param.name») {
-«««				this.«param.name» = «param.name»;
-«««			}
-«««			«ENDFOR»
 		}
 		'''
 	}
