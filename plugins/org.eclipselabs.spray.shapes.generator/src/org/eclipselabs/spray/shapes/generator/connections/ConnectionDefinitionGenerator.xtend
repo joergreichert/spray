@@ -1,4 +1,4 @@
-package org.eclipselabs.spray.shapes.generator.shapes
+package org.eclipselabs.spray.shapes.generator.connections
 
 import javax.inject.Inject
 import org.eclipselabs.spray.shapes.ConnectionDefinition
