@@ -129,7 +129,7 @@ class GeneratorShapeDefinition {
             	
             	«cascadedElementsMethodName()»(diagram, containerShape, sprayStyle);
             	
-            	createAnchorPoints(containerShape);
+            	createAnchorPoints(diagram, containerShape);
             	
             	// Fix the broken coordinate syaten for not active container shapes
             	      SprayAbstractLayoutManager.fixOffset(containerShape);
@@ -140,9 +140,9 @@ class GeneratorShapeDefinition {
             	«shapeDefs.generateCascadedElementMethods("containerShape")»
             	// STOP GENERATING CASCADED ELEMENTS
             
-            	protected void createAnchorPoints(ContainerShape containerShape) {
-            	// creates the anchors
-            	«shapeDefs.createAnchorPoints»
+            	protected void createAnchorPoints(Diagram diagram, ContainerShape containerShape) {
+            	   // creates the anchors
+            	   «shapeDefs.createAnchorPoints»
             	}
             	
             	«shapeDefs.generateGetLayoutMethod»
