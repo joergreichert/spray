@@ -16,7 +16,7 @@ import org.eclipselabs.spray.generator.common.ProjectProperties
 import org.eclipselabs.spray.shapes.ConnectionDefinition
 import org.eclipselabs.spray.shapes.ShapeContainerElement
 import org.eclipselabs.spray.shapes.ShapeDefinition
-import org.eclipselabs.spray.shapes.generator.shapes.ConnectionDefinitionGenerator
+import org.eclipselabs.spray.shapes.generator.connections.ConnectionDefinitionGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeDefinitionGenerator
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 

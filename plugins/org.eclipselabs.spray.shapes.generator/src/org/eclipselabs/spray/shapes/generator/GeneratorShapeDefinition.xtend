@@ -140,12 +140,11 @@ class GeneratorShapeDefinition {
             	«shapeDefs.generateCascadedElementMethods("containerShape")»
             	// STOP GENERATING CASCADED ELEMENTS
             
-            	public void createAnchorPoints(ContainerShape containerShape) {
+            	protected void createAnchorPoints(ContainerShape containerShape) {
             	// creates the anchors
             	«shapeDefs.createAnchorPoints»
             	}
             	
-            
             	«shapeDefs.generateGetLayoutMethod»
             	
             }
