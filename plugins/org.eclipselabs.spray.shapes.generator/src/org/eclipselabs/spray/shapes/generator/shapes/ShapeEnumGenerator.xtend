@@ -19,13 +19,13 @@ class ShapeEnumGenerator {
 		val ids = s.searchTextIds
 		'''
 		public static enum TextIds {
-			«FOR id : ids»
-				«IF !(ids.last == id)»
-					«id»,
-				«ELSE»
-					«id»
-				«ENDIF»
-			«ENDFOR»
+		    «FOR id : ids»
+		      «IF !(ids.last == id)»
+		          «id»,
+		      «ELSE»
+		          «id»
+		      «ENDIF»
+		    «ENDFOR»
 		}
 		'''
 	}

@@ -102,51 +102,50 @@ class GeneratorShapeDefinition {
             @SuppressWarnings("all")
             public class «shapeDefs.className» extends DefaultSprayShape {
                 
-            	«shapeDefs.generateTextIdsEnum»
-            	
-            	public «shapeDefs.className»(IFeatureProvider fp) {
-            	super(fp);
-            	}
-            	
-            	@Override
-            	public ContainerShape getShape(ContainerShape targetContainer, ISprayStyle sprayStyle) {
-            	// Create a ContainerShape for this Shape
-            	Diagram diagram = peService.getDiagramForShape(targetContainer);
-            	ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
-            	SprayLayoutService.setId(containerShape, "«shapeDefs.name».containerShape");
-            	
-            	// define general layout for ContainerShape
-            	«shapeDefs.generateLayout»
-            	
-            	// layout data
-            	«IF shapeDefs.shape.get(0).compartment != null»
-            	    SprayLayoutType containerLayout = SprayLayoutType.FIT;
-            	«ELSE»
-            	    SprayLayoutType containerLayout = SprayLayoutType.FIT;
-            	«ENDIF»
-            	SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
-            	SprayLayoutService.getLayoutData(containerShape).setVisible(true);
-            	
-            	«cascadedElementsMethodName()»(diagram, containerShape, sprayStyle);
-            	
-            	createAnchorPoints(diagram, containerShape);
-            	
-            	// Fix the broken coordinate syaten for not active container shapes
-            	      SprayAbstractLayoutManager.fixOffset(containerShape);
-            	return containerShape;
-            	}
-            
-            	// START GENERATING CASCADED ELEMENTS
-            	«shapeDefs.generateCascadedElementMethods("containerShape")»
-            	// STOP GENERATING CASCADED ELEMENTS
-            
-            	protected void createAnchorPoints(Diagram diagram, ContainerShape containerShape) {
-            	   // creates the anchors
-            	   «shapeDefs.createAnchorPoints»
-            	}
-            	
-            	«shapeDefs.generateGetLayoutMethod»
-            	
+                «shapeDefs.generateTextIdsEnum»
+                
+                public «shapeDefs.className»(IFeatureProvider fp) {
+                    super(fp);
+                }
+                
+                @Override
+                public ContainerShape getShape(ContainerShape targetContainer, ISprayStyle sprayStyle) {
+                    // Create a ContainerShape for this Shape
+                    Diagram diagram = peService.getDiagramForShape(targetContainer);
+                    ContainerShape containerShape = peCreateService.createContainerShape(targetContainer, true);
+                    SprayLayoutService.setId(containerShape, "«shapeDefs.name».containerShape");
+                    
+                    // define general layout for ContainerShape
+                    «shapeDefs.generateLayout»
+                    
+                    // layout data
+                    «IF shapeDefs.shape.get(0).compartment != null»
+                        SprayLayoutType containerLayout = SprayLayoutType.FIT;
+                    «ELSE»
+                        SprayLayoutType containerLayout = SprayLayoutType.FIT;
+                    «ENDIF»
+                    SprayLayoutService.setLayoutManager(containerShape, containerLayout, 0, 0, true);
+                    SprayLayoutService.getLayoutData(containerShape).setVisible(true);
+                    
+                    «cascadedElementsMethodName()»(diagram, containerShape, sprayStyle);
+                    createAnchorPoints(diagram, containerShape);
+                    
+                    // Fix the broken coordinate syaten for not active container shapes
+                    SprayAbstractLayoutManager.fixOffset(containerShape);
+                    
+                    return containerShape;
+                }
+                
+                // START GENERATING CASCADED ELEMENTS
+                «shapeDefs.generateCascadedElementMethods("containerShape")»
+                // STOP GENERATING CASCADED ELEMENTS
+                
+                protected void createAnchorPoints(Diagram diagram, ContainerShape containerShape) {
+                    «shapeDefs.createAnchorPoints»
+                }
+                
+                «shapeDefs.generateGetLayoutMethod»
+                
             }
         '''
     }
