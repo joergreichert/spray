@@ -214,6 +214,7 @@ class SprayGraphitiGenerator implements IGenerator {
         for( metaClass : diagram.metaClasses) {
             for( reference : metaClass.references.filter(ref|ref.representedBy != null) ){
                 java.setPackageAndClass(reference.addReferenceAsConnectionFeatureClassName)
+                aracf.setAttributes(diagram.style)
                 aracf.generate(reference, java)
             }
         }

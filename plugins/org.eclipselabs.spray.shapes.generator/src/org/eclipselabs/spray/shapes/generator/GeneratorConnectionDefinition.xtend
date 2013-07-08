@@ -7,6 +7,7 @@ import org.eclipselabs.spray.shapes.generator.connections.ConnectionEnumGenerato
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionPlacingGenerator
 import org.eclipselabs.spray.shapes.generator.connections.ConnectionStyleGenerator
 import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.shapes.ShapeStyleRef
 
 class GeneratorConnectionDefinition {
 
@@ -85,7 +86,7 @@ class GeneratorConnectionDefinition {
             	}
             	   
             	@Override
-            	public Connection getConnection(final Diagram diagram, final ISprayStyle sprayStyle, final Anchor startAnchor, final Anchor endAnchor) {
+            	public Connection getConnection(final Diagram diagram, ISprayStyle sprayStyle, final Anchor startAnchor, final Anchor endAnchor) {
             		«IF c.connectionStyle == null»
             		    final Connection connection = peCreateService.createFreeFormConnection(diagram);
             		«ELSE»
@@ -97,6 +98,8 @@ class GeneratorConnectionDefinition {
             		«ENDIF»
             		connection.setStart(startAnchor);
             		connection.setEnd(endAnchor);
+            		
+            		«c.style?.overwriteStyle("sprayStyle")»
             		
             		final Polyline polyline = gaService.createPolyline(connection);
             		polyline.setStyle(sprayStyle.getStyle(diagram));
@@ -116,6 +119,14 @@ class GeneratorConnectionDefinition {
             	
             }
         '''
+    }
+
+    def overwriteStyle(ShapeStyleRef s, String styleName) {
+        if (s.javaStyle != null) {
+            '''«styleName» = new «s.javaStyle.qualifiedName»();'''
+        } else {
+            '''«styleName» = new «ProjectProperties::stylesPackage».«s.dslStyle.name.toFirstUpper»();'''
+        }
     }
 
 }

@@ -11,7 +11,6 @@ import org.eclipselabs.spray.mm.spray.SprayStyleRef
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
-import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     
@@ -124,9 +123,9 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 final ContainerShape targetContainer = context.getTargetContainer();
                 «IF metaClass.style != null»
-                final ISprayStyle style = new «metaClass.style.generateStyleName»();
+                final ISprayStyle style = new «metaClass.style.qualifiedName»();
                 «ELSEIF styleRef != null »
-                final ISprayStyle style = new «styleRef.generateStyleName»();
+                final ISprayStyle style = new «styleRef.qualifiedName»();
                 «ELSE»
                 final ISprayStyle style = new org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle();
                 «ENDIF»
@@ -160,13 +159,5 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             }
         }
         '''
-        
-        def generateStyleName(SprayStyleRef s) {
-            if (s.javaStyle != null) {
-                s.javaStyle.qualifiedName
-            } else {
-                ProjectProperties::stylesPackage + "." + s.dslStyle.name.toFirstUpper
-            }
-        }
         
 }

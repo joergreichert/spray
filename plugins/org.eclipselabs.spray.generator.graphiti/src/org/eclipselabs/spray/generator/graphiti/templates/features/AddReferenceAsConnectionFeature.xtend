@@ -7,10 +7,17 @@ import org.eclipselabs.spray.mm.spray.MetaReference
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
 
 class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
     @Inject extension NamingExtensions
     @Inject extension MetaReferenceExtensions
+    
+    SprayStyleRef styleRef = null
+    
+    def setAttributes(SprayStyleRef ssr){
+        styleRef = ssr
+    }
     
     override CharSequence generateBaseFile(MetaReference modelElement) {
         mainFile( modelElement, javaGenFile.baseClassName)
@@ -30,44 +37,6 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             public «className»(final IFeatureProvider fp) {
                 super(fp);
             }
-        //  /**
-        //   * {@inheritDoc}
-        //   */
-        //  @Override
-        //  protected GraphicsAlgorithm createConnectionStartDecorator (final IAddConnectionContext context,
-        //          final Connection connection) {
-        //      final ConnectionDecorator cd = peCreateService.createConnectionDecorator(
-        //              connection, /* active */false, /* location */0.0, /* isRelative */
-        //              true);
-        //      final Polyline polyline = gaService.createPolyline(cd, new int[] {
-        //              -15, 10, 0, 0, -15, -10 });
-        //
-        //      polyline.setForeground(manageColor(IColorConstant.BLACK));
-        //      polyline.setLineWidth(1);
-        //      
-        //      return polyline;
-        //      return null;
-        //  }
-        
-        //  /**
-        //   * {@inheritDoc}
-        //   */
-        //  @Override
-        //  protected GraphicsAlgorithm createConnectionEndDecorator (final IAddConnectionContext context,
-        //          final Connection connection) {
-        //      final ConnectionDecorator cd = peCreateService.createConnectionDecorator(
-        //              connection, /* active */false, /* location */1.0, /* isRelative */
-        //              true);
-        //      final Polygon polygon = gaService.createPolygon(cd, new int[] {
-        //              -12, 8, 0, 0, -12, -8, -12, 8 });
-        //
-        //      polygon.setForeground(manageColor(IColorConstant.BLACK));
-        //      polygon.setBackground(manageColor(IColorConstant.WHITE));
-        //      polygon.setFilled(Boolean.TRUE);
-        //      polygon.setLineWidth(1);
-        //      
-        //      return polygon;
-        //  }
         }
     '''
     
@@ -88,7 +57,6 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
         import org.eclipselabs.spray.runtime.graphiti.rendering.ConnectionRendering;
         «IF reference.representedBy.connection != null»
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
-        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
         import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
         import «reference.representedBy.connection.qualifiedName»Connection;
         «ENDIF»
@@ -138,17 +106,17 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             
             final Polyline polyline = gaService.createPolyline(connection);
             polyline.setLineWidth(1);
-            «««polyline.setForeground(manageColor(«reference.lineColor»));
-
-            // add static graphical decorator
-            // ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-            //      No arrows
-            //        createArrow(cd);
             decorateConnection (addConContext, connection);
             «ELSE»
-            ISprayStyle style = new DefaultSprayStyle();
-            ISprayConnection iSprayConnection = new «reference.representedBy.connection.simpleName»Connection(getFeatureProvider());
-            Connection connection = (Connection) iSprayConnection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
+            «IF reference.metaClass.style != null»
+            final ISprayStyle style = new «reference.metaClass.style.qualifiedName»();
+            «ELSEIF styleRef != null »
+            final ISprayStyle style = new «styleRef.qualifiedName»();
+            «ELSE»
+            final ISprayStyle style = new org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle();
+            «ENDIF»
+            final ISprayConnection iSprayConnection = new «reference.representedBy.connection.simpleName»Connection(getFeatureProvider());
+            final Connection connection = (Connection) iSprayConnection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
             «ENDIF»
             // create link and wire it
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
