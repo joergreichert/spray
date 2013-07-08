@@ -10,6 +10,7 @@ import org.eclipselabs.spray.shapes.generator.shapes.ShapeEnumGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeLayoutGenerator
 import org.eclipselabs.spray.shapes.generator.shapes.ShapeTypeGenerator
 import org.eclipselabs.spray.generator.common.ProjectProperties
+import org.eclipselabs.spray.shapes.ShapeStyleRef
 
 class GeneratorShapeDefinition {
 
@@ -116,6 +117,7 @@ class GeneratorShapeDefinition {
                     SprayLayoutService.setId(containerShape, "«shapeDefs.name».containerShape");
                     
                     // define general layout for ContainerShape
+                    «shapeDefs.style?.overwriteStyle("sprayStyle")»
                     «shapeDefs.generateLayout»
                     
                     // layout data
@@ -148,6 +150,14 @@ class GeneratorShapeDefinition {
                 
             }
         '''
+    }
+    
+    def overwriteStyle(ShapeStyleRef s, String styleName) {
+        if (s.javaStyle != null) {
+            '''«styleName» = new «s.javaStyle.qualifiedName»();'''
+        } else {
+            '''«styleName» = new «ProjectProperties::stylesPackage».«s.dslStyle.name.toFirstUpper»();'''
+        }
     }
 
 }

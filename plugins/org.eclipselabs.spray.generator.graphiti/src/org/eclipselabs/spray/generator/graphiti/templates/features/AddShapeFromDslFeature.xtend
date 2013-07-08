@@ -11,6 +11,7 @@ import org.eclipselabs.spray.mm.spray.SprayStyleRef
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipselabs.spray.generator.common.ProjectProperties
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     
@@ -19,7 +20,6 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     
     MetaClass metaClass = null
     SprayStyleRef styleRef = null
-    
     
     def setAttributes(MetaClass cls, SprayStyleRef ssr){
         metaClass = cls
@@ -65,11 +65,6 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
         import org.eclipselabs.spray.runtime.graphiti.layout.SprayLayoutService;
         import org.eclipselabs.spray.runtime.graphiti.GraphitiProperties;
         import «container.shape.qualifiedName»Shape;
-        «IF styleRef != null »
-        import «styleRef.qualifiedName»;
-        «ELSE»
-        import org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle;
-        «ENDIF»
         import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
         // MARKER_IMPORT
 
@@ -128,10 +123,12 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                         // NEW stuff
                 Object target = getBusinessObjectForPictogramElement(context.getTargetContainer());
                 final ContainerShape targetContainer = context.getTargetContainer();
-                «IF styleRef != null »
-                final ISprayStyle style = new «styleRef.simpleName»();
+                «IF metaClass.style != null»
+                final ISprayStyle style = new «metaClass.style.generateStyleName»();
+                «ELSEIF styleRef != null »
+                final ISprayStyle style = new «styleRef.generateStyleName»();
                 «ELSE»
-                final ISprayStyle style = new DefaultSprayStyle();
+                final ISprayStyle style = new org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle();
                 «ENDIF»
                 final ISprayShape shape = new «container.shape.simpleName»Shape(getFeatureProvider());
                 final ContainerShape conShape = shape.getShape(targetContainer, style);
@@ -163,4 +160,13 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
             }
         }
         '''
+        
+        def generateStyleName(SprayStyleRef s) {
+            if (s.javaStyle != null) {
+                s.javaStyle.qualifiedName
+            } else {
+                ProjectProperties::stylesPackage + "." + s.dslStyle.name.toFirstUpper
+            }
+        }
+        
 }
