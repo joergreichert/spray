@@ -99,7 +99,6 @@ class StyleGenerator extends FileGenerator<Style> {
             import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
             import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
             import org.eclipselabs.spray.styles.generator.util.GradientUtilClass;
-            
         '''
     }
 
@@ -111,65 +110,89 @@ class StyleGenerator extends FileGenerator<Style> {
              */
             @SuppressWarnings("all")
             public class «s.className» extends «s.createSuperStyle» {
-            
+                
+                /**
+                 * The IGaService instance for the whole class.
+                 */
                 private IGaService gaService = Graphiti.getGaService();
-            
-            	/**
-            	 * This method creates a Style and returns the defined style.
-            	 * Description: «s.description»
-            	 */
-            	@Override
-            	public Style newStyle(Diagram diagram) {
-            		// Creating Style with given id and description
-            		Style style = super.newStyle(diagram);
-            		style.setId("«s.name»");
-            		style.setDescription("«s.description»");
-            		
-            		defineStyleTransparency(diagram, style);
-            		defineBackground(diagram, style);
-            		defineLineAttributes(diagram, style);
-            		defineFontAttributes(diagram, style);
-            		
-            		return style;
-            	}
-            	
-            	protected void defineStyleTransparency(Diagram diagram, Style style) {
-            	   «s.layout.createTransparencyAttributes»
-            	}
-            	
-            	protected void defineBackground(Diagram diagram, Style style) {
-            	   «IF s.layout.checkColorSchemaNecessary»
-            	       «setColorSchema»
-            	   «ELSE»
-            	       «s.layout.createBackgroundAttributes»
-            	   «ENDIF»
-            	}
-            	
-            	protected void defineLineAttributes(Diagram diagram, Style style) {
-            	   «s.layout.createLineAttributes»
-            	}
-            	
-            	protected void defineFontAttributes(Diagram diagram, Style style) {
-            	   «s.layout.createFontAttributes»
-            	}
-            	
-            	/**
-            	    * This method returns the font color for the style. 
-            	    * The font color will be returned separated, because Graphiti allows just the foreground color.
-            	    * The foreground color will be used for lines and fonts at the same time.
-            	    */
-            	@Override
-            	public Color getFontColor(Diagram diagram) {
-            	   «s.layout.createFontColor»
-            	}
-            	
-            	   /**
-            	    * This method returns Color Schema of the Style
-            	    */
-            	public AdaptedGradientColoredAreas getColorSchema() {
-            	   «s.layout.createStyleColorSchema»
-            	}
-            	
+                
+                /**
+                 * This method creates and defines a Style and returns it. 
+                 * Description: «s.description»
+                 * 
+                 * @return The defined Style
+                 */
+                @Override
+                public Style newStyle(Diagram diagram) {
+                    Style style = super.newStyle(diagram);
+                    style.setId("«s.name»");
+                    style.setDescription("«s.description»");
+                    
+                    defineStyleTransparency(diagram, style);
+                    defineBackground(diagram, style);
+                    defineLineAttributes(diagram, style);
+                    defineFontAttributes(diagram, style);
+                    
+                    return style;
+                }
+                
+                /**
+                 * This method will be called from the newStyle-method for defining the Style transparency.
+                 * @param diagram the diagram attribute
+                 * @param style the Style attribute, where the transparency will be set.
+                 */
+                protected void defineStyleTransparency(Diagram diagram, Style style) {
+                    «s.layout.createTransparencyAttributes»
+                }
+                
+                /**
+                 * This method will be called from the newStyle-method for defining the Style background.
+                 * If a gradient is been used, then a color schema will be set for the background.
+                 * @param diagram the diagram attribute
+                 * @param style the Style attribute, where the background will be set.
+                 */
+                protected void defineBackground(Diagram diagram, Style style) {
+                    «IF s.layout.checkColorSchemaNecessary»
+                        «setColorSchema»
+                    «ELSE»
+                        «s.layout.createBackgroundAttributes»
+                    «ENDIF»
+                }
+                
+                /**
+                 * This method will be called from the newStyle-method for defining the Style line attributes.
+                 * @param diagram the diagram attribute
+                 * @param style the Style attribute, where the line attributes will be set.
+                 */
+                protected void defineLineAttributes(Diagram diagram, Style style) {
+                    «s.layout.createLineAttributes»
+                }
+                
+                /**
+                 * This method will be called from the newStyle-method for defining the Style font attributes.
+                 * @param diagram the diagram attribute
+                 * @param style the Style attribute, where the font attributes will be set.
+                 */
+                protected void defineFontAttributes(Diagram diagram, Style style) {
+                    «s.layout.createFontAttributes»
+                }
+                
+                /**
+                 * This method returns the font color for the style. 
+                 * The font color will be returned separatly, because Graphiti allows just the foreground color.
+                 * The foreground color will be used for lines and fonts at the same time.
+                 */
+                @Override
+                public Color getFontColor(Diagram diagram) {
+                    «s.layout.createFontColor»
+                }
+                
+                /**
+                 * This method returns Color Schema of the Style
+                 */
+                public AdaptedGradientColoredAreas getColorSchema() {
+                    «s.layout.createStyleColorSchema(s)»
+                }
             }
         '''
     }
@@ -200,7 +223,6 @@ class StyleGenerator extends FileGenerator<Style> {
 
     def createTransparencyAttributes(StyleLayout l) {
         '''
-            // transparency value
             «IF !(l == null || l.transparency == Double::MIN_VALUE)»
                 style.setTransparency(«l.transparency»);
             «ENDIF»
@@ -209,7 +231,6 @@ class StyleGenerator extends FileGenerator<Style> {
 
     def createBackgroundAttributes(StyleLayout l) {
         '''
-            // background attributes
             «IF l == null || l.background == null»
             «ELSEIF l.background instanceof Transparent»
                 style.setFilled(false);
@@ -223,7 +244,6 @@ class StyleGenerator extends FileGenerator<Style> {
 
     def createLineAttributes(StyleLayout l) {
         '''
-            // line attributes
             «IF l == null || l.lineColor == null»
             «ELSEIF l.lineColor instanceof Transparent»
                 style.setLineVisible(false);
@@ -243,7 +263,6 @@ class StyleGenerator extends FileGenerator<Style> {
 
     def createFontAttributes(StyleLayout l) {
         '''
-            // font attributes
             «IF l == null || l.fontName == null»
                 String fontName = style.getFont().getName();
             «ELSE»
@@ -258,13 +277,13 @@ class StyleGenerator extends FileGenerator<Style> {
                 boolean fontItalic = style.getFont().isItalic();
             «ELSE»
                 boolean fontItalic = «l.fontItalic.transformYesNoToBoolean»;
-                «ENDIF»
-                «IF l == null || l.fontBold == YesNoBool::NULL»
+            «ENDIF»
+            «IF l == null || l.fontBold == YesNoBool::NULL»
                 boolean fontBold = style.getFont().isBold();
-                «ELSE»
+            «ELSE»
                 boolean fontBold = «l.fontBold.transformYesNoToBoolean»;
-                «ENDIF»
-                style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
+            «ENDIF»
+            style.setFont(gaService.manageFont(diagram, fontName, fontSize, fontItalic, fontBold));
         '''
     }
 
@@ -288,7 +307,7 @@ class StyleGenerator extends FileGenerator<Style> {
     }
 
     def dispatch createColorValue(Transparent c) {
-        '''null'''
+        "null"
     }
 
     def dispatch createColorValue(ColorConstantRef c) {
@@ -299,37 +318,29 @@ class StyleGenerator extends FileGenerator<Style> {
         '''new ColorConstant(«c.red», «c.green», «c.blue»)'''
     }
 
-    def createStyleColorSchema(StyleLayout l) {
-
+    def createStyleColorSchema(StyleLayout l, Style s) {
         var gradientOrientation = l.gradient_orientation.mapGradientOrientation
-
         '''
             «IF l.checkColorSchemaNecessary == false»
-                return null;	
+                return null;
                 «ELSE»
                 final AdaptedGradientColoredAreas agca =
                 StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
-                agca.setDefinedStyleId("«l.createStyleGradientID»");
+                agca.setDefinedStyleId("«s.createStyleGradientID»");
                 agca.setGradientType(«gradientOrientation»);
-                agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT,
-                											«l.background.gradientColoredAreas»);
-                											
+                agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, «l.background.gradientColoredAreas»);
                 «IF l.highlighting != null»
                     «IF l.highlighting.selected != null»
-                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
-                        											«l.highlighting.selected.gradientColoredAreas»);
+                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED, «l.highlighting.selected.gradientColoredAreas»);
                     «ENDIF»
                     «IF l.highlighting.multiselected != null»
-                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED,
-                        											«l.highlighting.multiselected.gradientColoredAreas»);
+                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED, «l.highlighting.multiselected.gradientColoredAreas»);
                     «ENDIF»
                     «IF l.highlighting.allowed != null»
-                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED,
-                        											«l.highlighting.allowed.gradientColoredAreas»);
+                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED, «l.highlighting.allowed.gradientColoredAreas»);
                     «ENDIF»
                     «IF l.highlighting.unallowed != null»
-                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN,
-                        											«l.highlighting.unallowed.gradientColoredAreas»);
+                        agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN, «l.highlighting.unallowed.gradientColoredAreas»);
                     «ENDIF»
                 «ENDIF»
                 return agca;
@@ -357,8 +368,8 @@ class StyleGenerator extends FileGenerator<Style> {
         }
     }
 
-    def createStyleGradientID(StyleLayout l) {
-        '''LWC2012CorporateStyle_Color_Schema_ID'''
+    def createStyleGradientID(Style s) {
+        '''«s.className»_Color_Schema_ID'''
     }
 
     def setColorSchema() {
