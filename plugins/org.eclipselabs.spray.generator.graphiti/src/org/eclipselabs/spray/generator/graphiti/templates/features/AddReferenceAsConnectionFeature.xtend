@@ -94,9 +94,6 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             connection.setStart(addConContext.getSourceAnchor());
             connection.setEnd(addConContext.getTargetAnchor());
             
-            // render the connections between the same Start- and End-Anchor
-            ConnectionRendering.startRendering(addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
-            
             // TRY
             final AnchorContainer parent = connection.getStart().getParent();
             final EObject start = (EObject) getBusinessObjectForPictogramElement(parent);
@@ -118,6 +115,10 @@ class AddReferenceAsConnectionFeature extends FileGenerator<MetaReference>  {
             final ISprayConnection iSprayConnection = new «reference.representedBy.connection.simpleName»Connection(getFeatureProvider());
             final Connection connection = (Connection) iSprayConnection.getConnection(getDiagram(), style, addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
             «ENDIF»
+            
+            // render the connections between the same Start- and End-Anchor
+            ConnectionRendering.startRendering(addConContext.getSourceAnchor(), addConContext.getTargetAnchor());
+            
             // create link and wire it
             peService.setPropertyValue(connection, PROPERTY_MODEL_TYPE, "«reference.metaClass.type.name».«target.name»");
             peService.setPropertyValue(connection, PROPERTY_REFERENCE, (String)context.getProperty(PROPERTY_REFERENCE));
