@@ -41,6 +41,7 @@
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,tests/org.eclipselabs.spray.styles.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,plugins/org.eclipselabs.spray.styles.ui"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,releng/org.eclipselabs.spray.targetplatform"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,releng/org.eclipselabs.spray.orbit.targetplatform"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,tests/org.eclipselabs.spray.testhelper"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,plugins/org.eclipselabs.spray.tychohelpers"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,releng/org.eclipselabs.spray.updatesite"/>
@@ -101,6 +102,7 @@
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321710445531_21" label="Spray Releng" name="Spray Releng">
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.parent" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.targetplatform" type="4"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.orbit.targetplatform" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.repository" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.distribution" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.repository.parent" type="4"/>

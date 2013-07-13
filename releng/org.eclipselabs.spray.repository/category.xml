@@ -54,6 +54,13 @@
 	<feature url="features/org.xpect.sdk_0.0.0.jar" id="org.xpect.sdk" version="0.0.0">
 		<category name="3rdparty"/>
 	</feature>
+	<!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=378338 -->
+	<bundle url="plugins/org.jdom_1.1.1.v201101151400.jar" id="org.jdom" version="1.1.1.v201101151400">
+		<category name="3rdparty"/>
+	</bundle>
+	<bundle url="plugins/org.mockito_1.8.4.v201303031500.jar" id="org.mockito" version="1.8.4.v201303031500">
+		<category name="3rdparty"/>
+	</bundle>
 	<category-def name="3rdparty" label="Third Party">
 		<description>Spray Target Platform - Eclipse 4.3</description>
 	</category-def>

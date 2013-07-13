@@ -38,6 +38,12 @@
 							<artifactId>org.eclipselabs.spray.targetplatform</artifactId>
 							<version>${project.version}</version>
 						</artifact>
+						<!-- http://wiki.eclipse.org/Tycho/Target_Platform#Target_files -->
+						<artifact>
+							<groupId>org.eclipselabs.spray</groupId>
+							<artifactId>org.eclipselabs.spray.orbit.targetplatform</artifactId>
+							<version>${project.version}</version>
+						</artifact>
 					</target>
 					<environments>
 						<environment>

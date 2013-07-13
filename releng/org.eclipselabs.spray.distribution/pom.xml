@@ -21,6 +21,7 @@
 	<modules>
 		<module>../../releng/org.eclipselabs.spray.repository.parent</module>
 		<module>../../releng/org.eclipselabs.spray.targetplatform</module>
+		<module>../../releng/org.eclipselabs.spray.orbit.targetplatform</module>
 		<module>../../releng/org.eclipselabs.spray.parent</module>
 	</modules>
 	
