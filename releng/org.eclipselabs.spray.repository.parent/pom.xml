@@ -37,7 +37,6 @@
 							<groupId>org.eclipselabs.spray</groupId>
 							<artifactId>org.eclipselabs.spray.targetplatform</artifactId>
 							<version>${project.version}</version>
-							<classifier>spray-${platform-version-name}</classifier>
 						</artifact>
 					</target>
 					<environments>
@@ -86,16 +85,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<repositories>
-		<repository>
-			<id>maven.eclipse.org</id>
-			<url>http://maven.eclipse.org/nexus/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>xtend</id>
-			<url>http://build.eclipse.org/common/xtend/maven/</url>
-		</repository>
-	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>sonatype</id>
@@ -107,40 +96,25 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		<!-- Fornax Workflow Runner plugin -->
-		<pluginRepository>
-			<id>fornax</id>
-			<url>http://www.fornax-platform.org/m2/repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>xtend</id>
-			<url>http://build.eclipse.org/common/xtend/maven/</url>
-		</pluginRepository>
 	</pluginRepositories>
 
 	<licenses>
 		<license>
 			<name>Eclipse Public License v1.0</name>
 			<comments>
-       All rights reserved.
+			   All rights reserved.
 
-       This program and the accompanying materials are made
-       available under the terms of the Eclipse Public License v1.0
-       which accompanies this distribution, and is available at
-       http://www.eclipse.org/legal/epl-v10.htm
-      </comments>
+			   This program and the accompanying materials are made
+			   available under the terms of the Eclipse Public License v1.0
+			   which accompanies this distribution, and is available at
+			   http://www.eclipse.org/legal/epl-v10.htm
+			</comments>
 		</license>
 	</licenses>
 
 	<url>http://code.google.com/a/eclipselabs.org/p/xtext-utils/</url>
 	<description>This project aims to provide one or more Domain Specific Languages (DSL) (for example with Xtext) to describe Visual DSL Editors against the Graphiti runtime, and provide code generation (for example with Xtend2) to create the boilerplate code for realizing the implementation against the Graphiti framework.
-</description>
+	</description>
 	<inceptionYear>2011</inceptionYear>
 	<issueManagement>
 		<system>GoogleCode Issue Tracker</system>
