@@ -1,20 +1,17 @@
 package org.eclipselabs.spray.xtext.ui.wizard.codegen
 
-import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo
-import org.eclipse.xtext.generator.IFileSystemAccess
 import javax.inject.Inject
-import org.eclipselabs.spray.generator.graphiti.templates.Plugin
+import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipselabs.spray.xtext.ui.wizard.SprayProjectInfo
 
 class NewProjectGenerator {
     @Inject SprayModelGenerator generateModel
-    @Inject Plugin generatePlugin
     
     def doGenerate (SprayProjectInfo projectInfo, IFileSystemAccess fsa) {
         generateModel.doGenerate(projectInfo, fsa)
         generateBuildProperties(projectInfo, fsa)
         generateAntUpdatePluginXmlLaunch(projectInfo, fsa)
         generateAntUpdatePluginXml(projectInfo, fsa)
-        generatePluginXml(projectInfo, fsa)
     }
     
     def generateBuildProperties (SprayProjectInfo pi, IFileSystemAccess fsa) {
@@ -141,9 +138,4 @@ class NewProjectGenerator {
     	'''
        fsa.generateFile("/.externalToolBuilders/Update plugin.xml.launch", pi.projectName, content);
     }
-    
-    def generatePluginXml(SprayProjectInfo pi, IFileSystemAccess fsa) {
-    	val content = generatePlugin.generateStub("My" + pi.getDiagramTypeName)
-        fsa.generateFile("plugin.xml", pi.projectName, content);
-	}    
 }
