@@ -1,13 +1,34 @@
 package org.eclipselabs.spray.xtext.ui.wizard;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
 
 public class SprayPluginProjectFactory extends PluginProjectFactory {
+
+    @Override
+    protected void addMoreClasspathEntriesTo(List<IClasspathEntry> classpathEntries) {
+        super.addMoreClasspathEntriesTo(classpathEntries);
+        int index = -1;
+        for (IClasspathEntry entry : classpathEntries) {
+            if (entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER && entry.getPath() != null && entry.getPath().toString().contains("JRE_CONTAINER")) {
+                index = classpathEntries.indexOf(entry);
+            }
+        }
+        if (index >= 0) {
+            classpathEntries.remove(index);
+            classpathEntries.add(index, JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"))); //$NON-NLS-1$
+        }
+    }
+
     /**
      * Changes:
      * - add .qualifier to version
