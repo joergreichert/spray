@@ -1,5 +1,7 @@
-/* XPECT validationIssues at 'Style' ---
-warning "If the line-color is transparent, the line-width is deprecated."
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
+/* XPECT warnings at 'Style' ---
+	"If the line-color is transparent, the line-width is deprecated."
 --- */
 style MyStyle {
 	line-color = transparent
