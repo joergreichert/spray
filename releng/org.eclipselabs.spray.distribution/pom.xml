@@ -329,6 +329,7 @@
 		<profile>
 			<id>codeCoverage</id>
 			<properties>
+				<jacoco.propertyName>coverageAgent</jacoco.propertyName>
 				<jacoco.append>true</jacoco.append>
 				<jacoco.destFile>${project.basedir}/../../releng/org.eclipselabs.spray.parent/target/jacoco.exec</jacoco.destFile>
 				<jacoco.it.destFile>${project.basedir}/../../releng/org.eclipselabs.spray.parent/target/jacoco_it.exec</jacoco.it.destFile>

@@ -30,21 +30,11 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.swtbot.eclipse.gef 2.1.1.201307101628
 	}
 	
-//	"SWTBot" http://download.eclipse.org/technology/swtbot/snapshots/ {
-//		org.eclipse.swtbot.eclipse 2.1.2.201307121027,
-//		org.eclipse.swtbot.eclipse.gef 2.1.2.201307121027
-//	}
-
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
 		org.xpect.sdk 0.1.0.201307091806
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
 		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440
-	}
-	
-	"Orbit" http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/ {
-		org.jdom 1.1.1.v201101151400 noFeature,
-		org.mockito 1.8.4.v201303031500 noFeature
 	}
 	

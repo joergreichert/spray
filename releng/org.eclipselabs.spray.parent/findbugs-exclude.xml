@@ -4,45 +4,45 @@
                 <Package name="BusinessDomainDsl" />
        </Match>
        <Match>
-                <Package name="org/eclipse.**" />
+                <Package name="~.*\.org/eclipse.*" />
        </Match>
        <Match>
-                <Package name="**.internal.**" />
+                <Package name="~.*\.internal.*" />
        </Match>
        <Match>
-                <Package name="**antlr**" />
+                <Package name="~.*\.antlr*" />
        </Match>
        <Match>
-                <Package name="**parseTree**" />
+                <Package name="~.*\.parseTree*" />
        </Match>
        <Match>
-                <Package name="**.mm**" />
+                <Package name="~.*\.mm*" />
        </Match>
        <Match>
-                <Package name="**.shapes.shapes**" />
+                <Package name="~.*\.shapes.shapes*" />
        </Match>
        <Match>
-                <Package name="**.styles.styles**" />
+                <Package name="~.*\.styles.styles*" />
        </Match>
        <Match>
-				<Class name="*Abstract*RuntimeModule*" />
+				<Class name="~.*\.Abstract*RuntimeModule*" />
        </Match>
        <Match>
-				<Class name="*SetupGenerated*" />
+				<Class name="~.*\.SetupGenerated*" />
        </Match>
        <Match>
-				<Class name="*Abstract*Validator*" />
+				<Class name="~.*\.Abstract*Validator*" />
        </Match>
        <Match>
-				<Class name="*GrammarAccess*" />
+				<Class name="~.*\.GrammarAccess*" />
        </Match>
        <Match>
-				<Class name="*Abstract*UiModule*" />
+				<Class name="~.*\.Abstract*UiModule*" />
        </Match>
        <Match>
-				<Class name="*Abstract*ProposalProvider*" />
+				<Class name="~.*\.Abstract*ProposalProvider*" />
        </Match>
        <Match>
-				<Class name="*Abstract*SemanticSequencer*" />
+				<Class name="~.*\.Abstract*SemanticSequencer*" />
        </Match>
 </FindBugsFilter>
