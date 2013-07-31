@@ -7,10 +7,13 @@ import org.eclipselabs.spray.generator.graphiti.util.mm.MetaClassExtensions
 import org.eclipselabs.spray.mm.spray.CompartmentBehavior
 import org.eclipselabs.spray.mm.spray.MetaClass
 import org.eclipselabs.spray.mm.spray.ShapeFromDsl
-import org.eclipselabs.spray.mm.spray.SprayStyleRef
+import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.xtext.generator.FileGenerator
 
 import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
+import org.eclipse.emf.ecore.EObject
+import org.eclipselabs.spray.mm.spray.SprayStyleRef
+import org.eclipselabs.spray.shapes.ShapeStyleRef
 
 class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     
@@ -18,11 +21,21 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     @Inject extension MetaClassExtensions
     
     MetaClass metaClass = null
-    SprayStyleRef styleRef = null
+    EObject style = null
     
-    def setAttributes(MetaClass cls, SprayStyleRef ssr){
+    def setAttributes(MetaClass cls, Style style){
         metaClass = cls
-        styleRef = ssr
+        this.style = style
+    }
+
+    def setAttributes(MetaClass cls, SprayStyleRef style){
+        metaClass = cls
+        this.style = style
+    }
+
+    def setAttributes(MetaClass cls, ShapeStyleRef style){
+        metaClass = cls
+        this.style = style
     }
     
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
@@ -124,8 +137,8 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
                 final ContainerShape targetContainer = context.getTargetContainer();
                 «IF metaClass.style != null»
                 final ISprayStyle style = new «metaClass.style.qualifiedName»();
-                «ELSEIF styleRef != null »
-                final ISprayStyle style = new «styleRef.qualifiedName»();
+                «ELSEIF style != null »
+                final ISprayStyle style = new «style.qualifiedName»();
                 «ELSE»
                 final ISprayStyle style = new org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle();
                 «ENDIF»
