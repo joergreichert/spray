@@ -18,7 +18,7 @@
 	<!-- Replace footer with header and new footer deklaration -->
 	<xsl:template match="xslt:region-after">
 		<xsl:comment>
-			Header und Footer Deklaration
+			header and footer Declaration
 		</xsl:comment>
 		<region-before extent="2cm" precedence="false"
 			region-name="header" />
@@ -31,6 +31,7 @@
 	<xsl:template match="xslt:region-body">
 		<region-body margin-bottom="3cm" margin-top="2cm" />
 	</xsl:template>
+
 
 	<!-- Replace all footer Elements with Header and new Footer -->
 	<xsl:template match="xslt:static-content[@flow-name='footer']">
@@ -84,7 +85,8 @@
 		</xsl:comment>
 		<block text-align="center" id="SprayAquickwayofcreatingGraphiti">
 			<xsl:element name="external-graphic">
-				<xsl:attribute name="src"><xsl:value-of select="//@src" /></xsl:attribute>
+				<xsl:attribute name="src"><xsl:value-of
+					select="//xslt:block/xslt:external-graphic/@src" /></xsl:attribute>
 				<xsl:attribute name="width">80%</xsl:attribute>
 				<xsl:attribute name="content-height">80%</xsl:attribute>
 				<xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
@@ -126,19 +128,23 @@
 	</xsl:template>
 
 
-	<xsl:template
-		match="//xslt:block[@font-family='monospace']/xslt:block[@font-family='monospace']">
+	<!-- Formatter codeblocks and delete the obsolete parent node --> <!-- Child have to contain text! -->
+	<xsl:template match="//xslt:block[@font-family='monospace'][xslt:block[@font-family='monospace'][text()!='']]">
 		<xsl:copy>
 			<xsl:copy-of select="@*" />
-			<xsl:attribute name="background-color">lightgrey</xsl:attribute>
-	
-			<xsl:copy-of select="*" />
+			<xsl:attribute name="background-color">rgb(246, 244, 240)</xsl:attribute>
+			<xsl:attribute name="border-width">1px</xsl:attribute>
+			<xsl:attribute name="border-style">solid</xsl:attribute>
+			<xsl:attribute name="border-color">rgb(212,212,212)</xsl:attribute>
+			<xsl:attribute name="padding">2px</xsl:attribute>
+			<xsl:attribute name="page-break-inside">avoid</xsl:attribute>
+			<xsl:copy-of select="./node()/text()" />
 		</xsl:copy>
 		<xsl:apply-templates />
 	</xsl:template>
 
 
-	<!-- Copy template (copy -->
+	<!-- Copy template‚ -->
 	<xsl:template match="node()|@*">
 		<xsl:copy>
 			<xsl:apply-templates select="node()|@*" />
@@ -151,14 +157,21 @@
 		!= '']" /> <xsl:apply-templates /> </xsl:copy> </xsl:template> -->
 
 
-	<!-- Remove TitleInformation from Table of Contents -->
+	<!-- Remove unwanted Contents -->
+	<!-- Titlepage in table of contents -->
 	<xsl:template match="//xslt:block[xslt:inline[text()='Authors:']]">
 		<xsl:comment>
 			Moved Logo,Authors and headline to Titlepage
 		</xsl:comment>
 	</xsl:template>
-	<xsl:template match="//xslt:block[xslt:external-graphic]"></xsl:template>
 	<xsl:template match="//xslt:block[@id='SprayAquickwayofcreatingGraphiti']" />
 	<xsl:template match="//xslt:block[xslt:inline[text()='Developer Guide']]" />
+
+	<!-- old places of spraylogo -->
+	<xsl:template match="//xslt:block[xslt:external-graphic]" />
+
+	<!-- block which are surrounded by same -->
+	<xsl:template
+		match="//xslt:block[@font-family='monospace']/xslt:block[@font-family='monospace']" />
 
 </xsl:stylesheet>
