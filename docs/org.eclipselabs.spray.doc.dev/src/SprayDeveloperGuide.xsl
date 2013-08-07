@@ -29,9 +29,40 @@
 
 	<!-- Add margin top to region body -->
 	<xsl:template match="xslt:region-body">
-		<region-body margin-bottom="3cm" margin-top="2cm" />
+		<region-body margin-bottom="2cm" margin-top="2cm" />
 	</xsl:template>
 
+
+	<!-- template to replace a string from text -->
+	<xsl:template name="string-replace-all">
+		<xsl:param name="text" />
+		<xsl:param name="replace" />
+		<xsl:param name="by" />
+		<xsl:choose>
+			<xsl:when test="contains($text, $replace)">
+				<xsl:value-of select="substring-before($text,$replace)" />
+				<xsl:value-of select="$by" />
+				<xsl:call-template name="string-replace-all">
+					<xsl:with-param name="text"
+						select="substring-after($text,$replace)" />
+					<xsl:with-param name="replace" select="$replace" />
+					<xsl:with-param name="by" select="$by" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$text" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<!-- search for url and replace it with better resolution -->
+	<xsl:variable name="newSrc">
+		<xsl:call-template name="string-replace-all">
+			<xsl:with-param name="text"
+				select="//xslt:block/xslt:external-graphic/@src" />
+			<xsl:with-param name="replace" select="'.png)'" />
+			<xsl:with-param name="by" select="'-Big.png)'" />
+		</xsl:call-template>
+	</xsl:variable>
 
 	<!-- Replace all footer Elements with Header and new Footer -->
 	<xsl:template match="xslt:static-content[@flow-name='footer']">
@@ -39,18 +70,22 @@
 			Header
 		</xsl:comment>
 		<static-content flow-name="header">
-			<block font-size="10.0pt" text-align="right">
+			<!-- <block font-size="10.0pt" text-align="right"> -->
+			<block font-size="9.0pt" text-align-last="justify" margin-left="0em"
+				margin-bottom="0em" margin-top="0em">
 				<xsl:comment>
 					external Graphic with dynamic Source (searching for url of src)
 				</xsl:comment>
+				<retrieve-marker retrieve-class-name="title"
+					retrieve-position="first-starting-within-page" retrieve-boundary="page-sequence" />
+				<leader leader-pattern="dots" leader-pattern-width="10pt"
+					color="rgb(255,255,255)" />
 				<xsl:element name="external-graphic">
 					<xsl:attribute name="src"><xsl:value-of
-						select="//xslt:block/xslt:external-graphic/@src" /></xsl:attribute>
-					<xsl:attribute name="width">20%</xsl:attribute>
-					<xsl:attribute name="content-height">20%</xsl:attribute>
-					<xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
-					<xsl:attribute name="scaling">uniform</xsl:attribute>
+						select="$newSrc" /></xsl:attribute>
+					<xsl:attribute name="content-height">1cm</xsl:attribute>
 				</xsl:element>
+				&#160;
 			</block>
 			<xsl:comment>
 				Horizontalline
@@ -77,6 +112,16 @@
 	</xsl:template>
 
 
+	<!-- prepare chapters for header -->
+	<xsl:template
+		match="//xslt:flow/xslt:block[@id][position()=1][not(xslt:inline)]/text()">
+		<marker marker-class-name="title">
+			<xsl:value-of select="."></xsl:value-of>
+		</marker>
+		<xsl:value-of select="." />
+	</xsl:template>
+
+
 	<!-- Modifying the Titlepage -->
 	<xsl:template
 		match="//xslt:flow/xslt:block/xslt:block[text()='Spray Developer Guide']">
@@ -85,12 +130,8 @@
 		</xsl:comment>
 		<block text-align="center" id="SprayAquickwayofcreatingGraphiti">
 			<xsl:element name="external-graphic">
-				<xsl:attribute name="src"><xsl:value-of
-					select="//xslt:block/xslt:external-graphic/@src" /></xsl:attribute>
-				<xsl:attribute name="width">80%</xsl:attribute>
-				<xsl:attribute name="content-height">80%</xsl:attribute>
-				<xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
-				<xsl:attribute name="scaling">uniform</xsl:attribute>
+				<xsl:attribute name="src"><xsl:value-of select="$newSrc" /></xsl:attribute>
+				<xsl:attribute name="content-height">50%</xsl:attribute>
 			</xsl:element>
 		</block>
 		<xsl:comment>
@@ -122,6 +163,7 @@
 
 	<!-- Underline Hyperlinks -->
 	<xsl:template match="//xslt:inline[starts-with(text(),'http')]">
+	<xsl:comment>Hyperlink</xsl:comment>
 		<inline text-decoration="underline" color="blue">
 			<xsl:value-of select="."></xsl:value-of>
 		</inline>
@@ -129,7 +171,11 @@
 
 
 	<!-- Formatter codeblocks and delete the obsolete parent node --> <!-- Child have to contain text! -->
-	<xsl:template match="//xslt:block[@font-family='monospace'][xslt:block[@font-family='monospace'][text()!='']]">
+	<xsl:template
+		match="//xslt:block[@font-family='monospace'][xslt:block[@font-family='monospace'][text()!='']]">
+		<xsl:comment>
+			Codeblock
+		</xsl:comment>
 		<xsl:copy>
 			<xsl:copy-of select="@*" />
 			<xsl:attribute name="background-color">rgb(246, 244, 240)</xsl:attribute>
@@ -144,7 +190,24 @@
 	</xsl:template>
 
 
-	<!-- Copy template‚ -->
+	<!-- Fancy Table of Contents like 1.2. Chapter ................ 3 -->
+	<xsl:template
+		match="//xslt:list-item-body/xslt:block/xslt:basic-link[@internal-destination]">
+		<block text-align-last="justify" margin-left="0em" space-before="5pt">
+			<xsl:copy>
+				<xsl:apply-templates select="node()|@*" />
+			</xsl:copy>
+			<leader leader-pattern="dots" leader-pattern-width="5pt" />
+			<xsl:element name="page-number-citation">
+				<xsl:attribute name="ref-id"><xsl:value-of
+					select="./@internal-destination" />
+				</xsl:attribute>
+			</xsl:element>
+		</block>
+	</xsl:template>
+
+
+	<!-- Copy template -->
 	<xsl:template match="node()|@*">
 		<xsl:copy>
 			<xsl:apply-templates select="node()|@*" />
@@ -157,7 +220,7 @@
 		!= '']" /> <xsl:apply-templates /> </xsl:copy> </xsl:template> -->
 
 
-	<!-- Remove unwanted Contents -->
+	<!-- REMOVE unwanted Contents -->
 	<!-- Titlepage in table of contents -->
 	<xsl:template match="//xslt:block[xslt:inline[text()='Authors:']]">
 		<xsl:comment>
