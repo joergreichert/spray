@@ -4,35 +4,10 @@
 	xmlns="http://www.w3.org/1999/XSL/Format" xmlns:old="SprayDeveloperGuide.xml"
 	xmlns:date="http://exslt.org/dates-and-times" exclude-result-prefixes="old date">
 	<xsl:output indent="yes" omit-xml-declaration="yes" />
+	<!--================================================================================= -->
 
 
-	<!-- Modifying the root node with font-attributes -->
-	<xsl:template match="xslt:root">
-		<root font-family="Times" font-size="12pt"
-			xmlns="http://www.w3.org/1999/XSL/Format">
-			<xsl:apply-templates select="@*|node()" />
-		</root>
-	</xsl:template>
-
-
-	<!-- Replace footer with header and new footer deklaration -->
-	<xsl:template match="xslt:region-after">
-		<xsl:comment>
-			header and footer Declaration
-		</xsl:comment>
-		<region-before extent="2cm" precedence="false"
-			region-name="header" />
-		<region-after extent="2cm" precedence="false"
-			region-name="footer" />
-	</xsl:template>
-
-
-	<!-- Add margin top to region body -->
-	<xsl:template match="xslt:region-body">
-		<region-body margin-bottom="2cm" margin-top="2cm" />
-	</xsl:template>
-
-
+	<!--========= Logo ================================================================== -->
 	<!-- template to replace a string from text -->
 	<xsl:template name="string-replace-all">
 		<xsl:param name="text" />
@@ -63,6 +38,25 @@
 			<xsl:with-param name="by" select="'-Big.png)'" />
 		</xsl:call-template>
 	</xsl:variable>
+	<!--================================================================================= -->
+
+
+	<!--========= Header/Footer ========================================================= -->
+	<!-- Replace footer with header and new footer deklaration -->
+	<xsl:template match="xslt:region-after">
+		<xsl:comment>
+			header and footer Declaration
+		</xsl:comment>
+		<region-before extent="2cm" precedence="false"
+			region-name="header" />
+		<region-after extent="2cm" precedence="false"
+			region-name="footer" />
+	</xsl:template>
+
+	<!-- Add margin top to region body -->
+	<xsl:template match="xslt:region-body">
+		<region-body margin-bottom="2cm" margin-top="2cm" />
+	</xsl:template>
 
 	<!-- Replace all footer Elements with Header and new Footer -->
 	<xsl:template match="xslt:static-content[@flow-name='footer']">
@@ -70,7 +64,6 @@
 			Header
 		</xsl:comment>
 		<static-content flow-name="header">
-			<!-- <block font-size="10.0pt" text-align="right"> -->
 			<block font-size="9.0pt" text-align-last="justify" margin-left="0em"
 				margin-bottom="0em" margin-top="0em">
 				<xsl:comment>
@@ -120,9 +113,11 @@
 		</marker>
 		<xsl:value-of select="." />
 	</xsl:template>
+	<!--================================================================================= -->
 
 
-	<!-- Modifying the Titlepage -->
+	<!--========= Titlepage ============================================================= -->
+	<!-- Generate/Modifying the Titlepage -->
 	<xsl:template
 		match="//xslt:flow/xslt:block/xslt:block[text()='Spray Developer Guide']">
 		<xsl:comment>
@@ -159,18 +154,29 @@
 			<xsl:value-of select="date:year()" />
 		</block>
 	</xsl:template>
+	<!--================================================================================= -->
 
+
+	<!--========= Formatter ============================================================= -->
+	<!-- Modifying the root node with font-attributes -->
+	<xsl:template match="xslt:root">
+		<root font-family="Times" font-size="12pt"
+			xmlns="http://www.w3.org/1999/XSL/Format">
+			<xsl:apply-templates select="@*|node()" />
+		</root>
+	</xsl:template>
 
 	<!-- Underline Hyperlinks -->
 	<xsl:template match="//xslt:inline[starts-with(text(),'http')]">
-	<xsl:comment>Hyperlink</xsl:comment>
+		<xsl:comment>
+			Hyperlink
+		</xsl:comment>
 		<inline text-decoration="underline" color="blue">
 			<xsl:value-of select="."></xsl:value-of>
 		</inline>
 	</xsl:template>
 
-
-	<!-- Formatter codeblocks and delete the obsolete parent node --> <!-- Child have to contain text! -->
+	<!-- Format codeblocks and delete the obsolete parent node --> <!-- Child have to contain text! -->
 	<xsl:template
 		match="//xslt:block[@font-family='monospace'][xslt:block[@font-family='monospace'][text()!='']]">
 		<xsl:comment>
@@ -185,29 +191,57 @@
 			<xsl:attribute name="padding">2px</xsl:attribute>
 			<xsl:attribute name="padding-left">6px</xsl:attribute>
 			<xsl:attribute name="page-break-inside">avoid</xsl:attribute>
+			<xsl:attribute name="margin-left">0em</xsl:attribute>
+			<xsl:attribute name="margin-right">0em</xsl:attribute>
 			<xsl:copy-of select="./node()/text()" />
 		</xsl:copy>
 		<xsl:apply-templates />
 	</xsl:template>
+	<!--================================================================================= -->
 
 
+	<!--========= Table of Content ====================================================== -->
 	<!-- Fancy Table of Contents like 1.2. Chapter ................ 3 -->
 	<xsl:template
 		match="//xslt:list-item-body/xslt:block/xslt:basic-link[@internal-destination]">
 		<block text-align-last="justify" margin-left="0em" space-before="5pt">
-			<xsl:copy>
-				<xsl:apply-templates select="node()|@*" />
-			</xsl:copy>
-			<leader leader-pattern="dots" leader-pattern-width="5pt" />
-			<xsl:element name="page-number-citation">
-				<xsl:attribute name="ref-id"><xsl:value-of
-					select="./@internal-destination" />
-				</xsl:attribute>
-			</xsl:element>
+			<xsl:choose>
+				<!-- test for rootChapter -->
+				<xsl:when test="../xslt:list-block and ../../../../../../xslt:flow">
+					<!-- TODO seperate RootChapter by linebreak -->
+					<!-- <block>&#160;</block> -->
+					<inline font-weight="bold">
+						<xsl:copy>
+							<xsl:apply-templates select="node()|@*" />
+						</xsl:copy>
+					</inline>
+					<leader leader-pattern="dots" leader-pattern-width="5pt"
+						color="white" />
+					<xsl:element name="page-number-citation">
+						<xsl:attribute name="ref-id"><xsl:value-of
+							select="./@internal-destination" />
+              </xsl:attribute>
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise>
+					<!-- SubChapter -->
+					<xsl:copy>
+						<xsl:apply-templates select="node()|@*" />
+					</xsl:copy>
+					<leader leader-pattern="dots" leader-pattern-width="5pt" />
+					<xsl:element name="page-number-citation">
+						<xsl:attribute name="ref-id"><xsl:value-of
+							select="./@internal-destination" />
+        </xsl:attribute>
+					</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>
 		</block>
 	</xsl:template>
+	<!--================================================================================= -->
 
 
+	<!--========= Copy ================================================================== -->
 	<!-- Copy template -->
 	<xsl:template match="node()|@*">
 		<xsl:copy>
@@ -219,8 +253,10 @@
 	<!-- Alternative Copy-template -->
 	<!-- <xsl:template match="*"> <xsl:copy> <xsl:copy-of select="attribute::*[. 
 		!= '']" /> <xsl:apply-templates /> </xsl:copy> </xsl:template> -->
+	<!--================================================================================= -->
 
 
+	<!--========= Remove ================================================================ -->
 	<!-- REMOVE unwanted Contents -->
 	<!-- Titlepage in table of contents -->
 	<xsl:template match="//xslt:block[xslt:inline[text()='Authors:']]">
@@ -232,10 +268,21 @@
 	<xsl:template match="//xslt:block[xslt:inline[text()='Developer Guide']]" />
 
 	<!-- old places of spraylogo -->
-	<xsl:template match="//xslt:block[xslt:external-graphic/@src[contains(.,'Spray-Logo-C.png')]]" />
+	<xsl:template
+		match="//xslt:block[xslt:external-graphic/@src[contains(.,'Spray-Logo-C.png')]]" />
 
 	<!-- block which are surrounded by same -->
 	<xsl:template
 		match="//xslt:block[@font-family='monospace']/xslt:block[@font-family='monospace']" />
+	<!--================================================================================= -->
+
+
+	<!--========= TODO ================================================================== -->
+	<!-- TODO seperate RootChapter by linebreak -->
+	<!-- <!- Template for Fancy Table of Contents -> <xsl:template match="//xslt:list-item/xslt:list-item-label"> 
+		<xsl:choose> <xsl:when test="../xslt:list-item-body/xslt:block/xslt:block/xslt:inline[@font-weight='bold']/xslt:basic-link[@internal-destination]"> 
+		<block>&#160;</block> </xsl:when> </xsl:choose> <xsl:copy> <xsl:apply-templates 
+		select="node()|@*" /> </xsl:copy> </xsl:template> -->
+	<!--================================================================================= -->
 
 </xsl:stylesheet>
