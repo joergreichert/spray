@@ -58,7 +58,7 @@
 	<xsl:variable name="newSrc">
 		<xsl:call-template name="string-replace-all">
 			<xsl:with-param name="text"
-				select="//xslt:block/xslt:external-graphic/@src" />
+				select="//xslt:block/xslt:external-graphic/@src[contains(.,'Spray-Logo-C.png)')]" />
 			<xsl:with-param name="replace" select="'.png)'" />
 			<xsl:with-param name="by" select="'-Big.png)'" />
 		</xsl:call-template>
@@ -183,6 +183,7 @@
 			<xsl:attribute name="border-style">solid</xsl:attribute>
 			<xsl:attribute name="border-color">rgb(212,212,212)</xsl:attribute>
 			<xsl:attribute name="padding">2px</xsl:attribute>
+			<xsl:attribute name="padding-left">6px</xsl:attribute>
 			<xsl:attribute name="page-break-inside">avoid</xsl:attribute>
 			<xsl:copy-of select="./node()/text()" />
 		</xsl:copy>
@@ -231,7 +232,7 @@
 	<xsl:template match="//xslt:block[xslt:inline[text()='Developer Guide']]" />
 
 	<!-- old places of spraylogo -->
-	<xsl:template match="//xslt:block[xslt:external-graphic]" />
+	<xsl:template match="//xslt:block[xslt:external-graphic/@src[contains(.,'Spray-Logo-C.png')]]" />
 
 	<!-- block which are surrounded by same -->
 	<xsl:template

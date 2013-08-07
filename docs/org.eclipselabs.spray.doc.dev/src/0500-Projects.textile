@@ -2,7 +2,7 @@ h1. Project Setup
 
 Things to consider when developing Spray projects.
 
-h2. Naming 
+h2. Naming
 
 Base package / Bundle ID Prefix: @org.eclipselabs.spray@
 
@@ -36,7 +36,7 @@ bc..
 #  * </copyright>
 #  */
 # NLS_MESSAGEFORMAT_VAR
- 
+
 pluginName = ADD DESCRIPTION
 providerName = Eclipselabs Spray
 p. 
@@ -67,10 +67,10 @@ Include the following files/directories, if they exist
 h3. Project Specific Settings
 
 To avoid confusion between different platforms and workspaces common settings should be defined as project specific settings. Those settings are checked in and thus shared.
- 
+
 * _Resource_: Text file encoding: Other / UTF-8
 * _Resource_: New text file delimiter: Other / Unix
-* _Java Code Style -> Formatter_: 
+* _Java Code Style -> Formatter_:
 ** Check "Enable project specific settings"
 ** select Active Profile "`spray_eclipse_formatter`"
 * _Java Editor -> Save Actions_
@@ -78,10 +78,10 @@ To avoid confusion between different platforms and workspaces common settings sh
 ** Check "Perform the selected actions on save"
 ** Check "Format source code" / "Format all lines"
 ** Check "Organize imports"
- 
+
 h3. Build
 
-* Copy the @pom.xml@ from @org.eclipselabs.spray.generator.graphiti@. Exchange the plugin's name in @<artifactId>org.eclipselabs.spray.generator.graphiti</artifactId>@ by the project's name. 
+* Copy the @pom.xml@ from @org.eclipselabs.spray.generator.graphiti@. Exchange the plugin's name in @<artifactId>org.eclipselabs.spray.generator.graphiti</artifactId>@ by the project's name.
 * Open @releng/org.eclipselabs.spray.distribution/pom.xml@ and add the plugin as additional module
 
 h3. Project Set
@@ -124,17 +124,17 @@ Xtext generates a @plugin.xml@ just once, on second generator execution it creat
 The @plugin.xml@ file is quite large and it can become difficult to decide, which differences are produced by the generator and which are manual changes. In order to identify the intended changes these places must be marked in the code by comments @<!-- SPRAY BEGIN -->...<!-- SPRAY END -->@. Example:
 
 bc.. 
-    <extension
-            point="org.eclipse.ui.preferencePages">
-        <!-- SPRAY BEGIN --><!-- adding category -->
-        <page
-            category="org.eclipselabs.spray.xtext.Spray"
-            class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.eclipselabs.spray.styles.Style"
-            name="Style Language">
-            <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
-        </page>
-        <!-- SPRAY END -->
+<extension
+        point="org.eclipse.ui.preferencePages">
+    <!-- SPRAY BEGIN --><!-- adding category -->
+    <page
+        category="org.eclipselabs.spray.xtext.Spray"
+        class="org.eclipselabs.spray.styles.ui.StyleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+        id="org.eclipselabs.spray.styles.Style"
+        name="Style Language">
+        <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
+    </page>
+    <!-- SPRAY END -->
 p. 
 
 
