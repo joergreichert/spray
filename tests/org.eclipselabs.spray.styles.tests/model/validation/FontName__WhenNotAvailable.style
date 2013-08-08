@@ -2,7 +2,7 @@
 
 style MyStyle {
 /* XPECT warnings at 'XXX' ---
-	"The selected font is not installed on the system (default 'Arial' will be taken)."
+	"The selected font is not installed on the system (default 'Arial' will be taken)."  at ""XXX""
 --- */
 	font-name = "XXX"
 }

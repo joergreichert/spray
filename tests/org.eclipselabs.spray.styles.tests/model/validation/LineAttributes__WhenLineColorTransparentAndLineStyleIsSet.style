@@ -1,7 +1,7 @@
 /* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
 
-/* XPECT warnings at 'Style' ---
-	"If the line-color is transparent, the line-style is deprecated."
+/* XPECT warnings at 'solid' ---
+	"If the line-color is transparent, the line-style is deprecated." at "solid"
 --- */
 style MyStyle {
 	line-color = transparent

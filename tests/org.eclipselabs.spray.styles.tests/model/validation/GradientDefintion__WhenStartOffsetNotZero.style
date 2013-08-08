@@ -2,7 +2,7 @@
 
 gradient MyGradient {
 /* XPECT warnings at '0.1' ---
-	"A gradient should always start with an offset of 0.0."
+	"A gradient should always start with an offset of 0.0." at "0.1"
 --- */
 	area (color = blue, offset = 0.1)
 	area (color = gray, offset = 1.0)

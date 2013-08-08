@@ -23,22 +23,17 @@
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.2.201307121027"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.2.201307121027"/>
-			<repository location="http://download.eclipse.org/technology/swtbot/snapshots/"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201307101628"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201307101628"/>
+			<repository location="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201307091806"/>
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201308071738"/>
 			<repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
 			<repository location="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.jdom" version="1.1.1.v201101151400"/>
-			<unit id="org.mockito" version="1.8.4.v201303031500"/>
-			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/"/>
 		</location>
 	</locations>
 	<environment>
