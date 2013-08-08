@@ -1,12 +1,10 @@
-/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
-
 gradient MyGradient {
-// XPECT issues at '0.0' -->
+// XPECT noValidationIssues at '0.0'
 	area (color = blue, offset = 0.0)
-// XPECT issues at '0.4' -->
+// XPECT noValidationIssues at '0.4'
 	area (color = green, offset = 0.4)
-// XPECT issues at '0.5' -->
+// XPECT noValidationIssues at '0.5'
 	area (color = yellow, offset = 0.5)
-// XPECT issues at '1.0' -->
+// XPECT noValidationIssues at '1.0'
 	area (color = gray, offset = 1.0)
 }

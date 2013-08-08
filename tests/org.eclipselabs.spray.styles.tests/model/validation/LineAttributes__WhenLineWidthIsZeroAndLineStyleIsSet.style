@@ -1,7 +1,5 @@
-/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
-
-/* XPECT warnings at 'solid' ---
-	"If the line-width is 0, the line is invisible (line-style is deprecated)." at "solid"
+/* XPECT validationIssues at 'Style' ---
+warning "If the line-width is 0, the line is invisible (line-style is deprecated)."
 --- */
 style MyStyle {
 	line-width = 0
