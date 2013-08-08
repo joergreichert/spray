@@ -1,3 +1,5 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleFormatterTest END_SETUP */
+
 /* XPECT formatted --- 
 style MydiagramDefaultStyle {
 	description = "The default style of the mydiagram diagram type."

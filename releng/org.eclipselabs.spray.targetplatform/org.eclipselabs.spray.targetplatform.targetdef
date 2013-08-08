@@ -31,10 +31,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 	
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
-		org.xpect.sdk 0.1.0.201307091806
+		org.xpect.sdk 0.1.0.201308071738
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
 		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440
 	}
-	

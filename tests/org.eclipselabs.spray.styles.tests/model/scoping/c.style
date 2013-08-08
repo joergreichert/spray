@@ -1,3 +1,5 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleScopingTest END_SETUP */
+
 gradient C1 {
 }
 
