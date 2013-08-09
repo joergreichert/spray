@@ -23,9 +23,9 @@
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.2.201307121027"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.2.201307121027"/>
-			<repository location="http://download.eclipse.org/technology/swtbot/snapshots/"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201307101628"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201307101628"/>
+			<repository location="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201307091806"/>
