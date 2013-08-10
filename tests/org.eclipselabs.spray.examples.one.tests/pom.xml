@@ -20,9 +20,9 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<useUIHarness>true</useUIHarness>
-					<useUIThread>false</useUIThread>
+					<useUIThread>true</useUIThread>
 					<product>org.eclipse.sdk.ide</product>
-					<argLine>${ui.test.vmargs} ${it.coverage.argLine}</argLine>
+					<argLine>${ui.test.vmargs} ${it.coverage.argLine} -Dlog4j.configuration=file:${basedir}/log4j.properties</argLine>
 					<product>org.eclipse.sdk.ide</product>
 					<skip>${tycho.surefire.skipUiTest}</skip>
 					<testFailureIgnore>true</testFailureIgnore>

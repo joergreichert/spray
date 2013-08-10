@@ -1,3 +1,5 @@
+/* XPECT_SETUP org.eclipselabs.spray.shapes.tests.ShapeScopingTest */
+
 style B1 {
 }
 

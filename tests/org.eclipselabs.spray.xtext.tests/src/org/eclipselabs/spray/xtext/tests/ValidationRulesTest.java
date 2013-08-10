@@ -5,7 +5,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipse.xtext.validation.Issue;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;

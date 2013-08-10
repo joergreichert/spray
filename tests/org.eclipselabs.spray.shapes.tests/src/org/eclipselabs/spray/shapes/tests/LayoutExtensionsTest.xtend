@@ -12,7 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
-import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProviderimport org.eclipselabs.spray.shapes.ShapeContainerElement
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
@@ -22,7 +22,7 @@ class LayoutExtensionsTest extends XtextTest {
 	private LayoutExtensions layoutExtensions
 
 	@Inject
-	private ParseHelper parseHelper
+	private ParseHelper<ShapeContainerElement> parseHelper
 	
 	@Test
 	def void testGetParentX() {

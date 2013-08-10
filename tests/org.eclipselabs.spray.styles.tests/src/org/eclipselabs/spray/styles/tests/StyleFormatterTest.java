@@ -1,7 +1,5 @@
 package org.eclipselabs.spray.styles.tests;
 
-import javax.inject.Inject;
-
 import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.formatting.INodeModelFormatter.IFormattedRegion;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -17,17 +15,18 @@ import org.xpect.runner.XpectTestFiles.FileRoot;
 import org.xpect.setup.XpectSetup;
 import org.xpect.xtext.lib.setup.ThisOffset;
 import org.xpect.xtext.lib.setup.ThisResource;
-import org.xpect.xtext.lib.setup.XtextStandaloneSetup;
+
+import com.google.inject.Inject;
 
 @RunWith(XpectRunner.class)
 @XpectTestFiles(relativeTo = FileRoot.CURRENT, baseDir = "model/formatter", fileExtensions = "style")
-@XpectSetup({ XtextStandaloneSetup.class })
+@XpectSetup({ XtextStandaloneSetupWithoutValidate.class })
 public class StyleFormatterTest {
 
 	@Inject
 	protected INodeModelFormatter formatter;
 
-	@ParameterParser(syntax = "('from' offset=OFFSET)? 'to' to=OFFSET")
+	@ParameterParser(syntax = "('from' offset=OFFSET 'to' to=OFFSET)?")
 	@Xpect
 	public void formatted(
 			@StringExpectation(whitespaceSensitive = true) IStringExpectation expectation,

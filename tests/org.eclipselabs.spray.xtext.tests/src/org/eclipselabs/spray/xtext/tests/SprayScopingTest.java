@@ -9,5 +9,4 @@ import org.xpect.xtext.lib.tests.ScopingTest;
 @RunWith(XpectRunner.class)
 @XpectTestFiles(relativeTo = FileRoot.CURRENT, baseDir = "model/testcases/scoping", fileExtensions = { "spray" })
 public class SprayScopingTest extends ScopingTest {
-	// uses logic of super class, this class is only configured via annotations
 }

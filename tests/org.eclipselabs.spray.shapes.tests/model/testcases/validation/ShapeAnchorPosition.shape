@@ -1,3 +1,5 @@
+/* XPECT_SETUP org.eclipselabs.spray.shapes.tests.ShapeValidationTest END_SETUP */
+
 shape RelativeAnchorsTest {
 	ellipse {
 		position (x=0, y=0)
@@ -5,17 +7,17 @@ shape RelativeAnchorsTest {
 	}
 	anchor {
 		position (xoffset=0.1,yoffset=0.0)
-/* XPECT validationIssues at 'position (xoffset=0.8,yoffset=|1.1)' ---
-error "The anchor offset (yoffset) should be defined in the range 0.0 and 1.0."
+/* XPECT errors at 'position (xoffset=0.8,yoffset=|1.1)' ---
+	"The anchor offset (yoffset) should be defined in the range 0.0 and 1.0." at "1.1"
 --- */
 		position (xoffset=0.8,yoffset=1.1)
-/* XPECT validationIssues at 'position (xoffset=|1.1,yoffset=0.8)' ---
-error "The anchor offset (xoffset) should be defined in the range 0.0 and 1.0."
+/* XPECT errors at 'position (xoffset=|1.1,yoffset=0.8)' ---
+	"The anchor offset (xoffset) should be defined in the range 0.0 and 1.0." at "1.1"
 --- */
 		position (xoffset=1.1,yoffset=0.8)
-/* XPECT validationIssues at 'position (xoffset=|1.2,yoffset=1.2)' ---
-error "The anchor offset (xoffset) should be defined in the range 0.0 and 1.0."
-error "The anchor offset (yoffset) should be defined in the range 0.0 and 1.0."
+/* XPECT errors at 'position (xoffset=|1.2,yoffset=1.2)' ---
+	"The anchor offset (xoffset) should be defined in the range 0.0 and 1.0." at "1.2"
+	"The anchor offset (yoffset) should be defined in the range 0.0 and 1.0." at "1.2"
 --- */
 		position (xoffset=1.2,yoffset=1.2)
 	}
@@ -30,17 +32,17 @@ shape FixPointAnchorsTest {
 	anchor {
 		position (x=5, y=10)
 		position (x=50, y=100)
-/* XPECT validationIssues at 'position (x=50, y=|501)' ---
-error "This anchor coordinate (y) is specified out of the shape area."
+/* XPECT errors at 'position (x=50, y=|501)' ---
+	"This anchor coordinate (y) is specified out of the shape area." at "501"
 --- */
 		position (x=50, y=501)
-/* XPECT validationIssues at 'position (x=|501, y=50)' ---
-error "This anchor coordinate (x) is specified out of the shape area."
+/* XPECT errors at 'position (x=|501, y=50)' ---
+	"This anchor coordinate (x) is specified out of the shape area." at "501"
 --- */
 		position (x=501, y=50)
-/* XPECT validationIssues at 'position (x=|501, y=501)' ---
-error "This anchor coordinate (x) is specified out of the shape area."
-error "This anchor coordinate (y) is specified out of the shape area."
+/* XPECT errors at 'position (x=|501, y=501)' ---
+	"This anchor coordinate (x) is specified out of the shape area." at "501"
+	"This anchor coordinate (y) is specified out of the shape area." at "501"
 --- */
 		position (x=501, y=501)
 	}
@@ -54,12 +56,12 @@ shape RelativeAndFixPointAnchorsTest {
 	}
 	anchor {
 		position (x=5, y=10)
-/* XPECT validationIssues at 'position (x=|501, y=100)' ---
-error "This anchor coordinate (x) is specified out of the shape area."
+/* XPECT errors at 'position (x=|501, y=100)' ---
+	"This anchor coordinate (x) is specified out of the shape area." at "501"
 --- */
 		position (x=501, y=100)
-/* XPECT validationIssues at 'position (xoffset=0.1, yoffset=|1.1)' ---
-error "The anchor offset (yoffset) should be defined in the range 0.0 and 1.0."
+/* XPECT errors at 'position (xoffset=0.1, yoffset=|1.1)' ---
+	"The anchor offset (yoffset) should be defined in the range 0.0 and 1.0." at "1.1"
 --- */
 		position (xoffset=0.1, yoffset=1.1)
 		position (xoffset=0.8, yoffset=1.0)
