@@ -26,7 +26,8 @@ import org.eclipselabs.spray.mm.spray.ShapeReference
 import org.eclipselabs.spray.mm.spray.ConnectionReference
 import org.eclipselabs.spray.mm.spray.ShapeDslKey
 import org.eclipselabs.spray.mm.spray.SprayStyleRef
-import org.eclipselabs.spray.generator.common.ProjectProperties  
+import org.eclipselabs.spray.generator.common.ProjectProperties import org.eclipselabs.spray.styles.Style
+import org.eclipselabs.spray.shapes.ShapeStyleRef
 
 /**
  * Computation of class names, file names etc.
@@ -88,8 +89,20 @@ class NamingExtensions {
         if( styleRef.javaStyle != null){
             return styleRef.javaStyle.qualifiedName;
         } else {
-            return ProjectProperties::stylesPackage + "." + styleRef.dslStyle.name.toFirstUpper
+            return styleRef.dslStyle.qualifiedName
         }   
+    }
+    
+    def dispatch String qualifiedName(ShapeStyleRef styleRef) {
+        if( styleRef.javaStyle != null){
+            return styleRef.javaStyle.qualifiedName;
+        } else {
+            return styleRef.dslStyle.qualifiedName
+        }   
+    }
+    
+    def dispatch String qualifiedName(Style style) {
+        return ProjectProperties::stylesPackage + "." + style.name.toFirstUpper
     }
     
     def dispatch String simpleName(SprayStyleRef styleRef) {

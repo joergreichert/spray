@@ -55,10 +55,13 @@
 		<category name="3rdparty"/>
 	</feature>
 	<!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=378338 -->
-	<bundle url="plugins/org.jdom_1.1.1.v201101151400.jar" id="org.jdom" version="1.1.1.v201101151400">
+	<bundle url="plugins/org.jdom_0.0.0.jar" id="org.jdom" version="0.0.0">
 		<category name="3rdparty"/>
 	</bundle>
-	<bundle url="plugins/org.mockito_1.8.4.v201303031500.jar" id="org.mockito" version="1.8.4.v201303031500">
+	<bundle url="plugins/org.mockito_0.0.0.jar" id="org.mockito" version="0.0.0">
+		<category name="3rdparty"/>
+	</bundle>
+	<bundle url="plugins/org.objenesis_0.0.0.jar" id="org.objenesis" version="0.0.0">
 		<category name="3rdparty"/>
 	</bundle>
 	<category-def name="3rdparty" label="Third Party">

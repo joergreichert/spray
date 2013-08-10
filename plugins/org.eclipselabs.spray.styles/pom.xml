@@ -92,6 +92,7 @@
 							<jvmSettings>
 								<fork>true</fork>
 								<jvmArgs>
+									<jvmArg>-Dfile.encoding=UTF8</jvmArg>
 									<jvmArg>-Xms100m</jvmArg>
 									<jvmArg>-Xmx700m</jvmArg>
 									<jvmArg>-XX:MaxPermSize=128m</jvmArg>

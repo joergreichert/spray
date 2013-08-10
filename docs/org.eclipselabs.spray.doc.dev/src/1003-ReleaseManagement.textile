@@ -17,11 +17,11 @@ When it is required to use custom ant tasks we have the problem that we cannot p
 To avoid the need to check in those jars we are fetching them from the internet using the "Ant Get task":http://ant.apache.org/manual/Tasks/get.html . Thus they are downloaded in the @-fetch-dependencies@ target to a private library folder like follows:
 
 bc.. 
-	<target name="-fetch-dependencies" description="downloads additional jars for task definitions">
-		<mkdir dir="lib" />
-		<get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
-		...
-	</target>
+<target name="-fetch-dependencies" description="downloads additional jars for task definitions">
+  <mkdir dir="lib" />
+  <get src="http://ant-googlecode.googlecode.com/files/ant-googlecode-0.0.3.jar" dest="lib/ant-googlecode.jar" skipexisting="true" />
+  ...
+</target>
 p. 
 The files are just fetched once, so the download does not happen always. Targets that declare tasks with @<taskdef>@ need to depend on @-fetch-dependencies@.
 
@@ -39,16 +39,16 @@ The upload of files to the project homepage is defined in the @release-promote-g
 
 bc.. 
 <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="lib/ant-googlecode.jar" name="gcupload" />
-<gcupload 
-	username="${gc.user}" 
-	password="${gc.password}" 
-	projectname="spray" 
-	uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
-	ignoreSslCertificateHostname="true"
-	filename="${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf" 
-	targetfilename="SprayDeveloperGuide-${version_main}.pdf" 
-	summary="Spray ${version_main} Developer Guide" 
-	labels="Featured, Type-Docs, OpSys-All" />
+<gcupload
+  username="${gc.user}"
+  password="${gc.password}"
+  projectname="spray"
+  uploadUrl="https://uploads.code.google.com/a/eclipselabs.org/upload/spray"
+  ignoreSslCertificateHostname="true"
+  filename="${repository_root}/docs/org.eclipselabs.spray.doc.dev/docs/pdf/SprayDeveloperGuide.pdf"
+  targetfilename="SprayDeveloperGuide-${version_main}.pdf"
+  summary="Spray ${version_main} Developer Guide"
+  labels="Featured, Type-Docs, OpSys-All" />
 p. 
 
 h3. Setting version
@@ -76,3 +76,6 @@ Cloudbees provides a snapshot and release Maven repository for each project. The
 * @https://<USER>@repository-spray.forge.cloudbees.com/snapshot@
 
 These repositories are configured in the @<distributionManagement>@ section of the Parent POM.
+
+
+

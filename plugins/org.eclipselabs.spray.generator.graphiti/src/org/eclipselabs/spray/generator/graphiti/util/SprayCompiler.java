@@ -1,8 +1,14 @@
 package org.eclipselabs.spray.generator.graphiti.util;
 
+import javax.inject.Inject;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericType;
+import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.JvmTypeReference;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XBinaryOperation;
 import org.eclipse.xtext.xbase.XExpression;
@@ -14,14 +20,15 @@ import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.eclipse.xtext.xbase.typing.ITypeProvider;
 
-import javax.inject.Inject;
-
 @SuppressWarnings("restriction")
 public class SprayCompiler extends XbaseCompiler {
     @Inject
-    private ITypeProvider typeProvider;
+    private ITypeProvider    typeProvider;
 
-    private String        metaClassVariable;
+    @Inject
+    private XtextResourceSet resourceSet;
+
+    private String           metaClassVariable;
 
     public String compile(XExpression value, ImportManager importManager) {
         ITreeAppendable appendable = new FakeTreeAppendable(importManager);
@@ -65,10 +72,21 @@ public class SprayCompiler extends XbaseCompiler {
 
     @Override
     protected boolean isVariableDeclarationRequired(XExpression expr, ITreeAppendable b) {
-        if (expr instanceof XAbstractFeatureCall && ((XAbstractFeatureCall) expr).getFeature() instanceof JvmGenericType) {
+        JvmIdentifiableElement feature = null;
+        if (expr instanceof XAbstractFeatureCall && ((feature = ((XAbstractFeatureCall) expr).getFeature()) instanceof JvmGenericType || resolve((XAbstractFeatureCall) expr, feature))) {
             return false;
         }
         return super.isVariableDeclarationRequired(expr, b);
+    }
+
+    private boolean resolve(XAbstractFeatureCall expr, JvmIdentifiableElement feature) {
+        if (feature.eIsProxy()) {
+            EObject resolved = EcoreUtil.resolve(feature, resourceSet);
+            if (resolved instanceof JvmIdentifiableElement) {
+                feature = (JvmIdentifiableElement) resolved;
+            }
+        }
+        return feature.eIsProxy();
     }
 
     @Override

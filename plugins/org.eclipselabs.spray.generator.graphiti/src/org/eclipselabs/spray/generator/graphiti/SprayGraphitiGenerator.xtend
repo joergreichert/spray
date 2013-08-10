@@ -189,7 +189,12 @@ class SprayGraphitiGenerator implements IGenerator {
         for( metaClass : diagram.metaClasses.filter(m | m.representedBy instanceof ShapeFromDsl )){
             var container = metaClass.representedBy as ShapeFromDsl
             java.setPackageAndClass(metaClass.addFeatureClassName)
-            asf.setAttributes(metaClass, diagram.style)
+            var style = container.shape?.dslShape?.style
+            if(style != null) {
+            	asf.setAttributes(metaClass, style)
+            } else {
+            	asf.setAttributes(metaClass, diagram.style?.dslStyle)
+            }
             asf.generate(container, java)
         }
     }    

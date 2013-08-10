@@ -73,6 +73,25 @@ For example, if you need to upgrade Xtext, uninstall *all* Xtext features, and t
 
 h2. Workspace Setup
 
+h3. Recommended system requirements
+
+* DualCore at 1.6 GHz
+* 4 GB RAM
+* 2.5 GB RAM unsused
+* 5 GB free hard disk space
+Tested on 
+* Mac OSX Lion
+* Macbook Air (Mid 2011)
+
+h3. Team Project Set
+
+You can use our predefined team project set file to get the Spray projects into your workspace. This will automatically clone the Git repository and mport the projects.
+
+* File > Import... > Team/Team Project Set, Next
+* URL: "@http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf@":http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
+
+When creating a new workspace make sure to set the following settings:
+
 h3. Target Platform
 
 For plugin development it is important to work against a fixed set of plugins. While the IDE provides a good default, since it is build from the defined features in the required versions, the actual target platform may differ slightly.
@@ -86,18 +105,10 @@ Open the preferences and set "Spray CI Target" in _Plug-in Development / Target 
 
 !images/targetplatform-1.png! 
 
-h3. Team Project Set
-
-You can use our predefined team project set file to get the Spray projects into your workspace. This will automatically clone the Git repository and mport the projects.
-
-* File > Import... > Team/Team Project Set, Next
-* URL: "@http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf@":http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
-
-When creating a new workspace make sure to set the following settings:
-
 h3. Initial Build
 
 When the projects are checked out initially, several projects will not be compilable. This is because the projects require generated sources, which are not checked in. To trigger the generation we make a full build. Run the launch configuration @releng/org.eclipselabs.spray.distribution/launch/spray build default.launch@ or on the command line in project @org.eclipselabs.spray.distribution@ call "@mvn clean install -s settings.xml@".
+This should take several minutes ,so for this you should grab a new coffee.
 
 h3. Workspace Preferences
 
@@ -113,18 +124,24 @@ After closing the preferences dialog the Workspace Mechanic will scan the config
 
 Click on "View and correct configuration issues" and fix the setup.
  
-In @org.eclipselabs.spray.devenv@ there is a Java formatter configuration @formatter.xml@ used in this project.
-Apply this formatter before committing anything.
+In the Preferences of Eclipse you should see a new selected Java/CodeStyle/Formatter called "spray_eclipse_formatter".
 
 h3. Add Spray task repository to Eclipse 
 
+First you have to install Google Code Task Repository manually.
+* For this go to Help > Install New Software > Add 
+** Name: Mylyn Google Location
+** http://knittig.de/googlecode-mylyn-connector/update/
+* Select the new Source and Install the complete NightlyBuilds.
+
+Then you can configure the task repository.
 * Window > Show View > Other... > Mylyn/Task Repositories
 * Open context menu in Task Repositories view > Add task repositories...
 * Google Code, Next
 ** URL: Paste "@http://code.google.com/a/eclipselabs.org/p/spray/@":http://code.google.com/a/eclipselabs.org/p/spray/
 ** Label: Spray
 ** unselect Anonymous, if you later want to push code
-** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password), Finish
+** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password) > Validate Settings > Finish
 !images/mylyn_1.png!
 * Add New Query
 * use predefined query > Open issues
