@@ -1,11 +1,5 @@
-/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleScopingTest
-
-	ResourceSet {
-		ThisFile {}
-		File "b.style" {}
-	}
-  
-   END_SETUP
+/*
+XPECT_IMPORT b.style
  */
 
 style A1 {
@@ -14,6 +8,6 @@ style A1 {
 style A2 {
 }
 
-// XPECT scope at A1 --> A1, A2, B1 
+// XPECT elementsInScope at A1 --> A1, A2, B1 
 style A3 extends A1 {
 }
