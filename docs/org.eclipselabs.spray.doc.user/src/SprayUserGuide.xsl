@@ -265,7 +265,7 @@
     </xsl:comment>
   </xsl:template>
   <xsl:template match="//xslt:block[@id='SprayAquickwayofcreatingGraphiti']" />
-  <xsl:template match="//xslt:block[xslt:inline[text()='Developer Guide']]" />
+  <xsl:template match="//xslt:block[xslt:inline[text()='User Guide']]" />
 
   <!-- old places of spraylogo -->
   <xsl:template
