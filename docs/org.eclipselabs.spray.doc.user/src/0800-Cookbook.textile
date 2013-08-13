@@ -12,18 +12,17 @@ The @ZestLayoutDiagramFeature@ custom feature class allows to layout the diagram
 * Extend the FeatureProvider class and override @getCustomFeatures()@
 
 bc.. 
-    @Override
-    public ICustomFeature[] getCustomFeatures(ICustomContext context) {
-        List<ICustomFeature> features = new ArrayList<ICustomFeature>(Arrays.asList(super.getCustomFeatures(context)));
+@Override
+public ICustomFeature[] getCustomFeatures(ICustomContext context) {
+    List<ICustomFeature> features = new ArrayList<ICustomFeature>(Arrays.asList(super.getCustomFeatures(context)));
 
-        ZestLayoutDiagramFeature zestLayoutFeature = new ZestLayoutDiagramFeature(this);
-        if (zestLayoutFeature.canExecute(context)) {
-            features.add(zestLayoutFeature);
-        }
-        ...
-        return Iterables.toArray(features, ICustomFeature.class);
+    ZestLayoutDiagramFeature zestLayoutFeature = new ZestLayoutDiagramFeature(this);
+    if (zestLayoutFeature.canExecute(context)) {
+        features.add(zestLayoutFeature);
     }
-
+    ...
+    return Iterables.toArray(features, ICustomFeature.class);
+}
 p. 
 
 Your diagram will now have a context action "Layout with Zest":

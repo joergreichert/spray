@@ -6,7 +6,8 @@ The Shape DSL is a geometric description for the visual representation of a figu
 
 h2. An example for a shape
 
-bc. shape Usecase style org.eclipselabs.spray.styles.NoTransparency {
+bc.. 
+shape Usecase style org.eclipselabs.spray.styles.NoTransparency {
     size-min(width=100, height=100)
     size-max(width=200, height=200)
     stretching(horizontal=true, vertical=true)
@@ -20,7 +21,8 @@ bc. shape Usecase style org.eclipselabs.spray.styles.NoTransparency {
             id = TextId
         }
     }
-}
+}p. 
+
 
 h2. Shape Key Facts
 
@@ -28,13 +30,11 @@ bc. shape Usecase
 
 A shape definition starts with the keyword "shape" for every figure. After the keyword a unique name (id) will be set, which identify the shape for the whole project. Shapes with the same name are not valid and will be displayed as error. The name of a figure will be the name for the generated java class.
 
-bc. 
-public class Usecase implements ISprayShape
+bc. public class Usecase implements ISprayShape
 
 For every defined shape a Java class will be generated. The interface ISprayShape provides one method which will be defined for every shape class. 
 
-bc. 
-public ContainerShape getShape(Diagram diagram);
+bc. public ContainerShape getShape(Diagram diagram);
 
 The method getShape returns a ContainerShape (@org.eclipse.graphiti.mm.pictograms.ContainerShape@) this container comprises all elements of the defined shape.   
 
@@ -63,11 +63,12 @@ bc. shape Usecase { ellipse {} text {} }
 
 Every figure has the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ has an attribute for @horizontal@ and @vertical@ stretching of the figure. @proportional@ handles whether the resize proportion between height and width is kept or not.
 
-bc.. shape Usecase {
+bc.. 
+shape Usecase {
     size-min(width=100, height=100)    
     size-max(width=200, height=200)
     stretching(horizontal=true, vertical=true)
-}
+}p. 
 
 
 h3. Anchor
@@ -75,18 +76,22 @@ h3. Anchor
 Every shape has the ability to place different types of anchors with the keyword @anchor@. An anchor is specified at the first level of an shape and give the shape the possibility place a connection. There are four options to place an anchor. The first 2 options are dynamic and can be set with a keyword @anchor = center@ or @anchor = corners@. Does not matter what kind of shape is chosen the anchor will be placed in the center or at the corners where the shape is drawn onto. If an @ellipse@ is defined, this shape will be drawn on a invisible rectangle so the corners of the @anchor@ are the one from the rectangle.      
 There are two more options to define an @anchor@ a relative and fix one. A relative anchor type can look like this.
 
-bc. anchor {
+bc.. 
+anchor {
     position(xoffset=0.1,yoffset=0.0)
     position(xoffset=0.8,yoffset=1.0)
-}
+}p. 
+
 
 Every position entry represent a anchor point for a connection.In this case the @anchor@ got an attribute @position@ with two values @xoffset@ and @yoffset@. The @xoffset@/ @yoffset@ is the distance from the upper left corner to given value.
 
-bc. anchor {
+bc.. 
+anchor {
     position(x=5, y=10)
     position(x=50, y=100)
-}
-    
+}p. 
+
+
 !images/shapes_anchors.png!
     
 This example defines a fixed anchor, where the coordinates for the position are with a fixed value.
@@ -96,7 +101,6 @@ h2. Shape Property Assignment
 A common use case is to display values from the domain model inside the shape. Thus the Shape DSL offers the possibility to declare place holders inside the text shape. In the following example @boxName@ is the id of the place holder for the text to be displayed in the shape.
 
 bc.. 
-
 shape Box {
 	rectangle {
 		position (x=0, y=0)
@@ -108,81 +112,72 @@ shape Box {
 			id = boxName
 		}
 	}
-}
+}p. 
 
-p. 
 
 When referencing the shape inside the Spray DSL you can bind String properties of the meta class to the place holders defined inside the shape. In the example below @name@ is String property of the class @MyClass@ that is bound to the place holder @boxName@ in the shape definition. This makes shape definitions reusable for different domain classes and it is also useful for complex shapes that consists of multiple texts.
 
 bc.. 
-
 class MyClass {
     shape Box {
     	name into boxName
     }
     ...   
-}
+}p. 
 
-p. 
 
 Beside the direct mapping of properties to place holders it is also possible to use expressions for the mapping.
 
 bc.. 
-
 class MyClass {
     shape Box {
     	name into boxName ("name: " + name)
     }
     ...   
-}
+}p. 
 
-p. 
 
 So for an instance of @MyClass@ with @name@ value "classOne" the shape will display "name: classOne". Using the direct editing feature at the shape offers you to alter the value of @name@ only. When you change it to "classTwo" the value of @MyClass@'s name feature will be updated and the shape will display now "name: classTwo".
 
 The Spray DSL allows to pass String constants as well:
 
 bc.. 
-
 class MyClass {
     shape Box {
     	constant "fixName" into boxName
     }
     ...   
 }
-
 p. 
+
 
 Btw. the following syntax would lead to the same display String as above, although direct editing for @name@ is working here. 
 
 bc.. 
-
 class MyClass {
     shape Box {
     	name into boxName ("fixName")
     }
     ...   
 }
-
 p. 
+
 
 The example below seems to be identical to expressions example above, but now direct editing would not change the display string. Only changing the @name@ feature in the properties view (or directly in the domain model file and the using update in the diagram) will alter the display string.
 
 bc.. 
-
 class MyClass {
     shape Box {
     	constant "name: " + name into boxName
     }
     ...   
 }
-
 p. 
+
 
 Passing properties to connection shapes works analogous:
 
 bc.. 
-
 connection Association {
 	connection-type freeform
 	placing {
@@ -210,13 +205,12 @@ connection Association {
 		}
 	}
 }
-
 p. 
+
 
 For explanation of the connection definition syntax see later this documentation.
 
 bc.. 
-
 class MyConnection {
     connection Association {
         constant source.name into Left
@@ -229,8 +223,8 @@ class MyConnection {
     }
     ...
 }
-
 p. 
+
 
 As you can see in the example the names of the connected objects are used at the connection line endings and the name of the association object is used as name decorator of the connection line placed in the center.
  
@@ -241,7 +235,6 @@ A compartment is a shape in which other shapes may be placed through the palette
 A compartment is specified by the @compartment@ property:
 
 bc.. 
-
 shape SimpleClassShape {
     rectangle {
         compartment{
@@ -253,8 +246,8 @@ shape SimpleClassShape {
         position (x=0, y=0)
         size (width=100, height=320)
     }
-}
-p. 
+}p. 
+
 A compartment has a layout,  which can be @vertical@, @horizontal@ or @fixed@. In a @fixed@ compartment the shapes in the compartment are placed by the user, and can be moved around free. In a @vertical@ compartment, the shapes inside the compartment will be layout vertically below each other.  These shapes cannot be placed or moved by the user. A @vertical@ compartment behaves similar, but the shapes are layout in a horizontal way.
 
 Only a @rectangle@, a @ellipse@ or a @roundedrectangle@ may be marked as compartments. 
@@ -264,7 +257,6 @@ For a @vertical@ or @horizontal@ compartment the property @spacing@ specifies th
 The @id@ property behaves similar to the @id@ property of the @text@ shape.  The main Spray DSL may refer to such an id and specify what type of object are allowed inside the compartment. based on the above example, the a Spray model might look like:
 
 bc.. 
-
 class BusinessClass {
     shape SimpleClassShape {
         reference properties into simpleAttributes
@@ -272,8 +264,8 @@ class BusinessClass {
     behavior {
         create into types palette "Shapes";
     }
-}
-p. 
+}p. 
+
 The @properties@ is a reference from @BusinessClass@ in the domain (ecore) model and specifies that associated objects may be placed inside the @simpleAttributes@ compartment.
 This will automatically allow all attributes for which a shape is defined in the Spray DSL to be placed inside the compartment.
 An @StringProperty@ could be specified as 
@@ -304,8 +296,8 @@ class BoolProperty {
         create palette "Properties"
     }
 }
-
 p. 
+
 I this example both a @StringProperty@ and a @BoolProperty@ can be placed inside the compartment.
 They are both subtypes of @Property@ , which is the type of the @property@ reference from @BusinessClass@.
 
@@ -355,10 +347,11 @@ bc. line { }
 
 This shape needs a pair of @point@ which define the startpoint and an endpoint of a line. Each point has their @x=@/ @y=@ coordinates.
 
-bc. line {
+bc.. line {
     point(x=25,y=20)
     point(x=25,y=20)
 }
+p. 
 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
@@ -490,11 +483,13 @@ h3. Curve - Example
 
 The rounding options are used for the distance on the line before and after the point begins. In our example we defined, that 40 pixels before the bottom-right point the rounding starts and 20 pixels after the bottom-right point the rounding ends.
 
-bc. polygon {
+bc.. 
+polygon {
     point(x=50,y=0)
     point(x=0,y=50, curveBefore=40, curveAfter=20)
     point(x=100,y=50, curveBefore=40, curveAfter=20) 
 }
+p. 
 
 This rounding options only be specified for Shapes (Polygons and Polylines).
 
@@ -509,12 +504,13 @@ h3. UML - Example
 
 This example shows how to create an actor with the shape dsl. At first we need to define a shape with the name @UML_UC_Actor@. After that we will define the geometric from of this figure and add an @ellipse@. This @ellipse@ is a circle, because the value for @width@ and @height@ are the same. The circle represents the head of the actor and is displayed at top of the shape.    
 
-bc. shape UML_UC_Actor {
+bc.. shape UML_UC_Actor {
     ellipse { // Head
         position(x=0,y=0)
         size(width=50,height=50)
     }
 }
+p. 
 
 !images/shape_uml_actor_head.png!
 

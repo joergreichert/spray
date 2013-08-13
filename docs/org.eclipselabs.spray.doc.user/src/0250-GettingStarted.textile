@@ -195,11 +195,11 @@ The file is moved from @src-gen@ to @src@ (in the same package) and opens in th
 Implement the execute() method to open a message dialog.
 
 bc.. 
-    @Override
-    public void execute(ICustomContext context, EObject object) {
-        MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", 
-                "Selected object of type "+object.eClass().getName());
-    }
+@Override
+public void execute(ICustomContext context, EObject object) {
+    MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", 
+            "Selected object of type "+object.eClass().getName());
+}
 
 p. 
 

@@ -4,8 +4,7 @@ This section describes the configuration of Layouts for shapes.
 
 h3. Colors
 
-bc. 
-   <shape> (color=<Color>)
+bc. <shape> (color=<Color>)
 
 h4. Implicit Colors
 
@@ -13,8 +12,7 @@ By default, Spray will allow to use the constants defined in @org.eclipse.graphi
 
 *Example:*
 
-bc. 
-   text (color=dark_green)
+bc. text (color=dark_green)
 
 
 h4. Explicit Colors
@@ -23,8 +21,7 @@ Colors can be referred to by qualified names of the static fields.
 
 *Example:*
 
-bc. 
-   text (color=org.eclipse.graphiti.util.IColorConstant::BLACK)
+bc. text (color=org.eclipse.graphiti.util.IColorConstant::BLACK)
 
 With import of the contants type this can be shortened:
 
@@ -39,8 +36,7 @@ h4. RGB Color
 
 Colors can be defined by their RGB values:
 
-bc. 
-   text (color=RGB(255,50,0))
+bc. text (color=RGB(255,50,0))
 
 If you invoke content assist it will offer you an option "Pick color...", which will open the system's colors dialog.
 

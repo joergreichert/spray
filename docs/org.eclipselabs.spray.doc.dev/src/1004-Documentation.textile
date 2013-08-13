@@ -188,7 +188,7 @@ xmlns:date="http://exslt.org/dates-and-times"
   ...
 
   <!-- Dynamic Date in Format DD. MonthName YYYY -->
-  <block font-weight="italic" font-size="14pt" text-align="center"
+<block font-weight="italic" font-size="14pt" text-align="center"
     space-before="19pt">
     <xsl:value-of select="date:day-in-month()" />
     .&#160;
@@ -310,13 +310,13 @@ In our template we match a node with the attribute @internal-destination@ (this 
 bc.. 
 <block text-align-last="justify" margin-left="0em" space-before="5pt">
 <xsl:copy>
-	<xsl:apply-templates select="node()|@*" />
+  <xsl:apply-templates select="node()|@*" />
 </xsl:copy>
 <leader leader-pattern="dots" leader-pattern-width="5pt" />
 <xsl:element name="page-number-citation">
-	<xsl:attribute name="ref-id"><xsl:value-of
-		select="./@internal-destination" />
-	</xsl:attribute>
+  <xsl:attribute name="ref-id"><xsl:value-of
+    select="./@internal-destination" />
+  </xsl:attribute>
 </xsl:element>
 ...
 </block>
@@ -329,14 +329,14 @@ h4. replace in a string
 That is not a default function of XSL version 1.0 like contains(). If you want to handle it you have to create a template with a name attribute to call it later. You call a template with @call-template@ and deliver some wanted parameters.
 
 bc.. 
-	<xsl:variable name="newSrc">
-		<xsl:call-template name="string-replace">
-			<xsl:with-param name="text"
-				select="//xslt:block/xslt:external-graphic/@src[contains(.,'Spray-Logo-C.png)')]" />
-			<xsl:with-param name="replace" select="'.png)'" />
-			<xsl:with-param name="by" select="'-Big.png)'" />
-		</xsl:call-template>
-	</xsl:variable>
+<xsl:variable name="newSrc">
+  <xsl:call-template name="string-replace">
+    <xsl:with-param name="text"
+      select="//xslt:block/xslt:external-graphic/@src[contains(.,'Spray-Logo-C.png)')]" />
+    <xsl:with-param name="replace" select="'.png)'" />
+    <xsl:with-param name="by" select="'-Big.png)'" />
+  </xsl:call-template>
+</xsl:variable>
 p. 
 
 Our call-template you can see named "string-replace" needs 3 parameters
@@ -347,27 +347,27 @@ Our call-template you can see named "string-replace" needs 3 parameters
 So in this case we search for an url of the spray-logo and replace the suffix.
 
 bc.. 
-	<!-- template to replace a string from text -->
-	<xsl:template name="string-replace-all">
-		<xsl:param name="text" />
-		<xsl:param name="replace" />
-		<xsl:param name="by" />
-		<xsl:choose>
-			<xsl:when test="contains($text, $replace)">
-				<xsl:value-of select="substring-before($text,$replace)" />
-				<xsl:value-of select="$by" />
-				<xsl:call-template name="string-replace-all">
-					<xsl:with-param name="text"
-						select="substring-after($text,$replace)" />
-					<xsl:with-param name="replace" select="$replace" />
-					<xsl:with-param name="by" select="$by" />
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="$text" />
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
+<!-- template to replace a string from text -->
+<xsl:template name="string-replace-all">
+  <xsl:param name="text" />
+  <xsl:param name="replace" />
+  <xsl:param name="by" />
+  <xsl:choose>
+    <xsl:when test="contains($text, $replace)">
+      <xsl:value-of select="substring-before($text,$replace)" />
+      <xsl:value-of select="$by" />
+      <xsl:call-template name="string-replace-all">
+        <xsl:with-param name="text"
+          select="substring-after($text,$replace)" />
+        <xsl:with-param name="replace" select="$replace" />
+        <xsl:with-param name="by" select="$by" />
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$text" />
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 p. 
 
 Here we get the 3 parameters. We can access to the content with "$". After this we open a @choose@ element like if/else in C++. So if @text@ contains @replace@ the template do his thing and call itself recursively in case that there are more strings like that.
