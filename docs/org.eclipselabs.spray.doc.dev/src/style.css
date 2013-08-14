@@ -1,0 +1,57 @@
+body {
+	background-color: rgb(200, 200, 200);
+	line-height: 1.2;
+	alink: #0000FF;
+	vlink: #840084;
+	text: black;
+	link: #0000FF;
+	margin: auto;
+	font-family: sans-serif;
+	font-weight: normal;
+	padding: 0px 0px;
+}
+
+.content {
+	background-color: white;
+	width: 850px;
+	margin: auto;
+	top: 20px;
+	padding: 0px 25px;
+	position: relative;
+	left: 0px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: gray;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 18px;
+	padding: 1px;
+}
+
+code {
+	overflow: auto;
+	float: left;
+}
+
+.title {
+	
+}
+
+.tableofcontents {
+	line-height: 1.4;
+	font-size: 90%;
+	padding: 20px;
+	padding-left: 30px;
+	border: 1px solid rgb(225, 225, 225);
+	background: none repeat scroll 0% 0% rgb(241, 241, 241);
+	border-radius: 9px 9px 9px 9px;
+	margin-bottom: 30px;
+}
+
+h1,h2,h3,h4,h5 {
+	margin: 0px;
+	padding: 10px 0px 1px 0px;
+}
+}

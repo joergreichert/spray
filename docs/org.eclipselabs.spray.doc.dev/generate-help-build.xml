@@ -70,6 +70,12 @@
 
 		<wikitext-to-html formatOutput="true" markupLanguage="${content.source.language}" sourceencoding="UTF-8" multipleOutputFiles="false" navigationImages="true" htmlFilenameFormat="/html/$1.html" title="${sprayhelp.title}" file="${content.gen.dir}/${sprayhelp.source.file}" prependImagePrefix=".." />
 
+		<xslt in="${content.gen.html.dir}/${sprayhelp.target.html.file}" out="${content.gen.html.dir}/${sprayhelp.target.html.file}" style="${content.source.dir}/${sprayhelp.target.htmlxsl.file}">
+			<outputproperty name="method" value="xhtml" />
+			<outputproperty name="standalone" value="yes" />
+			<outputproperty name="encoding" value="UTF-8" />
+			<outputproperty name="indent" value="yes" />
+		</xslt>
 	</target>
 
 

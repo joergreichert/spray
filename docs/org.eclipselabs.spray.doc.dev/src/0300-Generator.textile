@@ -110,6 +110,7 @@ bc..
             «generate_additionalMethods(reference)» // call hook template
         }
     '''
+p. 
 
 h3. Generated Code
 
