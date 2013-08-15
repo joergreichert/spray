@@ -51,7 +51,7 @@ h3. Create plugin project
 
 To extend the generator you basically need a plugin project. Create one and add the following dependencies:
 
-bc. 
+bc.. 
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipselabs.spray.generator.graphiti;bundle-version="0.5.1",
  org.eclipselabs.spray.mm;bundle-version="0.5.1",
@@ -59,6 +59,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipselabs.spray.generator.graphiti.ui
 Import-Package: org.eclipse.xtend2.lib,
  org.eclipse.xtext.xbase.lib
+p. 
 
 h3. Derive templates
 

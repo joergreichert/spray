@@ -16,4 +16,3 @@ In old Spray versions it was your task to copy the plugin.xml from src-gen into 
 
 p. 
 
-   

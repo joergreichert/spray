@@ -153,7 +153,6 @@ bc..
       <xsl:attribute name="scaling">uniform</xsl:attribute>
     </xsl:element>
   </block>
-
   ...
 p. 
 
@@ -161,7 +160,6 @@ We match the block which contains the old title with the text "Spray Developer G
 
 bc.. 
 ...
-
 <!-- Title -->
 <block font-weight="bold" font-size="25pt" text-align="center"
   space-before="19pt">
@@ -172,7 +170,6 @@ bc..
 <block font-size="14pt" text-align="center" space-before="19pt">Jos
   Warmer, Karsten Thoms, Joerg Reichert
 </block>
-
 ...
 p. 
 
@@ -185,8 +182,7 @@ bc..
 <xsl:stylesheet version="1.0"
 ...
 xmlns:date="http://exslt.org/dates-and-times"
-  ...
-
+  .../>
   <!-- Dynamic Date in Format DD. MonthName YYYY -->
 <block font-weight="italic" font-size="14pt" text-align="center"
     space-before="19pt">

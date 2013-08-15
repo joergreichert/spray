@@ -10,4 +10,5 @@ bc..
 class MyMetaclass {
   shape MyCustomShape { ... }
 }
+p. 
 

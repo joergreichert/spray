@@ -1,0 +1,71 @@
+body {
+	background-color: rgb(200, 200, 200);
+	line-height: 1.2;
+	alink: #0000FF;
+	vlink: #840084;
+	text: black;
+	link: #0000FF;
+	margin: auto;
+	font-family: sans-serif;
+	font-weight: normal;
+	font-size:11pt;
+	padding: 0px 0px;
+}
+
+a:HOVER
+{
+	text-decoration: blink;
+}
+
+.content {
+	background-color: white;
+	width: 80%;
+	margin: auto;
+	top: 20px;
+	padding: 0px 25px 25px 35px;
+	position: relative;
+	min-width: 60%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: gray;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 18px;
+	padding: 1px;
+}
+
+ol.linenums {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+}
+
+img
+{
+	max-width: 99%
+}
+
+.toc {
+	line-height: 1.4;
+	font-size: 90%;
+	padding: 20px;
+	padding-left: 30px;
+	border: 1px solid rgb(225, 225, 225);
+	background: none repeat scroll 0% 0% rgb(241, 241, 241);
+	border-radius: 9px 9px 9px 9px;
+	margin-bottom: 30px;
+	margin-right: 30em;
+}
+
+h1{
+	padding-top: 20px;
+}
+
+h2,h3,h4,h5 {
+	margin: 0px;
+	padding: 10px 0px 1px 0px;
+}
+
+}

@@ -97,7 +97,7 @@ enum PersistencyMode
 	Read
 	None
 }
-
+p. 
 
 h3. The spray file
 
@@ -157,6 +157,7 @@ class Association {
         create into associations palette "Connections"
     }
 }
+p. 
 
 h3. The shape file
 
@@ -232,6 +233,7 @@ connection AssociationConnection {
         }
     }
 }
+p. 
 
 h3. The style file
 
@@ -246,4 +248,5 @@ style BusinessClassStyle extends BusmodDefaultStyle {
     description = "The style for the business class." 
     background-color = yellow
 }
+p. 
 

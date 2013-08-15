@@ -7,7 +7,6 @@ Referenced Java types and EClasses can be imported with the @import@ keyword. Th
 bc. 
 import BusinessDomainDsl.*
 // all the rest follows here...
-
 p. 
 
 h3. Diagram

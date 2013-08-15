@@ -22,12 +22,13 @@ bc..
  <installunit name="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947" />
  <installunit name="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.3.1.v201208210947" />
  <installunit name="org.eclipse.xtext.xtend2.m2e.feature.group" version="2.3.1.v201208210947" />
-bc. 
+p. 
 
 To build the distributions simply go to the @org.eclipselabs.spray.dev.distrobuilder@ directory and call
 
-bc. mvn -s settings.xml clean package
-
+bc.. 
+mvn -s settings.xml clean package
+p. 
 The resulting distributions can then be found in the directory @target/dist@.
 
 

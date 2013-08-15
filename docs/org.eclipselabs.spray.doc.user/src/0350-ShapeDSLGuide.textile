@@ -21,46 +21,54 @@ shape Usecase style org.eclipselabs.spray.styles.NoTransparency {
             id = TextId
         }
     }
-}p. 
+}
+p. 
 
 
 h2. Shape Key Facts
 
-bc. shape Usecase
-
+bc.. 
+shape Usecase
+p. 
 A shape definition starts with the keyword "shape" for every figure. After the keyword a unique name (id) will be set, which identify the shape for the whole project. Shapes with the same name are not valid and will be displayed as error. The name of a figure will be the name for the generated java class.
 
-bc. public class Usecase implements ISprayShape
-
+bc.. 
+public class Usecase implements ISprayShape
+p. 
 For every defined shape a Java class will be generated. The interface ISprayShape provides one method which will be defined for every shape class. 
 
-bc. public ContainerShape getShape(Diagram diagram);
-
+bc.. 
+public ContainerShape getShape(Diagram diagram);
+p. 
 The method getShape returns a ContainerShape (@org.eclipse.graphiti.mm.pictograms.ContainerShape@) this container comprises all elements of the defined shape.   
 
 
 h2. Shape Visualisation 
 
-bc. shape Usecase style BlackAndWhiteStyle
-
+bc.. 
+shape Usecase style BlackAndWhiteStyle
+p. 
 Every shape definition can reference a custom style for their visual behavior. The style will be inherited by the nested shape elements.
 If a custom style on a nested shape is needed a separate style can be referenced by the nested shape.
 
-bc. shape Usecase style BlackAndWhiteStyle { 
+bc.. 
+shape Usecase style BlackAndWhiteStyle { 
     ellipse { style(background-color=blue line-color=red) } }
-
+p. 
 The nested style only affects the referenced shape without inheritance. If element values are not set, the Graphiti default value will be set.
 
 h2. Shape Elements
 
 A complex figure could have multiple levels for its visualization. The brackets "{ }" represent a separator for each level of a figure.   
 
-bc. shape Usecase { ellipse {} }
-
+bc.. 
+shape Usecase { ellipse {} }
+p. 
 If elements are at the same level like an ellipse and a text they will be defined amongst each other, so multiple shapes can be nested at the same level. 
 
-bc. shape Usecase { ellipse {} text {} }
-
+bc.. 
+shape Usecase { ellipse {} text {} }
+p. 
 Every figure has the attributes @size-min@, @size-max@, @stretching@ and @proportional@ that can be set for each definition. The @size-min@ / @size-max@ is the minimum/maximum bound of a figure to assure to display them correctly. The attributes @streching@ and @proportional@ affects the resize abilities of a shape. @streching@ has an attribute for @horizontal@ and @vertical@ stretching of the figure. @proportional@ handles whether the resize proportion between height and width is kept or not.
 
 bc.. 
@@ -68,7 +76,8 @@ shape Usecase {
     size-min(width=100, height=100)    
     size-max(width=200, height=200)
     stretching(horizontal=true, vertical=true)
-}p. 
+}
+p. 
 
 
 h3. Anchor
@@ -80,7 +89,8 @@ bc..
 anchor {
     position(xoffset=0.1,yoffset=0.0)
     position(xoffset=0.8,yoffset=1.0)
-}p. 
+}
+p. 
 
 
 Every position entry represent a anchor point for a connection.In this case the @anchor@ got an attribute @position@ with two values @xoffset@ and @yoffset@. The @xoffset@/ @yoffset@ is the distance from the upper left corner to given value.
@@ -89,7 +99,8 @@ bc..
 anchor {
     position(x=5, y=10)
     position(x=50, y=100)
-}p. 
+}
+p. 
 
 
 !images/shapes_anchors.png!
@@ -112,7 +123,8 @@ shape Box {
 			id = boxName
 		}
 	}
-}p. 
+}
+p. 
 
 
 When referencing the shape inside the Spray DSL you can bind String properties of the meta class to the place holders defined inside the shape. In the example below @name@ is String property of the class @MyClass@ that is bound to the place holder @boxName@ in the shape definition. This makes shape definitions reusable for different domain classes and it is also useful for complex shapes that consists of multiple texts.
@@ -123,7 +135,8 @@ class MyClass {
     	name into boxName
     }
     ...   
-}p. 
+}
+p. 
 
 
 Beside the direct mapping of properties to place holders it is also possible to use expressions for the mapping.
@@ -134,7 +147,8 @@ class MyClass {
     	name into boxName ("name: " + name)
     }
     ...   
-}p. 
+}
+p. 
 
 
 So for an instance of @MyClass@ with @name@ value "classOne" the shape will display "name: classOne". Using the direct editing feature at the shape offers you to alter the value of @name@ only. When you change it to "classTwo" the value of @MyClass@'s name feature will be updated and the shape will display now "name: classTwo".
@@ -246,7 +260,8 @@ shape SimpleClassShape {
         position (x=0, y=0)
         size (width=100, height=320)
     }
-}p. 
+}
+p. 
 
 A compartment has a layout,  which can be @vertical@, @horizontal@ or @fixed@. In a @fixed@ compartment the shapes in the compartment are placed by the user, and can be moved around free. In a @vertical@ compartment, the shapes inside the compartment will be layout vertically below each other.  These shapes cannot be placed or moved by the user. A @vertical@ compartment behaves similar, but the shapes are layout in a horizontal way.
 
@@ -264,7 +279,8 @@ class BusinessClass {
     behavior {
         create into types palette "Shapes";
     }
-}p. 
+}
+p. 
 
 The @properties@ is a reference from @BusinessClass@ in the domain (ecore) model and specifies that associated objects may be placed inside the @simpleAttributes@ compartment.
 This will automatically allow all attributes for which a shape is defined in the Spray DSL to be placed inside the compartment.
@@ -322,13 +338,14 @@ bc. text { }
 
 A text field has four different attributes that can be set. The first two attributes @position@ and @size@ are come from the CommonLayoutDefinition. This layout definition is also used for @ellipse@, @rectangle@ and @rounded-rectangle@. The @position@ defines the start position of the element with the corresponding @x@ and @y@ value. For the specific size of the element the @with@ and @height@ can be set. For the alignment the keyword @align@ is used and separated in @horizontal@ and @vertical@. For both values are enumeration values referenced. The First value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The last attribute @id@ is responsible for the text value which is used to reference the value for directediting and updating.
 
-bc. text {
+bc.. 
+text {
     position (x=0, y=5)
     size (width=50, height=20)
     align (horizontal=center, vertical=middle)
     id = shapeName
 }
-
+p. 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
 **Default Value - Text/Wrapped-Text**
@@ -364,16 +381,19 @@ h3. Polyline
 
 The keyword @polyline@ represents a polyline shape element
 
-bc. polyline { }
-
+bc.. 
+polyline { }
+p. 
 A polyline definition required a set of @point@ to specify every start and end of a route. Each point has their @x=@/ @y=@ coordinates.
 
-bc. polyline {
+bc.. 
+polyline {
     point(x=50,y=0)
     point(x=50,y=10)
     point(x=60,y=10)
 }
-		
+p. 
+
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
 **Default Value - Polyline**
@@ -389,15 +409,17 @@ h3. Ellipse
 
 The keyword @ellipse@ represents a ellipse shape element.
 
-bc. ellipse  { }
-
+bc.. 
+ellipse  { }
+p. 
 An ellipse element is able to represent every kind of ellipses and also circles, when the @with@ and @height@ attribute got the same value.
 
-bc. ellipse  {
+bc.. 
+ellipse  {
     size(width=200, height=100)
     position(x=5,y=5)
 }
-
+p. 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
 **Default Value - Ellipse**
@@ -411,15 +433,17 @@ h3. Rectangle
 
 The keyword @rectangle@ represents a rectangle shape element.
 
-bc. rectangle { }
-
+bc.. 
+rectangle { }
+p. 
 The rectangle can present all types of rectangles and also squares, when the @with@ and @height@ attribute got the same value.
 
-bc. rectangle {
+bc.. 
+rectangle {
     size(width=100, height=100)
     position(x=0,y=0)
 }
-
+p. 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
 **Default Value - Rectangle**
@@ -433,16 +457,18 @@ h3. RoundedRectangle
 
 The keyword @rounded-rectangle@ represents a rounded rectangle shape element.
 
-bc. rounded-rectangle { 
-
+bc.. 
+rounded-rectangle { 
+p. 
 The @rounded-rectangle@ definition is similar to the rectangle definition. There is just one optional attribute named @curve@ which set the curve of the corners.
 
-bc. rounded-rectangle {
+bc.. 
+rounded-rectangle {
     size(width=100, height=100)
     position(x=0,y=0)
     curve(width=30, height=30)
 }
-
+p. 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
 **Default Value - RoundedRectangle**
@@ -458,15 +484,18 @@ h3. Polygon
 
 The keyword @polygon@ represents a polygon shape element.
 
-bc. polygon { }
-
+bc.. 
+polygon { }
+p. 
 A polygon is shape with n-sides. This figure is bounded by a closed path, this mean the startpoint is connected to the end point. Every side is defines by two @point@ with there @x@ and @y@ coordinates.
 
-bc. polygon {
+bc.. 
+polygon {
     point(x=50,y=0)
     point(x=50,y=10)
     point(x=60,y=10) 
 }
+p. 
 
 |_. Attribute	      			|_. Type      |_. Range              |_. Default Value 	| 
 
@@ -516,7 +545,8 @@ p.
 
 Then we add two @line@-shapes for the body and the hands of the actor. The coordinates starts from left upper corner (@x@=0/ @y@=0) to the right bottom corner. We want to place the body below the head so we need to set @50@ (length of the head) for the @y@ values and 25 (middle of the head) for first @x@ value. The length of the body part will be decided by the distance between the both @y@-point values which is @50@. The second line defines the hands of the actor which is displayed @20@ beneath the body starts. The length of the hands are equal to the size of the head.    
 
-bc. shape UML_UC_Actor {
+bc.. 
+shape UML_UC_Actor {
     ellipse { // Head
         position(x=0,y=0)
         size(width=50,height=50)
@@ -524,12 +554,13 @@ bc. shape UML_UC_Actor {
     line {point(x=25,y=50) point(x=25,y=100)} // Body 
     line {point(x=0,y=70) point(x=50,y=70)} // Hands
 }
-
+p. 
 !images/shape_uml_actor_head_body_arms.png!
 
 The last step will complete our actor. Therefore we need to define a polyline for the feet. We also want to place the feet below the body so we need to add the @y@-values first. This mid point has  @100@ (y-head + y-body) as @y@-value and @25@ (middle of head) as @x@-value which is the boundary point between the body and feet. The two other points of the polyline are connected to boundary point and decide the length of the feet which is the square root of @50@. The start and the end of the polyline is based on the headsize in this example from @x@=0 to @x@=50.
 
-bc. shape UML_UC_Actor {
+bc.. 
+shape UML_UC_Actor {
     ellipse { // Head
         position(x=0,y=0)
         size(width=50,height=50)
@@ -539,14 +570,15 @@ bc. shape UML_UC_Actor {
     line {point(x=50,y=70) point(x=100,y=70)} // Hands
     polyline {point(x=0,y=150) point(x=25,y=100) point(x=50,y=150)} // Feet
 }
-
+p. 
 !images/shape_uml_actor_full.png!
 
 h3. BPMN - Example 
 
 This example shows how to create an envelope with the shape dsl. The hole figure is inside a circle so our custom shape starts with an @ellipse@ where @width@ and @height@ got the same value. After that we specify the edge of the envelope with a @rectangle@. The position of the @rectangle@ is slightly indented to display it in the center of the @ellipse@. Now we need to add a triangle shape to complete the envelope. For this case we need a @polygon@ that consist out of three @point@. The triangle is equal-sided that mean that two points got the same @y@. The difference between those both @x@ values define the length of upper edge. The third point is connected to the other two and an triangle is created. There are more than one way to specify a custom shape e.g this shape could also be realized with @line@ instead of @polygon@.   
 
-bc. shape BPMN_EventMail {
+bc.. 
+shape BPMN_EventMail {
     ellipse {
         size(width=50, height=50)
         position(x=0, y=0)
@@ -561,14 +593,15 @@ bc. shape BPMN_EventMail {
         }
     }
 }
-
+p. 
 !images/shapes_example.png!
 
 h2. Connections
 
 A @connection@ is an element to connect two or more shapes which each other. Every definition starts with the keyword @connection@ followed by a unique name. An element definition could look like that.
 
-bc. connection BPMN_DefaultFlow {
+bc.. 
+connection BPMN_DefaultFlow {
     placing {
         position(offset=1.0,radius=0,angle=0)
         polygon {
@@ -586,7 +619,7 @@ bc. connection BPMN_DefaultFlow {
         }
     }
 }
-
+p. 
 
 h3. Placing
 
