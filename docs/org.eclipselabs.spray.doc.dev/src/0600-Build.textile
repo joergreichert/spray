@@ -112,9 +112,7 @@ bc..
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[
-
-p.  
+p. 
 In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
 
 
@@ -122,8 +120,9 @@ h3. Disable execution of UI tests
 
 The build executes UI tests developed with "SWTBot":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, add the @skip-ui-tests@ property:
 
-bc. 
+bc.. 
 mvn -Dskip-ui-tests clean install
+p. 
 
 h2. Parent POM
 
@@ -135,7 +134,9 @@ All Maven Plugins that are used in the build are declared in the @<pluginManagem
 
 To check for possible updates run frequently
 
-bc. mvn versions:display-plugin-updates
+bc.. 
+mvn versions:display-plugin-updates
+p. 
 
 h2. Profiles
 
@@ -150,8 +151,9 @@ The profile is activated by the presence of the property @local-build@. To activ
 
 When testing target platform updates before making them effective for all users and builds it is recommended to build the target platform repository locally and test the build against it by activating this profile.
 
-bc. mvn -Dlocal-build ...
-
+bc.. 
+mvn -Dlocal-build ...
+p. 
 When this profile is activated the profile @remote-build@ gets deactivated.
 
 h4. Profile @remote-build@ 
@@ -231,7 +233,9 @@ h3. Setting Xtext version
 
 For Spray it is important that only the version of Xtext is installed against it was build. Xtext guarantees compatibility on the micro version number, but for an increment in the minor version number there is no guarantee that Spray will run on it. Thus we constraint the usage of Xtext in dependencies to the current minor version range. This is done in the @MANIFEST.MF@ Require-Bundle section with the modifier @bundle-version@. For example, to allow Xtext version 2.4.x the version constraint string is
 
-bc. require-bundle="[2.4.0,2.5.0)"
+bc.. 
+require-bundle="[2.4.0,2.5.0)"
+p. 
 
 This includes the range from 2.4.0 (inclusive) until 2.5.0 (exclusive).
 

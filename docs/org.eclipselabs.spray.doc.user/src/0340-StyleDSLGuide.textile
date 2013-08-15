@@ -33,12 +33,14 @@ As shown in the lower part of the figure these two methods can be mixed. The att
 
 h2. Style Key Facts
 
-bc. style BlackAndWhiteStyle
-
+bc.. 
+style BlackAndWhiteStyle
+p. 
 A style starts with the keyword __style__. After the keyword a unique id (name) for the style will be set. It is very important, that this name is unique for the whole project scope. At the same time the style id will become the name of the generated Java class as well. 
 
-bc. public class BlackAndWhiteStyle extends DefaultSprayStyle implements ISprayStyle
-
+bc.. 
+public class BlackAndWhiteStyle extends DefaultSprayStyle implements ISprayStyle
+p. 
 For every defined style a Java class will be generated. The interface ISprayStyle provides two methods which will be defined for every style. The inherited class __DefaultSprayStyle__ is the super class of all styles and provides default attributes. The inheritance could be overwritten in the DSL. 
 
 bc.. 
@@ -92,14 +94,16 @@ h2. Style Elements
 
 h3. Description
 
-bc. description = "A style for white background and black foreground."
-
+bc.. 
+description = "A style for white background and black foreground."
+p. 
 The @description@ should describe the style with a sentence. This attribute is required and have to be defined. It is recommended to use a description of at least 20 characters. 
 
 h3. Transparency
 
-bc. transparency = 0.95
-
+bc.. 
+transparency = 0.95
+p. 
 The @transparency@ defines the visibility of the whole shape. The value is a floating value within the interval 0.00 and 1.00. The value 1.00 defines that the shape is fully visible and 0.00 describes that the whole shape is invisible. All values between 0 and 1 can be used here to define the right transparency value.
    
 h3. Background
@@ -114,30 +118,36 @@ The background-color defines the background of the shapes. All shape elements wi
 
 h3. Line
 
-bc. line-color = black
-
+bc.. 
+line-color = black
+p. 
 The line-color is mapped to the foreground color in Graphiti. It defines the foreground elements on the shapes. The foreground elements are e.g. border of shapes, lines and font. Same as on the @background-color@ predefined color values can be used or if no predefined color applies to the wanted color then the RGB values can be filled. Following text sequence should be used: @RGB(RED,GREEN,BLUE)@. The values @RED,GREEN,BLUE@ are integer values between 0 and 255. Finally if a transparent foreground is wanted then the value @transparent@ can be used. 
 
-bc. line-style = solid
-
+bc.. 
+line-style = solid
+p. 
 The @line style@ defines the style type of the line. There are possible values as @solid@, @dot@, @dash@, @dash-dot@ and @dash-dot-dot@. All lines will be created with this style.
 
-bc. line-width = 1
-
+bc.. 
+line-width = 1
+p. 
 The @line width@ defines the width of foreground elements (e.g. lines and shape borders). Therefore a simple integer value of 0 or bigger (>= 0) can be used. If 0 is used then no lines and shape borders will be drawn.
 
 h3. Font
 
-bc. font-color = black
-
+bc.. 
+font-color = black
+p. 
 The font color is almost the same as the @line-color@ but it doesn't allow to set a @transparent@ font-color. The font color is as the line color a foreground color. Therefore the generated Java class provides a own method for this. This color will be finally used on all fonts. If no font-color is set, the line-color will be gained.
 
-bc. font-name = "Tahoma"
-
+bc.. 
+font-name = "Tahoma"
+p. 
 The font name is a simple String that defines the name of the font family on the computer. If the given String can not be found on the machine a warning will be shown in the Eclipse UI Style Editor.  
 
-bc. font-size = 10
-
+bc.. 
+font-size = 10
+p. 
 The font size is a simple integer with a value of 1 or bigger (>= 1). This defines the font pixels of the font.
 
 bc.. 

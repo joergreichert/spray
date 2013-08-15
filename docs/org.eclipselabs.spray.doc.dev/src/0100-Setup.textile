@@ -51,11 +51,15 @@ h3. Manual Feature Installation
 
 If you wish to install the Spray IDE features onto your existing Eclipse installation, configure the required update sites and install the features mentioned above. The update sites used to install the features required to develop Spray can be imported in your IDE. As a base take any Eclipse 4.x distribution. Then open workspace preferences _Install / Update -> Available Software Site_ and click the _Import_ button. When you already cloned the Spray repository, then choose the file
 
-bc. <path to your locally cloned Spray Git repository>/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
+bc.. 
+<path to your locally cloned Spray Git repository>/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
+p. 
 
 otherwise import the file from the CI server: 
 
-bc. https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
+bc.. 
+https://spray.ci.cloudbees.com/job/spray-ci-build/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.devenv/updatesites-spray-dev.xml
+p. 
 
 This XML file will add all required update sites to visit later when installing the plug-ins for the development environment. 
 

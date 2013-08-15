@@ -42,11 +42,10 @@ bc..
     def mainFile(Diagram diagram, String className) '''
         «header(this)»
         package «diagram_package()»;
- 
+        
         import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
         import org.eclipse.graphiti.tb.IToolBehaviorProvider;
         // MARKER_IMPORT
- 
         «body»
     '''
 p. 

@@ -70,6 +70,22 @@
 
 		<wikitext-to-html formatOutput="true" sourceencoding="UTF-8" markupLanguage="${content.source.language}" multipleOutputFiles="false" navigationImages="true" htmlFilenameFormat="/html/$1.html" title="${sprayhelp.title}" file="${content.gen.dir}/${sprayhelp.source.file}" prependImagePrefix=".." />
 
+		<copy file="${content.source.dir}/${sprayhelp.target.css.file}" todir="${content.gen.html.dir}" encoding="UTF-8" />
+
+		<copy todir="${content.gen.html.dir}/prettyprintsrc" encoding="UTF-8">
+			<fileset dir="${content.source.dir}/prettyprintsrc" />
+		</copy>
+		
+		<copy file="${content.source.dir}/copy2Clipboard.js" todir="${content.gen.html.dir}" encoding="UTF-8" />
+
+		<xslt in="${content.gen.html.dir}/${sprayhelp.target.html.file}" out="${content.gen.html.dir}/${sprayhelp.target.xhtml.file}" style="${content.source.dir}/${sprayhelp.target.htmlxsl.file}">
+			<outputproperty name="method" value="xhtml" />
+			<outputproperty name="standalone" value="yes" />
+			<outputproperty name="encoding" value="UTF-8" />
+			<outputproperty name="indent" value="yes" />
+		</xslt>
+
+		<move file="${content.gen.html.dir}${sprayhelp.target.xhtml.file}" tofile="${content.gen.html.dir}${sprayhelp.target.html.file}" encoding="UTF-8" />
 	</target>
 
 

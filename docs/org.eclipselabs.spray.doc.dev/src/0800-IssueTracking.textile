@@ -12,8 +12,9 @@ h2. Git Commit Message
 
 The tracking system allows automated linking of commits to the Git Repository with the Issue Tickets when following name conventions. When fixing an issue use a commit message with this format
 
-bc. fixed issue#<issuenumber>: <message> 
-
+bc.. 
+fixed issue#<issuenumber>: <message> 
+p. 
 Google Code will link the commit in the issue and set it to status Fixed.
 
 !images/issuetracking_1.png!

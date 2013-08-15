@@ -82,7 +82,6 @@ class BusinessClass  {
         create into types palette "Shapes" 
     }
 }
-
 p. 
 (Gist: "@busmod.spray@":https://gist.github.com/kthoms/5845614)
 
@@ -175,7 +174,6 @@ behavior actions {
   custom showInfoForBusinessClass "Show Information"
 }
 
-
 class BusinessClass {
     ...
     behavior {
@@ -200,7 +198,6 @@ public void execute(ICustomContext context, EObject object) {
     MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", 
             "Selected object of type "+object.eClass().getName());
 }
-
 p. 
 
 !images/adapted_feature_class.png!
@@ -240,6 +237,7 @@ style BusinessClassStyle extends BusmodDefaultStyle {
     description = "The style for the business class."
     background-color = yellow
 }
+p. 
 
 h3. busmod.shape
 
@@ -299,3 +297,5 @@ class Association icon "connection16.gif" {
         create into associations palette "Connections" askFor name
     }
 }
+p. 
+
