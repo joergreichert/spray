@@ -46,12 +46,16 @@
 		<xsl:apply-templates select="@*|node()" /> </div> <hr /> </xsl:copy> </xsl:template> -->
 	<!--================================================================================= -->
 
+
+	<!--========= CodeBlocks ============================================================= -->
 	<xsl:template match="xhtml:pre[xhtml:code]">
 		<pre class="prettyprint linenums" id="quine">
 			<xsl:value-of select="./xhtml:code" />
 		</pre>
 	</xsl:template>
-
+	<!--================================================================================= -->
+	
+	
 	<!--========= TOC =================================================================== -->
 	<xsl:template match="xhtml:ol[@class='toc']">
 		<ol class="toc" style="list-style: disc;">

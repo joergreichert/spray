@@ -1,4 +1,4 @@
-h2. Documentation
+h2(<xsl:number />). Documentation
 
 This section is about how to fix Problems in the documentation process of Spray. This Problems are most not so significant for the content of this but for the form.
 
@@ -103,8 +103,7 @@ bc..
     <block font-size="10.0pt" text-align="right">
       <!-- external Graphic with dynamic Source (searching for url of src) -->
       <xsl:element name="external-graphic">
-        <xsl:attribute name="src">
-        ...
+        <xsl:attribute name="src"> ...
       </xsl:element>
     </block>
     <!-- Horizontalline -->
@@ -165,12 +164,10 @@ bc..
   space-before="19pt">
   Spray Developer Guide
 </block>
-
 <!-- Authors -->
 <block font-size="14pt" text-align="center" space-before="19pt">Jos
   Warmer, Karsten Thoms, Joerg Reichert
 </block>
-...
 p. 
 
 The next point of this template is to set the old title followed by a block which contains the authors.
@@ -180,10 +177,8 @@ h5. generate dynamic date
 
 bc.. 
 <xsl:stylesheet version="1.0"
-...
-xmlns:date="http://exslt.org/dates-and-times"
-  .../>
-  <!-- Dynamic Date in Format DD. MonthName YYYY -->
+xmlns:date="http://exslt.org/dates-and-times" ... />
+<!-- Dynamic Date in Format DD. MonthName YYYY -->
 <block font-weight="italic" font-size="14pt" text-align="center"
     space-before="19pt">
     <xsl:value-of select="date:day-in-month()" />
@@ -237,8 +232,7 @@ h4. forcing page break
 If you have a fo:block and want no page-break in the content of this block. For this case you have to choice 1 of the 3 following attributes which you set for the fo:block.
 
 bc.. 
-<fo:block page-break-inside="avoid">
-  ...
+<fo:block page-break-inside="avoid"> ...
 </fo:block>
 p. 
 
@@ -264,7 +258,6 @@ If you copy your document like in *copy template* section you may want to remove
 bc.. 
 <!-- copy template -->
 ...
-
 <!-- Remove unwanted Contents -->
 <xsl:template match="//xslt:block[@id='SprayAquickwayofcreatingGraphiti']" />
 p. 
@@ -275,8 +268,7 @@ In this case all blocks that has an id like this will not been copied.
 h4. match node with several properties
 
 bc.. 
-<xsl:template match="//xslt:block[@font-family='monospace'][xslt:block[@font-family='monospace'][text()!='']]">
-...
+<xsl:template match="//xslt:block[@font-family='monospace'][xslt:block[@font-family='monospace'][text()!='']]"> ...
 </xsl:template>
 p. 
 
@@ -381,6 +373,87 @@ Additional you have to add to all *<wikitext-to-...* -processes a @sourceencodin
 
 bc.. 
 <wikitext-to-html sourceencoding="UTF-8" formatOutput="true" markupLanguage="${content.source.language}" .../>
+p. 
+
+h3. Html Modification
+
+The next step was to style the Html-documentation. The main points for this were the codeblocks, links, table of contents, and the alignment of the site plus the background style. Contents shouldn't change in this case. We use XHTML-1.0-Transitional standard.
+
+h4. codeblocks
+
+We want that the source code snippets will shown as it is and highlight the keywords. Additional the module should be lightweight, simple and support many languages like Java or Html. 
+For this we found google code prettify @https://code.google.com/p/google-code-prettify/@ as a good solution. It's a javascript module combined with a CSS file that allows syntax highlighting. Certainly it works with Html and is usable with many browsers like firefox or google-chrome (Effective 20. Aug. 2013). The benefit is that you can adjust the module to your style idea or use one of the given themes. The foolowing picture shows the default theme with alternating backgroundcolors for the rows and linenumbers for every row. 
+
+!images/htmlprettifyexample.png(Example for syntax)!
+
+To get this linenumbering you must remove @list-style-type@ in prettify.css .
+
+bc.. 
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 {
+	/* remove this >>>*/ list-style-type: none 
+}
+p. 
+
+h5. trouble with scriptelement
+
+We download the version from 4. Mar. 2013 and included it to the html document with xsl like this:
+
+bc.. 
+<xsl:template match="xhtml:head">
+	<xsl:copy>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		</link>
+		<link href="prettyprintsrc/prettify.css" type="text/css" rel="stylesheet">
+		</link>
+		<script src="prettyprintsrc/prettify.js" type="text/javascript">//</script>
+		<xsl:apply-templates select="@*|node()" />
+	</xsl:copy>
+</xsl:template>
+p. 
+
+The @//@ as content between opening and closing element are important, because xsl will interprete this with no changes. But if you write the script implementation in xsl like this 
+
+bc.. 
+<!-- Before in xsl-->
+<script src="prettyprintsrc/prettify.js" type="text/javascript"></script>
+p. 
+And after modification it will be like this in html
+
+bc.. 
+<!-- After in Html -->
+<script src="prettyprintsrc/prettify.js" type="text/javascript" />
+p. 
+
+This is not allowed in html documents with the suffix html. In this case every tested browser shows only a gray background and no content! So you should give attention to this if you use XSL-Stylesheet to modify your html/xhtml file. 
+
+h4. CSS
+
+Additional to the prettify.css, there is another costumized css named @style.css@. Here you find some summerized tips for css.
+First the table of contents (toc) should be highlighted. Here we use a gray inner block witdh rounded borders. 
+
+bc.. 
+.toc 
+{ ...
+  border: 1px solid rgb(225, 225, 225);
+  background: none repeat scroll 0% 0% rgb(241, 241, 241);
+  border-radius: 9px 9px 9px 9px;  /*Rounded borders*/
+}
+p. 
+
+The links should be standard for external links in Html and only a little animated by hovering. This is really easy by adding this to your css:
+
+bc.. 
+a:HOVER
+{ text-decoration: blink; }
+p. 
+
+If you adding this arguments to a css class, the containing tags-width will be @min-width < costumcontent-width < max-width@. Additional the content will break if the width is bigger than max-width.
+
+bc.. 
+min-width: 55em;
+max-width: 99%;
+display: inline-block;
+white-space: pre-wrap;
 p. 
 
 
