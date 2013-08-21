@@ -8,23 +8,22 @@ body {
 	margin: auto;
 	font-family: sans-serif;
 	font-weight: normal;
-	font-size:11pt;
+	font-size: 11pt;
 	padding: 0px 0px;
 }
 
-a:HOVER
-{
+a:HOVER {
 	text-decoration: blink;
 }
 
 .content {
 	background-color: white;
-	width: 80%;
+	width: 82%;
 	margin: auto;
 	top: 20px;
 	padding: 0px 25px 25px 35px;
 	position: relative;
-	min-width: 60%;
+	min-width: 51em;
 	border-width: 1px;
 	border-style: solid;
 	border-color: gray;
@@ -42,8 +41,7 @@ ol.linenums {
 	margin-left: 0;
 }
 
-img
-{
+img {
 	max-width: 99%
 }
 
@@ -56,10 +54,11 @@ img
 	background: none repeat scroll 0% 0% rgb(241, 241, 241);
 	border-radius: 9px 9px 9px 9px;
 	margin-bottom: 30px;
-	margin-right: 30em;
+	margin-right: 35em;
+	min-width: 40em;
 }
 
-h1{
+h1 {
 	padding-top: 20px;
 }
 
@@ -68,4 +67,31 @@ h2,h3,h4,h5 {
 	padding: 10px 0px 1px 0px;
 }
 
+.copy2clip_btn {
+	font-size: 75%;
+	border-radius: 3px 3px 3px 3px;
+	border: 1px solid gray;
+	display: inline-block;
+	text-align: center;
+	background-color: #eee;
+	margin: 3px;
+	padding: 2px;
+	text-align: center;
+	display: inline-block;
+	float: inherit;
+}
+
+.copy2clip_btn.zeroclipboard-is-hover {
+	
+	background-color: #ddd;
+		border: 1px solid black;
+}
+
+.copy2clip_btn.zeroclipboard-is-active {
+	border-top: 2px solid black;
+	border-left: 2px solid black;
+	border-bottom: 2px;
+	border-right: 2px;
+	background-color: #ccc;
+}
 }

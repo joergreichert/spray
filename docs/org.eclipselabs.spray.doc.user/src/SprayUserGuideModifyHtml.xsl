@@ -22,8 +22,8 @@
 			<link rel="stylesheet" type="text/css" href="prettyprintsrc/prettify.css">
 			</link>
 			<script src="prettyprintsrc/prettify.js" type="text/javascript">//</script>
-<!-- 			<script src="copy2Clipboard.js" type="text/javascript">//</script> -->
-
+			<script type="text/javascript" src="copy2clipboard/jquery.js">//</script>
+			<script type="text/javascript" src="copy2clipboard/ZeroClipboard.js">//</script>
 			<xsl:apply-templates select="@*|node()" />
 		</xsl:copy>
 	</xsl:template>
@@ -48,11 +48,37 @@
 	<!--================================================================================= -->
 
 	<xsl:template match="xhtml:pre[xhtml:code]">
-		<pre class="prettyprint linenums">
+		<xsl:variable name="number">
+			<xsl:number />
+		</xsl:variable>
+		<xsl:variable name="clipboardbutton">
+			<xsl:text>'#copy2clip_btn</xsl:text>
+			<xsl:value-of select="$number"></xsl:value-of>
+			<xsl:text>'</xsl:text>
+		</xsl:variable>
+		<pre class="prettyprint linenums" id="quine {$number}">
 			<xsl:value-of select="./xhtml:code" />
 		</pre>
-		<!-- <button onclick="copyToClipboard(document.getElementById('quine').value);">Copy2Clipboard</button> -->
+		<div id="copy2clip_btn{$number}" data-clipboard-target="quine {$number}"
+			title="Click to copy to clipboard." data-copied-hint="copied!" class="copy2clip_btn">
+			Clipboard
+		</div>
+		<xsl:element name="script">
+			<xsl:attribute name="language">Javascript</xsl:attribute>
+			<xsl:text>
+			var clip = new ZeroClipboard( $(
+			</xsl:text>
+			<xsl:value-of select="$clipboardbutton"></xsl:value-of>
+			<xsl:text>
+			),{moviePath:
+			"./copy2clipboard/ZeroClipboard.swf"} );
+			
+			clip.setHandCursor( true );
+            clip.setCSSEffects( true );
+			</xsl:text>
+		</xsl:element>
 	</xsl:template>
+
 
 	<!--========= TOC =================================================================== -->
 	<xsl:template match="xhtml:ol[@class='toc']">

@@ -22,6 +22,8 @@
 			</link>
 			<!-- To get sepereted close tag for script enter 2 Slashes between them -->
 			<script src="prettyprintsrc/prettify.js" type="text/javascript">//</script>
+			<script type="text/javascript" src="copy2clipboard/jquery.js">//</script>
+			<script type="text/javascript" src="copy2clipboard/ZeroClipboard.js">//</script>
 			<xsl:apply-templates select="@*|node()" />
 		</xsl:copy>
 	</xsl:template>
@@ -46,15 +48,62 @@
 	<!--================================================================================= -->
 
 
-	<!--========= CodeBlocks ============================================================= -->
-	<xsl:template match="xhtml:pre[xhtml:code]">
-		<pre class="prettyprint linenums" id="quine">
-			<xsl:value-of select="./xhtml:code" />
-		</pre>
-	</xsl:template>
+	<!--========= Chapter =============================================================== -->
+	<!-- <xsl:template match="xhtml:h5"> <xsl:copy> <xsl:number level="any" 
+		from="xhtml:h1" count="xhtml:h2" /> <xsl:text>.</xsl:text> <xsl:number level="any" 
+		from="xhtml:h2" count="xhtml:h3" /> <xsl:text>.</xsl:text> <xsl:number level="any" 
+		from="xhtml:h3" count="xhtml:h4" /> <xsl:text>.</xsl:text> <xsl:number level="any" 
+		from="xhtml:h4" count="xhtml:h5" /> <xsl:text>. </xsl:text> <xsl:apply-templates 
+		/> </xsl:copy> </xsl:template> <xsl:template match="xhtml:h4"> <xsl:copy> 
+		<xsl:number level="any" from="xhtml:h1" count="xhtml:h2" /> <xsl:text>.</xsl:text> 
+		<xsl:number level="any" from="xhtml:h2" count="xhtml:h3" /> <xsl:text>.</xsl:text> 
+		<xsl:number level="any" from="xhtml:h3" count="xhtml:h4" /> <xsl:text>. </xsl:text> 
+		<xsl:apply-templates /> </xsl:copy> </xsl:template> <xsl:template match="xhtml:h3"> 
+		<xsl:copy> <xsl:number level="any" from="xhtml:h1" count="xhtml:h2" /> <xsl:text>.</xsl:text> 
+		<xsl:number level="any" from="xhtml:h2" count="xhtml:h3" /> <xsl:text>. </xsl:text> 
+		<xsl:apply-templates /> </xsl:copy> </xsl:template> <xsl:template match="xhtml:h2"> 
+		<xsl:copy> <xsl:number level="any" from="xhtml:h1" count="xhtml:h2" /> <xsl:text>. 
+		</xsl:text> <xsl:apply-templates /> </xsl:copy> </xsl:template> <xsl:template 
+		match="xhtml:h1"> <xsl:copy> <xsl:number /> <xsl:text>. </xsl:text> <xsl:apply-templates 
+		/> </xsl:copy> </xsl:template> -->
 	<!--================================================================================= -->
 	
 	
+	<!--========= CodeBlocks ============================================================= -->
+	<xsl:template match="xhtml:pre[xhtml:code]">
+		<xsl:variable name="number">
+			<xsl:number />
+		</xsl:variable>
+		<xsl:variable name="clipboardbutton">
+			<xsl:text>'#copy2clip_btn</xsl:text>
+			<xsl:value-of select="$number"></xsl:value-of>
+			<xsl:text>'</xsl:text>
+		</xsl:variable>
+		<pre class="prettyprint linenums" id="quine {$number}">
+			<xsl:value-of select="./xhtml:code" />
+		</pre>
+		<div id="copy2clip_btn{$number}" data-clipboard-target="quine {$number}"
+			title="Click to copy to clipboard." data-copied-hint="copied!" class="copy2clip_btn">
+			Clipboard
+		</div>
+		<xsl:element name="script">
+			<xsl:attribute name="language">Javascript</xsl:attribute>
+			<xsl:text>
+			var clip = new ZeroClipboard( $(
+			</xsl:text>
+			<xsl:value-of select="$clipboardbutton"></xsl:value-of>
+			<xsl:text>
+			),{moviePath:
+			"./copy2clipboard/ZeroClipboard.swf"} );
+			
+			clip.setHandCursor( true );
+            clip.setCSSEffects( true );
+			</xsl:text>
+		</xsl:element>
+	</xsl:template>
+	<!--================================================================================= -->
+
+
 	<!--========= TOC =================================================================== -->
 	<xsl:template match="xhtml:ol[@class='toc']">
 		<ol class="toc" style="list-style: disc;">

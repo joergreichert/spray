@@ -60,11 +60,15 @@
 		<mkdir dir="${content.gen.eclipse.dir}" />
 
 		<wikitext-to-eclipse-help markupLanguage="${content.source.language}" multipleOutputFiles="false" navigationImages="true" helpPrefix="${content.gen.dir}" htmlFilenameFormat="/eclipse-help/$1.html" xmlFilenameFormat="/eclipse-help/$1-toc.xml" title="${sprayhelp.title}" formatOutput="true" file="${content.gen.dir}/${sprayhelp.source.file}" prependImagePrefix=".." sourceencoding="UTF-8" />
-		
+
 		<copy file="${content.source.dir}/${sprayhelp.target.css.file}" todir="${content.gen.eclipse.dir}" encoding="UTF-8" />
 
 		<copy todir="${content.gen.eclipse.dir}/prettyprintsrc" encoding="UTF-8">
 			<fileset dir="${content.source.dir}/prettyprintsrc" />
+		</copy>
+		
+		<copy todir="${content.gen.eclipse.dir}/copy2clipboard" encoding="UTF-8">
+			<fileset dir="${content.source.dir}/copy2clipboard" />
 		</copy>
 		
 		<xslt in="${content.gen.eclipse.dir}/${sprayhelp.target.html.file}" out="${content.gen.eclipse.dir}/${sprayhelp.target.xhtml.file}" style="${content.source.dir}/${sprayhelp.target.htmlxsl.file}">
@@ -87,6 +91,10 @@
 
 		<copy todir="${content.gen.html.dir}/prettyprintsrc" encoding="UTF-8">
 			<fileset dir="${content.source.dir}/prettyprintsrc" />
+		</copy>
+
+		<copy todir="${content.gen.html.dir}/copy2clipboard" encoding="UTF-8">
+			<fileset dir="${content.source.dir}/copy2clipboard" />
 		</copy>
 
 		<xslt in="${content.gen.html.dir}/${sprayhelp.target.html.file}" out="${content.gen.html.dir}/${sprayhelp.target.xhtml.file}" style="${content.source.dir}/${sprayhelp.target.htmlxsl.file}">
