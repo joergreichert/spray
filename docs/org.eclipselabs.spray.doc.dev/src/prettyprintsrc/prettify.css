@@ -81,7 +81,7 @@ pre.prettyprint {
 	padding: 2px 2px 2px 0px;
 	border: 1px solid #888;
 	border-radius: 7px 7px 7px 7px;
-	min-width: 55em;
+	min-width: 50em;
 	max-width: 99%;
 	display: inline-block;
 	white-space: pre-wrap;
