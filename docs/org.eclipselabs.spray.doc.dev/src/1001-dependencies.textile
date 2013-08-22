@@ -30,5 +30,3 @@ Add a rule with resolution "Accessible" for pattern "org/eclipse/xtext/xbase/**"
 
 !images/accessrules_3.png! 
 
-
-

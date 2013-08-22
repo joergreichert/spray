@@ -94,4 +94,13 @@ h2,h3,h4,h5 {
 	border-right: 2px;
 	background-color: #ccc;
 }
+table
+{
+	    border-spacing:0;
+    border-collapse:collapse;
+}
+tbody th,tbody td
+{
+	border: 1pt solid black;
+}
 }

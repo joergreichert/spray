@@ -42,5 +42,3 @@ INFO: Updating XML document
 INFO: Writing XML document to file:/Users/thoms/git/spray/spray/releng/org.eclipselabs.spray.targetplatform/spray-kepler-updated.target
 p. 
 
-
-

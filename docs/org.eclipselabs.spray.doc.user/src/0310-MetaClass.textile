@@ -4,8 +4,9 @@ h3. Referencing Ecore Classes
 
 The @class@ keyword is followed by the (qualified) name of an EClass. You can either fully qualify the name of the EClass, or you can import the EClass with an @import@ statement before and then just use its simple name.
 
-bc. 
+bc.. 
 class BusinessDomainDsl.BusinessClass : // full qualified name
+p. 
 
 bc.. 
 import BusinessDomainDsl.* // wildcard import

@@ -334,8 +334,9 @@ h3. Text
 
 The keyword @text@ represents a shape element which 
 
-bc. text { }
-
+bc.. 
+text { }
+p. 
 A text field has four different attributes that can be set. The first two attributes @position@ and @size@ are come from the CommonLayoutDefinition. This layout definition is also used for @ellipse@, @rectangle@ and @rounded-rectangle@. The @position@ defines the start position of the element with the corresponding @x@ and @y@ value. For the specific size of the element the @with@ and @height@ can be set. For the alignment the keyword @align@ is used and separated in @horizontal@ and @vertical@. For both values are enumeration values referenced. The First value can be @left@,@right@ or @center@ and the second one @top@, @middle@ or @bottom@. The last attribute @id@ is responsible for the text value which is used to reference the value for directediting and updating.
 
 bc.. 
@@ -360,7 +361,8 @@ h3. Line
 
 The keyword @line@ represents a line shape element
 
-bc. line { }
+bc.. line { } 
+p. 
 
 This shape needs a pair of @point@ which define the startpoint and an endpoint of a line. Each point has their @x=@/ @y=@ coordinates.
 
@@ -625,8 +627,9 @@ h3. Placing
 
 If a custom visual behavior around the @connection@ element is needed, a @placing@ could be used. Each @placing@ describes the content that is placed arround of a @connection@. Every @placing@ requires an element named @position@ where the value for the alignment will be set. 
 
-bc. position(offset=1.0,radius=0,angle=0)
-
+bc.. 
+position(offset=1.0,radius=0,angle=0)
+p. 
 !images/shapes_connection.png!
 
 A @position@ attribute got four diffrent values @offset@, @radius@ and @angle@. The @offset@ is the position value among the line from left(@offset=0.0@) to right(@offset=1.0@), the @radius@ is the gap with a specified @angle@ between the connection and the element which is placed. The @angle@ can be specified in degree from 0 to 360. Imagine a circle with 4 quadrants, then the first quadrant is from 0 to 90 degree, the second is from 90 to 180 and so on. 

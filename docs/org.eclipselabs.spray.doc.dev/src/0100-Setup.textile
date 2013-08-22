@@ -71,9 +71,9 @@ For convenience there is a launch config @install-devenv-4.2.launch@ in project 
 
 h3. Troubleshooting
 
-If you have already installed one of the above mentioned features you might experience problems installing the newer features. In this case uninstall the features in question before (Eclipse / About Eclipse / Installation Details / Installed Software -> Uninstall).
+If you have already installed one of the above mentioned features you might experience problems installing the newer features. In this case uninstall the features in question before (_Eclipse / About Eclipse / Installation Details / Installed Software -> Uninstall_).
 
-For example, if you need to upgrade Xtext, uninstall *all* Xtext features, and the install Xtext SDK again with Install New Software.
+For example, if you need to upgrade Xtext, uninstall *all* Xtext features, and the install Xtext SDK again with _Install New Software_.
 
 h2. Workspace Setup
 
@@ -89,9 +89,9 @@ Tested on
 
 h3. Team Project Set
 
-You can use our predefined team project set file to get the Spray projects into your workspace. This will automatically clone the Git repository and mport the projects.
+You can use our predefined team project set file to get the Spray projects into your workspace. This will automatically clone the Git repository and import the projects.
 
-* File > Import... > Team/Team Project Set, Next
+* _File > Import... > Team/Team Project Set_, Next
 * URL: "@http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf@":http://spray.eclipselabs.org.codespot.com/git/devtools/org.eclipselabs.spray.devenv/projectSet.psf, Finish 
 
 When creating a new workspace make sure to set the following settings:
@@ -128,33 +128,33 @@ After closing the preferences dialog the Workspace Mechanic will scan the config
 
 Click on "View and correct configuration issues" and fix the setup.
  
-In the Preferences of Eclipse you should see a new selected Java/CodeStyle/Formatter called "spray_eclipse_formatter".
+In the Preferences of Eclipse you should see a new selected _Java/CodeStyle/Formatter_ called "spray_eclipse_formatter".
 
 h3. Add Spray task repository to Eclipse 
 
 First you have to install Google Code Task Repository manually.
-* For this go to Help > Install New Software > Add 
+* For this go to _Help > Install New Software > Add_ 
 ** Name: Mylyn Google Location
 ** http://knittig.de/googlecode-mylyn-connector/update/
 * Select the new Source and Install the complete NightlyBuilds.
 
 Then you can configure the task repository.
-* Window > Show View > Other... > Mylyn/Task Repositories
-* Open context menu in Task Repositories view > Add task repositories...
+* _Window > Show View > Other... > Mylyn/Task_ Repositories
+* Open context menu in Task Repositories view > _Add task repositories_...
 * Google Code, Next
 ** URL: Paste "@http://code.google.com/a/eclipselabs.org/p/spray/@":http://code.google.com/a/eclipselabs.org/p/spray/
 ** Label: Spray
 ** unselect Anonymous, if you later want to push code
-** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password) > Validate Settings > Finish
+** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password) > _Validate Settings_ > Finish
 !images/mylyn_1.png!
 * Add New Query
-* use predefined query > Open issues
+* use predefined query > _Open issues_
 !images/mylyn_2.png!
-* Window > Show View > Other... > Mylyn/Task List
+* _Window > Show View > Other... > Mylyn/Task List_
 
 h3. Add Spray Jenkins connector to Eclipse 
 
-* Window > Show View > Other... > Mylyn/Builds
+* _Window > Show View > Other... > Mylyn/Builds_
 * Click on the first of the icons in the right of the view header > Hudson (supports Jenkins), Next
 ** Server: "https://spray.ci.cloudbees.com":https://spray.ci.cloudbees.com
 ** Label: Spray
@@ -170,13 +170,13 @@ h3. Add Spray Git repository to Eclipse
 This will clone the Spray repository into your Eclipse workspace folder, create a number of working sets and add the projects to the working sets. To see the working sets go to the "View menu" icon of the Package Explorer and select Working Sets as Top Level Elements.
 
 If you want to specify the location where to clone the Spray repository locally do the following:   
-* File > Git/Projects from Git
-* Add
-* <Path to your locally cloned Git repository>, Next
-* Search, OK
+* _File > Git/Projects from Git_
+* _Add_
+* _<Path to your locally cloned Git repository>_, Next
+* _Search_, OK
 
 If you had cloned the Spray repository locally and want to use that repository:   
-* File > Git/Projects from Git
+* _File > Git/Projects from Git_
 * Clone
 * Paste https://code.google.com/a/eclipselabs.org/p/spray/ in the URI field and add your Google Account user name and your GoogleCode.com password (if your are logged in at the Spray Google Code site, click the Profiles link in the upper right corner and then go to the Settings tab) , Next
 * select all branches, Next
@@ -192,7 +192,7 @@ is provided in @releng/org.eclipselabs.spray.targetplatform/spray.target@. To se
 * Import the project from path @releng/org.eclipselabs.spray.targetplatform@
 * Open Workspace properties, go to _Plug-in Development / Target Platform_
 * Here you should see _Spray Target Platform_. Check it and press _Apply_.
-** As alternative you can also use the locally built target platform by Add... -> Nothing -> Name: Local Spray Target, Add... -> Directory, Next -> Location: <your local path to the cloned Spray git repository>/releng/org.eclipselabs.spray.repository/target/repository.
+** As alternative you can also use the locally built target platform by _Add... -> Nothing -> Name:_ Local Spray Target _, Add... -> Directory_, Next -> _Location:_ <your local path to the cloned Spray git repository>/releng/org.eclipselabs.spray.repository/target/repository.
 
 !images/targetplatform.png!
  

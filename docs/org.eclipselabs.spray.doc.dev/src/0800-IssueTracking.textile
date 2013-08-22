@@ -4,8 +4,6 @@ h2. Tracking System
 
 We use the Issue Tracking System from Google Code: "http://code.google.com/a/eclipselabs.org/p/spray/issues/list":http://code.google.com/a/eclipselabs.org/p/spray/issues/list
 
-p. 
-
 For keeping up to date with incoming new issues resp. changes to existing issues each developer should subscribe to the "RSS feed":http://code.google.com/a/eclipselabs.org/feeds/p/spray/issueupdates/basic  
 
 h2. Git Commit Message
@@ -15,7 +13,8 @@ The tracking system allows automated linking of commits to the Git Repository wi
 bc.. 
 fixed issue#<issuenumber>: <message> 
 p. 
-Google Code will link the commit in the issue and set it to status Fixed.
+
+Google Code will link the commit in the issue and set it to status "Fixed".
 
 !images/issuetracking_1.png!
 

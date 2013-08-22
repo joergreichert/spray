@@ -14,8 +14,8 @@ h4. Testing the wizard
 
 * Does the Spray wizard offer the expected configuration options?
 * Does the Spray wizard produce a project with the expected configuration?
-** plugin.xml
-** MANIFEST.MF
+** @plugin.xml@
+** @MANIFEST.MF@
 ** source folders
 ** created diagram and domain model with the expected file extensions
 ** does the properties file exist and contain the expected values
@@ -85,7 +85,7 @@ h3. JUnit tests
 h3. Mocking
 
 * to improve the isolation of tests but also as a way to avoid the need of a running Eclipse in some cases it is sensible to use a mocking framework to stub the interactions of the class to test
-* we propose the use of "Mockito":http://code.google.com/p/mockito/ in conjunction with "Powermock":http://code.google.com/p/powermock/ as mocking framework, these libraries are exported by the plug-in _org.eclipselabs.spray.testhelper_ and should be added to the MANIFEST.MF dependencies of the test plug-in if it want to use these mocking frameworks
+* we propose the use of "Mockito":http://code.google.com/p/mockito/ in conjunction with "Powermock":http://code.google.com/p/powermock/ as mocking framework, these libraries are exported by the plug-in _org.eclipselabs.spray.testhelper_ and should be added to the @MANIFEST.MF@ dependencies of the test plug-in if it want to use these mocking frameworks
 * with Mockito you can stub interfaces as well as classes and put them in place of the classes the class under test would usually interact with, you can specify which values should be returned when a method of the stubbed class is called with certain parameters
 * with Powermock the abilities of Mockito are extended to support mocking e.g. static method calls as well as constructor calls
 * as most classes in Spray uses Google Guice injection, it is easy to inject the stubbed classes in place of the real classes, in all other cases sub classing the class to test may be an option
@@ -175,12 +175,11 @@ public void test_20_color() {
 }
 p. 
 
-See also the slides "Test-Driven Development of Xtext DSLs":http://www.slideshare.net/meysholdt/testdriven-development-of-xtext-dsls.
+See also the slides "Test-Driven Development of Xtext DSLs":http://www.slideshare.net/meysholdt/testdriven-development-of-xtext-dsls .
 
 
 h2. Runtime Tests
 
 The Spray generator components tests can be found in project @org.eclipselabs.spray.generator.graphiti.tests@.
-
 
 

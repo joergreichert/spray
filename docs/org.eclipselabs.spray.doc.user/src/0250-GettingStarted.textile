@@ -167,7 +167,6 @@ h3. Implement a Custom Behavior
 Extend the @busmod.spray@ model like this:
 
 bc.. 
-
 diagram busmod for BusinessDomainDsl.BusinessDomainModel
 
 behavior actions { 

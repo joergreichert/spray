@@ -42,8 +42,8 @@ Builds are run from the @/releng/org.eclipselabs.spray.distribution@ directory. 
 
 bc. 
 mvn clean install
-
 p. 
+
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
 bc.. 
@@ -87,18 +87,23 @@ p.
 
 The target platform for this build is computed from the one build at Cloudbees. You can build this repository also locally and use it. To do this build the target platform repository (see next section) and activate the profile @local-build@.
 
-bc. mvn clean install -Dlocal-build 
+bc.. 
+mvn clean install -Dlocal-build 
+p. 
+
 
 h3. Build target platform repository
 
 In directory @/releng/org.eclipselabs.spray.distribution@ execute: 
 
-bc. 
+bc.. 
 mvn clean install -Pmodules-targetplatform
+p. 
 
 This first build will create a p2 repository, which serves as a local target platform repository. The repository contains all bundles and features that are required to build the Spray projects. This build has only to be executed when the target platform changes.
 
 p. 
+
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
 bc.. 
@@ -113,8 +118,8 @@ bc..
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 p. 
-In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
 
+In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
 
 h3. Disable execution of UI tests
 
@@ -123,6 +128,7 @@ The build executes UI tests developed with "SWTBot":http://www.eclipse.org/swtbo
 bc.. 
 mvn -Dskip-ui-tests clean install
 p. 
+
 
 h2. Parent POM
 
@@ -140,7 +146,6 @@ p.
 
 h2. Profiles
 
-
 h3. Repository selection profiles
 
 h4. Profile @local-build@
@@ -154,6 +159,7 @@ When testing target platform updates before making them effective for all users 
 bc.. 
 mvn -Dlocal-build ...
 p. 
+
 When this profile is activated the profile @remote-build@ gets deactivated.
 
 h4. Profile @remote-build@ 
@@ -219,7 +225,7 @@ h4. Profile @codeCoverage@
 
 With passing this profile the code and test coverage measurement is activated. JaCoCo as tool is used. This profile configures where the measured data is accumulated and where Sonar should look to derive its coverage reports. 
 
-To learn more about JaCoCo see "here":http://www.eclemma.org/
+To learn more about JaCoCo see "here":http://www.eclemma.org/ .
 
 h2. Version management
 
@@ -311,10 +317,13 @@ An ant script @org.eclipselabs.spray.distribution/scripts/build.xml@ is prepared
 * Call @git status@ to make sure that you have no pending changes open.
 * (Optional) Perform @mvn clean install@ to check that the main build would perform without error. The script will invoke this also, but you just make sure that you don't have to rollback changes in the case of failures.
 * Execute from this directory the @build.xml@ script.
-bc. ant release
+
+bc.. 
+ant release
+p. 
 
 * If something went wrong during the build call @ant release-rollback@. This will drop the created branches and switches back to the main branch. You may have to call this twice when the build failed after a successful Maven build.
 * Go to the "Downloads page":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list and remove the "Featured" tag from the artifacts of the older release, then add the "Deprecated" tag.
 * Announce the release on the spray-dev@googlegroups.com mailing list
 
- 
+

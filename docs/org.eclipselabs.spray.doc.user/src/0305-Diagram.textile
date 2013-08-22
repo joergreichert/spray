@@ -4,7 +4,7 @@ h3. Imports
 
 Referenced Java types and EClasses can be imported with the @import@ keyword. This allows to use simple names later in the Spray model. The imports section is at the beginning of a Spray file:
 
-bc. 
+bc.. 
 import BusinessDomainDsl.*
 // all the rest follows here...
 p. 

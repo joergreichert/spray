@@ -11,6 +11,7 @@ The distribution build is described by just a "single Maven POM":http://code.goo
 * Download and unpack the p2 director
 * Download Eclipse SDKs for Windows, Mac OSX and Linux
 * Call the Distrobuilder. Configure the update sites to get software from and the installable units to install from there.
+
 bc.. 
 <builder builddirectory="${project.build.directory}/build" p2directorexecutable="${project.build.directory}/director/director"
  targetdirectory="${basedir}/targets" staticreposdirectory="${basedir}/repos" distdirectory="${project.build.directory}/dist"
@@ -29,6 +30,7 @@ To build the distributions simply go to the @org.eclipselabs.spray.dev.distrobui
 bc.. 
 mvn -s settings.xml clean package
 p. 
+
 The resulting distributions can then be found in the directory @target/dist@.
 
 
