@@ -82,9 +82,8 @@ h2,h3,h4,h5 {
 }
 
 .copy2clip_btn.zeroclipboard-is-hover {
-	
 	background-color: #ddd;
-		border: 1px solid black;
+	border: 1px solid black;
 }
 
 .copy2clip_btn.zeroclipboard-is-active {
@@ -94,13 +93,18 @@ h2,h3,h4,h5 {
 	border-right: 2px;
 	background-color: #ccc;
 }
-table
-{
-	    border-spacing:0;
-    border-collapse:collapse;
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	max-width: 80%;
+	min-width: 40%;
 }
-tbody th,tbody td
-{
+
+tbody th,tbody td {
 	border: 1pt solid black;
+	min-width: 10em;
+	padding-left: 5px;
+		padding-right: 3px;
 }
 }
