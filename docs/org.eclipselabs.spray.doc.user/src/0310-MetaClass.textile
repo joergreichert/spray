@@ -24,7 +24,7 @@ h3. Ecore models the development workspace
 
 In the likely case that you want to use a meta model whose .ecore file is in the development workspace, it is necessary that you create an EMF Generator Model as well. Further it is required to generate the Java classes out of this GenModel so later the generated code derived from the Spray model can resolve those classes. Eventually you have add the project to the dependencies of the Spray project (therefore it is required to convert the ecore containing project to a plug-in project, if it wasn't created as such before). 
 
-Instead of defining ecore and genmodel you may also have a look at "Xcore":http://wiki.eclipse.org/Xcore as a more usable alternative.
+Instead of defining ecore and genmodel you may also have a look at "@http://wiki.eclipse.org/Xcore@":http://wiki.eclipse.org/Xcore as a more usable alternative.
 
 If you have followed the steps above you get auto completion of the EMF package in the import section of the Spray file and after having defined such import the content assist at the diagram node will offer you all EClasses from this imported package that contain containment references. 
 

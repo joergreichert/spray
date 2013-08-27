@@ -171,7 +171,7 @@
 		<xsl:comment>
 			Hyperlink
 		</xsl:comment>
-		<inline text-decoration="underline" color="blue">
+		<inline text-decoration="underline" color="blue" keep-together="always">
 			<xsl:value-of select="."></xsl:value-of>
 		</inline>
 	</xsl:template>

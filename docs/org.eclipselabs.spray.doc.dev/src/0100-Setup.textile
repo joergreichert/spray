@@ -2,9 +2,9 @@ h1. Setting up the developer environment
 
 h2. Source Control
  
-We are using Git as source management system. The primary repository location is: "https://code.google.com/a/eclipselabs.org/p/spray/":https://code.google.com/a/eclipselabs.org/p/spray/
+We are using Git as source management system. The primary repository location is: "@https://code.google.com/a/eclipselabs.org/p/spray/@":https://code.google.com/a/eclipselabs.org/p/spray/
 
-See "http://code.google.com/a/eclipselabs.org/p/spray/source/checkout":http://code.google.com/a/eclipselabs.org/p/spray/source/checkout for details.
+See "@http://code.google.com/a/eclipselabs.org/p/spray/source/checkout@":http://code.google.com/a/eclipselabs.org/p/spray/source/checkout for details.
 
 You can new clone Git from the command line or use Eclipse, which is explained in a later section of this guide.
 
@@ -12,37 +12,37 @@ h2. Developer IDE
 
 h3. Prebuild IDE
 
-Spray provides an Eclipse distribution with all features that are required to develop Spray. Download the distribution for your operating system here: "https://spray.ci.cloudbees.com/job/spray-distrobuilder/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.distrobuilder/target/dist":https://spray.ci.cloudbees.com/job/spray-distrobuilder/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.distrobuilder/target/dist
+Spray provides an Eclipse distribution with all features that are required to develop Spray. Download the distribution for your operating system here: "@https://spray.ci.cloudbees.com/job/spray-distrobuilder/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.distrobuilder/target/dist@":https://spray.ci.cloudbees.com/job/spray-distrobuilder/lastSuccessfulBuild/artifact/devtools/org.eclipselabs.spray.dev.distrobuilder/target/dist
 
 The IDE contains the following features:
 * Eclipse Platform
 ** Eclipse SDK
-** "PDE":http://www.eclipse.org/pde/
+** PDE ( "@http://www.eclipse.org/pde/@":http://www.eclipse.org/pde/ )
 * Collaboration Tools
-** "EGit":http://www.eclipse.org/egit/ - Eclipse team provider for Git
-** "Mylyn":http://www.eclipse.org/mylyn/
-** "Mylyn Connector for Google Code":http://code.google.com/p/googlecode-mylyn-connector/
-** "Workspace Mechanic":http://code.google.com/a/eclipselabs.org/p/workspacemechanic/
-** "Mylyn WikiText":http://wiki.eclipse.org/Mylyn/Incubator/WikiText
+** EGit ( "@http://www.eclipse.org/egit/@":http://www.eclipse.org/egit/ ) - Eclipse team provider for Git
+** Mylyn ( "@http://www.eclipse.org/mylyn/@":http://www.eclipse.org/mylyn/ )
+** Mylyn Connector for Google Code ( "@http://code.google.com/p/googlecode-mylyn-connector/@":http://code.google.com/p/googlecode-mylyn-connector/ )
+** Workspace Mechanic ( "@http://code.google.com/a/eclipselabs.org/p/workspacemechanic/@":http://code.google.com/a/eclipselabs.org/p/workspacemechanic/ )
+** Mylyn WikiText "@http://wiki.eclipse.org/Mylyn/Incubator/WikiText@":http://wiki.eclipse.org/Mylyn/Incubator/WikiText )
 * Software Build
-** "Maven Integration for Eclipse (m2e)":http://wiki.eclipse.org/Maven_Integration
-** "Mylyn Builds":http://projects.eclipse.org/projects/mylyn.builds
+** Maven Integration for Eclipse (m2e) ( "@http://wiki.eclipse.org/Maven_Integration@":http://wiki.eclipse.org/Maven_Integration )
+** Mylyn Builds ( "@http://projects.eclipse.org/projects/mylyn.builds@":http://projects.eclipse.org/projects/mylyn.builds )
 * Eclipse Modeling
-** "EMF - Eclipse Modeling Framework":http://www.eclipse.org/modeling/emf/
-** "Xtext":http://www.eclipse.org/Xtext/
-** "Xtend":www.eclipse.org/xtend/
+** EMF - Eclipse Modeling Framework ( "@http://www.eclipse.org/modeling/emf/@":http://www.eclipse.org/modeling/emf/ )
+** Xtext ( "@http://www.eclipse.org/Xtext/@":http://www.eclipse.org/Xtext/ )
+** Xtend ( "@www.eclipse.org/xtend/@":www.eclipse.org/xtend/ )
 ** Xtext Antlr
-** "Graphiti":http://www.eclipse.org/graphiti/
+** Graphiti ( "@http://www.eclipse.org/graphiti/@":http://www.eclipse.org/graphiti/ )
 ** Zest SDK
 ** MWE - Modeling Workflow Engine
 ** MWE2
 * Testing Tools
 ** SWT Bot
-** "xtext-utils unittesting":http://code.google.com/a/eclipselabs.org/p/xtext-utils/wiki/Unit_Testing
-** "Xpect":https://github.com/meysholdt/Xpect
+** xtext-utils unittesting ( "@http://code.google.com/a/eclipselabs.org/p/xtext-utils/wiki/Unit_Testing@":http://code.google.com/a/eclipselabs.org/p/xtext-utils/wiki/Unit_Testing )
+** Xpect ( "@https://github.com/meysholdt/Xpect@":https://github.com/meysholdt/Xpect )
 * Quality Assurance Tools
-** "EclEmma Java Code Coverage":http://www.eclemma.org/
-** "Copyright Wizard":http://www.wdev91.com/?p=cpw
+** EclEmma Java Code Coverage ( "@http://www.eclemma.org/@":http://www.eclemma.org/ )
+** Copyright Wizard ( "@http://www.wdev91.com/?p=cpw@":http://www.wdev91.com/?p=cpw )
 * UI Builder
 ** SWT Designer
 ** Window Builder 
@@ -156,7 +156,7 @@ h3. Add Spray Jenkins connector to Eclipse
 
 * _Window > Show View > Other... > Mylyn/Builds_
 * Click on the first of the icons in the right of the view header > Hudson (supports Jenkins), Next
-** Server: "https://spray.ci.cloudbees.com":https://spray.ci.cloudbees.com
+** Server: "@https://spray.ci.cloudbees.com@":https://spray.ci.cloudbees.com
 ** Label: Spray
 ** select Anonymous
 ** click on Refresh button
@@ -178,7 +178,7 @@ If you want to specify the location where to clone the Spray repository locally 
 If you had cloned the Spray repository locally and want to use that repository:   
 * _File > Git/Projects from Git_
 * Clone
-* Paste https://code.google.com/a/eclipselabs.org/p/spray/ in the URI field and add your Google Account user name and your GoogleCode.com password (if your are logged in at the Spray Google Code site, click the Profiles link in the upper right corner and then go to the Settings tab) , Next
+* Paste "@https://code.google.com/a/eclipselabs.org/p/spray/@":https://code.google.com/a/eclipselabs.org/p/spray/ in the URI field and add your Google Account user name and your GoogleCode.com password (if your are logged in at the Spray Google Code site, click the Profiles link in the upper right corner and then go to the Settings tab) , Next
 * select all branches, Next
 * select your local path to store the Git repository clone, Finish
 
@@ -187,7 +187,7 @@ If you want to apply the Spray workset configuration without being forced to clo
 
 h2. Target Platform
  
-We are targeting for Eclipse Kepler. A "target platform definition":http://help.eclipse.org/kepler/index.jsp?topic=/org.eclipse.pde.doc.user/concepts/target.htm 
+We are targeting for Eclipse Kepler. A target platform definition ( "@http://help.eclipse.org/kepler/index.jsp?topic=/org.eclipse.pde.doc.user/concepts/target.htm@":http://help.eclipse.org/kepler/index.jsp?topic=/org.eclipse.pde.doc.user/concepts/target.htm )
 is provided in @releng/org.eclipselabs.spray.targetplatform/spray.target@. To set this target platform:
 * Import the project from path @releng/org.eclipselabs.spray.targetplatform@
 * Open Workspace properties, go to _Plug-in Development / Target Platform_
@@ -197,21 +197,21 @@ is provided in @releng/org.eclipselabs.spray.targetplatform/spray.target@. To se
 !images/targetplatform.png!
  
 The target platform contains the following features
-* Eclipse Platform SDK 4.3.0 - "http://download.eclipse.org/eclipse/updates/4.3":http://download.eclipse.org/eclipse/updates/4.3
-* PDE - Eclipse Plug-in Developement Environment 3.9.0 - "http://download.eclipse.org/releases/kepler":http://download.eclipse.org/releases/kepler
-* EMF - Eclipse Modeling Framework SDK 2.9.0 - "http://download.eclipse.org/releases/kepler":http://download.eclipse.org/releases/kepler
-* EMF - Eclipse Modeling Framework SDK 2.9.0 - "http://download.eclipse.org/releases/kepler":http://download.eclipse.org/releases/kepler
-* GEF - Graphical Editing Framework SDK 3.9.0 - "http://download.eclipse.org/releases/kepler":http://download.eclipse.org/releases/kepler
-* Zest 1.5.0 - "http://download.eclipse.org/releases/kepler":http://download.eclipse.org/releases/kepler
-* Graphiti SDK 0.10.0 - "http://download.eclipse.org/graphiti/updates/0.10.0":http://download.eclipse.org/graphiti/updates/0.10.0
-* MWE2 Language & Runtime SDK 2.4.0 - "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
-* Xtext SDK 2.4.0 -  "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/* 
-* Xtend SDK 2.4.2 -  "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
-* Xtext Antlr 2.0.0 - "http://download.itemis.com/updates/releases/2.0.0/":http://download.itemis.com/updates/releases/2.0.0/
-* xtext-utils unittesting - "http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x":http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
-* Xpect 0.1.0 - "http://www.xpect-tests.org/updatesite/nightly/":http://www.xpect-tests.org/updatesite/nightly/
-* SWT Bot - "http://download.eclipse.org/technology/swtbot/snapshots/":http://download.eclipse.org/technology/swtbot/snapshots/
+* Eclipse Platform SDK 4.3.0 - "@http://download.eclipse.org/eclipse/updates/4.3@":http://download.eclipse.org/eclipse/updates/4.3
+* PDE - Eclipse Plug-in Developement Environment 3.9.0 - "@http://download.eclipse.org/releases/kepler@":http://download.eclipse.org/releases/kepler
+* EMF - Eclipse Modeling Framework SDK 2.9.0 - "@http://download.eclipse.org/releases/kepler@":http://download.eclipse.org/releases/kepler
+* EMF - Eclipse Modeling Framework SDK 2.9.0 - "@http://download.eclipse.org/releases/kepler@":http://download.eclipse.org/releases/kepler
+* GEF - Graphical Editing Framework SDK 3.9.0 - "@http://download.eclipse.org/releases/kepler@":http://download.eclipse.org/releases/kepler
+* Zest 1.5.0 - "@http://download.eclipse.org/releases/kepler@":http://download.eclipse.org/releases/kepler
+* Graphiti SDK 0.10.0 - "@http://download.eclipse.org/graphiti/updates/0.10.0@":http://download.eclipse.org/graphiti/updates/0.10.0
+* MWE2 Language & Runtime SDK 2.4.0 - "@http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/@":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
+* Xtext SDK 2.4.0 -  "@http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/@":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/* 
+* Xtend SDK 2.4.2 -  "@http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/@":http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
+* Xtext Antlr 2.0.0 - "@http://download.itemis.com/updates/releases/2.0.0/@":http://download.itemis.com/updates/releases/2.0.0/
+* xtext-utils unittesting - "@http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x@":http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x
+* Xpect 0.1.0 - "@http://www.xpect-tests.org/updatesite/nightly/@":http://www.xpect-tests.org/updatesite/nightly/
+* SWT Bot - "@http://download.eclipse.org/technology/swtbot/snapshots/@":http://download.eclipse.org/technology/swtbot/snapshots/
  
-Distributions with Eclipse Kepler + Xtext 2.x can be found here: "http://download.itemis.com/distros/":http://download.itemis.com/distros/
+Distributions with Eclipse Kepler + Xtext 2.x can be found here: "@http://download.itemis.com/distros/@":http://download.itemis.com/distros/
  
 

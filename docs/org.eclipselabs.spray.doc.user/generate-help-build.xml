@@ -138,7 +138,7 @@
 
 		<mkdir dir="${content.gen.pdf.dir}" />
 
-		<wikitext-to-xslfo markupLanguage="${content.source.language}" file="${content.gen.dir}/${sprayhelp.source.file}" title="${sprayhelp.title}" targetdir="${content.gen.pdf.dir}" sourceencoding="UTF-8" />
+		<wikitext-to-xslfo markupLanguage="${content.source.language}" file="${content.gen.dir}/${sprayhelp.source.file}" title="${sprayhelp.title}" targetdir="${content.gen.pdf.dir}" sourceencoding="UTF-8" pagenumbering="true" showexternallinks="true" underlinelinks="false" />
 
 		<xslt in="${content.gen.pdf.dir}/${sprayhelp.target.fo.file}" out="${content.gen.pdf.dir}/${sprayhelp.target.xml.file}" style="${content.source.dir}/${sprayhelp.target.xsl.file}">
 			<outputproperty name="method" value="xml" />

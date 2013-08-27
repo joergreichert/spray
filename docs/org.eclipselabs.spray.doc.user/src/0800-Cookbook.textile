@@ -6,7 +6,7 @@ h2. Features
 
 h3. Zest Layout
 
-The @ZestLayoutDiagramFeature@ custom feature class allows to layout the diagram with a layout algorithm from the "Zest Visualization Toolkit":http://eclipse.org/gef/zest/.
+The @ZestLayoutDiagramFeature@ custom feature class allows to layout the diagram with a layout algorithm from the Zest Visualization Toolkit ( "@http://eclipse.org/gef/zest/@":http://eclipse.org/gef/zest/ ).
 
 * Add @org.eclipselabs.spray.runtime.graphiti.zest@ to the required bundles in @MANIFEST.MF@
 * Extend the FeatureProvider class and override @getCustomFeatures()@

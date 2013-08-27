@@ -11,16 +11,16 @@ First we have to create or reuse a meta model of a business domain that can be r
 !images/empty_emf_project.png!
 
 * Project name: @org.mod4j.dsl.businessdomain.mm@
-* Download "@BusinessDomainDsl.ecore@":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.ecore and "@BusinessDomainDsl.genmodel@":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel
+* Download @BusinessDomainDsl.ecore@ ( "@http://tinyurl.com/mc2x6l9@":http://tinyurl.com/mc2x6l9 ) and @BusinessDomainDsl.genmodel@ ( "@http://tinyurl.com/kn3ldox@":http://tinyurl.com/kn3ldox )
 * put the downloaded files in the model folder of the just created EMF project
-* Download "@plugin.xml@":http://spray.eclipselabs.org.codespot.com/git/examples/one/org.mod4j.dsl.businessdomain.mm/plugin.xml and put it directly in the EMF project
+* Download @plugin.xml@ ( "@http://tinyurl.com/lup9lak@":http://tinyurl.com/lup9lak ) and put it directly in the EMF project
 * Double click on the @BusinessDomainDsl.genmodel@ and open the context menu at the root element
 
 !images/GenModelGenerate.png!
 
 * Add the _model_ path to the build path --> _Select model Folder_, On the context menu _Build Path_ / _Use as Source Folder_ 
 * Add Xtext nature to the project --> _Select the project_, On the context menu _Configure_ / _Add Xtext nature_
-* Use the quick fix to solve the problems in the MANIFEST.MF (sets the singleton directive) 
+* Use _Quick Fix_ in contextmenu at _Problems_ view to solve the problems in the @MANIFEST.MF@ (sets the singleton directive) 
 
 h3. Create a new project
 
@@ -72,15 +72,15 @@ Now open the file @busmod.spray@ and paste this model into the file:
 bc.. 
 import BusinessDomainDsl.*
 
-diagram busmod for BusinessDomainDsl.BusinessDomainModel
+diagram busmod for BusinessDomainModel style BusmodDefaultStyle
 
-class BusinessClass  {
-    shape SimpleClassShape { 
-        name into businessClassText
-    }
-    behavior {
-        create into types palette "Shapes" 
-    }
+class BusinessClass {
+	shape SimpleClassShape {
+		name into businessClassText
+	}
+	behavior {
+		create into types palette "Shapes"
+	}
 }
 p. 
 (Gist: "@busmod.spray@":https://gist.github.com/kthoms/5845614)
@@ -95,7 +95,7 @@ At this point your workspace should look like this:
 
 h3. Test the editor
 
-* Start a Runtime Eclipse instance with _Run As / Eclipse Application_. A new Eclipse instance starts with the plugins deployed.
+* Start a Runtime Eclipse instance with _Run As / Eclipse Application_. A new Eclipse instance starts with the plugins deployed. You should add in _Run conf._ "-XX:MaxPermSize=150m" to _VM Arguments_ before.
 * Create a new project. The type of project does not matter, but for simplicity choose new Java Project and name it "BusmodTest".
 * Right-click on the @src@ folder, choose _File / New / Other -> Examples / Graphiti / Graphiti Diagram_
 !images/gettingstarted_2.png!

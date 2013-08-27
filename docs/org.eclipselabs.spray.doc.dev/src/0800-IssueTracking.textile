@@ -2,9 +2,9 @@ h1. Issue Tracking
 
 h2. Tracking System
 
-We use the Issue Tracking System from Google Code: "http://code.google.com/a/eclipselabs.org/p/spray/issues/list":http://code.google.com/a/eclipselabs.org/p/spray/issues/list
+We use the Issue Tracking System from Google Code: "@http://code.google.com/a/eclipselabs.org/p/spray/issues/list@":http://code.google.com/a/eclipselabs.org/p/spray/issues/list
 
-For keeping up to date with incoming new issues resp. changes to existing issues each developer should subscribe to the "RSS feed":http://code.google.com/a/eclipselabs.org/feeds/p/spray/issueupdates/basic  
+For keeping up to date with incoming new issues resp. changes to existing issues each developer should subscribe to the RSS feed ( "@http://code.google.com/a/eclipselabs.org/feeds/p/spray/issueupdates/basic@":http://code.google.com/a/eclipselabs.org/feeds/p/spray/issueupdates/basic ) 
 
 h2. Git Commit Message
 
