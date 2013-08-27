@@ -171,9 +171,18 @@
 		<xsl:comment>
 			Hyperlink
 		</xsl:comment>
+		<xsl:choose>
+		<xsl:when test="string-length() &lt; 90">
 		<inline text-decoration="underline" color="blue" keep-together="always">
 			<xsl:value-of select="."></xsl:value-of>
 		</inline>
+		</xsl:when>
+		<xsl:otherwise>
+				<inline text-decoration="underline" color="blue" keep-together="auto">
+			<xsl:value-of select="."></xsl:value-of>
+		</inline>
+		</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<!-- Format codeblocks and delete the obsolete parent node --> <!-- Child have to contain text! -->
