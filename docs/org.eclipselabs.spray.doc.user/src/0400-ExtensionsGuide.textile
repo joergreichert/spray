@@ -25,13 +25,13 @@ After doing this the class is moved to the @src/@ folder. The derived flag is re
 
 If you accidently moved the file to the @src/@ folder and want to let it be generated again, just remove it. With the next generator run it will appear again in the @src-gen/@ folder.
 
-h3. Generation Gap Pattern for plugin.xml
+h3. Generation Gap Pattern for @plugin.xml@
 
-An initial plugin.xml is created into the project root when the Spray project is setup using the Spray project wizard.
+An initial @plugin.xml@ is created into the project root when the Spray project is setup using the Spray project wizard.
 
 h4. Partial regeneration
 
-The generated plugin.xml includes comments like @<!-- DIAGRAM TYPE AUTOGEN START -->@ and @<!-- DIAGRAM TYPE AUTOGEN END -->@ that mark regions as generated. After each save of the *.spray file these regions will be updated. All contents in the plugin.xml that are placed outside those marked regions will stay untouched.
+The generated @plugin.xml@ includes comments like @<!-- DIAGRAM TYPE AUTOGEN START -->@ and @<!-- DIAGRAM TYPE AUTOGEN END -->@ that mark regions as generated. After each save of the *.spray file these regions will be updated. All contents in the @plugin.xml@ that are placed outside those marked regions will stay untouched.
 
 h4. Avoid regeneration
 
@@ -39,7 +39,7 @@ So if you want to use manually written content in favor of the generated one you
 
 h4. Complete regeneration
 
-If you want the plugin.xml to be completely regenerated you can always delete the plugin.xml in the project root. Then the plugin.xml from the src-gen folder be copied to the project root. You have to perform a refresh on the project to see the copied plugin.xml.  
+If you want the @plugin.xml@ to be completely regenerated you can always delete the @plugin.xml@ in the project root. Then the @plugin.xml@ from the src-gen folder be copied to the project root. You have to perform a refresh on the project to see the copied plugin.xml.  
 
 h2. Extending Spray's code generator
 

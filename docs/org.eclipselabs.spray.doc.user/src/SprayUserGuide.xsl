@@ -171,19 +171,19 @@
 		<xsl:comment>
 			Hyperlink
 		</xsl:comment>
-	<xsl:choose>
-		<xsl:when test="string-length() &lt; 90">
-			<inline text-decoration="underline" color="blue"
-				keep-together="always">
-				<xsl:value-of select="."></xsl:value-of>
-			</inline>
-		</xsl:when>
-		<xsl:otherwise>
-			<inline text-decoration="underline" color="blue"
-				keep-together="auto">
-				<xsl:value-of select="."></xsl:value-of>
-			</inline>
-		</xsl:otherwise>
+		<xsl:choose>
+			<xsl:when test="string-length() &lt; 90">
+				<inline text-decoration="underline" color="blue"
+					keep-together="always">
+					<xsl:value-of select="."></xsl:value-of>
+				</inline>
+			</xsl:when>
+			<xsl:otherwise>
+				<inline text-decoration="underline" color="blue"
+					keep-together="auto">
+					<xsl:value-of select="."></xsl:value-of>
+				</inline>
+			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 
@@ -207,6 +207,123 @@
 			<xsl:copy-of select="./node()/text()" />
 		</xsl:copy>
 		<xsl:apply-templates />
+	</xsl:template>
+
+	<!-- Split large pictures for PDF-Documentation -->
+	<xsl:template
+		match="//xslt:block[xslt:external-graphic/@src[contains(.,'style_grammar.png')]]">
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/style_grammar1.png)"
+				content-height="50%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/style_grammar2.png)"
+				content-height="40%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/style_grammar3.png)"
+				content-height="60%" />
+		</block>
+	</xsl:template>
+	<xsl:template
+		match="//xslt:block[xslt:external-graphic/@src[contains(.,'style_grammar.png')]]">
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/style_grammar1.png)"
+				content-height="42%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/style_grammar2.png)"
+				content-height="40%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/style_grammar3.png)"
+				content-height="45%" />
+		</block>
+	</xsl:template>
+	<xsl:template
+		match="//xslt:block[xslt:external-graphic/@src[contains(.,'spray_grammar.png')]]">
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/spray_grammar1.png)"
+				content-height="50%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/spray_grammar2.png)"
+				content-height="30%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/spray_grammar3.png)"
+				content-height="50%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/spray_grammar4.png)"
+				content-height="42%" />
+		</block>
+	</xsl:template>
+
+	<xsl:template
+		match="//xslt:block[xslt:external-graphic/@src[contains(.,'shapes_grammar.png')]]">
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar1.png)"
+				content-height="48%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar2.png)"
+				content-height="60%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar3.png)"
+				content-height="55%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar4.png)"
+				content-height="50%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar5.png)"
+				content-height="50%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar6.png)"
+				content-height="50%" />
+		</block>
+		<block font-size="10.0pt" space-before.optimum="1em"
+			space-before.minimum="0.8em" space-before.maximum="1.2em">
+			<external-graphic
+				src="url(file:/Users/dave/Desktop/itemis/workspace/spray/docs/org.eclipselabs.spray.doc.user/docs/images/shapes_grammar7.png)"
+				content-height="50%" />
+		</block>
 	</xsl:template>
 	<!--================================================================================= -->
 

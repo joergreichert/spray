@@ -276,7 +276,7 @@ bc..
 <retrieve-marker retrieve-class-name="title" retrieve-position="first-starting-within-page" retrieve-boundary="page-sequence" />
 p. 
 
-With this properties your header will get a string which is surrounded by a marker named title. "Retrieve-position" is for retrieving the children of an @fo:marker@ attached to an area that is within the containing page and boundary sets how often this will be repeated. 
+With this properties your header will get a string which is surrounded by a marker named title. _Retrieve-position_ is for retrieving the children of an @fo:marker@ attached to an area that is within the containing page and boundary sets how often this will be repeated. 
 After we prepared the header we must set a marker to chapter-titles with the same title/name like @retrieve-marker@.
 
 bc.. 

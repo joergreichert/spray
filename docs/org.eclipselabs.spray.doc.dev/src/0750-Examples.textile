@@ -61,7 +61,7 @@ h3. Statemachine (Fowler DSL)
 
 h3. Nassi-Shneiderman-Diagram
 
-| *origin:* | Structogram ( "@http://www.cs.umd.edu/hcil/members/bshneiderman/nsd/@":http://www.cs.umd.edu/hcil/members/bshneiderman/nsd/ ), initial input from user forum ( "https://groups.google.com/d/msg/spray-users/1nJPGJdyEn4/Th4YPJG6qI0J":https://groups.google.com/d/msg/spray-users/1nJPGJdyEn4/Th4YPJG6qI0J ) |
+| *origin:* | Structogram ( "@http://www.cs.umd.edu/hcil/members/bshneiderman/nsd/@":http://www.cs.umd.edu/hcil/members/bshneiderman/nsd/ ), initial input from user forum ( "http://tinyurl.com/pqm6jrb":http://tinyurl.com/pqm6jrb ) |
 | *kind:* | compartments |
 | *description:* | Modeling of a program flow in form of structured flowcharts. |
 
@@ -107,7 +107,7 @@ h3. Taipan
 
 h3. Mindmap
 
-| *origin:* | GMF example ( "@http://tinyurl.com/m8sueld@":http://tinyurl.com/m8sueld |
+| *origin:* | GMF example ( "@http://tinyurl.com/m8sueld@":http://tinyurl.com/m8sueld ) |
 | *kind:* | boxes and lines |
 | *description:* | Visually structuring ideas. |
 
