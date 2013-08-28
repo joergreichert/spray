@@ -61,7 +61,7 @@ shape SimpleClassShape {
 }
 p. 
 
-(Gist: "@busmod.shape@":https://gist.github.com/kthoms/5845602)
+(Gist: @busmod.shape@ ( "@https://gist.github.com/kthoms/5845602@":https://gist.github.com/kthoms/5845602 ))
  
 This defines a rectangle shape with an embedded text. Save this file.
 
@@ -83,7 +83,7 @@ class BusinessClass {
 	}
 }
 p. 
-(Gist: "@busmod.spray@":https://gist.github.com/kthoms/5845614)
+(Gist: @busmod.spray@ ( "@https://gist.github.com/kthoms/5845614@":https://gist.github.com/kthoms/5845614 ))
 
 This defines that the class @BusinessClass@ from our domain (ecore) model is represented by the @SimpleClassShape@ shape.
 
@@ -95,7 +95,7 @@ At this point your workspace should look like this:
 
 h3. Test the editor
 
-* Start a Runtime Eclipse instance with _Run As / Eclipse Application_. A new Eclipse instance starts with the plugins deployed. You should add in _Run conf._ "-XX:MaxPermSize=150m" to _VM Arguments_ before.
+* Start a Runtime Eclipse instance with _Run As / Eclipse Application_. A new Eclipse instance starts with the plugins deployed. Add in _Run Configurations..._ "-XX:MaxPermSize=150m" to _VM Arguments_ before. You should also set a Java-version that is >= your version in the eclipse-application.
 * Create a new project. The type of project does not matter, but for simplicity choose new Java Project and name it "BusmodTest".
 * Right-click on the @src@ folder, choose _File / New / Other -> Examples / Graphiti / Graphiti Diagram_
 !images/gettingstarted_2.png!
@@ -114,10 +114,10 @@ As alternative you can create your diagram also this way:
 
 h3. Create your first element
 
-* Click on _BusinessClassNameOnly_ in the palette to select that entry
+* Click on _BusinessClass_ in the palette to select that entry
 * Click somewhere in the diagram editor to create the element
 * You can now edit the name of the newly added class directly within the diagram
-* _Window -> Show View -> Other... -> General/Properties to open the properties view
+* _Window -> Show View -> Other... -> General: Properties_ to open the properties view
 * Click on the just created element and you can see its attribute values in the properties view
 * Type _Person_ in the name field
 * You will see the name being changed in the diagram immediately while you type
@@ -128,7 +128,7 @@ This section describes several tutorials to add more functionality to the editor
 
 h3. Adding Connections to the Diagram
 
-This section shows how to add an association between two business classes in the diagram. The first step is to define a shape for the association. Do this by opening the busmod.shape file and add the following at the end:
+This section shows how to add an association between two business classes in the diagram. The first step is to define a shape for the association. Do this by opening the @busmod.shape@ file and add the following at the end:
 
 bc.. 
 // Shape for associations
@@ -151,23 +151,23 @@ class Association {
     connection AssociationConnection  {
         name into assocText
     } 
-    {
-        from source;
-        to target;
+    {  from source;
+       to target;
     }
     behavior {
         create into associations palette "Connections"
     }
 }
 p. 
-Save this file and copy the generated plugin.xml to the root of the project again. Now start a new runtime Eclipse as before. You will now find a new element in the palette labeled _Asociation_.  Create two classes on the diagram.  Then select the Association from the palette and drag a line from one business class to the other. Try selecting the association line and changing its name in the properties view.  You should see it change in the diagram immediately.
+
+Save this file and copy the generated @plugin.xml@ to the root of the project again. Now start a new runtime Eclipse as before. You will now find a new element in the palette labeled _Association_.  Create two classes on the diagram.  Then select the Association from the palette and drag a line from one business class to the other. Try selecting the association line and changing its name in the properties view.  You should see it change in the diagram immediately.
 
 h3. Implement a Custom Behavior
 
 Extend the @busmod.spray@ model like this:
 
 bc.. 
-diagram busmod for BusinessDomainDsl.BusinessDomainModel
+diagram busmod for BusinessDomainModel style BusmodDefaultStyle
 
 behavior actions { 
   custom showInfoForBusinessClass "Show Information"
@@ -189,7 +189,7 @@ Right-click on @BusmodCustomShowInfoForBusinessClassFeature@ from the @features@
 
 The file is moved from @src-gen@ to @src@ (in the same package) and opens in the editor.
 
-Implement the execute() method to open a message dialog.
+Implement the execute() method and quick fix missing imports to open a message dialog.
 
 bc.. 
 @Override
@@ -211,7 +211,7 @@ After restarting you can invoke an action "Show Information" from the context me
 
 h2. Adding Style to Your Diagram
 
-In this section we will show you how to integrate the Spray and Shape DSLs with and Style DSL. This tutorial can be applied after the 5-Minutes tutorial.
+In this section we will show you how to integrate the Spray and Shape DSLs with and Style DSL. This tutorial can be applied after the 15-Minutes tutorial.
 
 As you may have already noticed there are three files:
 * busmod.style
@@ -224,7 +224,7 @@ In the following for the business model DSL this modularization is shown by exam
 
 h3. busmod.style
 
-There is already a predefined style BusmodDefaultStyle contained in the busmod.style file generated by the Spray wizard. You can reuse styles by extending them as done here for the @BusinessClassStyle@. This style will have all the values of @BusmodDefaultStyle@, thus also use 12pt as @font-siz@ but additional defines the background color to be yellow. 
+There is already a predefined style BusmodDefaultStyle contained in the busmod.style file generated by the Spray wizard. You can reuse styles by extending them as done here for the @BusinessClassStyle@. This style will have all the values of @BusmodDefaultStyle@, thus also use 12pt as @font-size@ but additional defines the background color to be yellow. 
 
 bc.. 
 style BusmodDefaultStyle {
@@ -240,14 +240,14 @@ p.
 
 h3. busmod.shape
 
-We have seen a very simple shape definition in the 5 minute tutorial, and this section will explain the details and show how to create more complex shapes. A shape is constructed by graphical elements. The element's positions/coordinates and dimensions are defined by absolute values (absolute within the shape container, not within the whole diagram). In the shape file you can refer to styles defined in a style file. 
+We have seen a very simple shape definition in the 15-Minutes tutorial, and this section will explain the details and show how to create more complex shapes. A shape is constructed by graphical elements. The element's positions/coordinates and dimensions are defined by absolute values (absolute within the shape container, not within the whole diagram). In the shape file you can refer to styles defined in a style file. 
 
 The text element has a special property called _id_. The value _businessClassText_ is assigned to _id_ in the example model. The value of _businessClassText_ has to be bound in the usage context of the shape in the spray DSL. We see this in busmod.spay file where the _name_ of the business class is assigned to _businessClassText_.  
 
-We add the style _BusinessClassStyle_ to the shape as follows
+We add the style _BusinessClassStyle_ to the shape as follows if not existing.
 
 bc.. 
-shape SimpleClassShape {
+shape BusinessClassShape {
     rectangle style BusinessClassStyle {
         position(x=0, y=0)
         size(width=100, height=25)
@@ -267,7 +267,7 @@ As you can see a style definition may not only be used in the shape file but als
 
 In the class BusinessClass the shape is referenced and the parameter _businessClassText_ is bound to the value of the domain model element _BusinessClass_' attribute _name_.
 
-In contrast to the 5-Minutes tutorial we now use the askFor property. This will trigger an input dialog when you create a box or a connection in the diagram editor asking for the name of the box resp. connection. This value is then assigned immediately to the name attribute in this case of _BusinessClass_ resp. _Association_.      
+In contrast to the 15-Minutes tutorial we now use the askFor property. This will trigger an input dialog when you create a box or a connection in the diagram editor asking for the name of the box resp. connection. This value is then assigned immediately to the name attribute in this case of _BusinessClass_ resp. _Association_.      
 
 bc.. 
 import BusinessDomainDsl.*
