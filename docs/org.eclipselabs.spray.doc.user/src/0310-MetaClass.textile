@@ -4,8 +4,9 @@ h3. Referencing Ecore Classes
 
 The @class@ keyword is followed by the (qualified) name of an EClass. You can either fully qualify the name of the EClass, or you can import the EClass with an @import@ statement before and then just use its simple name.
 
-bc. 
+bc.. 
 class BusinessDomainDsl.BusinessClass : // full qualified name
+p. 
 
 bc.. 
 import BusinessDomainDsl.* // wildcard import
@@ -23,7 +24,7 @@ h3. Ecore models the development workspace
 
 In the likely case that you want to use a meta model whose .ecore file is in the development workspace, it is necessary that you create an EMF Generator Model as well. Further it is required to generate the Java classes out of this GenModel so later the generated code derived from the Spray model can resolve those classes. Eventually you have add the project to the dependencies of the Spray project (therefore it is required to convert the ecore containing project to a plug-in project, if it wasn't created as such before). 
 
-Instead of defining ecore and genmodel you may also have a look at "Xcore":http://wiki.eclipse.org/Xcore as a more usable alternative.
+Instead of defining ecore and genmodel you may also have a look at "@http://wiki.eclipse.org/Xcore@":http://wiki.eclipse.org/Xcore as a more usable alternative.
 
 If you have followed the steps above you get auto completion of the EMF package in the import section of the Spray file and after having defined such import the content assist at the diagram node will offer you all EClasses from this imported package that contain containment references. 
 
@@ -46,7 +47,6 @@ class BusinessClass {
     create into types "Business Class" palette "Shapes";
   }
 }
-
 p. 
 This example above allows the creation of instances of type _BusinessClass_ to be created. The containment reference is named _types_, which is defined by the Diagram model root type _BusinessDomainModel_. The label in the tool palette is "Business Class", and the creation tool is inserted into the palette group named "Shapes". Both the label and palette are optional. If left out, the label is the EClass name, and the creation tool is inserted into a generic palette group.
 
@@ -54,8 +54,9 @@ h3. Class Icon
 
 Following the referenced EClass name an icon representing the class can be defined with the @icon@ keyword. The path to the icon is quoted as a string.
 
-bc. 
+bc.. 
 class BusinessClass icon "ecore/EClass.gif"
+p. 
 
 The specified path is relative to a folder named @icons/@ in your project. It is checked that the folder @icons@ exists in your project. If the specified relative path of the icon file does not exist, a warning will be raised.
 

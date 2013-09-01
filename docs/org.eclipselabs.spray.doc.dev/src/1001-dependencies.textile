@@ -4,10 +4,11 @@ How to manage dependencies.
 
 h2. Update Maven plugin versions
 
-Go to directory @releng/org.eclipselabs.spray.distribution@ and "check for plugin updates":http://mojo.codehaus.org/versions-maven-plugin/examples/display-plugin-updates.html :
+Go to directory @releng/org.eclipselabs.spray.distribution@ and check for plugin updates ( "@http://mojo.codehaus.org/versions-maven-plugin/examples/display-plugin-updates.html@":http://mojo.codehaus.org/versions-maven-plugin/examples/display-plugin-updates.html ) :
 
-bc. mvn versions:display-plugin-updates
-
+bc.. 
+mvn versions:display-plugin-updates
+p. 
 When the report shows some plugin updates or non-configured versions then change this in the parent POM @releng/org.eclipselabs.spray.parent/pom.xml@.
 
 h2. Resolve "Discouraged access" warnings
@@ -28,6 +29,4 @@ Add a rule with resolution "Accessible" for pattern "org/eclipse/xtext/xbase/**"
 !images/accessrules_2.png! 
 
 !images/accessrules_3.png! 
-
-
 

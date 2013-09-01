@@ -1,16 +1,17 @@
 h2. Distrobuilder
 
-The Spray Developer IDE is created with the "Distrobuilder":https://github.com/tomsontom/distrobuilder toolkit from Tom Schindl. This tool creates Eclipse distributions based on existing distributions and installs a set of features from existing p2 repositories with the "p2 director application":http://help.eclipse.org/kepler/index.jsp?topic=/org.eclipse.platform.doc.isv/guide/p2_director.html.
+The Spray Developer IDE is created with the Distrobuilder ( "@https://github.com/tomsontom/distrobuilder@":https://github.com/tomsontom/distrobuilder ) toolkit from Tom Schindl. This tool creates Eclipse distributions based on existing distributions and installs a set of features from existing p2 repositories with the p2 director application ( "@http://tinyurl.com/m84ha65@":http://tinyurl.com/m84ha65 ).
 
 The distrobuilder toolkit is providing a Java API and an Ant task. Spray is calling this Ant script from Maven. We do not use Ant directly, since on the Cloudbees server we cannot add custom Ant task easily to the Ant distribution used on the Jenkins build server. But with Maven, we can call Ant with a custom classpath with Maven dependencies. Since the distrobuilder's jar is not available on a public repository, we have uploaded it to a private repository at Cloudbees.
 
-The distribution build is described by just a "single Maven POM":http://code.google.com/a/eclipselabs.org/p/spray/source/browse/devtools/org.eclipselabs.spray.dev.distrobuilder/pom.xml in the project "@org.eclipselabs.spray.dev.distrobuilder@":http://code.google.com/a/eclipselabs.org/p/spray/source/browse/devtools/#devtools%2Forg.eclipselabs.spray.dev.distrobuilder. The POM mainly executes the @maven-antrun-plugin@. In the called Ant script the following tasks are done:
+The distribution build is described by just a single Maven POM ( "@http://tinyurl.com/lmb55nh@":http://tinyurl.com/lmb55nh ) in the project @org.eclipselabs.spray.dev.distrobuilder@ ( "@http://tinyurl.com/mkvvx6q@":http://tinyurl.com/mkvvx6q ). The POM mainly executes the @maven-antrun-plugin@. In the called Ant script the following tasks are done:
 
 * Declare the custom distrobuilder Ant task @at.bestsolution.releng.distrobuilder.ant.DistroBuilderTaskDef@
-* Create the directory structure required for the Distrobuilder as described in the "README":https://github.com/tomsontom/distrobuilder
+* Create the directory structure required for the Distrobuilder as described in the README ( "@https://github.com/tomsontom/distrobuilder@":https://github.com/tomsontom/distrobuilder )
 * Download and unpack the p2 director
 * Download Eclipse SDKs for Windows, Mac OSX and Linux
 * Call the Distrobuilder. Configure the update sites to get software from and the installable units to install from there.
+
 bc.. 
 <builder builddirectory="${project.build.directory}/build" p2directorexecutable="${project.build.directory}/director/director"
  targetdirectory="${basedir}/targets" staticreposdirectory="${basedir}/repos" distdirectory="${project.build.directory}/dist"
@@ -22,11 +23,13 @@ bc..
  <installunit name="org.eclipse.xtext.sdk.feature.group" version="2.3.1.v201208210947" />
  <installunit name="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.3.1.v201208210947" />
  <installunit name="org.eclipse.xtext.xtend2.m2e.feature.group" version="2.3.1.v201208210947" />
-bc. 
+p. 
 
 To build the distributions simply go to the @org.eclipselabs.spray.dev.distrobuilder@ directory and call
 
-bc. mvn -s settings.xml clean package
+bc.. 
+mvn -s settings.xml clean package
+p. 
 
 The resulting distributions can then be found in the directory @target/dist@.
 

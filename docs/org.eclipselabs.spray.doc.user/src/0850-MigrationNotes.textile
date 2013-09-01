@@ -6,7 +6,7 @@ p.
 
 h2. Renamed properties file
 
-The configuration is now expected to be in a file named spray.properties. Before this properties file was named differently. So please rename the old properties file in spray.properties. If you forget to do this renaming generation will produce some unexpected results (e.g. code is generated in the last listed project in workspace instead of the current project, see issue "240":http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=240). 
+The configuration is now expected to be in a file named spray.properties. Before this properties file was named differently. So please rename the old properties file in spray.properties. If you forget to do this renaming generation will produce some unexpected results (e.g. code is generated in the last listed project in workspace instead of the current project, see issue 240 ( "@http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=240@":http://code.google.com/a/eclipselabs.org/p/spray/issues/detail?id=240 ) ). 
 
 p. 
 
@@ -16,4 +16,3 @@ In old Spray versions it was your task to copy the plugin.xml from src-gen into 
 
 p. 
 
-   

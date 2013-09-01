@@ -38,19 +38,21 @@ p.
 ** Add static imports
 ** Add @// MARKER_IMPORT@. This will denote the position where dynamic imports will inserted.
 ** Print the class body content
+
 bc.. 
-    def mainFile(Diagram diagram, String className) '''
-        «header(this)»
-        package «diagram_package()»;
- 
-        import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
-        import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-        // MARKER_IMPORT
- 
-        «body»
-    '''
+def mainFile(Diagram diagram, String className) '''
+    «header(this)»
+    package «diagram_package()»;
+    
+    import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
+    import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+    // MARKER_IMPORT
+    «body»
+'''
 p. 
+
 * Use the extension function @shortName@ on any qualified name. It will print out the simple name of the qualified class name and collects the qualified name for the import manager.
+
 bc.. 
 «metaClass.javaInterfaceName.shortName» // javaInterfaceName computes the qualified class name of an EClass interface
  
@@ -66,31 +68,31 @@ h3. Template Methods
 The templates should be organized into reasonable small template definition methods. Usually a good separation is to provide a template for each generated method, which are called when generating a class body.
 
 bc.. 
-    def mainFile (MetaClass metaClass, String className) '''
+def mainFile (MetaClass metaClass, String className) '''
+    ...
+    public class «className» extends AbstractCreateFeature {
         ...
-        public class «className» extends AbstractCreateFeature {
-            ...
-            «generate_canCreate(metaClass)»
-            «generate_create(metaClass)»
-            «generate_createModelElement(metaClass)»
-            «generate_getCreateImageId(metaClass)»
-            «generate_hasDoneChanges(metaClass)»
-            «generate_canUndo(metaClass)»
-        }
-    '''
-    
-    def generate_canCreate (MetaClass metaClass) '''
-        «overrideHeader()»
-        public boolean canCreate(ICreateContext context) {
-            ...
-        }
-    '''
-    
+        «generate_canCreate(metaClass)»
+        «generate_create(metaClass)»
+        «generate_createModelElement(metaClass)»
+        «generate_getCreateImageId(metaClass)»
+        «generate_hasDoneChanges(metaClass)»
+        «generate_canUndo(metaClass)»
+    }
+'''
+
+def generate_canCreate (MetaClass metaClass) '''
+    «overrideHeader()»
+    public boolean canCreate(ICreateContext context) {
+        ...
+    }
+'''
 p. 
 
 When the implementation of a template method grows too large, or is separatable into a sequence of logical parts, the template should delegate to subtemplate methods again.
 
 This makes the template code more maintainable, and allows users later to override smaller parts of the generator if customization is needed.
+
 
 h3. Hook Templates
 
@@ -110,6 +112,8 @@ bc..
             «generate_additionalMethods(reference)» // call hook template
         }
     '''
+p. 
+
 
 h3. Generated Code
 
@@ -148,11 +152,12 @@ bc..
     '''
 p. 
 
+
 h2. Code Documentation
 
 h3. Overridden Methods
 
-If a method from a base class is overridden by generated code, the method should declare the @\@Override@ annotation and the @{@inheritDoc}@ Javadoc annotation. To shorten this, «overrideHeader» generates the necessary code.
+If a method from a base class is overridden by generated code, the method should declare the @\@Override@ annotation and the @{@inheritDoc}@ Javadoc annotation. To shorten this, _«overrideHeader»_ generates the necessary code.
 
 *Xtend Template:*
 
@@ -171,4 +176,4 @@ bc.
     public void myMethod (...)
 
 p. 
- 
+

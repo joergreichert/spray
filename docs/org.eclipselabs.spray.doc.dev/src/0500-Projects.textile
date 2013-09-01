@@ -9,7 +9,7 @@ Base package / Bundle ID Prefix: @org.eclipselabs.spray@
 h2. Source Management
 
 * Generated sources are *not checked in*
-* The following resources must be added to .gitignore for each plugin
+* The following resources must be added to @.gitignore@ for each plugin
 ** src-gen
 ** target
 ** bin
@@ -40,7 +40,7 @@ bc..
 pluginName = ADD DESCRIPTION
 providerName = Eclipselabs Spray
 p. 
-* Open MANIFEST.MF, change/add entries (exchange 0.3.0 by current development version from other plugins)
+* Open @MANIFEST.MF@, change/add entries (exchange 0.3.0 by current development version from other plugins)
 bc.. 
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
@@ -62,14 +62,12 @@ Include the following files/directories, if they exist
 ** @*/*.launch@
 ** @log4j.properties@
 
-
-
 h3. Project Specific Settings
 
 To avoid confusion between different platforms and workspaces common settings should be defined as project specific settings. Those settings are checked in and thus shared.
 
-* _Resource_: Text file encoding: Other / UTF-8
-* _Resource_: New text file delimiter: Other / Unix
+* _Resource_: Text file encoding: _Other / UTF-8_
+* _Resource_: New text file delimiter: _Other / Unix_
 * _Java Code Style -> Formatter_:
 ** Check "Enable project specific settings"
 ** select Active Profile "`spray_eclipse_formatter`"
@@ -113,8 +111,6 @@ Some rules of plugin dependencies should be considered:
 ** org.eclipselabs.spray.runtime.graphiti depends on Graphiti, but not on others like Xtext
 ** org.eclipselabs.spray.runtime.xtext depends on Xtext, but not on others like Graphiti
 
-
-
 h2. Plugin Development
 
 h3. plugin.xml
@@ -136,6 +132,5 @@ bc..
     </page>
     <!-- SPRAY END -->
 p. 
-
 
 

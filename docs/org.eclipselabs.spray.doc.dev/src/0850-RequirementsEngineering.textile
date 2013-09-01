@@ -1,6 +1,6 @@
 h1. Requirements Engineering
 
-Additional to the issue tracking we started to manage end user level requirements / use cases with an extra tool: "Yakindu requirements":http://www.yakindu.com/requirements/
+Additional to the issue tracking we started to manage end user level requirements / use cases with an extra tool: "@http://www.yakindu.com/requirements/@":http://www.yakindu.com/requirements/
 
 The sources of the requirements specification is checked in on the GIT branch "yakindu_requirements"
 
@@ -14,7 +14,7 @@ Out of this models you can generate HTML and PDF requirements specification repo
 
 Please note that the Spray requirements specification is currently in a very early stage (only rudimentary use cases, entities models just transformed from the existing Ecores and so too technical for a user centered view).
 
-The latest generated PDF requirements specification report can be downloaded from "here":http://spray.eclipselabs.org.codespot.com/git-history/yakindu_requirements/docs/org.eclipselabs.spray.doc.requirements/output/specconfig/SprayReport/SprayReport.pdf
+The latest generated PDF requirements specification report can be downloaded from "@http://tinyurl.com/m3k9j4r@":http://tinyurl.com/m3k9j4r
 
 
 

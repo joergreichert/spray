@@ -171,9 +171,20 @@
 		<xsl:comment>
 			Hyperlink
 		</xsl:comment>
-		<inline text-decoration="underline" color="blue">
-			<xsl:value-of select="."></xsl:value-of>
-		</inline>
+		<xsl:choose>
+			<xsl:when test="string-length() &lt; 90">
+				<inline text-decoration="underline" color="blue"
+					keep-together="always">
+					<xsl:value-of select="."></xsl:value-of>
+				</inline>
+			</xsl:when>
+			<xsl:otherwise>
+				<inline text-decoration="underline" color="blue"
+					keep-together="auto">
+					<xsl:value-of select="."></xsl:value-of>
+				</inline>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<!-- Format codeblocks and delete the obsolete parent node --> <!-- Child have to contain text! -->
@@ -237,6 +248,46 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</block>
+	</xsl:template>
+	<!--================================================================================= -->
+
+
+	<!--========= Table ================================================================= -->
+	<xsl:template match="//xslt:table">
+		<xsl:comment>
+			Table
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:copy-of select="@*" />
+			<xsl:attribute name="max-width">85%</xsl:attribute>
+			<xsl:attribute name="min-width">40%</xsl:attribute>
+			<xsl:attribute name="border">1px solid black</xsl:attribute>
+			<xsl:apply-templates />
+		</xsl:copy>
+	</xsl:template>
+
+	<xsl:template match="//xslt:table-row">
+		<xsl:comment>
+			Table-row
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:copy-of select="@*" />
+			<xsl:attribute name="border">1px solid black</xsl:attribute>
+			<xsl:apply-templates />
+		</xsl:copy>
+	</xsl:template>
+
+	<xsl:template match="//xslt:table-cell">
+		<xsl:comment>
+			Table-cell
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:copy-of select="@*" />
+			<xsl:attribute name="border">1px solid black</xsl:attribute>
+			<xsl:attribute name="padding-left">5px</xsl:attribute>
+			<xsl:attribute name="padding-right">3px</xsl:attribute>
+			<xsl:apply-templates />
+		</xsl:copy>
 	</xsl:template>
 	<!--================================================================================= -->
 

@@ -5,7 +5,6 @@ h3. The Style grammar
 !images/style_grammar.png!
 
 bc.. 
-
 grammar org.eclipselabs.spray.styles.Style with org.eclipse.xtext.xbase.Xbase
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
@@ -105,13 +104,13 @@ enum GradientAllignment:
 	VERTICAL="vertical";
 
 DOUBLE returns ecore::EDouble: INT "." INT;
+p. 
 
 h3. The Shape grammar
 
 !images/shapes_grammar.png!
 
 bc.. 
-
 grammar org.eclipselabs.spray.shapes.Shape with org.eclipselabs.spray.styles.Style
 import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
 import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
@@ -519,13 +518,13 @@ enum TextType:
 
 N_INT returns ecore::EInt:
     ('-')? INT;
+p. 
 
 h3. The Spray grammar
 
 !images/spray_grammar.png!
 
 bc.. 
-
 grammar org.eclipselabs.spray.xtext.Spray with org.eclipse.xtext.xbase.Xbase 
 
 import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
@@ -641,4 +640,5 @@ ConnectionInSpray returns ConnectionInSpray :
             'to'   to  =[ecore::EReference] ';'?
         '}'
     )?;
+p. 
 

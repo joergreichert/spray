@@ -23,7 +23,7 @@ The documentation is generated using Ant. You will find the following launch con
 
 h2. Spray Maven Build
 
-Spray is using Maven Tycho for building. You need a Maven 3 installation. Usually you should have "m2e":http://eclipse.org/m2e/ installed, which has a Maven 3 installation embedded. If you want to run builds from command-line get a "Maven distribution":http://maven.apache.org/download.cgi and add the @bin@ folder to system path.
+Spray is using Maven Tycho for building. You need a Maven 3 installation. Usually you should have m2e ( "@http://eclipse.org/m2e/@":http://eclipse.org/m2e/ ) installed, which has a Maven 3 installation embedded. If you want to run builds from command-line get a Maven distribution ( "@http://maven.apache.org/download.cgi@":http://maven.apache.org/download.cgi ) and add the @bin@ folder to system path.
 
 h3. Maven @settings.xml@
 
@@ -31,7 +31,7 @@ The common Maven settings are located at @devtools/org.eclipselabs.spray.distrib
 
 The password in @settings.xml@ have been encrypted, and you need a proper @settings-security.xml@ file, which is owned by Karsten Thoms. If you have deployment rights you can set your own credentials, or ask Karsten to provide it to you via personal mail.
 
-See the "Maven Password Encryption Guide":http://maven.apache.org/guides/mini/guide-encryption.html for more details.
+See the Maven Password Encryption Guide ( "@http://maven.apache.org/guides/mini/guide-encryption.html@":http://maven.apache.org/guides/mini/guide-encryption.html ) for more details.
  
 
 h3. Build Spray projects
@@ -42,8 +42,8 @@ Builds are run from the @/releng/org.eclipselabs.spray.distribution@ directory. 
 
 bc. 
 mvn clean install
-
 p. 
+
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
 bc.. 
@@ -87,18 +87,23 @@ p.
 
 The target platform for this build is computed from the one build at Cloudbees. You can build this repository also locally and use it. To do this build the target platform repository (see next section) and activate the profile @local-build@.
 
-bc. mvn clean install -Dlocal-build 
+bc.. 
+mvn clean install -Dlocal-build 
+p. 
+
 
 h3. Build target platform repository
 
 In directory @/releng/org.eclipselabs.spray.distribution@ execute: 
 
-bc. 
+bc.. 
 mvn clean install -Pmodules-targetplatform
+p. 
 
 This first build will create a p2 repository, which serves as a local target platform repository. The repository contains all bundles and features that are required to build the Spray projects. This build has only to be executed when the target platform changes.
 
 p. 
+
 Maven will download all required artifacts and plugins automatically and at the end you should get
 
 bc.. 
@@ -112,18 +117,18 @@ bc..
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[
+p. 
 
-p.  
 In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
-
 
 h3. Disable execution of UI tests
 
-The build executes UI tests developed with "SWTBot":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, add the @skip-ui-tests@ property:
+The build executes UI tests developed with SWTBot ( "@http://www.eclipse.org/swtbot/@":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, add the @skip-ui-tests@ property:
 
-bc. 
+bc.. 
 mvn -Dskip-ui-tests clean install
+p. 
+
 
 h2. Parent POM
 
@@ -135,10 +140,11 @@ All Maven Plugins that are used in the build are declared in the @<pluginManagem
 
 To check for possible updates run frequently
 
-bc. mvn versions:display-plugin-updates
+bc.. 
+mvn versions:display-plugin-updates
+p. 
 
 h2. Profiles
-
 
 h3. Repository selection profiles
 
@@ -150,7 +156,9 @@ The profile is activated by the presence of the property @local-build@. To activ
 
 When testing target platform updates before making them effective for all users and builds it is recommended to build the target platform repository locally and test the build against it by activating this profile.
 
-bc. mvn -Dlocal-build ...
+bc.. 
+mvn -Dlocal-build ...
+p. 
 
 When this profile is activated the profile @remote-build@ gets deactivated.
 
@@ -207,7 +215,7 @@ h4. Profile @sonarLocal@
 
 This profile contains the connection data for your local Sonar database as well as the URL of your local Sonar server instance. You may adapt these to your own needs.
 
-To learn more about Sonar (now called SonarQube) have a look at the "offical site":http://www.sonarsource.org/
+To learn more about Sonar (now called SonarQube) have a look at "@http://www.sonarsource.org/@":http://www.sonarsource.org/
 
 h4. Profile @sonarRemote@
 
@@ -217,7 +225,7 @@ h4. Profile @codeCoverage@
 
 With passing this profile the code and test coverage measurement is activated. JaCoCo as tool is used. This profile configures where the measured data is accumulated and where Sonar should look to derive its coverage reports. 
 
-To learn more about JaCoCo see "here":http://www.eclemma.org/
+To learn more about JaCoCo see "@http://www.eclemma.org/@":http://www.eclemma.org/ .
 
 h2. Version management
 
@@ -231,7 +239,9 @@ h3. Setting Xtext version
 
 For Spray it is important that only the version of Xtext is installed against it was build. Xtext guarantees compatibility on the micro version number, but for an increment in the minor version number there is no guarantee that Spray will run on it. Thus we constraint the usage of Xtext in dependencies to the current minor version range. This is done in the @MANIFEST.MF@ Require-Bundle section with the modifier @bundle-version@. For example, to allow Xtext version 2.4.x the version constraint string is
 
-bc. require-bundle="[2.4.0,2.5.0)"
+bc.. 
+require-bundle="[2.4.0,2.5.0)"
+p. 
 
 This includes the range from 2.4.0 (inclusive) until 2.5.0 (exclusive).
 
@@ -241,13 +251,13 @@ h1. Continuous Integration
  
 h2. Introduction
  
-We use Cloudbees' DEV@Cloud as infrastructure for a Continuous Integration build. The location of the CI system is "https://spray.ci.cloudbees.com/":https://spray.ci.cloudbees.com/
+We use Cloudbees' DEV@Cloud as infrastructure for a Continuous Integration build. The location of the CI system is "@https://spray.ci.cloudbees.com/@":https://spray.ci.cloudbees.com/
  
 h2. Build Jobs
  
 h3. Job @spray-ci-build@
 
-Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-build/":https://spray.ci.cloudbees.com/job/spray-ci-build/
+Build URL: "@https://spray.ci.cloudbees.com/job/spray-ci-build/@":https://spray.ci.cloudbees.com/job/spray-ci-build/
 
 Pulls branch @master@ of the Git repository every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
 
@@ -255,7 +265,7 @@ h3. Job @spray-docs-build@
 
 Runs the generation of documentation. The latest build is archived and linked on the Spray project homepage.
 
-* Build URL: "https://spray.ci.cloudbees.com/job/spray-docs-build/":https://spray.ci.cloudbees.com/job/spray-docs-build/
+* Build URL: "@https://spray.ci.cloudbees.com/job/spray-docs-build/@":https://spray.ci.cloudbees.com/job/spray-docs-build/
 * Git Branch: kepler
 * Activated profiles: @skip-ui-tests@ @remote-build-snapshot@ @modules-docs@
 * Deactivated profiles: @modules-default@
@@ -263,23 +273,23 @@ Runs the generation of documentation. The latest build is archived and linked on
 
 h3. Job @spray-ci-targetplatform@
 
-Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/":https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/
+Build URL: "@https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/@":https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/
 
 This job has got no automatic trigger. A developer who did changes to the target platform definition (i.e. *.target file and category.xml) is responsible to trigger this job manually after checking in those changes.  Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
 
-The "artifacts":https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/ of this job is the P2 repository that is used by the @spray-ci-build@. 
+The artifacts ( "@http://tinyurl.com/nyvwt2z@":http://tinyurl.com/nyvwt2z ) of this job is the P2 repository that is used by the @spray-ci-build@. 
 
 h3. Job @spray-distrobuilder@
 
-Build URL: "https://spray.ci.cloudbees.com/job/spray-distrobuilder/":https://spray.ci.cloudbees.com/job/spray-distrobuilder/
+Build URL: "@https://spray.ci.cloudbees.com/job/spray-distrobuilder/@":https://spray.ci.cloudbees.com/job/spray-distrobuilder/
 
 This job has got no automatic trigger. This job produces Spray RCP products for Windows, Linux and MacOS each for 64bit architecture only.
 
-The build configuration is based on Tom Schindl's "DistroBuilder":https://github.com/tomsontom/distrobuilder
+The build configuration is based on Tom Schindl's DistroBuilder "@https://github.com/tomsontom/distrobuilder@":https://github.com/tomsontom/distrobuilder
 
 h3. Job @spray-ci-experimental@
 
-Build URL: "https://spray.ci.cloudbees.com/job/spray-ci-experimental/":https://spray.ci.cloudbees.com/job/spray-ci-experimental/
+Build URL: "@https://spray.ci.cloudbees.com/job/spray-ci-experimental/@":https://spray.ci.cloudbees.com/job/spray-ci-experimental/
 
 Pulls branch @experimental@ of the Git repository every 15 minutes. Build mail messages are sent to @spray-build@googlegroups.com@. To receive build mails register to the @spray-build@ Google Group.
 
@@ -290,11 +300,11 @@ h2. Job configuration
 
 h3. Headless UI tests
 
-A build on the Cloudbees Jenkins service cannot start an UI. To execute the UI tests anyway Xvnc server is started within the build. Additionally the metacity window manager is started as a pre-build step with Shell execution. The required hints to solve this issue were found in the blog entry "How to run UI tests on hudson.eclipse.org server (on a server without a window manager activated by default)":http://www.bonitasoft.org/blog/eclipse/how-to-run-ui-tests-on-hudson-eclipse-org-server-on-a-server-without-a-window-manager-activated-by-default/ 
+A build on the Cloudbees Jenkins service cannot start an UI. To execute the UI tests anyway Xvnc server is started within the build. Additionally the metacity window manager is started as a pre-build step with Shell execution. The required hints to solve this issue were found in the blog entry How to run UI tests on hudson.eclipse.org server (on a server without a window manager activated by default) ( "@http://tinyurl.com/nxypl5t@":http://tinyurl.com/nxypl5t )
 
 h2. Administration
 
-The Cloudbees builds are administered by Karsten Thoms and Joerg Reichert. To request changes, "add an issue":http://code.google.com/a/eclipselabs.org/p/spray/issues/entry and set the Label "Component-Build".
+The Cloudbees builds are administered by Karsten Thoms and Joerg Reichert. To request changes, add an issue on "@http://code.google.com/a/eclipselabs.org/p/spray/issues/entry@":http://code.google.com/a/eclipselabs.org/p/spray/issues/entry and set the Label "Component-Build".
 
 h1. Release Process
 
@@ -307,10 +317,13 @@ An ant script @org.eclipselabs.spray.distribution/scripts/build.xml@ is prepared
 * Call @git status@ to make sure that you have no pending changes open.
 * (Optional) Perform @mvn clean install@ to check that the main build would perform without error. The script will invoke this also, but you just make sure that you don't have to rollback changes in the case of failures.
 * Execute from this directory the @build.xml@ script.
-bc. ant release
+
+bc.. 
+ant release
+p. 
 
 * If something went wrong during the build call @ant release-rollback@. This will drop the created branches and switches back to the main branch. You may have to call this twice when the build failed after a successful Maven build.
-* Go to the "Downloads page":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list and remove the "Featured" tag from the artifacts of the older release, then add the "Deprecated" tag.
+* Go to "@http://code.google.com/a/eclipselabs.org/p/spray/downloads/list@":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list and remove the "Featured" tag from the artifacts of the older release, then add the "Deprecated" tag.
 * Announce the release on the spray-dev@googlegroups.com mailing list
 
- 
+

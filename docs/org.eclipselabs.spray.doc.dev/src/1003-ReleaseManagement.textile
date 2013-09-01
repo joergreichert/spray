@@ -7,14 +7,13 @@ Spray has an Ant build script to support the release process. It is located at @
 * @release.properties@: Defines the current version of Spray (@version_main@) and the next version (@version_next@). Further defines local paths and Maven options.
 * @user.properties@: Defines user credentials that are required to upload files. This file won't be checked in (marked in .gitignore), since the user password is unencrypted here.
 
-
 h3. Custom Ant Tasks
 
 h4. Fetching libraries
 
 When it is required to use custom ant tasks we have the problem that we cannot put them in the library folder of the Ant distribution at Cloudbees. There we only can assume to have a basic Ant distribution. All additional tasks must be made available by referencing their Jars in the classpath of the @<taskef>@ definition.
 
-To avoid the need to check in those jars we are fetching them from the internet using the "Ant Get task":http://ant.apache.org/manual/Tasks/get.html . Thus they are downloaded in the @-fetch-dependencies@ target to a private library folder like follows:
+To avoid the need to check in those jars we are fetching them from the internet using Ant-get ( "@http://tinyurl.com/kgzs7lq@":http://tinyurl.com/kgzs7lq ) . Thus they are downloaded in the @-fetch-dependencies@ target to a private library folder like follows:
 
 bc.. 
 <target name="-fetch-dependencies" description="downloads additional jars for task definitions">
@@ -23,17 +22,16 @@ bc..
   ...
 </target>
 p. 
+
 The files are just fetched once, so the download does not happen always. Targets that declare tasks with @<taskdef>@ need to depend on @-fetch-dependencies@.
 
 h4. Task compositeSite
 
 This task adds a release to the files @compositeArtifacts.xml@ and @compositeContent.xml@ of the composite update site in the @spray.distribution@ repository.
 
-
-
 h3. File upload to Google Code
 
-For uploading the resulting files to the "Downloads section":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list on the Spray project homepage we make use of the "ant-googlecode":http://code.google.com/p/ant-googlecode/ Ant task. Since Spray is hosted et Eclipselabs it needs specialized setup, which is described on this "Wiki page":http://code.google.com/p/ant-googlecode/wiki/EclipseLabs_configuration .
+For uploading the resulting files to "@http://code.google.com/a/eclipselabs.org/p/spray/downloads/list@":http://code.google.com/a/eclipselabs.org/p/spray/downloads/list on the Spray project homepage we make use of the ant-googlecode ( "@http://code.google.com/p/ant-googlecode/@":http://code.google.com/p/ant-googlecode/ ) Ant task. Since Spray is hosted et Eclipselabs it needs specialized setup, which is described on this Wiki page ( "@http://tinyurl.com/m7v3wre@":http://tinyurl.com/m7v3wre ) .
 
 The upload of files to the project homepage is defined in the @release-promote-gcupload@ target.
 
@@ -55,7 +53,7 @@ h3. Setting version
 
 The target @set-version@ queries the user for the version to set for the current and next Spray release. The values entered will be stored in the @release.properties@ file, which is read by the script on executing.
 
-The values entered here will be taken to make replacements in the artifacts. This is done by search & replace using regular expressions. Note that there is "Tycho Versions Plugin":http://www.eclipse.org/tycho/sitedocs/tycho-release/tycho-versions-plugin/set-version-mojo.html which is meant to be used in such a context, but we are not using it. In the past we experienced problems using this plugin, especially it was not that easy to do the replacements in all places that we need.
+The values entered here will be taken to make replacements in the artifacts. This is done by search & replace using regular expressions. Note that there is Tycho Versions Plugin ( "@http://tinyurl.com/lwz4fnn@":http://tinyurl.com/lwz4fnn ) which is meant to be used in such a context, but we are not using it. In the past we experienced problems using this plugin, especially it was not that easy to do the replacements in all places that we need.
 
 h3. Dry run
 
@@ -67,7 +65,6 @@ h3. Roll back
 
 During the performance of a release, especially when evolving the release process, many things can go wrong. The release script creates a tag named @release-init@ before doing any modifications to the repository. To reset the repository to this state call the @release-rollback@ target.
 
-
 h3. Maven repositories
 
 Cloudbees provides a snapshot and release Maven repository for each project. The repository are accessible via WebDAV, so they can be mounted on your local system. The URLs are:
@@ -76,6 +73,4 @@ Cloudbees provides a snapshot and release Maven repository for each project. The
 * @https://<USER>@repository-spray.forge.cloudbees.com/snapshot@
 
 These repositories are configured in the @<distributionManagement>@ section of the Parent POM.
-
-
 

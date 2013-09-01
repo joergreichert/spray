@@ -17,7 +17,6 @@ To invoke this application create a launch config for application @org.eclipsela
 The console output looks like follows:
 
 bc.. 
-
 INFO: Parsing target definition
 INFO: Reading repository http://download.itemis.com/updates/releases/2.0.0/
 INFO: Updating IU versions
@@ -41,8 +40,5 @@ INFO: Reading repository http://download.eclipse.org/tools/orbit/downloads/drops
 INFO: Updating IU versions
 INFO: Updating XML document
 INFO: Writing XML document to file:/Users/thoms/git/spray/spray/releng/org.eclipselabs.spray.targetplatform/spray-kepler-updated.target
-
 p. 
-
-
 

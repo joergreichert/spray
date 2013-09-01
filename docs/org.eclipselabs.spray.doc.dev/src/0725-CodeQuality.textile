@@ -4,7 +4,7 @@ There are some tools to measure the code quality.
 
 h2. Code coverage 
 
-EclEMMA, now called "JaCoCo":http://www.eclemma.org/ (Java Code Coverage), is a tool to measure code and test coverage. 
+EclEMMA, now called JaCoCo "@http://www.eclemma.org/@":http://www.eclemma.org/ (Java Code Coverage), is a tool to measure code and test coverage. 
 These measures delivery hints of code that is not executed while running the application (code coverage) resp. that is not executed when running all tests (test coverage).
 So it can give hint where is unused code or tests are missing. 
 
@@ -22,13 +22,13 @@ If you click on one of the classes the code parts that have been executed are hi
 
 h2. SonarQube
 
-Sonar (now called "SonarQube":http://www.sonarsource.org/) is a tool to measure code quality metrics over time. It consists of a web server and a associated database. There exists also an Eclipse plug-in so you can stay in your favorite IDE.
+Sonar (now called SonarQube "@http://www.sonarsource.org/@":http://www.sonarsource.org/ ) is a tool to measure code quality metrics over time. It consists of a web server and a associated database. There exists also an Eclipse plug-in so you can stay in your favorite IDE.
 
-Just "download":http://www.sonarsource.org/downloads/ the Sonar server distribution, unpack it and follow "the installation guide":http://docs.codehaus.org/display/SONAR/Installation+and+Upgrade
+Just download the Sonar server distribution ( "@http://www.sonarsource.org/downloads/@":http://www.sonarsource.org/downloads/ ), unpack it and follow "@http://docs.codehaus.org/display/SONAR/Installation+and+Upgrade@":http://docs.codehaus.org/display/SONAR/Installation+and+Upgrade
 
 Here also the configuration of Sonar in Maven is explained.
 
-To install the Eclipse plug-in follow "this guide": http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse
+To install the Eclipse plug-in follow this guide "@http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse@":http://docs.codehaus.org/display/SONAR/Installing+SonarQube+in+Eclipse
 
 In following there are some screenshots documenting the usage of Sonar. Please note that these screenshots have been made in April 2012, so the current Sonar release may differ in some spots.
 
