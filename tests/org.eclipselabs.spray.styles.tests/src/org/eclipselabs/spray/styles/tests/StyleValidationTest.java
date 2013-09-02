@@ -7,6 +7,6 @@ import org.xpect.runner.XpectTestFiles.FileRoot;
 import org.xpect.xtext.lib.tests.ValidationTest;
 
 @RunWith(XpectRunner.class)
-@XpectTestFiles(relativeTo = FileRoot.CURRENT, baseDir = "model/validation", fileExtensions = "style")
+@XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/validation", fileExtensions = "style")
 public class StyleValidationTest extends ValidationTest {
 }

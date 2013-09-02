@@ -7,6 +7,6 @@ import org.xpect.runner.XpectTestFiles.FileRoot;
 import org.xpect.xtext.lib.tests.ScopingTest;
 
 @RunWith(XpectRunner.class)
-@XpectTestFiles(relativeTo = FileRoot.CURRENT, baseDir = "model/testcases/scoping", fileExtensions = { "shape" })
+@XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/scoping", fileExtensions = { "shape" })
 public class ShapeScopingTest extends ScopingTest {
 }

@@ -6,13 +6,13 @@ import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipselabs.spray.shapes.Ellipse
 import org.eclipselabs.spray.shapes.ShapeContainer
 import org.eclipselabs.spray.shapes.generator.svg.LayoutExtensions
+import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
-import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProviderimport org.eclipselabs.spray.shapes.ShapeContainerElement
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
@@ -22,7 +22,7 @@ class LayoutExtensionsTest extends XtextTest {
 	private LayoutExtensions layoutExtensions
 
 	@Inject
-	private ParseHelper<ShapeContainerElement> parseHelper
+	private ParseHelper<ShapeContainer> parseHelper
 	
 	@Test
 	def void testGetParentX() {

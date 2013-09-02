@@ -4,6 +4,7 @@ import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.formatting.INodeModelFormatter.IFormattedRegion;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipselabs.spray.styles.tests.util.XtextStandaloneSetupWithoutValidate;
 import org.junit.runner.RunWith;
 import org.xpect.expectation.IStringExpectation;
 import org.xpect.expectation.StringExpectation;
@@ -19,7 +20,7 @@ import org.xpect.xtext.lib.setup.ThisResource;
 import com.google.inject.Inject;
 
 @RunWith(XpectRunner.class)
-@XpectTestFiles(relativeTo = FileRoot.CURRENT, baseDir = "model/formatter", fileExtensions = "style")
+@XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/formatter", fileExtensions = "style")
 @XpectSetup({ XtextStandaloneSetupWithoutValidate.class })
 public class StyleFormatterTest {
 
@@ -40,13 +41,15 @@ public class StyleFormatterTest {
 			r = formatter.format(rootNode, rootNode.getOffset(),
 					rootNode.getTotalLength());
 		}
-		String formatted = r.getFormattedText().replaceAll("\\r\\b", "\n")
+		String formatted = r.getFormattedText()
+				.replaceAll("\\r\\n", "\n")
+				.replaceAll("\\r\\b", "\n")
 				+ getEnding();
 		expectation.assertEquals(formatted);
 	}
 
 	private String getEnding() {
 		String ls = System.getProperty("line.separator");
-		return "\r\n".equals(ls) ? "\r" : "";
+		return !"\r\n".equals(ls) ? "\r" : "";
 	}
 }

@@ -1,13 +1,4 @@
-/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayFormatterTest
-
-	ResourceSet {
-		ThisFile {}
-		File "../referenced/BusinessDomainDsl.ecore" {}
-		File "../referenced/BusinessDomainDsl.genmodel" {}
-	}
-  
-   END_SETUP
- */
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayFormatterTest END_SETUP */
  
 /* XPECT formatted --- 
 // Add import statements here                                

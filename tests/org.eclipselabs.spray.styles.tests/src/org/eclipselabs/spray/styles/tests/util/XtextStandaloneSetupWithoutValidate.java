@@ -1,8 +1,9 @@
-package org.eclipselabs.spray.xtext;
+package org.eclipselabs.spray.styles.tests.util;
 
 import org.xpect.setup.ISetupInitializer;
+import org.xpect.xtext.lib.setup.XtextStandaloneSetup;
 
-public class XtextStandaloneSetupWithoutValidate extends EcoreAwareXtextStandaloneSetup {
+public class XtextStandaloneSetupWithoutValidate extends XtextStandaloneSetup {
 
 	@Override
 	public Config beforeFile(IFileSetupContext frameworkCtx, ClassCtx userCtx, ISetupInitializer<Config> initializer) throws Exception {

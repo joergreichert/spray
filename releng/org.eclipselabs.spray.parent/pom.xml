@@ -13,8 +13,6 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
-		<spray-local-targetrepository>file:../../releng/org.eclipselabs.spray.repository/target/repository</spray-local-targetrepository>
 		<project.encoding>UTF-8</project.encoding>
 		<file.encoding>${project.encoding}</file.encoding>
 		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
@@ -51,7 +49,8 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
+			<!-- By default clean xtend-gen if exists, the sources will be produced 
+				by xtend-plugin -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
@@ -153,7 +152,8 @@
 					<configuration>
 						<useUIHarness>false</useUIHarness>
 						<useUIThread>false</useUIThread>
-						<argLine>${encodingArgs} ${ui.test.vmargs} ${coverageAgent}</argLine><!-- different for mac/not mac -->
+						<argLine>${encodingArgs} ${ui.test.vmargs} ${coverageAgent}</argLine><!-- 
+							different for mac/not mac -->
 					</configuration>
 				</plugin>
 				<plugin>
@@ -270,7 +270,7 @@
 						<excludeRoots>
 							<excludeRoot>src-gen</excludeRoot>
 							<excludeRoot>xtend-gen</excludeRoot>
-						</excludeRoots>							
+						</excludeRoots>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -321,7 +321,8 @@
 						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 					</configuration>
 					<dependencies>
-						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" classpath container -->
+						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" 
+							classpath container -->
 						<dependency>
 							<groupId>org.eclipse.xtend</groupId>
 							<artifactId>org.eclipse.xtend.lib</artifactId>
@@ -333,6 +334,13 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<repositories>
+		<repository>
+			<id>spray-dependencies</id>
+			<layout>p2</layout>
+			<url>${spray-targetrepository}</url>
+		</repository>
+	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>sonatype</id>
@@ -366,7 +374,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<!-- to resolve this warning "[WARNING] Unable to locate Source XRef to 
 		link to - DISABLED". With this warning PMD validation will work fine. -->
 	<reporting>
@@ -377,24 +385,9 @@
 				<version>${maven-jxr-plugin.version}</version>
 			</plugin>
 		</plugins>
-	</reporting>	
+	</reporting>
 
 	<profiles>
-		<profile>
-			<id>local-build</id>
-			<activation>
-				<property>
-					<name>local-build</name>
-				</property>
-			</activation>
-			<repositories>
-				<repository>
-					<id>spray-dependencies</id>
-					<layout>p2</layout>
-					<url>${spray-local-targetrepository}</url>
-				</repository>
-			</repositories>
-		</profile>
 		<profile>
 			<id>remote-build-snapshot</id>
 			<activation>
@@ -402,13 +395,20 @@
 					<name>!local-build</name>
 				</property>
 			</activation>
-			<repositories>
-				<repository>
-					<id>spray-dependencies</id>
-					<layout>p2</layout>
-					<url>${spray-ci-targetrepository}</url>
-				</repository>
-			</repositories>
+			<properties>
+				<spray-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-targetrepository>
+			</properties>
+		</profile>
+		<profile>
+			<id>local-build</id>
+			<activation>
+				<property>
+					<name>local-build</name>
+				</property>
+			</activation>
+			<properties>
+				<spray-targetrepository>file:../../releng/org.eclipselabs.spray.repository/target/repository</spray-targetrepository>
+			</properties>
 		</profile>
 		<profile>
 			<id>remote-build-release</id>
@@ -417,13 +417,9 @@
 					<name>remote-build-release</name>
 				</property>
 			</activation>
-			<repositories>
-				<repository>
-					<id>spray-dependencies</id>
-					<layout>p2</layout>
-					<url>http://spray.eclipselabs.org.codespot.com/git.distribution/releases/</url>
-				</repository>
-			</repositories>
+			<properties>
+				<spray-targetrepository>http://spray.eclipselabs.org.codespot.com/git.distribution/releases/</spray-targetrepository>
+			</properties>
 		</profile>
 		<profile>
 			<id>skip-ui-tests</id>
@@ -445,7 +441,8 @@
 				</os>
 			</activation>
 			<properties>
-				<ui.test.vmargs>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -XstartOnFirstThread</ui.test.vmargs>
+				<ui.test.vmargs>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m
+					-XstartOnFirstThread</ui.test.vmargs>
 			</properties>
 		</profile>
 		<profile>
@@ -627,8 +624,10 @@
 			<name>Spray Snapshot Repository</name>
 			<url>dav:https://repository-spray.forge.cloudbees.com/snapshot/</url>
 		</snapshotRepository>
-		<!-- To be able to deploy the site into a "sites" directory under the cloudbees-forge release repo -->
-		<!-- Note: the jspray.cloudbees.site <server> tag has to be setup in your settings.xml -->
+		<!-- To be able to deploy the site into a "sites" directory under the cloudbees-forge 
+			release repo -->
+		<!-- Note: the jspray.cloudbees.site <server> tag has to be setup in your 
+			settings.xml -->
 		<!-- Maven command line: mvn site-deploy -->
 		<site>
 			<id>spray.cloudbees.site</id>

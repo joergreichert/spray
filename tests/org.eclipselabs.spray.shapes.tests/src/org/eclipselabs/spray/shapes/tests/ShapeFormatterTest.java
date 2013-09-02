@@ -19,7 +19,7 @@ import org.xpect.xtext.lib.setup.ThisResource;
 import com.google.inject.Inject;
 
 @RunWith(XpectRunner.class)
-@XpectTestFiles(relativeTo = FileRoot.CURRENT, baseDir = "model/testcases/formatter", fileExtensions = "shape")
+@XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/formatter", fileExtensions = "shape")
 @XpectSetup({ XtextStandaloneSetupWithoutValidate.class })
 public class ShapeFormatterTest {
 
@@ -40,13 +40,15 @@ public class ShapeFormatterTest {
 			r = formatter.format(rootNode, rootNode.getOffset(),
 					rootNode.getTotalLength());
 		}
-		String formatted = r.getFormattedText().replaceAll("\\r\\b", "\n")
+		String formatted = r.getFormattedText()
+				.replaceAll("\\r\\b", "\n")
+				.replaceAll("\\r\\n", "\n")
 				+ getEnding();
 		expectation.assertEquals(formatted);
 	}
 
 	private String getEnding() {
 		String ls = System.getProperty("line.separator");
-		return "\r\n".equals(ls) ? "\r" : "";
+		return !"\r\n".equals(ls) ? "\r" : "";
 	}
 }
