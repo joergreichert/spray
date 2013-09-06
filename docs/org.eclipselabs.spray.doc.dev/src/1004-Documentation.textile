@@ -511,3 +511,35 @@ bc..
 p. 
 
 All ids are references for each other and importent to get the copy action to work. 
+
+h3. Releng Copyright Tool
+
+This will only work for some default files like java, html and js. If you want to add this to xtend, xtext, xsl or other you have to use another tool you see below.
+
+h4. Installation and Configuration
+
+You can use the standard software installer _Help > Install New Software..._ to add the Eclipse Project's Releng Tools to your Eclipse configuration. For this you enter @The Eclipse Project Updates - http://download.eclipse.org/eclipse/updates/4.3@ to _Work with..._ and then search for Releng Tools. Install the package you found. 
+After a restart of Eclipse, you will find a _Copyright tool_ option in _Window -> Preferences_. Here you can edit your Copyrighttext yourselfe. The Spray default is:
+
+bc.. 
+Copyright (c) ${date} The Spray Project.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+    Spray Dev Team - initial API and implementation 
+p. 
+
+You can also see at Default Eclipse Foundation Copyright and License Notice ( "http://eclipse.org/legal/copyrightandlicensenotice.php":http://eclipse.org/legal/copyrightandlicensenotice.php ). Once installed and configured, the Copyright tool can accessed via context menu on a project and choose _Fix Copyright_. 
+
+h3. Copyright Wizard
+
+Here you can apply a the copyrighttext to several different file types (java, XML ...) in the same operation. The format of comment is automatically determined by the wizard from the file ContentType. This could do trouble with some not default files like *.properties. This is not a absolutely advice to use the Copyright Wizard.
+
+h4. Installation and Configuration
+
+Add http://www.wdev91.com/update/ to your software installer like in the subsection above. Install the including package and restart Eclipse.
+You will find the configurations in _Window -> Preferences -> Genral/Copyright_. Here you add your own copyrighttext or edit some of the given templates. Additional you can set how the Copyright text should be formatted in different files. 
+After you configure this you can choose which projects you want to fix by clicking at _Project -> Apply Copyright..._ . Inadvisable is to check the overwrite option, if you have other licences in your project. This could take some seconds to minutes. You should make a check to the results.
