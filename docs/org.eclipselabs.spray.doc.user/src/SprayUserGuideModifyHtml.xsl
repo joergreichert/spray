@@ -24,13 +24,17 @@
 		<xsl:comment>
 			***************************************************************************
 			* Copyright (c) The Spray Project.
-			* All rights reserved. This program and the accompanying materials
-			* are made available under the terms of the Eclipse Public License
+			* All rights reserved. This program
+			and the accompanying materials
+			* are made available under the terms of
+			the Eclipse Public License
 			v1.0
-			* which accompanies this distribution, and is available at
+			* which accompanies this distribution,
+			and is available at
 			* http://www.eclipse.org/legal/epl-v10.html
 			*
-			* Contributors:
+			*
+			Contributors:
 			* Spray Dev Team - initial API and implementation
 			****************************************************************************
 		</xsl:comment>
@@ -39,9 +43,11 @@
 			</link>
 			<link rel="stylesheet" type="text/css" href="prettyprintsrc/prettify.css">
 			</link>
+			<link rel="stylesheet" type="text/css" href="tipsy/tipsy.css" />
 			<script src="prettyprintsrc/prettify.js" type="text/javascript">//</script>
 			<script type="text/javascript" src="copy2clipboard/jquery.js">//</script>
 			<script type="text/javascript" src="copy2clipboard/ZeroClipboard.js">//</script>
+			<script src="tipsy/jquery.tipsy.js" type="text/javascript">//</script>
 			<xsl:apply-templates select="@*|node()" />
 		</xsl:copy>
 	</xsl:template>
@@ -94,6 +100,27 @@
 			clip.setHandCursor( true );
             clip.setCSSEffects( true );
 			</xsl:text>
+		</xsl:element>
+		<xsl:element name="script">
+			<xsl:attribute name="language">Javascript</xsl:attribute>
+			<xsl:text>
+			$(function() {
+			$(
+						</xsl:text>
+			<xsl:value-of select="$clipboardbutton"></xsl:value-of>
+			)
+			<xsl:text>.live('mouseover', function() {
+			$(this).tipsy("show");
+			}).live("click", function() {
+			$(this).attr('title', 'copied!');
+			$(this).tipsy("show");
+			}).tipsy({
+			delayOut : 3000,
+			gravity : 'n',
+			live : true
+			});
+			});
+					</xsl:text>
 		</xsl:element>
 	</xsl:template>
 

@@ -81,6 +81,10 @@
 			<fileset dir="${content.source.dir}/copy2clipboard" />
 		</copy>
 		
+		<copy todir="${content.gen.eclipse.dir}/tipsy" encoding="UTF-8">
+			<fileset dir="${content.source.dir}/tipsy" />
+		</copy>
+		
 		<xslt in="${content.gen.eclipse.dir}/${sprayhelp.target.html.file}" out="${content.gen.eclipse.dir}/${sprayhelp.target.xhtml.file}" style="${content.source.dir}/${sprayhelp.target.htmlxsl.file}">
 			<outputproperty name="method" value="xhtml" />
 			<outputproperty name="standalone" value="yes" />
@@ -105,6 +109,10 @@
 
 		<copy todir="${content.gen.html.dir}/copy2clipboard" encoding="UTF-8">
 			<fileset dir="${content.source.dir}/copy2clipboard" />
+		</copy>
+		
+		<copy todir="${content.gen.html.dir}/tipsy" encoding="UTF-8">
+			<fileset dir="${content.source.dir}/tipsy" />
 		</copy>
 
 		<xslt in="${content.gen.html.dir}/${sprayhelp.target.html.file}" out="${content.gen.html.dir}/${sprayhelp.target.xhtml.file}" style="${content.source.dir}/${sprayhelp.target.htmlxsl.file}">
