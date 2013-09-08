@@ -1,3 +1,13 @@
+/** ****************************************************************************
+ * Copyright (c)  The Spray Project.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Spray Dev Team - initial API and implementation
+ **************************************************************************** */
 package org.eclipselabs.spray.styles.tests;
 
 import org.eclipse.xtext.formatting.INodeModelFormatter;
@@ -41,15 +51,21 @@ public class StyleFormatterTest {
 			r = formatter.format(rootNode, rootNode.getOffset(),
 					rootNode.getTotalLength());
 		}
-		String formatted = r.getFormattedText()
-				.replaceAll("\\r\\n", "\n")
-				.replaceAll("\\r\\b", "\n")
-				+ getEnding();
+		String formatted = r.getFormattedText();
+		if(!isWindowsEnding()) {
+			formatted = formatted.replaceAll("\r\n", "\n");
+		}
+		formatted = formatted.replaceAll("\r\b", "\n");
+		formatted = formatted + getEnding();
 		expectation.assertEquals(formatted);
 	}
 
 	private String getEnding() {
+		return isWindowsEnding() ? "\r" : "";
+	}
+	
+	private boolean isWindowsEnding() {
 		String ls = System.getProperty("line.separator");
-		return !"\r\n".equals(ls) ? "\r" : "";
+		return "\r\n".equals(ls);
 	}
 }

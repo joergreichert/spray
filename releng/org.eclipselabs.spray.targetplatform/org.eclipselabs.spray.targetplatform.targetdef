@@ -4,15 +4,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 
 	targetFile = org.eclipselabs.spray.targetplatform
 
-	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.0.0/ {
-		de.itemis.xtext.antlr.sdk 2.0.0.v201108011202,
-		de.itemis.xtext.antlr.feature 2.0.0.v201108011202
-	}
-	
 	"Eclipse Kepler" http://download.eclipse.org/releases/kepler {
 		org.eclipse.sdk 4.3.0.v20130605-2000,
 		org.eclipse.pde 3.9.0.v20130605-2000,
-		org.eclipse.emf.sdk 2.9.0.v20130610-0406,
 		org.eclipse.emf.transaction.sdk 1.7.0.201306111400,
 		org.eclipse.emf.eef.sdk-feature 1.2.0.201301111054,
 		org.eclipse.gef.sdk 3.9.0.201305060205,
@@ -25,16 +19,18 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 //		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201306110341
 	}
 
-	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ {
-		org.eclipse.swtbot.eclipse 2.1.1.201307101628,
-		org.eclipse.swtbot.eclipse.gef 2.1.1.201307101628
+	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
+		org.eclipse.emf.sdk 2.9.1.v20130902-0605,
+		org.eclipse.emf.ecore.xcore.sdk 1.1.1.v20130903-0948,
+		org.eclipse.xtext.sdk 2.4.3.v201309030823,
+		org.eclipse.xtend.sdk 2.4.3.v201309030823,
+		org.eclipse.emf.mwe2.language.sdk 2.4.1.v201309030840,
+		org.eclipse.emf.mwe2.runtime.sdk 2.4.1.v201309030422
 	}
 	
-	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
-		org.eclipse.xtext.sdk 2.4.3.v201308291441,
-		org.eclipse.xtend.sdk 2.4.3.v201308291441,
-		org.eclipse.emf.mwe2.language.sdk 2.4.0.v201308291456,
-		org.eclipse.emf.mwe2.runtime.sdk 2.4.0.v201308230823
+	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
+		de.itemis.xtext.antlr.sdk 2.1.0.v201308291703,
+		de.itemis.xtext.antlr.feature 2.1.0.v201308291703
 	}
 	
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
@@ -44,3 +40,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
 		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440
 	}
+	
+	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ {
+		org.eclipse.swtbot.eclipse 2.1.1.201307101628,
+		org.eclipse.swtbot.eclipse.gef 2.1.1.201307101628
+	}
+	

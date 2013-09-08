@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- ***************************************************************************
+ *  Copyright (c)  The Spray Project.
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *  Contributors:
+ *      Spray Dev Team - initial API and implementation
+**************************************************************************** -->
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xslt="http://www.w3.org/1999/XSL/Format"
 	xmlns="http://www.w3.org/1999/XSL/Format" xmlns:old="SprayUserGuide.xml"
@@ -160,6 +170,18 @@
 	<!--========= Formatter ============================================================= -->
 	<!-- Modifying the root node with font-attributes -->
 	<xsl:template match="xslt:root">
+		<xsl:comment>
+			***************************************************************************
+			* Copyright (c) The Spray Project.
+			* All rights reserved. This program and the accompanying materials
+			* are made available under the terms of the Eclipse Public License v1.0
+			* which accompanies this distribution, and is available at
+			* http://www.eclipse.org/legal/epl-v10.html
+			*
+			* Contributors:
+			* Spray Dev Team - initial API and implementation
+			****************************************************************************
+		</xsl:comment>
 		<root font-family="Times" font-size="12pt"
 			xmlns="http://www.w3.org/1999/XSL/Format">
 			<xsl:apply-templates select="@*|node()" />
