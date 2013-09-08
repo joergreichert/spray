@@ -2,24 +2,25 @@
 <?pde version="3.8"?><target name="Spray CI Target" sequenceNumber="8">
 	<locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.0.0.v201108011202"/>
-			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.0.0.v201108011202"/>
-			<unit id="org.eclipse.sdk.feature.group" version="4.3.0.v20130530-1801"/>
-			<unit id="org.eclipse.pde.feature.group" version="3.9.0.v20130530-1553"/>
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.0.v20130603-0742"/>
+			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.0.v201308291703"/>
+			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.1.0.v201308291703"/>
+			<unit id="org.eclipse.sdk.feature.group" version="4.3.0.v20130605-2000"/>
+			<unit id="org.eclipse.pde.feature.group" version="3.9.0.v20130605-2000"/>
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.1.v20130902-0605"/>
 			<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.7.0.201305221412"/>
 			<unit id="org.eclipse.emf.eef.sdk-feature.feature.group" version="1.2.0.201301111054"/>
+			<unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.1.1.v20130903-0948"/>
 			<unit id="org.eclipse.gef.sdk.feature.group" version="3.9.0.201305060205"/>
 			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.0.201305060205"/>
-			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.0.v20130605-1155"/>
+			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.0.v20130612-0936"/>
 			<unit id="org.eclipse.swt" version="3.102.0.v20130530-1600"/>
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.2.v201306040922"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.2.v201306040922"/>
-			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.0.v201306040943"/>
-			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.0.v201306040844"/>
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201306190552" />
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201306190552" />
-			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201306110942"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.3.v201309030823"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.3.v201309030823"/>
+			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.4.1.v201309030840"/>
+			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.4.1.v201309030422"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201307101628"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201307101628"/>
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201308231740"/>
 			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
 			<repository location="https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/"/>
 		</location>
