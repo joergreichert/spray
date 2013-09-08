@@ -5,9 +5,9 @@ TargetDefinition "Spray Obrit Target Platform"
 	targetFile = org.eclipselabs.spray.orbit.targetplatform
 
 	"Orbit" http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/ {
-		org.jdom 1.1.1.v201101151400 noFeature,
-		org.mockito 1.8.4.v201303031500 noFeature,
+		org.jdom noFeature 1.1.1.v201101151400,
+		org.mockito noFeature 1.8.4.v201303031500,
 		// dependency of Mockito
-		org.objenesis 1.0.0.v201105211943 noFeature
+		org.objenesis noFeature 1.0.0.v201105211943
 	}
 	

@@ -21,6 +21,9 @@
 	<feature url="features/org.eclipse.emf.eef.sdk-feature_0.0.0.jar" id="org.eclipse.emf.eef.sdk-feature" version="0.0.0">
 		<category name="3rdparty"/>
 	</feature>
+	<feature url="features/org.eclipse.emf.ecore.xcore.sdk_0.0.0.jar" id="org.eclipse.emf.ecore.xcore.sdk" version="0.0.0">
+		<category name="3rdparty"/>
+	</feature>
 	<feature url="features/org.eclipse.gef.sdk_0.0.0.jar" id="org.eclipse.gef.sdk" version="0.0.0">
 		<category name="3rdparty"/>
 	</feature>
