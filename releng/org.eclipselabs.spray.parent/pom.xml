@@ -396,7 +396,7 @@
 				</property>
 			</activation>
 			<properties>
-				<spray-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-243/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-targetrepository>
+				<spray-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-targetrepository>
 			</properties>
 		</profile>
 		<profile>
