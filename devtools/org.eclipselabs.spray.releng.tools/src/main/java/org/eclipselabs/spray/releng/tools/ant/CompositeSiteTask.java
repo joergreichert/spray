@@ -79,10 +79,7 @@ public class CompositeSiteTask extends Task {
             nodeTimestamp.addAttribute("value", Long.toString(new Date().getTime()));
             
             Element nodeChildren = (Element) doc.selectSingleNode("/repository/children");
-            if (nodeTimestamp==null) {
-                throw new IllegalStateException("Element 'children' not found");
-            }
-            List children = nodeChildren.elements("child");
+            List<?> children = nodeChildren.elements("child");
             int size = children.size();
             
             Element child = nodeChildren.addElement("child");
