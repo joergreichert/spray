@@ -36,7 +36,7 @@ import com.google.inject.Injector;
 @RunWith(ParameterizedXtextRunner.class)
 @InjectWith(StyleTestsInjectorProvider.class)
 @ResourceURIs(files = { "model/contentassist/a.style" })
-public class StyleProposalTest extends AbstractContentAssistProcessorTest {
+public class StyleProposalPluginTest extends AbstractContentAssistProcessorTest {
 	
 	@Override
 	protected ISetup doGetSetup() {

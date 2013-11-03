@@ -13,18 +13,11 @@
 
 	<artifactId>org.eclipselabs.spray.shapes.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
-	<dependencies>
-		<!-- It is important to have JUnit >= 4.7 as dependency to select the right 
-			JUnit Provider see http://maven.apache.org/plugins/maven-surefire-plugin/examples/junit.html -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-		</dependency>
-	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
 					<filesets>
@@ -38,27 +31,23 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>${coverageAgent}</argLine>
-				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>test</id>
-						<phase>test</phase>
-						<configuration>
-							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
-							<excludes>
-							</excludes>
-						</configuration>
+						<id>TychoSurefirePluginTest</id>
+						<phase>none</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>TychoSurefirePluginUITest</id>
+						<phase>none</phase>
 						<goals>
 							<goal>test</goal>
 						</goals>
@@ -68,13 +57,6 @@
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

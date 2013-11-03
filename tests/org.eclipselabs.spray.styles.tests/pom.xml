@@ -13,71 +13,53 @@
 
 	<artifactId>org.eclipselabs.spray.styles.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
-	<dependencies>
-		<!-- It is important to have JUnit >= 4.7 as dependency to select the right 
-			JUnit Provider see http://maven.apache.org/plugins/maven-surefire-plugin/examples/junit.html -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-		</dependency>
-	</dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
-					<argLine>${coverageAgent}</argLine>
-				</configuration>				
-                <executions>
-                    <execution>
-                        <id>test</id>
-                        <phase>test</phase>
-                        <configuration>
-                            <testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
-                            <excludes>
-                            	<exclude>**/ui/tests/**</exclude>
-                            </excludes>
-                        </configuration>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+					<filesets>
+						<fileset>
+							<directory>xtend-gen</directory>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<skip>false</skip>
-					<useUIHarness>true</useUIHarness>
-					<useUIThread>true</useUIThread>
-					<product>org.eclipse.sdk.ide</product>					
-					<argLine>${ui.test.vmargs} ${it.coverage.argLine}</argLine>
-					<product>org.eclipse.sdk.ide</product>
-					<skip>${tycho.surefire.skipUiTest}</skip>
-					<testFailureIgnore>true</testFailureIgnore>
-					<application>org.eclipse.ui.ide.workbench</application>
-					<dependencies>
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.sdk</artifactId>
-							<version>[4.2.0,5.0.0)</version>
-						</dependency>
-					</dependencies>
-					<includes>
-						<include>**/ui/tests/**</include>
-					</includes>
-				</configuration>
-				<goals>
-					<goal>test</goal>
-				</goals>
-			</plugin>            
+				<executions>
+					<!-- 
+					<execution>
+						<id>TychoSurefirePluginTest</id>
+						<phase>none</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+					-->
+					<execution>
+						<id>TychoSurefirePluginUITest</id>
+						<phase>none</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 </project>
