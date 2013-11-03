@@ -25,6 +25,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
+import org.eclipselabs.spray.shapes.tests.util.LineEndingNormalizer
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
@@ -33,27 +34,31 @@ class BusmodSVGGeneratorTest extends XtextTest {
 	
 	@Inject
 	private GeneratorSVGDefinition generatorSVGDefinition
+
+	@Inject
+	private extension LineEndingNormalizer lineEndingNormalizer
 	
 	@Before
 	def void setUp() {
 		val uri = URI::createURI(resourceRoot + "/testcases/svgs/busmod/mydiagram.shape");
         shapeContainer = loadModel(resourceSet, uri, getRootObjectType(uri)) as ShapeContainer;
+		ignoreOsSpecificNewline();
 	}
 	
 	@Test
 	def void testRectangleShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"RectangleShape".matches(sd.name)).head
-		assertEquals("SVG generated for RectangleShape", getExpectedSVGContent("busmod", "RectangleShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for RectangleShape", getExpectedSVGContent("busmod", "RectangleShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	@Test
 	def void testClassShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"ClassShape".matches(sd.name)).head
-		assertEquals("SVG generated for ClassShape", getExpectedSVGContent("busmod", "ClassShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for ClassShape", getExpectedSVGContent("busmod", "ClassShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	@Test
 	def void testTextShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"TextShape".matches(sd.name)).head
-		assertEquals("SVG generated for TextShape", getExpectedSVGContent("busmod", "TextShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for TextShape", getExpectedSVGContent("busmod", "TextShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	
 	def private getExpectedSVGContent(String pathSegment, 
@@ -63,6 +68,6 @@ class BusmodSVGGeneratorTest extends XtextTest {
 		));
 		val expectedSVG = scanner.useDelimiter("\\A").next();
 		scanner.close();
-		expectedSVG
+		expectedSVG.normalizeLineEndings
 	}	
 }
