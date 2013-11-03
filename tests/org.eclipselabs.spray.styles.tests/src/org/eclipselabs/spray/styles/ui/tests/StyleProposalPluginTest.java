@@ -34,7 +34,7 @@ import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
 @RunWith(ParameterizedXtextRunner.class)
-@InjectWith(StyleTestsInjectorProvider.class)
+@InjectWith(StyleUiInjectorProvider.class)
 @ResourceURIs(files = { "model/contentassist/a.style" })
 public class StyleProposalPluginTest extends AbstractContentAssistProcessorTest {
 	
