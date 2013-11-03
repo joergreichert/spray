@@ -10,7 +10,7 @@
  **************************************************************************** */
 package org.eclipselabs.spray.styles.tests;
 
-import org.eclipselabs.spray.styles.ui.tests.StyleProposalTest;
+import org.eclipselabs.spray.styles.ui.tests.StyleProposalPluginTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -21,7 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author Karsten Thoms
  */
 @RunWith(Suite.class)
-@SuiteClasses({ StyleProposalTest.class })
+@SuiteClasses({ StyleProposalPluginTest.class })
 public class AllPluginTests {
 
 }

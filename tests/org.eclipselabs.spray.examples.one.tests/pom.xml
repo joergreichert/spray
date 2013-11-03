@@ -12,57 +12,32 @@
 
 	<artifactId>org.eclipselabs.spray.examples.one.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
-
+	
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<useUIHarness>true</useUIHarness>
-					<useUIThread>true</useUIThread>
-					<product>org.eclipse.sdk.ide</product>
-					<argLine>${ui.test.vmargs} ${it.coverage.argLine} -Dlog4j.configuration=file:${basedir}/log4j.properties</argLine>
-					<product>org.eclipse.sdk.ide</product>
-					<skip>${tycho.surefire.skipUiTest}</skip>
-					<testFailureIgnore>true</testFailureIgnore>
-					<application>org.eclipse.ui.ide.workbench</application>
-					<dependencies>
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.sdk</artifactId>
-							<version>[4.3.0,4.4.0)</version>
-						</dependency>
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.graphiti.sdk.feature.feature.group</artifactId>
-							<version>[0.10.0,0.11.0)</version>
-						</dependency>
-					</dependencies>
-				</configuration>
+				<artifactId>maven-clean-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>${coverageAgent}</argLine>
-				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>test</id>
-						<phase>test</phase>
-						<configuration>
-							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
-							<excludes>
-								<exclude>**/mod4j/**/*</exclude>
-								<exclude>**/one/tests/**/*</exclude>
-							</excludes>
-						</configuration>
+						<id>TychoSurefirePluginTest</id>
+						<phase>none</phase>
 						<goals>
 							<goal>test</goal>
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
