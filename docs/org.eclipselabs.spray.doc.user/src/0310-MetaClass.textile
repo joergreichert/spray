@@ -32,6 +32,8 @@ After having assigned an EClass to the diagram node you get proposals for EClass
 
 As it is a common use case to change and extend the domain meta model beside extending the diagram model changes inside the domain meta model project will be registered and propagated when the Spray file is changed. 
 
+Please note there are currently some issues with recognizing ecore and genmodel files when they are part of existing projects that have been imported into the workspace. So if generation fails a restart of Eclipse will be required to register those files properly.   
+
 h3. Create Behavior
 
 To allow the creation of new MetaClass instances, a _Create Behavior_ must be specified for the class. This is done in the @behavior@ section, starting with the @create@ keyword. Followed by this, the _containment reference_ of the containing EClass (currently always the model root element associated to the Diagram) must be specified. The keyword @into@ is just for readability to specify that the instance will be inserted _into_ the following containment reference.
