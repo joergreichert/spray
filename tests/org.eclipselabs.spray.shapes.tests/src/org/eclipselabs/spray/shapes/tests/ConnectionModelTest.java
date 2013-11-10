@@ -14,12 +14,18 @@ import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipselabs.spray.shapes.tests.util.ShapeTestsInjectorProvider;
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2;
 import org.eclipselabs.xtext.utils.unittesting.XtextTest;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(XtextRunner2.class)
 @InjectWith(ShapeTestsInjectorProvider.class)
 public class ConnectionModelTest extends XtextTest {
+	
+	@Before
+	public void setUp() {
+		ignoreOsSpecificNewline();
+	}
 
     @Test
     public void test_01_DefaultConnection() {
