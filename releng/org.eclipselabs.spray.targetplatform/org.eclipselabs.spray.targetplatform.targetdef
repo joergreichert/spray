@@ -10,6 +10,7 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"Eclipse Kepler" http://download.eclipse.org/releases/kepler {
+		org.eclipse.rcp 4.3.1.v20130911-1000,
 		org.eclipse.sdk 4.3.1.v20130911-1000,
 		org.eclipse.pde 3.9.1.v20130911-1000,
 		org.eclipse.emf.transaction.sdk 1.7.0.201306111400,
@@ -17,7 +18,8 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.gef.sdk 3.9.1.201308190730,
 		org.eclipse.zest.sdk 1.5.1.201308190730 category = Optional,
 		org.eclipse.graphiti.sdk.plus.feature 0.10.1.v20130918-0838,
-		org.eclipse.swt noFeature 3.102.1.v20130827-2021
+		org.eclipse.swt noFeature 3.102.1.v20130827-2021,
+		org.eclipse.equinox.transforms.hook noFeature 1.0.401.v20130327-1442
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {

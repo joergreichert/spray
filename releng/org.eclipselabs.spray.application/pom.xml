@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipselabs.spray</groupId>
+		<artifactId>org.eclipselabs.spray.parent</artifactId>
+		<version>0.5.1-SNAPSHOT</version>
+		<relativePath>../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>org.eclipselabs.spray.application</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>replacer</artifactId>
+						<version>1.5.2</version>
+						<executions>
+							<execution>
+								<id>setMappings</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<file>${basedir}/about.mappings</file>
+									<replacements>
+										<replacement>
+											<token>@TIMESTAMP@</token>
+											<value>${maven.build.timestamp}</value>
+										</replacement>
+										<replacement>
+											<token>@BUILD_ID@</token>
+											<value>${BUILD_NUMBER}</value>
+										</replacement>
+									</replacements>
+								</configuration>
+							</execution>
+							<execution>
+								<id>restoreMappings</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<file>${basedir}/about.mappings</file>
+									<replacements>
+										<replacement>
+											<token>${maven.build.timestamp}</token>
+											<value>@TIMESTAMP@</value>
+										</replacement>
+										<replacement>
+											<token>${BUILD_NUMBER}</token>
+											<value>@BUILD_ID@</value>
+										</replacement>
+									</replacements>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

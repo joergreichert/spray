@@ -12,6 +12,7 @@
 			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.1.201308190730"/>
 			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.1.v20130918-0838"/>
 			<unit id="org.eclipse.swt" version="3.102.1.v20130827-2021"/>
+			<unit id="org.eclipse.equinox.transforms.hook" version="1.0.401.v20130327-1442"/>
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
