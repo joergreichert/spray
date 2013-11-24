@@ -17,7 +17,6 @@ import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
-import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -140,7 +139,7 @@ public abstract class SprayAbstractLayoutManager implements ISprayLayoutManager 
             GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
             if (childGa instanceof Polyline) {
                 // noting ?
-            } else if (childGa instanceof Text) {
+            } else if (childGa instanceof AbstractText) {
                 //                Graphiti.getGaService().setLocation(childGa, childGa.getX() + xOffset, childGa.getY() + yOffset);
             } else {
                 System.out.println("    fixing child " + SprayLayoutService.getId(child) + " old " + childGa.getX() + ", " + childGa.getY() + " offset " + xOffset + ", " + yOffset);

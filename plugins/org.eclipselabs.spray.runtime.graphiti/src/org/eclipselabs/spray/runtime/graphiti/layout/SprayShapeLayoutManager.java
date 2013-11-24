@@ -17,7 +17,7 @@ import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
-import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -50,10 +50,10 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
         GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
         if (data.isVisible()) {
-            if (ga instanceof Text) {
+            if (ga instanceof AbstractText) {
                 int width = 10;
                 int height = 10;
-                Text text = (Text) ga;
+                AbstractText text = (AbstractText) ga;
                 IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), getFont(text));
                 if (dim == null) {
                     width = data.getMinimumWidth();
@@ -84,7 +84,7 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayAbstractLayoutManager.level--;
     }
 
-    protected Font getFont(Text text) {
+    protected Font getFont(AbstractText text) {
         if (text.getFont() != null) {
             return text.getFont();
         } else if (text.getStyle() != null) {

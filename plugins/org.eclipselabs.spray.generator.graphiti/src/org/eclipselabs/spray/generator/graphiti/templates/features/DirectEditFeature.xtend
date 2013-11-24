@@ -57,7 +57,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
         import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractDirectEditingFeature;
@@ -87,7 +87,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
             GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
             // support direct editing, if it is a «metaclass.itfName», and the user clicked
             // directly on the text and not somewhere else in the rectangle
-            if (bo instanceof «metaclass.itfName» && ga instanceof Text) {
+            if (bo instanceof «metaclass.itfName» && ga instanceof AbstractText) {
                 return true;
             }
             // direct editing not supported in all other cases
@@ -134,7 +134,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 	'''   
 	
 	def generate_initialValue(ShapePropertyAssignment[] properties, MetaClass metaclass) '''
-		Text gAlg = (Text) context.getGraphicsAlgorithm();
+		AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
 		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
 			{
@@ -160,7 +160,7 @@ class DirectEditFeature extends FileGenerator<MetaClass> {
 	'''
 	
 	def generate_setValue(ShapePropertyAssignment[] properties, MetaClass metaclass) '''
-		Text gAlg = (Text) context.getGraphicsAlgorithm();
+		AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
 		String id = peService.getPropertyValue(gAlg, TEXT_ID);
 		«FOR property : properties»
 			{

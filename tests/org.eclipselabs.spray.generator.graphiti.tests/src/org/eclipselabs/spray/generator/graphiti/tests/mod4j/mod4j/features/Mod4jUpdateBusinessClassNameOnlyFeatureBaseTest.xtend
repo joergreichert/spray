@@ -47,7 +47,7 @@ class Mod4jUpdateBusinessClassNameOnlyFeatureBaseTest extends AbstractSprayGener
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -106,8 +106,8 @@ class Mod4jUpdateBusinessClassNameOnlyFeatureBaseTest extends AbstractSprayGener
         
             protected boolean checkUpdateNeededRecursively(Shape shape, final BusinessClass eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if (graphicsAlgorithm instanceof Text) {
-                    Text text = (Text) graphicsAlgorithm;
+                if (graphicsAlgorithm instanceof AbstractText) {
+                    AbstractText text = (AbstractText) graphicsAlgorithm;
                     String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
                     if (id != null) {
                         if (id.equals("textId1")) {
@@ -150,8 +150,8 @@ class Mod4jUpdateBusinessClassNameOnlyFeatureBaseTest extends AbstractSprayGener
         
             protected void updateChildrenRecursively(Shape shape, final BusinessClass eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if (graphicsAlgorithm instanceof Text) {
-                    Text text = (Text) graphicsAlgorithm;
+                if (graphicsAlgorithm instanceof AbstractText) {
+                    AbstractText text = (AbstractText) graphicsAlgorithm;
                     String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
                     if (id != null) {
                         if (id.equals("textId1")) {

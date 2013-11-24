@@ -61,7 +61,7 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -153,8 +153,8 @@ class UpdateConnectionFromDslFeature extends FileGenerator<ConnectionInSpray>  {
     
 	def generate_searchChilds(ConnectionInSpray connection) '''
     	protected void searchChilds(GraphicsAlgorithm gAlg, «connection.represents.itfName» eClass, List<String> changedTypes, boolean performUpdate) {
-    		if(gAlg instanceof Text) {
-    			Text text = (Text) gAlg;
+    		if(gAlg instanceof AbstractText) {
+    			AbstractText text = (AbstractText) gAlg;
     			String id = peService.getPropertyValue(gAlg, TEXT_ID);
     			«connection.properties.map[generate_setTextValue(connection)].join()»
     		} else {

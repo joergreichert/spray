@@ -46,7 +46,7 @@ class Mod4jDirectEditPackageFeatureBaseTest extends AbstractSprayGeneratorTest {
         import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractDirectEditingFeature;
@@ -69,7 +69,7 @@ class Mod4jDirectEditPackageFeatureBaseTest extends AbstractSprayGeneratorTest {
                 GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
                 // support direct editing, if it is a samplepackage.Package, and the user clicked
                 // directly on the text and not somewhere else in the rectangle
-                if (bo instanceof samplepackage.Package && ga instanceof Text) {
+                if (bo instanceof samplepackage.Package && ga instanceof AbstractText) {
                     return true;
                 }
                 // direct editing not supported in all other cases
@@ -84,7 +84,7 @@ class Mod4jDirectEditPackageFeatureBaseTest extends AbstractSprayGeneratorTest {
                 // return the initial value of the clicked text on the samplepackage.Package
                 PictogramElement pe = context.getPictogramElement();
                 samplepackage.Package eClass = (samplepackage.Package) getBusinessObjectForPictogramElement(pe);
-                Text gAlg = (Text) context.getGraphicsAlgorithm();
+                AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
                 String id = peService.getPropertyValue(gAlg, TEXT_ID);
                 return "";
             }
@@ -105,7 +105,7 @@ class Mod4jDirectEditPackageFeatureBaseTest extends AbstractSprayGeneratorTest {
                 // set the new value on the samplepackage.Package
                 final PictogramElement pe = context.getPictogramElement();
                 samplepackage.Package eClass = (samplepackage.Package) getBusinessObjectForPictogramElement(pe);
-                Text gAlg = (Text) context.getGraphicsAlgorithm();
+                AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
                 String id = peService.getPropertyValue(gAlg, TEXT_ID);
                 updatePictogramElement(pe);
             }
