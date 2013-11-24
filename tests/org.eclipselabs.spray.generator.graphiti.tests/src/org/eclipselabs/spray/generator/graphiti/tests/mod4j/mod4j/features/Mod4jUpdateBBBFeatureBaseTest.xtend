@@ -127,7 +127,7 @@ class Mod4jUpdateBBBFeatureBaseTest extends AbstractSprayGeneratorTest {
                 final BusinessRule eClass = (BusinessRule) getBusinessObjectForPictogramElement(pictogramElement);
                 if (pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
-                    updateChildsRecursively(shape, eClass);
+                    updateChildrenRecursively(shape, eClass);
                     Shape top = findTopShape(shape);
                     SprayLayoutService.getLayoutManager(top).layout();
                 }
@@ -135,14 +135,14 @@ class Mod4jUpdateBBBFeatureBaseTest extends AbstractSprayGeneratorTest {
         
             }
         
-            protected void updateChildsRecursively(Shape shape, final BusinessRule eClass) {
+            protected void updateChildrenRecursively(Shape shape, final BusinessRule eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
                 if (graphicsAlgorithm instanceof Text) {
                 }
         
                 if (shape instanceof ContainerShape) {
                     for (Shape child : ((ContainerShape) shape).getChildren()) {
-                        updateChildsRecursively(child, eClass);
+                        updateChildrenRecursively(child, eClass);
                     }
                 }
             }

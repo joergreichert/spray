@@ -82,7 +82,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             «generate_updateNeeded(container)»
             «generate_checkUpdateNeededRecursively(container)»
             «generate_update(container)»
-            «generate_updateChildsRecursively(container)»
+            «generate_updateChildrenRecursively(container)»
             «generate_additionalMethods(container)»
         }
         '''
@@ -167,7 +167,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 final «container.represents.itfName» eClass = («container.represents.itfName») getBusinessObjectForPictogramElement(pictogramElement);
                 if(pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
-                    updateChildsRecursively(shape, eClass);
+                    updateChildrenRecursively(shape, eClass);
                     Shape top = findTopShape(shape);
                     SprayLayoutService.getLayoutManager(top).layout();
                 }
@@ -176,8 +176,8 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             }
         '''
             
-        def generate_updateChildsRecursively(ShapeFromDsl container) '''
-            protected void updateChildsRecursively(Shape shape, final «container.represents.itfName» eClass) {
+        def generate_updateChildrenRecursively(ShapeFromDsl container) '''
+            protected void updateChildrenRecursively(Shape shape, final «container.represents.itfName» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
                 if(graphicsAlgorithm instanceof Text) {
                     «IF !container.properties.empty»
@@ -201,7 +201,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 
                 if (shape instanceof ContainerShape) {
                     for(Shape child : ((ContainerShape) shape).getChildren()) {
-                        updateChildsRecursively(child, eClass);
+                        updateChildrenRecursively(child, eClass);
                     }
                 }
             }
