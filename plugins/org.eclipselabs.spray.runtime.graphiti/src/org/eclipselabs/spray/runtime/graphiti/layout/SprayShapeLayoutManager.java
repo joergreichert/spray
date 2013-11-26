@@ -11,13 +11,15 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
-import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -50,10 +52,35 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
         GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
         if (data.isVisible()) {
-            if (ga instanceof AbstractText) {
+            if (ga instanceof MultiText) {
+            	// http://www.eclipse.org/forums/index.php/mv/msg/203421/658899/#msg_658899
                 int width = 10;
                 int height = 10;
-                AbstractText text = (AbstractText) ga;
+                MultiText text = (MultiText) ga;
+                IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), getFont(text));
+                if (dim == null) {
+                    width = data.getMinimumWidth();
+                    height = data.getMinimumHeight();
+                } else {
+                	String value = text.getValue();
+                	int textHeight = dim.getHeight();
+                	int currentWidth = data.getMinimumWidth();
+                	int currentHeight = data.getMinimumHeight();
+                	int maxCharsPerLine = Math.round((currentHeight / 15) * ((12 * currentWidth) / 90 ));
+                	int valueLength = value.length();
+                	int rowCount = Math.round(valueLength / maxCharsPerLine);
+                    width = data.getMinimumWidth();
+                    height = rowCount * textHeight;
+                }
+                width = data.getMinimumWidth();
+                height = data.getMinimumHeight();
+                int newWidth = width + (2 * MARGIN);
+                int newHeight = height + (2 * MARGIN);
+                layoutService.setSize(ga, newWidth, newHeight);
+            } else if (ga instanceof Text) {
+                int width = 10;
+                int height = 10;
+                Text text = (Text) ga;
                 IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), getFont(text));
                 if (dim == null) {
                     width = data.getMinimumWidth();
