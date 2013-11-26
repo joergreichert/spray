@@ -2,12 +2,11 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-<!--
    <extension
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="org.eclipselabs.spray.application"
+            application="org.eclipselabs.spray.application.application"
             name="%productName">
          <property
                name="windowImages"
@@ -47,5 +46,5 @@
          </property>
       </product>
    </extension>
--->
+   
 </plugin>

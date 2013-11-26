@@ -22,6 +22,10 @@
    </url>
 
    <includes
+         id="org.eclipse.equinox.executable"
+         version="0.0.0"/>
+
+   <includes
          id="org.eclipse.emf.workspace"
          version="0.0.0"/>
 
@@ -670,5 +674,18 @@
          version="0.0.0"
          fragment="true"
          unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.spray.application"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.spray.product"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
