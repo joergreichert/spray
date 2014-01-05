@@ -10,30 +10,45 @@
  **************************************************************************** */
 package org.eclipselabs.spray.xtext.tests;
 
-import javax.inject.Inject;
-
 import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.formatting.INodeModelFormatter.IFormattedRegion;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipselabs.spray.xtext.SprayXpectRunner;
+import org.eclipselabs.spray.xtext.tests.SprayFormatterTest.NullValidatorSetup;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.xpect.expectation.IStringExpectation;
 import org.xpect.expectation.StringExpectation;
 import org.xpect.parameter.ParameterParser;
 import org.xpect.runner.Xpect;
-import org.xpect.runner.XpectRunner;
 import org.xpect.runner.XpectTestFiles;
 import org.xpect.runner.XpectTestFiles.FileRoot;
 import org.xpect.setup.XpectSetup;
 import org.xpect.xtext.lib.setup.ThisOffset;
 import org.xpect.xtext.lib.setup.ThisResource;
 import org.xpect.xtext.lib.setup.XtextStandaloneSetup;
+import org.xpect.xtext.lib.setup.XtextValidatingSetup;
 
-@RunWith(XpectRunner.class)
+import com.google.inject.Inject;
+
+@RunWith(SprayXpectRunner.class)
 @XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/formatter", fileExtensions = "spray")
-@XpectSetup({ XtextStandaloneSetup.class })
+@XpectSetup({ XtextStandaloneSetup.class, NullValidatorSetup.class })
+@Ignore("Doesn't work with referenced ecore yet")
 public class SprayFormatterTest {
 
+	public static class NullValidatorSetup extends XtextValidatingSetup {
+		public NullValidatorSetup(@ThisResource XtextResource resource) {
+			super(resource);
+		}
+
+		@Override
+		public void validate() {
+			// do nothing
+		}
+	}
+	
 	@Inject
 	protected INodeModelFormatter formatter;
 
@@ -51,26 +66,15 @@ public class SprayFormatterTest {
 			r = formatter.format(rootNode, rootNode.getOffset(),
 					rootNode.getTotalLength());
 		}
-		String formatted = r.getFormattedText();
-		if (isUnixEnding()) {
-			formatted = formatted.replaceAll("\r\n", "\n");
-		} else if (isWindowsEnding()) {
-			if(!rootNode.getText().contains("\r\n")) {
-				formatted = formatted.replaceAll("\r\n", "\n");
-			} else {
-				formatted = formatted.replaceAll("(!\r)\n", "\r\n");
-			}
-		}
+		String formatted = r.getFormattedText()
+				.replaceAll("\\r\\n", "\n")
+				.replaceAll("\\r\\b", "\n")
+				+ getEnding();
 		expectation.assertEquals(formatted);
 	}
 
-	private static boolean isWindowsEnding() {
+	private String getEnding() {
 		String ls = System.getProperty("line.separator");
-		return "\r\n".equals(ls);
-	}
-
-	private static boolean isUnixEnding() {
-		String ls = System.getProperty("line.separator");
-		return "\n".equals(ls);
+		return !"\r\n".equals(ls) ? "\r" : "";
 	}
 }

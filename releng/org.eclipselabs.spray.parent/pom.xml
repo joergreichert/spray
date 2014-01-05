@@ -40,9 +40,10 @@
 		<maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
-		<fornax-oaw-m2-plugin.version>3.5.1</fornax-oaw-m2-plugin.version>
-		<xtend-maven-plugin.version>2.4.3</xtend-maven-plugin.version>
-		<xtend-library.version>2.4.3</xtend-library.version>
+		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
+		<xtend-maven-plugin-version>2.5.0</xtend-maven-plugin-version>
+		<xtend-library-version>2.5.0</xtend-library-version>
+		<xtext-version>2.5.0</xtext-version>
 		<jacoco-maven-plugin.version>0.6.3.201306030806</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
 		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>
@@ -58,11 +59,6 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>${project.build.directory}/xtext</directory>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -117,13 +113,6 @@
 						</fileset>
 					</filesets>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-utils</artifactId>
-						<version>3.0.17</version>
-					</dependency>					
-				</dependencies>	
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -133,7 +122,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			<!--plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>${maven-antrun-plugin.version}</version>
@@ -179,7 +168,7 @@
 						<version>${ant-nodeps.version}</version>                                   
 					</dependency>
 				</dependencies>
-			</plugin-->			
+			</plugin>			
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -349,27 +338,6 @@
 					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
-					<executions>
-						<execution>
-							<id>copy-resources</id>
-							<phase>initialize</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${project.build.directory}/xtext</outputDirectory>
-								<resources>
-									<resource>
-										<directory>src</directory>
-										<includes>
-											<include>**/*.xtext</include>
-											<include>**/*.mwe2</include>
-										</includes>
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -510,56 +478,61 @@
 					<version>${eclipse-signing-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.fornax.toolsupport</groupId>
-					<artifactId>fornax-oaw-m2-plugin</artifactId>
-					<version>${fornax-oaw-m2-plugin.version}</version>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${exec-maven-plugin-version}</version>
 					<executions>
 						<execution>
-							<id>xtext</id>
 							<phase>generate-sources</phase>
 							<goals>
-								<goal>run-workflow</goal>
-							</goals>
-							<configuration>
-								<skip>${skip.mwe2}</skip>
-								<workflowEngine>mwe2</workflowEngine>
-								<workflowDescriptor>${mwe2descriptor}</workflowDescriptor>
-								<timestampFileName>xtext-generator.timestamp</timestampFileName>
-								<jvmSettings>
-									<fork>true</fork>
-									<jvmArgs>
-										<jvmArg>${encodingArgs}</jvmArg>
-										<jvmArg>-Xms100m</jvmArg>
-										<jvmArg>-Xmx700m</jvmArg>
-										<jvmArg>-XX:MaxPermSize=128m</jvmArg>
-										<jvmArg>${loggingArgs}</jvmArg>
-									</jvmArgs>
-								</jvmSettings>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.xtend</groupId>
-					<artifactId>xtend-maven-plugin</artifactId>
-					<version>${xtend-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>compile</goal>
+								<goal>java</goal>
 							</goals>
 						</execution>
 					</executions>
 					<configuration>
-						<!-- need to prefix by basedir to generate to currently built module -->
-						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+						<skip>${skip.mwe2}</skip>
+						<includeProjectDependencies>false</includeProjectDependencies>
+						<includePluginDependencies>true</includePluginDependencies>
+						<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
+						<arguments>
+							<argument>file://${project.basedir}/${mwe2.relative.path}</argument>
+						</arguments>
 					</configuration>
 					<dependencies>
-						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" classpath container -->
+						<dependency>
+							<groupId>org.eclipse.xtext</groupId>
+							<artifactId>org.eclipse.xtext.xtext</artifactId>
+							<version>${xtext-version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.eclipse.xtext</groupId>
+							<artifactId>org.eclipse.xtext.xbase</artifactId>
+							<version>${xtext-version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtend-maven-plugin-version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>xtend-install-debug-info</goal>
+								<goal>testCompile</goal>
+								<goal>xtend-test-install-debug-info</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<outputDirectory>${project.basedir}/xtend-gen</outputDirectory>
+					</configuration>
+					<dependencies>
 						<dependency>
 							<groupId>org.eclipse.xtend</groupId>
 							<artifactId>org.eclipse.xtend.lib</artifactId>
-							<version>${xtend-library.version}</version>
+							<version>${xtend-library-version}</version>
 							<type>pom</type>
 						</dependency>
 					</dependencies>

@@ -14,32 +14,24 @@
 
 	<properties>
 		<skip.mwe2>false</skip.mwe2>
-		<mwe2descriptor>org.eclipselabs.spray.example.one.SprayGenerator</mwe2descriptor>
-		<loggingArgs>-Dlog4j.configuration=file:${basedir}/../../../releng/org.eclipselabs.spray.parent/log4j.xml</loggingArgs>
+		<mwe2.relative.path>src/SprayGenerator.mwe2</mwe2.relative.path>
 	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.fornax.toolsupport</groupId>
-				<artifactId>fornax-oaw-m2-plugin</artifactId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-				<configuration>
-				    <verbose>true</verbose>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

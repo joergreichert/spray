@@ -1,0 +1,131 @@
+@Ecore(nsURI="http://code.google.com/a/eclipselabs.org/p/spray")
+@GenModel(modelDirectory="/org.eclipselabs.spray.mm/emf-gen", forceOverwrite="true", modelName="Spray", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
+package org.eclipselabs.spray.mm.spray
+
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EReference
+import org.eclipselabs.spray.shapes.ConnectionDefinition
+import org.eclipselabs.spray.shapes.ShapeDefinition
+import org.eclipselabs.spray.styles.Style
+import org.eclipse.xtext.common.types.JvmEnumerationLiteral
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.xbase.XExpression
+
+class Diagram extends NamedElement {
+	contains Import[] imports
+	refers EClass[1] modelType
+	contains BehaviorGroup[] behaviourGroups
+	contains MetaClass[] metaClasses opposite diagram
+	contains SprayStyleRef style
+}
+
+abstract class ShapeInSpray extends SprayElement , AliasableElement {
+	container MetaClass represents opposite representedBy
+}
+
+abstract class SprayElement {
+}
+
+class ConnectionInSpray extends ShapeInSpray {
+	refers EReference from
+	refers EReference to
+	contains ConnectionReference connection
+	contains ShapePropertyAssignment[] properties
+}
+
+class MetaClass extends AliasableElement {
+	contains ShapeInSpray representedBy opposite represents
+	container Diagram diagram opposite metaClasses
+	contains MetaReference[] references opposite metaClass
+	String icon
+	contains Behavior[] behaviors opposite metaClass
+	refers BehaviorGroup[] behaviorGroups
+	refers EClass[1] ^type
+	refers Style hasStyle
+	contains SprayStyleRef style
+}
+
+class MetaReference extends SprayElement {
+	contains ConnectionInSpray representedBy
+	container MetaClass metaClass opposite references
+	refers EReference[1] target
+}
+
+enum Figure {
+}
+
+abstract class Behavior {
+	String name = ""
+	container MetaClass metaClass opposite behaviors
+	String label = ""
+	String paletteCompartment
+	contains JvmTypeReference realizedBy
+}
+
+class CreateBehavior extends Behavior {
+	refers EReference containmentReference
+	refers EAttribute askFor
+}
+
+class CustomBehavior extends Behavior {
+}
+
+class BehaviorGroup extends SprayElement , NamedElement {
+	contains Behavior[] behaviors
+}
+
+class Import {
+	String[1] importedNamespace
+}
+
+interface NamedElement {
+	String name
+}
+
+interface AliasableElement {
+	String alias
+}
+
+class ShapeFromDsl extends ShapeInSpray {
+	contains ShapePropertyAssignment[] properties
+	contains ShapeCompartmentAssignment[] references opposite shape
+	contains ShapeReference shape
+}
+
+class ShapePropertyAssignment {
+	contains ShapeDslKey key
+	contains XExpression value
+	refers EAttribute attribute
+}
+
+class SprayStyleRef {
+	contains JvmTypeReference javaStyle
+	refers Style dslStyle
+}
+
+class CompartmentBehavior extends Behavior {
+	refers EReference[] compartmentReference
+}
+
+class ShapeCompartmentAssignment {
+	contains XExpression value
+	refers EReference reference
+	container ShapeFromDsl shape opposite references
+	contains ShapeDslKey shapeDslKey
+}
+
+class ShapeReference {
+	refers ShapeDefinition dslShape
+	contains JvmTypeReference jvmShape
+}
+
+class ConnectionReference {
+	contains JvmTypeReference jvmConnection
+	refers ConnectionDefinition dslConnection
+}
+
+class ShapeDslKey {
+	refers JvmEnumerationLiteral jvmKey
+	String dslKey
+}
