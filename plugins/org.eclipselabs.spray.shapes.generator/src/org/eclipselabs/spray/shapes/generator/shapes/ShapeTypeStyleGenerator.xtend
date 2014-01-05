@@ -72,7 +72,7 @@ class ShapeTypeStyleGenerator {
             «attName».setForeground(gaService.manageColor(diagram,«ssl.layout.lineColor.createColorValue»));
         «ENDIF»
         «IF(ssl.layout.lineStyle != null && ssl.layout.lineStyle != LineStyle::NULL)»
-            «attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.name»);
+            «attName».setLineStyle(LineStyle.«ssl.layout.lineStyle.getName»);
         «ENDIF»
         «IF(ssl.layout.lineWidth != Integer::MIN_VALUE)»
             «attName».setLineWidth(«ssl.layout.lineWidth»);

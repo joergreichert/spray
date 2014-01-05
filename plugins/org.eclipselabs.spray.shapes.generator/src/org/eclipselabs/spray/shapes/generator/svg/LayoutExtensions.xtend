@@ -409,7 +409,7 @@ class LayoutExtensions {
     
     // Colors
     def dispatch color (RGBColor color) '''#«color.red.toHexString»«color.green.toHexString»«color.blue.toHexString»'''
-    def dispatch color (ColorConstantRef color) { color.value.name }
+    def dispatch color (ColorConstantRef color) { color.value.getName }
     def dispatch color (ColorWithTransparency color) { "white" }
     def hasTransparency (ShapestyleLayout ssl) { ssl.layout.transparency != Double::MIN_VALUE }
     def transparency (ShapestyleLayout ssl) { ssl.layout.transparency }

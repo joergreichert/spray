@@ -21,12 +21,12 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
-		org.eclipse.emf.sdk 2.9.1.v20130902-0605,
-		org.eclipse.emf.ecore.xcore.sdk 1.1.1.v20130903-0948 category = Optional,
-		org.eclipse.xtext.sdk 2.4.3.v201309030823,
-		org.eclipse.xtend.sdk 2.4.3.v201309030823,
-		org.eclipse.emf.mwe2.language.sdk 2.4.1.v201309030840,
-		org.eclipse.emf.mwe2.runtime.sdk 2.4.1.v201309030422
+		org.eclipse.emf.sdk 2.9.2.v20131212-0558,
+		org.eclipse.emf.ecore.xcore.sdk 1.1.2.v20131212-0836 category = Optional,
+		org.eclipse.xtext.sdk 2.5.0.v201312110906,
+		org.eclipse.xtend.sdk 2.5.0.v201312110906,
+		org.eclipse.emf.mwe2.language.sdk 2.5.0.v201312110944,
+		org.eclipse.emf.mwe2.runtime.sdk 2.5.0.v201312110307
 	}
 
 	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
@@ -35,11 +35,11 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
-		org.xpect.sdk 0.1.0.201310081935 category = Testing
+		org.xpect.sdk 0.1.0.201312181904
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
-		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440  category = Testing
+		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440 category = Testing
 	}
 
 	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ category = Testing {

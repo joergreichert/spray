@@ -4,6 +4,8 @@ import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
+var project = "../../plugins/org.eclipselabs.spray.styles.mm"
+
 Workflow {
 	bean = StandaloneSetup {
 		scanClassPath = true 
@@ -32,17 +34,26 @@ Workflow {
 			from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 			to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 		}
-		registerGenModelFile = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
-		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-		registerGenModelFile = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
+        registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+        registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+        registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 	}
 
 	component = DirectoryCleaner {
-		directory="emf-gen"
+		directory="${project}/emf-gen"
 	}
 	
-	component = org.eclipse.emf.mwe2.ecore.EcoreGenerator {
-		genModel = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
-		srcPath ="platform:/resource/org.eclipselabs.spray.styles.mm/src"
+    component = org.eclipselabs.spray.generator.common.XcoreReader {
+    	register = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+		path = "${project}/model"
+		slot = "model"
+	}
+	
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+		slot = 'model'
+		outlet = {
+			path = "${project}/emf-gen"
+		}
 	}
 }

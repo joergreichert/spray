@@ -14,20 +14,20 @@
 
 	<properties>
 		<skip.mwe2>false</skip.mwe2>
-		<mwe2descriptor>org.eclipselabs.spray.xtext.GenerateSpray</mwe2descriptor>
+		<mwe2.relative.path>src/org/eclipselabs/spray/xtext/GenerateSpray.mwe2</mwe2.relative.path>
 	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.fornax.toolsupport</groupId>
-				<artifactId>fornax-oaw-m2-plugin</artifactId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>

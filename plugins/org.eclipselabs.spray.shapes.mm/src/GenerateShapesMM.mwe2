@@ -4,6 +4,8 @@ import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
+var project = "../../plugins/org.eclipselabs.spray.shapes.mm"
+
 Workflow {
 	bean = StandaloneSetup {
 		scanClassPath = true 
@@ -47,11 +49,20 @@ Workflow {
 	}
 
 	component = DirectoryCleaner {
-		directory="emf-gen"
+		directory="${project}/emf-gen"
 	}
 	
-	component = org.eclipse.emf.mwe2.ecore.EcoreGenerator {
-		genModel = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shape.genmodel"
-		srcPath ="platform:/resource/org.eclipselabs.spray.shapes.mm/src"
+    component = org.eclipselabs.spray.generator.common.XcoreReader {
+    	register = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+		path = "${project}/model"
+		slot = "model"
+	}
+	
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+		slot = 'model'
+		outlet = {
+			path = "${project}/emf-gen"
+		}
 	}
 }

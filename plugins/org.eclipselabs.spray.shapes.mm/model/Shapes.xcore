@@ -1,0 +1,290 @@
+@Ecore(nsURI="http://www.eclipselabs.org/spray/shapes/Shape")
+@GenModel(modelDirectory="/org.eclipselabs.spray.shapes.mm/emf-gen", forceOverwrite="true", modelName="Shape", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
+package org.eclipselabs.spray.shapes
+
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipselabs.spray.styles.Style
+import org.eclipselabs.spray.styles.StyleLayout
+
+class ShapeContainer {
+	contains Import[] imports
+	contains ShapeContainerElement[] shapeContainerElement
+}
+
+class Import {
+	String importedNamespace
+}
+
+class ShapeContainerElement {
+	String name
+	contains ShapeStyleRef style
+}
+
+class ConnectionDefinition extends ShapeContainerElement {
+	ConnectionStyle connectionStyle
+	contains ShapestyleLayout layout
+	contains PlacingDefinition[] placing
+}
+
+class ShapeDefinition extends ShapeContainerElement {
+	contains ShapeLayout shapeLayout
+	contains Shape[] shape
+	contains Description description
+	contains Anchor anchor
+}
+
+class PlacingDefinition {
+	double offset = "4.9E-324"
+	int distance
+	int angle
+	contains ShapeConnection shapeCon
+}
+
+class Anchor {
+	contains AnchorType ^type
+}
+
+class AnchorType {
+}
+
+class AnchorPredefinied extends AnchorType {
+	AnchorPredefiniedEnum value
+}
+
+class AnchorManual extends AnchorType {
+	contains AnchorPosition[] position
+}
+
+class AnchorPosition {
+	contains AnchorPositionPos pos
+}
+
+class AnchorPositionPos {
+}
+
+class AnchorRelativePosition extends AnchorPositionPos {
+	double xoffset
+	double yoffset
+}
+
+class AnchorFixPointPosition extends AnchorPositionPos {
+	int xcor
+	int ycor
+}
+
+class Shape {
+	contains ShapeStyleRef style
+}
+
+class ShapeConnection {
+	contains ShapeStyleRef style
+}
+
+class CDLine extends ShapeConnection {
+	contains LineLayout layout
+}
+
+class CDPolyline extends ShapeConnection {
+	contains PolyLineLayout layout
+}
+
+class CDRectangle extends ShapeConnection {
+	contains RectangleEllipseLayout layout
+}
+
+class CDRoundedRectangle extends ShapeConnection {
+	contains RoundedRectangleLayout layout
+}
+
+class CDPolygon extends ShapeConnection {
+	contains PolyLineLayout layout
+}
+
+class CDEllipse extends ShapeConnection {
+	contains RectangleEllipseLayout layout
+}
+
+class CDText extends ShapeConnection {
+	TextType texttype
+	contains TextLayout layout
+	contains TextBody body
+}
+
+class Line extends Shape {
+	contains LineLayout layout
+}
+
+class Polyline extends Shape {
+	contains PolyLineLayout layout
+}
+
+class Rectangle extends Shape {
+	contains CompartmentInfo compartmentInfo
+	contains RectangleEllipseLayout layout
+	contains Shape[] shape
+}
+
+class RoundedRectangle extends Shape {
+	contains RoundedRectangleLayout layout
+	contains Shape[] shape
+}
+
+class Polygon extends Shape {
+	contains PolyLineLayout layout
+	contains Shape[] shape
+}
+
+class Ellipse extends Shape {
+	contains CompartmentInfo compartmentInfo
+	contains RectangleEllipseLayout layout
+	contains Shape[] shape
+}
+
+class Text extends Shape {
+	TextType texttype
+	contains TextLayout layout
+	contains TextBody body
+}
+
+class CompartmentInfo {
+	CompartmentLayout compartmentLayout
+	Boolean stretchH
+	Boolean stretchV
+	int spacing
+	int margin
+	boolean invisible
+	contains TextBody ^id
+}
+
+enum CompartmentLayout {
+	FIXED as "fixed"
+	VERTICAL as "vertical" = 1
+	HORIZONTAL as "horizontal" = 2
+	FIT as "fit" = 3
+}
+
+class Compartment {
+	CompartmentLayout compartmentLayout
+	contains CompartmentShape shape
+}
+
+class CompartmentShape {
+	contains RectangleEllipseLayout layout
+	contains TextBody ^id
+}
+
+class CompartmentRectangle extends CompartmentShape {
+}
+
+class CompartmentRoundedRectangle {
+	contains RoundedRectangleLayout layout
+	contains TextBody ^id
+}
+
+class CompartmentPolygon {
+	contains PolyLineLayout layout
+	contains TextBody ^id
+}
+
+class CompartmentEllipse extends CompartmentShape {
+}
+
+class Description {
+	contains ShapeStyleRef style
+	HAlign hAlign
+	VAlign vAlign
+	contains TextBody body
+}
+
+class ShapeLayout {
+	int minwidth
+	int minheight
+	int maxwidth
+	int maxheight
+	Boolean stretchH
+	Boolean stretchV
+	Boolean proportional
+}
+
+class RectangleEllipseLayout {
+	contains CommonLayout common
+	contains ShapestyleLayout layout
+}
+
+class LineLayout {
+	contains Point[] point
+	contains ShapestyleLayout layout
+}
+
+class PolyLineLayout {
+	contains Point[] point
+	contains ShapestyleLayout layout
+}
+
+class RoundedRectangleLayout {
+	contains CommonLayout common
+	int curveWidth
+	int curveHeight
+	contains ShapestyleLayout layout
+}
+
+class TextLayout {
+	contains CommonLayout common
+	HAlign hAlign
+	VAlign vAlign
+	contains ShapestyleLayout layout
+}
+
+class ShapestyleLayout {
+	contains StyleLayout layout
+}
+
+class ShapeStyleRef {
+	contains JvmTypeReference javaStyle
+	refers Style dslStyle
+}
+
+class CommonLayout {
+	int xcor
+	int ycor
+	int width
+	int heigth
+}
+
+class TextBody {
+	String value
+}
+
+class Point {
+	int xcor
+	int ycor
+	int curveBefore
+	int curveAfter
+}
+
+enum HAlign {
+	LEFT as "left"
+	CENTER as "center" = 1
+	RIGHT as "right" = 2
+}
+
+enum VAlign {
+	TOP as "top"
+	MIDDLE as "middle" = 1
+	BOTTOM as "bottom" = 2
+}
+
+enum ConnectionStyle {
+	freeform
+	manhatten = 1
+}
+
+enum AnchorPredefiniedEnum {
+	center
+	corners = 1
+}
+
+enum TextType {
+	^default as "text"
+	multiline as "wrapped-text" = 1
+}

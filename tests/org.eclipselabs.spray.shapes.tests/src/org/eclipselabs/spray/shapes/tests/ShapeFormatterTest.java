@@ -14,6 +14,7 @@ import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.formatting.INodeModelFormatter.IFormattedRegion;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipselabs.spray.shapes.tests.ShapeFormatterTest.NullValidatorSetup;
 import org.junit.runner.RunWith;
 import org.xpect.expectation.IStringExpectation;
 import org.xpect.expectation.StringExpectation;
@@ -25,14 +26,27 @@ import org.xpect.runner.XpectTestFiles.FileRoot;
 import org.xpect.setup.XpectSetup;
 import org.xpect.xtext.lib.setup.ThisOffset;
 import org.xpect.xtext.lib.setup.ThisResource;
+import org.xpect.xtext.lib.setup.XtextStandaloneSetup;
+import org.xpect.xtext.lib.setup.XtextValidatingSetup;
 
 import com.google.inject.Inject;
 
 @RunWith(XpectRunner.class)
 @XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/formatter", fileExtensions = "shape")
-@XpectSetup({ XtextStandaloneSetupWithoutValidate.class })
+@XpectSetup({ XtextStandaloneSetup.class, NullValidatorSetup.class })
 public class ShapeFormatterTest {
 
+	public static class NullValidatorSetup extends XtextValidatingSetup {
+		public NullValidatorSetup(@ThisResource XtextResource resource) {
+			super(resource);
+		}
+
+		@Override
+		public void validate() {
+			// do nothing
+		}
+	}	
+	
 	@Inject
 	protected INodeModelFormatter formatter;
 

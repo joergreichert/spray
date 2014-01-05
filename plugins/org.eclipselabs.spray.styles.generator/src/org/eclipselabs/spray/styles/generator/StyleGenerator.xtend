@@ -265,7 +265,7 @@ class StyleGenerator extends FileGenerator<Style> {
                     style.setLineWidth(«Math::max(l.lineWidth, 1)»);
                 «ENDIF»
                 «IF l.lineStyle != LineStyle::NULL»
-                    style.setLineStyle(LineStyle.«l.lineStyle.name»);
+                    style.setLineStyle(LineStyle.«l.lineStyle.getName»);
                 «ENDIF»
             «ENDIF»
         '''
@@ -321,7 +321,7 @@ class StyleGenerator extends FileGenerator<Style> {
     }
 
     def dispatch createColorValue(ColorConstantRef c) {
-        '''IColorConstant.«c.value.name»'''
+        '''IColorConstant.«c.value.getName»'''
     }
 
     def dispatch createColorValue(RGBColor c) {
@@ -360,12 +360,12 @@ class StyleGenerator extends FileGenerator<Style> {
 
     def mapGradientOrientation(GradientAllignment ga) {
         if (ga == null) {
-            '''IGradientType.«GradientAllignment::VERTICAL.name»'''
+            '''IGradientType.«GradientAllignment::VERTICAL.getName»'''
         } else {
             if (ga == GradientAllignment::HORIZONTAL) {
-                '''IGradientType.«GradientAllignment::HORIZONTAL.name»'''
+                '''IGradientType.«GradientAllignment::HORIZONTAL.getName»'''
             } else {
-                '''IGradientType.«GradientAllignment::VERTICAL.name»'''
+                '''IGradientType.«GradientAllignment::VERTICAL.getName»'''
             }
         }
     }
