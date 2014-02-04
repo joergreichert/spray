@@ -36,7 +36,8 @@ Require-Bundle: org.eclipselabs.spray.styles;visibility:=reexport,
  org.eclipse.emf.ecore.editor;bundle-version="2.6.0",
  org.eclipse.core.expressions;bundle-version="3.4.300"
 Import-Package: org.apache.commons.logging,
- org.apache.log4j
+ org.apache.log4j,
+ org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.spray.styles.ui,
  org.eclipselabs.spray.styles.ui.contentassist,
