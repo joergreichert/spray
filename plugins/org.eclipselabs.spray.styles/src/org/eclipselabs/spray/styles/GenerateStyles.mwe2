@@ -9,7 +9,7 @@ var projectName = "org.eclipselabs.spray.styles"
 var grammarURI = "platform:/resource/${projectName}/src/org/eclipselabs/spray/styles/Style.xtext"
 var runtimeProject = "../../plugins/${projectName}"
 var testProject = "../../tests/${projectName}.tests"
-var generateXtendStub = true
+var generateXtendStub = false
 var encoding = "UTF-8"
 
 Workflow {

@@ -12,6 +12,7 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	"Eclipse Kepler" http://download.eclipse.org/releases/kepler {
 		org.eclipse.rcp 4.3.1.v20130911-1000,
 		org.eclipse.sdk 4.3.1.v20130911-1000,
+		org.eclipse.jdt 3.9.1.v20130911-1000,
 		org.eclipse.pde 3.9.1.v20130911-1000,
 		org.eclipse.emf.transaction.sdk 1.7.0.201306111400,
 		org.eclipse.emf.eef.sdk-feature 1.2.0.201301111054 category = Optional,
@@ -24,12 +25,12 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
-		org.eclipse.emf.sdk 2.9.2.v20131212-0558,
+		org.eclipse.emf.sdk 2.9.2.v20140203-1126,
 		org.eclipse.emf.ecore.xcore.sdk 1.1.2.v20131212-0836 category = Optional,
-		org.eclipse.xtext.sdk 2.5.0.v201312110906,
-		org.eclipse.xtend.sdk 2.5.0.v201312110906,
-		org.eclipse.emf.mwe2.language.sdk 2.5.0.v201312110944,
-		org.eclipse.emf.mwe2.runtime.sdk 2.5.0.v201312110307
+		org.eclipse.xtext.sdk 2.5.1.v201402030714,
+		org.eclipse.xtend.sdk 2.5.1.v201402030714,
+		org.eclipse.emf.mwe2.language.sdk 2.5.1.v201402030750,
+		org.eclipse.emf.mwe2.runtime.sdk 2.5.1.v201402030544
 	}
 
 	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
@@ -38,7 +39,7 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
-		org.xpect.sdk 0.1.0.201312181904
+		org.xpect.sdk 0.1.0.201401101421
 	}
 
 	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
@@ -46,7 +47,7 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ category = Testing {
-		org.eclipse.swtbot.eclipse 2.1.1.201307101628,
-		org.eclipse.swtbot.eclipse.gef 2.1.1.201307101628
+		org.eclipse.swtbot.eclipse 2.2.0.201401081015,
+		org.eclipse.swtbot.eclipse.gef 2.2.0.201401081015
 	}
 	
