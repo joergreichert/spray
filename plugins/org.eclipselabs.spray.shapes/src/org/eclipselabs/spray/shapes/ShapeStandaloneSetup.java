@@ -10,11 +10,13 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes;
 
+import org.eclipse.xtext.ISetup;
+
 /**
  * Initialization support for running Xtext languages without equinox extension
  * registry
  */
-public class ShapeStandaloneSetup extends ShapeStandaloneSetupGenerated {
+public class ShapeStandaloneSetup extends ShapeStandaloneSetupGenerated implements ISetup {
 
 	public static void doSetup() {
 		new ShapeStandaloneSetup().createInjectorAndDoEMFRegistration();

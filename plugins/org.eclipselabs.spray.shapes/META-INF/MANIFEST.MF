@@ -32,7 +32,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.5.0,2.6.0)";visibility:=ree
  org.apache.commons.codec,
  org.eclipselabs.spray.styles;bundle-version="0.5.0",
  org.eclipselabs.spray.shapes.mm;bundle-version="0.5.0",
- org.eclipselabs.spray.generator.common;bundle-version="0.5.0"
+ org.eclipselabs.spray.generator.common;bundle-version="0.5.0",
+ org.objectweb.asm
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib

@@ -10,6 +10,8 @@
  **************************************************************************** */
 package org.eclipselabs.spray.xtext.ui.quickfix;
 
+import javax.inject.Inject;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
@@ -38,8 +40,6 @@ import org.eclipselabs.spray.mm.spray.SprayFactory;
 import org.eclipselabs.spray.shapes.ui.quickfix.AbstractStyleDSLModificationJob;
 import org.eclipselabs.spray.shapes.ui.quickfix.LinkingQuickfixModificationJob;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
-
-import javax.inject.Inject;
 
 public class SprayQuickfixProvider extends DefaultQuickfixProvider {
     private IResourceDescriptions            dscriptions = null;
@@ -139,8 +139,8 @@ public class SprayQuickfixProvider extends DefaultQuickfixProvider {
                     CustomBehavior customBehavior = SprayFactory.eINSTANCE.createCustomBehavior();
                     customBehavior.setName(groupName);
                     customBehavior.setLabel(groupName);
-                    behaviorGroup.getBehaviorsList().add(customBehavior);
-                    diagram.getBehaviourGroupsList().add(behaviorGroup);
+                    behaviorGroup.getBehaviors().add(customBehavior);
+                    diagram.getBehaviourGroups().add(behaviorGroup);
                 }
             }
         };

@@ -27,7 +27,7 @@ import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 import com.google.inject.Provider
 
 @RunWith(typeof(XtextRunner2))
-@InjectWith(typeof(ShapeTestsInjectorProvider))
+@InjectWith(ShapeTestsInjectorProvider)
 class ShapeGeneratorTest {
     @Inject Provider<JavaGenFile> genFileProvider
 	@Inject extension ParseHelper<ShapeContainer> parseHelper

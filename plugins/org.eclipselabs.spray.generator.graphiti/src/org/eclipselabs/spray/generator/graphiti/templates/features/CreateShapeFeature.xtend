@@ -165,7 +165,7 @@ class CreateShapeFeature extends FileGenerator<MetaClass> {
     def generate_createModelElement (MetaClass metaClass) '''
         «val diagram = metaClass.diagram»
         «val modelClassName = diagram.modelType.itfName»
-        «val createBehavior = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head»
+        «val createBehavior = metaClass.behaviors.filter(typeof(CreateBehavior)).head»
         «var EReference containmentRef = null»
 //      «IF createBehavior != null» «containmentRef = createBehavior.containmentReference» «ENDIF»
         

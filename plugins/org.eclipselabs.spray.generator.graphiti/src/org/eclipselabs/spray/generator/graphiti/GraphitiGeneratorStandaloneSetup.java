@@ -10,6 +10,7 @@
  **************************************************************************** */
 package org.eclipselabs.spray.generator.graphiti;
 
+import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.util.Modules2;
 import org.eclipselabs.spray.runtime.graphiti.GraphitiRuntimeModule;
 import org.eclipselabs.spray.xtext.SprayRuntimeModule;
@@ -22,7 +23,7 @@ import com.google.inject.Injector;
  * Initialization support for running Xtext languages without equinox extension
  * registry
  */
-public class GraphitiGeneratorStandaloneSetup extends SprayStandaloneSetup {
+public class GraphitiGeneratorStandaloneSetup extends SprayStandaloneSetup implements ISetup {
     public static void doSetup() {
         new GraphitiGeneratorStandaloneSetup().createInjectorAndDoEMFRegistration();
     }

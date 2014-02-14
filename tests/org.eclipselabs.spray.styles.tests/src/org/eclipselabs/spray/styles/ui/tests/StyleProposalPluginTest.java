@@ -14,30 +14,40 @@ import java.util.Arrays;
 
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.ISetup;
-import org.eclipse.xtext.junit4.InjectWith;
-import org.eclipse.xtext.junit4.parameterized.InjectParameter;
-import org.eclipse.xtext.junit4.parameterized.ParameterSyntax;
-import org.eclipse.xtext.junit4.parameterized.ParameterizedXtextRunner;
-import org.eclipse.xtext.junit4.parameterized.ResourceURIs;
-import org.eclipse.xtext.junit4.parameterized.XpectCommaSeparatedValues;
 import org.eclipse.xtext.junit4.ui.AbstractContentAssistProcessorTest;
 import org.eclipse.xtext.junit4.ui.ContentAssistProcessorTestBuilder;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipselabs.spray.styles.StyleUiInjectorProvider;
-import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider;
 import org.junit.runner.RunWith;
+import org.xpect.expectation.CommaSeparatedValuesExpectation;
+import org.xpect.expectation.ICommaSeparatedValuesExpectation;
+import org.xpect.parameter.ParameterParser;
+import org.xpect.runner.Xpect;
+import org.xpect.runner.XpectRunner;
+import org.xpect.runner.XpectTestFiles;
+import org.xpect.runner.XpectTestFiles.FileRoot;
+import org.xpect.setup.XpectSetup;
+import org.xpect.xtext.lib.setup.ThisOffset;
+import org.xpect.xtext.lib.setup.XtextStandaloneSetup;
+import org.xpect.xtext.lib.setup.XtextWorkspaceSetup;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
-@RunWith(ParameterizedXtextRunner.class)
-@InjectWith(StyleTestsInjectorProvider.class)
-@ResourceURIs(files = { "model/contentassist/a.style" })
+@RunWith(XpectRunner.class)
+@XpectSetup({ XtextStandaloneSetup.class, XtextWorkspaceSetup.class })
+@XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/contentassist", fileExtensions = "xt")
 public class StyleProposalPluginTest extends AbstractContentAssistProcessorTest {
+	@Inject
+	private XtextResource resource;
 	
+	@Inject 
+	private StyleUiInjectorProvider injectorProvider;
+
 	@Override
 	protected ISetup doGetSetup() {
 		return new ISetup() {
@@ -49,31 +59,28 @@ public class StyleProposalPluginTest extends AbstractContentAssistProcessorTest 
 
 			@Override
 			public Injector createInjectorAndDoEMFRegistration() {
-				return new StyleUiInjectorProvider().getInjector();
+				return injectorProvider.getInjector();
 			}
 		};
 	}
-	
-	
-	@InjectParameter
-	protected XtextResource resource;
-	
-	@InjectParameter
-	private int offset;
 
-	@ParameterSyntax("('at' offset=OFFSET)?")
-	@XpectCommaSeparatedValues
-	public Iterable<String> elementsProposed() throws Exception {
+	@ParameterParser(syntax = "('from' offset=OFFSET)?")
+	@Xpect
+	public Iterable<String> elementsProposed(
+			@CommaSeparatedValuesExpectation ICommaSeparatedValuesExpectation expectation,
+			@ThisOffset int offset) throws Exception {
 		super.setUp();
 		ICompositeNode rootNode = resource.getParseResult().getRootNode();
 		String content = rootNode.getText();
 		ContentAssistProcessorTestBuilder fixture = newBuilder(getSetup());
 		fixture = fixture.append(content);
-		ICompletionProposal[] proposals = fixture.computeCompletionProposals(offset);
-		return Iterables.transform(Arrays.asList(proposals), new Function<ICompletionProposal, String>() {
-			public String apply(ICompletionProposal proposal) {
-				return proposal.getDisplayString();
-			}
-		});
+		ICompletionProposal[] proposals = fixture
+				.computeCompletionProposals(offset);
+		return Iterables.transform(Arrays.asList(proposals),
+				new Function<ICompletionProposal, String>() {
+					public String apply(ICompletionProposal proposal) {
+						return proposal.getDisplayString();
+					}
+				});
 	}
 }

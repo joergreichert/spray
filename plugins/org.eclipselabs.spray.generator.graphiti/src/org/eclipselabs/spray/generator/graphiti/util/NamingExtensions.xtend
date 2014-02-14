@@ -504,7 +504,7 @@ class NamingExtensions {
     // And complex queries
     def Iterable<ShapeCompartmentAssignment> getReferencesTo (MetaClass metaClass ) {
         var referringShapes = metaClass.diagram.metaClasses.map(cls | cls.representedBy).filter(typeof(ShapeFromDsl))
-        var references = referringShapes.map(s | s.referencesList).flatten   				
+        var references = referringShapes.map(s | s.references).flatten   				
         var result = references.filter(r | (metaClass.type == r.reference.EReferenceType) || metaClass.type.EAllSuperTypes.contains(r.reference.EReferenceType))
         result
     }

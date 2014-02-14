@@ -1,5 +1,5 @@
 @Ecore(nsURI="http://code.google.com/a/eclipselabs.org/p/spray")
-@GenModel(modelDirectory="/org.eclipselabs.spray.mm/emf-gen", forceOverwrite="true", modelName="Spray", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
+@GenModel(modelDirectory="/org.eclipselabs.spray.mm/src-gen", forceOverwrite="true", modelName="Spray", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
 package org.eclipselabs.spray.mm.spray
 
 import org.eclipse.emf.ecore.EAttribute

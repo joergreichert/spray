@@ -1,5 +1,5 @@
 @Ecore(nsURI="http://www.eclipselabs.org/spray/shapes/Shape")
-@GenModel(modelDirectory="/org.eclipselabs.spray.shapes.mm/emf-gen", forceOverwrite="true", modelName="Shape", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
+@GenModel(modelDirectory="/org.eclipselabs.spray.shapes.mm/src-gen", forceOverwrite="true", modelName="Shape", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
 package org.eclipselabs.spray.shapes
 
 import org.eclipse.xtext.common.types.JvmTypeReference

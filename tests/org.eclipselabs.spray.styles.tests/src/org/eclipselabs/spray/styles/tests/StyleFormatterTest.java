@@ -65,7 +65,7 @@ public class StyleFormatterTest {
 					rootNode.getTotalLength());
 		}
 		String formatted = r.getFormattedText();
-		if(!isWindowsEnding()) {
+		if (isWindowsEnding()) {
 			formatted = formatted.replaceAll("\r\n", "\n");
 		}
 		formatted = formatted.replaceAll("\r\b", "\n");
@@ -74,9 +74,9 @@ public class StyleFormatterTest {
 	}
 
 	private String getEnding() {
-		return isWindowsEnding() ? "\r" : "";
+		return isWindowsEnding() ? "" : /* "\r" */"";
 	}
-	
+
 	private boolean isWindowsEnding() {
 		String ls = System.getProperty("line.separator");
 		return "\r\n".equals(ls);
