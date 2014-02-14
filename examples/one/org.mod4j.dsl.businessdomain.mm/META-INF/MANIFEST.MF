@@ -11,4 +11,9 @@ Eclipse-RegisterBuddy: org.mod4j.common
 Export-Package: BusinessDomainDsl,
  BusinessDomainDsl.impl,
  BusinessDomainDsl.util
-Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.xcore.lib,
+ org.eclipse.xtext.xbase.lib
+Bundle-ActivationPolicy: lazy
+

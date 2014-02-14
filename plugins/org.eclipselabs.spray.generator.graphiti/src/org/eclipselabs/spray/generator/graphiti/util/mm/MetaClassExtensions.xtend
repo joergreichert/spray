@@ -40,7 +40,7 @@ class MetaClassExtensions {
     }
     
     def getCreateBehavior (MetaClass metaClass) {
-        metaClass.behaviorsList.filter(typeof(CreateBehavior)).head
+        metaClass.behaviors.filter(typeof(CreateBehavior)).head
     }
     
     def boolean hasCreateBehavior (MetaClass mc) {
@@ -75,7 +75,7 @@ class MetaClassExtensions {
      * Combines the direct Behaviors with those from the referred BehaviorGroups. 
      */
     def Iterable<Behavior> getAllBehaviors (MetaClass mc) {
-        val result = new LinkedList<Behavior> (mc.behaviorsList)
+        val result = new LinkedList<Behavior> (mc.behaviors)
         for (g: mc.behaviorGroups) {
             result += g.behaviors
         }

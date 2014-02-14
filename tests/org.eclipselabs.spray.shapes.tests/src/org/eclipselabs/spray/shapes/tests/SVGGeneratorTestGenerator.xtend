@@ -23,7 +23,7 @@ import org.junit.Test
 import org.junit.Ignore
 
 @RunWith(typeof(XtextRunner2))
-@InjectWith(typeof(ShapeTestsInjectorProvider))
+@InjectWith(ShapeTestsInjectorProvider)
 class SVGGeneratorTestGenerator extends XtextTest {
 
 	@Ignore

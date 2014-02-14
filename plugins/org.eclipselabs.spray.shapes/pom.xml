@@ -43,6 +43,26 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<dependencies>
 					<dependency>
+						<groupId>org.eclipselabs.spray</groupId>
+						<artifactId>org.eclipselabs.spray.generator.common</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipselabs.spray</groupId>
+						<artifactId>org.eclipselabs.spray.styles.mm</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipselabs.spray</groupId>
+						<artifactId>org.eclipselabs.spray.shapes.mm</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipselabs.spray</groupId>
+						<artifactId>org.eclipselabs.spray.styles</artifactId>
+						<version>${project.version}</version>
+					</dependency>
+					<dependency>
 						<groupId>org.eclipse.emf</groupId>
 						<artifactId>org.eclipse.emf.ecore</artifactId>
 						<version>[2.9.0,)</version>
@@ -78,11 +98,6 @@
 						<version>1.1.2</version>
 					</dependency>
 					<dependency>
-						<groupId>org.eclipselabs.spray</groupId>
-						<artifactId>org.eclipselabs.spray.generator.common</artifactId>
-						<version>${project.version}</version>
-					</dependency>
-					<dependency>
 						<groupId>org.osgi</groupId>
 						<artifactId>org.osgi.core</artifactId>
 						<version>4.3.1</version>
@@ -106,6 +121,26 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>org.eclipselabs.spray</groupId>
+			<artifactId>org.eclipselabs.spray.generator.common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipselabs.spray</groupId>
+			<artifactId>org.eclipselabs.spray.styles.mm</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipselabs.spray</groupId>
+			<artifactId>org.eclipselabs.spray.shapes.mm</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipselabs.spray</groupId>
+			<artifactId>org.eclipselabs.spray.styles</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
@@ -140,11 +175,6 @@
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore.xcore</artifactId>
 			<version>1.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipselabs.spray</groupId>
-			<artifactId>org.eclipselabs.spray.generator.common</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>

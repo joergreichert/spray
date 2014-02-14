@@ -1,5 +1,5 @@
 @Ecore(nsURI="http://www.eclipselabs.org/spray/styles/Style")
-@GenModel(modelDirectory="/org.eclipselabs.spray.styles.mm/emf-gen", forceOverwrite="true", modelName="Style", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
+@GenModel(modelDirectory="/org.eclipselabs.spray.styles.mm/src-gen", forceOverwrite="true", modelName="Style", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
 package org.eclipselabs.spray.styles
 
 import org.eclipse.xtext.common.types.JvmTypeReference
