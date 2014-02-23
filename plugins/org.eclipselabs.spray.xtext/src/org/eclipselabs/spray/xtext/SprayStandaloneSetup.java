@@ -11,7 +11,7 @@
 package org.eclipselabs.spray.xtext;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.xtext.ecore.EcoreSupport;
+import org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 
 import com.google.inject.Injector;
@@ -34,7 +34,7 @@ public class SprayStandaloneSetup extends SprayStandaloneSetupGenerated {
 
     @Override
     public void register(Injector injector) {
+        XcoreStandaloneSetup.doSetup();
         super.register(injector);
-        new EcoreSupport().registerServices(true);
     }
 }

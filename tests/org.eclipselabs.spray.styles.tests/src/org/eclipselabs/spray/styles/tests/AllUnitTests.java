@@ -20,7 +20,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ StyleFormatterTest.class, StyleModelTest.class,
-		StyleScopingTest.class, StyleValidationTest.class, StyleGeneratorTest.class })
+		StyleScopingTest.class, StyleValidationTest.class,
+		StyleGeneratorTest.class, StyleFormatterTest.class })
 public class AllUnitTests {
 
 }
