@@ -40,7 +40,7 @@ report "Spray" {
 		usecase package org.eclipselabs.spray.requirements.examples.featuremodeling
 		user interface application featureModeling
 		entity package org.eclipselabs.spray.requirements.entities.featuremodeling
-		requirements package org.eclipselabs.spray.requirements.issues
+		requirements chapter org.eclipselabs.spray.requirements.issues_neu
 		entity package org.eclipselabs.spray.requirements.entities.emf
 		entity package org.eclipselabs.spray.requirements.entities.jvmtypes
 		entity package org.eclipselabs.spray.requirements.entities.xbase
