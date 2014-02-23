@@ -1,4 +1,4 @@
-/* XPECT_SETUP org.eclipselabs.spray.styles.ui.tests.StyleProposalTest END_SETUP */
+/* XPECT_SETUP org.eclipselabs.spray.styles.ui.tests.StyleProposalPluginTest END_SETUP */
 
 // XPECT elementsProposed at style --> style, gradient
 // XPECT elementsProposed at 'A1 |{' --> extends, { 

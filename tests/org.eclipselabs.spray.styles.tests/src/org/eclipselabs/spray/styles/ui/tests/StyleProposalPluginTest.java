@@ -29,6 +29,7 @@ import org.xpect.runner.XpectTestFiles;
 import org.xpect.runner.XpectTestFiles.FileRoot;
 import org.xpect.setup.XpectSetup;
 import org.xpect.xtext.lib.setup.ThisOffset;
+import org.xpect.xtext.lib.setup.ThisResource;
 import org.xpect.xtext.lib.setup.XtextStandaloneSetup;
 import org.xpect.xtext.lib.setup.XtextWorkspaceSetup;
 
@@ -42,9 +43,6 @@ import com.google.inject.Injector;
 @XpectSetup({ XtextStandaloneSetup.class, XtextWorkspaceSetup.class })
 @XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/contentassist", fileExtensions = "xt")
 public class StyleProposalPluginTest extends AbstractContentAssistProcessorTest {
-	@Inject
-	private XtextResource resource;
-	
 	@Inject 
 	private StyleUiInjectorProvider injectorProvider;
 
@@ -68,11 +66,11 @@ public class StyleProposalPluginTest extends AbstractContentAssistProcessorTest 
 	@Xpect
 	public Iterable<String> elementsProposed(
 			@CommaSeparatedValuesExpectation ICommaSeparatedValuesExpectation expectation,
-			@ThisOffset int offset) throws Exception {
+			@ThisResource XtextResource resource, @ThisOffset int offset) throws Exception {
 		super.setUp();
+		ContentAssistProcessorTestBuilder fixture = newBuilder(getSetup());
 		ICompositeNode rootNode = resource.getParseResult().getRootNode();
 		String content = rootNode.getText();
-		ContentAssistProcessorTestBuilder fixture = newBuilder(getSetup());
 		fixture = fixture.append(content);
 		ICompletionProposal[] proposals = fixture
 				.computeCompletionProposals(offset);

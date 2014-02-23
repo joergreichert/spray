@@ -28,7 +28,9 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.5.0,2.6.0)";visibility:=ree
  org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
  org.eclipse.xtend.core;bundle-version="[2.5.0,2.6.0)",
  org.eclipse.xtext.xbase.lib,
- org.eclipselabs.spray.runtime.graphiti;bundle-version="0.5.0"
+ org.eclipselabs.spray.runtime.graphiti;bundle-version="0.5.0",
+ org.eclipse.emf.codegen.ecore.xtext,
+ org.eclipse.emf.ecore.xcore
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib
