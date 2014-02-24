@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -39,6 +41,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xcore.XPackage;
+import org.eclipse.emf.ecore.xcore.util.XcoreGenModelBuilder;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
@@ -56,6 +60,9 @@ public class PackageSelector {
     private Map<IProject, Iterable<EPackage>> javaProjectToEPackages = new HashMap<IProject, Iterable<EPackage>>();
     private JavaProjectHelper                 javaProjectHelper      = new JavaProjectHelper();
     private boolean                           workspaceChanged       = true;
+
+    @Inject
+    private XcoreGenModelBuilder              xcoreGenModelBuilder;
 
     public Iterable<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = javaProjectHelper.getJavaProject(modelElement);
@@ -157,7 +164,7 @@ public class PackageSelector {
      */
     protected void recomputeResourceAndURIMaps() {
         EcorePlugin.computePlatformPluginToPlatformResourceMap();
-        EcorePlugin.computePlatformURIMap();
+        EcorePlugin.computePlatformURIMap(false);
     }
 
     /**
@@ -266,7 +273,7 @@ public class PackageSelector {
     }
 
     public GenPackage getGenPackage(String uri, String packageName) {
-        URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(uri);
+        URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(uri);
         if (genModelLoc == null) {
             LOGGER.error("No genmodel found for package URI " + uri + ". If you are running in stanalone mode make sure register the genmodel file.");
             return null;
@@ -276,7 +283,16 @@ public class PackageSelector {
         try {
             genModelResource = rs.getResource(genModelLoc, true);
             if (genModelResource != null) {
-                for (GenModel g : Iterables.filter(genModelResource.getContents(), GenModel.class)) {
+                Iterable<GenModel> genModels = Iterables.filter(genModelResource.getContents(), GenModel.class);
+                if (!genModels.iterator().hasNext()) {
+                    Iterable<XPackage> xPackages = Iterables.filter(genModelResource.getContents(), XPackage.class);
+                    List<GenModel> genModelList = new ArrayList<GenModel>();
+                    for (XPackage xPackage : xPackages) {
+                        genModelList.add(xcoreGenModelBuilder.getGenModel(xPackage));
+                    }
+                    genModels = genModelList;
+                }
+                for (GenModel g : genModels) {
                     for (GenPackage genPack : g.getGenPackages()) {
                         if (genPack.getEcorePackage().getNsURI().equals(uri) && genPack.getEcorePackage().getName().equals(packageName)) {
                             return genPack;

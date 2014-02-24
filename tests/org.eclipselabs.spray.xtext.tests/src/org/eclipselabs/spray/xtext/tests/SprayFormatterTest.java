@@ -15,7 +15,6 @@ import org.eclipse.xtext.formatting.INodeModelFormatter.IFormattedRegion;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipselabs.spray.xtext.tests.SprayFormatterTest.NullValidatorSetup;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.xpect.expectation.IStringExpectation;
 import org.xpect.expectation.StringExpectation;
@@ -35,7 +34,6 @@ import com.google.inject.Inject;
 @RunWith(XpectRunner.class)
 @XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/formatter", fileExtensions = "spray")
 @XpectSetup({ XtextStandaloneSetup.class, NullValidatorSetup.class })
-@Ignore("Doesn't work with referenced ecore yet")
 public class SprayFormatterTest {
 
 	public static class NullValidatorSetup extends XtextValidatingSetup {
