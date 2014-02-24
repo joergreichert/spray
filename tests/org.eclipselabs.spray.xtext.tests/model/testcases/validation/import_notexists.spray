@@ -1,10 +1,16 @@
-/*
-XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
-XPECT_IMPORT ../referenced/test.shape
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayValidationTest 
+
+	ResourceSet {
+		ThisFile {}
+		File "test.shape" { from="../referenced/test.shape" }
+		File "BusinessDomainDsl.xcore" { from="../../../../../examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.xcore" }
+	}
+  
+   END_SETUP
  */
 
-/* XPECT validationIssues at 'foo.bar' ---
-error "The import foo.bar cannot be resolved"
+/* XPECT errors at 'foo.bar' ---
+"The import foo.bar cannot be resolved"
 --- */
 import foo.bar
 import BusinessDomainDsl.*

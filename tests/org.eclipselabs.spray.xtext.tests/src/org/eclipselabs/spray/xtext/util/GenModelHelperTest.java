@@ -10,11 +10,15 @@
  **************************************************************************** */
 package org.eclipselabs.spray.xtext.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import javax.inject.Inject;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.mwe.utils.StandaloneSetup;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipselabs.spray.xtext.SprayTestsInjectorProvider;
@@ -24,11 +28,6 @@ import org.junit.runner.RunWith;
 
 import BusinessDomainDsl.BusinessDomainDslPackage;
 
-import javax.inject.Inject;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 @RunWith(XtextRunner.class)
 @InjectWith(SprayTestsInjectorProvider.class)
 public class GenModelHelperTest {
@@ -37,12 +36,7 @@ public class GenModelHelperTest {
 
     @Before
     public void before() {
-        // Normally, this should not be necessary, but the InjectorProvider only works for 
-        // the first test case
-        StandaloneSetup setup = new StandaloneSetup();
-        setup.setPlatformUri("."); // current project is enough here
-        EPackage.Registry.INSTANCE.put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
-        setup.addRegisterGenModelFile("platform:/resource/org.eclipselabs.spray.xtext.tests/model/testcases/referenced/BusinessDomainDsl.genmodel");
+		EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).put(BusinessDomainDslPackage.eNS_URI, URI.createURI("../../examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.xcore"));
     }
 
     @Test

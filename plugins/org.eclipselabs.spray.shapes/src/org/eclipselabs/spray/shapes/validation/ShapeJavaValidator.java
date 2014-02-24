@@ -207,7 +207,7 @@ public class ShapeJavaValidator extends AbstractShapeJavaValidator {
             error("The anchor offset (xoffset) should be defined in the range 0.0 and 1.0.", ShapesPackage.Literals.ANCHOR_RELATIVE_POSITION__XOFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getXoffset()));
         }
         if (pos.getYoffset() < 0.0 || pos.getYoffset() > 1.0) {
-            error("The anchor offset (yoffset) should be defined in the range 0.0 and 1.0.", ShapesPackage.Literals.ANCHOR_RELATIVE_POSITION__XOFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getYoffset()));
+            error("The anchor offset (yoffset) should be defined in the range 0.0 and 1.0.", ShapesPackage.Literals.ANCHOR_RELATIVE_POSITION__YOFFSET, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, String.valueOf(pos.getYoffset()));
         }
     }
 
