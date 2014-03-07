@@ -25,8 +25,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.eclipselabs.spray.shapes.tests.util.LineEndingNormalizer
 
-import static org.junit.Assert.*
-
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
 class Lwc2012SVGGeneratorTest extends XtextTest {
@@ -34,6 +32,9 @@ class Lwc2012SVGGeneratorTest extends XtextTest {
 	
 	@Inject
 	private GeneratorSVGDefinition generatorSVGDefinition
+
+	@Inject
+	private extension CustomAssert
 	
 	@Inject
 	private extension LineEndingNormalizer lineEndingNormalizer

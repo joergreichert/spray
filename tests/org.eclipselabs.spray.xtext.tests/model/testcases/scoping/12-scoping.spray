@@ -1,4 +1,4 @@
-/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayScopingTest 
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayScopingPluginTest 
 
 	ResourceSet {
 		ThisFile {}

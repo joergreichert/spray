@@ -18,5 +18,5 @@ import org.xpect.xtext.lib.tests.ValidationTest;
 
 @RunWith(XpectRunner.class)
 @XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/validation", fileExtensions = "spray")
-public class SprayValidationTest extends ValidationTest {
+public class SprayValidationPluginTest extends ValidationTest {
 }

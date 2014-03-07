@@ -80,7 +80,7 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private IWorkspaceRoot                root;
     @Inject
     @Named(IConstants.NAME_VALID_ICON_FILE_EXTENSIONS)
-    private Set<?>                        validIconFileExtensions;
+    private Set                           validIconFileExtensions;
     @Inject
     private IGlobalScopeProvider          globalScopeProvider;
     @Inject
