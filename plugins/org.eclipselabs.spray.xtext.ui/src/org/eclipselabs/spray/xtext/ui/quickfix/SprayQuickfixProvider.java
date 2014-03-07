@@ -18,7 +18,6 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -49,9 +48,6 @@ public class SprayQuickfixProvider extends DefaultQuickfixProvider {
 
     @Inject
     private IURIEditorOpener                 editorOpener;
-
-    @Inject
-    private XtextResourceSet                 xtextResourceSet;
 
     @Fix(Diagnostic.LINKING_DIAGNOSTIC)
     public void handleMissingLink(final Issue issue, IssueResolutionAcceptor acceptor) {

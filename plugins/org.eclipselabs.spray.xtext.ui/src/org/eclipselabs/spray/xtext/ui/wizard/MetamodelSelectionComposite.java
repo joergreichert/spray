@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -42,6 +44,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xcore.XPackage;
+import org.eclipse.emf.ecore.xcore.util.XcoreEcoreBuilder;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -69,7 +73,6 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 import com.google.common.collect.Iterables;
-import javax.inject.Inject;
 
 public class MetamodelSelectionComposite extends Composite {
     private DataBindingContext         m_bindingContext;
@@ -87,6 +90,8 @@ public class MetamodelSelectionComposite extends Composite {
     private Button                     btnFilterSystemEPackages;
     @Inject
     private ISprayWizardEPackageFilter ePackageUriFilter;
+    @Inject
+    private XcoreEcoreBuilder          xcoreEcoreBuilder;
 
     /**
      * Create the composite.
@@ -182,7 +187,14 @@ public class MetamodelSelectionComposite extends Composite {
                 ResourceSet rs = new ResourceSetImpl();
                 Resource res = rs.getResource(URI.createURI(txtUri.getText()), true);
 
-                EPackage pck = (EPackage) res.getContents().get(0);
+                EPackage pck = null;
+                EObject root = res.getContents().get(0);
+                if (root instanceof EPackage) {
+                    pck = (EPackage) root;
+                } else if (root instanceof XPackage) {
+                    XPackage xpack = (XPackage) root;
+                    pck = xcoreEcoreBuilder.getEPackage(xpack);
+                }
                 ElementListSelectionDialog dlg = new ElementListSelectionDialog(getShell(), labelProvider);
                 dlg.setElements(Iterables.toArray(Iterables.filter(pck.getEClassifiers(), EClass.class), Object.class));
                 if (dlg.open() == Dialog.OK) {
@@ -213,7 +225,7 @@ public class MetamodelSelectionComposite extends Composite {
                     try {
                         Resource r = rs.getResource(ePackageUri, true);
                         EPackage pck = (EPackage) r.getContents().get(0);
-                        URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(pck.getNsURI());
+                        URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(pck.getNsURI());
                         if (genModelUri != null) {
                             txtGenmodelUri.setText(genModelUri.toString());
                         } else {
@@ -232,6 +244,11 @@ public class MetamodelSelectionComposite extends Composite {
                         IPath path = new Path(ePackageUri.toString().replace("platform:/resource", "")).removeFileExtension().addFileExtension("genmodel");
                         if (ResourcesPlugin.getWorkspace().getRoot().findMember(path) != null) {
                             txtGenmodelUri.setText(URI.createPlatformResourceURI(path.toString(), true).toString());
+                        } else {
+                            path = new Path(ePackageUri.toString().replace("platform:/resource", "")).removeFileExtension().addFileExtension("xcore");
+                            if (ResourcesPlugin.getWorkspace().getRoot().findMember(path) != null) {
+                                txtGenmodelUri.setText(URI.createPlatformResourceURI(path.toString(), true).toString());
+                            }
                         }
                     }
                 }
@@ -248,9 +265,9 @@ public class MetamodelSelectionComposite extends Composite {
     protected void setNsURIs(List<?> nsURIs, Text uriField, boolean isDevelopmentTimeVersion, boolean append) {
         if (isDevelopmentTimeVersion) {
             ResourceSet resourceSet = new ResourceSetImpl();
-            resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
+            resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap(false));
             StringBuffer uris = new StringBuffer();
-            Map<String, URI> ePackageNsURItoGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
+            Map<String, URI> ePackageNsURItoGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false);
             for (int i = 0, length = nsURIs.size(); i < length; i++) {
                 URI location = ePackageNsURItoGenModelLocationMap.get(nsURIs.get(i));
                 Resource resource = resourceSet.getResource(location, true);
@@ -292,7 +309,15 @@ public class MetamodelSelectionComposite extends Composite {
 
             @Override
             protected Iterator<? extends EObject> getEObjectChildren(EObject eObject) {
-                return eObject instanceof EPackage ? ((EPackage) eObject).getESubpackages().iterator() : Collections.<EObject> emptyList().iterator();
+                EPackage ePackage = null;
+                if (eObject instanceof EPackage) {
+                    ePackage = (EPackage) eObject;
+                } else if (eObject instanceof XPackage) {
+                    XPackage xPackage = (XPackage) eObject;
+                    xcoreEcoreBuilder.getEPackage(xPackage);
+                }
+                return ePackage != null ? ((EPackage) eObject).getESubpackages().iterator() : Collections.<EObject> emptyList().iterator();
+                //                return eObject instanceof EPackage ? ((EPackage) eObject).getESubpackages().iterator() : Collections.<EObject> emptyList().iterator();
             }
         }; j.hasNext();) {
             Object content = j.next();

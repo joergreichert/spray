@@ -10,11 +10,12 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.ui.quickfix;
 
+import javax.inject.Inject;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.resource.IResourceDescriptions;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -30,8 +31,6 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
 import org.eclipselabs.spray.shapes.ui.quickfix.AbstractStyleDSLModificationJob.ModificationJobType;
 
-import javax.inject.Inject;
-
 public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
 	private IResourceDescriptions dscriptions = null;
 
@@ -40,9 +39,6 @@ public class ShapeQuickfixProvider extends DefaultQuickfixProvider {
 
 	@Inject
 	private IURIEditorOpener editorOpener;
-
-	@Inject
-	private XtextResourceSet xtextResourceSet;
 
 	@Inject
 	private ResourceDescriptionsProvider resourceDescriptionsProvider;

@@ -275,7 +275,9 @@ public class PackageSelector {
     public GenPackage getGenPackage(String uri, String packageName) {
         URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(uri);
         if (genModelLoc == null) {
-            LOGGER.error("No genmodel found for package URI " + uri + ". If you are running in stanalone mode make sure register the genmodel file.");
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.error("No genmodel found for package URI " + uri + ". If you are running in stanalone mode make sure register the genmodel file.");
+            }
             return null;
         }
         ResourceSet rs = createResourceSet();
@@ -302,9 +304,25 @@ public class PackageSelector {
             }
         } catch (Exception e) {
             if (e instanceof java.io.FileNotFoundException) {
-                System.err.println(e.getMessage());
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug(e.getMessage());
+                }
+            } else if (e instanceof org.eclipse.emf.ecore.xmi.PackageNotFoundException) {
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug(e.getMessage());
+                }
             } else if (e instanceof Diagnostic) {
-                System.err.println(e.getMessage());
+                if (e.getCause() instanceof java.io.FileNotFoundException) {
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(e.getMessage());
+                    }
+                } else if (e.getCause() instanceof org.eclipse.emf.ecore.xmi.PackageNotFoundException) {
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(e.getMessage());
+                    }
+                } else {
+                    System.err.println(e.getMessage());
+                }
             } else {
                 e.printStackTrace();
             }
