@@ -4,12 +4,12 @@
 package org.eclipselabs.spray.xtext.ui.refactoring;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.xbase.ui.jvmmodel.refactoring.AbstractJvmModelRenameStrategy;
+import org.eclipse.xtext.xbase.ui.jvmmodel.refactoring.DefaultJvmModelRenameStrategy;
 
 /**
  * Encapsulates the model changes of a rename refactoring.
  */
-public class SprayRenameStrategy extends AbstractJvmModelRenameStrategy {
+public class SprayRenameStrategy extends DefaultJvmModelRenameStrategy {
 
     @Override
     protected void setInferredJvmElementName(String name, EObject renamedSourceElement) {

@@ -24,9 +24,7 @@ class PackageHelper {
             val resource = rs.createResource(URI::createURI(modelURI))
             resource.load(Collections::EMPTY_MAP)
             val index = element.lastIndexOf(".")
-            var String foundPackageName = null
             if(index > 0 && index < element.length) {
-                val packageName = element.substring(0, index)
                 val className = element.substring(index+1)
                 var EPackage ePackage = null
                 for(EClass clazz : resource.allContents.toIterable.filter(typeof(EClass))) {

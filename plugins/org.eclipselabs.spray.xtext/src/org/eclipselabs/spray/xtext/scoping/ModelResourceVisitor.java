@@ -170,6 +170,6 @@ public class ModelResourceVisitor implements IResourceVisitor {
      * @return
      */
     protected Map<String, URI> getEPackageNsURIToGenModelLocationMap() {
-        return EcorePlugin.getEPackageNsURIToGenModelLocationMap();
+        return EcorePlugin.getEPackageNsURIToGenModelLocationMap(false);
     }
 }

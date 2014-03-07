@@ -10,6 +10,7 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.generator.connections
 
+import java.util.ArrayList
 import java.util.List
 import javax.inject.Inject
 import org.eclipse.emf.common.util.EList
@@ -28,8 +29,6 @@ import org.eclipselabs.spray.shapes.Point
 import org.eclipselabs.spray.shapes.ShapeStyleRef
 import org.eclipselabs.spray.shapes.TextType
 import org.eclipselabs.spray.shapes.VAlign
-import java.util.ArrayList
-import java.lang.management.MemoryMXBean
 
 class ConnectionPlacingGenerator {
 

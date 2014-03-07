@@ -37,7 +37,7 @@ public class MweGenModelHelperExt extends GenModelHelper {
     }
 
     public void unregisterGenModel(GenModel genModel) {
-        Map<String, URI> registry = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
+        Map<String, URI> registry = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false);
         for (GenPackage pkg : collectGenPackages(genModel)) {
             String nsURI = pkg.getEcorePackage().getNsURI();
             if (nsURI != null) {
