@@ -10,9 +10,9 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.tests.svg
 
-import javax.inject.Inject
 import java.io.File
 import java.util.Scanner
+import javax.inject.Inject
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.spray.shapes.ShapeContainer
@@ -24,8 +24,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import static org.junit.Assert.*
-
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
 class BpmnSVGGeneratorTest extends XtextTest {
@@ -33,6 +31,9 @@ class BpmnSVGGeneratorTest extends XtextTest {
 	
 	@Inject
 	private GeneratorSVGDefinition generatorSVGDefinition
+
+	@Inject
+	private extension CustomAssert
 	
 	@Before
 	def void setUp() {

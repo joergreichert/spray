@@ -1,4 +1,4 @@
-/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayValidationTest 
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayValidationPluginTest 
 
 	ResourceSet {
 		ThisFile {}

@@ -8,15 +8,21 @@
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
-package org.eclipselabs.spray.xtext.tests;
+package org.eclipselabs.spray.xtext;
 
+import org.eclipselabs.spray.xtext.tests.SprayScopingPluginTest;
+import org.eclipselabs.spray.xtext.tests.SprayValidationPluginTest;
 import org.junit.runner.RunWith;
-import org.xpect.runner.XpectRunner;
-import org.xpect.runner.XpectTestFiles;
-import org.xpect.runner.XpectTestFiles.FileRoot;
-import org.xpect.xtext.lib.tests.ScopingTest;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-@RunWith(XpectRunner.class)
-@XpectTestFiles(relativeTo = FileRoot.PROJECT, baseDir = "model/testcases/scoping", fileExtensions = { "spray" })
-public class SprayScopingTest extends ScopingTest {
+/**
+ * Test suite with all tests that must be executed as plugin tests.
+ * 
+ * @author Karsten Thoms
+ */
+@RunWith(Suite.class)
+@SuiteClasses({ SprayScopingPluginTest.class, SprayValidationPluginTest.class })
+public class AllPluginTests {
+
 }
