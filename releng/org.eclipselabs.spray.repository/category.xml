@@ -60,6 +60,9 @@
 	<feature url="features/org.eclipse.swtbot.eclipse.gef_0.0.0.jar" id="org.eclipse.swtbot.eclipse.gef" version="0.0.0">
 		<category name="Testing"/>
 	</feature>
+	<feature url="features/org.eclipse.equinox.executable_0.0.0.jar" id="org.eclipse.pde" version="0.0.0">
+		<category name="3rdparty"/>
+	</feature>
 	<!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=378338 -->
 	<bundle url="plugins/org.jdom_0.0.0.jar" id="org.jdom" version="0.0.0">
 		<category name="3rdparty"/>
@@ -68,6 +71,9 @@
 		<category name="3rdparty"/>
 	</bundle>
 	<bundle url="plugins/org.objenesis_0.0.0.jar" id="org.objenesis" version="0.0.0">
+		<category name="3rdparty"/>
+	</bundle>	
+	<bundle url="plugins/org.eclipse.equinox.transforms.hook_0.0.0.jar" id="org.eclipse.equinox.transforms.hook" version="0.0.0">
 		<category name="3rdparty"/>
 	</bundle>	
 	<category-def name="SprayDependencies" label="Spray 3rd party dependencies">

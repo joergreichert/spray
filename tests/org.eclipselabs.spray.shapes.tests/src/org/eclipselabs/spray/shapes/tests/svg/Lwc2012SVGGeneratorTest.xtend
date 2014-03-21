@@ -39,6 +39,7 @@ class Lwc2012SVGGeneratorTest extends XtextTest {
 	def void setUp() {
 		val uri = URI::createURI(resourceRoot + "/testcases/svgs/lwc2012/lwc2012.shape");
         shapeContainer = loadModel(resourceSet, uri, getRootObjectType(uri)) as ShapeContainer;
+		ignoreOsSpecificNewline();
 	}
 	
 	@Test
@@ -124,6 +125,6 @@ class Lwc2012SVGGeneratorTest extends XtextTest {
 		));
 		val expectedSVG = scanner.useDelimiter("\\A").next();
 		scanner.close();
-		expectedSVG
+		expectedSVG.toString
 	}	
 }

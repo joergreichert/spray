@@ -61,7 +61,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -82,7 +82,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             «generate_updateNeeded(container)»
             «generate_checkUpdateNeededRecursively(container)»
             «generate_update(container)»
-            «generate_updateChildsRecursively(container)»
+            «generate_updateChildrenRecursively(container)»
             «generate_additionalMethods(container)»
         }
         '''
@@ -126,9 +126,9 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
         def generate_checkUpdateNeededRecursively(ShapeFromDsl container) '''
             protected boolean checkUpdateNeededRecursively(Shape shape, final «container.represents.itfName» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if(graphicsAlgorithm instanceof Text) {
+                if(graphicsAlgorithm instanceof AbstractText) {
                     «IF !container.properties.empty»
-                    Text text = (Text) graphicsAlgorithm;
+                    AbstractText text = (AbstractText) graphicsAlgorithm;
                     String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
                     if(id != null) {
                         «FOR property : container.properties»
@@ -167,7 +167,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 final «container.represents.itfName» eClass = («container.represents.itfName») getBusinessObjectForPictogramElement(pictogramElement);
                 if(pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
-                    updateChildsRecursively(shape, eClass);
+                    updateChildrenRecursively(shape, eClass);
                     Shape top = findTopShape(shape);
                     SprayLayoutService.getLayoutManager(top).layout();
                 }
@@ -176,12 +176,12 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
             }
         '''
             
-        def generate_updateChildsRecursively(ShapeFromDsl container) '''
-            protected void updateChildsRecursively(Shape shape, final «container.represents.itfName» eClass) {
+        def generate_updateChildrenRecursively(ShapeFromDsl container) '''
+            protected void updateChildrenRecursively(Shape shape, final «container.represents.itfName» eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if(graphicsAlgorithm instanceof Text) {
+                if(graphicsAlgorithm instanceof AbstractText) {
                     «IF !container.properties.empty»
-                    Text text = (Text) graphicsAlgorithm;
+                    AbstractText text = (AbstractText) graphicsAlgorithm;
                     String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
                     if(id != null) {
                         «FOR property : container.properties»
@@ -201,7 +201,7 @@ class UpdateShapeFromDslFeature extends FileGenerator<ShapeFromDsl>  {
                 
                 if (shape instanceof ContainerShape) {
                     for(Shape child : ((ContainerShape) shape).getChildren()) {
-                        updateChildsRecursively(child, eClass);
+                        updateChildrenRecursively(child, eClass);
                     }
                 }
             }

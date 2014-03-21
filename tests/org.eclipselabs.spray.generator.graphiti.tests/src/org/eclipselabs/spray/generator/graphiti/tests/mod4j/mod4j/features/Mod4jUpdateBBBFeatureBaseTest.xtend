@@ -47,7 +47,7 @@ class Mod4jUpdateBBBFeatureBaseTest extends AbstractSprayGeneratorTest {
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -106,7 +106,7 @@ class Mod4jUpdateBBBFeatureBaseTest extends AbstractSprayGeneratorTest {
         
             protected boolean checkUpdateNeededRecursively(Shape shape, final BusinessRule eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if (graphicsAlgorithm instanceof Text) {
+                if (graphicsAlgorithm instanceof AbstractText) {
                 }
                 if (shape instanceof ContainerShape) {
                     for (Shape child : ((ContainerShape) shape).getChildren()) {
@@ -127,7 +127,7 @@ class Mod4jUpdateBBBFeatureBaseTest extends AbstractSprayGeneratorTest {
                 final BusinessRule eClass = (BusinessRule) getBusinessObjectForPictogramElement(pictogramElement);
                 if (pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
-                    updateChildsRecursively(shape, eClass);
+                    updateChildrenRecursively(shape, eClass);
                     Shape top = findTopShape(shape);
                     SprayLayoutService.getLayoutManager(top).layout();
                 }
@@ -135,14 +135,14 @@ class Mod4jUpdateBBBFeatureBaseTest extends AbstractSprayGeneratorTest {
         
             }
         
-            protected void updateChildsRecursively(Shape shape, final BusinessRule eClass) {
+            protected void updateChildrenRecursively(Shape shape, final BusinessRule eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if (graphicsAlgorithm instanceof Text) {
+                if (graphicsAlgorithm instanceof AbstractText) {
                 }
         
                 if (shape instanceof ContainerShape) {
                     for (Shape child : ((ContainerShape) shape).getChildren()) {
-                        updateChildsRecursively(child, eClass);
+                        updateChildrenRecursively(child, eClass);
                     }
                 }
             }

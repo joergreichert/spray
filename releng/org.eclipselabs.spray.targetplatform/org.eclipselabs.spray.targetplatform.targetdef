@@ -18,7 +18,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.gef.sdk 3.9.1.201308190730,
 		org.eclipse.zest.sdk 1.5.1.201308190730 category = Optional,
 		org.eclipse.graphiti.sdk.plus.feature 0.10.2.v20140217-1225,
-		org.eclipse.swt noFeature 3.102.1.v20140206-1334
+		org.eclipse.swt noFeature 3.102.1.v20140206-1334,
+		org.eclipse.equinox.transforms.hook noFeature 1.0.401.v20130327-1442,
+		org.eclipse.equinox.executable 3.6.0.v20140117-1004
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {

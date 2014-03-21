@@ -19,7 +19,7 @@ import org.eclipselabs.spray.styles.Gradient
 import org.eclipselabs.spray.styles.Style
 import org.eclipselabs.spray.styles.StyleContainer
 import org.eclipselabs.spray.styles.generator.StylesGenerator
-import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider
+import org.eclipselabs.spray.styles.tests.util.StyleTestsInjectorProvider;
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test

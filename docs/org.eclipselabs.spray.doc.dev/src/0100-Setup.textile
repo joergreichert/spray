@@ -21,7 +21,6 @@ The IDE contains the following features:
 * Collaboration Tools
 ** EGit ( "@http://www.eclipse.org/egit/@":http://www.eclipse.org/egit/ ) - Eclipse team provider for Git
 ** Mylyn ( "@http://www.eclipse.org/mylyn/@":http://www.eclipse.org/mylyn/ )
-** Mylyn Connector for Google Code ( "@http://code.google.com/p/googlecode-mylyn-connector/@":http://code.google.com/p/googlecode-mylyn-connector/ )
 ** Workspace Mechanic ( "@http://code.google.com/a/eclipselabs.org/p/workspacemechanic/@":http://code.google.com/a/eclipselabs.org/p/workspacemechanic/ )
 ** Mylyn WikiText "@http://wiki.eclipse.org/Mylyn/Incubator/WikiText@":http://wiki.eclipse.org/Mylyn/Incubator/WikiText )
 * Software Build
@@ -130,28 +129,6 @@ Click on "View and correct configuration issues" and fix the setup.
  
 In the Preferences of Eclipse you should see a new selected _Java/CodeStyle/Formatter_ called "spray_eclipse_formatter".
 
-h3. Add Spray task repository to Eclipse 
-
-First you have to install Google Code Task Repository manually.
-* For this go to _Help > Install New Software > Add_ 
-** Name: Mylyn Google Location
-** http://knittig.de/googlecode-mylyn-connector/update/
-* Select the new Source and Install the complete NightlyBuilds.
-
-Then you can configure the task repository.
-* _Window > Show View > Other... > Mylyn/Task_ Repositories
-* Open context menu in Task Repositories view > _Add task repositories_...
-* Google Code, Next
-** URL: Paste "@http://code.google.com/a/eclipselabs.org/p/spray/@":http://code.google.com/a/eclipselabs.org/p/spray/
-** Label: Spray
-** unselect Anonymous, if you later want to push code
-** enter your Google Account credentials (now use as password your Google Mail password, not the Google Code Password) > _Validate Settings_ > Finish
-!images/mylyn_1.png!
-* Add New Query
-* use predefined query > _Open issues_
-!images/mylyn_2.png!
-* _Window > Show View > Other... > Mylyn/Task List_
-
 h3. Add Spray Jenkins connector to Eclipse 
 
 * _Window > Show View > Other... > Mylyn/Builds_
@@ -165,7 +142,6 @@ h3. Add Spray Jenkins connector to Eclipse
 * click on spray-ci-build to show the current job status 
 
 h3. Add Spray Git repository to Eclipse 
-
 
 This will clone the Spray repository into your Eclipse workspace folder, create a number of working sets and add the projects to the working sets. To see the working sets go to the "View menu" icon of the Package Explorer and select Working Sets as Top Level Elements.
 
@@ -184,6 +160,21 @@ If you had cloned the Spray repository locally and want to use that repository:
 
 If you want to apply the Spray workset configuration without being forced to clone the Spray repository again, you can copy devtools/org.eclipselabs.spray.devenv/workingsets.xml to </path/to/workspace/.metadata>/.plugins/org.eclipse.ui.workbench/workingsets.xml
 
+h3. Add Newsfeed reader
+
+Because the Google Code Issue Tracker Data API has been shut down there is no Mylyn task integration possible anymore. As work around you can install an Eclipse integrated news feed reader to see updates to the Spray issue tracker. This RSS reader can be used as well for updates on the mailing lists.
+
+* Add "@http://www.junginger.biz/eclipse/@":http://www.junginger.biz/eclipse/ as update site
+* Install RSS View
+* After Restart, open Window, Preferences, RSS/Atom Feed View, remove the preconfigured feeds and add these instead (mark them active and add minutes to update, e.g. 60) 
+** "@http://code.google.com/a/eclipselabs.org/feeds/p/spray/issueupdates/basic@":http://code.google.com/a/eclipselabs.org/feeds/p/spray/issueupdates/basic
+** "@https://groups.google.com/forum/feed/spray-users/msgs/rss_v2_0.xml@":https://groups.google.com/forum/feed/spray-users/msgs/rss_v2_0.xml
+** "@https://groups.google.com/forum/feed/spray-dev/msgs/rss_v2_0.xml@":https://groups.google.com/forum/feed/spray-dev/msgs/rss_v2_0.xml
+* Open Eclipse view RSS/Atom Feed View / Feeds
+** under toolbar entry with Monitor icon: select "Grouped by feed, sorted by time"
+** With the other view toolbar entries you can fine tune filtering of the issues
+
+!images/feeds.png!
 
 h2. Target Platform
  

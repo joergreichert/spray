@@ -24,10 +24,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.platform;bundle-version="4.2.0",
  org.eclipselabs.spray.styles.generator,
  org.eclipselabs.spray.generator.common,
- org.xpect.xtext.lib;bundle-version="0.1.0"
+ org.xpect.xtext.lib;bundle-version="0.1.0",
+ org.eclipselabs.spray.testhelper
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
- org.eclipselabs.spray.runtime.graphiti.styles,
  org.hamcrest;core=split,
  org.hamcrest.core,
  org.junit;version="4.5.0",
