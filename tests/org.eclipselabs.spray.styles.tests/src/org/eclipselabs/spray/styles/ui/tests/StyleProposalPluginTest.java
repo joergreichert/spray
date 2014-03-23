@@ -12,7 +12,7 @@ package org.eclipselabs.spray.styles.ui.tests;
 
 import org.eclipse.xtext.junit4.IInjectorProvider;
 import org.eclipselabs.spray.styles.StyleUiInjectorProvider;
-import org.eclipselabs.spray.testhelper.xpect.AbstractProposalTest;
+import org.eclipselabs.spray.xtext.tests.xpect.AbstractProposalTest;
 import org.junit.runner.RunWith;
 import org.xpect.runner.XpectRunner;
 import org.xpect.runner.XpectTestFiles;

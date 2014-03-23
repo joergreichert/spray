@@ -8,13 +8,13 @@
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
-package org.eclipselabs.spray.testhelper.xpect;
+package org.eclipselabs.spray.xtext.tests.xpect;
 
 import org.eclipse.xtext.formatting.INodeModelFormatter;
 import org.eclipse.xtext.formatting.INodeModelFormatter.IFormattedRegion;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipselabs.spray.testhelper.xpect.AbstractXpectFormatterTest.NullValidatorSetup;
+import org.eclipselabs.spray.xtext.tests.xpect.AbstractXpectFormatterTest.NullValidatorSetup;
 import org.junit.runner.RunWith;
 import org.xpect.expectation.IStringExpectation;
 import org.xpect.expectation.StringExpectation;

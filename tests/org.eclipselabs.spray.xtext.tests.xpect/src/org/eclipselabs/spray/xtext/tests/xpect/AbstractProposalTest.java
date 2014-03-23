@@ -8,7 +8,7 @@
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
-package org.eclipselabs.spray.testhelper.xpect;
+package org.eclipselabs.spray.xtext.tests.xpect;
 
 import java.util.Arrays;
 

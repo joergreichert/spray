@@ -56,6 +56,7 @@
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
  				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
 				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
@@ -120,6 +121,7 @@
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 				<!--module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module-->
@@ -214,6 +216,7 @@
                 <module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
                 <module>../../tests/org.eclipselabs.spray.testhelper</module>
+                <module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
                 <module>../../tests/org.eclipselabs.spray.styles.tests</module>
                 <module>../../tests/org.eclipselabs.spray.shapes.tests</module>
                 <module>../../tests/org.eclipselabs.spray.xtext.tests</module>
@@ -289,6 +292,7 @@
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
 				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
 				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>

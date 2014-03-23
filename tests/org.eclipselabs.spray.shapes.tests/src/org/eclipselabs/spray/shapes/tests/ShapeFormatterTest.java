@@ -10,7 +10,7 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.tests;
 
-import org.eclipselabs.spray.testhelper.xpect.AbstractXpectFormatterTest;
+import org.eclipselabs.spray.xtext.tests.xpect.AbstractXpectFormatterTest;
 import org.junit.runner.RunWith;
 import org.xpect.runner.XpectRunner;
 import org.xpect.runner.XpectTestFiles;
