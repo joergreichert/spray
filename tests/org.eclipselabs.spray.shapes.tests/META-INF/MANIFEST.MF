@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipselabs.spray.shapes.generator,
  org.eclipselabs.spray.styles.generator,
  org.eclipselabs.spray.generator.common,
- org.xpect.xtext.lib;bundle-version="0.1.0"
+ org.xpect.xtext.lib;bundle-version="0.1.0",
+ org.eclipselabs.spray.xtext.tests.xpect
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipselabs.spray.runtime.graphiti,

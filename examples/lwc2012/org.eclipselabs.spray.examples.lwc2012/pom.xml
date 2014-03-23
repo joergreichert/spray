@@ -13,7 +13,7 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<properties>
-		<skip.mwe2>false</skip.mwe2>
+		<skip.mwe2>true</skip.mwe2>
 		<mwe2.relative.path>src/SprayLwcGenerator.mwe2</mwe2.relative.path>
 	</properties>
 
