@@ -19,9 +19,7 @@
 		<property name='p2.timestamp' value='1366902476295' />
 	</properties>
 	<children size='2'>
-		<child
-			location='https://spray.ci.cloudbees.com/job/spray-assembly-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/' />
-		<child
-			location='https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/' />
+		<child location='https://spray.ci.cloudbees.com/job/spray-assembly-build-deprecated_api_migration/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/' />
+		<child location='https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-deprecated_api_migration/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/' />
 	</children>
 </repository>
