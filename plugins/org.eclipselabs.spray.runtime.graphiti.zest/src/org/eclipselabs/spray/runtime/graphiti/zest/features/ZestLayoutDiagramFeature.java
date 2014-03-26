@@ -20,7 +20,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
@@ -264,8 +264,8 @@ public class ZestLayoutDiagramFeature extends AbstractCustomFeature {
             String label = null;
             EList<ConnectionDecorator> decorators = connection.getConnectionDecorators();
             for (ConnectionDecorator decorator : decorators) {
-                if (decorator.getGraphicsAlgorithm() instanceof Text) {
-                    label = ((Text) decorator.getGraphicsAlgorithm()).getValue();
+                if (decorator.getGraphicsAlgorithm() instanceof AbstractText) {
+                    label = ((AbstractText) decorator.getGraphicsAlgorithm()).getValue();
                 }
             }
 

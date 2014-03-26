@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 	
 	<properties>
-		<tycho-version>0.18.0</tycho-version>
+		<tycho-version>0.19.0</tycho-version>
 	</properties>	
 	
 	<name>Eclipselabs Spray</name>
@@ -155,6 +155,20 @@
 				<module>../../devtools/org.eclipselabs.spray.dev.updatesite</module>
 			</modules>
 		</profile>
+        <profile>
+            <id>modules-app</id>
+            <activation>
+                <property>
+                    <name>modules-app</name>
+                </property>
+            </activation>
+            <modules>
+                <module>../../features/org.eclipselabs.spray.feature</module>
+                <module>../../features/org.eclipselabs.spray.platform.feature</module>
+                <module>../../releng/org.eclipselabs.spray.application</module>
+                <module>../../releng/org.eclipselabs.spray.product</module>
+            </modules>
+        </profile>
         <profile>
             <id>modules-docs</id>
             <activation>

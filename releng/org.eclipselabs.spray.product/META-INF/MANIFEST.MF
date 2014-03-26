@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-Localization: plugin
+Bundle-SymbolicName: org.eclipselabs.spray.product;singleton:=true
+Bundle-Version: 0.5.1.qualifier
+Require-Bundle: org.eclipselabs.spray.application
+Bundle-Vendor: %providerName

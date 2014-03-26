@@ -46,7 +46,7 @@ class Mod4jDirectEditUniqueRuleFeatureBaseTest extends AbstractSprayGeneratorTes
         import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractDirectEditingFeature;
@@ -70,7 +70,7 @@ class Mod4jDirectEditUniqueRuleFeatureBaseTest extends AbstractSprayGeneratorTes
                 GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
                 // support direct editing, if it is a UniqueRule, and the user clicked
                 // directly on the text and not somewhere else in the rectangle
-                if (bo instanceof UniqueRule && ga instanceof Text) {
+                if (bo instanceof UniqueRule && ga instanceof AbstractText) {
                     return true;
                 }
                 // direct editing not supported in all other cases
@@ -85,7 +85,7 @@ class Mod4jDirectEditUniqueRuleFeatureBaseTest extends AbstractSprayGeneratorTes
                 // return the initial value of the clicked text on the UniqueRule
                 PictogramElement pe = context.getPictogramElement();
                 UniqueRule eClass = (UniqueRule) getBusinessObjectForPictogramElement(pe);
-                Text gAlg = (Text) context.getGraphicsAlgorithm();
+                AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
                 String id = peService.getPropertyValue(gAlg, TEXT_ID);
                 if (id.equals("uniqueRuleName")) {
                     return eClass.getName();
@@ -109,7 +109,7 @@ class Mod4jDirectEditUniqueRuleFeatureBaseTest extends AbstractSprayGeneratorTes
                 // set the new value on the UniqueRule
                 final PictogramElement pe = context.getPictogramElement();
                 UniqueRule eClass = (UniqueRule) getBusinessObjectForPictogramElement(pe);
-                Text gAlg = (Text) context.getGraphicsAlgorithm();
+                AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
                 String id = peService.getPropertyValue(gAlg, TEXT_ID);
                 if (id.equals("uniqueRuleName")) {
                     eClass.setName(value);

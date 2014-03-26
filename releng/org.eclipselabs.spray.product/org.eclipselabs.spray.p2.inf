@@ -1,0 +1,3 @@
+instructions.configure=\
+  org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(location:https${#58}//spray.ci.cloudbees.com/job/spray-assembly-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/,type:0,name:Spray Snapshot Updates,enabled:true); \
+  

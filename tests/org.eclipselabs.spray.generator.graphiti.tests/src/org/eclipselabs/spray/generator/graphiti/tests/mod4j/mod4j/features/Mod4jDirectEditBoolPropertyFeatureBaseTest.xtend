@@ -46,7 +46,7 @@ class Mod4jDirectEditBoolPropertyFeatureBaseTest extends AbstractSprayGeneratorT
         import org.eclipse.graphiti.features.context.IDirectEditingContext;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.services.Graphiti;
         import org.eclipse.graphiti.services.IPeService;
         import org.eclipselabs.spray.runtime.graphiti.features.AbstractDirectEditingFeature;
@@ -70,7 +70,7 @@ class Mod4jDirectEditBoolPropertyFeatureBaseTest extends AbstractSprayGeneratorT
                 GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
                 // support direct editing, if it is a BoolProperty, and the user clicked
                 // directly on the text and not somewhere else in the rectangle
-                if (bo instanceof BoolProperty && ga instanceof Text) {
+                if (bo instanceof BoolProperty && ga instanceof AbstractText) {
                     return true;
                 }
                 // direct editing not supported in all other cases
@@ -85,7 +85,7 @@ class Mod4jDirectEditBoolPropertyFeatureBaseTest extends AbstractSprayGeneratorT
                 // return the initial value of the clicked text on the BoolProperty
                 PictogramElement pe = context.getPictogramElement();
                 BoolProperty eClass = (BoolProperty) getBusinessObjectForPictogramElement(pe);
-                Text gAlg = (Text) context.getGraphicsAlgorithm();
+                AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
                 String id = peService.getPropertyValue(gAlg, TEXT_ID);
                 if (id.equals("textId2")) {
                     return eClass.getName();
@@ -109,7 +109,7 @@ class Mod4jDirectEditBoolPropertyFeatureBaseTest extends AbstractSprayGeneratorT
                 // set the new value on the BoolProperty
                 final PictogramElement pe = context.getPictogramElement();
                 BoolProperty eClass = (BoolProperty) getBusinessObjectForPictogramElement(pe);
-                Text gAlg = (Text) context.getGraphicsAlgorithm();
+                AbstractText gAlg = (AbstractText) context.getGraphicsAlgorithm();
                 String id = peService.getPropertyValue(gAlg, TEXT_ID);
                 if (id.equals("textId2")) {
                     eClass.setName(value);
