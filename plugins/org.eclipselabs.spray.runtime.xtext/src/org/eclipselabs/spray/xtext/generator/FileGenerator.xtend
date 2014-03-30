@@ -37,7 +37,7 @@ class FileGenerator<T> extends TemplateUtil {
         this.genFile = genFile
         
         if( genFile instanceof JavaGenFile){
-            javaGenFile = (genFile as JavaGenFile)
+            javaGenFile = genFile
         } else {
             javaGenFile = null
         }
