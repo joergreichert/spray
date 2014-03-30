@@ -62,6 +62,7 @@ Workflow {
             }
             fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
             fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {
+            	antlrParam = "-Xconversiontimeout" antlrParam = "10000"
                 options = {
                     classSplitting = true
                 }
@@ -80,6 +81,7 @@ Workflow {
             fragment = outline.QuickOutlineFragment auto-inject {}
             fragment = contentAssist.JavaBasedContentAssistFragment auto-inject {}
             fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {
+            	antlrParam = "-Xconversiontimeout" antlrParam = "10000"
                 options = {
                     classSplitting = true
                 }

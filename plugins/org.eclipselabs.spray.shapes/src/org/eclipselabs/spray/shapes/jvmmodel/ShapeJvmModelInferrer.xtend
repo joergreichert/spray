@@ -41,7 +41,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
 		} else {
 			if(existingClass instanceof JvmDeclaredType) {
 				element.associate(existingClass)
-				acceptor.accept(existingClass as JvmDeclaredType)
+				acceptor.accept(existingClass)
 			}
 		}
    	}
@@ -57,7 +57,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
 		} else {
 			if(existingClass instanceof JvmDeclaredType) {
 				element.associate(existingClass)
-				acceptor.accept(existingClass as JvmDeclaredType)
+				acceptor.accept(existingClass)
 			}
 		}
    	}   	
