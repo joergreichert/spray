@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="%productName" uid="product" id="org.eclipselabs.spray.product.product" application="org.eclipse.ui.ide.workbench" version="0.5.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="%productName" uid="org.eclipselabs.spray.product" id="org.eclipselabs.spray.product" application="org.eclipse.ui.ide.workbench" version="0.5.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/org.eclipselabs.spray.product/icons/Spray-Logo-Icon-128.png"/>
