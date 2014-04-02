@@ -36,7 +36,7 @@ class LayoutExtensionsTest extends XtextTest {
 	
 	@Test
 	def void testGetParentX() {
-		val shape = (parseHelper.parse(shapeDefinition) as ShapeContainer)
+		val shape = parseHelper.parse(shapeDefinition)
 			.shapeContainerElement.head
 		val outerEllipse = shape.eAllContents.filter(typeof(Ellipse))
 			.filter(e|e.layout.common.xcor == 12).head

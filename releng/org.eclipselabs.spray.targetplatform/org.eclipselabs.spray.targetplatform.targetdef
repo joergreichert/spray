@@ -6,7 +6,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 
 	categories {
 		SprayDependencies "Spray 3rd party dependencies" default,
-		Testing, Optional
+		Testing, 
+		Optional "Features for Spray extensions",
+		RCP "Features required for building an Eclipse RCP"
 	}
 
 	"Eclipse Kepler" http://download.eclipse.org/releases/kepler {
@@ -18,7 +20,19 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.gef.sdk 3.9.1.201308190730,
 		org.eclipse.zest.sdk 1.5.1.201308190730 category = Optional,
 		org.eclipse.graphiti.sdk.plus.feature 0.10.2.v20140217-1225,
-		org.eclipse.swt noFeature 3.102.1.v20140206-1334
+		org.eclipse.swt noFeature 3.102.1.v20140206-1334,
+
+		org.eclipse.help 2.0.2.v20140221-1700 category = RCP, 
+		org.eclipse.jdt 3.9.2.v20140221-1700 category = RCP, 
+		org.eclipse.platform 4.3.2.v20140221-1852 category = RCP, 
+		org.eclipse.rcp 4.3.2.v20140221-1700 category = RCP, 
+		org.eclipse.equinox.executable 3.6.0.v20140117-1004 category = RCP, 
+		org.eclipse.equinox.p2.core.feature 1.2.1.v20140221-1852 category = RCP, 
+		org.eclipse.equinox.p2.user.ui 2.2.0.v20140221-1852 category = RCP, 
+		org.eclipse.equinox.p2.rcp.feature 1.2.0.v20140221-1852 category = RCP, 
+		org.eclipse.equinox.p2.extras.feature 1.2.0.v20140221-1852 category = RCP, 
+		org.eclipse.equinox.p2.rcp.feature 1.2.0.v20140221-1852 category = RCP,
+		org.eclipse.equinox.core.sdk 3.8.0.v20140114-1344 category = RCP
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
