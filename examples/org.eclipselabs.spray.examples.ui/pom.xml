@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipselabs.spray</groupId>
+		<artifactId>org.eclipselabs.spray.parent</artifactId>
+		<version>0.5.1-SNAPSHOT</version>
+		<relativePath>../../releng/org.eclipselabs.spray.parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>org.eclipselabs.spray.examples.ui</artifactId>
+	<packaging>eclipse-plugin</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<tasks>
+								<mkdir dir="contents/one" />
+								<mkdir dir="contents/bpmn2.0" />
+								<mkdir dir="contents/lwc2012" />
+								<mkdir dir="contents/petrinet" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>test</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.mod4j</groupId>
+									<artifactId>org.mod4j.dsl.businessdomain.mm</artifactId>
+									<version>1.4.0</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/one</outputDirectory>
+									<destFileName>org.mod4j.dsl.businessdomain.mm.zip</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.one</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/one</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.one.zip</destFileName>
+								</artifactItem>
+								<!--
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.one.diagrams</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/one</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.one.diagrams.zip</destFileName>
+								</artifactItem>
+								-->
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.bpmn.domain</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/bpmn2.0</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.bpmn.domain.zip</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.bpmn</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/bpmn2.0</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.bpmn.zip</destFileName>
+								</artifactItem>
+								<!--
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.bpmn.diagrams</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/bpmn2.0</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.bpmn.diagrams.zip</destFileName>
+								</artifactItem>
+								<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.conceptmap.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/conceptmap</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.conceptmap.domain.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.conceptmap</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/conceptmap</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.conceptmap.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.contain.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/contain</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.contain.domain.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.contain.diagram</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/contain</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.contain.diagram.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.ecore</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/ecore</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.ecore.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.erdiagram.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/entity-relationship</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.erdiagram.domain.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.epk.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/epk</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.epk.domain.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.epk</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/epk</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.epk.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.featuremodeling.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/featuremodeling</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.featuremodeling.domain.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.featuremodeling.diagram</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/featuremodeling</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.featuremodeling.diagram.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.featuremodeling.diagrams</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/featuremodeling</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.featuremodeling.diagrams.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.forms.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/forms</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.forms.domain.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.forms.diagram</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/forms</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.forms.diagram.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipse.xtext.example.fowlerdsl</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/fowlerdsl</outputDirectory> 
+									<destFileName>org.eclipse.xtext.example.fowlerdsl.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipse.xtext.example.fowlerdsl.ui</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/fowlerdsl</outputDirectory> 
+									<destFileName>org.eclipse.xtext.example.fowlerdsl.ui.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipse.xtext.example.fowlerdsl.diagram</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/fowlerdsl</outputDirectory> 
+									<destFileName>org.eclipse.xtext.example.fowlerdsl.diagram.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipse.xtext.example.fowlerdsl.diagrams</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/fowlerdsl</outputDirectory> 
+									<destFileName>org.eclipse.xtext.example.fowlerdsl.diagrams.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.joe.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/goals</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.joe.domain.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.joe.diagram</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/goals</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.joe.diagram.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.joe.diagrams</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/goals</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.joe.diagrams.zip</destFileName> </artifactItem> -->
+								<artifactItem>
+									<groupId>de.htwg</groupId>
+									<artifactId>org.eclipselabs.spray.examples.lwc2012.domain</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/lwc2012</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.lwc2012.domain.zip</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.lwc2012</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/lwc2012</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.lwc2012.zip</destFileName>
+								</artifactItem>
+								<!--
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.lwc2012.diagrams</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/lwc2012</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.lwc2012.diagrams.zip</destFileName>
+								</artifactItem>
+								<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.mindmap.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/mindmap</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.mindmap.domain.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.examples.mindmap</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/mindmap</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.examples.mindmap.zip</destFileName> </artifactItem> 
+									<artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.nassishneiderman.domain</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/nassishneiderman</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.nassishneiderman.domain.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.nassishneiderman.diagram</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/nassishneiderman</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.nassishneiderman.diagram.zip</destFileName> 
+									</artifactItem> <artifactItem> <groupId>org.eclipselabs.spray</groupId> <artifactId>org.eclipselabs.spray.nassishneiderman.diagrams</artifactId> 
+									<version>0.5.1-SNAPSHOT</version> <overWrite>true</overWrite> <outputDirectory>contents/nassishneiderman</outputDirectory> 
+									<destFileName>org.eclipselabs.spray.nassishneiderman.diagrams.zip</destFileName> 
+									</artifactItem> -->
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.petrinet.domain</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/petrinet</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.petrinet.domain.zip</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.petrinet</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/petrinet</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.petrinet.zip</destFileName>
+								</artifactItem>
+								<!--
+								<artifactItem>
+									<groupId>org.eclipselabs.spray</groupId>
+									<artifactId>org.eclipselabs.spray.examples.petrinet.diagrams</artifactId>
+									<version>0.5.1-SNAPSHOT</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>contents/petrinet</outputDirectory>
+									<destFileName>org.eclipselabs.spray.examples.petrinet.diagrams.zip</destFileName>
+								</artifactItem>
+								-->
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
