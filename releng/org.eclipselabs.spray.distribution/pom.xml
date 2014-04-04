@@ -70,6 +70,7 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
 			</modules>
 		</profile>
 		<profile>
@@ -120,6 +121,7 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
@@ -228,6 +230,7 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
                 <module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
                 <module>../../releng/org.eclipselabs.spray.repository.parent</module>
                 <module>../../releng/org.eclipselabs.spray.repository</module>
@@ -303,6 +306,7 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 <!--			<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>	-->
 				<module>../../features/org.eclipselabs.spray.feature</module>
