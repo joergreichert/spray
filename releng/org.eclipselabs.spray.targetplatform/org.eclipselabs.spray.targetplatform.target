@@ -13,7 +13,6 @@
 			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.1.201308190730"/>
 			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.2.v20140217-1225"/>
 			<unit id="org.eclipse.swt" version="3.102.1.v20140206-1334"/>
-
 			<unit id="org.eclipse.help.feature.group" version="2.0.2.v20140221-1700"/>
 			<unit id="org.eclipse.jdt.feature.group" version="3.9.2.v20140221-1700"/>
 			<unit id="org.eclipse.platform.feature.group" version="4.3.2.v20140221-1852"/>
@@ -29,15 +28,12 @@
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.2.v20140203-1126"/>
+			<unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.1.2.v20131212-0836"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.4.v201404100756"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.4.v201404100756"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.1.v201402030750"/>
 			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.1.v201402030544"/>
-			<unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.1.2.v20131212-0836"/>
 			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.4.v201404080511"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.4.v201404080511"/>
-			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/maintenance/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.0.v201308291703"/>
