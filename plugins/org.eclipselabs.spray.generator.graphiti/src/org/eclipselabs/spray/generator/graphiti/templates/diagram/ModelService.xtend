@@ -20,6 +20,19 @@ import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 class ModelService extends FileGenerator<Diagram> {
     @Inject extension NamingExtensions
     
+    override CharSequence generateExtensionFile(Diagram modelElement) {
+        mainExtensionPointFile( modelElement, javaGenFile.className)
+    }
+
+    def mainExtensionPointFile(Diagram diagram, String className) '''
+        «extensionHeader(this)»
+        package «diagram_package()»;
+         
+        public class «className» extends «className»Base {
+         
+        }
+    '''
+    
     override CharSequence generateBaseFile(Diagram modelElement) {
         mainFile( modelElement, javaGenFile.className)
     }
