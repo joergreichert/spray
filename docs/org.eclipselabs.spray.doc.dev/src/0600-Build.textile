@@ -121,12 +121,21 @@ p.
 
 In directory @releng/org.eclipselabs.spray.repository/target/repository@ an Eclipse P2 repository is built, which contains all plugins and sources.
 
+h3. Test execution naming scheme
+
+The Surefire plug-ins are configured with several executions that are using different configurations. Which test class is run by which execution is determined by the naming of the test class:
+* all classes that end with PluginTest.java will be run as headless JUnit plug-in test by the Tycho Surefire plug-in
+* all classes that end with PluginUITest.java will be run as JUnit plug-in test in a popping up Eclipse workbench instance by the Tycho Surefire plug-in
+* all classes not ending with PluginTest or PluginUITest will be run as normal JUnit test by the Maven Surefire plug-in
+
+If you know that the current Eclipse test plug-in will never contain plugin tests and/or plugin UI tests you can override the parent Tycho Surefire plug-in configuration and bind the corresponding execution to a non-existing Maven lifecycle phase. See org.eclipselabs.spray.styles.tests/pom.xml as an example. 
+
 h3. Disable execution of UI tests
 
-The build executes UI tests developed with SWTBot ( "@http://www.eclipse.org/swtbot/@":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, add the @skip-ui-tests@ property:
+The build executes UI tests developed with SWTBot ( "@http://www.eclipse.org/swtbot/@":http://www.eclipse.org/swtbot/ by default. If you want to skip executing these tests, add the @skip-plugin-ui-tests@ profile:
 
 bc.. 
-mvn -Dskip-ui-tests clean install
+mvn clean install -Pskip-plugin-ui-tests
 p. 
 
 

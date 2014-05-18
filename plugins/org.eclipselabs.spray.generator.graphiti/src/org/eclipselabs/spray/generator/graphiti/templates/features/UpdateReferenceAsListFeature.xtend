@@ -61,7 +61,7 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.PictogramElement;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.services.IGaService;
@@ -101,8 +101,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
             String pictogramName = null;
             if (pictogramElement instanceof Shape) {
                 final Shape cs = (Shape) pictogramElement;
-                if (cs.getGraphicsAlgorithm() instanceof Text) {
-                    final Text text = (Text) cs.getGraphicsAlgorithm();
+                if (cs.getGraphicsAlgorithm() instanceof AbstractText) {
+                    final AbstractText text = (AbstractText) cs.getGraphicsAlgorithm();
                     // peService.getPropertyValue(shape, "REFERENCE");
                     if( pictogramName == null ){
                         pictogramName = text.getValue();
@@ -144,8 +144,8 @@ class UpdateReferenceAsListFeature extends FileGenerator<MetaReference> {
             // Set name in pictogram model
             if (pictogramElement instanceof Shape) {
                 final Shape cs = (Shape) pictogramElement;
-                if (cs.getGraphicsAlgorithm() instanceof Text) {
-                    final Text text = (Text) cs.getGraphicsAlgorithm();
+                if (cs.getGraphicsAlgorithm() instanceof AbstractText) {
+                    final AbstractText text = (AbstractText) cs.getGraphicsAlgorithm();
                     text.setValue(businessName);
                     layoutPictogramElement(cs.getContainer().getContainer());
                     setDoneChanges(true);

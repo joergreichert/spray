@@ -338,7 +338,9 @@ class StyleGenerator extends FileGenerator<Style> {
                 StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
                 agca.setDefinedStyleId("«s.createStyleGradientID»");
                 agca.setGradientType(«gradientOrientation»);
-                agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, «l.background.gradientColoredAreas»);
+                «IF l.background != null»
+                	agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, «l.background.gradientColoredAreas»);
+                «ENDIF»
                 «IF l.highlighting != null»
                     «IF l.highlighting.selected != null»
                         agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED, «l.highlighting.selected.gradientColoredAreas»);

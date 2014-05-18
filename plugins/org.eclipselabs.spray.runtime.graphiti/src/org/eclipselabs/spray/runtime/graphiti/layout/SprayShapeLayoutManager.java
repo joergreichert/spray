@@ -11,8 +11,10 @@
 package org.eclipselabs.spray.runtime.graphiti.layout;
 
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
@@ -50,7 +52,32 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayLayoutData data = SprayLayoutService.getLayoutData(shape);
         GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
         if (data.isVisible()) {
-            if (ga instanceof Text) {
+            if (ga instanceof MultiText) {
+            	// http://www.eclipse.org/forums/index.php/mv/msg/203421/658899/#msg_658899
+                int width = 10;
+                int height = 10;
+                MultiText text = (MultiText) ga;
+                IDimension dim = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), getFont(text));
+                if (dim == null) {
+                    width = data.getMinimumWidth();
+                    height = data.getMinimumHeight();
+                } else {
+                	String value = text.getValue();
+                	int textHeight = dim.getHeight();
+                	int currentWidth = data.getMinimumWidth();
+                	int currentHeight = data.getMinimumHeight();
+                	int maxCharsPerLine = Math.round((currentHeight / 15) * ((12 * currentWidth) / 90 ));
+                	int valueLength = value.length();
+                	int rowCount = Math.round(valueLength / maxCharsPerLine);
+                    width = data.getMinimumWidth();
+                    height = rowCount * textHeight;
+                }
+                width = data.getMinimumWidth();
+                height = data.getMinimumHeight();
+                int newWidth = width + (2 * MARGIN);
+                int newHeight = height + (2 * MARGIN);
+                layoutService.setSize(ga, newWidth, newHeight);
+            } else if (ga instanceof Text) {
                 int width = 10;
                 int height = 10;
                 Text text = (Text) ga;
@@ -84,7 +111,7 @@ public class SprayShapeLayoutManager implements ISprayLayoutManager {
         SprayAbstractLayoutManager.level--;
     }
 
-    protected Font getFont(Text text) {
+    protected Font getFont(AbstractText text) {
         if (text.getFont() != null) {
             return text.getFont();
         } else if (text.getStyle() != null) {

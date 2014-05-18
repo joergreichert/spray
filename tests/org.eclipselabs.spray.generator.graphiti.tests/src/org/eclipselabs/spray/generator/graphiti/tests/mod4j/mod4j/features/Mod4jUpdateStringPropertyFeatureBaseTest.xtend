@@ -47,7 +47,7 @@ class Mod4jUpdateStringPropertyFeatureBaseTest extends AbstractSprayGeneratorTes
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.ContainerShape;
         import org.eclipse.graphiti.mm.pictograms.Shape;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -107,8 +107,8 @@ class Mod4jUpdateStringPropertyFeatureBaseTest extends AbstractSprayGeneratorTes
         
             protected boolean checkUpdateNeededRecursively(Shape shape, final StringProperty eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if (graphicsAlgorithm instanceof Text) {
-                    Text text = (Text) graphicsAlgorithm;
+                if (graphicsAlgorithm instanceof AbstractText) {
+                    AbstractText text = (AbstractText) graphicsAlgorithm;
                     String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
                     if (id != null) {
                         if (id.equals("textId2")) {
@@ -145,7 +145,7 @@ class Mod4jUpdateStringPropertyFeatureBaseTest extends AbstractSprayGeneratorTes
                 final StringProperty eClass = (StringProperty) getBusinessObjectForPictogramElement(pictogramElement);
                 if (pictogramElement instanceof Shape) {
                     Shape shape = (Shape) pictogramElement;
-                    updateChildsRecursively(shape, eClass);
+                    updateChildrenRecursively(shape, eClass);
                     Shape top = findTopShape(shape);
                     SprayLayoutService.getLayoutManager(top).layout();
                 }
@@ -153,10 +153,10 @@ class Mod4jUpdateStringPropertyFeatureBaseTest extends AbstractSprayGeneratorTes
         
             }
         
-            protected void updateChildsRecursively(Shape shape, final StringProperty eClass) {
+            protected void updateChildrenRecursively(Shape shape, final StringProperty eClass) {
                 GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-                if (graphicsAlgorithm instanceof Text) {
-                    Text text = (Text) graphicsAlgorithm;
+                if (graphicsAlgorithm instanceof AbstractText) {
+                    AbstractText text = (AbstractText) graphicsAlgorithm;
                     String id = peService.getPropertyValue(graphicsAlgorithm, TEXT_ID);
                     if (id != null) {
                         if (id.equals("textId2")) {
@@ -172,7 +172,7 @@ class Mod4jUpdateStringPropertyFeatureBaseTest extends AbstractSprayGeneratorTes
         
                 if (shape instanceof ContainerShape) {
                     for (Shape child : ((ContainerShape) shape).getChildren()) {
-                        updateChildsRecursively(child, eClass);
+                        updateChildrenRecursively(child, eClass);
                     }
                 }
             }

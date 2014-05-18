@@ -261,18 +261,10 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
 	public void checkLineAttributes(ColorWithTransparency lineColor,
 			Integer lineWidth, LineStyle lineStyle) {
 		if (lineColor instanceof Transparent) {
-			if (lineWidth != 0) {
-				warning("If the line-color is transparent, the line-width is deprecated.",
-						StylesPackage.Literals.STYLE_LAYOUT__LINE_WIDTH,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-						String.valueOf(lineWidth));
-			}
-			if (lineStyle != null && lineStyle != LineStyle.NULL) {
-				warning("If the line-color is transparent, the line-style is deprecated.",
-						StylesPackage.Literals.STYLE_LAYOUT__LINE_STYLE,
-						ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-						lineStyle.toString());
-			}
+			error("Setting the line-color to transparent isn't supported, use line-width = 0 instead.",
+					StylesPackage.Literals.STYLE_LAYOUT__LINE_WIDTH,
+					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+					String.valueOf(lineWidth));
 		} else {
 			if (lineWidth == 0 && lineStyle != null) {
 				warning("If the line-width is 0, the line is invisible (line-style is deprecated).",

@@ -52,7 +52,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
         import org.eclipse.graphiti.features.IReason;
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
         import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -105,7 +105,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
                 for (final ConnectionDecorator decorator : free.getConnectionDecorators()) {
                     final String type = peService.getPropertyValue(decorator, PROPERTY_MODEL_TYPE);
                     final String value = getValue(type, eClass);
-                    final Text text = (Text) decorator.getGraphicsAlgorithm();
+                    final AbstractText text = (AbstractText) decorator.getGraphicsAlgorithm();
                     final String current = text.getValue();
                     if (ObjectExtensions.operator_notEquals(current, value)) {
                         return Reason.createTrueReason(type + " is changed");
@@ -127,7 +127,7 @@ class UpdateConnectionFeature extends FileGenerator<ConnectionInSpray>  {
             for (final ConnectionDecorator decorator : free.getConnectionDecorators()) {
                 final String type = peService.getPropertyValue(decorator, PROPERTY_MODEL_TYPE);
                 final String value = getValue(type, eClass);
-                final Text text = (Text) decorator.getGraphicsAlgorithm();
+                final AbstractText text = (AbstractText) decorator.getGraphicsAlgorithm();
                 text.setValue(value);
                 setDoneChanges(true);
             }

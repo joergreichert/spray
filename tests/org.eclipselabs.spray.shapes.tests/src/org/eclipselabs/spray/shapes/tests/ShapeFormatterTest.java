@@ -50,15 +50,26 @@ public class ShapeFormatterTest {
 			r = formatter.format(rootNode, rootNode.getOffset(),
 					rootNode.getTotalLength());
 		}
-		String formatted = r.getFormattedText()
-				.replaceAll("\\r\\b", "\n")
-				.replaceAll("\\r\\n", "\n")
-				+ getEnding();
+		String formatted = r.getFormattedText();
+		if (isUnixEnding()) {
+			formatted = formatted.replaceAll("\r\n", "\n");
+		} else if (isWindowsEnding()) {
+			if(!rootNode.getText().contains("\r\n")) {
+				formatted = formatted.replaceAll("\r\n", "\n");
+			} else {
+				formatted = formatted.replaceAll("(!\r)\n", "\r\n");
+			}
+		}
 		expectation.assertEquals(formatted);
 	}
 
-	private String getEnding() {
+	private static boolean isWindowsEnding() {
 		String ls = System.getProperty("line.separator");
-		return !"\r\n".equals(ls) ? "\r" : "";
+		return "\r\n".equals(ls);
+	}
+
+	private static boolean isUnixEnding() {
+		String ls = System.getProperty("line.separator");
+		return "\n".equals(ls);
 	}
 }

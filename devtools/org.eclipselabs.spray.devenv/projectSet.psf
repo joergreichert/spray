@@ -49,6 +49,8 @@
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,tests/org.eclipselabs.spray.xtext.tests"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,plugins/org.eclipselabs.spray.xtext.ui"/>
 		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,examples/one/org.mod4j.dsl.businessdomain.mm"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,features/org.eclipselabs.spray.platform.feature"/>
+		<project reference="1.0,https://code.google.com/a/eclipselabs.org/p/spray,master,releng/org.eclipselabs.spray.product"/>
 	</provider>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1315219591752_7" label="Spray Runtime" name="Spray Runtime">
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.runtime.graphiti.zest" type="4"/>
@@ -98,6 +100,7 @@
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature.sdk" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature.source" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.feature" type="4"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.platform.feature" type="4"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321710445531_21" label="Spray Releng" name="Spray Releng">
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.parent" type="4"/>
@@ -107,6 +110,7 @@
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.distribution" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.repository.parent" type="4"/>
 		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.updatesite" type="4"/>
+		<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipselabs.spray.product" type="4"/>
 		<item elementID="=org.eclipselabs.spray.releng.tools" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 	</workingSets>
 	<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1321714057986_24" label="Spray Dev" name="Spray Dev">

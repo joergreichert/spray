@@ -52,20 +52,25 @@ public class StyleFormatterTest {
 					rootNode.getTotalLength());
 		}
 		String formatted = r.getFormattedText();
-		if(!isWindowsEnding()) {
+		if (isUnixEnding()) {
 			formatted = formatted.replaceAll("\r\n", "\n");
+		} else if (isWindowsEnding()) {
+			if(!rootNode.getText().contains("\r\n")) {
+				formatted = formatted.replaceAll("\r\n", "\n");
+			} else {
+				formatted = formatted.replaceAll("(!\r)\n", "\r\n");
+			}
 		}
-		formatted = formatted.replaceAll("\r\b", "\n");
-		formatted = formatted + getEnding();
 		expectation.assertEquals(formatted);
 	}
 
-	private String getEnding() {
-		return isWindowsEnding() ? "\r" : "";
-	}
-	
-	private boolean isWindowsEnding() {
+	private static boolean isWindowsEnding() {
 		String ls = System.getProperty("line.separator");
 		return "\r\n".equals(ls);
+	}
+
+	private static boolean isUnixEnding() {
+		String ls = System.getProperty("line.separator");
+		return "\n".equals(ls);
 	}
 }

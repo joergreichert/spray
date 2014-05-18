@@ -49,7 +49,7 @@ class Mod4jUpdateAssociationFeatureBaseTest extends AbstractSprayGeneratorTest {
         import org.eclipse.graphiti.features.context.IUpdateContext;
         import org.eclipse.graphiti.features.impl.Reason;
         import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-        import org.eclipse.graphiti.mm.algorithms.Text;
+        import org.eclipse.graphiti.mm.algorithms.AbstractText;
         import org.eclipse.graphiti.mm.pictograms.Connection;
         import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
         import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -113,8 +113,8 @@ class Mod4jUpdateAssociationFeatureBaseTest extends AbstractSprayGeneratorTest {
             }
         
             protected void searchChilds(GraphicsAlgorithm gAlg, Association eClass) {
-                if (gAlg instanceof Text) {
-                    Text text = (Text) gAlg;
+                if (gAlg instanceof AbstractText) {
+                    AbstractText text = (AbstractText) gAlg;
                     String id = peService.getPropertyValue(gAlg, TEXT_ID);
                     if (id.equals("assocText")) {
                         text.setValue(eClass.getName());

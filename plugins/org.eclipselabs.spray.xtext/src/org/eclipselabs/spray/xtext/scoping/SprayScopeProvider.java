@@ -140,9 +140,16 @@ public class SprayScopeProvider extends XbaseScopeProvider {
                 @Override
                 public boolean apply(EObject input) {
                     if (input instanceof EAttribute) {
-                        if (((EAttribute) input).getEType().getName().equals("EString")) {
-                            return true;
+                        EClassifier type = ((EAttribute) input).getEType();
+                        if (type == null) {
+                        	LOGGER.warn("Type of attribute " + ((EAttribute) input).getName() + " is null."); 
+                            return false;
                         }
+                        if (type.eIsProxy()) {
+                            LOGGER.warn("Type of attribute " + ((EAttribute) input).getName() + " is a proxy."); 
+                            return false;
+                        }
+                        return "EString".equals(((EAttribute) input).getEType().getName());
                     }
                     return false;
                 }
