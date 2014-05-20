@@ -1,8 +1,10 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
 gradient MyGradient {
 	area (color = blue, offset = 0.0)
 	area (color = green, offset = 0.4)
-/* XPECT validationIssues at 'color = yellow, offset = |0.4' ---
-error "This offset should be bigger than 0.4. Please take care about the sortage of the gradient areas."
+/* XPECT errors at 'color = yellow, offset = |0.4' ---
+	"This offset should be bigger than 0.4. Please take care about the sortage of the gradient areas." at "0.4"
 --- */
 	area (color = yellow, offset = 0.4)
 	area (color = gray, offset = 1.0)

@@ -1,14 +1,20 @@
-/*
-XPECT_IMPORT a.style
-XPECT_IMPORT c.style
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleScopingTest 
+
+	ResourceSet {
+		ThisFile {}
+		File "a.style" {}
+		File "c.style" {}
+	}
+  
+   END_SETUP
  */
 
 
 style B1 {
 }
 
-// XPECT elementsInScope at A3 --> A1, A2, A3, B1 
+// XPECT scope at A3 --> A1, A2, A3, B1 
 style B2 extends A3 {
-// XPECT elementsInScope at C1 --> C1, C2 
+// XPECT scope at C1 --> C1, C2 
 	background-color = C1
 }

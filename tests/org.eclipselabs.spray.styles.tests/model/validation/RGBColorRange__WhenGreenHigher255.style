@@ -1,6 +1,8 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
 style MydiagramDefaultStyle extends JAVA org.eclipselabs.spray.runtime.graphiti.styles.DefaultSprayStyle {
-/* XPECT validationIssues at 'RGB(0,256,0)' ---
-error "The green color should be defined between 0 and 255."
+/* XPECT errors at 'RGB(0,256,0)' ---
+	"The green color should be defined between 0 and 255." at "256"
 --- */
 	font-color = RGB(0,256,0)
 }

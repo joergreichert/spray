@@ -572,7 +572,7 @@
 			</plugin>
 		</plugins>
 	</reporting>	
-
+	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>sonatype_releases</id>
@@ -594,8 +594,8 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>
-	
+	</pluginRepositories>	
+
 	<profiles>
 		<profile>
 			<id>remote-build-snapshot</id>

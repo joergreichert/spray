@@ -1,5 +1,7 @@
-// XPECT elementsProposed at '|style' --> style, gradient
+/* XPECT_SETUP org.eclipselabs.spray.styles.ui.tests.StyleProposalTest END_SETUP */
+
+// XPECT elementsProposed at style --> style, gradient
 // XPECT elementsProposed at 'A1 |{' --> extends, { 
-// XPECT elementsProposed at 'A1 {|' --> background-color, description, font-bold, font-color, font-italic, font-name, font-size, gradient-orientation, highlighting, line-color, line-style, line-width, transparency, {, }
+// XPECT elementsProposed at '{|' --> background-color, description, font-bold, font-color, font-italic, font-name, font-size, gradient-orientation, highlighting, line-color, line-style, line-width, transparency, {, }
 style A1 {
 }

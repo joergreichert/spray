@@ -1,7 +1,9 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
 gradient MyGradient {
 	area (color = blue, offset = 0.0)
-/* XPECT validationIssues at '0.9' ---
-warning "A gradient should always end with an offset of 1.0."
+/* XPECT warnings at '0.9' ---
+	"A gradient should always end with an offset of 1.0." at "0.9"
 --- */
 	area (color = gray, offset = 0.9)
 }

@@ -1,4 +1,6 @@
-/* XPECT formatted ---
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayFormatterTest END_SETUP */
+ 
+/* XPECT formatted --- 
 // Add import statements here                                
 import BusinessDomainDsl.*
 

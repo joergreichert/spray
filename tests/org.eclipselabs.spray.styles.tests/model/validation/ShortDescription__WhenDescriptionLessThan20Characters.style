@@ -1,6 +1,8 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
 style MyStyle {
-/* XPECT validationIssues at '"too short"' ---
-warning "The description should have more than 20 characters."
+/* XPECT warnings at '"too short"' ---
+	"The description should have more than 20 characters." at ""too short""
 --- */
 	description = "too short"
 }

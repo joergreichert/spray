@@ -1,3 +1,5 @@
+/* XPECT_SETUP org.eclipselabs.spray.shapes.tests.ShapeFormatterTest END_SETUP */
+
 /* XPECT formatted --- 
 shape RectangleShape {
 	rectangle {

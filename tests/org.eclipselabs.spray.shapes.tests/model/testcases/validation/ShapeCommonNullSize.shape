@@ -1,11 +1,13 @@
+/* XPECT_SETUP org.eclipselabs.spray.shapes.tests.ShapeValidationTest END_SETUP */
+
 shape RelativeAnchorsTest {
 	size-min(width=0, height=0)
 	size-max(width=0, height=0)
 	ellipse {
 		position (x=0, y=0)
-/* XPECT validationIssues at 'size (width=|0, height=0)' ---
-warning "The height should not be 0."
-warning "The width should not be 0."
+/* XPECT warnings at 'size (width=|0, height=0)' ---
+	"The height should not be 0." at "0"
+	"The width should not be 0." at "0"
 --- */	
 		size (width=0, height=0)
 	}

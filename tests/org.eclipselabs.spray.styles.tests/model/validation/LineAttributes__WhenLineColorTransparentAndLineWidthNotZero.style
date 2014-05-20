@@ -1,7 +1,9 @@
-/* XPECT validationIssues at 'Style' ---
-error "Setting the line-color to transparent isn't supported, use line-width = 0 instead."
---- */
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
 style MyStyle {
 	line-color = transparent
+/* XPECT warnings at '1' ---
+	"If the line-color is transparent, the line-width is deprecated." at "1"
+--- */
 	line-width = 1
 }

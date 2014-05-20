@@ -1,6 +1,8 @@
+/* XPECT_SETUP org.eclipselabs.spray.styles.tests.StyleValidationTest END_SETUP */
+
 style MyStyle {
-/* XPECT validationIssues at '1.1' ---
-error "The tranparency should be between 0.0 and 1.0."
+/* XPECT errors at '1.1' ---
+	"The tranparency should be between 0.0 and 1.0." at "1.1"
 --- */
 	transparency = 1.1
 }
