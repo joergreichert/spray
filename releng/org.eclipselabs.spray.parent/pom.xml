@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-java8/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
+		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-deprecated_api_migration/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
 		<spray-local-targetrepository>file:../../releng/org.eclipselabs.spray.repository/target/repository</spray-local-targetrepository>
 		<project.encoding>UTF-8</project.encoding>
 		<file.encoding>${project.encoding}</file.encoding>
@@ -41,19 +41,17 @@
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.5.4</xtend-maven-plugin-version>
-		<xtend-library-version>2.5.4</xtend-library-version>
-		<xtext-version>2.5.4</xtext-version>
-		<jacoco-maven-plugin.version>0.7.1.201405082137</jacoco-maven-plugin.version>
+		<xtend-maven-plugin-version>2.6.0</xtend-maven-plugin-version>
+		<xtend-library-version>2.6.0</xtend-library-version>
+		<xtext-version>2.6.0</xtext-version>
+		<jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
 		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>
 		<skip.mwe2>true</skip.mwe2>
 		<memoryArgs>-Xms256M -Xmx1024M -XX:PermSize=256M -XX:MaxPermSize=256M -XX:+HeapDumpOnOutOfMemoryError</memoryArgs>
 		<encodingArgs>-Dfile.encoding=${file.encoding}</encodingArgs>
 		<loggingArgs>-Dlog4j.configuration=file:${basedir}/../../releng/org.eclipselabs.spray.parent/log4j.xml</loggingArgs>
-		<java-compile-version>1.8</java-compile-version>
-		<cbi-jdt-repo.url>https://repo.eclipse.org/content/repositories/eclipse-staging/</cbi-jdt-repo.url>
-		<cbi-jdt-version>3.10.0.v20140316-0146</cbi-jdt-version>		
+		<java-compile-version>6.0</java-compile-version>
 		<ui.test.vmargs></ui.test.vmargs>
 		<coverageAgent></coverageAgent>
 		<it.coverage.argLine></it.coverage.argLine>
@@ -75,7 +73,7 @@
 						<configuration>
 							<rules>
 								<requireJavaVersion>
-									<version>[1.6,1.9)</version>
+									<version>[1.6,1.8)</version>
 								</requireJavaVersion>
 							</rules>
 						</configuration>
@@ -239,21 +237,14 @@
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
-					<!--configuration>
+					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<meminitial>128m</meminitial>
 						<maxmem>1024m</maxmem>
 						<source>${java-compile-version}</source>
 						<target>${java-compile-version}</target>
 						<verbose>true</verbose>
-					</configuration-->
-					<dependencies>
-						<dependency>
-							<groupId>org.eclipse.jdt</groupId>
-							<artifactId>org.eclipse.jdt.core</artifactId>
-							<version>${cbi-jdt-version}</version>
-						</dependency>
-					</dependencies>
+					</configuration>
 				</plugin>
 				<!-- enable source bundle generation -->
 				<plugin>
@@ -265,7 +256,7 @@
 					</configuration>
 					<executions>
 						<execution>
-							<id>default-test</id><!-- can be seen in log: tycho-surefire-plugin:0.19.0:test (default-test) -->
+							<id>default-test</id><!-- can be seen in log: tycho-surefire-plugin:0.20.0:test (default-test) -->
 							<phase>none</phase>
 							<goals>
 								<goal>test</goal>
@@ -562,68 +553,6 @@
 		</plugins>
 	</reporting>	
 
-	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<id>oss_snapshot</id>
-			<name>OSS SNAPSHOT</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-		<repository>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>Maven Repository Switchboard</name>
-			<url>http://repo1.maven.org/maven2/</url>
-		</repository>
-	</repositories>
-	
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype_releases</id>
-			<url>https://oss.sonatype.org/content/repositories/releases/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>sonatype_snapshot</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>		
-		<pluginRepository>
-			<id>fornax</id>
-			<url>http://www.fornax-platform.org/m2/repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>cbi-jdt</id>
-			<url>${cbi-jdt-repo.url}</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>		
-	</pluginRepositories>
-	
 	<profiles>
 		<profile>
 			<id>remote-build-snapshot</id>
