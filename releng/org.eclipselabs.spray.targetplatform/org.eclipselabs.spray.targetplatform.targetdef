@@ -36,17 +36,23 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
-		org.eclipse.emf.sdk 2.9.2.v20140203-1126,
-		org.eclipse.emf.ecore.xcore.sdk 1.1.2.v20131212-0836 category = Optional,
-		org.eclipse.xtext.sdk 2.5.3.v201402240820,
-		org.eclipse.xtend.sdk 2.5.3.v201402240820,
-		org.eclipse.emf.mwe2.language.sdk 2.5.1.v201402030750,
-		org.eclipse.emf.mwe2.runtime.sdk 2.5.1.v201402030544
+		org.eclipse.xtext.sdk 2.6.0.v201405210727,
+		org.eclipse.xtend.sdk 2.6.0.v201405210727,
+		org.eclipse.emf.mwe2.language.sdk 2.6.0.v201405200939,
+		org.eclipse.emf.mwe2.runtime.sdk 2.6.0.v201405200714
+	}
+	
+	"Xcore" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
+		org.eclipse.emf.ecore.xcore.sdk 1.2.0.v20140514-0242 category = Optional
+	}
+	
+	https://hudson.eclipse.org/xtext/view/EMF/job/emf-core/109/artifact/build-result/p2.repository/ {
+		org.eclipse.emf.sdk 2.10.0.v20140428-0403
 	}
 
-	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
-		de.itemis.xtext.antlr.sdk 2.1.0.v201308291703,
-		de.itemis.xtext.antlr.feature 2.1.0.v201308291703
+	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.1/ {
+		de.itemis.xtext.antlr.sdk 2.1.1.v201405091103,
+		de.itemis.xtext.antlr.feature 2.1.1.v201405091103
 	}
 
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
