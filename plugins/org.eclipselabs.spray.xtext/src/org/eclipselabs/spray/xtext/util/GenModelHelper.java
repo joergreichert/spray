@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xcore.XPackage;
 import org.eclipse.emf.ecore.xcore.util.XcoreGenModelBuilder;
+import org.eclipse.emf.ecore.xcore.util.XcoreGenModelInitializer;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 
 /**
@@ -46,11 +47,13 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
  */
 public class GenModelHelper {
     @Inject
-    private IQualifiedNameProvider qualifiedNameProvider;
+    private IQualifiedNameProvider   qualifiedNameProvider;
     @Inject
-    private ResourceSet            resourceSet;
+    private ResourceSet              resourceSet;
     @Inject
-    private XcoreGenModelBuilder   xcoreGenModelBuilder;
+    private XcoreGenModelBuilder     xcoreGenModelBuilder;
+    @Inject
+    private XcoreGenModelInitializer xcoreGenModelInitializer;
 
     public String getJavaInterfaceName(EClass eClass) {
         if (eClass == null) {
@@ -283,6 +286,7 @@ public class GenModelHelper {
         EObject root = res.getContents().get(0);
         if (root instanceof XPackage) {
             genModel = xcoreGenModelBuilder.getGenModel((XPackage) root);
+            xcoreGenModelInitializer.initialize(genModel, true);
         } else {
             genModel = (GenModel) res.getContents().get(0);
         }
