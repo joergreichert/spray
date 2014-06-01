@@ -62,7 +62,8 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<plugin>
+			<!-- commented out, as Cloudbees Jenkins job has an issue here, maybe related to http://stackoverflow.com/questions/7631949/failed-to-parse-plugin-descriptor-for-org-apache-maven-pluginsmaven-resources-p -->
+			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>${maven-enforcer-plugin.version}</version>
@@ -81,7 +82,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>		
+			</plugin-->		
 			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
