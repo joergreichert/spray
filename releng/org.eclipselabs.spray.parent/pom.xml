@@ -126,7 +126,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>${maven-antrun-plugin.version}</version>
@@ -172,7 +172,7 @@
 						<version>${ant-nodeps.version}</version>                                   
 					</dependency>
 				</dependencies>
-			</plugin>			
+			</plugin-->			
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
