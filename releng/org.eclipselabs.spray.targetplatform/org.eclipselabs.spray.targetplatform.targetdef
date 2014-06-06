@@ -35,20 +35,35 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 		org.eclipse.equinox.core.sdk 3.8.0.v20140114-1344 category = RCP
 	}
 
-	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
-		org.eclipse.xtext.sdk 2.6.0.v201405210727,
-		org.eclipse.xtend.sdk 2.6.0.v201405210727,
-		org.eclipse.emf.mwe2.language.sdk 2.6.0.v201405200939,
-		org.eclipse.emf.mwe2.runtime.sdk 2.6.0.v201405200714
+//	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
+//		org.eclipse.emf.sdk 2.9.2.v20140203-1126,
+//		org.eclipse.emf.ecore.xcore 1.1.2.v20131212-0836,
+//		org.eclipse.xtext.sdk 2.6.0.v201405210727, 
+//		org.eclipse.xtend.sdk 2.6.0.v201405210727, 
+//		org.eclipse.emf.mwe2.language.sdk 2.6.0.v201405200939, 
+//		org.eclipse.emf.mwe2.runtime.sdk 2.6.0.v201405200714
+//	}
+
+	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
+		org.eclipse.emf.sdk 2.10.0.v20140514-1200,
+		org.eclipse.emf.ecore.xcore.sdk 1.2.0.v20140514-0242,
+		org.eclipse.xtext.sdk 2.6.1.v201406051512, 
+		org.eclipse.xtend.sdk 2.6.1.v201406051512, 
+		org.eclipse.emf.mwe2.language.sdk 2.6.1.v201406051257, 
+		org.eclipse.emf.mwe2.runtime.sdk 2.6.1.v201406030306
 	}
 	
-	"Xcore" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
-		org.eclipse.emf.ecore.xcore.sdk 1.2.0.v20140514-0242 category = Optional
-	}
+//	"Xsemantics" http://sourceforge.net/projects/xsemantics/files/updates/releases/1.5 {
+//		it.xsemantics.runtime.feature 1.5.0.v20140523-2140
+//	}
+//
+//	"EMF" https://hudson.eclipse.org/xtext/job/emf-core/lastSuccessfulBuild/artifact/build-result/p2.repository/ {
+//		org.eclipse.emf.sdk 2.9.2.v20140203-1126
+//	}
 	
-	https://hudson.eclipse.org/xtext/view/EMF/job/emf-core/109/artifact/build-result/p2.repository/ {
-		org.eclipse.emf.sdk 2.10.0.v20140428-0403
-	}
+//	"Xcore" https://hudson.eclipse.org/xtext/job/emf-xcore/lastSuccessfulBuild/artifact/build-result/p2.repository/ {
+//		org.eclipse.emf.ecore.xcore 1.2.0.v20140521-0402
+//	}
 
 	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.1/ {
 		de.itemis.xtext.antlr.sdk 2.1.1.v201405091103,

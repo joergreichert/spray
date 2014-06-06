@@ -91,18 +91,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype</id>
-			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<licenses>
 		<license>
