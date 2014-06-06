@@ -41,9 +41,23 @@
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.6.0</xtend-maven-plugin-version>
-		<xtend-library-version>2.6.0</xtend-library-version>
-		<xtext-version>2.6.0</xtext-version>
+		<xtend-maven-plugin-version>2.6.1-SNAPSHOT</xtend-maven-plugin-version>
+		<xtend-library-version>2.6.1-SNAPSHOT</xtend-library-version>
+		<xtext-version>2.6.1-SNAPSHOT</xtext-version>
+		<!--  xtend runtime dependencies start -->
+		<org.osgi.core-version>4.3.1</org.osgi.core-version>
+		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
+		<org.eclipse.text-version>3.5.101</org.eclipse.text-version>
+		<org.eclipse.emf.codegen.ecore.xtext-version>1.0.0</org.eclipse.emf.codegen.ecore.xtext-version>
+		<org.eclipse.emf.common-version>[2.9.0,2.11.0)</org.eclipse.emf.common-version>
+		<org.eclipse.emf.ecore-version>[2.9.0,2.11.0)</org.eclipse.emf.ecore-version>
+		<org.eclipse.emf.ecore.xcore-version>[1.1.2,)</org.eclipse.emf.ecore.xcore-version>
+		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.0,)</org.eclipse.emf.ecore.xcore.lib-version>
+		<org.eclipse.xtext.builder.standalone-version>2.6.0</org.eclipse.xtext.builder.standalone-version>
+		<org.eclipse.xtext.common.types-version>2.6.0</org.eclipse.xtext.common.types-version>
+		<org.eclipse.xtext.xtext-version>2.6.0</org.eclipse.xtext.xtext-version>
+		<org.eclipse.xtext.xbase-version>2.6.0</org.eclipse.xtext.xbase-version>
+		<!--  xtend runtime dependencies end -->
 		<jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
 		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>
@@ -503,12 +517,12 @@
 						<dependency>
 							<groupId>org.eclipse.xtext</groupId>
 							<artifactId>org.eclipse.xtext.xtext</artifactId>
-							<version>${xtext-version}</version>
+							<version>${org.eclipse.xtext.xtext-version}</version>
 						</dependency>
 						<dependency>
 							<groupId>org.eclipse.xtext</groupId>
 							<artifactId>org.eclipse.xtext.xbase</artifactId>
-							<version>${xtext-version}</version>
+							<version>${org.eclipse.xtext.xbase-version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -756,6 +770,29 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype</id>
+			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype_snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<licenses>
 		<license>
