@@ -47,9 +47,9 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
 		org.eclipse.emf.sdk 2.10.0.v20140514-1200,
 		org.eclipse.emf.ecore.xcore.sdk 1.2.0.v20140514-0242,
-		org.eclipse.xtext.sdk 2.6.1.v201406101045, 
-		org.eclipse.xtend.sdk 2.6.1.v201406101045, 
-		org.eclipse.emf.mwe2.language.sdk 2.6.1.v201406101146, 
+		org.eclipse.xtext.sdk 2.6.1.v201406111000, 
+		org.eclipse.xtend.sdk 2.6.1.v201406111000, 
+		org.eclipse.emf.mwe2.language.sdk 2.6.1.v201406111101, 
 		org.eclipse.emf.mwe2.runtime.sdk 2.6.1.v201406060821
 	}
 	
