@@ -85,6 +85,16 @@
 					</dependency>
 					<dependency>
 						<groupId>org.eclipse.emf</groupId>
+						<artifactId>org.eclipse.emf.ecore</artifactId>
+						<version>${org.eclipse.emf.ecore-version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.emf</groupId>
+						<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
+						<version>${org.eclipse.emf.codegen.ecore-version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.emf</groupId>
 						<artifactId>org.eclipse.emf.codegen.ecore.xtext</artifactId>
 						<version>${org.eclipse.emf.codegen.ecore.xtext-version}</version>
 					</dependency>
@@ -140,8 +150,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
+			<version>${org.eclipse.emf.codegen.ecore-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore.xcore</artifactId>
 			<version>${org.eclipse.emf.ecore.xcore-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.codegen.ecore.xtext</artifactId>
+			<version>${org.eclipse.emf.codegen.ecore.xtext-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
