@@ -48,15 +48,16 @@
 		<org.osgi.core-version>4.3.1</org.osgi.core-version>
 		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
 		<org.eclipse.text-version>3.5.101</org.eclipse.text-version>
-		<org.eclipse.emf.codegen.ecore.xtext-version>1.0.0</org.eclipse.emf.codegen.ecore.xtext-version>
+		<org.eclipse.emf.codegen.ecore-version>2.10.0-SNAPSHOT</org.eclipse.emf.codegen.ecore-version>
+		<org.eclipse.emf.codegen.ecore.xtext-version>[1.1.0, 2.0.0)</org.eclipse.emf.codegen.ecore.xtext-version>
 		<org.eclipse.emf.common-version>[2.9.0,2.11.0)</org.eclipse.emf.common-version>
 		<org.eclipse.emf.ecore-version>[2.9.0,2.11.0)</org.eclipse.emf.ecore-version>
 		<org.eclipse.emf.ecore.xcore-version>[1.1.2,)</org.eclipse.emf.ecore.xcore-version>
 		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.0,)</org.eclipse.emf.ecore.xcore.lib-version>
-		<org.eclipse.xtext.builder.standalone-version>2.6.0</org.eclipse.xtext.builder.standalone-version>
-		<org.eclipse.xtext.common.types-version>2.6.0</org.eclipse.xtext.common.types-version>
-		<org.eclipse.xtext.xtext-version>2.6.0</org.eclipse.xtext.xtext-version>
-		<org.eclipse.xtext.xbase-version>2.6.0</org.eclipse.xtext.xbase-version>
+		<org.eclipse.xtext.builder.standalone-version>[2.6.0, 2.7.0)</org.eclipse.xtext.builder.standalone-version>
+		<org.eclipse.xtext.common.types-version>[2.6.0, 2.7.0)</org.eclipse.xtext.common.types-version>
+		<org.eclipse.xtext.xtext-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xtext-version>
+		<org.eclipse.xtext.xbase-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xbase-version>
 		<!--  xtend runtime dependencies end -->
 		<jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
@@ -550,6 +551,12 @@
 							<version>${xtend-library-version}</version>
 							<type>pom</type>
 						</dependency>
+						<dependency>
+							<groupId>org.eclipse.emf</groupId>
+							<artifactId>org.eclipse.emf.ecore</artifactId>
+							<version>${org.eclipse.emf.ecore-version}</version>
+							<type>pom</type>
+						</dependency>
 					</dependencies>
 				</plugin>
 			</plugins>
@@ -568,6 +575,68 @@
 		</plugins>
 	</reporting>	
 
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>oss_snapshot</id>
+			<name>OSS SNAPSHOT</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype_releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype_snapshot</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>		
+		<pluginRepository>
+			<id>fornax</id>
+			<url>http://www.fornax-platform.org/m2/repository</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>cbi-jdt</id>
+			<url>${cbi-jdt-repo.url}</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>		
+	</pluginRepositories>
+	
 	<profiles>
 		<profile>
 			<id>remote-build-snapshot</id>
@@ -770,29 +839,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype</id>
-			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>sonatype_snapshots</id>
-			<url>http://oss.sonatype.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<licenses>
 		<license>
