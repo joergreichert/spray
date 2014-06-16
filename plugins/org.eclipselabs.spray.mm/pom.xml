@@ -12,12 +12,6 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>model</directory>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -26,12 +20,6 @@
 					<filesets>
 						<fileset>
 							<directory>src-gen</directory>
-							<excludes>
-								<exclude>.gitignore</exclude>
-							</excludes>
-						</fileset>
-						<fileset>
-							<directory>xtend-gen</directory>
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
@@ -64,6 +52,9 @@
 							<setup>org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup</setup>
 						</language>
 					</languages>
+					<sourceRoots>
+						<root>${basedir}/model</root>
+					</sourceRoots>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -121,19 +112,8 @@
 						<artifactId>org.eclipselabs.spray.generator.common</artifactId>
 						<version>${project.version}</version>
 					</dependency>
-					<dependency>
-						<groupId>org.eclipselabs.spray</groupId>
-						<artifactId>org.eclipselabs.spray.styles.mm</artifactId>
-						<version>${project.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipselabs.spray</groupId>
-						<artifactId>org.eclipselabs.spray.shapes.mm</artifactId>
-						<version>${project.version}</version>
-					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
