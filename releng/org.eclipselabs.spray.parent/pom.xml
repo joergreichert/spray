@@ -41,19 +41,19 @@
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.6.1-SNAPSHOT</xtend-maven-plugin-version>
-		<xtend-library-version>2.6.1-SNAPSHOT</xtend-library-version>
-		<xtext-version>2.6.1-SNAPSHOT</xtext-version>
+		<xtend-maven-plugin-version>2.6.1</xtend-maven-plugin-version>
+		<xtend-library-version>2.6.1</xtend-library-version>
+		<xtext-version>2.6.1</xtext-version>
 		<!--  xtend runtime dependencies start -->
 		<org.osgi.core-version>4.3.1</org.osgi.core-version>
 		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
 		<org.eclipse.text-version>3.5.101</org.eclipse.text-version>
-		<org.eclipse.emf.codegen.ecore-version>2.10.0-SNAPSHOT</org.eclipse.emf.codegen.ecore-version>
+		<org.eclipse.emf.codegen.ecore-version>2.10.0-v20140519-SNAPSHOT</org.eclipse.emf.codegen.ecore-version>
 		<org.eclipse.emf.codegen.ecore.xtext-version>[1.1.0, 2.0.0)</org.eclipse.emf.codegen.ecore.xtext-version>
 		<org.eclipse.emf.common-version>[2.9.0,2.11.0)</org.eclipse.emf.common-version>
 		<org.eclipse.emf.ecore-version>[2.9.0,2.11.0)</org.eclipse.emf.ecore-version>
-		<org.eclipse.emf.ecore.xcore-version>[1.1.2,)</org.eclipse.emf.ecore.xcore-version>
-		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.0,)</org.eclipse.emf.ecore.xcore.lib-version>
+		<org.eclipse.emf.ecore.xcore-version>1.2.0</org.eclipse.emf.ecore.xcore-version>
+		<org.eclipse.emf.ecore.xcore.lib-version>1.1.0</org.eclipse.emf.ecore.xcore.lib-version>
 		<org.eclipse.xtext.builder.standalone-version>[2.6.0, 2.7.0)</org.eclipse.xtext.builder.standalone-version>
 		<org.eclipse.xtext.common.types-version>[2.6.0, 2.7.0)</org.eclipse.xtext.common.types-version>
 		<org.eclipse.xtext.xtext-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xtext-version>
@@ -625,7 +625,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
+		<!-- <pluginRepository>
 			<id>cbi-jdt</id>
 			<url>${cbi-jdt-repo.url}</url>
 			<releases>
@@ -634,7 +634,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</pluginRepository>		
+		</pluginRepository>		-->
 	</pluginRepositories>
 	
 	<profiles>
