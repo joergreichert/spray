@@ -4,30 +4,31 @@
 <target includeMode="feature" name="Spray Target Platform - Eclipse 4.3" sequenceNumber="67">
 	<locations>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.sdk.feature.group" version="4.3.2.v20140221-1852"/>
-			<unit id="org.eclipse.jdt.feature.group" version="3.9.2.v20140221-1700"/>
-			<unit id="org.eclipse.pde.feature.group" version="3.9.1.v20140221-1700"/>
-			<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.7.0.201306111400"/>
-			<unit id="org.eclipse.emf.eef.sdk-feature.feature.group" version="1.2.0.201301111054"/>
-			<unit id="org.eclipse.gef.sdk.feature.group" version="3.9.1.201308190730"/>
-			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.1.201308190730"/>
-			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.10.2.v20140217-1225"/>
-			<unit id="org.eclipse.swt" version="3.102.1.v20140206-1334"/>
-
-			<unit id="org.eclipse.help.feature.group" version="2.0.2.v20140221-1700"/>
-			<unit id="org.eclipse.jdt.feature.group" version="3.9.2.v20140221-1700"/>
-			<unit id="org.eclipse.platform.feature.group" version="4.3.2.v20140221-1852"/>
-			<unit id="org.eclipse.rcp.feature.group" version="4.3.2.v20140221-1700"/>
-			<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.0.v20140117-1004"/>
-			<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.2.1.v20140221-1852"/>
-			<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20140221-1852"/>
-			<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20140221-1852"/>
-			<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.2.0.v20140221-1852"/>
-			<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20140221-1852"/>
-			<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.8.0.v20140114-1344"/>
-			<repository location="http://download.eclipse.org/releases/kepler"/>
+			<unit id="org.eclipse.sdk.feature.group" version="4.4.0.v20140606-1558"/>
+			<unit id="org.eclipse.jdt.feature.group" version="3.10.0.v20140606-1536"/>
+			<unit id="org.eclipse.pde.feature.group" version="3.10.0.v20140606-1215"/>
+			<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.8.0.201405281451"/>
+			<unit id="org.eclipse.emf.eef.sdk-feature.feature.group" version="1.3.0.201311221533"/>
+			<unit id="org.eclipse.gef.sdk.feature.group" version="3.9.100.201405261516"/>
+			<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.100.201405261516"/>
+			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.11.0.v20140528-0646"/>
+			<unit id="org.eclipse.swt" version="3.103.0.v20140605-2008"/>
+			<unit id="org.eclipse.help.feature.group" version="2.0.102.v20140606-1215"/>
+			<unit id="org.eclipse.jdt.feature.group" version="3.10.0.v20140606-1536"/>
+			<unit id="org.eclipse.platform.feature.group" version="4.4.0.v20140606-1558"/>
+			<unit id="org.eclipse.rcp.feature.group" version="4.4.0.v20140606-1445"/>
+			<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.100.v20140603-1326"/>
+			<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.3.0.v20140523-0116"/>
+			<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20140523-0116"/>
+			<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20140523-0116"/>
+			<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.2.0.v20140523-0116"/>
+			<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20140523-0116"/>
+			<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.10.0.v20140606-1445"/>
+			<repository location="http://download.eclipse.org/releases/luna"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.10.0.v20140519-0339"/>
+			<unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.2.0.v20140521-0402"/>
 			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.6.1.v201406120726"/>
 			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.6.1.v201406120726"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.6.1.v201406120758"/>
@@ -35,17 +36,12 @@
 			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.10.0.v20140613-1117"/>
-			<unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.2.0.v20140613-1114"/>
-			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.1.v201405091103"/>
 			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.1.1.v201405091103"/>
 			<repository location="http://download.itemis.com/updates/releases/2.1.1/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201401101421"/>
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201406180840"/>
 			<repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">

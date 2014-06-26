@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-deprecated_api_migration/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
+		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-java8/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
 		<spray-local-targetrepository>file:../../releng/org.eclipselabs.spray.repository/target/repository</spray-local-targetrepository>
 		<project.encoding>UTF-8</project.encoding>
 		<file.encoding>${project.encoding}</file.encoding>
@@ -41,19 +41,19 @@
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.6.1</xtend-maven-plugin-version>
-		<xtend-library-version>2.6.1</xtend-library-version>
-		<xtext-version>2.6.1</xtext-version>
+		<xtend-maven-plugin-version>2.6.1-SNAPSHOT</xtend-maven-plugin-version>
+		<xtend-library-version>2.6.1-SNAPSHOT</xtend-library-version>
+		<xtext-version>2.6.1-SNAPSHOT</xtext-version>
 		<!--  xtend runtime dependencies start -->
 		<org.osgi.core-version>4.3.1</org.osgi.core-version>
 		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
 		<org.eclipse.text-version>3.5.101</org.eclipse.text-version>
-		<org.eclipse.emf.codegen.ecore-version>2.10.0-v20140519-SNAPSHOT</org.eclipse.emf.codegen.ecore-version>
+		<org.eclipse.emf.codegen.ecore-version>2.10.0-v20140127-SNAPSHOT</org.eclipse.emf.codegen.ecore-version>
 		<org.eclipse.emf.codegen.ecore.xtext-version>[1.1.0, 2.0.0)</org.eclipse.emf.codegen.ecore.xtext-version>
 		<org.eclipse.emf.common-version>[2.9.0,2.11.0)</org.eclipse.emf.common-version>
 		<org.eclipse.emf.ecore-version>[2.9.0,2.11.0)</org.eclipse.emf.ecore-version>
-		<org.eclipse.emf.ecore.xcore-version>1.2.1-SNAPSHOT</org.eclipse.emf.ecore.xcore-version>
-		<org.eclipse.emf.ecore.xcore.lib-version>1.1.0-SNAPSHOT</org.eclipse.emf.ecore.xcore.lib-version>
+		<org.eclipse.emf.ecore.xcore-version>[1.1.2,)</org.eclipse.emf.ecore.xcore-version>
+		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.0,)</org.eclipse.emf.ecore.xcore.lib-version>
 		<org.eclipse.xtext.builder.standalone-version>[2.6.0, 2.7.0)</org.eclipse.xtext.builder.standalone-version>
 		<org.eclipse.xtext.common.types-version>[2.6.0, 2.7.0)</org.eclipse.xtext.common.types-version>
 		<org.eclipse.xtext.xtext-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xtext-version>
@@ -66,7 +66,9 @@
 		<memoryArgs>-Xms256M -Xmx1024M -XX:PermSize=256M -XX:MaxPermSize=256M -XX:+HeapDumpOnOutOfMemoryError</memoryArgs>
 		<encodingArgs>-Dfile.encoding=${file.encoding}</encodingArgs>
 		<loggingArgs>-Dlog4j.configuration=file:${basedir}/../../releng/org.eclipselabs.spray.parent/log4j.xml</loggingArgs>
-		<java-compile-version>6.0</java-compile-version>
+		<java-compile-version>1.8</java-compile-version>
+		<cbi-jdt-repo.url>https://repo.eclipse.org/content/repositories/eclipse-staging/</cbi-jdt-repo.url>
+		<cbi-jdt-version>3.10.0.v20140316-0146</cbi-jdt-version>		
 		<ui.test.vmargs></ui.test.vmargs>
 		<coverageAgent></coverageAgent>
 		<it.coverage.argLine></it.coverage.argLine>
@@ -75,8 +77,7 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<!-- commented out, as Cloudbees Jenkins job has an issue here, maybe related to http://stackoverflow.com/questions/7631949/failed-to-parse-plugin-descriptor-for-org-apache-maven-pluginsmaven-resources-p -->
-			<!--plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>${maven-enforcer-plugin.version}</version>
@@ -89,13 +90,13 @@
 						<configuration>
 							<rules>
 								<requireJavaVersion>
-									<version>[1.6,1.8)</version>
+									<version>[1.6,1.9)</version>
 								</requireJavaVersion>
 							</rules>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin-->		
+			</plugin>		
 			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -253,14 +254,21 @@
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
-					<configuration>
+					<!--configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<meminitial>128m</meminitial>
 						<maxmem>1024m</maxmem>
 						<source>${java-compile-version}</source>
 						<target>${java-compile-version}</target>
 						<verbose>true</verbose>
-					</configuration>
+					</configuration-->
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.jdt</groupId>
+							<artifactId>org.eclipse.jdt.core</artifactId>
+							<version>${cbi-jdt-version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<!-- enable source bundle generation -->
 				<plugin>
@@ -625,7 +633,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-		<!-- <pluginRepository>
+		<pluginRepository>
 			<id>cbi-jdt</id>
 			<url>${cbi-jdt-repo.url}</url>
 			<releases>
@@ -634,7 +642,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</pluginRepository>		-->
+		</pluginRepository>		
 	</pluginRepositories>
 	
 	<profiles>
