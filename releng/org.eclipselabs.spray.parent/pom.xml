@@ -41,10 +41,25 @@
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.5.4</xtend-maven-plugin-version>
-		<xtend-library-version>2.5.4</xtend-library-version>
-		<xtext-version>2.5.4</xtext-version>
-		<jacoco-maven-plugin.version>0.7.1.201405082137</jacoco-maven-plugin.version>
+		<xtend-maven-plugin-version>2.6.1-SNAPSHOT</xtend-maven-plugin-version>
+		<xtend-library-version>2.6.1-SNAPSHOT</xtend-library-version>
+		<xtext-version>2.6.1-SNAPSHOT</xtext-version>
+		<!--  xtend runtime dependencies start -->
+		<org.osgi.core-version>4.3.1</org.osgi.core-version>
+		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
+		<org.eclipse.text-version>3.5.101</org.eclipse.text-version>
+		<org.eclipse.emf.codegen.ecore-version>2.10.0-v20140127-SNAPSHOT</org.eclipse.emf.codegen.ecore-version>
+		<org.eclipse.emf.codegen.ecore.xtext-version>[1.1.0, 2.0.0)</org.eclipse.emf.codegen.ecore.xtext-version>
+		<org.eclipse.emf.common-version>[2.9.0,2.11.0)</org.eclipse.emf.common-version>
+		<org.eclipse.emf.ecore-version>[2.9.0,2.11.0)</org.eclipse.emf.ecore-version>
+		<org.eclipse.emf.ecore.xcore-version>[1.1.2,)</org.eclipse.emf.ecore.xcore-version>
+		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.0,)</org.eclipse.emf.ecore.xcore.lib-version>
+		<org.eclipse.xtext.builder.standalone-version>[2.6.0, 2.7.0)</org.eclipse.xtext.builder.standalone-version>
+		<org.eclipse.xtext.common.types-version>[2.6.0, 2.7.0)</org.eclipse.xtext.common.types-version>
+		<org.eclipse.xtext.xtext-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xtext-version>
+		<org.eclipse.xtext.xbase-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xbase-version>
+		<!--  xtend runtime dependencies end -->
+		<jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
 		<local-build-platform.version>[3.9,4.4)</local-build-platform.version>
 		<skip.mwe2>true</skip.mwe2>
@@ -62,8 +77,7 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<!-- commented out, as Cloudbees Jenkins job has an issue here, maybe related to http://stackoverflow.com/questions/7631949/failed-to-parse-plugin-descriptor-for-org-apache-maven-pluginsmaven-resources-p -->
-			<!--plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>${maven-enforcer-plugin.version}</version>
@@ -82,7 +96,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin-->		
+			</plugin>		
 			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -266,7 +280,7 @@
 					</configuration>
 					<executions>
 						<execution>
-							<id>default-test</id><!-- can be seen in log: tycho-surefire-plugin:0.19.0:test (default-test) -->
+							<id>default-test</id><!-- can be seen in log: tycho-surefire-plugin:0.20.0:test (default-test) -->
 							<phase>none</phase>
 							<goals>
 								<goal>test</goal>
@@ -512,12 +526,12 @@
 						<dependency>
 							<groupId>org.eclipse.xtext</groupId>
 							<artifactId>org.eclipse.xtext.xtext</artifactId>
-							<version>${xtext-version}</version>
+							<version>${org.eclipse.xtext.xtext-version}</version>
 						</dependency>
 						<dependency>
 							<groupId>org.eclipse.xtext</groupId>
 							<artifactId>org.eclipse.xtext.xbase</artifactId>
-							<version>${xtext-version}</version>
+							<version>${org.eclipse.xtext.xbase-version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -543,6 +557,12 @@
 							<groupId>org.eclipse.xtend</groupId>
 							<artifactId>org.eclipse.xtend.lib</artifactId>
 							<version>${xtend-library-version}</version>
+							<type>pom</type>
+						</dependency>
+						<dependency>
+							<groupId>org.eclipse.emf</groupId>
+							<artifactId>org.eclipse.emf.ecore</artifactId>
+							<version>${org.eclipse.emf.ecore-version}</version>
 							<type>pom</type>
 						</dependency>
 					</dependencies>

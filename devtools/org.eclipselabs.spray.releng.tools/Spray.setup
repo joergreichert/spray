@@ -54,10 +54,10 @@
   <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.pde.api.tools">
     <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.pde.api.tools/missing_default_api_profile" value="Ignore"/>
   </setupTasks>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="oorg.eclipse.core.resources">
+  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.core.resources">
     <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.core.resources/encoding" value="UTF-8"/>
     <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.core.runtime/line.separator" value="\n"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.ui.ide/IDE_ENCODINGS_PREFERENCE" value="Cp1252"/>
+    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.ui.ide/IDE_ENCODINGS_PREFERENCE" value="UTF-8"/>
   </setupTasks>
   <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.m2e">
     <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.m2e.core/eclipse.m2.defaultRuntime" value="%MAVEN_HOME%"/>

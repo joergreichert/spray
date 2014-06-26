@@ -15,4 +15,12 @@
 
 
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated my -->
+      <package
+            uri="my"
+            class="my.MyPackage"
+            genModel="Test/model/my.xcore"/>
+   </extension>
+
 </plugin>
