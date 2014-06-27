@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.eclipselabs.spray</groupId>
@@ -14,12 +12,6 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>model</directory>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -28,12 +20,6 @@
 					<filesets>
 						<fileset>
 							<directory>src-gen</directory>
-							<excludes>
-								<exclude>.gitignore</exclude>
-							</excludes>
-						</fileset>
-						<fileset>
-							<directory>xtend-gen</directory>
 							<excludes>
 								<exclude>.gitignore</exclude>
 							</excludes>
@@ -66,6 +52,9 @@
 							<setup>org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup</setup>
 						</language>
 					</languages>
+					<sourceRoots>
+						<root>${basedir}/model</root>
+					</sourceRoots>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -87,6 +76,11 @@
 						<groupId>org.eclipse.emf</groupId>
 						<artifactId>org.eclipse.emf.ecore</artifactId>
 						<version>${org.eclipse.emf.ecore-version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.emf</groupId>
+						<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
+						<version>${org.eclipse.emf.codegen.ecore-version}</version>
 					</dependency>
 					<dependency>
 						<groupId>org.eclipse.emf</groupId>
@@ -114,6 +108,11 @@
 						<version>${org.eclipse.xtext.xbase-version}</version>
 					</dependency>
 					<dependency>
+						<groupId>org.eclipse.xtext</groupId>
+						<artifactId>org.eclipse.xtext.xbase.lib</artifactId>
+						<version>${org.eclipse.xtext.xbase-version}</version>
+					</dependency>
+					<dependency>
 						<groupId>org.eclipselabs.spray</groupId>
 						<artifactId>org.eclipselabs.spray.generator.common</artifactId>
 						<version>${project.version}</version>
@@ -122,41 +121,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>org.eclipselabs.spray</groupId>
-			<artifactId>org.eclipselabs.spray.generator.common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipselabs.spray</groupId>
-			<artifactId>org.eclipselabs.spray.styles.mm</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.builder.standalone</artifactId>
-			<version>${org.eclipse.xtext.builder.standalone-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore</artifactId>
-			<version>${org.eclipse.emf.ecore-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.common</artifactId>
-			<version>${org.eclipse.emf.common-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.xcore</artifactId>
-			<version>${org.eclipse.emf.ecore.xcore-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.xcore.lib</artifactId>
-			<version>${org.eclipse.emf.ecore.xcore.lib-version}</version>
-		</dependency>
-	</dependencies>
 </project>
