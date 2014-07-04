@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-java8/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
+		<spray-ci-targetrepository>https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-luna/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/</spray-ci-targetrepository>
 		<spray-local-targetrepository>file:../../releng/org.eclipselabs.spray.repository/target/repository</spray-local-targetrepository>
 		<project.encoding>UTF-8</project.encoding>
 		<file.encoding>${project.encoding}</file.encoding>
