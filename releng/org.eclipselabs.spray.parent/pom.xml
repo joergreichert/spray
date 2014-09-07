@@ -19,7 +19,7 @@
 		<file.encoding>${project.encoding}</file.encoding>
 		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
-		<tycho-version>0.20.0</tycho-version>
+		<tycho-version>0.21.0</tycho-version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<ant-contrib.version>1.0b3</ant-contrib.version>
@@ -41,9 +41,9 @@
 		<build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.6.2</xtend-maven-plugin-version>
-		<xtend-library-version>2.6.2</xtend-library-version>
-		<xtext-version>2.6.2</xtext-version>
+		<xtend-maven-plugin-version>2.7.0</xtend-maven-plugin-version>
+		<xtend-library-version>2.7.0</xtend-library-version>
+		<xtext-version>2.7.0</xtext-version>
 		<!--  xtend runtime dependencies start -->
 		<org.osgi.core-version>4.3.1</org.osgi.core-version>
 		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
@@ -54,12 +54,12 @@
 		<org.eclipse.emf.ecore-version>[2.9.0,2.11.0)</org.eclipse.emf.ecore-version>
 		<org.eclipse.emf.ecore.xcore-version>1.2.1-SNAPSHOT</org.eclipse.emf.ecore.xcore-version>
 		<org.eclipse.emf.ecore.xcore.lib-version>1.1.0</org.eclipse.emf.ecore.xcore.lib-version>
-		<org.eclipse.xtext.builder.standalone-version>[2.6.0, 2.7.0)</org.eclipse.xtext.builder.standalone-version>
-		<org.eclipse.xtext.common.types-version>[2.6.0, 2.7.0)</org.eclipse.xtext.common.types-version>
-		<org.eclipse.xtext.xtext-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xtext-version>
-		<org.eclipse.xtext.xbase-version>[2.6.0, 2.7.0)</org.eclipse.xtext.xbase-version>
+		<org.eclipse.xtext.builder.standalone-version>[2.7.0, 2.8.0)</org.eclipse.xtext.builder.standalone-version>
+		<org.eclipse.xtext.common.types-version>[2.7.0, 2.8.0)</org.eclipse.xtext.common.types-version>
+		<org.eclipse.xtext.xtext-version>[2.7.0, 2.8.0)</org.eclipse.xtext.xtext-version>
+		<org.eclipse.xtext.xbase-version>[2.7.0, 2.8.0)</org.eclipse.xtext.xbase-version>
 		<!--  xtend runtime dependencies end -->
-		<jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.7.1.201405082137</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
 		<local-build-platform.version>[3.9,4.5)</local-build-platform.version>
 		<skip.mwe2>true</skip.mwe2>
