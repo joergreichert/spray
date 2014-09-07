@@ -1,181 +1,634 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<setup:Project setup:toolVersion="8" xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:setup="http://www.eclipse.org/CDO/releng/setup/1.0" name="Spray" label="Spray">
-  <setupTasks xsi:type="setup:P2Task">
-    <installableUnits id="org.eclipse.sdk.feature.group" versionRange="[4.3.0,4.4.0)"/>
-    <installableUnits id="org.eclipse.jdt.feature.group" versionRange="[3.9.2,4.0.0)"/>
-    <installableUnits id="org.eclipse.pde.feature.group" versionRange="[3.9.1,4.0.0)"/>
-    <installableUnits id="org.eclipse.gef.sdk.feature.group" versionRange="[3.9.1,4.0.0)"/>
-    <installableUnits id="org.eclipse.emf.sdk.feature.group" versionRange="[2.9.2,2.10.0)"/>
-    <installableUnits id="org.eclipse.emf.transaction.sdk.feature.group" versionRange="[1.7.0,1.8.0)"/>
-    <installableUnits id="org.eclipse.emf.ecore.xcore.sdk.feature.group" versionRange="[1.1.2,1.1.3)"/>
-    <installableUnits id="org.eclipse.emf.eef.sdk-feature.feature.group" versionRange="[1.2.0,1.3.0)"/>
-    <installableUnits id="org.eclipse.xtext.sdk.feature.group" versionRange="[2.5.3,2.5.4)"/>
-    <installableUnits id="org.eclipse.xtend.sdk.feature.group" versionRange="[2.5.3,2.5.4)"/>
-    <installableUnits id="org.eclipse.emf.mwe2.language.sdk.feature.group" versionRange="[2.5.1,2.5.2)"/>
-    <installableUnits id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" versionRange="[2.5.1,2.5.2)"/>
-    <installableUnits id="org.xpect.sdk.feature.group" versionRange="0.1.0.201401101421"/>
-    <installableUnits id="org.eclipse.graphiti.sdk.plus.feature.feature.group" versionRange="[0.10.2,0.11.0)"/>
-    <installableUnits id="org.eclipse.zest.sdk.feature.group" versionRange="[1.5.1,1.6.0)"/>
-    <installableUnits id="org.eclipse.swtbot.eclipse.feature.group" versionRange="2.2.1"/>
-    <installableUnits id="org.eclipse.swtbot.eclipse.gef.feature.group" versionRange="2.2.1"/>
-    <installableUnits id="org.eclipse.mylyn.ide_feature.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn.java_feature.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn.pde_feature.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn.team_feature.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn_feature.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn.git.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn.builds.feature.group"/>
-    <installableUnits id="org.eclipse.mylyn.hudson.feature.group"/>
-    <installableUnits id="org.eclipse.egit.feature.group"/>
-    <installableUnits id="org.eclipse.egit.mylyn.feature.group"/>
-    <installableUnits id="org.eclipse.pde.api.tools.ee.feature.feature.group"/>
-    <installableUnits id="org.eclipse.epp.mpc.feature.group"/>
-    <installableUnits id="org.eclipse.m2e.feature.feature.group" versionRange="[1.4.0,1.4.1)"/>
-    <installableUnits id="org.eclipse.m2e.logback.feature.feature.group" versionRange="[1.4.0,1.4.1)"/>
-    <installableUnits id="com.mountainminds.eclemma.feature.feature.group" versionRange="2.3.0.201403192240"/>
-    <installableUnits id="com.wdev91.eclipse.copyright.feature.feature.group" versionRange="1.4.0"/>
-    <installableUnits id="biz.junginger.RssViewFeature.feature.group" versionRange="1.5.0"/>
-    <p2Repositories url="http://download.eclipse.org/releases/kepler"/>
-    <p2Repositories url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-    <p2Repositories url="http://www.xpect-tests.org/updatesite/nightly/"/>
-    <p2Repositories url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
-    <p2Repositories url="http://update.eclemma.org/"/>
-    <p2Repositories url="http://www.wdev91.com/update/"/>
-    <p2Repositories url="http://www.junginger.biz/eclipse/"/>
-  </setupTasks>
-  <setupTasks xsi:type="setup:ResourceCreationTask" excludedTriggers="STARTUP MANUAL" documentation="Initialize the Package Explorer to display workings sets." content="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;section name=&quot;Workbench&quot;>&#xD;&#xA;&#x9;&lt;section name=&quot;org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart&quot;>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;true&quot; key=&quot;group_libraries&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;false&quot; key=&quot;linkWithEditor&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;layout&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;rootMode&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;packageExplorer configured=&amp;quot;true&amp;quot; group_libraries=&amp;quot;1&amp;quot; layout=&amp;quot;2&amp;quot; linkWithEditor=&amp;quot;0&amp;quot; rootMode=&amp;quot;2&amp;quot; sortWorkingSets=&amp;quot;false&amp;quot; workingSetName=&amp;quot;&amp;quot;&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;workingSet editPageId=&amp;quot;org.eclipse.jdt.internal.ui.OthersWorkingSet&amp;quot; factoryID=&amp;quot;org.eclipse.ui.internal.WorkingSetFactory&amp;quot; id=&amp;quot;1382792884467_1&amp;quot; label=&amp;quot;Other Projects&amp;quot; name=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;activeWorkingSet workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;allWorkingSets workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/packageExplorer&amp;gt;&quot; key=&quot;memento&quot;/>&#xD;&#xA;&#x9;&lt;/section>&#xD;&#xA;&lt;/section>&#xD;&#xA;" targetURL="${setup.ws.dir|uri}/.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml" encoding="UTF-8"/>
-  <setupTasks xsi:type="setup:ContextVariableTask" documentation="Location of CDO's Git clone." name="git.clone" value="${setup.branch.dir/git/spray}" stringSubstitution="true"/>
-  <setupTasks xsi:type="setup:ContextVariableTask" documentation="The folder location of the workspace for the self hosting setup IDE." name="launcher.setup.ide.ws" value="" stringSubstitution="true"/>
-  <setupTasks xsi:type="setup:ContextVariableTask" name="train.name" value="Kepler"/>
-  <setupTasks xsi:type="setup:EclipseIniTask" option="launcher.XXMaxPermSize" value="=256M" vm="true"/>
-  <setupTasks xsi:type="setup:EclipseIniTask" option="-Xms" value="128m" vm="true"/>
-  <setupTasks xsi:type="setup:EclipseIniTask" option="-Xmx" value="1024m" vm="true"/>
-  <setupTasks xsi:type="setup:EclipseIniTask" option="-Dosgi.requiredJavaVersion" value="=1.6" vm="true"/>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.pde.api.tools">
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.pde.api.tools/missing_default_api_profile" value="Ignore"/>
-  </setupTasks>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.core.resources">
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.core.resources/encoding" value="UTF-8"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.core.runtime/line.separator" value="\n"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.ui.ide/IDE_ENCODINGS_PREFERENCE" value="UTF-8"/>
-  </setupTasks>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.m2e">
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.m2e.core/eclipse.m2.defaultRuntime" value="%MAVEN_HOME%"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.m2e.core/eclipse.m2.globalSettingsFile" value="%MAVEN_HOME%/conf/settings.xml"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.m2e.core/eclipse.m2.runtimes" value="%MAVEN_HOME%"/>
-  </setupTasks>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.jdt">
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.source" value="1.6"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.compliance" value="1.6"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.codegen.targetPlatform" value="1.6"/>
-  </setupTasks>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.pde">
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.pde.core/platform_path" value="${setup.branch.dir/git/spray/releng/org.eclipselabs.spray.repository/target/repository}"/>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.pde.core/saved_platform0" value="D\:\\git\\spray_kepler_xtext25\\releng\\org.eclipselabs.spray.repository\\target\\repository"/>
-  </setupTasks>
-  <setupTasks xsi:type="setup:CompoundSetupTask" name="org.eclipse.egit">
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.egit.core/RepositorySearchDialogSearchPath" value="${setup.branch.dir/git"/>
-  </setupTasks>
-  <branches name="master">
-    <setupTasks xsi:type="setup:GitCloneTask" location="${setup.branch.dir/git/spray}" remoteURI="https://code.google.com/a/eclipselabs.org/p/spray/" checkoutBranch="master"/>
-    <setupTasks xsi:type="setup:TargletTask" name="Spray" activeRepositoryList="">
-      <roots id="org.eclipse.sdk.feature.group" versionRange="4.3.2.v20140221-1852"/>
-      <roots id="org.eclipse.jdt.feature.group" versionRange="3.9.2.v20140221-1700"/>
-      <roots id="org.eclipse.pde.feature.group" versionRange="3.9.1.v20140221-1700"/>
-      <roots id="org.eclipse.emf.transaction.sdk.feature.group" versionRange="1.7.0.201306111400"/>
-      <roots id="org.eclipse.emf.eef.sdk-feature.feature.group" versionRange="1.2.0.201301111054"/>
-      <roots id="org.eclipse.gef.sdk.feature.group" versionRange="3.9.1.201308190730"/>
-      <roots id="org.eclipse.zest.sdk.feature.group" versionRange="1.5.1.201308190730"/>
-      <roots id="org.eclipse.graphiti.sdk.plus.feature.feature.group" versionRange="0.10.2.v20140217-1225"/>
-      <roots id="org.eclipse.swt" versionRange="3.102.1.v20140206-1334"/>
-      <roots id="org.eclipse.help.feature.group" versionRange="2.0.2.v20140221-1700"/>
-      <roots id="org.eclipse.jdt.feature.group" versionRange="3.9.2.v20140221-1700"/>
-      <roots id="org.eclipse.platform.feature.group" versionRange="4.3.2.v20140221-1852"/>
-      <roots id="org.eclipse.rcp.feature.group" versionRange="4.3.2.v20140221-1700"/>
-      <roots id="org.eclipse.equinox.executable.feature.group" versionRange="3.6.0.v20140117-1004"/>
-      <roots id="org.eclipse.equinox.p2.core.feature.feature.group" versionRange="1.2.1.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.user.ui.feature.group" versionRange="2.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.rcp.feature.feature.group" versionRange="1.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.extras.feature.feature.group" versionRange="1.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.rcp.feature.feature.group" versionRange="1.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.core.sdk.feature.group" versionRange="3.8.0.v20140114-1344"/>
-      <roots id="org.eclipse.emf.sdk.feature.group" versionRange="2.9.2.v20140203-1126"/>
-      <roots id="org.eclipse.emf.ecore.xcore.sdk.feature.group" versionRange="1.1.2.v20131212-0836"/>
-      <roots id="org.eclipse.xtext.sdk.feature.group" versionRange="2.5.3.v201402240820"/>
-      <roots id="org.eclipse.xtend.sdk.feature.group" versionRange="2.5.3.v201402240820"/>
-      <roots id="org.eclipse.emf.mwe2.language.sdk.feature.group" versionRange="2.5.1.v201402030750"/>
-      <roots id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" versionRange="2.5.1.v201402030544"/>
-      <roots id="de.itemis.xtext.antlr.sdk.feature.group" versionRange="2.1.0.v201308291703"/>
-      <roots id="de.itemis.xtext.antlr.feature.feature.group" versionRange="2.1.0.v201308291703"/>
-      <roots id="org.xpect.sdk.feature.group" versionRange="0.1.0.201401101421"/>
-      <roots id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" versionRange="0.9.3.201204261440"/>
-      <roots id="org.eclipse.swtbot.eclipse.feature.group" versionRange="2.2.1.201402241301"/>
-      <roots id="org.eclipse.swtbot.eclipse.gef.feature.group" versionRange="2.2.1.201402241301"/>
-      <roots id="org.jdom" versionRange="1.1.1.v201101151400"/>
-      <roots id="org.mockito" versionRange="1.8.4.v201303031500"/>
-      <roots id="org.objenesis" versionRange="1.0.0.v201105211943"/>
-      <repositoryLists name="Spray 3rd Party">
-        <p2Repositories url="http://download.eclipse.org/releases/kepler"/>
-        <p2Repositories url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-        <p2Repositories url="http://download.itemis.com/updates/releases/2.1.0/"/>
-        <p2Repositories url="http://www.xpect-tests.org/updatesite/nightly/"/>
-        <p2Repositories url="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
-        <p2Repositories url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
-        <p2Repositories url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/"/>
-      </repositoryLists>
+<xmi:XMI xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:setup="http://www.eclipse.org/CDO/releng/setup/1.0"
+    xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
+    xmlns:setup_1="http://www.eclipse.org/oomph/setup/1.0"
+    xsi:schemaLocation="http://www.eclipse.org/CDO/releng/setup/1.0 ../../plugin/org.eclipse.oomph.base/model/legacy/setup.ecore">
+  <setup:Project
+      name="Spray"
+      label="Spray"
+      setup:toolVersion="8">
+    <setupTasks
+        xsi:type="setup:P2Task">
+      <installableUnits
+          id="org.eclipse.sdk.feature.group"
+          versionRange="[4.3.0,4.4.0)"/>
+      <installableUnits
+          id="org.eclipse.jdt.feature.group"
+          versionRange="[3.9.2,4.0.0)"/>
+      <installableUnits
+          id="org.eclipse.pde.feature.group"
+          versionRange="[3.9.1,4.0.0)"/>
+      <installableUnits
+          id="org.eclipse.gef.sdk.feature.group"
+          versionRange="[3.9.1,4.0.0)"/>
+      <installableUnits
+          id="org.eclipse.emf.sdk.feature.group"
+          versionRange="[2.9.2,2.10.0)"/>
+      <installableUnits
+          id="org.eclipse.emf.transaction.sdk.feature.group"
+          versionRange="[1.7.0,1.8.0)"/>
+      <installableUnits
+          id="org.eclipse.emf.ecore.xcore.sdk.feature.group"
+          versionRange="[1.1.2,1.1.3)"/>
+      <installableUnits
+          id="org.eclipse.emf.eef.sdk-feature.feature.group"
+          versionRange="[1.2.0,1.3.0)"/>
+      <installableUnits
+          id="org.eclipse.xtext.sdk.feature.group"
+          versionRange="[2.5.3,2.5.4)"/>
+      <installableUnits
+          id="org.eclipse.xtend.sdk.feature.group"
+          versionRange="[2.5.3,2.5.4)"/>
+      <installableUnits
+          id="org.eclipse.emf.mwe2.language.sdk.feature.group"
+          versionRange="[2.5.1,2.5.2)"/>
+      <installableUnits
+          id="org.eclipse.emf.mwe2.runtime.sdk.feature.group"
+          versionRange="[2.5.1,2.5.2)"/>
+      <installableUnits
+          id="org.xpect.sdk.feature.group"
+          versionRange="0.1.0.201401101421"/>
+      <installableUnits
+          id="org.eclipse.graphiti.sdk.plus.feature.feature.group"
+          versionRange="[0.10.2,0.11.0)"/>
+      <installableUnits
+          id="org.eclipse.zest.sdk.feature.group"
+          versionRange="[1.5.1,1.6.0)"/>
+      <installableUnits
+          id="org.eclipse.swtbot.eclipse.feature.group"
+          versionRange="2.2.1"/>
+      <installableUnits
+          id="org.eclipse.swtbot.eclipse.gef.feature.group"
+          versionRange="2.2.1"/>
+      <installableUnits
+          id="org.eclipse.mylyn.ide_feature.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn.java_feature.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn.pde_feature.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn.team_feature.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn_feature.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn.git.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn.builds.feature.group"/>
+      <installableUnits
+          id="org.eclipse.mylyn.hudson.feature.group"/>
+      <installableUnits
+          id="org.eclipse.egit.feature.group"/>
+      <installableUnits
+          id="org.eclipse.egit.mylyn.feature.group"/>
+      <installableUnits
+          id="org.eclipse.pde.api.tools.ee.feature.feature.group"/>
+      <installableUnits
+          id="org.eclipse.epp.mpc.feature.group"/>
+      <installableUnits
+          id="org.eclipse.m2e.feature.feature.group"
+          versionRange="[1.4.0,1.4.1)"/>
+      <installableUnits
+          id="org.eclipse.m2e.logback.feature.feature.group"
+          versionRange="[1.4.0,1.4.1)"/>
+      <installableUnits
+          id="com.mountainminds.eclemma.feature.feature.group"
+          versionRange="2.3.0.201403192240"/>
+      <installableUnits
+          id="com.wdev91.eclipse.copyright.feature.feature.group"
+          versionRange="1.4.0"/>
+      <installableUnits
+          id="biz.junginger.RssViewFeature.feature.group"
+          versionRange="1.5.0"/>
+      <p2Repositories
+          url="http://download.eclipse.org/releases/kepler"/>
+      <p2Repositories
+          url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+      <p2Repositories
+          url="http://www.xpect-tests.org/updatesite/nightly/"/>
+      <p2Repositories
+          url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
+      <p2Repositories
+          url="http://update.eclemma.org/"/>
+      <p2Repositories
+          url="http://www.wdev91.com/update/"/>
+      <p2Repositories
+          url="http://www.junginger.biz/eclipse/"/>
     </setupTasks>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.ui.ide/WORKSPACE_NAME" value="spray_master"/>
-    <setupTasks xsi:type="setup:ProjectSetImportTask" uRL="${setup.branch.dir/git/spray/devtools/org.eclipselabs.spray.devenv/projectSet.psf}"/>
-  </branches>
-  <branches name="deprecated_api_migration">
-    <setupTasks xsi:type="setup:GitCloneTask" location="${setup.branch.dir/git/spray}" remoteURI="https://code.google.com/a/eclipselabs.org/p/spray/" checkoutBranch="deprecated_api_migration"/>
-    <setupTasks xsi:type="setup:TargletTask" name="Spray" activeRepositoryList="">
-      <roots id="org.eclipse.sdk.feature.group" versionRange="4.3.2.v20140221-1852"/>
-      <roots id="org.eclipse.jdt.feature.group" versionRange="3.9.2.v20140221-1700"/>
-      <roots id="org.eclipse.pde.feature.group" versionRange="3.9.1.v20140221-1700"/>
-      <roots id="org.eclipse.emf.transaction.sdk.feature.group" versionRange="1.7.0.201306111400"/>
-      <roots id="org.eclipse.emf.eef.sdk-feature.feature.group" versionRange="1.2.0.201301111054"/>
-      <roots id="org.eclipse.gef.sdk.feature.group" versionRange="3.9.1.201308190730"/>
-      <roots id="org.eclipse.zest.sdk.feature.group" versionRange="1.5.1.201308190730"/>
-      <roots id="org.eclipse.graphiti.sdk.plus.feature.feature.group" versionRange="0.10.2.v20140217-1225"/>
-      <roots id="org.eclipse.swt" versionRange="3.102.1.v20140206-1334"/>
-      <roots id="org.eclipse.help.feature.group" versionRange="2.0.2.v20140221-1700"/>
-      <roots id="org.eclipse.jdt.feature.group" versionRange="3.9.2.v20140221-1700"/>
-      <roots id="org.eclipse.platform.feature.group" versionRange="4.3.2.v20140221-1852"/>
-      <roots id="org.eclipse.rcp.feature.group" versionRange="4.3.2.v20140221-1700"/>
-      <roots id="org.eclipse.equinox.executable.feature.group" versionRange="3.6.0.v20140117-1004"/>
-      <roots id="org.eclipse.equinox.p2.core.feature.feature.group" versionRange="1.2.1.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.user.ui.feature.group" versionRange="2.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.rcp.feature.feature.group" versionRange="1.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.extras.feature.feature.group" versionRange="1.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.p2.rcp.feature.feature.group" versionRange="1.2.0.v20140221-1852"/>
-      <roots id="org.eclipse.equinox.core.sdk.feature.group" versionRange="3.8.0.v20140114-1344"/>
-      <roots id="org.eclipse.emf.sdk.feature.group" versionRange="2.9.2.v20140203-1126"/>
-      <roots id="org.eclipse.emf.ecore.xcore.sdk.feature.group" versionRange="1.1.2.v20131212-0836"/>
-      <roots id="org.eclipse.xtext.sdk.feature.group" versionRange="2.5.3.v201402240820"/>
-      <roots id="org.eclipse.xtend.sdk.feature.group" versionRange="2.5.3.v201402240820"/>
-      <roots id="org.eclipse.emf.mwe2.language.sdk.feature.group" versionRange="2.5.1.v201402030750"/>
-      <roots id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" versionRange="2.5.1.v201402030544"/>
-      <roots id="de.itemis.xtext.antlr.sdk.feature.group" versionRange="2.1.0.v201308291703"/>
-      <roots id="de.itemis.xtext.antlr.feature.feature.group" versionRange="2.1.0.v201308291703"/>
-      <roots id="org.xpect.sdk.feature.group" versionRange="0.1.0.201401101421"/>
-      <roots id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" versionRange="0.9.3.201204261440"/>
-      <roots id="org.eclipse.swtbot.eclipse.feature.group" versionRange="2.2.1.201402241301"/>
-      <roots id="org.eclipse.swtbot.eclipse.gef.feature.group" versionRange="2.2.1.201402241301"/>
-      <roots id="org.jdom" versionRange="1.1.1.v201101151400"/>
-      <roots id="org.mockito" versionRange="1.8.4.v201303031500"/>
-      <roots id="org.objenesis" versionRange="1.0.0.v201105211943"/>
-      <repositoryLists name="Spray 3rd Party">
-        <p2Repositories url="http://download.eclipse.org/releases/kepler"/>
-        <p2Repositories url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-        <p2Repositories url="http://download.itemis.com/updates/releases/2.1.0/"/>
-        <p2Repositories url="http://www.xpect-tests.org/updatesite/nightly/"/>
-        <p2Repositories url="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
-        <p2Repositories url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
-        <p2Repositories url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/"/>
-      </repositoryLists>
+    <setupTasks
+        xsi:type="setup:ResourceCreationTask"
+        excludedTriggers="STARTUP MANUAL"
+        documentation="Initialize the Package Explorer to display workings sets."
+        content="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;section name=&quot;Workbench&quot;>&#xD;&#xA;&#x9;&lt;section name=&quot;org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart&quot;>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;true&quot; key=&quot;group_libraries&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;false&quot; key=&quot;linkWithEditor&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;layout&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;rootMode&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;packageExplorer configured=&amp;quot;true&amp;quot; group_libraries=&amp;quot;1&amp;quot; layout=&amp;quot;2&amp;quot; linkWithEditor=&amp;quot;0&amp;quot; rootMode=&amp;quot;2&amp;quot; sortWorkingSets=&amp;quot;false&amp;quot; workingSetName=&amp;quot;&amp;quot;&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;workingSet editPageId=&amp;quot;org.eclipse.jdt.internal.ui.OthersWorkingSet&amp;quot; factoryID=&amp;quot;org.eclipse.ui.internal.WorkingSetFactory&amp;quot; id=&amp;quot;1382792884467_1&amp;quot; label=&amp;quot;Other Projects&amp;quot; name=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;activeWorkingSet workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;allWorkingSets workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/packageExplorer&amp;gt;&quot; key=&quot;memento&quot;/>&#xD;&#xA;&#x9;&lt;/section>&#xD;&#xA;&lt;/section>&#xD;&#xA;"
+        targetURL="${setup.ws.dir|uri}/.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml"
+        encoding="UTF-8"/>
+    <setupTasks
+        xsi:type="setup:ContextVariableTask"
+        documentation="Location of CDO's Git clone."
+        name="git.clone"
+        value="${setup.branch.dir/git/spray}"
+        stringSubstitution="true"/>
+    <setupTasks
+        xsi:type="setup:ContextVariableTask"
+        documentation="The folder location of the workspace for the self hosting setup IDE."
+        name="launcher.setup.ide.ws"
+        value=""
+        stringSubstitution="true"/>
+    <setupTasks
+        xsi:type="setup:ContextVariableTask"
+        name="train.name"
+        value="Kepler"/>
+    <setupTasks
+        xsi:type="setup:EclipseIniTask"
+        option="launcher.XXMaxPermSize"
+        value="=256M"
+        vm="true"/>
+    <setupTasks
+        xsi:type="setup:EclipseIniTask"
+        option="-Xms"
+        value="128m"
+        vm="true"/>
+    <setupTasks
+        xsi:type="setup:EclipseIniTask"
+        option="-Xmx"
+        value="1024m"
+        vm="true"/>
+    <setupTasks
+        xsi:type="setup:EclipseIniTask"
+        option="-Dosgi.requiredJavaVersion"
+        value="=1.6"
+        vm="true"/>
+    <setupTasks
+        xsi:type="setup:CompoundSetupTask"
+        name="org.eclipse.pde.api.tools">
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.pde.api.tools/missing_default_api_profile"
+          value="Ignore"/>
     </setupTasks>
-    <setupTasks xsi:type="setup:EclipsePreferenceTask" key="/instance/org.eclipse.ui.ide/WORKSPACE_NAME" value="spray_xtext25"/>
-    <setupTasks xsi:type="setup:ProjectSetImportTask" uRL="${setup.branch.dir/git/spray/devtools/org.eclipselabs.spray.devenv/projectSet.psf}"/>
-  </branches>
-</setup:Project>
+    <setupTasks
+        xsi:type="setup:CompoundSetupTask"
+        name="org.eclipse.core.resources">
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.core.resources/encoding"
+          value="UTF-8"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.core.runtime/line.separator"
+          value="\n"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.ui.ide/IDE_ENCODINGS_PREFERENCE"
+          value="UTF-8"/>
+    </setupTasks>
+    <setupTasks
+        xsi:type="setup:CompoundSetupTask"
+        name="org.eclipse.m2e">
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.m2e.core/eclipse.m2.defaultRuntime"
+          value="%MAVEN_HOME%"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.m2e.core/eclipse.m2.globalSettingsFile"
+          value="%MAVEN_HOME%/conf/settings.xml"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.m2e.core/eclipse.m2.runtimes"
+          value="%MAVEN_HOME%"/>
+    </setupTasks>
+    <setupTasks
+        xsi:type="setup:CompoundSetupTask"
+        name="org.eclipse.jdt">
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.source"
+          value="1.6"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.compliance"
+          value="1.6"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.codegen.targetPlatform"
+          value="1.6"/>
+    </setupTasks>
+    <setupTasks
+        xsi:type="setup:CompoundSetupTask"
+        name="org.eclipse.pde">
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.pde.core/platform_path"
+          value="${setup.branch.dir/git/spray/releng/org.eclipselabs.spray.repository/target/repository}"/>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.pde.core/saved_platform0"
+          value="D\:\\git\\spray_kepler_xtext25\\releng\\org.eclipselabs.spray.repository\\target\\repository"/>
+    </setupTasks>
+    <setupTasks
+        xsi:type="setup:CompoundSetupTask"
+        name="org.eclipse.egit">
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.egit.core/RepositorySearchDialogSearchPath"
+          value="${setup.branch.dir/git"/>
+    </setupTasks>
+    <branches
+        name="master">
+      <setupTasks
+          xsi:type="setup:GitCloneTask"
+          location="${setup.branch.dir/git/spray}"
+          remoteURI="https://code.google.com/a/eclipselabs.org/p/spray/"
+          checkoutBranch="master"/>
+      <setupTasks
+          xsi:type="setup:TargletTask"
+          name="Spray"
+          activeRepositoryList="">
+        <roots
+            id="org.eclipse.sdk.feature.group"
+            versionRange="4.3.2.v20140221-1852"/>
+        <roots
+            id="org.eclipse.jdt.feature.group"
+            versionRange="3.9.2.v20140221-1700"/>
+        <roots
+            id="org.eclipse.pde.feature.group"
+            versionRange="3.9.1.v20140221-1700"/>
+        <roots
+            id="org.eclipse.emf.transaction.sdk.feature.group"
+            versionRange="1.7.0.201306111400"/>
+        <roots
+            id="org.eclipse.emf.eef.sdk-feature.feature.group"
+            versionRange="1.2.0.201301111054"/>
+        <roots
+            id="org.eclipse.gef.sdk.feature.group"
+            versionRange="3.9.1.201308190730"/>
+        <roots
+            id="org.eclipse.zest.sdk.feature.group"
+            versionRange="1.5.1.201308190730"/>
+        <roots
+            id="org.eclipse.graphiti.sdk.plus.feature.feature.group"
+            versionRange="0.10.2.v20140217-1225"/>
+        <roots
+            id="org.eclipse.swt"
+            versionRange="3.102.1.v20140206-1334"/>
+        <roots
+            id="org.eclipse.help.feature.group"
+            versionRange="2.0.2.v20140221-1700"/>
+        <roots
+            id="org.eclipse.jdt.feature.group"
+            versionRange="3.9.2.v20140221-1700"/>
+        <roots
+            id="org.eclipse.platform.feature.group"
+            versionRange="4.3.2.v20140221-1852"/>
+        <roots
+            id="org.eclipse.rcp.feature.group"
+            versionRange="4.3.2.v20140221-1700"/>
+        <roots
+            id="org.eclipse.equinox.executable.feature.group"
+            versionRange="3.6.0.v20140117-1004"/>
+        <roots
+            id="org.eclipse.equinox.p2.core.feature.feature.group"
+            versionRange="1.2.1.v20140221-1852"/>
+        <roots
+            id="org.eclipse.equinox.p2.user.ui.feature.group"
+            versionRange="2.2.0.v20140221-1852"/>
+        <roots
+            id="org.eclipse.equinox.p2.rcp.feature.feature.group"
+            versionRange="1.2.0.v20140221-1852"/>
+        <roots
+            id="org.eclipse.equinox.p2.extras.feature.feature.group"
+            versionRange="1.2.0.v20140221-1852"/>
+        <roots
+            id="org.eclipse.equinox.p2.rcp.feature.feature.group"
+            versionRange="1.2.0.v20140221-1852"/>
+        <roots
+            id="org.eclipse.equinox.core.sdk.feature.group"
+            versionRange="3.8.0.v20140114-1344"/>
+        <roots
+            id="org.eclipse.emf.sdk.feature.group"
+            versionRange="2.9.2.v20140203-1126"/>
+        <roots
+            id="org.eclipse.emf.ecore.xcore.sdk.feature.group"
+            versionRange="1.1.2.v20131212-0836"/>
+        <roots
+            id="org.eclipse.xtext.sdk.feature.group"
+            versionRange="2.5.3.v201402240820"/>
+        <roots
+            id="org.eclipse.xtend.sdk.feature.group"
+            versionRange="2.5.3.v201402240820"/>
+        <roots
+            id="org.eclipse.emf.mwe2.language.sdk.feature.group"
+            versionRange="2.5.1.v201402030750"/>
+        <roots
+            id="org.eclipse.emf.mwe2.runtime.sdk.feature.group"
+            versionRange="2.5.1.v201402030544"/>
+        <roots
+            id="de.itemis.xtext.antlr.sdk.feature.group"
+            versionRange="2.1.0.v201308291703"/>
+        <roots
+            id="de.itemis.xtext.antlr.feature.feature.group"
+            versionRange="2.1.0.v201308291703"/>
+        <roots
+            id="org.xpect.sdk.feature.group"
+            versionRange="0.1.0.201401101421"/>
+        <roots
+            id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group"
+            versionRange="0.9.3.201204261440"/>
+        <roots
+            id="org.eclipse.swtbot.eclipse.feature.group"
+            versionRange="2.2.1.201402241301"/>
+        <roots
+            id="org.eclipse.swtbot.eclipse.gef.feature.group"
+            versionRange="2.2.1.201402241301"/>
+        <roots
+            id="org.jdom"
+            versionRange="1.1.1.v201101151400"/>
+        <roots
+            id="org.mockito"
+            versionRange="1.8.4.v201303031500"/>
+        <roots
+            id="org.objenesis"
+            versionRange="1.0.0.v201105211943"/>
+        <repositoryLists
+            name="Spray 3rd Party">
+          <p2Repositories
+              url="http://download.eclipse.org/releases/kepler"/>
+          <p2Repositories
+              url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+          <p2Repositories
+              url="http://download.itemis.com/updates/releases/2.1.0/"/>
+          <p2Repositories
+              url="http://www.xpect-tests.org/updatesite/nightly/"/>
+          <p2Repositories
+              url="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
+          <p2Repositories
+              url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
+          <p2Repositories
+              url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/"/>
+        </repositoryLists>
+      </setupTasks>
+      <setupTasks
+          xsi:type="setup:EclipsePreferenceTask"
+          key="/instance/org.eclipse.ui.ide/WORKSPACE_NAME"
+          value="spray_master"/>
+      <setupTasks
+          xsi:type="setup:ProjectSetImportTask"
+          uRL="${setup.branch.dir/git/spray/devtools/org.eclipselabs.spray.devenv/projectSet.psf}"/>
+    </branches>
+  </setup:Project>
+  <setup_1:Project
+      name="Spray">
+    <setupTask
+        xsi:type="setup.p2:P2Task">
+      <requirement
+          id="org.eclipse.sdk.feature.group"
+          versionRange="[4.3.0,4.4.0)"/>
+      <requirement
+          id="org.eclipse.jdt.feature.group"
+          versionRange="[3.9.2,4.0.0)"/>
+      <requirement
+          id="org.eclipse.pde.feature.group"
+          versionRange="[3.9.1,4.0.0)"/>
+      <requirement
+          id="org.eclipse.gef.sdk.feature.group"
+          versionRange="[3.9.1,4.0.0)"/>
+      <requirement
+          id="org.eclipse.emf.sdk.feature.group"
+          versionRange="[2.9.2,2.10.0)"/>
+      <requirement
+          id="org.eclipse.emf.transaction.sdk.feature.group"
+          versionRange="[1.7.0,1.8.0)"/>
+      <requirement
+          id="org.eclipse.emf.ecore.xcore.sdk.feature.group"
+          versionRange="[1.1.2,1.1.3)"/>
+      <requirement
+          id="org.eclipse.emf.eef.sdk-feature.feature.group"
+          versionRange="[1.2.0,1.3.0)"/>
+      <requirement
+          id="org.eclipse.xtext.sdk.feature.group"
+          versionRange="[2.5.3,2.5.4)"/>
+      <requirement
+          id="org.eclipse.xtend.sdk.feature.group"
+          versionRange="[2.5.3,2.5.4)"/>
+      <requirement
+          id="org.eclipse.emf.mwe2.language.sdk.feature.group"
+          versionRange="[2.5.1,2.5.2)"/>
+      <requirement
+          id="org.eclipse.emf.mwe2.runtime.sdk.feature.group"
+          versionRange="[2.5.1,2.5.2)"/>
+      <requirement
+          id="org.xpect.sdk.feature.group"
+          versionRange="0.1.0.201401101421"/>
+      <requirement
+          id="org.eclipse.graphiti.sdk.plus.feature.feature.group"
+          versionRange="[0.10.2,0.11.0)"/>
+      <requirement
+          id="org.eclipse.zest.sdk.feature.group"
+          versionRange="[1.5.1,1.6.0)"/>
+      <requirement
+          id="org.eclipse.swtbot.eclipse.feature.group"
+          versionRange="2.2.1"/>
+      <requirement
+          id="org.eclipse.swtbot.eclipse.gef.feature.group"
+          versionRange="2.2.1"/>
+      <requirement
+          id="org.eclipse.mylyn.ide_feature.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn.java_feature.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn.pde_feature.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn.team_feature.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn_feature.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn.git.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn.builds.feature.group"/>
+      <requirement
+          id="org.eclipse.mylyn.hudson.feature.group"/>
+      <requirement
+          id="org.eclipse.egit.feature.group"/>
+      <requirement
+          id="org.eclipse.egit.mylyn.feature.group"/>
+      <requirement
+          id="org.eclipse.pde.api.tools.ee.feature.feature.group"/>
+      <requirement
+          id="org.eclipse.epp.mpc.feature.group"/>
+      <requirement
+          id="org.eclipse.m2e.feature.feature.group"
+          versionRange="[1.4.0,1.4.1)"/>
+      <requirement
+          id="org.eclipse.m2e.logback.feature.feature.group"
+          versionRange="[1.4.0,1.4.1)"/>
+      <requirement
+          id="com.mountainminds.eclemma.feature.feature.group"
+          versionRange="2.3.0.201403192240"/>
+      <requirement
+          id="com.wdev91.eclipse.copyright.feature.feature.group"
+          versionRange="1.4.0"/>
+      <requirement
+          id="biz.junginger.RssViewFeature.feature.group"
+          versionRange="1.5.0"/>
+      <repository
+          url="http://download.eclipse.org/releases/kepler"/>
+      <repository
+          url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+      <repository
+          url="http://www.xpect-tests.org/updatesite/nightly/"/>
+      <repository
+          url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
+      <repository
+          url="http://update.eclemma.org/"/>
+      <repository
+          url="http://www.wdev91.com/update/"/>
+      <repository
+          url="http://www.junginger.biz/eclipse/"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:ResourceCreationTask"
+        excludedTriggers="STARTUP MANUAL"
+        content="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;section name=&quot;Workbench&quot;>&#xD;&#xA;&#x9;&lt;section name=&quot;org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart&quot;>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;true&quot; key=&quot;group_libraries&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;false&quot; key=&quot;linkWithEditor&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;layout&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;rootMode&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;packageExplorer configured=&amp;quot;true&amp;quot; group_libraries=&amp;quot;1&amp;quot; layout=&amp;quot;2&amp;quot; linkWithEditor=&amp;quot;0&amp;quot; rootMode=&amp;quot;2&amp;quot; sortWorkingSets=&amp;quot;false&amp;quot; workingSetName=&amp;quot;&amp;quot;&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;workingSet editPageId=&amp;quot;org.eclipse.jdt.internal.ui.OthersWorkingSet&amp;quot; factoryID=&amp;quot;org.eclipse.ui.internal.WorkingSetFactory&amp;quot; id=&amp;quot;1382792884467_1&amp;quot; label=&amp;quot;Other Projects&amp;quot; name=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;activeWorkingSet workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;allWorkingSets workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/packageExplorer&amp;gt;&quot; key=&quot;memento&quot;/>&#xD;&#xA;&#x9;&lt;/section>&#xD;&#xA;&lt;/section>&#xD;&#xA;"
+        targetURL="${setup.ws.dir|uri}/.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml"
+        encoding="UTF-8">
+      <description>Initialize the Package Explorer to display workings sets.</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:VariableTask"
+        name="git.clone"
+        value="${setup.branch.dir/git/spray}">
+      <annotation
+          source="http://www.eclipse.org/oomph/Migrator">
+        <detail
+            key="platform:/plugin/org.eclipse.oomph.base/model/legacy/setup.ecore#//ContextVariableTask/stringSubstitution">
+          <value>true</value>
+        </detail>
+      </annotation>
+      <description>Location of CDO's Git clone.</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:VariableTask"
+        name="launcher.setup.ide.ws"
+        value="">
+      <annotation
+          source="http://www.eclipse.org/oomph/Migrator">
+        <detail
+            key="platform:/plugin/org.eclipse.oomph.base/model/legacy/setup.ecore#//ContextVariableTask/stringSubstitution">
+          <value>true</value>
+        </detail>
+      </annotation>
+      <description>The folder location of the workspace for the self hosting setup IDE.</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:VariableTask"
+        name="train.name"
+        value="Kepler">
+      <annotation
+          source="http://www.eclipse.org/oomph/Migrator">
+        <detail
+            key="platform:/plugin/org.eclipse.oomph.base/model/legacy/setup.ecore#//ContextVariableTask/stringSubstitution">
+          <value>false</value>
+        </detail>
+      </annotation>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:EclipseIniTask"
+        option="launcher.XXMaxPermSize"
+        value="=256M"
+        vm="true"/>
+    <setupTask
+        xsi:type="setup_1:EclipseIniTask"
+        option="-Xms"
+        value="128m"
+        vm="true"/>
+    <setupTask
+        xsi:type="setup_1:EclipseIniTask"
+        option="-Xmx"
+        value="1024m"
+        vm="true"/>
+    <setupTask
+        xsi:type="setup_1:EclipseIniTask"
+        option="-Dosgi.requiredJavaVersion"
+        value="=1.6"
+        vm="true"/>
+    <setupTask
+        xsi:type="setup_1:CompoundTask"
+        name="org.eclipse.pde.api.tools">
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.pde.api.tools/missing_default_api_profile"
+          value="Ignore"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:CompoundTask"
+        name="org.eclipse.core.resources">
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.core.resources/encoding"
+          value="UTF-8"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.core.runtime/line.separator"
+          value="\n"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.ui.ide/IDE_ENCODINGS_PREFERENCE"
+          value="UTF-8"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:CompoundTask"
+        name="org.eclipse.m2e">
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.m2e.core/eclipse.m2.defaultRuntime"
+          value="%MAVEN_HOME%"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.m2e.core/eclipse.m2.globalSettingsFile"
+          value="%MAVEN_HOME%/conf/settings.xml"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.m2e.core/eclipse.m2.runtimes"
+          value="%MAVEN_HOME%"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:CompoundTask"
+        name="org.eclipse.jdt">
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.source"
+          value="1.6"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.compliance"
+          value="1.6"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.codegen.targetPlatform"
+          value="1.6"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:CompoundTask"
+        name="org.eclipse.pde">
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.pde.core/platform_path"
+          value="${setup.branch.dir/git/spray/releng/org.eclipselabs.spray.repository/target/repository}"/>
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.pde.core/saved_platform0"
+          value="D\:\\git\\spray_kepler_xtext25\\releng\\org.eclipselabs.spray.repository\\target\\repository"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup_1:CompoundTask"
+        name="org.eclipse.egit">
+      <setupTask
+          xsi:type="setup_1:PreferenceTask"
+          key="/instance/org.eclipse.egit.core/RepositorySearchDialogSearchPath"
+          value="${setup.branch.dir/git"/>
+    </setupTask>
+  </setup_1:Project>
+</xmi:XMI>
