@@ -10,7 +10,7 @@ import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
-import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
+import org.eclipse.xtext.xbase.scoping.batch.XbaseBatchScopeProvider;
 import org.eclipselabs.spray.styles.GradientRef;
 import org.eclipselabs.spray.styles.Style;
 
@@ -21,7 +21,7 @@ import com.google.common.base.Predicate;
  * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on how
  * and when to use it
  */
-public class StyleScopeProvider extends XbaseScopeProvider {
+public class StyleScopeProvider extends XbaseBatchScopeProvider {
 
     @Override
     public IScope getScope(EObject context, EReference reference) {

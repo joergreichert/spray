@@ -14,6 +14,7 @@ var encoding = "UTF-8"
 
 Workflow {
     bean = StandaloneSetup {
+    	scanClassPath = true
     	resourceSet = org.eclipse.xtext.resource.XtextResourceSet:theResourceSet {}
         platformUri = "${runtimeProject}/.."
         
