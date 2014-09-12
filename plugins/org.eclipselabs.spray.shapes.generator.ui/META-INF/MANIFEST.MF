@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.common.types.ui;bundle-version="[2.4.0,2.8.0)",
  org.eclipselabs.spray.generator.common,
  org.eclipselabs.spray.shapes.generator,
- org.eclipselabs.spray.runtime.xtext.ui
+ org.eclipselabs.spray.runtime.xtext.ui,
+ org.eclipse.xtext.xbase
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: %providerName

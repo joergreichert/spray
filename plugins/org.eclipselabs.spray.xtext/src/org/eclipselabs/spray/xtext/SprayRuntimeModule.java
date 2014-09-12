@@ -16,13 +16,11 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.featurecalls.IdentifiableSimpleNameProvider;
-import org.eclipse.xtext.xbase.typing.ITypeProvider;
 import org.eclipselabs.spray.mm.spray.SprayFactory;
 import org.eclipselabs.spray.mm.spray.SprayPackage;
 import org.eclipselabs.spray.xtext.api.IConstants;
 import org.eclipselabs.spray.xtext.customizing.SprayQualifiedNameProvider;
 import org.eclipselabs.spray.xtext.customizing.SpraySimpleNameProvider;
-import org.eclipselabs.spray.xtext.customizing.SprayTypeProvider;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.scoping.SprayImportedNamespaceScopeProvider;
 import org.eclipselabs.spray.xtext.scoping.SprayScopeProvider;
@@ -56,11 +54,6 @@ public class SprayRuntimeModule extends AbstractSprayRuntimeModule {
     @Override
     public Class<? extends IdentifiableSimpleNameProvider> bindIdentifiableSimpleNameProvider() {
         return SpraySimpleNameProvider.class;
-    }
-
-    @Override
-    public Class<? extends ITypeProvider> bindITypeProvider() {
-        return SprayTypeProvider.class;
     }
 
     public void configureValidIconFileExtensions(Binder binder) {
