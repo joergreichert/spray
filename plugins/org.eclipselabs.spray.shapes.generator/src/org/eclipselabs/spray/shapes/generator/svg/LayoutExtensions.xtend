@@ -244,7 +244,9 @@ class LayoutExtensions {
     }
     
     def findPoint(List<Point> points, (Point) => Integer coord, (Integer, Integer) => Integer compare) {
-    	points.map(p|coord.apply(p)).sort[coord1, coord2| compare.apply(coord1, coord2) ]
+    	val mappedPoints = points.map(p|coord.apply(p))
+    	mappedPoints.sort[coord1, coord2| compare.apply(coord1, coord2) ]
+    	mappedPoints
     }
     
     def dispatch String lineStyle (ConnectionDefinition shape) {
