@@ -44,8 +44,7 @@ class SprayJvmModelInferrer extends AbstractModelInferrer {
         
         val clazzName = if (clazz.alias == null) clazz.type.name else clazz.alias
 		
-		acceptor.accept(clazz.toClass(converter.toQualifiedName("org.eclipselabs.spray."+clazz.type.EPackage.name+"."+clazzName)))
-		.initializeLater [
+		acceptor.accept(clazz.toClass(converter.toQualifiedName("org.eclipselabs.spray."+clazz.type.EPackage.name+"."+clazzName))) [
 				val field = toField("ecoreClass", eClassJvmType)
 //				field.annotations += toAnnotation(Extension)
                 members += field
