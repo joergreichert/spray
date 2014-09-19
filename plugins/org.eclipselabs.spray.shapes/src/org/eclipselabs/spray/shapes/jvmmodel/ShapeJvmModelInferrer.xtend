@@ -35,7 +35,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
 		val typeProvider = typeProviderFactory.createTypeProvider
 		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
 		if(existingClass == null) {
-			acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
+			acceptor.accept(element.toClass(element.packageName + "." + element.className)) [
 				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
 			]
 		} else {
@@ -51,7 +51,7 @@ class ShapeJvmModelInferrer extends AbstractModelInferrer {
 		val typeProvider = typeProviderFactory.createTypeProvider
 		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
 		if(existingClass == null) {
-			acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
+			acceptor.accept(element.toClass(element.packageName + "." + element.className)) [
 				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
 			]
 		} else {
