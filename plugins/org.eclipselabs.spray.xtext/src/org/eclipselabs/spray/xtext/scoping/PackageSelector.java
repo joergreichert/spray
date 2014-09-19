@@ -126,6 +126,13 @@ public class PackageSelector {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                } else if (packageObj instanceof XPackage) {
+                    GenModel genModel = xcoreGenModelBuilder.getGenModel((XPackage) packageObj);
+                    for (GenPackage genPack : genModel.getGenPackages()) {
+                        if (genPack.getEcorePackage().getName().equals(((XPackage) packageObj).getName())) {
+                            ePackages.add(genPack.getEcorePackage());
+                        }
+                    }
                 }
             }
             return ePackages;
