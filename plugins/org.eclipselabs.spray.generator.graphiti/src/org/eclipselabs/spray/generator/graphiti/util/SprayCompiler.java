@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
-import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XBinaryOperation;
@@ -30,10 +29,7 @@ import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
 import org.eclipse.xtext.xbase.typesystem.references.LightweightTypeReference;
 
-@SuppressWarnings("restriction")
 public class SprayCompiler extends XbaseCompiler {
-    @Inject
-    IJvmTypeProvider.Factory typeProviderFactory;
 
     @Inject
     private XtextResourceSet resourceSet;
@@ -49,7 +45,6 @@ public class SprayCompiler extends XbaseCompiler {
     public String compileForPropertyAssignement(XExpression expression, String valueName, String metaClassVariable) {
         setMetaClassVariable(metaClassVariable);
         ITreeAppendable appendable = new FakeTreeAppendable(new ImportManager(false));
-        IJvmTypeProvider typeProvider = typeProviderFactory.createTypeProvider();
         LightweightTypeReference type = getLightweightExpectedType(expression);
         if (type != null) {
             try {

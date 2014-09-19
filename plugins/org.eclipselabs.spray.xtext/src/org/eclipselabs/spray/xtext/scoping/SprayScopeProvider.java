@@ -145,7 +145,7 @@ public class SprayScopeProvider extends XbaseBatchScopeProvider {
                             LOGGER.warn("Type of attribute " + ((EAttribute) input).getName() + " is a proxy.");
                             return false;
                         }
-                        return "EString".equals(((EAttribute) input).getEType().getName());
+                        return "EString".equals(((EAttribute) input).getEType().getName()) || "EJavaObject".equals(((EAttribute) input).getEType().getName());
                     }
                     return false;
                 }
