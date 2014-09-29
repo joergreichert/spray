@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- ***************************************************************************
  *  Copyright (c)  The Spray Project.
  *  All rights reserved. This program and the accompanying materials
@@ -8,7 +9,6 @@
  *  Contributors:
  *      Spray Dev Team - initial API and implementation
 **************************************************************************** -->
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- 
 Use steps of 10 to increment template IDs. This allows later inserting other templates
 in numerical order.

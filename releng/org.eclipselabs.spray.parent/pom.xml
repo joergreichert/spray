@@ -291,7 +291,7 @@
 						</execution>
 						<execution>
 							<id>TychoSurefirePluginTest</id>
-							<phase>test</phase>
+							<phase>integration-test</phase>
 							<configuration>
 								<argLine>${encodingArgs} ${memoryArgs} ${ui.test.vmargs} ${coverageAgent} ${loggingArgs}</argLine><!-- different for mac/not mac -->
 								<skip>${tycho.surefire.skipPluginTest}</skip>
@@ -307,7 +307,7 @@
 						</execution>
 						<execution>
 							<id>TychoSurefirePluginUITest</id>
-							<phase>test</phase>
+							<phase>integration-test</phase>
 							<configuration>
 								<skip>${tycho.surefire.skipPluginUITest}</skip>
 								<failIfNoTests>false</failIfNoTests>
@@ -324,12 +324,12 @@
 									<dependency>
 										<type>p2-installable-unit</type>
 										<artifactId>org.eclipse.sdk</artifactId>
-										<version>[4.3.0,4.4.0)</version>
+										<version>[4.4.0,4.5.0)</version>
 									</dependency>
 									<dependency>
 										<type>p2-installable-unit</type>
 										<artifactId>org.eclipse.graphiti.sdk.feature.feature.group</artifactId>
-										<version>[0.10.0,0.11.0)</version>
+										<version>[0.11.0,0.12.0)</version>
 									</dependency>
 								</dependencies>
 								<includes>

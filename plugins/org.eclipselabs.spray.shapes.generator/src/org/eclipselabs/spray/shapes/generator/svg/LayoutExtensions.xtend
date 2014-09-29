@@ -244,7 +244,8 @@ class LayoutExtensions {
     }
     
     def findPoint(List<Point> points, (Point) => Integer coord, (Integer, Integer) => Integer compare) {
-    	val mappedPoints = points.map(p|coord.apply(p))
+    	val mappedPoints = newArrayList
+    	mappedPoints += points.map(p|coord.apply(p)).toList
     	mappedPoints.sort[coord1, coord2| compare.apply(coord1, coord2) ]
     	mappedPoints
     }
