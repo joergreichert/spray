@@ -5,7 +5,7 @@ Bundle-Vendor: %providerName
 Bundle-SymbolicName: org.eclipselabs.spray.generator.graphiti.tests
 Bundle-Version: 0.5.1.qualifier
 Fragment-Host: org.eclipselabs.spray.generator.graphiti
-Require-Bundle: org.eclipse.xtext.junit4;bundle-version="[2.4.0,2.5.0)",
+Require-Bundle: org.eclipse.xtext.junit4;bundle-version="[2.4.0,2.9.0)",
  org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.3",
  org.eclipselabs.spray.testhelper;bundle-version="0.5.0",
  org.eclipse.emf.ecore,

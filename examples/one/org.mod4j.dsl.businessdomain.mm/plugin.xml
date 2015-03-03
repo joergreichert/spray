@@ -10,11 +10,11 @@
 
 <plugin>
 
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://www.mod4j.org/busmod" 
-       class = "BusinessDomainDsl.IBusinessDomainDslPackage"
-       genModel = "model/BusinessDomainDsl.genmodel" /> 
-  </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.mod4j.org/busmod"
+            class="BusinessDomainDsl.BusinessDomainDslPackage"
+            genModel="model/BusinessDomainDsl.xcore"/>
+   </extension>
 
 </plugin>

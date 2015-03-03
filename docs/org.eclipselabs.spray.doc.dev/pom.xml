@@ -20,13 +20,13 @@
                   <id>generate-documentation</id>
                   <phase>generate-sources</phase>
                   <configuration>
-                     <echo>Generating documentation</echo>
-                     <tasks>
+                     <target>
+						<echo>Generating documentation</echo>
                         <property name="compile_classpath" refid="maven.compile.classpath" />
                         <ant inheritRefs="true" antfile="generate-help-build.xml">
                            <target name="all" />
                         </ant>
-                     </tasks>
+                     </target>
                   </configuration>
                   <goals>
                      <goal>run</goal>

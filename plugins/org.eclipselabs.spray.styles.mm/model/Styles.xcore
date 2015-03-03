@@ -1,0 +1,126 @@
+@Ecore(nsURI="http://www.eclipselabs.org/spray/styles/Style")
+@GenModel(modelDirectory="/org.eclipselabs.spray.styles.mm/src-gen", forceOverwrite="true", modelName="Style", updateClasspath="false", importerID="org.eclipse.emf.importer.ecore", complianceLevel="5.0", runtimeVersion="2.8")
+package org.eclipselabs.spray.styles
+
+import org.eclipse.xtext.common.types.JvmTypeReference
+
+class StyleContainer {
+	contains StyleContainerElement[] styleContainerElement
+}
+
+class StyleContainerElement {
+	String name
+	String description
+}
+
+class Style extends StyleContainerElement {
+	contains JvmTypeReference superStyle
+	refers Style superStyleFromDsl
+	contains StyleLayout layout
+}
+
+class Gradient extends StyleContainerElement {
+	contains GradientLayout layout
+}
+
+class StyleLayout {
+	double transparency = "4.9E-324"
+	contains ColorOrGradient background
+	GradientAllignment gradient_orientation
+	contains HighlightingValues highlighting
+	contains ColorWithTransparency lineColor
+	int lineWidth = "-2147483648"
+	LineStyle lineStyle = "null"
+	String fontName
+	contains Color fontColor
+	int fontSize = "-2147483648"
+	YesNoBool fontItalic = "null"
+	YesNoBool fontBold = "null"
+}
+
+class GradientLayout {
+	contains GradientColorArea[] area
+}
+
+class HighlightingValues {
+	contains ColorOrGradient selected
+	contains ColorOrGradient multiselected
+	contains ColorOrGradient allowed
+	contains ColorOrGradient unallowed
+}
+
+class GradientColorArea {
+	contains Color color
+	double offset
+}
+
+class ColorOrGradient {
+}
+
+class ColorWithTransparency {
+}
+
+class Color extends ColorOrGradient , ColorWithTransparency {
+}
+
+class RGBColor extends Color {
+	int red
+	int green
+	int blue
+}
+
+class GradientRef extends ColorOrGradient {
+	contains JvmTypeReference gradientRef
+	refers Gradient gradientRefFromDsl
+}
+
+class ColorConstantRef extends Color {
+	ColorConstants value
+}
+
+class Transparent extends ColorOrGradient , ColorWithTransparency {
+	boolean transparent
+}
+
+enum ColorConstants {
+	WHITE as "white"
+	LIGHT_LIGHT_GRAY as "very-light-gray" = 1
+	LIGHT_GRAY as "light-gray" = 2
+	GRAY as "gray" = 3
+	DARK_GRAY as "dark-gray" = 4
+	BLACK as "black" = 5
+	RED as "red" = 6
+	LIGHT_ORANGE as "light-orange" = 7
+	ORANGE as "orange" = 8
+	DARK_ORANGE as "dark-orange" = 9
+	YELLOW as "yellow" = 10
+	GREEN as "green" = 11
+	LIGHT_GREEN as "light-green" = 12
+	DARK_GREEN as "dark-green" = 13
+	CYAN as "cyan" = 14
+	LIGHT_BLUE as "light-blue" = 15
+	BLUE as "blue" = 16
+	DARK_BLUE as "dark-blue" = 17
+	NULL as "null" = 18
+}
+
+enum LineStyle {
+	SOLID as "solid"
+	DOT as "dot" = 1
+	DASH as "dash" = 2
+	DASHDOT as "dash-dot" = 3
+	DASHDOTDOT as "dash-dot-dot" = 4
+	NULL as "null" = 5
+}
+
+enum YesNoBool {
+	YES as "yes"
+	NO as "no" = 1
+	NULL as "null" = 2
+}
+
+enum GradientAllignment {
+	HORIZONTAL as "horizontal"
+	VERTICAL as "vertical" = 1
+	NULL as "null" = 2
+}

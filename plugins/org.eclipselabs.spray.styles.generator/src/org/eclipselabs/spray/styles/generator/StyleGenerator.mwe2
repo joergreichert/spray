@@ -10,6 +10,15 @@ var validate = "true"
 
 Workflow {
     bean = StandaloneSetup {
+        uriMap = {
+            from = "platform:/resource/org.eclipse.xtext.xbase/"
+            to = "classpath:/"
+        }
+        uriMap = {
+            from = "platform:/resource/org.eclipse.xtext.common.types/"
+            to = "classpath:/"
+        }
+
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
     }

@@ -10,10 +10,12 @@
  **************************************************************************** */
 package org.eclipselabs.spray.xtext.validation;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -39,7 +41,6 @@ import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import javax.inject.Inject;
 
 public class SprayJavaValidator extends AbstractSprayJavaValidator implements IssueCodes {
     @Inject
@@ -89,7 +90,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
 
         if (element instanceof MetaClass) {
             Diagram diagram = (Diagram) element.eContainer();
-            if (element != Iterables.find(diagram.getMetaClassesList(), filter)) {
+            if (element != Iterables.find(diagram.getMetaClasses(), filter)) {
                 String alias = element.getAlias();
                 error("Duplicate alias name " + alias, element, SprayPackage.Literals.ALIASABLE_ELEMENT__ALIAS, IssueCodes.DUPLICATE_ALIAS_NAME, element.getAlias());
             }
@@ -109,7 +110,9 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
     public void checkDuplicateConnectionReferences(final MetaClass element) {
         MetaReference found = null;
         for (MetaReference ref : element.getReferences()) {
-            found = Iterables.find(Arrays.asList(element.getReferences()), getDuplicateConnectionReferenceFilter(ref));
+            EList<MetaReference> connections = element.getReferences();
+            Predicate<? super MetaReference> duplicateConnectionsFilter = getDuplicateConnectionReferenceFilter(ref);
+            found = Iterables.find(connections, duplicateConnectionsFilter);
             if (found != null && found != ref) {
                 String referenceName = getReferenceName(ref);
                 error("Duplicate connection reference: " + referenceName, element, SprayPackage.Literals.META_CLASS__REFERENCES, IssueCodes.DUPLICATE_CONNECTION_REFERENCE, referenceName);
@@ -153,7 +156,7 @@ public class SprayJavaValidator extends AbstractSprayJavaValidator implements Is
             }
         };
         String name = (element.getType() != null && element.getType().getName() != null) ? element.getType().getName() : element.toString();
-        if (!Iterables.filter(element.getBehaviorsList(), createBehaviorFilter).iterator().hasNext()) {
+        if (!Iterables.filter(element.getBehaviors(), createBehaviorFilter).iterator().hasNext()) {
             warning("There is no create behavior defined for class " + name, element, SprayPackage.Literals.META_CLASS__TYPE, IssueCodes.NO_CREATE_BEHAVIOR, name);
         }
     }

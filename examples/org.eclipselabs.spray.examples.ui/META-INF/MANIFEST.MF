@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Examples Wizards
+Bundle-SymbolicName: org.eclipselabs.spray.examples.ui;singleton:=true
+Bundle-Version: 0.5.1.qualifier
+Bundle-Activator: org.eclipselabs.spray.examples.ui.Activator
+Bundle-Vendor: Eclipselabs Spray
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.common.ui,
+ org.eclipselabs.spray.xtext.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

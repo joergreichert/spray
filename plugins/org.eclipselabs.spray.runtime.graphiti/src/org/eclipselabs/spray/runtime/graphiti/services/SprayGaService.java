@@ -610,4 +610,9 @@ public class SprayGaService implements IGaService {
 			boolean strikeout, UnderlineStyle underlineStyle) {
 		return delegate.createTextStyle(region, underline, strikeout, underlineStyle);
 	}
+
+	@Override
+	public double getRotation(AbstractText at, boolean checkStyles) {
+		return delegate.getRotation(at, checkStyles);
+	}
 }

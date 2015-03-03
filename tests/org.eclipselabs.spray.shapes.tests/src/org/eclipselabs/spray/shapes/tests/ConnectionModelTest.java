@@ -24,7 +24,7 @@ public class ConnectionModelTest extends XtextTest {
 	
 	@Before
 	public void setUp() {
-		ignoreOsSpecificNewline();
+		super.ignoreOsSpecificNewline();
 	}
 
     @Test

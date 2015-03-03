@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -39,7 +41,6 @@ import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider.Filter;
 import org.eclipse.xtext.common.types.xtext.ui.TypeMatchFilters;
 import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
-import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
@@ -61,17 +62,14 @@ import org.eclipselabs.spray.runtime.graphiti.shape.ISprayConnection;
 import org.eclipselabs.spray.runtime.graphiti.shape.ISprayShape;
 import org.eclipselabs.spray.runtime.graphiti.styles.ISprayStyle;
 import org.eclipselabs.spray.xtext.api.IConstants;
-import org.eclipselabs.spray.xtext.naming.EscapeKeywordFunction;
 import org.eclipselabs.spray.xtext.scoping.AppInjectedAccess;
 import org.eclipselabs.spray.xtext.scoping.PackageSelector;
-import org.eclipselabs.spray.xtext.services.SprayGrammarAccess;
 import org.eclipselabs.spray.xtext.ui.labeling.SprayDescriptionLabelProvider;
 import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import javax.inject.Inject;
 import com.google.inject.name.Named;
 
 /**
@@ -87,8 +85,6 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private IGlobalScopeProvider          globalScopeProvider;
     @Inject
     private SprayDescriptionLabelProvider descriptionLabelProvider;
-    @Inject
-    private SprayGrammarAccess            grammar;
     private static final Set<String>      FILTERED_KEYWORDS = Sets.newHashSet("text", "line", "class", "behavior", "style", "custom");
 
     private IResourceDescriptions         dscriptions       = null;
@@ -96,10 +92,6 @@ public class SprayProposalProvider extends AbstractSprayProposalProvider {
     private IJvmTypeProvider.Factory      jvmTypeProviderFactory;
     @Inject
     private ITypesProposalProvider        typeProposalProvider;
-    @Inject
-    private IQualifiedNameConverter       qnConverter;
-    @Inject
-    private EscapeKeywordFunction         escapeKeywordFunction;
     @Inject
     ITypesProposalProvider                proposalProvider;
     @Inject

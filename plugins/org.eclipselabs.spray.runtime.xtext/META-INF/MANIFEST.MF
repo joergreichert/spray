@@ -6,11 +6,11 @@ Bundle-Localization: plugin
 Bundle-Version: 0.5.1.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.runtime.xtext;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext;bundle-version="[2.4.0,2.5.0)";visibility:=reexport,
- org.eclipse.xtext.builder;bundle-version="[2.4.0,2.5.0)",
- org.eclipse.xtext.ecore;bundle-version="[2.4.0,2.5.0)",
+Require-Bundle: org.eclipse.xtext;bundle-version="[2.4.0,2.9.0)";visibility:=reexport,
+ org.eclipse.xtext.builder;bundle-version="[2.4.0,2.9.0)",
+ org.eclipse.xtext.ecore;bundle-version="[2.4.0,2.9.0)",
  org.eclipse.xtext.generator;resolution:=optional,
- org.eclipse.xtext.xbase;bundle-version="[2.4.0,2.5.0)",
+ org.eclipse.xtext.xbase;bundle-version="[2.4.0,2.9.0)",
  org.eclipse.xtext.util,
  org.eclipse.xtext.common.types,
  org.eclipse.emf.ecore,
@@ -28,8 +28,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.4.0,2.5.0)";visibility:=ree
 Import-Package: org.apache.commons.logging,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.eclipselabs.spray.styles.postprocess,
- org.eclipselabs.spray.xtext.builder,
+Export-Package: org.eclipselabs.spray.xtext.builder,
  org.eclipselabs.spray.xtext.generator,
  org.eclipselabs.spray.xtext.generator.filesystem,
  org.eclipselabs.spray.xtext.generator.formatting,

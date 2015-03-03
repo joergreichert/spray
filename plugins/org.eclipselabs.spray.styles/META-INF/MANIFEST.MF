@@ -7,11 +7,11 @@ Bundle-Version: 0.5.1.qualifier
 Bundle-SymbolicName: org.eclipselabs.spray.styles;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
- org.eclipse.xtext;bundle-version="[2.4.0,2.5.0)";visibility:=reexport,
- org.eclipse.xtext.builder;bundle-version="[2.4.0,2.5.0)",
- org.eclipse.xtext.ecore;bundle-version="[2.4.0,2.5.0)",
+ org.eclipse.xtext;bundle-version="[2.4.0,2.9.0)";visibility:=reexport,
+ org.eclipse.xtext.builder;bundle-version="[2.4.0,2.9.0)",
+ org.eclipse.xtext.ecore;bundle-version="[2.4.0,2.9.0)",
  org.eclipse.xtext.generator;resolution:=optional,
- org.eclipse.xtext.xbase;bundle-version="[2.4.0,2.5.0)",
+ org.eclipse.xtext.xbase;bundle-version="[2.4.0,2.9.0)",
  org.eclipse.xtext.util,
  org.eclipse.xtext.common.types,
  org.eclipse.emf.ecore,
@@ -30,7 +30,9 @@ Require-Bundle: org.eclipselabs.spray.runtime.xtext;bundle-version="0.5.0",
  org.eclipse.xtext.xbase.lib,
  org.eclipselabs.spray.runtime.graphiti;bundle-version="0.5.0",
  org.eclipselabs.spray.styles.mm;bundle-version="0.5.0";visibility:=reexport,
- org.eclipselabs.spray.generator.common;bundle-version="0.5.0"
+ org.eclipselabs.spray.generator.common;bundle-version="0.5.0",
+ org.eclipse.emf.ecore.xcore,
+ org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib
@@ -44,4 +46,3 @@ Export-Package: org.eclipselabs.spray.styles,
  org.eclipselabs.spray.styles.serializer,
  org.eclipselabs.spray.styles.services,
  org.eclipselabs.spray.styles.validation
-

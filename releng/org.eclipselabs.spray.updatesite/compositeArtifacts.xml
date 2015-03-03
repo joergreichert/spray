@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <!-- ***************************************************************************
  *  Copyright (c)  The Spray Project.
  *  All rights reserved. This program and the accompanying materials
@@ -8,7 +9,6 @@
  *  Contributors:
  *      Spray Dev Team - initial API and implementation
 **************************************************************************** -->
-<?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
 <repository name='Spray Update Site'
 	type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository'
@@ -19,7 +19,7 @@
 		<property name='p2.timestamp' value='1366902476295' />
 	</properties>
 	<children size='2'>
-		<child location='https://spray.ci.cloudbees.com/job/spray-assembly-build/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/' />
-		<child location='https://spray.ci.cloudbees.com/job/spray-ci-targetplatform/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/' />
+		<child location='https://spray.ci.cloudbees.com/job/spray-assembly-build-deprecated_api_migration/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.updatesite/target/repository/' />
+		<child location='https://spray.ci.cloudbees.com/job/spray-ci-targetplatform-deprecated_api_migration/lastSuccessfulBuild/artifact/releng/org.eclipselabs.spray.repository/target/repository/' />
 	</children>
 </repository>

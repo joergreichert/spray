@@ -4,6 +4,15 @@
 		ThisFile {}
 		File "b.style" {}
 	}
+	
+	Workspace {
+		JavaProject {
+			SrcFolder {
+				ThisFile {}
+				File "b.style" {}
+			}
+		}
+	}
   
    END_SETUP
  */
@@ -14,6 +23,6 @@ style A1 {
 style A2 {
 }
 
-// XPECT scope at A1 --> A1, A2, B1 
+// XPECT scope at A1 --> A1, A2, B1, B2 
 style A3 extends A1 {
 }

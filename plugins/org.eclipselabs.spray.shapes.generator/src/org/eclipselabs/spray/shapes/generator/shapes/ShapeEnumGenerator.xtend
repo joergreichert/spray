@@ -44,7 +44,7 @@ class ShapeEnumGenerator {
 		val ids = new ArrayList<String>();
 		for(Shape shape : s.shape) {
 			if(shape instanceof Text) {
-				ids.add((shape as Text).body.value);
+				ids.add(shape.body.value);
 			} else if(shape instanceof Compartment) {
 				ids.add((shape as Compartment).shape.id.value)
 			} else {

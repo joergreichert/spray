@@ -70,6 +70,7 @@ public class StyleModelTest extends XtextTest {
     public void test_06_TransparentLineColor() {
         testFile("testcases/06_TransparentLineColor.style");
         assertConstraints(issues.errorsOnly().allOfThemContain("Setting the line-color to transparent isn't supported, use line-width = 0 instead."));
+        issues = null;
     }
 
     @Test

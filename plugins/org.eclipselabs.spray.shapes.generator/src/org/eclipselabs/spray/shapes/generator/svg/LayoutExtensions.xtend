@@ -244,7 +244,10 @@ class LayoutExtensions {
     }
     
     def findPoint(List<Point> points, (Point) => Integer coord, (Integer, Integer) => Integer compare) {
-    	points.map(p|coord.apply(p)).sort[coord1, coord2| compare.apply(coord1, coord2) ]
+    	val mappedPoints = newArrayList
+    	mappedPoints += points.map(p|coord.apply(p)).toList
+    	mappedPoints.sort[coord1, coord2| compare.apply(coord1, coord2) ]
+    	mappedPoints
     }
     
     def dispatch String lineStyle (ConnectionDefinition shape) {
@@ -409,7 +412,7 @@ class LayoutExtensions {
     
     // Colors
     def dispatch color (RGBColor color) '''#«color.red.toHexString»«color.green.toHexString»«color.blue.toHexString»'''
-    def dispatch color (ColorConstantRef color) { color.value.name }
+    def dispatch color (ColorConstantRef color) { color.value.getName }
     def dispatch color (ColorWithTransparency color) { "white" }
     def hasTransparency (ShapestyleLayout ssl) { ssl.layout.transparency != Double::MIN_VALUE }
     def transparency (ShapestyleLayout ssl) { ssl.layout.transparency }

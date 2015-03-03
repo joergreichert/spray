@@ -1,11 +1,16 @@
-/*
-XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
-XPECT_IMPORT ../referenced/test.shape
- */
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayValidationPluginTest 
 
+	ResourceSet {
+		ThisFile {}
+		File "test.shape" { from="../referenced/test.shape" }
+		File "BusinessDomainDsl.xcore" { from="../../../../../examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.xcore" }
+	}
+  
+   END_SETUP
+ */
 import BusinessDomainDsl.*
 
-/* XPECT validationIssues at 'BusinessDomainModel' ---
+/* XPECT issues at 'BusinessDomainModel' ---
 error "Duplicate alias name BC1"
 warning "There is no create behavior defined for class BusinessClass"
 warning "There is no create behavior defined for class BusinessClass"

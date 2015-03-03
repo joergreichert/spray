@@ -7,5 +7,5 @@
 			<accessrule kind="accessible" pattern="org/eclipse/equinox/internal/p2/director/app/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,15 +1,20 @@
-/*
-XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
-XPECT_IMPORT ../referenced/test.shape
- */
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayScopingPluginTest 
 
+	ResourceSet {
+		ThisFile {}
+		File "test.shape" { from="../referenced/test.shape" }
+		File "BusinessDomainDsl.xcore" { from="../../../../../examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.xcore" }
+	}
+  
+   END_SETUP
+ */
 // BoolProperty should not be in scope, since it is not
 // the type of any containment reference of BusinessDomainModel
 import BusinessDomainDsl.*
 
 diagram test for BusinessDomainModel
 
-// XPECT elementsInScope at 'BoolProperty' --> AbstractBusinessClass, AbstractBusinessRule, AbstractType, Association, BlobBinaryProperty, BlobTextProperty, BoolProperty, BusinessClass, BusinessClassReference, BusinessDomainDsl.AbstractBusinessClass, BusinessDomainDsl.AbstractBusinessRule, BusinessDomainDsl.AbstractType, BusinessDomainDsl.Association, BusinessDomainDsl.BlobBinaryProperty, BusinessDomainDsl.BlobTextProperty, BusinessDomainDsl.BoolProperty, BusinessDomainDsl.BusinessClass, BusinessDomainDsl.BusinessClassReference, BusinessDomainDsl.BusinessDomainModel, BusinessDomainDsl.BusinessRule, BusinessDomainDsl.DateTimeProperty, BusinessDomainDsl.DecimalProperty, BusinessDomainDsl.Enumeration, BusinessDomainDsl.EnumerationLiteral, BusinessDomainDsl.EnumerationProperty, BusinessDomainDsl.IntegerProperty, BusinessDomainDsl.ModelElement, BusinessDomainDsl.Package, BusinessDomainDsl.Property, BusinessDomainDsl.StringProperty, BusinessDomainDsl.UniqueRule, BusinessDomainModel, BusinessRule, DateTimeProperty, DecimalProperty, Enumeration, EnumerationLiteral, EnumerationProperty, IntegerProperty, ModelElement, Package, Property, StringProperty, UniqueRule, http://www.mod4j.org/busmod.AbstractBusinessClass, http://www.mod4j.org/busmod.AbstractBusinessRule, http://www.mod4j.org/busmod.AbstractType, http://www.mod4j.org/busmod.Association, http://www.mod4j.org/busmod.BlobBinaryProperty, http://www.mod4j.org/busmod.BlobTextProperty, http://www.mod4j.org/busmod.BoolProperty, http://www.mod4j.org/busmod.BusinessClass, http://www.mod4j.org/busmod.BusinessClassReference, http://www.mod4j.org/busmod.BusinessDomainModel, http://www.mod4j.org/busmod.BusinessRule, http://www.mod4j.org/busmod.DateTimeProperty, http://www.mod4j.org/busmod.DecimalProperty, http://www.mod4j.org/busmod.Enumeration, http://www.mod4j.org/busmod.EnumerationLiteral, http://www.mod4j.org/busmod.EnumerationProperty, http://www.mod4j.org/busmod.IntegerProperty, http://www.mod4j.org/busmod.ModelElement, http://www.mod4j.org/busmod.Package, http://www.mod4j.org/busmod.Property, http://www.mod4j.org/busmod.StringProperty, http://www.mod4j.org/busmod.UniqueRule
+// XPECT scope at 'BoolProperty' --> AbstractBusinessClass, AbstractBusinessRule, AbstractType, Association, BlobBinaryProperty, BlobTextProperty, BoolProperty, BusinessClass, BusinessClassReference, BusinessDomainDsl.AbstractBusinessClass, BusinessDomainDsl.AbstractBusinessRule, BusinessDomainDsl.AbstractType, BusinessDomainDsl.Association, BusinessDomainDsl.BlobBinaryProperty, BusinessDomainDsl.BlobTextProperty, BusinessDomainDsl.BoolProperty, BusinessDomainDsl.BusinessClass, BusinessDomainDsl.BusinessClassReference, BusinessDomainDsl.BusinessDomainModel, BusinessDomainDsl.BusinessRule, BusinessDomainDsl.DateTimeProperty, BusinessDomainDsl.DecimalProperty, BusinessDomainDsl.Enumeration, BusinessDomainDsl.EnumerationLiteral, BusinessDomainDsl.EnumerationProperty, BusinessDomainDsl.IntegerProperty, BusinessDomainDsl.ModelElement, BusinessDomainDsl.Package, BusinessDomainDsl.Property, BusinessDomainDsl.StringProperty, BusinessDomainDsl.UniqueRule, BusinessDomainModel, BusinessRule, DateTimeProperty, DecimalProperty, Enumeration, EnumerationLiteral, EnumerationProperty, IntegerProperty, ModelElement, Package, Property, StringProperty, UniqueRule, http://www.mod4j.org/busmod.AbstractBusinessClass, http://www.mod4j.org/busmod.AbstractBusinessRule, http://www.mod4j.org/busmod.AbstractType, http://www.mod4j.org/busmod.Association, http://www.mod4j.org/busmod.BlobBinaryProperty, http://www.mod4j.org/busmod.BlobTextProperty, http://www.mod4j.org/busmod.BoolProperty, http://www.mod4j.org/busmod.BusinessClass, http://www.mod4j.org/busmod.BusinessClassReference, http://www.mod4j.org/busmod.BusinessDomainModel, http://www.mod4j.org/busmod.BusinessRule, http://www.mod4j.org/busmod.DateTimeProperty, http://www.mod4j.org/busmod.DecimalProperty, http://www.mod4j.org/busmod.Enumeration, http://www.mod4j.org/busmod.EnumerationLiteral, http://www.mod4j.org/busmod.EnumerationProperty, http://www.mod4j.org/busmod.IntegerProperty, http://www.mod4j.org/busmod.ModelElement, http://www.mod4j.org/busmod.Package, http://www.mod4j.org/busmod.Property, http://www.mod4j.org/busmod.StringProperty, http://www.mod4j.org/busmod.UniqueRule
 class BoolProperty { 
     shape class_shape
 }

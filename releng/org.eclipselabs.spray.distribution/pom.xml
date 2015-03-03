@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 	
 	<properties>
-		<tycho-version>0.19.0</tycho-version>
+		<tycho-version>0.22.0</tycho-version>
 	</properties>	
 	
 	<name>Eclipselabs Spray</name>
@@ -32,7 +32,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-                <module>../../plugins/org.eclipselabs.spray.generator.common</module>
+            <module>../../plugins/org.eclipselabs.spray.generator.common</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
@@ -41,8 +41,8 @@
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
-                <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
-                <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
+            <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
+            <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>
@@ -55,6 +55,13 @@
 				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
+				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
+ 				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
+				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
+				<!-- TODO: Fix tests and activate -->
+				<!-- <module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>  -->
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain</module>
@@ -63,12 +70,7 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
-				<module>../../tests/org.eclipselabs.spray.testhelper</module>
-				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
-				<!-- TODO: Fix tests and activate -->
-				<!-- <module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>  -->
- 				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
-				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
 			</modules>
 		</profile>
 		<profile>
@@ -79,8 +81,8 @@
 				</property>
 			</activation>
 			<modules>
-                <module>../../plugins/org.eclipselabs.spray.generator.common</module>
-                <module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
+            <module>../../plugins/org.eclipselabs.spray.generator.common</module>
+            <module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.shapes.mm</module>
@@ -88,8 +90,8 @@
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.runtime.graphiti.zest</module>
-                <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
-                <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
+            <module>../../plugins/org.eclipselabs.spray.runtime.xtext</module>
+            <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext</module>
 				<module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
 				<module>../../plugins/org.eclipselabs.spray.styles</module>
@@ -119,7 +121,9 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
 				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
 				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 				<!--module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module-->
@@ -193,8 +197,8 @@
             <modules>
                 <module>../../plugins/org.eclipselabs.spray.generator.graphiti</module>
                 <module>../../plugins/org.eclipselabs.spray.generator.graphiti.ui</module>
-				<module>../../plugins/org.eclipselabs.spray.styles.mm</module>
-				<module>../../plugins/org.eclipselabs.spray.shapes.mm</module>
+ 					 <module>../../plugins/org.eclipselabs.spray.styles.mm</module>
+					 <module>../../plugins/org.eclipselabs.spray.shapes.mm</module>
                 <module>../../plugins/org.eclipselabs.spray.mm</module>
                 <module>../../plugins/org.eclipselabs.spray.runtime.graphiti</module>
                 <module>../../plugins/org.eclipselabs.spray.runtime.graphiti.xtext</module>
@@ -203,29 +207,31 @@
                 <module>../../plugins/org.eclipselabs.spray.runtime.xtext.ui</module>
                 <module>../../plugins/org.eclipselabs.spray.xtext</module>
                 <module>../../plugins/org.eclipselabs.spray.xtext.ui</module>
-				<module>../../plugins/org.eclipselabs.spray.styles</module>
-				<module>../../plugins/org.eclipselabs.spray.styles.generator</module>
-				<module>../../plugins/org.eclipselabs.spray.styles.ui</module>
-				<module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
-				<module>../../plugins/org.eclipselabs.spray.shapes</module>
-				<module>../../plugins/org.eclipselabs.spray.shapes.generator</module>
-				<module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
-				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
+ 					 <module>../../plugins/org.eclipselabs.spray.styles</module>
+					 <module>../../plugins/org.eclipselabs.spray.styles.generator</module>
+					 <module>../../plugins/org.eclipselabs.spray.styles.ui</module>
+					 <module>../../plugins/org.eclipselabs.spray.styles.generator.ui</module>
+					 <module>../../plugins/org.eclipselabs.spray.shapes</module>
+					 <module>../../plugins/org.eclipselabs.spray.shapes.generator</module>
+					 <module>../../plugins/org.eclipselabs.spray.shapes.ui</module>
+					 <module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
                 <module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
-				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
-                <module>../../examples/one/org.eclipselabs.spray.examples.one</module>
-				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain</module>
-				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
-				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.domain</module>
-				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
-				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
-				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				    <module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
                 <module>../../tests/org.eclipselabs.spray.testhelper</module>
-                <module>../../tests/org.eclipselabs.spray.xtext.tests</module>
-                <module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
-                <module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>
+                <module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
                 <module>../../tests/org.eclipselabs.spray.styles.tests</module>
                 <module>../../tests/org.eclipselabs.spray.shapes.tests</module>
+                <module>../../tests/org.eclipselabs.spray.xtext.tests</module>
+                <module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>
+                <module>../../examples/one/org.eclipselabs.spray.examples.one</module>
+				    <module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain</module>
+				    <module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
+				    <module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012.domain</module>
+				    <module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
+				    <module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
+				    <module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
+				    <module>../../examples/org.eclipselabs.spray.examples.ui</module>
+                <module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
                 <module>../../releng/org.eclipselabs.spray.repository.parent</module>
                 <module>../../releng/org.eclipselabs.spray.repository</module>
                 <module>../../features/org.eclipselabs.spray.feature</module>
@@ -288,6 +294,11 @@
 				<module>../../plugins/org.eclipselabs.spray.shapes.generator.ui</module>
 				<module>../../examples/one/org.mod4j.dsl.businessdomain.mm</module>
 				<module>../../plugins/org.eclipselabs.spray.tychohelpers</module>
+				<module>../../tests/org.eclipselabs.spray.testhelper</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests.xpect</module>
+				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
+				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
+				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
 				<module>../../examples/one/org.eclipselabs.spray.examples.one</module>
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet.domain</module>
 				<module>../../examples/petrinet/org.eclipselabs.spray.examples.petrinet</module>
@@ -295,12 +306,9 @@
 				<module>../../examples/lwc2012/org.eclipselabs.spray.examples.lwc2012</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn.domain</module>
 				<module>../../examples/bpmn2.0/org.eclipselabs.spray.examples.bpmn</module>
-				<module>../../tests/org.eclipselabs.spray.testhelper</module>
-				<module>../../tests/org.eclipselabs.spray.xtext.tests</module>
+				<module>../../examples/org.eclipselabs.spray.examples.ui</module>
 				<module>../../tests/org.eclipselabs.spray.examples.one.tests</module>
 <!--			<module>../../tests/org.eclipselabs.spray.generator.graphiti.tests</module>	-->
-				<module>../../tests/org.eclipselabs.spray.styles.tests</module>
-				<module>../../tests/org.eclipselabs.spray.shapes.tests</module>
 				<module>../../features/org.eclipselabs.spray.feature</module>
 				<module>../../features/org.eclipselabs.spray.feature.source</module>
 				<module>../../features/org.eclipselabs.spray.feature.sdk</module>

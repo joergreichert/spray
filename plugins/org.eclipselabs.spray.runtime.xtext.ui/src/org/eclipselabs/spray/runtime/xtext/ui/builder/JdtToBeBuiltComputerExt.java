@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -41,14 +43,15 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription.Delta;
 import org.eclipse.xtext.resource.impl.ChangedResourceDescriptionDelta;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
 import org.eclipse.xtext.ui.resource.JarEntryLocator;
 import org.eclipse.xtext.ui.resource.PackageFragmentRootWalker;
 import org.eclipse.xtext.ui.util.IJdtHelper;
 import org.eclipse.xtext.util.Pair;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import javax.inject.Inject;
 import com.google.inject.Singleton;
 
 @SuppressWarnings("restriction")
@@ -67,6 +70,9 @@ public class JdtToBeBuiltComputerExt extends ToBeBuiltComputer {
 
     @Inject
     private IJdtHelper             jdtHelper;
+    
+	@Inject
+	private IStorage2UriMapper     mapper;
 
     @Singleton
     public static class ModificationStampCache {
@@ -117,7 +123,7 @@ public class JdtToBeBuiltComputerExt extends ToBeBuiltComputer {
                             }
 
                             protected boolean wasFragmentRootAlreadyProcessed(URI uri) {
-                                Iterable<Pair<IStorage, IProject>> storages = getMapper().getStorages(uri);
+                                Iterable<Pair<IStorage, IProject>> storages = mapper.getStorages(uri);
                                 for (Pair<IStorage, IProject> pair : storages) {
                                     IProject otherProject = pair.getSecond();
                                     // Spray issue#127 workaround
@@ -214,7 +220,7 @@ public class JdtToBeBuiltComputerExt extends ToBeBuiltComputer {
         URI typeURI = typeURIHelper.createResourceURIForFQN(typeName);
         TypeResourceDescription oldDescription = new TypeResourceDescription(typeURI, Collections.<IEObjectDescription> emptyList());
         Delta delta = new ChangedResourceDescriptionDelta(oldDescription, null);
-        queuedBuildData.queueChanges(Collections.singleton(delta));
+        queuedBuildData.queueChanges(Lists.newArrayList(delta));
     }
 
     @Override
