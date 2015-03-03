@@ -14,100 +14,20 @@
 
 	<properties>
 		<skip.mwe2>false</skip.mwe2>
-		<mwe2.relative.path>src/org/eclipselabs/spray/styles/GenerateStyles.mwe2</mwe2.relative.path>
+		<mwe2descriptor>org.eclipselabs.spray.styles.GenerateStyles</mwe2descriptor>
 	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>src-gen</directory>
-							<excludes>
-								<exclude>.gitignore</exclude>
-							</excludes>
-						</fileset>
-						<fileset>
-							<directory>xtend-gen</directory>
-							<excludes>
-								<exclude>.gitignore</exclude>
-							</excludes>
-						</fileset>
-					</filesets>
-				</configuration>
+				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipselabs.spray</groupId>
-						<artifactId>org.eclipselabs.spray.generator.common</artifactId>
-						<version>${project.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.ecore</artifactId>
-						<version>${org.eclipse.emf.ecore-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.xtext</groupId>
-						<artifactId>org.eclipse.xtext.xtext</artifactId>
-						<version>${org.eclipse.xtext.xtext-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.xtext</groupId>
-						<artifactId>org.eclipse.xtext.common.types</artifactId>
-						<version>${org.eclipse.xtext.common.types-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.xtext</groupId>
-						<artifactId>org.eclipse.xtext.xbase</artifactId>
-						<version>${org.eclipse.xtext.xbase-version}</version>
-					</dependency>					
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
-						<version>${org.eclipse.emf.codegen.ecore-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.codegen.ecore.xtext</artifactId>
-						<version>${org.eclipse.emf.codegen.ecore.xtext-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.ecore.xcore.lib</artifactId>
-						<version>${org.eclipse.emf.ecore.xcore.lib-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.ecore.xcore</artifactId>
-						<version>${org.eclipse.emf.ecore.xcore-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.xtext</groupId>
-						<artifactId>org.eclipse.xtext.common.types</artifactId>
-						<version>${org.eclipse.xtext.common.types-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.osgi</groupId>
-						<artifactId>org.osgi.core</artifactId>
-						<version>${org.osgi.core-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.core</groupId>
-						<artifactId>org.eclipse.core.resources</artifactId>
-						<version>${org.eclipse.core.resources-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.text</groupId>
-						<artifactId>org.eclipse.text</artifactId>
-						<version>${org.eclipse.text-version}</version>
-					</dependency>
-				</dependencies>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.fornax.toolsupport</groupId>
+				<artifactId>fornax-oaw-m2-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
@@ -115,71 +35,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>org.eclipselabs.spray</groupId>
-			<artifactId>org.eclipselabs.spray.generator.common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.common</artifactId>
-			<version>${org.eclipse.emf.common-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
-			<version>${org.eclipse.emf.codegen.ecore-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore</artifactId>
-			<version>${org.eclipse.emf.ecore-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.xtext</artifactId>
-			<version>${org.eclipse.xtext.xtext-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.common.types</artifactId>
-			<version>${org.eclipse.xtext.common.types-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.xbase</artifactId>
-			<version>${org.eclipse.xtext.xbase-version}</version>
-		</dependency>					
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.codegen.ecore.xtext</artifactId>
-			<version>${org.eclipse.emf.codegen.ecore.xtext-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.xcore.lib</artifactId>
-			<version>${org.eclipse.emf.ecore.xcore.lib-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.xcore</artifactId>
-			<version>${org.eclipse.emf.ecore.xcore-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>${org.osgi.core-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.core</groupId>
-			<artifactId>org.eclipse.core.resources</artifactId>
-			<version>${org.eclipse.core.resources-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.text</groupId>
-			<artifactId>org.eclipse.text</artifactId>
-			<version>${org.eclipse.text-version}</version>
-		</dependency>
-	</dependencies>
+
 </project>

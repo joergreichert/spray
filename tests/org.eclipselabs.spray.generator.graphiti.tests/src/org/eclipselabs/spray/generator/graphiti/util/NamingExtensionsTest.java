@@ -84,29 +84,29 @@ public class NamingExtensionsTest {
         clsEClass = SprayFactory.eINSTANCE.createMetaClass();
         clsEClass.setType(EcorePackage.Literals.ECLASS);
         clsEClass.setIcon("ecore/EClass.gif");
-        diagram.getMetaClasses().add(clsEClass);
+        diagram.getMetaClassesList().add(clsEClass);
 
         clsEClassifier = SprayFactory.eINSTANCE.createMetaClass();
         clsEClassifier.setType(EcorePackage.Literals.ECLASSIFIER);
-        diagram.getMetaClasses().add(clsEClassifier);
+        diagram.getMetaClassesList().add(clsEClassifier);
 
         // MetaClass with alias name: EClass => EcoreClass
         clsEClassAliased = SprayFactory.eINSTANCE.createMetaClass();
         clsEClassAliased.setType(EcorePackage.Literals.ECLASS);
         clsEClassAliased.setAlias("EcoreClass");
-        diagram.getMetaClasses().add(clsEClassAliased);
+        diagram.getMetaClassesList().add(clsEClassAliased);
 
         reference = SprayFactory.eINSTANCE.createMetaReference();
         reference.setTarget(EcorePackage.Literals.ECLASS__EALL_OPERATIONS);
-        clsEClass.getReferences().add(reference);
+        clsEClass.getReferencesList().add(reference);
 
         reference2 = SprayFactory.eINSTANCE.createMetaReference();
         reference2.setTarget(EcorePackage.Literals.ECLASSIFIER__EPACKAGE);
-        clsEClassifier.getReferences().add(reference2);
+        clsEClassifier.getReferencesList().add(reference2);
 
         behavior = SprayFactory.eINSTANCE.createCustomBehavior();
         behavior.setName("sampleBehavior");
-        clsEClass.getBehaviors().add(behavior);
+        clsEClass.getBehaviorsList().add(behavior);
     }
 
     //---------------------------------------------------------------------------------------------

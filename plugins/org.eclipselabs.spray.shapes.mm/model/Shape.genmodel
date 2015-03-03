@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.spray.shapes.mm/emf-gen" editDirectory="/org.eclipselabs.spray.shapes.edit/src"
+    editorDirectory="/org.eclipselabs.spray.shapes.editor/src" modelPluginID="org.eclipselabs.spray.shapes.mm"
+    forceOverwrite="true" modelName="Shape" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    editPluginID="org.eclipselabs.spray.shapes.edit" editorPluginID="org.eclipselabs.spray.shapes.editor"
+    runtimeVersion="2.8" usedGenPackages="../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types ../../org.eclipselabs.spray.styles.mm/model/Style.genmodel#//styles">
+  <foreignModel>Shape.ecore</foreignModel>
+  <genPackages prefix="Shapes" basePackage="org.eclipselabs.spray" disposableProviderFactory="true"
+      ecorePackage="Shape.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//CompartmentLayout">
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/FIXED"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/VERTICAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/HORIZONTAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//CompartmentLayout/FIT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//HAlign">
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//HAlign/LEFT"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//HAlign/CENTER"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//HAlign/RIGHT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//VAlign">
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//VAlign/TOP"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//VAlign/MIDDLE"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//VAlign/BOTTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//ConnectionStyle">
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//ConnectionStyle/freeform"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//ConnectionStyle/manhatten"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//AnchorPredefiniedEnum">
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//AnchorPredefiniedEnum/center"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//AnchorPredefiniedEnum/corners"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Shape.ecore#//TextType">
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//TextType/default"/>
+      <genEnumLiterals ecoreEnumLiteral="Shape.ecore#//TextType/multiline"/>
+    </genEnums>
+    <genClasses ecoreClass="Shape.ecore#//ShapeContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeContainer/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeContainer/shapeContainerElement"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ShapeContainerElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeContainerElement/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeContainerElement/style"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ConnectionDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ConnectionDefinition/connectionStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ConnectionDefinition/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ConnectionDefinition/placing"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ShapeDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeDefinition/shapeLayout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeDefinition/shape"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeDefinition/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeDefinition/anchor"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//PlacingDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//PlacingDefinition/offset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//PlacingDefinition/distance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//PlacingDefinition/angle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//PlacingDefinition/shapeCon"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Anchor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Anchor/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//AnchorType"/>
+    <genClasses ecoreClass="Shape.ecore#//AnchorPredefinied">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//AnchorPredefinied/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//AnchorManual">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//AnchorManual/position"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//AnchorPosition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//AnchorPosition/pos"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//AnchorPositionPos"/>
+    <genClasses ecoreClass="Shape.ecore#//AnchorRelativePosition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//AnchorRelativePosition/xoffset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//AnchorRelativePosition/yoffset"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//AnchorFixPointPosition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//AnchorFixPointPosition/xcor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//AnchorFixPointPosition/ycor"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Shape">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Shape/style"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ShapeConnection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeConnection/style"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDLine">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDLine/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDPolyline">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDPolyline/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDRectangle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDRectangle/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDRoundedRectangle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDRoundedRectangle/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDPolygon">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDPolygon/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDEllipse">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDEllipse/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CDText">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CDText/texttype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDText/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CDText/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Line">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Line/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Polyline">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Polyline/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Rectangle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Rectangle/compartmentInfo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Rectangle/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Rectangle/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//RoundedRectangle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//RoundedRectangle/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//RoundedRectangle/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Polygon">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Polygon/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Polygon/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Ellipse">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Ellipse/compartmentInfo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Ellipse/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Ellipse/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Text">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Text/texttype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Text/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Text/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CompartmentInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CompartmentInfo/compartmentLayout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CompartmentInfo/stretchH"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CompartmentInfo/stretchV"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CompartmentInfo/spacing"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CompartmentInfo/margin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CompartmentInfo/invisible"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentInfo/id"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Compartment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Compartment/compartmentLayout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Compartment/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CompartmentShape">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentShape/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentShape/id"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CompartmentRectangle"/>
+    <genClasses ecoreClass="Shape.ecore#//CompartmentRoundedRectangle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentRoundedRectangle/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentRoundedRectangle/id"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CompartmentPolygon">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentPolygon/layout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//CompartmentPolygon/id"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CompartmentEllipse"/>
+    <genClasses ecoreClass="Shape.ecore#//Description">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Description/style"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Description/hAlign"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Description/vAlign"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//Description/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ShapeLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/minwidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/minheight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/maxwidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/maxheight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/stretchH"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/stretchV"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//ShapeLayout/proportional"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//RectangleEllipseLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//RectangleEllipseLayout/common"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//RectangleEllipseLayout/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//LineLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//LineLayout/point"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//LineLayout/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//PolyLineLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//PolyLineLayout/point"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//PolyLineLayout/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//RoundedRectangleLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//RoundedRectangleLayout/common"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//RoundedRectangleLayout/curveWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//RoundedRectangleLayout/curveHeight"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//RoundedRectangleLayout/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//TextLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//TextLayout/common"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//TextLayout/hAlign"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//TextLayout/vAlign"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//TextLayout/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ShapestyleLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapestyleLayout/layout"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//ShapeStyleRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeStyleRef/javaStyle"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Shape.ecore#//ShapeStyleRef/dslStyle"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//CommonLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CommonLayout/xcor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CommonLayout/ycor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CommonLayout/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//CommonLayout/heigth"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//TextBody">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//TextBody/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Shape.ecore#//Point">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Point/xcor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Point/ycor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Point/curveBefore"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Shape.ecore#//Point/curveAfter"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

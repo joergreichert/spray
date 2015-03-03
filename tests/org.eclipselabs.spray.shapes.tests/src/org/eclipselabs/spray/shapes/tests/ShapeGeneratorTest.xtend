@@ -27,7 +27,7 @@ import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
 import com.google.inject.Provider
 
 @RunWith(typeof(XtextRunner2))
-@InjectWith(ShapeTestsInjectorProvider)
+@InjectWith(typeof(ShapeTestsInjectorProvider))
 class ShapeGeneratorTest {
     @Inject Provider<JavaGenFile> genFileProvider
 	@Inject extension ParseHelper<ShapeContainer> parseHelper
@@ -48,7 +48,7 @@ class ShapeGeneratorTest {
         val JavaGenFile java = genFileProvider.get()
         java.access = fsa
 		java.generateJava(shapeModelLine.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
-		val entries = fsa.textFiles.entrySet
+		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
 		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelLineExpectedContent.toString, entries.head.value.toString)
@@ -193,7 +193,7 @@ class ShapeGeneratorTest {
         val JavaGenFile java = genFileProvider.get()
         java.access = fsa
 		java.generateJava(shapeModelPolyline.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
-		val entries = fsa.textFiles.entrySet
+		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
 		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelPolylineExpectedContent.toString, entries.head.value.toString)
@@ -338,7 +338,7 @@ class ShapeGeneratorTest {
         val JavaGenFile java = genFileProvider.get()
         java.access = fsa
 		java.generateJava(shapeModelRectangle.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
-		val entries = fsa.textFiles.entrySet
+		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
 		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/MyShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", shapeModelRectangleExpectedContent.toString, entries.head.value.toString)
@@ -472,7 +472,7 @@ class ShapeGeneratorTest {
         val JavaGenFile java = genFileProvider.get()
         java.access = fsa
 		java.generateJava(issue248ExampleModel.parse.shapeContainerElement.filter(typeof(ShapeDefinition)).head)
-		val entries = fsa.textFiles.entrySet
+		val entries = fsa.files.entrySet
 		assertEquals("Expected file count generated", 1, entries.size)
 		assertEquals("In expected file output generated", "DEFAULT_OUTPUTshapes/TabShapeShapeBase.java", entries.head.key)
 		assertEquals("Expected file content generated", issue248ExampleModelExpectedContent.toString, entries.head.value.toString)

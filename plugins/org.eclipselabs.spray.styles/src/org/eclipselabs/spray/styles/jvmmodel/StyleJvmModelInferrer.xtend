@@ -35,13 +35,13 @@ class StyleJvmModelInferrer extends AbstractModelInferrer {
 		val typeProvider = typeProviderFactory.createTypeProvider
 		var existingClass = typeProvider.findTypeByName(element.packageName + "." + element.className)
 		if(existingClass == null) {
-			acceptor.accept(element.toClass(element.packageName + "." + element.className)) [
+			acceptor.accept(element.toClass(element.packageName + "." + element.className)).initializeLater [
 				if(superTypeRef != null) superTypes += superTypeRef.cloneWithProxies
 			]
 		} else {
 			if(existingClass instanceof JvmDeclaredType) {
 				element.associate(existingClass)
-				acceptor.accept(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
 			}
 		}
 	}
@@ -54,7 +54,7 @@ class StyleJvmModelInferrer extends AbstractModelInferrer {
 		} else {
 			if(existingClass instanceof JvmDeclaredType) {
 				element.associate(existingClass)
-				acceptor.accept(existingClass)
+				acceptor.accept(existingClass as JvmDeclaredType)
 			}
 		}
 	}

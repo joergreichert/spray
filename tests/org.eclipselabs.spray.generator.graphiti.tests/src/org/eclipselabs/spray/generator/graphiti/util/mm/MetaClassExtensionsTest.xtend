@@ -57,7 +57,7 @@ class MetaClassExtensionsTest {
         metaClass.alias = "testName"
         val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
         createBehavior.label = "testBehaviorName"
-        metaClass.behaviors.add(createBehavior)
+        metaClass.behaviorsList.add(createBehavior)
         val label = ext.getCreateFeatureLabel(metaClass)
         assertEquals("testBehaviorName", label)
     }
@@ -68,7 +68,7 @@ class MetaClassExtensionsTest {
         metaClass.type = EcorePackage::eINSTANCE.EClass
         metaClass.alias = "testName"
         val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
-        metaClass.behaviors.add(createBehavior)
+        metaClass.behaviorsList.add(createBehavior)
         val label = ext.getCreateFeatureLabel(metaClass)
         assertEquals("testName", label)
     }
@@ -80,7 +80,7 @@ class MetaClassExtensionsTest {
         metaClass.alias = "testName"
         val createBehavior = SprayFactory::eINSTANCE.createCreateBehavior
         createBehavior.label = ""
-        metaClass.behaviors.add(createBehavior)
+        metaClass.behaviorsList.add(createBehavior)
         val label = ext.getCreateFeatureLabel(metaClass)
         assertEquals("testName", label)
     }

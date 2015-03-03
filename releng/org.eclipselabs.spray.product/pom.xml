@@ -40,7 +40,7 @@
 							</replacements>
 						</configuration>
 					</execution>
-					<!--execution>
+					<execution>
 						<id>restoreMappings</id>
 						<phase>verify</phase>
 						<goals>
@@ -59,7 +59,7 @@
 								</replacement>
 							</replacements>
 						</configuration>
-					</execution-->
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -91,7 +91,7 @@
 				<configuration>
 					<products>
 						<product>
-							<id>org.eclipselabs.spray.product</id>
+							<id>eu.numberfour.ide.product</id>
 						</product>
 					</products>
 				</configuration>

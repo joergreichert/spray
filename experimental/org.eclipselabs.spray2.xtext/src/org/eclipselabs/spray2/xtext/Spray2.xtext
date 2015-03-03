@@ -13,9 +13,9 @@ Diagram :
 ;
 
 Import:
-    'import' importedNamespace=SprayQualifiedNameWithWildCard;
+    'import' importedNamespace=QualifiedNameWithWildCard;
 
-SprayQualifiedNameWithWildCard returns ecore::EString :
+QualifiedNameWithWildCard returns ecore::EString :
     QualifiedName  ('.' '*')?;
     
 SprayStyleRef:

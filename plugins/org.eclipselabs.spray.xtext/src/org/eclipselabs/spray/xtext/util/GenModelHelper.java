@@ -10,8 +10,6 @@
  **************************************************************************** */
 package org.eclipselabs.spray.xtext.util;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -35,10 +33,9 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xcore.XPackage;
-import org.eclipse.emf.ecore.xcore.util.XcoreGenModelBuilder;
-import org.eclipse.emf.ecore.xcore.util.XcoreGenModelInitializer;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
+
+import javax.inject.Inject;
 
 /**
  * This class computes an EClass' Java class name from looking up the EClass' GenModel from the {@link EcorePlugin#getEPackageNsURIToGenModelLocationMap() EPackage to GenModel map}.
@@ -47,13 +44,9 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
  */
 public class GenModelHelper {
     @Inject
-    private IQualifiedNameProvider   qualifiedNameProvider;
+    private IQualifiedNameProvider qualifiedNameProvider;
     @Inject
-    private ResourceSet              resourceSet;
-    @Inject
-    private XcoreGenModelBuilder     xcoreGenModelBuilder;
-    @Inject
-    private XcoreGenModelInitializer xcoreGenModelInitializer;
+    private ResourceSet            resourceSet;
 
     public String getJavaInterfaceName(EClass eClass) {
         if (eClass == null) {
@@ -266,7 +259,6 @@ public class GenModelHelper {
     }
 
     public GenModel getGenModel(EClassifier eClassifier) {
-        GenModel genModel = null;
         if (eClassifier == null) {
             throw new IllegalStateException("Cannot determine interface name for EClass, since the EClass is null");
         }
@@ -276,20 +268,14 @@ public class GenModelHelper {
         if (eClassifier.getEPackage() == null) {
             throw new IllegalStateException("EPackage of EClass '" + eClassifier + "' is null.");
         }
-        URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(eClassifier.getEPackage().getNsURI());
+        URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(eClassifier.getEPackage().getNsURI());
         if (genModelUri == null) {
             throw new IllegalStateException("GenModel for EPackage '" + eClassifier.getEPackage().getNsURI() + "' must be registered.");
         }
         Resource res = resourceSet.getResource(genModelUri, true);
         EcoreUtil.resolveAll(res);
 
-        EObject root = res.getContents().get(0);
-        if (root instanceof XPackage) {
-            genModel = xcoreGenModelBuilder.getGenModel((XPackage) root);
-            xcoreGenModelInitializer.initialize(genModel, true);
-        } else {
-            genModel = (GenModel) res.getContents().get(0);
-        }
+        GenModel genModel = (GenModel) res.getContents().get(0);
         return genModel;
     }
 

@@ -10,7 +10,7 @@
       <package
             uri="http://www.eclipselabs.org/spray/shapes/Shape"
             class="org.eclipselabs.spray.shapes.ShapesPackage"
-            genModel="model/Shape.xcore"/>
+            genModel="model/Shape.genmodel"/>
    </extension>
 
 </plugin>

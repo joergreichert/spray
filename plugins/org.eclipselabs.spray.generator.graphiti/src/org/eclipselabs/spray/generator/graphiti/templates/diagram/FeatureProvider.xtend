@@ -314,7 +314,7 @@ class FeatureProvider extends FileGenerator<Diagram> {
             EObject eObject = getBusinessObjectForPictogramElement(shape);
             ContainerShape targetContainer = context.getTargetContainer();
             EObject target = getBusinessObjectForPictogramElement(targetContainer);
-            «FOR cls : metaClasses.filter[representedBy instanceof ShapeFromDsl]»
+            «FOR cls : metaClassesList.filter[representedBy instanceof ShapeFromDsl]»
             if( eObject instanceof «cls.itfName»){
                 return new  «cls.moveFeatureClassName»(this);
             }

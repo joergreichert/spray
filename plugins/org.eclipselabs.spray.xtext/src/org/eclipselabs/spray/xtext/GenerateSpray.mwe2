@@ -4,27 +4,63 @@ import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
-var fileExtensions = "spray"
+var grammarURI = "classpath:/org/eclipselabs/spray/xtext/Spray.xtext"
+var file.extensions = "spray"
 var projectName = "org.eclipselabs.spray.xtext"
-var grammarURI = "platform:/resource/${projectName}/src/org/eclipselabs/spray/xtext/Spray.xtext"
-var runtimeProject = "../../plugins/${projectName}"
-var testProject = "../../tests/${projectName}.tests"
-var generateXtendStub = false
-var encoding = "UTF-8"
+var runtimeProject = "../${projectName}"
 
 Workflow {
     bean = StandaloneSetup {
-    	scanClassPath = true
-    	resourceSet = org.eclipse.xtext.resource.XtextResourceSet:theResourceSet {}
         platformUri = "${runtimeProject}/.."
-        
+        scanClassPath = true
         uriMap = {
-            from = "platform:/resource/org.eclipse.xtext.xbase/"
-            to = "classpath:/"
+            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
         }
         uriMap = {
-            from = "platform:/resource/org.eclipse.xtext.common.types/"
-            to = "classpath:/"
+            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
+            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore"
+            to = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
+            to = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
+        }
+        // have to comment this out, otherwise: java.lang.RuntimeException: No GenPackage for NsURI http://www.eclipse.org/xtext/xbase/Xtype found in platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel
+//        uriMap = {
+//            from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore"
+//            to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore"
+//        }
+//        uriMap = {
+//            from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+//            to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+//        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.styles.mm/model/Style.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Style.genmodel"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.shapes.mm/model/Shape.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shape.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.shapes.mm/model/Shape.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shape.genmodel"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.mm/model/spray.ecore"
+            to = "platform:/resource/org.eclipselabs.spray.mm/model/spray.ecore"
+        }
+        uriMap = {
+            from = "platform:/plugin/org.eclipselabs.spray.mm/model/spray.genmodel"
+            to = "platform:/resource/org.eclipselabs.spray.mm/model/spray.genmodel"
         }
         
         registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
@@ -32,71 +68,115 @@ Workflow {
         registerGeneratedEPackage = "org.eclipselabs.spray.styles.StylesPackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.shapes.ShapesPackage"
         registerGeneratedEPackage = "org.eclipselabs.spray.mm.spray.SprayPackage"
+        registerGenModelFile = "platform:/resource/org.eclipselabs.spray.mm/model/spray.genmodel"
     }
 
-	component = DirectoryCleaner {  directory = "${runtimeProject}/src-gen"     }
-	component = DirectoryCleaner {  directory = "${runtimeProject}/model"       }
-	component = DirectoryCleaner {  directory = "${runtimeProject}.ui/src-gen"  }
+    component = DirectoryCleaner {
+        directory = "${runtimeProject}/src-gen"
+    }
+
+    component = DirectoryCleaner {
+        directory = "${runtimeProject}.ui/src-gen"
+    }
 
     component = Generator {
         pathRtProject = runtimeProject
         pathUiProject = "${runtimeProject}.ui"
-        pathTestProject = "${testProject}"
+        pathTestProject = "../../tests/${projectName}.tests"
         projectNameRt = projectName
         projectNameUi = "${projectName}.ui"
-        encoding = encoding
-		language = auto-inject {
-    		forcedResourceSet = theResourceSet
-    		
-    		loadedResource = "classpath:/model/XcoreLang.xcore"
-			loadedResource = "classpath:/model/Ecore.ecore"
-			loadedResource = "classpath:/model/Ecore.genmodel"
-    		loadedResource = "platform:/resource/org.eclipselabs.spray.styles.mm/model/Styles.xcore"
-    		loadedResource = "platform:/resource/org.eclipselabs.spray.shapes.mm/model/Shapes.xcore"
-    		loadedResource = "platform:/resource/org.eclipselabs.spray.mm/model/Spray.xcore"
-    		
+        encoding = "UTF-8"
+        language = {
             uri = grammarURI
+            fileExtensions = file.extensions
+
+            // Java API to access grammar elements (required by several other fragments)
             fragment = grammarAccess.GrammarAccessFragment {}
-    		fragment = ecore.EMFGeneratorFragment auto-inject {  
-    			javaModelDirectory = "../${projectName}/src-gen"
-    		}
-            fragment = serializer.SerializerFragment auto-inject {  
-            	generateStub = false
+
+            // Generate java classes for Ecore models
+            fragment = ecore.EcoreGeneratorFragment {}
+
+            // Serializer 2.0
+            fragment = serializer.SerializerFragment {
+             	generateStub = false
             }
-            fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
-            fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {
-            	antlrParam = "-Xconversiontimeout" antlrParam = "10000"
+                
+            // the serialization component (1.0)
+//            fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+
+            // a custom ResourceFactory for use with EMF 
+            fragment = resourceFactory.ResourceFactoryFragment {
+                fileExtensions = file.extensions
+            }
+
+            // the Antlr parser
+            fragment = parser.antlr.XtextAntlrGeneratorFragment {
                 options = {
                     classSplitting = true
                 }
             }
-            fragment = validation.JavaValidatorFragment auto-inject {
-            //  composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
-                composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+
+            // the Ecore2Xtext specific terminal converter
+            //			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment {}
+
+            // java-based API for validation 
+            fragment = validation.JavaValidatorFragment {
+            //			 composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+//                composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
             }
-            fragment = scoping.ImportNamespacesScopingFragment auto-inject {
+
+            // scoping and exporting API
+            //			fragment = scoping.ImportURIScopingFragment {}
+            //			fragment = exporting.SimpleNamesFragment {}
+
+            // scoping and exporting API 
+            fragment = scoping.ImportNamespacesScopingFragment {
                 generateStub = false
             }
-            fragment = exporting.QualifiedNamesFragment auto-inject {}
-            fragment = formatting.FormatterFragment auto-inject {}
-            fragment = labeling.LabelProviderFragment auto-inject {}
-            fragment = outline.OutlineTreeProviderFragment auto-inject {}
-            fragment = outline.QuickOutlineFragment auto-inject {}
-            fragment = contentAssist.JavaBasedContentAssistFragment auto-inject {}
-            fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {
-            	antlrParam = "-Xconversiontimeout" antlrParam = "10000"
+            fragment = exporting.QualifiedNamesFragment {}
+
+            // formatter API 
+            fragment = formatting.FormatterFragment {}
+
+            // labeling API 
+            fragment = labeling.LabelProviderFragment {}
+
+            // outline API 
+            fragment = outline.OutlineTreeProviderFragment {}
+            fragment = outline.QuickOutlineFragment {}
+
+            // java-based API for content assistance 
+            fragment = contentAssist.JavaBasedContentAssistFragment {}
+
+            // antlr parser generator tailored for content assist 
+            fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
                 options = {
                     classSplitting = true
                 }
             }
-    		fragment = compare.CompareFragment auto-inject {}
-            fragment = builder.BuilderIntegrationFragment auto-inject {}
-            fragment = refactoring.RefactorElementNameFragment auto-inject {}
-            fragment = quickfix.QuickfixProviderFragment auto-inject {}
-            fragment = templates.CodetemplatesGeneratorFragment auto-inject {}
-            fragment = types.TypesGeneratorFragment auto-inject {}
-            fragment = xbase.XbaseGeneratorFragment auto-inject {}
-            fragment = junit.Junit4Fragment auto-inject {}
+
+            // provides a compare view
+            fragment = compare.CompareFragment {
+                fileExtensions = file.extensions
+            }
+
+            fragment = builder.BuilderIntegrationFragment {}
+
+            // rename refactoring
+            fragment = refactoring.RefactorElementNameFragment {}
+
+            // quickfix API 
+            fragment = quickfix.QuickfixProviderFragment {}
+
+            fragment = templates.CodetemplatesGeneratorFragment {}
+
+            // Xbase support
+            fragment = types.TypesGeneratorFragment {}
+            fragment = xbase.XbaseGeneratorFragment {}
+
+            // generates junit test support classes into Generator#pathTestProject
+            fragment = junit.Junit4Fragment {}
+
         }
     }
 }

@@ -25,11 +25,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipselabs.spray.styles.generator,
  org.eclipselabs.spray.generator.common,
  org.xpect.xtext.lib;bundle-version="0.1.0",
- org.eclipselabs.spray.xtext.tests.xpect,
- org.eclipse.ui.ide,
- org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
+ org.eclipse.ui.ide
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
+ org.eclipselabs.spray.runtime.graphiti.styles,
  org.hamcrest;core=split,
  org.hamcrest.core,
  org.junit;version="4.5.0",

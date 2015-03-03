@@ -13,7 +13,7 @@ shape rule_shape {
 shape class_shape_with_id {
 	rectangle {
 		size (width=100, height=100)
-		text {
+		text style FontStyle {
             position (x=5, y=5)
             size (width=90, height=90)
             id = shapeId

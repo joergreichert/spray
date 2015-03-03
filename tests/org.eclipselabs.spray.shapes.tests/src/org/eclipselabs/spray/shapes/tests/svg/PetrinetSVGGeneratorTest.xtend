@@ -10,9 +10,9 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.tests.svg
 
+import javax.inject.Inject
 import java.io.File
 import java.util.Scanner
-import javax.inject.Inject
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipselabs.spray.shapes.ShapeContainer
@@ -24,6 +24,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+import static org.junit.Assert.*
+import org.eclipselabs.spray.shapes.tests.util.LineEndingNormalizer
+
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(ShapeTestsInjectorProvider))
 class PetrinetSVGGeneratorTest extends XtextTest {
@@ -33,38 +36,39 @@ class PetrinetSVGGeneratorTest extends XtextTest {
 	private GeneratorSVGDefinition generatorSVGDefinition
 
 	@Inject
-	private extension CustomAssert
+	private extension LineEndingNormalizer lineEndingNormalizer
 	
 	@Before
 	def void setUp() {
 		val uri = URI::createURI(resourceRoot + "/testcases/svgs/petrinet/petrinet.shape");
         shapeContainer = loadModel(resourceSet, uri, getRootObjectType(uri)) as ShapeContainer;
+		ignoreOsSpecificNewline();
 	}
 	
 	@Test
 	def void testPlaceShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"PlaceShape".matches(sd.name)).head
-		assertEquals("SVG generated for PlaceShape", getExpectedSVGContent("petrinet", "PlaceShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for PlaceShape", getExpectedSVGContent("petrinet", "PlaceShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	@Test
 	def void testTransitionShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"TransitionShape".matches(sd.name)).head
-		assertEquals("SVG generated for TransitionShape", getExpectedSVGContent("petrinet", "TransitionShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for TransitionShape", getExpectedSVGContent("petrinet", "TransitionShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	@Test
 	def void testEmptyTransitionShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"EmptyTransitionShape".matches(sd.name)).head
-		assertEquals("SVG generated for EmptyTransitionShape", getExpectedSVGContent("petrinet", "EmptyTransitionShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for EmptyTransitionShape", getExpectedSVGContent("petrinet", "EmptyTransitionShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	@Test
 	def void testTokenShape() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"TokenShape".matches(sd.name)).head
-		assertEquals("SVG generated for TokenShape", getExpectedSVGContent("petrinet", "TokenShape"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for TokenShape", getExpectedSVGContent("petrinet", "TokenShape"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	@Test
 	def void testArcConnection() {
 		val element = shapeContainer.shapeContainerElement.filter(sd|"ArcConnection".matches(sd.name)).head
-		assertEquals("SVG generated for ArcConnection", getExpectedSVGContent("petrinet", "ArcConnection"), generatorSVGDefinition.compile(element).toString)
+		assertEquals("SVG generated for ArcConnection", getExpectedSVGContent("petrinet", "ArcConnection"), generatorSVGDefinition.compile(element).normalizeLineEndings)
 	}	
 	
 	def private getExpectedSVGContent(String pathSegment, 
@@ -74,6 +78,6 @@ class PetrinetSVGGeneratorTest extends XtextTest {
 		));
 		val expectedSVG = scanner.useDelimiter("\\A").next();
 		scanner.close();
-		expectedSVG
+		expectedSVG.normalizeLineEndings
 	}	
 }

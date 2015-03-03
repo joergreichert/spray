@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="spray" nsURI="http://code.google.com/a/eclipselabs.org/p/spray"
+    nsPrefix="spray">
+  <eClassifiers xsi:type="ecore:EClass" name="Diagram" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="#//Import" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelType" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviourGroups" upperBound="-1"
+        eType="#//BehaviorGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaClasses" upperBound="-1"
+        eType="#//MetaClass" containment="true" eOpposite="#//MetaClass/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//SprayStyleRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeInSpray" abstract="true" eSuperTypes="#//SprayElement #//AliasableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="represents" eType="#//MetaClass"
+        eOpposite="#//MetaClass/representedBy"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SprayElement" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionInSpray" eSuperTypes="#//ShapeInSpray">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//ConnectionReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//ShapePropertyAssignment" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaClass" eSuperTypes="#//AliasableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ShapeInSpray"
+        containment="true" eOpposite="#//ShapeInSpray/represents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" eType="#//Diagram"
+        eOpposite="#//Diagram/metaClasses"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="references" upperBound="-1"
+        eType="#//MetaReference" containment="true" eOpposite="#//MetaReference/metaClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviors" upperBound="-1"
+        eType="#//Behavior" containment="true" eOpposite="#//Behavior/metaClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorGroups" upperBound="-1"
+        eType="#//BehaviorGroup"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles.mm/model/Style.ecore#//Style"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//SprayStyleRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaReference" eSuperTypes="#//SprayElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="representedBy" eType="#//ConnectionInSpray"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaClass" eType="#//MetaClass"
+        eOpposite="#//MetaClass/references"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Figure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Behavior" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metaClass" eType="#//MetaClass"
+        eOpposite="#//MetaClass/behaviors"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="paletteCompartment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizedBy" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CreateBehavior" eSuperTypes="#//Behavior">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containmentReference" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="askFor" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomBehavior" eSuperTypes="#//Behavior"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorGroup" eSuperTypes="#//SprayElement #//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviors" upperBound="-1"
+        eType="#//Behavior" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Import">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AliasableElement" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeFromDsl" eSuperTypes="#//ShapeInSpray">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//ShapePropertyAssignment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="references" upperBound="-1"
+        eType="#//ShapeCompartmentAssignment" containment="true" eOpposite="#//ShapeCompartmentAssignment/shape"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shape" eType="#//ShapeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapePropertyAssignment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="#//ShapeDslKey"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SprayStyleRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="javaStyle" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dslStyle" eType="ecore:EClass ../../org.eclipselabs.spray.styles.mm/model/Style.ecore#//Style"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompartmentBehavior" eSuperTypes="#//Behavior">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compartmentReference" upperBound="-1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeCompartmentAssignment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shape" eType="#//ShapeFromDsl"
+        eOpposite="#//ShapeFromDsl/references"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shapeDslKey" eType="#//ShapeDslKey"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dslShape" eType="ecore:EClass ../../org.eclipselabs.spray.shapes.mm/model/Shape.ecore#//ShapeDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="jvmShape" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="jvmConnection" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dslConnection" eType="ecore:EClass ../../org.eclipselabs.spray.shapes.mm/model/Shape.ecore#//ConnectionDefinition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeDslKey">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="jvmKey" eType="ecore:EClass ../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dslKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

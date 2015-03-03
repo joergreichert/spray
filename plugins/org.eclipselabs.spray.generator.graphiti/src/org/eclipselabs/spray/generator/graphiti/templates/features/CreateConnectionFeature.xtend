@@ -225,7 +225,7 @@ class CreateConnectionFeature extends FileGenerator<MetaClass>  {
         «val connection = metaClass.representedBy as ConnectionInSpray»
         «val from = connection.from.EType as EClass»
         «val to = connection.to.EType as EClass»
-        «val createBehavior = metaClass.behaviors.filter(typeof(CreateBehavior)).head»
+        «val createBehavior = metaClass.behaviorsList.filter(typeof(CreateBehavior)).head»
         /**
          * Creates a EReference between two EClasses.
          */

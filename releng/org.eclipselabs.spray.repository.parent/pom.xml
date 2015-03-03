@@ -13,8 +13,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<platform-version-name>luna</platform-version-name>
-		<tycho-version>0.22.0</tycho-version>
+		<platform-version-name>kepler</platform-version-name>
+		<tycho-version>0.19.0</tycho-version>
 	</properties>
 
 	<build>
@@ -91,6 +91,18 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype</id>
+			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<licenses>
 		<license>

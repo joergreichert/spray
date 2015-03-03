@@ -10,7 +10,6 @@
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.generator;
 
-import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.util.Modules2;
 import org.eclipselabs.spray.shapes.ShapeRuntimeModule;
 import org.eclipselabs.spray.shapes.ShapeStandaloneSetup;
@@ -22,7 +21,7 @@ import com.google.inject.Injector;
  * Initialization support for running Xtext languages without equinox extension
  * registry
  */
-public class ShapesGeneratorStandaloneSetup extends ShapeStandaloneSetup implements ISetup {
+public class ShapesGeneratorStandaloneSetup extends ShapeStandaloneSetup {
     public static void doSetup() {
         new ShapesGeneratorStandaloneSetup().createInjectorAndDoEMFRegistration();
     }

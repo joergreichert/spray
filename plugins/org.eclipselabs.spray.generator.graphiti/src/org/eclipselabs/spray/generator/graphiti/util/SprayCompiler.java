@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmIdentifiableElement;
+import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.xbase.XAbstractFeatureCall;
 import org.eclipse.xtext.xbase.XBinaryOperation;
@@ -27,9 +28,12 @@ import org.eclipse.xtext.xbase.compiler.ImportManager;
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler;
 import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable;
-import org.eclipse.xtext.xbase.typesystem.references.LightweightTypeReference;
+import org.eclipse.xtext.xbase.typing.ITypeProvider;
 
+@SuppressWarnings("restriction")
 public class SprayCompiler extends XbaseCompiler {
+    @Inject
+    private ITypeProvider    typeProvider;
 
     @Inject
     private XtextResourceSet resourceSet;
@@ -38,14 +42,14 @@ public class SprayCompiler extends XbaseCompiler {
 
     public String compile(XExpression value, ImportManager importManager) {
         ITreeAppendable appendable = new FakeTreeAppendable(importManager);
-        IAppendable result = compile(value, appendable, getLightweightExpectedType(value));
+        IAppendable result = compile(value, appendable, typeProvider.getExpectedType(value));
         return result.toString();
     }
 
     public String compileForPropertyAssignement(XExpression expression, String valueName, String metaClassVariable) {
         setMetaClassVariable(metaClassVariable);
         ITreeAppendable appendable = new FakeTreeAppendable(new ImportManager(false));
-        LightweightTypeReference type = getLightweightExpectedType(expression);
+        JvmTypeReference type = typeProvider.getExpectedType(expression);
         if (type != null) {
             try {
                 IAppendable result = compile(expression, appendable, type);

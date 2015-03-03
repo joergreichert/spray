@@ -301,7 +301,6 @@
          </command>
       </menuContribution>
    </extension>
-   <!-- extracted to org.eclipselabs.spray.styles.generator.ui
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
 	        category="org.eclipselabs.spray.styles.Style"
@@ -311,7 +310,7 @@
 	        <keywordReference id="org.eclipselabs.spray.styles.ui.keyword_Style"/>
 	    </page>
 	</extension>
-	-->
+
 <!-- Type Hierarchy  -->
 	<extension
 		point="org.eclipse.ui.handlers">

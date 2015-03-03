@@ -5,16 +5,6 @@
 		File "a.style" {}
 		File "c.style" {}
 	}
-	
-	Workspace {
-		JavaProject {
-			SrcFolder {
-				ThisFile {}
-				File "a.style" {}
-				File "c.style" {}
-			}
-		}
-	}
   
    END_SETUP
  */

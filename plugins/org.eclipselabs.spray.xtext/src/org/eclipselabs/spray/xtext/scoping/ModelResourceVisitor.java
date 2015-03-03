@@ -30,8 +30,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xcore.XAnnotation;
-import org.eclipse.emf.ecore.xcore.XPackage;
 
 /**
  * @author Joerg Reichert (joerg.reichert@itemis.de)
@@ -72,36 +70,7 @@ public class ModelResourceVisitor implements IResourceVisitor {
         name = name.replace("." + resource.getFileExtension(), "");
         String locationURI = resource.getLocationURI().toString();
         URI genModelURI;
-        if (locationURI.endsWith(".xcore")) {
-            String location = getLocationRelativeToWorkspace(resource);
-            genModelURI = createPlatformResourceURI("/" + location);
-            if (isNotRegisteredYet(nameToGenModelURI, name, genModelURI)) {
-                nameToGenModelURI.put(name, genModelURI);
-                nameTOGenModelURIChanged = true;
-            }
-            ResourceSet rs = createResourceSet();
-            Resource r = rs.createResource(createURI(locationURI));
-            try {
-                r.load(Collections.EMPTY_MAP);
-                EList<EObject> contents = r.getContents();
-                for (EObject content : contents) {
-                    if (content instanceof XPackage) {
-                        XPackage pack = (XPackage) content;
-                        registerXPackageUnderItsURI(pack);
-                        for (XAnnotation annotation : pack.getAnnotations()) {
-                            if (annotation.getDetails().containsKey("nsURI")) {
-                                if (isNotRegisteredYet(nameToEPackageNsURI, name, annotation.getDetails().get("nsURI"))) {
-                                    nameToEPackageNsURI.put(name, annotation.getDetails().get("nsURI"));
-                                    nameToEPackageNsURIChanged = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (locationURI.endsWith(".genmodel")) {
+        if (locationURI.endsWith(".genmodel")) {
             String location = getLocationRelativeToWorkspace(resource);
             genModelURI = createPlatformResourceURI("/" + location);
             if (isNotRegisteredYet(nameToGenModelURI, name, genModelURI)) {
@@ -176,19 +145,6 @@ public class ModelResourceVisitor implements IResourceVisitor {
     }
 
     /**
-     * @param pack
-     */
-    private void registerXPackageUnderItsURI(XPackage pack) {
-        for (XAnnotation annotation : pack.getAnnotations()) {
-            if (annotation.getDetails().containsKey("nsURI")) {
-                if (isNotRegisteredYet(getEPackageRegistry(), annotation.getDetails().get("nsURI"), pack)) {
-                    getEPackageRegistry().put(annotation.getDetails().get("nsURI"), pack);
-                }
-            }
-        }
-    }
-
-    /**
      * @return
      */
     protected Map<String, Object> getEPackageRegistry() {
@@ -214,6 +170,6 @@ public class ModelResourceVisitor implements IResourceVisitor {
      * @return
      */
     protected Map<String, URI> getEPackageNsURIToGenModelLocationMap() {
-        return EcorePlugin.getEPackageNsURIToGenModelLocationMap(false);
+        return EcorePlugin.getEPackageNsURIToGenModelLocationMap();
     }
 }

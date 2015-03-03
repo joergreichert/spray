@@ -6,6 +6,7 @@ Workflow {
 	bean = StandaloneSetup {
 		platformUri = "../../.."
 		registerGeneratedEPackage = "BusinessDomainDsl.BusinessDomainDslPackage"
+		registerGenModelFile = "platform:/resource/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.genmodel"
 		scanClassPath=true
 	}
 

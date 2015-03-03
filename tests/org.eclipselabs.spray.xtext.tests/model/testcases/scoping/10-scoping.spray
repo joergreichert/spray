@@ -1,8 +1,8 @@
-/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayScopingPluginTest 
+/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayScopingTest 
 
 	ResourceSet {
 		ThisFile {}
-		File "BusinessDomainDsl.xcore" { from="../../../../../examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.xcore" }
+		File "../referenced/BusinessDomainDsl.ecore" {}
 	}
   
    END_SETUP

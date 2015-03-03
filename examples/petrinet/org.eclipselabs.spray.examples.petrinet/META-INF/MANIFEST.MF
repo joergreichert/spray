@@ -27,6 +27,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipselabs.spray.styles.generator,
  org.eclipselabs.spray.shapes.generator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib

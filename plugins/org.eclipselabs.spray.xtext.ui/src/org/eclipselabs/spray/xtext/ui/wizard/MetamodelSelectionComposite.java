@@ -19,8 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -44,9 +42,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xcore.XPackage;
-import org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup;
-import org.eclipse.emf.ecore.xcore.util.XcoreEcoreBuilder;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -71,34 +66,27 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.eclipselabs.spray.xtext.util.GenModelHelper;
 
 import com.google.common.collect.Iterables;
+import javax.inject.Inject;
 
 public class MetamodelSelectionComposite extends Composite {
-    private DataBindingContext                m_bindingContext;
-    private Text                              txtUri;
-    private Text                              txtGenmodelUri;
-    private SprayProjectInfo                  projectInfo;
+    private DataBindingContext         m_bindingContext;
+    private Text                       txtUri;
+    private Text                       txtGenmodelUri;
+    private SprayProjectInfo           projectInfo;
     @Inject
-    private GenModelHelper                    genmodelHelper;
-    private Text                              txtModelType;
+    private GenModelHelper             genmodelHelper;
+    private Text                       txtModelType;
     @Inject
-    private ILabelProvider                    labelProvider;
-    private Text                              txtFileExtension;
+    private ILabelProvider             labelProvider;
+    private Text                       txtFileExtension;
     @Inject
-    private IQualifiedNameProvider            qnProvider;
-    private Button                            btnFilterSystemEPackages;
+    private IQualifiedNameProvider     qnProvider;
+    private Button                     btnFilterSystemEPackages;
     @Inject
-    private ISprayWizardEPackageFilter        ePackageUriFilter;
-    @Inject
-    private XcoreEcoreBuilder                 xcoreEcoreBuilder;
-    @Inject
-    private IResourceServiceProvider.Registry serviceRegistry;
-    @Inject
-    private IResourceSetProvider              resourceSetProvider;
+    private ISprayWizardEPackageFilter ePackageUriFilter;
 
     /**
      * Create the composite.
@@ -194,14 +182,7 @@ public class MetamodelSelectionComposite extends Composite {
                 ResourceSet rs = new ResourceSetImpl();
                 Resource res = rs.getResource(URI.createURI(txtUri.getText()), true);
 
-                EPackage pck = null;
-                EObject root = res.getContents().get(0);
-                if (root instanceof EPackage) {
-                    pck = (EPackage) root;
-                } else if (root instanceof XPackage) {
-                    XPackage xpack = (XPackage) root;
-                    pck = xcoreEcoreBuilder.getEPackage(xpack);
-                }
+                EPackage pck = (EPackage) res.getContents().get(0);
                 ElementListSelectionDialog dlg = new ElementListSelectionDialog(getShell(), labelProvider);
                 dlg.setElements(Iterables.toArray(Iterables.filter(pck.getEClassifiers(), EClass.class), Object.class));
                 if (dlg.open() == Dialog.OK) {
@@ -226,17 +207,13 @@ public class MetamodelSelectionComposite extends Composite {
 
         txtUri.addModifyListener(new ModifyListener() {
             public void modifyText(ModifyEvent e) {
-                if (txtUri.getText().endsWith(".xcore")) {
-                    txtGenmodelUri.setText(txtUri.getText());
-                    return;
-                }
                 URI ePackageUri = URI.createURI(txtUri.getText());
                 if (ePackageUri.isPlatformPlugin()) {
                     ResourceSetImpl rs = new ResourceSetImpl();
                     try {
                         Resource r = rs.getResource(ePackageUri, true);
                         EPackage pck = (EPackage) r.getContents().get(0);
-                        URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(pck.getNsURI());
+                        URI genModelUri = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(pck.getNsURI());
                         if (genModelUri != null) {
                             txtGenmodelUri.setText(genModelUri.toString());
                         } else {
@@ -255,11 +232,6 @@ public class MetamodelSelectionComposite extends Composite {
                         IPath path = new Path(ePackageUri.toString().replace("platform:/resource", "")).removeFileExtension().addFileExtension("genmodel");
                         if (ResourcesPlugin.getWorkspace().getRoot().findMember(path) != null) {
                             txtGenmodelUri.setText(URI.createPlatformResourceURI(path.toString(), true).toString());
-                        } else {
-                            path = new Path(ePackageUri.toString().replace("platform:/resource", "")).removeFileExtension().addFileExtension("xcore");
-                            if (ResourcesPlugin.getWorkspace().getRoot().findMember(path) != null) {
-                                txtGenmodelUri.setText(URI.createPlatformResourceURI(path.toString(), true).toString());
-                            }
                         }
                     }
                 }
@@ -275,26 +247,10 @@ public class MetamodelSelectionComposite extends Composite {
 
     protected void setNsURIs(List<?> nsURIs, Text uriField, boolean isDevelopmentTimeVersion, boolean append) {
         if (isDevelopmentTimeVersion) {
-            URI xcoreURI = null;
-            Map<String, URI> ePackageNsURItoGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false);
-            for (int i = 0, length = nsURIs.size(); i < length; i++) {
-                xcoreURI = ePackageNsURItoGenModelLocationMap.get(nsURIs.get(i));
-                if (xcoreURI != null && xcoreURI.fileExtension().equalsIgnoreCase("xcore")) {
-                    break;
-                } else {
-                    xcoreURI = null;
-                }
-            }
-            ResourceSet resourceSet = null;
-            if (xcoreURI != null) {
-                // evil: calling standalone setups in Eclipse will disturb registries, but the resource service provider is null for xcore URI
-                resourceSet = new XcoreStandaloneSetup().createInjectorAndDoEMFRegistration().getInstance(ResourceSet.class);
-                //resourceSet = serviceRegistry.getResourceServiceProvider(xcoreURI).get(ResourceSet.class);
-            } else {
-                resourceSet = new ResourceSetImpl();
-            }
-            resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap(false));
+            ResourceSet resourceSet = new ResourceSetImpl();
+            resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
             StringBuffer uris = new StringBuffer();
+            Map<String, URI> ePackageNsURItoGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
             for (int i = 0, length = nsURIs.size(); i < length; i++) {
                 URI location = ePackageNsURItoGenModelLocationMap.get(nsURIs.get(i));
                 Resource resource = resourceSet.getResource(location, true);
@@ -336,15 +292,7 @@ public class MetamodelSelectionComposite extends Composite {
 
             @Override
             protected Iterator<? extends EObject> getEObjectChildren(EObject eObject) {
-                EPackage ePackage = null;
-                if (eObject instanceof EPackage) {
-                    ePackage = (EPackage) eObject;
-                } else if (eObject instanceof XPackage) {
-                    XPackage xPackage = (XPackage) eObject;
-                    xcoreEcoreBuilder.getEPackage(xPackage);
-                }
-                return ePackage != null ? ((EPackage) eObject).getESubpackages().iterator() : Collections.<EObject> emptyList().iterator();
-                //                return eObject instanceof EPackage ? ((EPackage) eObject).getESubpackages().iterator() : Collections.<EObject> emptyList().iterator();
+                return eObject instanceof EPackage ? ((EPackage) eObject).getESubpackages().iterator() : Collections.<EObject> emptyList().iterator();
             }
         }; j.hasNext();) {
             Object content = j.next();

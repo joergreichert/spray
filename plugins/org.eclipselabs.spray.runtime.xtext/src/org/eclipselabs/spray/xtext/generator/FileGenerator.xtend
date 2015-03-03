@@ -11,12 +11,13 @@
 package org.eclipselabs.spray.xtext.generator
 
 import javax.inject.Inject
+import org.eclipse.emf.ecore.EObject
+import org.eclipselabs.spray.xtext.generator.importmanager.ImportUtil
 import org.eclipselabs.spray.generator.common.templates.TemplateUtil
 import org.eclipselabs.spray.xtext.generator.filesystem.GenFile
 import org.eclipselabs.spray.xtext.generator.filesystem.JavaGenFile
-import org.eclipselabs.spray.xtext.generator.importmanager.ImportUtil
 
-class FileGenerator<T> extends TemplateUtil {
+class FileGenerator<T super EObject> extends TemplateUtil {
     @Inject ImportUtil importUtil
     extension GenFile genFile
     extension JavaGenFile javaGenFile
@@ -37,7 +38,7 @@ class FileGenerator<T> extends TemplateUtil {
         this.genFile = genFile
         
         if( genFile instanceof JavaGenFile){
-            javaGenFile = genFile
+            javaGenFile = (genFile as JavaGenFile)
         } else {
             javaGenFile = null
         }

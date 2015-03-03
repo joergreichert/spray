@@ -1,17 +1,11 @@
-/* XPECT_SETUP org.eclipselabs.spray.xtext.tests.SprayValidationPluginTest 
-
-	ResourceSet {
-		ThisFile {}
-		File "test.shape" { from="../referenced/test.shape" }
-		File "BusinessDomainDsl.xcore" { from="../../../../../examples/one/org.mod4j.dsl.businessdomain.mm/model/BusinessDomainDsl.xcore" }
-	}
-  
-   END_SETUP
+/*
+XPECT_IMPORT ../referenced/BusinessDomainDsl.ecore
+XPECT_IMPORT ../referenced/test.shape
  */
 import BusinessDomainDsl.*
 
-/* XPECT errors at 'BusinessDomainModel' ---
-"Duplicate connection reference: associationsTo"
+/* XPECT validationIssues at 'BusinessDomainModel' ---
+error "Duplicate connection reference: associationsTo"
 --- */
 diagram test for BusinessDomainModel
 

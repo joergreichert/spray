@@ -95,10 +95,10 @@ class SVGShapeGenerator {
     
     // LINE
     
-    def protected dispatch CharSequence generateShape (Line shape, boolean child) '''
+    def protected dispatch generateShape (Line shape, boolean child) '''
         <line x1="«shape.x1 + shape.parentX»" y1="«shape.y1 + shape.parentY»" x2="«shape.x2 + shape.parentX»" y2="«shape.y2 + shape.parentY»"«layouting(shape)»/>
     '''
-    def protected dispatch CharSequence generateShape (CDLine shape, boolean child) {
+    def protected dispatch generateShape (CDLine shape, boolean child) {
     	val pdOffsetX = shape.placingOffsetX 
     	val pdOffsetY = shape.placingOffsetY
     	'''
@@ -108,10 +108,10 @@ class SVGShapeGenerator {
 
     // POLYLINE
     
-    def protected dispatch CharSequence generateShape (Polyline shape, boolean child) '''
+    def protected dispatch generateShape (Polyline shape, boolean child) '''
         <polyline points="«shape.points(child)»"«layouting(shape)»/>
     '''
-    def protected dispatch CharSequence generateShape (CDPolyline shape, boolean child) '''
+    def protected dispatch generateShape (CDPolyline shape, boolean child) '''
         <polyline points="«shape.points(child, shape.placingOffsetX, shape.placingOffsetY)»"«layouting(shape)»/>
     '''
     
@@ -131,11 +131,11 @@ class SVGShapeGenerator {
 
     // POLYGON
     
-    def protected dispatch CharSequence generateShape (Polygon shape, boolean child) '''
+    def protected dispatch generateShape (Polygon shape, boolean child) '''
         <polygon points="«shape.points(child)»"«layouting(shape)»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch CharSequence generateShape (CDPolygon shape, boolean child) '''
+    def protected dispatch generateShape (CDPolygon shape, boolean child) '''
         <polygon points="«shape.points(child, shape.placingOffsetX, shape.placingOffsetY)»"«layouting(shape)»/>
     '''
 
@@ -146,30 +146,30 @@ class SVGShapeGenerator {
 
     // RECTANGLE
 
-//    def protected dispatch CharSequence generateShape (Compartment shape) '''
+//    def protected dispatch generateShape (Compartment shape) '''
 //        <rect «shape.positionAndSize»/>
 //    '''
-    def protected dispatch CharSequence generateShape (Rectangle shape, boolean child) '''
+    def protected dispatch generateShape (Rectangle shape, boolean child) '''
         <rect «shape.positionAndSize(child)»«layouting(shape)»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch CharSequence generateShape (CDRectangle shape, boolean child) '''
+    def protected dispatch generateShape (CDRectangle shape, boolean child) '''
         <rect «shape.positionAndSize(child, shape.placingOffsetX, shape.placingOffsetY)»«layouting(shape)»/>
     '''
 
     // ROUNDEDRECTANGLE
     
-    def protected dispatch CharSequence generateShape (RoundedRectangle shape, boolean child) '''
+    def protected dispatch generateShape (RoundedRectangle shape, boolean child) '''
         <rect «shape.positionAndSize(child)» rx="«shape.rx»" ry="«shape.ry»"«layouting(shape)»/>
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch CharSequence generateShape (CDRoundedRectangle shape, boolean child) '''
+    def protected dispatch generateShape (CDRoundedRectangle shape, boolean child) '''
         <rect «shape.positionAndSize(child, shape.placingOffsetX, shape.placingOffsetY)» rx="«shape.rx»" ry="«shape.ry»"«layouting(shape)»/>
     '''
 
     // ELLIPSE
     
-    def protected dispatch CharSequence generateShape (Ellipse shape, boolean child) '''
+    def protected dispatch generateShape (Ellipse shape, boolean child) '''
         «IF shape.isCircle»
             <circle cx="«shape.x(child) + shape.parentX»" cy="«shape.y(child) + shape.parentY»" r="«shape.rx»"«layouting(shape)»/>
         «ELSE»
@@ -177,7 +177,7 @@ class SVGShapeGenerator {
         «ENDIF» 
         «FOR subshape: shape.shape»«subshape.generateShape(true)»«ENDFOR»
     '''
-    def protected dispatch CharSequence generateShape (CDEllipse shape, boolean child) '''
+    def protected dispatch generateShape (CDEllipse shape, boolean child) '''
         «IF shape.isCircle»
             <circle cx="«shape.x(child) + shape.parentX + shape.placingOffsetX»" cy="«shape.y(child) + shape.parentY + shape.placingOffsetY»" r="«shape.rx»"«layouting(shape)»/>
         «ELSE»
@@ -187,10 +187,10 @@ class SVGShapeGenerator {
 
     // TEXT
     
-    def protected dispatch CharSequence generateShape (Text shape, boolean child) '''
+    def protected dispatch generateShape (Text shape, boolean child) '''
         <text x="«shape.x(child)»" y="«shape.y(child)»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
     '''
-    def protected dispatch CharSequence generateShape (CDText shape, boolean child) '''
+    def protected dispatch generateShape (CDText shape, boolean child) '''
         <text x="«shape.x(child) + shape.placingOffsetX»" y="«shape.y(child) + shape.placingOffsetY»">«IF shape.body.value != null»#«shape.body.value»«ELSE»&lt;TEXT&gt;«ENDIF»</text>
    	'''
     
@@ -211,7 +211,7 @@ class SVGShapeGenerator {
     
     // PLACING
     
-    def protected dispatch CharSequence generateShape (PlacingDefinition shape, boolean child) '''
+    def protected dispatch generateShape (PlacingDefinition shape, boolean child) '''
         «shape.shapeCon.generateShape(child)»
    	'''
     

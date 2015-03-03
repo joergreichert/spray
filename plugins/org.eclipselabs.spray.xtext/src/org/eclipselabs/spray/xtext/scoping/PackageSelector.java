@@ -18,8 +18,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -41,8 +39,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xcore.XPackage;
-import org.eclipse.emf.ecore.xcore.util.XcoreGenModelBuilder;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
@@ -60,9 +56,6 @@ public class PackageSelector {
     private Map<IProject, Iterable<EPackage>> javaProjectToEPackages = new HashMap<IProject, Iterable<EPackage>>();
     private JavaProjectHelper                 javaProjectHelper      = new JavaProjectHelper();
     private boolean                           workspaceChanged       = true;
-
-    @Inject
-    private XcoreGenModelBuilder              xcoreGenModelBuilder;
 
     public Iterable<EPackage> getFilteredEPackages(EObject modelElement) {
         IJavaProject project = javaProjectHelper.getJavaProject(modelElement);
@@ -126,13 +119,6 @@ public class PackageSelector {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else if (packageObj instanceof XPackage) {
-                    GenModel genModel = xcoreGenModelBuilder.getGenModel((XPackage) packageObj);
-                    for (GenPackage genPack : genModel.getGenPackages()) {
-                        if (genPack.getEcorePackage().getName().equals(((XPackage) packageObj).getName())) {
-                            ePackages.add(genPack.getEcorePackage());
-                        }
-                    }
                 }
             }
             return ePackages;
@@ -171,7 +157,7 @@ public class PackageSelector {
      */
     protected void recomputeResourceAndURIMaps() {
         EcorePlugin.computePlatformPluginToPlatformResourceMap();
-        EcorePlugin.computePlatformURIMap(false);
+        EcorePlugin.computePlatformURIMap();
     }
 
     /**
@@ -280,11 +266,9 @@ public class PackageSelector {
     }
 
     public GenPackage getGenPackage(String uri, String packageName) {
-        URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(uri);
+        URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(uri);
         if (genModelLoc == null) {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.error("No genmodel found for package URI " + uri + ". If you are running in stanalone mode make sure register the genmodel file.");
-            }
+            LOGGER.error("No genmodel found for package URI " + uri + ". If you are running in stanalone mode make sure register the genmodel file.");
             return null;
         }
         ResourceSet rs = createResourceSet();
@@ -292,16 +276,7 @@ public class PackageSelector {
         try {
             genModelResource = rs.getResource(genModelLoc, true);
             if (genModelResource != null) {
-                Iterable<GenModel> genModels = Iterables.filter(genModelResource.getContents(), GenModel.class);
-                if (!genModels.iterator().hasNext()) {
-                    Iterable<XPackage> xPackages = Iterables.filter(genModelResource.getContents(), XPackage.class);
-                    List<GenModel> genModelList = new ArrayList<GenModel>();
-                    for (XPackage xPackage : xPackages) {
-                        genModelList.add(xcoreGenModelBuilder.getGenModel(xPackage));
-                    }
-                    genModels = genModelList;
-                }
-                for (GenModel g : genModels) {
+                for (GenModel g : Iterables.filter(genModelResource.getContents(), GenModel.class)) {
                     for (GenPackage genPack : g.getGenPackages()) {
                         if (genPack.getEcorePackage().getNsURI().equals(uri) && genPack.getEcorePackage().getName().equals(packageName)) {
                             return genPack;
@@ -311,25 +286,9 @@ public class PackageSelector {
             }
         } catch (Exception e) {
             if (e instanceof java.io.FileNotFoundException) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(e.getMessage());
-                }
-            } else if (e instanceof org.eclipse.emf.ecore.xmi.PackageNotFoundException) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(e.getMessage());
-                }
+                System.err.println(e.getMessage());
             } else if (e instanceof Diagnostic) {
-                if (e.getCause() instanceof java.io.FileNotFoundException) {
-                    if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug(e.getMessage());
-                    }
-                } else if (e.getCause() instanceof org.eclipse.emf.ecore.xmi.PackageNotFoundException) {
-                    if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug(e.getMessage());
-                    }
-                } else {
-                    System.err.println(e.getMessage());
-                }
+                System.err.println(e.getMessage());
             } else {
                 e.printStackTrace();
             }

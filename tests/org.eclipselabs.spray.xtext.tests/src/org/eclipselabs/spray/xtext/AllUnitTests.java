@@ -22,6 +22,8 @@ import org.junit.runners.Suite.SuiteClasses;
     org.eclipselabs.spray.xtext.tests.Mod4jTest.class, 
     org.eclipselabs.spray.xtext.tests.ModelTests.class, 
     org.eclipselabs.spray.xtext.tests.SprayFormatterTest.class,
+    org.eclipselabs.spray.xtext.tests.SprayScopingTest.class,
+    org.eclipselabs.spray.xtext.tests.SprayValidationTest.class,
     org.eclipselabs.spray.xtext.tests.ValidationRulesTest.class, 
     org.eclipselabs.spray.xtext.util.GenModelHelperTest.class})
 public class AllUnitTests {

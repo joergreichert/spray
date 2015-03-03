@@ -62,8 +62,7 @@ class GuiceModule extends FileGenerator<Diagram> {
 
             @Override
             public void configure(Binder binder) {
-            	// not needed anymore and will produce Guice error in combination with Xtext 2.5.3
-                //binder.bind(IStorage2UriMapper.class).to(Storage2UriMapperImpl.class);
+                binder.bind(IStorage2UriMapper.class).to(Storage2UriMapperImpl.class);
                 binder.bind(IWorkbench.class).toInstance(PlatformUI.getWorkbench());
                 binder.bind(IWorkspace.class).toInstance(ResourcesPlugin.getWorkspace());
                 binder.bind(String.class).annotatedWith(Names.named("diagramTypeId")).toInstance("«diagram.name»");

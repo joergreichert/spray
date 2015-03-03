@@ -24,7 +24,7 @@ public class ShapeModelTest extends XtextTest {
 
 	@Before
 	public void setUp() {
-		super.ignoreOsSpecificNewline();
+		ignoreOsSpecificNewline();
 	}
 
     @Test

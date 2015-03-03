@@ -12,6 +12,7 @@ package org.eclipselabs.spray.xtext.generator.importmanager;
 
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
+@SuppressWarnings("restriction")
 public class ImportUtil {
     private org.eclipse.xtext.xbase.compiler.ImportManager xbaseImportManager;
     private org.eclipse.emf.codegen.util.ImportManager     emfImportManager;

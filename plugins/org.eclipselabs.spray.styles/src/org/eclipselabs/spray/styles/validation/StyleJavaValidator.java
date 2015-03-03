@@ -134,9 +134,9 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
 	public void checkStyleLayout(StyleLayout layout) {
 		checkTransparency((layout.getTransparency() != Double.MIN_VALUE) ? layout
 				.getTransparency() : 1.0);
-		checkFontName(layout, layout.getFontName());
-		checkLineAttributes(layout, layout.getLineColor(),
-				layout.getLineWidth(), layout.getLineStyle());
+		checkFontName(layout.getFontName());
+		checkLineAttributes(layout.getLineColor(), layout.getLineWidth(),
+				layout.getLineStyle());
 	}
 
 	/**
@@ -206,14 +206,13 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
 	 * @param fontName
 	 *            the font name
 	 */
-	public void checkFontName(StyleLayout layout, String fontName) {
+	public void checkFontName(String fontName) {
 		GraphicsEnvironment gEnv = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
 		List<String> fonts = Arrays.asList(gEnv.getAvailableFontFamilyNames());
 		if (fontName != null) {
 			if (!fonts.contains(fontName) && !fontName.equals("")) {
 				warning("The selected font is not installed on the system (default 'Arial' will be taken).",
-						layout,
 						StylesPackage.Literals.STYLE_LAYOUT__FONT_NAME,
 						ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
 						String.valueOf(fontName));
@@ -252,8 +251,6 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
 	/**
 	 * Checks the line attributes for deprecated values.
 	 * 
-	 * @param layout
-	 * 
 	 * @param lineColor
 	 *            the line color
 	 * @param lineWidth
@@ -261,18 +258,20 @@ public class StyleJavaValidator extends AbstractStyleJavaValidator {
 	 * @param lineStyle
 	 *            the line style
 	 */
-	public void checkLineAttributes(StyleLayout layout,
-			ColorWithTransparency lineColor, Integer lineWidth,
-			LineStyle lineStyle) {
+	public void checkLineAttributes(ColorWithTransparency lineColor,
+			Integer lineWidth, LineStyle lineStyle) {
 		if (lineColor instanceof Transparent) {
 			error("Setting the line-color to transparent isn't supported, use line-width = 0 instead.",
-					layout, StylesPackage.Literals.STYLE_LAYOUT__LINE_COLOR,
+					StylesPackage.Literals.STYLE_LAYOUT__LINE_WIDTH,
 					ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
 					String.valueOf(lineWidth));
-		}
-		if (lineWidth == 0 && lineStyle != null) {
-			warning("If the line-width is 0, the line is invisible (line-style is deprecated).",
-					layout, StylesPackage.Literals.STYLE_LAYOUT__LINE_STYLE);
+		} else {
+			if (lineWidth == 0 && lineStyle != null) {
+				warning("If the line-width is 0, the line is invisible (line-style is deprecated).",
+						StylesPackage.Literals.STYLE_LAYOUT__LINE_STYLE,
+						ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+						lineStyle.toString());
+			}
 		}
 	}
 

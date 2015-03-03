@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.Region;
@@ -27,6 +25,7 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
+import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
@@ -45,12 +44,17 @@ import org.eclipselabs.spray.styles.ui.linking.style.StyleLinkingHelper;
 import org.eclipselabs.spray.xtext.ui.linking.domain.DomainLinkingHelper;
 import org.eclipselabs.spray.xtext.util.TextBodyFetcher;
 
+import javax.inject.Inject;
+
 public class SprayDispatchingLinkingHelper extends TypeAwareHyperlinkHelper {
     @Inject
     private EObjectAtOffsetHelper   eObjectAtOffsetHelper;
 
     @Inject
     private TextBodyFetcher         textBodyFetcher;
+
+    @Inject
+    private IContainer.Manager      containerManager;
 
     @Inject
     private IJvmModelAssociations   modelAssocs;

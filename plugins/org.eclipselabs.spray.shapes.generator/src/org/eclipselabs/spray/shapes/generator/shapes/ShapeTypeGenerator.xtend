@@ -117,7 +117,7 @@ class ShapeTypeGenerator {
         '''
     }
 
-    def String createElementMethod(Shape shape, String parentShape, String shapeStyle, boolean flexible) {
+    def createElementMethod(Shape shape, String parentShape, String shapeStyle, boolean flexible) {
         nextIndex
         var methodName = '''create«elementName.toFirstUpper»'''
         methods.add(
@@ -156,7 +156,7 @@ class ShapeTypeGenerator {
                 GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.compartmentInfo.id.value»");
             «ENDIF»
             «IF element?.compartmentInfo?.compartmentLayout != null»
-                SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.getName»;
+                SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
                 SprayLayoutService.setLayoutManager(«shapeName», «layoutName», «element.compartmentInfo.margin», «element.
                 compartmentInfo.spacing», «flexible»);
                 SprayLayoutService.setLayoutData(«shapeName», «element.layout.common.width», «element.layout.common.
@@ -176,7 +176,7 @@ class ShapeTypeGenerator {
                 «elementName».setLineVisible(false);
             «ENDIF»
             «var boolean childFlexible = isCompartment &&
-                (!element?.compartmentInfo?.compartmentLayout?.getName.equalsIgnoreCase("fixed"))» 
+                (!element?.compartmentInfo?.compartmentLayout?.name.equalsIgnoreCase("fixed"))» 
             «element.shape.recursiveCreation(shapeName, styleName, childFlexible)»
             return «shapeName»;
         '''
@@ -193,7 +193,7 @@ class ShapeTypeGenerator {
                 GraphitiProperties.set(«shapeName», ISprayConstants.TEXT_ID, "«element.compartmentInfo.id.value»");
             «ENDIF»
             «IF element?.compartmentInfo?.compartmentLayout != null»
-                SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.getName»;
+                SprayLayoutType «layoutName» = SprayLayoutType.«element.compartmentInfo.compartmentLayout.name»;
                 SprayLayoutService.setLayoutManager(«shapeName», «layoutName», «element.compartmentInfo.margin», «element.
                 compartmentInfo.spacing», «flexible»);
                 SprayLayoutService.setLayoutData(«shapeName», «element.layout.common.width», «element.layout.common.
@@ -214,7 +214,7 @@ class ShapeTypeGenerator {
                 «elementName».setLineVisible(false);
             «ENDIF»
             «var boolean childFlexible = isCompartment &&
-                (!element?.compartmentInfo?.compartmentLayout?.getName.equalsIgnoreCase("fixed"))» 
+                (!element?.compartmentInfo?.compartmentLayout?.name.equalsIgnoreCase("fixed"))» 
             «element.shape.recursiveCreation(shapeName, styleName, childFlexible)»
             return «shapeName»;
         '''

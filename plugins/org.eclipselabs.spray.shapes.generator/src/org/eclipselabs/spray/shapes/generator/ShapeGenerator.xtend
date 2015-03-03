@@ -80,16 +80,17 @@ class ShapeGenerator implements IGenerator {
 	
 	def private addImageOutputConfiguration(IFileSystemAccess fsa, String outputConfName, String path) {
    		if(fsa instanceof AbstractFileSystemAccess) {
-   			if(!fsa.outputConfigurations.containsKey(outputConfName)) {
+   			val aFsa = fsa as AbstractFileSystemAccess
+   			if(!aFsa.outputConfigurations.containsKey(outputConfName)) {
 	   			val outputConfigurations = <String, OutputConfiguration> newHashMap
-	   			outputConfigurations.putAll(fsa.outputConfigurations)
+	   			outputConfigurations.putAll(aFsa.outputConfigurations)
 	   			val imageOutputConfiguration = new OutputConfiguration(outputConfName)
 	   			imageOutputConfiguration.outputDirectory = path
 	   			imageOutputConfiguration.createOutputDirectory = true
 	   			imageOutputConfiguration.overrideExistingResources = true
 	   			imageOutputConfiguration.setDerivedProperty = true
 	   			outputConfigurations.put(outputConfName, imageOutputConfiguration) 
-	   			fsa.setOutputConfigurations(outputConfigurations)
+	   			aFsa.setOutputConfigurations(outputConfigurations)
    			}
    		}
 	}	

@@ -6,58 +6,47 @@ TargetDefinition "Spray Target Platform - Eclipse 4.3"
 
 	categories {
 		SprayDependencies "Spray 3rd party dependencies" default,
-		Testing, 
-		Optional "Features for Spray extensions",
-		RCP "Features required for building an Eclipse RCP"
-	}
-		
-	"Eclipse Luna" http://download.eclipse.org/releases/luna {
-		org.eclipse.emf.sdk 2.10.1.v20140901-1055,
-		org.eclipse.emf.transaction.sdk 1.8.0.201405281451,
-		org.eclipse.emf.eef.sdk-feature 1.3.0.201311221533 category = Optional,
-		org.eclipse.gef.sdk 3.9.101.201408150207,
-		org.eclipse.zest.sdk 1.5.101.201408150207 category = Optional,
-		org.eclipse.graphiti.sdk.plus.feature 0.11.1.v20140903-1228,
-		org.eclipse.xtext.sdk 2.7.2.v201409160908,
-		org.eclipse.xtend.sdk 2.7.2.v201409160908,
-		org.eclipse.emf.ecore.xcore.sdk 1.2.1.v20140909-0808,
-		org.eclipse.emf.mwe2.language.sdk 2.7.0.v201409021051,
-		org.eclipse.emf.mwe2.runtime.sdk 2.7.0.v201409021027
+		Testing, Optional
 	}
 
-	http://download.eclipse.org/eclipse/updates/4.4 {
-		org.eclipse.sdk 4.4.0.v20140925-0400,
-		org.eclipse.jdt 3.10.0.v20140925-0400,
-		org.eclipse.pde 3.10.0.v20140925-0400,
-		org.eclipse.swt noFeature 3.103.1.v20140903-1938,
-		org.eclipse.help 2.0.102.v20140925-0400 category = RCP,
-		org.eclipse.jdt 3.10.0.v20140925-0400 category = RCP,
-		org.eclipse.platform 4.4.0.v20140925-0400 category = RCP,
-		org.eclipse.rcp 4.4.0.v20140925-0400 category = RCP,
-		org.eclipse.equinox.executable 3.6.100.v20140819-1617 category = RCP,
-		org.eclipse.equinox.p2.core.feature 1.3.0.v20140523-0116 category = RCP,
-		org.eclipse.equinox.p2.user.ui 2.2.0.v20140911-0143 category = RCP,
-		org.eclipse.equinox.p2.rcp.feature 1.2.0.v20140523-0116 category = RCP,
-		org.eclipse.equinox.p2.extras.feature 1.2.0.v20140911-0143 category = RCP,
-		org.eclipse.equinox.p2.rcp.feature 1.2.0.v20140523-0116 category = RCP,
-		org.eclipse.equinox.core.sdk 3.10.0.v20140909-1633 category = RCP
-	}
-	
-	http://download.itemis.com/updates/releases/2.1.1/ {
-		de.itemis.xtext.antlr.sdk 2.1.1.v201405091103,
-		de.itemis.xtext.antlr.feature 2.1.1.v201405091103
+	"Eclipse Kepler" http://download.eclipse.org/releases/kepler {
+		org.eclipse.rcp 4.3.1.v20130911-1000,
+		org.eclipse.sdk 4.3.1.v20130911-1000,
+		org.eclipse.pde 3.9.1.v20130911-1000,
+		org.eclipse.emf.transaction.sdk 1.7.0.201306111400,
+		org.eclipse.emf.eef.sdk-feature 1.2.0.201301111054 category = Optional,
+		org.eclipse.gef.sdk 3.9.1.201308190730,
+		org.eclipse.zest.sdk 1.5.1.201308190730 category = Optional,
+		org.eclipse.graphiti.sdk.plus.feature 0.10.1.v20130918-0838,
+		org.eclipse.swt noFeature 3.102.1.v20130827-2021,
+		org.eclipse.equinox.transforms.hook noFeature 1.0.401.v20130327-1442,
+		org.eclipse.equinox.executable 3.6.0.v20130807-1835
 	}
 
-	http://www.xpect-tests.org/updatesite/nightly/ category = Testing {
-		org.xpect.sdk 0.1.0.201409041611
+	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
+		org.eclipse.emf.sdk 2.9.1.v20130902-0605,
+		org.eclipse.emf.ecore.xcore.sdk 1.1.1.v20130903-0948 category = Optional,
+		org.eclipse.xtext.sdk 2.4.3.v201309030823,
+		org.eclipse.xtend.sdk 2.4.3.v201309030823,
+		org.eclipse.emf.mwe2.language.sdk 2.4.1.v201309030840,
+		org.eclipse.emf.mwe2.runtime.sdk 2.4.1.v201309030422
 	}
 
-	http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x category = Testing {
-		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440
+	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
+		de.itemis.xtext.antlr.sdk 2.1.0.v201308291703,
+		de.itemis.xtext.antlr.feature 2.1.0.v201308291703
+	}
+
+	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
+		org.xpect.sdk 0.1.0.201310081935 category = Testing
+	}
+
+	"Xtext utils" http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x {
+		org.eclipselabs.xtext.utils.unittesting.feature 0.9.3.201204261440  category = Testing
 	}
 
 	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ category = Testing {
-		org.eclipse.swtbot.eclipse 2.2.1.201402241301,
-		org.eclipse.swtbot.eclipse.gef 2.2.1.201402241301
+		org.eclipse.swtbot.eclipse 2.1.1.201307101628,
+		org.eclipse.swtbot.eclipse.gef 2.1.1.201307101628
 	}
 	

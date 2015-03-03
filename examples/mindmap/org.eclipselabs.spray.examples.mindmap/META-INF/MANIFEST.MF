@@ -33,4 +33,4 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.ui.resource,
  org.eclipse.xtext.util,
  org.eclipselabs.spray.styles.generator.util
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

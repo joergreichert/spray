@@ -34,8 +34,8 @@ class MetaReferenceExtensionsTest {
         val Diagram diagram = SprayFactory::eINSTANCE.createDiagram
         val MetaClass metaClass = SprayFactory::eINSTANCE.createMetaClass
         val MetaReference reference = SprayFactory::eINSTANCE.createMetaReference
-        metaClass.references.add(reference)
-        diagram.metaClasses.add(metaClass)
+        metaClass.referencesList.add(reference)
+        diagram.metaClassesList.add(metaClass)
         val Diagram foundDiagram = sut.getDiagram(reference)
         assertNotNull("found diagram", foundDiagram)
         assertEquals("found expected diagram", foundDiagram, diagram)        

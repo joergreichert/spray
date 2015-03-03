@@ -19,7 +19,7 @@ import static org.eclipselabs.spray.generator.common.GeneratorUtil.*
 class CustomFeature extends FileGenerator<CustomBehavior>  {
     
     override CharSequence generateBaseFile(CustomBehavior modelElement) {
-        mainFile( modelElement, javaGenFile.baseClassName)
+        mainFile( modelElement as CustomBehavior, javaGenFile.baseClassName)
     }
 
     override CharSequence generateExtensionFile(CustomBehavior modelElement) {

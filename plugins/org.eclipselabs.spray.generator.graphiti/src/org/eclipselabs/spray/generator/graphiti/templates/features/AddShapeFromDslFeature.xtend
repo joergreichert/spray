@@ -49,11 +49,11 @@ class AddShapeFromDslFeature extends FileGenerator<ShapeFromDsl> {
     }
     
     override CharSequence generateBaseFile(ShapeFromDsl modelElement) {
-        mainFile( modelElement, javaGenFile.baseClassName)
+        mainFile( modelElement as ShapeFromDsl, javaGenFile.baseClassName)
     }
 
     override CharSequence generateExtensionFile(ShapeFromDsl modelElement) {
-        mainExtensionPointFile( modelElement, javaGenFile.className)
+        mainExtensionPointFile( modelElement as ShapeFromDsl, javaGenFile.className)
     }
     
     def mainExtensionPointFile(ShapeFromDsl container, String className) '''    
