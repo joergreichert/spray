@@ -2,9 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<!-- Tycho requires Maven 3 -->
 	<prerequisites>
-		<maven>3.0</maven>
+		<maven>3.2</maven>
 	</prerequisites>
 
 	<groupId>org.eclipselabs.spray</groupId>
@@ -19,7 +18,7 @@
 		<file.encoding>${project.encoding}</file.encoding>
 		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
-		<tycho-version>0.21.0</tycho-version>
+		<tycho-version>0.22.0</tycho-version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<ant-contrib.version>1.0b3</ant-contrib.version>
@@ -41,26 +40,26 @@
 		<build-helper-maven-plugin.version>1.9</build-helper-maven-plugin.version>
 		<eclipse-signing-maven-plugin.version>1.0.5</eclipse-signing-maven-plugin.version>
 		<exec-maven-plugin-version>1.3.2</exec-maven-plugin-version>
-		<xtend-maven-plugin-version>2.7.2</xtend-maven-plugin-version>
-		<xtend-library-version>2.7.2</xtend-library-version>
-		<xtext-version>2.7.2</xtext-version>
+		<xtext-version>2.7.3</xtext-version>
+		<xtend-maven-plugin-version>${xtext-version}</xtend-maven-plugin-version>
+		<xtend-library-version>${xtext-version}</xtend-library-version>
 		<!--  xtend runtime dependencies start -->
 		<org.eclipse.xtext.builder.standalone-version>[${xtext-version}]</org.eclipse.xtext.builder.standalone-version>
 		<org.eclipse.xtext.common.types-version>[${xtext-version}]</org.eclipse.xtext.common.types-version>
 		<org.eclipse.xtext.xtext-version>[${xtext-version}]</org.eclipse.xtext.xtext-version>
 		<org.eclipse.xtext.xbase-version>[${xtext-version}]</org.eclipse.xtext.xbase-version>
 		<org.osgi.core-version>4.3.1</org.osgi.core-version>
-        <equinox-common-version>3.6.200-v20130402-1505</equinox-common-version>
+		<equinox-common-version>3.6.200-v20130402-1505</equinox-common-version>
 		<org.eclipse.core.resources-version>3.7.100</org.eclipse.core.resources-version>
 		<org.eclipse.text-version>3.5.101</org.eclipse.text-version>
 		<org.eclipse.emf.codegen.ecore-version>[2.10,)</org.eclipse.emf.codegen.ecore-version>
-		<org.eclipse.emf.codegen.ecore.xtext-version>[1.1.9,)</org.eclipse.emf.codegen.ecore.xtext-version>
-		<org.eclipse.emf.common-version>[2.9.0,)</org.eclipse.emf.common-version>
-		<org.eclipse.emf.ecore-version>[2.9.0,)</org.eclipse.emf.ecore-version>
-		<org.eclipse.emf.ecore.xcore-version>[1.2.9,)</org.eclipse.emf.ecore.xcore-version>
-		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.9,)</org.eclipse.emf.ecore.xcore.lib-version>
-		<org.eclipse.emf.ecore.xcore-version>[1.2.9,)</org.eclipse.emf.ecore.xcore-version>
-		<org.eclipse.emf.ecore.xcore.lib-version>[1.0.9,)</org.eclipse.emf.ecore.xcore.lib-version>
+		<org.eclipse.emf.codegen.ecore.xtext-version>[1.1,)</org.eclipse.emf.codegen.ecore.xtext-version>
+		<org.eclipse.emf.common-version>[2.9,)</org.eclipse.emf.common-version>
+		<org.eclipse.emf.ecore-version>[2.9,)</org.eclipse.emf.ecore-version>
+		<org.eclipse.emf.ecore.xcore-version>[1.2,)</org.eclipse.emf.ecore.xcore-version>
+		<org.eclipse.emf.ecore.xcore.lib-version>[1.0,)</org.eclipse.emf.ecore.xcore.lib-version>
+		<org.eclipse.emf.ecore.xcore-version>[1.2,)</org.eclipse.emf.ecore.xcore-version>
+		<org.eclipse.emf.ecore.xcore.lib-version>[1.0,)</org.eclipse.emf.ecore.xcore.lib-version>
 		<!--  xtend runtime dependencies end -->
 		<jacoco-maven-plugin.version>0.7.2.201409121644</jacoco-maven-plugin.version>
 		<junit-version>4.11</junit-version>
@@ -97,7 +96,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>		
+			</plugin>
 			<!-- By default clean xtend-gen if exists, the sources will be produced by xtend-plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -183,10 +182,10 @@
 					<dependency>
 						<groupId>org.apache.ant</groupId>
 						<artifactId>ant-nodeps</artifactId>
-						<version>${ant-nodeps.version}</version>                                   
+						<version>${ant-nodeps.version}</version>
 					</dependency>
 				</dependencies>
-			</plugin>			
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
@@ -474,7 +473,7 @@
 						<excludeRoots>
 							<excludeRoot>src-gen</excludeRoot>
 							<excludeRoot>xtend-gen</excludeRoot>
-						</excludeRoots>							
+						</excludeRoots>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -574,7 +573,7 @@
 		</pluginManagement>
 	</build>
 	
-	<!-- to resolve this warning "[WARNING] Unable to locate Source XRef to 
+	<!-- to resolve this warning "[WARNING] Unable to locate Source XRef to
 		link to - DISABLED". With this warning PMD validation will work fine. -->
 	<reporting>
 		<plugins>
@@ -584,7 +583,7 @@
 				<version>${maven-jxr-plugin.version}</version>
 			</plugin>
 		</plugins>
-	</reporting>	
+	</reporting>
 
 	<repositories>
 		<repository>
@@ -625,7 +624,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</pluginRepository>		
+		</pluginRepository>
 		<pluginRepository>
 			<id>fornax</id>
 			<url>http://www.fornax-platform.org/m2/repository</url>
@@ -647,7 +646,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		-->		
+		-->
 	</pluginRepositories>
 	
 	<profiles>
@@ -675,7 +674,7 @@
 			</activation>
 			<properties>
 				<localBuild>true</localBuild>
-			</properties>			
+			</properties>
 			<repositories>
 				<repository>
 					<id>spray-dependencies</id>

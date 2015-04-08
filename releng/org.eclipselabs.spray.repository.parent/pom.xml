@@ -13,8 +13,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<platform-version-name>kepler</platform-version-name>
-		<tycho-version>0.21.0</tycho-version>
+		<platform-version-name>luna</platform-version-name>
+		<tycho-version>0.22.0</tycho-version>
 	</properties>
 
 	<build>
