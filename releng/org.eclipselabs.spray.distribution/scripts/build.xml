@@ -162,6 +162,13 @@
 				<exclude name="**/target/**" />
 			</fileset>
 		</replaceregexp>
+		
+		<!-- Distrobuilder -->
+		<replaceregexp
+			file="${PATH_REPOSITORY_ROOT}/devtools/org.eclipselabs.spray.dev.distrobuilder/pom.xml"
+			match='appname="(\w+)" version="(.*)">'
+			replace='appname="\1" version="${version.main}"'
+			/>
 
 		<git command="add --all"/>
 		<echo>[spray-release] Modified files:</echo>

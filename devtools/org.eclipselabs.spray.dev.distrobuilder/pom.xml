@@ -5,7 +5,7 @@
 	<groupId>org.eclipselabs.spray.dev</groupId>
 	<artifactId>distrobuilder</artifactId>
 	<packaging>pom</packaging>
-	<version>0.5.1-SNAPSHOT</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<description />
 
 	<properties>
@@ -56,7 +56,7 @@
                                 <!-- USER IDE: Less features, add Spray Release -->
 								<builder builddirectory="${project.build.directory}/build" p2directorexecutable="${project.build.directory}/director/director"
 									targetdirectory="${basedir}/targets" staticreposdirectory="${basedir}/repos" distdirectory="${project.build.directory}/dist"
-									appname="Spray" version="0.5.0">
+									appname="Spray" version="0.6.0"
                                     
 									<updatesite url="http://download.eclipse.org/releases/kepler" />
                                     

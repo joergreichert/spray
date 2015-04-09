@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Spray Xpect Extensions
 Bundle-SymbolicName: org.eclipselabs.spray.xtext.tests.xpect
-Bundle-Version: 0.5.1.qualifier
+Bundle-Version: 0.6.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.xpect,
  org.xpect.xtext.lib,
