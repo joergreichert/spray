@@ -25,7 +25,7 @@ import org.eclipse.xtext.scoping.impl.FilteringScope;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
 import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.scoping.impl.MapBasedScope;
-import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
+import org.eclipse.xtext.xbase.annotations.typesystem.XbaseWithAnnotationsBatchScopeProvider;
 import org.eclipselabs.spray.shapes.scoping.ConnectionScopeRestrictor;
 import org.eclipselabs.spray.shapes.scoping.ShapeScopeRestrictor;
 import org.eclipselabs.spray.styles.scoping.StyleScopeRestrictor;
@@ -45,7 +45,7 @@ import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 @SuppressWarnings("restriction")
-public class Spray2ScopeProvider extends XbaseScopeProvider {
+public class Spray2ScopeProvider extends XbaseWithAnnotationsBatchScopeProvider {
 
     @Inject
     private IQualifiedNameProvider qnProvider;
@@ -239,7 +239,7 @@ public class Spray2ScopeProvider extends XbaseScopeProvider {
                 return EObjectDescription.create(qnProvider.apply(input), input);
             }
         };
-        // Implicit import of the EPackage of the Diagram Model type 
+        // Implicit import of the EPackage of the Diagram Model type
         final List<ImportNormalizer> normalizer = Collections.singletonList(new ImportNormalizer(qnProvider.apply(diagramModelType.getEPackage()), true, false));
         final ImportScope importDiagramTypePackage = new ImportScope(normalizer, delegateGetScope(context, reference), null, null, false);
         final Iterable<IEObjectDescription> descriptions = Iterables.transform(Iterables.filter(diagramModelType.getEPackage().getEClassifiers(), filter), toObjDesc);

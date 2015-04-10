@@ -1,4 +1,4 @@
-grammar org.eclipselabs.spray2.xtext.Spray2 with org.eclipse.xtext.xbase.Xbase 
+grammar org.eclipselabs.spray2.xtext.Spray2 with org.eclipse.xtext.xbase.annotations.XbaseWithAnnotations
 
 generate spray2 "http://www.eclipselabs.org/spray2/xtext/Spray2"
 
@@ -7,32 +7,29 @@ import 'http://www.eclipse.org/emf/2002/Ecore' as ecore
 
 Diagram :
     imports+=Import*
-    'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? 
+    'diagram' name=ID 'for' modelType=[ecore::EClass|QualifiedName] (style=SprayStyleRef)?
     (sprayElements += SprayElement)*
     (paletteDefinition = PaletteDefinition)?
 ;
 
 Import:
-    'import' importedNamespace=QualifiedNameWithWildCard;
+    'import' importedNamespace=QualifiedNameWithWildcard;
 
-QualifiedNameWithWildCard returns ecore::EString :
-    QualifiedName  ('.' '*')?;
-    
 SprayStyleRef:
     'style' (style=JvmTypeReference);
     
-SprayElement: 
+SprayElement:
     NodeElement | EdgeElement
 ;
 
-NodeElement: 
+NodeElement:
     'node' name=ID 'for' type=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? '{'
         ( figure=NodeFigureSection )?
         ( tooling=ToolingSection )?
         ( behavior=NodeBehaviorSection )?
-    '}' 
+    '}'
 ;
-EdgeElement: 
+EdgeElement:
     'edge' name=ID 'for' type=[ecore::EClass|QualifiedName] (style=SprayStyleRef)? '{'
         ( figure=EdgeFigureSection )
         ( tooling=ToolingSection )
@@ -44,7 +41,7 @@ NodeFigureSection: 'figure' shapeRef=JvmTypeReference ('{'
         textProperties+=TextPropertyAssignment*
         compartmentProperties+=CompartmentPropertyAssignment*
     '}')?
-;    
+;
 EdgeFigureSection: 'figure' shapeRef=JvmTypeReference ('{'
         textProperties+=TextPropertyAssignment*
     '}')?
@@ -54,7 +51,7 @@ ToolingSection: {ToolingSection} ('tooling' '{'
         ( 'palette' paletteCompartment=STRING )?
         ( 'icon' icon=STRING )?
         ( 'tooltip' tooltipExp=XExpression )?
-        ( 'rapid-buttons' rapidButtons+=RapidButtonDefinition ("," rapidButtons+=RapidButtonDefinition)*)? 
+        ( 'rapid-buttons' rapidButtons+=RapidButtonDefinition ("," rapidButtons+=RapidButtonDefinition)*)?
     '}')
 ;
 
@@ -68,7 +65,7 @@ NodeBehaviorSection: {NodeBehaviorSection} ('behavior' '{'
 
 
 EdgeBehaviorSection: {EdgeBehaviorSection} ('behavior' '{'
-    ('creatable-in' creatableIn=[ecore::EReference]) 
+    ('creatable-in' creatableIn=[ecore::EReference])
     ('source' source=[ecore::EReference])
     ('target' target=[ecore::EReference])
     ('edit-on-create' editOnCreate=[ecore::EAttribute])?
@@ -77,22 +74,22 @@ EdgeBehaviorSection: {EdgeBehaviorSection} ('behavior' '{'
     '}')
 ;
 
-TextPropertyAssignment: 
+TextPropertyAssignment:
     'text' key=[types::JvmEnumerationLiteral|QualifiedName] 'for' attribute=[ecore::EAttribute] (
-        '(' ('editable' '=' editable=XBooleanLiteral)? 
+        '(' ('editable' '=' editable=XBooleanLiteral)?
             ('format' '=' format=XBlockExpression)?
         ')')?
 ;
 
-CompartmentPropertyAssignment: 
+CompartmentPropertyAssignment:
     'compartment' key=[types::JvmEnumerationLiteral|QualifiedName] 'for' attribute=[ecore::EAttribute];
 
 RapidButtonDefinition: edge=[EdgeElement] ('to' node=[NodeElement])?;
 
-PaletteDefinition: 
+PaletteDefinition:
     'palette' '{'
         category+=PaletteCategory+
-    '}'    
+    '}'
 ;
 
 PaletteCategory: 'category' name=STRING '{'
