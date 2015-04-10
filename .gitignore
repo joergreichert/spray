@@ -1,27 +1,44 @@
+#
+# Ignored File Extensions
+#
+*.bak
+*.ec
+*.zip
+.antlr-generator-*.jar
+*.orig
+
+#
+# Ignored Folder Names
+#
 bin
 target
+xtend-gen
+src-gen
+screenshots
+products
+
+#
+# Ignored File Names
+#
 .DS_Store
 plugin.xml_gen
-screenshots
-/plugins/org.xspray.mm/text/
 .netrc
-*.bak
+
+#
+# Ignored other
+#
+
+/plugins/org.xspray.mm/text/
 /releng/scripts/release2.sh
 Copy of*
 Copy* of src-gen
-products
 docs/org.eclipselabs.spray.doc.dev/docs/
 docs/org.eclipselabs.spray.doc.user/docs/
 docs/org.eclipselabs.spray.styles.doc/docs/
 docs/org.eclipselabs.spray.shapes.doc/docs/
 /examples/one/org.eclipselabs.spray.examples.one/src/plugin.xml
-*.ec
-*.zip
 /devtools/org.eclipselabs.spray.dev.distrobuilder/targets/
-src-gen
 /releng/org.eclipselabs.spray.distribution/scripts/version.properties
-*.orig
 /tests/org.eclipselabs.spray.generator.graphiti.tests/shapepreviews/
 /releng/org.eclipselabs.spray.distribution/scripts/user.properties
 /examples/ecore/org.eclipselabs.spray.examples.ecore/shapepreviews/
-.antlr-generator-*.jar
