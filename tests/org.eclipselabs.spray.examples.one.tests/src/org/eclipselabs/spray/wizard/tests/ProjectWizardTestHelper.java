@@ -2,7 +2,7 @@ package org.eclipselabs.spray.wizard.tests;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class ProjectWizardTestHelper {
 	private SWTBot bot;

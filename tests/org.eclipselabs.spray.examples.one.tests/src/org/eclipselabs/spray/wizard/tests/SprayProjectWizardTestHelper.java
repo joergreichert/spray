@@ -1,6 +1,6 @@
 package org.eclipselabs.spray.wizard.tests;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;

@@ -4,13 +4,13 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
 package org.eclipselabs.spray.shapes.tests;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipselabs.spray.shapes.generator.util.ShapeAnchorCalculator;
