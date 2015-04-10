@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -14,7 +14,6 @@ import org.eclipse.xtext.common.types.access.jdt.TypeURIHelper;
 
 import com.google.inject.AbstractModule;
 
-@SuppressWarnings("restriction")
 public class SharedModule extends AbstractModule {
 	@Override
 	protected void configure() {

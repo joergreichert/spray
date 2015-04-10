@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -107,7 +107,8 @@ public class UpdateTargetPlatformTest {
         updater.updateXML(doc, target);
         
         Element updatedElem = (Element) doc.getDescendants(new ElementFilter("unit") {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             public boolean matches(Object obj) {
                 if (super.matches(obj)) {
                     return ((Element)obj).getAttributeValue("id").equals("org.jdom");

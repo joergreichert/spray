@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.Region;
@@ -123,7 +122,7 @@ public abstract class DSLLinkingHelper<T extends EObject> extends
 			final EObject to, IHyperlinkAcceptor acceptor) {
 		final URIConverter uriConverter = from.getResourceSet()
 				.getURIConverter();
-		uriConverter.getURIMap().putAll(EcorePlugin.computePlatformURIMap(true));		
+		uriConverter.getURIMap().putAll(EcorePlugin.computePlatformURIMap(true));
 		final String hyperlinkText = getLabelProvider().getText(to) + " (Xtext)";
 		final URI uri = EcoreUtil.getURI(to);
 		final URI normalized = uriConverter.normalize(uri);

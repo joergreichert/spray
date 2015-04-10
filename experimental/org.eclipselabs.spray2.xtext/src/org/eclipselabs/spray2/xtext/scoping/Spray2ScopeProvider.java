@@ -44,7 +44,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
-@SuppressWarnings("restriction")
 public class Spray2ScopeProvider extends XbaseWithAnnotationsBatchScopeProvider {
 
     @Inject

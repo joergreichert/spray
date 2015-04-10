@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -41,6 +41,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 // TODO: Increment 'sequenceNumber' when something has changed
+@SuppressWarnings("unused")
 public class UpdateTargetPlatform {
     private static final Log LOG = LogFactory.getLog(UpdateTargetPlatform.class);
 
@@ -122,7 +123,7 @@ public class UpdateTargetPlatform {
             Iterator<InstallableUnit> itIU = loc.getUnits().iterator();
             for (Object unit: locElem.getChildren("unit")) {
                 Element unitElem = (Element) unit;
-                if (!itIU.hasNext()) throw new IllegalStateException(); 
+                if (!itIU.hasNext()) throw new IllegalStateException();
                 InstallableUnit iu = itIU.next();
                 if (!iu.getId().equals(unitElem.getAttributeValue("id"))) {
                     throw new IllegalStateException ("IU mismatch: "+iu.getId()+"!="+unitElem.getAttributeValue("id"));
@@ -154,7 +155,7 @@ public class UpdateTargetPlatform {
     }
     
     /**
-     * 
+     *
      * @param iusToUpdate The collection of installable units that are subject for update
      * @param iusFromRepo The installable units read from a repository
      */

@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -19,10 +19,9 @@ import org.eclipse.xtext.xbase.scoping.XbaseImportedNamespaceScopeProvider;
 
 /**
  * Adds implicit imports for namespaces java.lang.*, org.eclipselabs.spray.styles.*
- * 
+ *
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
-@SuppressWarnings("restriction")
 public class SprayImportedNamespaceScopeProvider extends XbaseImportedNamespaceScopeProvider {
     private final List<ImportNormalizer> implicitImports_ignoreCase    = new ArrayList<ImportNormalizer>(2);
     private final List<ImportNormalizer> implicitImports_notignoreCase = new ArrayList<ImportNormalizer>(2);
