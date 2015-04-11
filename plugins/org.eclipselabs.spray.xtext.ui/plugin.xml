@@ -21,6 +21,7 @@
               extensions="spray"
               icon="icons/Spray-Logo-Icon-16.png"
               id="org.eclipselabs.spray.xtext.Spray"
+              matchingStrategy="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.JavaEditorInputMatcher"
               name="Spray Editor">
         </editor>
     </extension>
@@ -44,12 +45,42 @@
                     definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
             </reference>
          </activeWhen>
-      </handler>
+      	</handler>
+      	<!-- copy qualified name -->
+        <handler
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
+            commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName">
+            <activeWhen>
+				<reference definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened" />
+            </activeWhen>
+        </handler>
+        <handler
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
+            commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName">
+            <activeWhen>
+            	<and>
+            		<reference definitionId="org.eclipselabs.spray.xtext.Spray.XtextEditor.opened" />
+	                <iterate>
+						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+					</iterate>
+				</and>
+            </activeWhen>
+        </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
         <definition id="org.eclipselabs.spray.xtext.Spray.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
+                <with variable="activeEditor">
+                    <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
+                        value="org.eclipselabs.spray.xtext.Spray" 
+                        forcePluginActivation="true"/>
+                </with>        
+            </and>
+        </definition>
+        <definition id="org.eclipselabs.spray.xtext.Spray.XtextEditor.opened">
+            <and>
+                <reference definitionId="isXtextEditorActive"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
                         value="org.eclipselabs.spray.xtext.Spray" 
@@ -116,6 +147,19 @@
             id="org.eclipselabs.spray.xtext.Spray.validate"
             name="Validate">
       </command>
+      <!-- copy qualified name -->
+      <command
+            id="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
+            categoryId="org.eclipse.ui.category.edit"
+            description="Copy the qualified name for the selected element"
+            name="Copy Qualified Name">
+      </command>
+      <command
+            id="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName"
+            categoryId="org.eclipse.ui.category.edit"
+            description="Copy the qualified name for the selected element"
+            name="Copy Qualified Name">
+      </command>
     </extension>
     <extension point="org.eclipse.ui.menus">
         <menuContribution
@@ -130,6 +174,36 @@
                 </reference>
             </visibleWhen>
          </command>  
+         </menuContribution>
+         <!-- copy qualified name -->
+         <menuContribution locationURI="popup:#TextEditorContext?after=copy">
+         	<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName" 
+         		style="push" tooltip="Copy Qualified Name">
+            	<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened" />
+            	</visibleWhen>
+         	</command>  
+         </menuContribution>
+         <menuContribution locationURI="menu:edit?after=copy">
+         	<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
+            	style="push" tooltip="Copy Qualified Name">
+            	<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened" />
+            	</visibleWhen>
+         	</command>  
+         </menuContribution>
+         <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName" 
+				style="push" tooltip="Copy Qualified Name">
+         		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.eclipselabs.spray.xtext.Spray.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
          </menuContribution>
     </extension>
     <extension point="org.eclipse.ui.menus">
@@ -171,6 +245,28 @@
     </extension>
 
 
+    <!-- marker definitions for org.eclipselabs.spray.xtext.Spray -->
+    <extension
+            id="spray.check.fast"
+            name="Spray Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.fast"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="spray.check.normal"
+            name="Spray Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.normal"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="spray.check.expensive"
+            name="Spray Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.expensive"/>
+        <persistent value="true"/>
+    </extension>
 
 	<!-- Quick Outline -->
 	<extension
@@ -227,7 +323,7 @@
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
+			class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
@@ -258,13 +354,34 @@
 	        <keywordReference id="org.eclipselabs.spray.xtext.ui.keyword_Spray"/>
 	    </page>
 	</extension>
-   <!-- quickfix marker resolution generator -->
-   <extension
-         point="org.eclipse.ui.ide.markerResolution">
-      <markerResolutionGenerator
-            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
-      </markerResolutionGenerator>
-   </extension>
+    <!-- quickfix marker resolution generator for org.eclipselabs.spray.xtext.Spray -->
+    <extension
+            point="org.eclipse.ui.ide.markerResolution">
+        <markerResolutionGenerator
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipselabs.spray.xtext.ui.spray.check.fast">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipselabs.spray.xtext.ui.spray.check.normal">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+        <markerResolutionGenerator
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="org.eclipselabs.spray.xtext.ui.spray.check.expensive">
+            <attribute
+                name="FIXABLE_KEY"
+                value="true">
+            </attribute>
+        </markerResolutionGenerator>
+    </extension>
 
 <!-- Type Hierarchy  -->
 	<extension
@@ -280,7 +397,7 @@
 		</handler>
 		<handler 
 			class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchyHandler"
-			commandId="org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchy">
+			commandId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy">
 			<activeWhen>
 				<reference
 					definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
@@ -301,7 +418,7 @@
 		</menuContribution>
 		<menuContribution
 			locationURI="popup:#TextEditorContext?after=group.open">
-			<command commandId="org.eclipse.xtext.xbase.ui.hierarchy.QuickTypeHierarchy"
+			<command commandId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy"
 				style="push"
 				tooltip="Quick Type Hierarchy">
 				<visibleWhen checkEnabled="false">
@@ -310,6 +427,124 @@
 			</command>
 		</menuContribution>
 	</extension>
+	<!-- Call Hierachy -->
+	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierachyHandler"
+			commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierarchy">
+			<activeWhen>
+				<reference
+					definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:#TextEditorContext?after=group.open">
+			<command commandId="org.eclipse.xtext.xbase.ui.hierarchy.OpenCallHierarchy"
+				style="push"
+				tooltip="Open Call Hierarchy">
+				<visibleWhen checkEnabled="false">
+					<reference definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened"/>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+	<extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.builder.smap.StratumBreakpointAdapterFactory"
+         adaptableType="org.eclipse.xtext.ui.editor.XtextEditor">
+         <adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget"/>
+      </factory> 
+   </extension>
+   <extension point="org.eclipse.ui.editorActions">
+      <editorContribution targetID="org.eclipselabs.spray.xtext.Spray" 
+                          id="org.eclipselabs.spray.xtext.Spray.rulerActions">
+	     <action
+	             label="Not Used"
+	             class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+	             style="push"
+	             actionID="RulerDoubleClick"
+	             id="org.eclipselabs.spray.xtext.Spray.doubleClickBreakpointAction"/>
+	  </editorContribution>
+   </extension>
+   <extension point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+         targetID="org.eclipselabs.spray.xtext.Spray.RulerContext"
+         id="org.eclipselabs.spray.xtext.Spray.RulerPopupActions">
+         <action
+            label="Toggle Breakpoint"
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+            menubarPath="debug"
+            id="org.eclipselabs.spray.xtext.Spray.rulerContextMenu.toggleBreakpointAction">
+         </action>
+         <action
+            label="Not used"
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.debug.ui.actions.RulerEnableDisableBreakpointActionDelegate"
+            menubarPath="debug"
+            id="org.eclipselabs.spray.xtext.Spray.rulerContextMenu.enableDisableBreakpointAction">
+         </action>
+         <action
+           label="Breakpoint Properties"
+           helpContextId="breakpoint_properties_action_context"
+           class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.jdt.debug.ui.actions.JavaBreakpointPropertiesRulerActionDelegate"
+           menubarPath="group.properties"
+           id="org.eclipselabs.spray.xtext.Spray.rulerContextMenu.openBreapointPropertiesAction">
+         </action>
+      </viewerContribution>
+   </extension>
+    <!-- Introduce Local Variable Refactoring -->
+	<extension point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.refactoring.ExtractVariableHandler"
+			commandId="org.eclipse.xtext.xbase.ui.refactoring.ExtractLocalVariable">
+			<activeWhen>
+				<reference
+					definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
+				</reference>
+			</activeWhen>
+		</handler>
+	</extension>
+    <extension point="org.eclipse.ui.menus">
+         <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.edit">
+         <command commandId="org.eclipse.xtext.xbase.ui.refactoring.ExtractLocalVariable"
+               style="push">
+            <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>  
+   <!-- Open implementation -->
+   <extension point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipselabs.spray.xtext.ui.SprayExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.navigation.OpenImplementationHandler"
+            commandId="org.eclipse.xtext.xbase.ui.OpenImplementationCommand">
+            <activeWhen>
+				<reference
+					definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
+				</reference>
+			</activeWhen>
+      </handler>
+   </extension>
+ <extension point="org.eclipse.ui.menus">
+       <menuContribution
+            locationURI="menu:navigate?after=open.ext4">
+         <command commandId="org.eclipse.xtext.xbase.ui.OpenImplementationCommand">
+		<visibleWhen checkEnabled="false">
+              <reference
+                 definitionId="org.eclipselabs.spray.xtext.Spray.Editor.opened">
+              </reference>
+		</visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
 
 
     <!-- SPRAY BEGIN -->
