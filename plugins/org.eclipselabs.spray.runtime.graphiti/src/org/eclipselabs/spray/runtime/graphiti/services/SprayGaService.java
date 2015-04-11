@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -54,7 +54,7 @@ import org.eclipse.graphiti.util.IColorConstant;
  * methods {@link #setDefaultGraphicsAlgorithmValues(GraphicsAlgorithm)} and
  * {@link #setDefaultTextAttributes(Diagram, AbstractText, String, boolean)},
  * which are private in {@link GaServiceImpl}.
- * 
+ *
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public class SprayGaService implements IGaService {
@@ -128,6 +128,7 @@ public class SprayGaService implements IGaService {
 		return text;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getAngle(AbstractText at, boolean checkStyles) {
 		return delegate.getAngle(at, checkStyles);

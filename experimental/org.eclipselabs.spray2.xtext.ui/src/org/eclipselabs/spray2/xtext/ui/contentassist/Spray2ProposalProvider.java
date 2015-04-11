@@ -54,7 +54,7 @@ public class Spray2ProposalProvider extends AbstractSpray2ProposalProvider {
     private IWorkspaceRoot   root;
     @Inject
     @Named(IConstants.NAME_VALID_ICON_FILE_EXTENSIONS)
-    private Set              validIconFileExtensions;
+    private Set<String>      validIconFileExtensions;
     @Inject
     ITypesProposalProvider   proposalProvider;
     @Inject
@@ -120,7 +120,7 @@ public class Spray2ProposalProvider extends AbstractSpray2ProposalProvider {
     protected Image getImage(IPath path) {
         URL url = null;
         try {
-            url = path.toFile().toURL();
+            url = path.toFile().toURI().toURL();
         } catch (MalformedURLException e) {
             return null;
         }

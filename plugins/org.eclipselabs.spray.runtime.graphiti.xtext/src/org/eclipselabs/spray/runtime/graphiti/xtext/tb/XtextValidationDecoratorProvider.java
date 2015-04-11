@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -22,13 +22,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.xtext.ui.util.IssueUtil;
 import org.eclipse.xtext.validation.Issue;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipselabs.spray.runtime.graphiti.tb.IRenderingDecoratorProvider;
 
 import com.google.common.base.Predicate;
@@ -82,6 +80,7 @@ public class XtextValidationDecoratorProvider implements IRenderingDecoratorProv
         return null;
     }
 
+    /*
     private String getImageIdForDecorator(Iterable<IMarker> markers) {
         int maxSeverity = IMarker.SEVERITY_INFO;
         for (IMarker m : markers) {
@@ -111,6 +110,7 @@ public class XtextValidationDecoratorProvider implements IRenderingDecoratorProv
             return "";
         }
     }
+    */
 
     protected Iterable<IMarker> findMarkers(EObject o) {
         IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(o.eResource().getURI().toPlatformString(true));

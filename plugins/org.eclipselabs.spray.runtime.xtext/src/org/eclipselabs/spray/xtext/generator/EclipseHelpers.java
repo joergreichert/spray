@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -41,7 +41,7 @@ public class EclipseHelpers {
 
     /**
      * Return a java.io.File correcponsing to a resource
-     * 
+     *
      * @param resource
      *            The resource
      * @return
@@ -58,7 +58,7 @@ public class EclipseHelpers {
 
     /**
      * Get the full local pathname corresponding to a resource.
-     * 
+     *
      * @param resource
      * @return
      */
@@ -69,7 +69,7 @@ public class EclipseHelpers {
 
     /**
      * Get the full local pathname corresponding to a resource.
-     * 
+     *
      * @param resource
      * @return
      */
@@ -92,7 +92,7 @@ public class EclipseHelpers {
 
     /**
      * return the Ipath for a resource named 'pathname'in bundle 'bundlename'.
-     * 
+     *
      * @param bundlename
      * @param pathname
      *            path, relative to the bundle root.
@@ -136,7 +136,6 @@ public class EclipseHelpers {
         // }
         // System.err.println("EclipseUtil.getURL(" + bundlename + ", " +
         // myPathname + ")");
-        IPath result = null;
         URL installURL = null;
         try {
             // System.err.println("dev mode : " + Platform.inDevelopmentMode());
@@ -148,7 +147,7 @@ public class EclipseHelpers {
             // System.err.println("fromLocation [" + fromLocation.toString() +
             // "]");
 
-            result = new Path(fromLocation.getPath());
+            new Path(fromLocation.getPath());
         } catch (Exception e) {
             System.err.println("EclipseUtils.getPath [" + e.getMessage() + "]");
             e.printStackTrace(System.err);
@@ -208,7 +207,7 @@ public class EclipseHelpers {
 
     /**
      * Creates a directory in the specified project
-     * 
+     *
      * @param project
      *            project to create the directory in
      * @param loc

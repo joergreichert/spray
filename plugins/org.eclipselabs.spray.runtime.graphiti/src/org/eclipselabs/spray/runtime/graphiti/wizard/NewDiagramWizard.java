@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
@@ -147,10 +147,10 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
     //        monitor.worked(1);
     //    }
 
-    private void throwCoreException(String message) throws CoreException {
-        IStatus status = new Status(IStatus.ERROR, "org.eclipselabs.spray.runtime.graphiti", IStatus.OK, message, null);
-        throw new CoreException(status);
-    }
+//    private void throwCoreException(String message) throws CoreException {
+//        IStatus status = new Status(IStatus.ERROR, "org.eclipselabs.spray.runtime.graphiti", IStatus.OK, message, null);
+//        throw new CoreException(status);
+//    }
 
     @Override
     public void init(IWorkbench workbench, IStructuredSelection selection) {

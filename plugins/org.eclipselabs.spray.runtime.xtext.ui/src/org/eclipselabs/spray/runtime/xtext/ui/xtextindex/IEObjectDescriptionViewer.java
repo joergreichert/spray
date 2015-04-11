@@ -4,14 +4,12 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Spray Dev Team - initial API and implementation
  **************************************************************************** */
 package org.eclipselabs.spray.runtime.xtext.ui.xtextindex;
 
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -38,7 +36,7 @@ public class IEObjectDescriptionViewer extends ViewPart {
 
     /**
      * Create contents of the view part.
-     * 
+     *
      * @param parent
      */
     public void createPartControl(Composite parent) {
@@ -116,14 +114,14 @@ public class IEObjectDescriptionViewer extends ViewPart {
      * Initialize the toolbar.
      */
     private void initializeToolBar() {
-        IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
+        /*IToolBarManager toolbarManager =*/ getViewSite().getActionBars().getToolBarManager();
     }
 
     /**
      * Initialize the menu.
      */
     private void initializeMenu() {
-        IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();
+        /*IMenuManager menuManager =*/ getViewSite().getActionBars().getMenuManager();
     }
 
     @Override

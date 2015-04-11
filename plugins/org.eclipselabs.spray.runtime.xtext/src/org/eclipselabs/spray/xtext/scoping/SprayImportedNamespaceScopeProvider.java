@@ -21,7 +21,9 @@ import org.eclipse.xtext.xbase.scoping.XbaseImportedNamespaceScopeProvider;
  * Adds implicit imports for namespaces java.lang.*, org.eclipselabs.spray.styles.*
  *
  * @author Karsten Thoms (karsten.thoms@itemis.de)
+ * TODO: Refactor DSL to use XImportSection, derive from XImportSectionNamespaceScopeProvider
  */
+@SuppressWarnings("deprecation")
 public class SprayImportedNamespaceScopeProvider extends XbaseImportedNamespaceScopeProvider {
     private final List<ImportNormalizer> implicitImports_ignoreCase    = new ArrayList<ImportNormalizer>(2);
     private final List<ImportNormalizer> implicitImports_notignoreCase = new ArrayList<ImportNormalizer>(2);
