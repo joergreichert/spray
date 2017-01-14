@@ -1,6 +1,6 @@
 This project has been imported from [Google Code](https://code.google.com/archive/a/eclipselabs.org/p/spray/)
 
-![Spray logo](https://storage.googleapis.com/google-code-archive/v2/eclipselabs.org/spray/logo.png)
+![Spray logo](https://cloud.githubusercontent.com/assets/994131/21954906/20f7c4f6-da5f-11e6-9946-5777ae8222dc.png)
 
 A quick way of creating Graphiti
 
